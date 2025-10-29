@@ -1,0 +1,13 @@
+/* Make Mermaid diagrams scale better */
+.mermaid {
+  text-align: center;
+  margin: 2em auto;
+  max-width: 90%;
+}
+
+/* Darker code blocks */
+.md-typeset code {
+  background-color: #f4f4f4;
+  border-radius: 4px;
+  padding: 2px 4px;
+}

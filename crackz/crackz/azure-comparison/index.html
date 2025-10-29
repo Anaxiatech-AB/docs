@@ -1,0 +1,2051 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI image analysis of cracks in harbors">
+      
+      
+        <meta name="author" content="Theresia Sofia Snow">
+      
+      
+      
+        <link rel="prev" href="../azure-batch/">
+      
+      
+        <link rel="next" href="../advanced-performance/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>VM vs Batch Comparison - Crackz</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/print.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#quick-decision-matrix" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Crackz" class="md-header__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Crackz
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              VM vs Batch Comparison
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Crackz" class="md-nav__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Crackz
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    End User / Customer Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            End User / Customer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quickstart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-splits-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Splits & Import Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../easy-install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Easy Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GUI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../map-viewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Map Viewer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli-cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Cookbook
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Training Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_13" id="__nav_2_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Azure Deployments
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_13">
+            <span class="md-nav__icon md-icon"></span>
+            Azure Deployments
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-batch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure Batch
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    VM vs Batch Comparison
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    VM vs Batch Comparison
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-decision-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Decision Matrix
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#azure-vm-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure VM Deployment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Azure VM Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to Use
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pros
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cons
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#azure-batch-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure Batch Deployment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Azure Batch Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to Use
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pros
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cons
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-usage_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-example-10-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Example (10 nodes)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hybrid-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hybrid Approach
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hybrid Approach">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommended-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature Comparison
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cost-optimization-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Optimization Tips
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cost Optimization Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-azure-vm" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Azure VM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-azure-batch" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Azure Batch
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting Started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-time-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      First Time Users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#experienced-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      Experienced Users
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      Migration Path
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support-and-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support and Documentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      FAQ
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Resources
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Advanced Performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Migration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../completion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Completion
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pdf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Printable PDF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    License
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Technical / Developer Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Technical / Developer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MCP Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async-callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Async Callbacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../distribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Distribution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Access Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-decision-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Decision Matrix
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#azure-vm-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure VM Deployment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Azure VM Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to Use
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pros
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cons
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#azure-batch-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure Batch Deployment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Azure Batch Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to Use
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pros_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pros
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cons_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cons
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-usage_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-example-10-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Example (10 nodes)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hybrid-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hybrid Approach
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hybrid Approach">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommended-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature Comparison
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cost-optimization-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Optimization Tips
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cost Optimization Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-azure-vm" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Azure VM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-azure-batch" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Azure Batch
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting Started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-time-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      First Time Users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#experienced-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      Experienced Users
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      Migration Path
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support-and-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support and Documentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      FAQ
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Resources
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="azure-deployment-comparison">Azure Deployment Comparison<a class="headerlink" href="#azure-deployment-comparison" title="Permanent link">&para;</a></h1>
+<p>This document helps you choose between Azure VM and Azure Batch deployment options for Crackz.</p>
+<h2 id="quick-decision-matrix">Quick Decision Matrix<a class="headerlink" href="#quick-decision-matrix" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Azure VM</th>
+<th>Azure Batch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dataset Size</strong></td>
+<td>Small to medium (&lt;1000 images)</td>
+<td>Large (1000+ images)</td>
+</tr>
+<tr>
+<td><strong>Processing Time</strong></td>
+<td>Minutes to hours</td>
+<td>Hours to days</td>
+</tr>
+<tr>
+<td><strong>Parallelism</strong></td>
+<td>Single instance</td>
+<td>Multiple nodes (2-100+)</td>
+</tr>
+<tr>
+<td><strong>Cost</strong></td>
+<td>Predictable (fixed VM cost)</td>
+<td>Variable (pay per compute time)</td>
+</tr>
+<tr>
+<td><strong>Setup Complexity</strong></td>
+<td>Simple</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td><strong>Use Case</strong></td>
+<td>Development, testing, small projects</td>
+<td>Production, batch processing, research</td>
+</tr>
+<tr>
+<td><strong>GUI Support</strong></td>
+<td>Yes (RDP available)</td>
+<td>No (headless only)</td>
+</tr>
+<tr>
+<td><strong>Best For</strong></td>
+<td>Interactive work, model development</td>
+<td>Large-scale automated processing</td>
+</tr>
+</tbody>
+</table>
+<h2 id="azure-vm-deployment">Azure VM Deployment<a class="headerlink" href="#azure-vm-deployment" title="Permanent link">&para;</a></h2>
+<h3 id="when-to-use">When to Use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Development &amp; Testing</strong>: Interactive environment with RDP access</li>
+<li><strong>Small Datasets</strong>: Processing up to 1000 images</li>
+<li><strong>GUI Required</strong>: Need to use Crackz GUI for manual inspection</li>
+<li><strong>Predictable Costs</strong>: Fixed hourly rate for VM</li>
+<li><strong>Learning</strong>: Experimenting with Crackz features</li>
+</ul>
+<h3 id="pros">Pros<a class="headerlink" href="#pros" title="Permanent link">&para;</a></h3>
+<p>✓ Simple setup (one script, one command)<br />
+✓ RDP access for interactive work<br />
+✓ Predictable hourly costs<br />
+✓ Full Windows environment<br />
+✓ Good for development and debugging  </p>
+<h3 id="cons">Cons<a class="headerlink" href="#cons" title="Permanent link">&para;</a></h3>
+<p>✗ Limited to single VM performance<br />
+✗ Manual scaling required<br />
+✗ Not cost-effective for large datasets<br />
+✗ Idle time still incurs costs  </p>
+<h3 id="example-usage">Example Usage<a class="headerlink" href="#example-usage" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create Windows 11 VM</span>
+./scripts/azure/azure_vm.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>crackz-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span>Standard_D4s_v3
+
+<span class="c1"># Connect via RDP and use GUI</span>
+<span class="c1"># IP address displayed after creation</span>
+</code></pre></div>
+<h3 id="cost-example">Cost Example<a class="headerlink" href="#cost-example" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Standard_D4s_v3</strong> (4 vCPUs, 16 GB RAM): ~$0.20/hour</li>
+<li><strong>8 hours of processing</strong>: ~$1.60</li>
+<li><strong>Monthly (730 hours)</strong>: ~$146 if left running</li>
+</ul>
+<h2 id="azure-batch-deployment">Azure Batch Deployment<a class="headerlink" href="#azure-batch-deployment" title="Permanent link">&para;</a></h2>
+<h3 id="when-to-use_1">When to Use<a class="headerlink" href="#when-to-use_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Large Datasets</strong>: Processing thousands of images</li>
+<li><strong>Parallel Processing</strong>: Need to process multiple projects simultaneously</li>
+<li><strong>Cost Optimization</strong>: Want to pay only for actual compute time</li>
+<li><strong>Automation</strong>: Fully automated pipelines without human interaction</li>
+<li><strong>Scale</strong>: Need to scale from 2 to 100+ nodes dynamically</li>
+</ul>
+<h3 id="pros_1">Pros<a class="headerlink" href="#pros_1" title="Permanent link">&para;</a></h3>
+<p>✓ Massive parallelism (100+ nodes)<br />
+✓ Pay only for compute time<br />
+✓ Automatic task distribution<br />
+✓ Low-priority VMs (up to 80% cost savings)<br />
+✓ Built-in retry and failure handling<br />
+✓ Integration with Azure Storage  </p>
+<h3 id="cons_1">Cons<a class="headerlink" href="#cons_1" title="Permanent link">&para;</a></h3>
+<p>✗ More complex setup<br />
+✗ Headless only (no GUI)<br />
+✗ Requires understanding of Batch concepts<br />
+✗ Initial learning curve  </p>
+<h3 id="example-usage_1">Example Usage<a class="headerlink" href="#example-usage_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create batch pool with 10 nodes</span>
+./scripts/azure/azure_batch.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--batch-account<span class="w"> </span>mybatchaccount<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--storage-account<span class="w"> </span>mystorage<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node-count<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--vm-size<span class="w"> </span>Standard_D4s_v3
+
+<span class="c1"># Submit 100 detection jobs</span>
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..100<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>az<span class="w"> </span>batch<span class="w"> </span>task<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--job-id<span class="w"> </span>detection-job<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--task-id<span class="w"> </span><span class="s2">&quot;task-</span><span class="nv">$i</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--command-line<span class="w"> </span><span class="s2">&quot;docker run crackz-cli:latest detect run --project /data/project-</span><span class="nv">$i</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</code></pre></div>
+<h3 id="cost-example-10-nodes">Cost Example (10 nodes)<a class="headerlink" href="#cost-example-10-nodes" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Standard_D4s_v3</strong>: ~$0.20/hour per node</li>
+<li><strong>10 nodes for 2 hours</strong>: ~$4.00</li>
+<li><strong>Low-priority pricing</strong>: ~$0.80 (80% savings)</li>
+</ul>
+<h2 id="hybrid-approach">Hybrid Approach<a class="headerlink" href="#hybrid-approach" title="Permanent link">&para;</a></h2>
+<p>For many workflows, combining both approaches works best:</p>
+<h3 id="recommended-workflow">Recommended Workflow<a class="headerlink" href="#recommended-workflow" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Development Phase</strong> (Azure VM)</li>
+<li>Use VM for model development and tuning</li>
+<li>Test with small sample dataset</li>
+<li>Finalize configuration and parameters</li>
+<li>
+<p>Export optimized project config</p>
+</li>
+<li>
+<p><strong>Production Phase</strong> (Azure Batch)</p>
+</li>
+<li>Deploy validated configuration to Batch</li>
+<li>Process full dataset in parallel</li>
+<li>Collect results in Azure Storage</li>
+<li>Analyze aggregated metrics</li>
+</ol>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Phase 1: Development on VM</span>
+./scripts/azure/azure_vm.sh<span class="w"> </span>--name<span class="w"> </span>crackz-dev<span class="w"> </span>--size<span class="w"> </span>Standard_D4s_v3
+<span class="c1"># RDP in, use GUI to develop and test</span>
+<span class="c1"># Export config: crackz export-config --project demo --out optimized.yaml</span>
+
+<span class="c1"># Phase 2: Production on Batch</span>
+./scripts/azure/azure_batch.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--batch-account<span class="w"> </span>prod-batch<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pool-id<span class="w"> </span>production-pool<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node-count<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--vm-size<span class="w"> </span>Standard_D8s_v3
+
+<span class="c1"># Upload optimized config and data to storage</span>
+<span class="c1"># Submit batch jobs with optimized parameters</span>
+</code></pre></div>
+<h2 id="feature-comparison">Feature Comparison<a class="headerlink" href="#feature-comparison" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Azure VM</th>
+<th>Azure Batch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Deployment Script</strong></td>
+<td><code>azure_vm.sh</code></td>
+<td><code>azure_batch.sh</code></td>
+</tr>
+<tr>
+<td><strong>Max Parallelism</strong></td>
+<td>1</td>
+<td>Unlimited</td>
+</tr>
+<tr>
+<td><strong>Docker Support</strong></td>
+<td>Manual</td>
+<td>Native</td>
+</tr>
+<tr>
+<td><strong>Auto-scaling</strong></td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>Task Retry</strong></td>
+<td>Manual</td>
+<td>Automatic</td>
+</tr>
+<tr>
+<td><strong>Job Dependencies</strong></td>
+<td>Manual</td>
+<td>Built-in</td>
+</tr>
+<tr>
+<td><strong>Output Collection</strong></td>
+<td>Manual</td>
+<td>Automatic</td>
+</tr>
+<tr>
+<td><strong>Monitoring</strong></td>
+<td>Azure Portal</td>
+<td>Batch API + Portal</td>
+</tr>
+<tr>
+<td><strong>Storage Integration</strong></td>
+<td>Manual mount</td>
+<td>Native</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cost-optimization-tips">Cost Optimization Tips<a class="headerlink" href="#cost-optimization-tips" title="Permanent link">&para;</a></h2>
+<h3 id="for-azure-vm">For Azure VM<a class="headerlink" href="#for-azure-vm" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Use <strong>B-series</strong> for development (burstable, cheaper)</li>
+<li>Stop VM when not in use (only pay for storage)</li>
+<li>Use <strong>spot instances</strong> for non-critical work (up to 90% savings)</li>
+<li>Resize VM based on workload</li>
+</ol>
+<h3 id="for-azure-batch">For Azure Batch<a class="headerlink" href="#for-azure-batch" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Use <strong>low-priority VMs</strong> for fault-tolerant workloads</li>
+<li>Enable <strong>auto-scaling</strong> to scale down when idle</li>
+<li>Delete pools when not needed</li>
+<li>Use smaller VM sizes with higher node counts</li>
+<li>Batch similar tasks to reduce overhead</li>
+</ol>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<h3 id="first-time-users">First Time Users<a class="headerlink" href="#first-time-users" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Start with <strong>Azure VM</strong> to learn Crackz</li>
+<li>Process small sample dataset</li>
+<li>Understand the workflow and configuration</li>
+<li>Graduate to <strong>Azure Batch</strong> for production</li>
+</ol>
+<h3 id="experienced-users">Experienced Users<a class="headerlink" href="#experienced-users" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Use <strong>Azure VM</strong> for:</li>
+<li>Model experimentation</li>
+<li>Configuration tuning</li>
+<li>Small ad-hoc jobs</li>
+<li>
+<p>GUI-based analysis</p>
+</li>
+<li>
+<p>Use <strong>Azure Batch</strong> for:</p>
+</li>
+<li>Production pipelines</li>
+<li>Large dataset processing</li>
+<li>Automated workflows</li>
+<li>Cost-sensitive operations</li>
+</ul>
+<h2 id="migration-path">Migration Path<a class="headerlink" href="#migration-path" title="Permanent link">&para;</a></h2>
+<p>Moving from VM to Batch:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Develop on VM</span>
+./scripts/azure/azure_vm.sh<span class="w"> </span>--name<span class="w"> </span>dev-vm
+
+<span class="c1"># 2. Test configuration</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--epochs<span class="w"> </span><span class="m">50</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-project
+
+<span class="c1"># 3. Export configuration</span>
+crackz<span class="w"> </span>export-config<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--out<span class="w"> </span>batch-config.yaml
+
+<span class="c1"># 4. Upload to Azure Storage</span>
+az<span class="w"> </span>storage<span class="w"> </span>blob<span class="w"> </span>upload-batch<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--account-name<span class="w"> </span>mystorage<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--destination<span class="w"> </span>crackz-data<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--source<span class="w"> </span>my-project
+
+<span class="c1"># 5. Create Batch pool</span>
+./scripts/azure/azure_batch.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--batch-account<span class="w"> </span>mybatch<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--storage-account<span class="w"> </span>mystorage<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node-count<span class="w"> </span><span class="m">10</span>
+
+<span class="c1"># 6. Submit batch jobs</span>
+az<span class="w"> </span>batch<span class="w"> </span>job<span class="w"> </span>create<span class="w"> </span>--id<span class="w"> </span>production-job<span class="w"> </span>--pool-id<span class="w"> </span>crackz-pool
+<span class="c1"># ... add tasks</span>
+</code></pre></div>
+<h2 id="support-and-documentation">Support and Documentation<a class="headerlink" href="#support-and-documentation" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Azure VM</strong>: See <code>scripts/azure/azure_vm.sh --help</code></li>
+<li><strong>Azure Batch</strong>: See <a href="../azure-batch/">Azure Batch Documentation</a></li>
+<li><strong>Configuration</strong>: See <a href="../configuration/">Configuration Reference</a></li>
+<li><strong>Docker Images</strong>: See <a href="../docker/">Docker Usage</a></li>
+</ul>
+<h2 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h2>
+<p><strong>Q: Can I use GPU with both options?</strong><br />
+A: Yes. Use <code>--size Standard_NC*</code> for VM, and similar for Batch pool config.</p>
+<p><strong>Q: Which is faster for 5000 images?</strong><br />
+A: Batch with 20 nodes can be 20x faster than single VM.</p>
+<p><strong>Q: Can I use both simultaneously?</strong><br />
+A: Yes! Develop on VM, process on Batch.</p>
+<p><strong>Q: What about costs for idle time?</strong><br />
+A: VM charges for uptime. Batch only charges for task execution time.</p>
+<p><strong>Q: Can I access Batch task outputs?</strong><br />
+A: Yes, via Azure Storage or download with <code>az batch task file download</code>.</p>
+<h2 id="related-resources">Related Resources<a class="headerlink" href="#related-resources" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://azure.microsoft.com/pricing/details/virtual-machines/windows/">Azure VM Pricing</a></li>
+<li><a href="https://azure.microsoft.com/pricing/details/batch/">Azure Batch Pricing</a></li>
+<li><a href="https://azure.microsoft.com/pricing/details/storage/">Azure Storage Pricing</a></li>
+<li><a href="https://azure.microsoft.com/pricing/calculator/">Azure Cost Calculator</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Anaxiatech-AB/crackz" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.14.0"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

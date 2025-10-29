@@ -1,0 +1,62 @@
+/* Print & PDF refinement styles for Crackz docs */
+
+.pdf-badge {
+  display: inline-block;
+  background: linear-gradient(90deg,#4F46E5,#6366F1);
+  color: #fff;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin: 0 0 1rem 0;
+  font-size: 0.85rem;
+  letter-spacing: .5px;
+}
+
+.md-footer-extra { font-size: 0.7rem; opacity: 0.75; margin-top: 2.5rem; }
+.md-footer-extra .last-updated { margin: 0; }
+
+/* Improve code wrapping for PDF */
+@media print {
+  .md-header, .md-sidebar--primary, .md-sidebar--secondary, nav.md-tabs { display: none !important; }
+  .md-content { margin: 0 !important; padding: 0 0.55in !important; }
+  pre code { white-space: pre-wrap !important; word-break: break-word; }
+  a[href^="http"]:after { content: " (" attr(href) ")"; font-size: 70%; }
+  h1 { page-break-before: always; }
+  h1:first-of-type { page-break-before: avoid; }
+  h2, h3, h4 { page-break-after: avoid; }
+  table { page-break-inside: auto; width: 100%; border-collapse: collapse; }
+  th, td { border: 1px solid #d1d5db; padding: 4px 6px; font-size: 0.85rem; }
+  tr, td, th { page-break-inside: avoid; }
+  .pdf-badge { box-shadow: none; }
+  body { font-size: 10.5pt; line-height: 1.38; }
+}
+
+/* General readability tweaks */
+.md-typeset code { font-size: 0.85em; }
+.md-typeset pre { border: 1px solid #e5e7eb; background: #f8fafc; }
+.md-typeset h1 { font-weight: 700; }
+.md-typeset h2 { margin-top: 2.1em; }
+
+/* Dark/light neutral adjustments for gradient badge when printed (forces solid) */
+@media print { .pdf-badge { background: #444 !important; color: #fff !important; } }
+
+/* Optional cover page (enabled unless body has .no-cover) */
+@media print {
+  body:not(.no-cover):before {
+    content: 'Crackz Documentation\\A Version: 0.14.0\\A Generated PDF';
+    white-space: pre; display: block; font-size: 28pt; font-weight: 700; text-align: center;
+    margin: 2in 0 1.5in; line-height: 1.15; color: #111827;
+  }
+  body:not(.no-cover) .md-content > h1:first-of-type { page-break-before: always; }
+}
+
+@media print {
+  .print-cover h1 { font-size: 3.2em; }
+  .print-cover h2 { font-size: 1.6em; }
+  .print-section h1 { font-size: 1.9em; }
+  .print-section h2 { font-size: 1.4em; }
+}
+
+.md-content .headerlink, a.headerlink { display:none !important; }
+/* Remove old pseudo cover (handled inline now) */
+@media print { body:not(.no-cover):before { content: none !important; } }

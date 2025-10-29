@@ -1,0 +1,2623 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI image analysis of cracks in harbors">
+      
+      
+        <meta name="author" content="Theresia Sofia Snow">
+      
+      
+      
+        <link rel="prev" href="../async-callbacks/">
+      
+      
+        <link rel="next" href="../distribution/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Contributing - Crackz</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/print.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ways-to-help" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Crackz" class="md-header__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Crackz
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Contributing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Crackz" class="md-nav__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Crackz
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    End User / Customer Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            End User / Customer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quickstart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-splits-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Splits & Import Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../easy-install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Easy Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GUI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../map-viewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Map Viewer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli-cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Cookbook
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Training Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_13" id="__nav_2_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Azure Deployments
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_13">
+            <span class="md-nav__icon md-icon"></span>
+            Azure Deployments
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-batch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure Batch
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VM vs Batch Comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Advanced Performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Migration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../completion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Completion
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pdf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Printable PDF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    License
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Technical / Developer Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Technical / Developer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MCP Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async-callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Async Callbacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ways-to-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ways to Help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-setup-uv" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Setup (uv)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gui-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      GUI Testing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-regression-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Regression Detection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coding-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coding Standards
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commit-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commit Style
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pull-request-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull Request Checklist
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-process-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release Process (Overview)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reporting-bugs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reporting Bugs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Issues
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-of-conduct" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code of Conduct
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Questions?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branching-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Branching &amp; Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Branching &amp; Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Branch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ephemeral-branch-naming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ephemeral Branch Naming
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commit-messages-conventional-commits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commit Messages (Conventional Commits)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-request-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull Request Guidelines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-prerelease-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dev / Pre‑Release Builds
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hotfix-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hotfix Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schema-stability-pre-commit-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schema Stability &amp; Pre-Commit Hooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-reference-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Reference Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#do-avoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      DO / AVOID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-enhancements-future" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optional Enhancements (Future)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-development-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLI Development Standards
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLI Development Standards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#output-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Output Conventions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Output Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-end-user-messages-use-typersecho" class="md-nav__link">
+    <span class="md-ellipsis">
+      For End-User Messages (use typer.secho)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-operationaldetailed-information-use-logger" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Operational/Detailed Information (use logger)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#never-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❌ NEVER USE:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli-option-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLI Option Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLI Option Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-use-centralized-options-from-srccrackzclioptionspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Use centralized options from src/crackz/cli/options.py
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-only-define-module-specific-options-locally-if-truly-unique" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Only define module-specific options locally if truly unique
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#never" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❌ NEVER:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-cli-command-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required CLI Command Pattern
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-quality-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Quality Standards
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code Quality Standards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Principles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ruff-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ruff Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-making-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      When Making Changes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When Making Changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Changes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli-command-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLI Command Changes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-pitfalls-to-avoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Pitfalls to Avoid
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../distribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Distribution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Access Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ways-to-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ways to Help
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-setup-uv" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Setup (uv)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tests
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gui-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      GUI Testing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-regression-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Regression Detection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coding-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coding Standards
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commit-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commit Style
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pull-request-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull Request Checklist
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-process-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release Process (Overview)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reporting-bugs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reporting Bugs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Issues
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-of-conduct" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code of Conduct
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Questions?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branching-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Branching &amp; Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Branching &amp; Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Branch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ephemeral-branch-naming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ephemeral Branch Naming
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commit-messages-conventional-commits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commit Messages (Conventional Commits)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-request-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull Request Guidelines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-prerelease-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dev / Pre‑Release Builds
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hotfix-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hotfix Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schema-stability-pre-commit-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schema Stability &amp; Pre-Commit Hooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-reference-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Reference Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#do-avoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      DO / AVOID
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-enhancements-future" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optional Enhancements (Future)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-development-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLI Development Standards
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLI Development Standards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#output-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Output Conventions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Output Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-end-user-messages-use-typersecho" class="md-nav__link">
+    <span class="md-ellipsis">
+      For End-User Messages (use typer.secho)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-operationaldetailed-information-use-logger" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Operational/Detailed Information (use logger)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#never-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❌ NEVER USE:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli-option-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLI Option Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLI Option Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-use-centralized-options-from-srccrackzclioptionspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Use centralized options from src/crackz/cli/options.py
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-only-define-module-specific-options-locally-if-truly-unique" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Only define module-specific options locally if truly unique
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#never" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❌ NEVER:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-cli-command-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required CLI Command Pattern
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-quality-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Quality Standards
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code Quality Standards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Principles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ruff-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ruff Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-making-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      When Making Changes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When Making Changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Changes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli-command-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLI Command Changes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-pitfalls-to-avoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Pitfalls to Avoid
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="contributing-guide">Contributing Guide<a class="headerlink" href="#contributing-guide" title="Permanent link">&para;</a></h1>
+<p>Thanks for considering a contribution to Crackz! This page summarizes the essentials.
+For full context you can also view the repository root files:
+- <a href="https://github.com/Anaxiatech-AB/crackz#readme">README</a>
+- <a href="https://github.com/Anaxiatech-AB/crackz/blob/main/CHANGELOG.md">CHANGELOG</a>
+- <a href="https://github.com/Anaxiatech-AB/crackz/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></p>
+<hr />
+<h2 id="ways-to-help">Ways to Help<a class="headerlink" href="#ways-to-help" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Bug reports (include OS, Python version, crackz version, steps to reproduce, expected vs actual)</li>
+<li>Feature requests (describe the workflow / problem first, not only the solution idea)</li>
+<li>Pull requests (small &amp; focused; draft early to get feedback)</li>
+<li>Documentation improvements (typos, clarifications, examples)</li>
+<li>Performance / profiling suggestions</li>
+</ul>
+<hr />
+<h2 id="environment-setup-uv">Environment Setup (uv)<a class="headerlink" href="#environment-setup-uv" title="Permanent link">&para;</a></h2>
+<p>You need Python 3.11+ and <a href="https://docs.astral.sh/uv/">uv</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># create &amp; activate venv</span>
+uv<span class="w"> </span>venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate<span class="w">  </span><span class="c1"># Windows: .venv\Scripts\activate</span>
+
+<span class="c1"># install with dev dependencies</span>
+uv<span class="w"> </span>sync<span class="w"> </span>--dev
+
+<span class="c1"># run CLI help</span>
+uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>--help
+
+<span class="c1"># run GUI (optional)</span>
+uv<span class="w"> </span>run<span class="w"> </span>crackz-gui
+</code></pre></div>
+<p>Useful tasks (defined in <code>pyproject.toml</code> under <code>[tool.taskipy.tasks]</code>):
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>lint<span class="w">        </span><span class="c1"># ruff lint (auto-fix)</span>
+uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>format<span class="w">      </span><span class="c1"># ruff format</span>
+uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>mypy<span class="w">        </span><span class="c1"># static type check</span>
+uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>tests<span class="w">       </span><span class="c1"># unit tests only</span>
+uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>integration<span class="w"> </span><span class="c1"># integration tests</span>
+uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>all_tests<span class="w">   </span><span class="c1"># full test matrix</span>
+uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>docs<span class="w">        </span><span class="c1"># live docs (mkdocs serve)</span>
+uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>build_docs<span class="w">  </span><span class="c1"># strict build</span>
+</code></pre></div></p>
+<p><strong>Note</strong>: Static analysis is handled by the existing ruff/mypy tooling. Previous Qodana integration was removed to optimize CI performance and reduce workflow complexity.</p>
+<hr />
+<h2 id="tests">Tests<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Unit tests: <code>tests/unit</code></li>
+<li>Integration tests: <code>tests/integration</code> (marked with <code>@pytest.mark.integration</code>)</li>
+<li>Benchmark tests: <code>tests/unit/crackz/cli/test_cli_benchmark.py</code> (marked with <code>@pytest.mark.benchmark</code>)</li>
+</ul>
+<p>Run fast unit suite (CI default):
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>tests
+</code></pre></div>
+Run everything:
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>all_tests
+</code></pre></div>
+Run benchmark tests with automatic regression detection:
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>benchmark
+</code></pre></div>
+Coverage threshold (see <code>pyproject.toml</code>) is currently <code>fail_under = 75</code>.</p>
+<h3 id="gui-testing">GUI Testing<a class="headerlink" href="#gui-testing" title="Permanent link">&para;</a></h3>
+<p>GUI tests are located in <code>tests/integration/crackz/gui/</code> and include smoke tests to verify the GUI can launch without errors.</p>
+<p><strong>Smoke Tests</strong> verify basic GUI initialization:
+- Test that GUI entry point exists
+- Test that GUI can start and exit cleanly in headless mode
+- Test that critical components (BrowserTree, CrackzApp) can be initialized
+- Regression tests for known GUI component issues</p>
+<p><strong>Running GUI Smoke Tests:</strong></p>
+<p>GUI tests are automatically skipped in CI environments or when Tkinter is not available. To run GUI smoke tests locally:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run all integration tests (includes GUI smoke tests)</span>
+uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>integration
+
+<span class="c1"># Run only GUI smoke tests</span>
+uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/integration/crackz/gui/test_gui_smoke.py
+
+<span class="c1"># Run GUI in smoke mode (auto-close after initialization)</span>
+<span class="nb">set</span><span class="w"> </span><span class="nv">CRACKZ_GUI_SMOKE</span><span class="o">=</span><span class="m">1</span><span class="w">  </span><span class="c1"># Windows CMD</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CRACKZ_GUI_SMOKE</span><span class="o">=</span><span class="m">1</span><span class="w">  </span><span class="c1"># Linux/macOS</span>
+uv<span class="w"> </span>run<span class="w"> </span>crackz-gui
+</code></pre></div>
+<p><strong>Environment Variables:</strong>
+- <code>CRACKZ_GUI_SMOKE=1</code> – Runs the GUI in smoke test mode where it initializes all components and exits immediately without showing the window or entering the main loop. Useful for CI pipelines and automated testing.</p>
+<p><strong>Platform Considerations:</strong>
+- GUI tests require a display server (X11, Wayland, or Windows display)
+- Tests automatically skip in CI environments (<code>CI</code> or <code>GITHUB_ACTIONS</code> env vars)
+- Tests check for Tkinter availability before running
+- Some tests are Windows-only due to platform-specific behavior</p>
+<p><strong>Test Structure:</strong>
+<div class="highlight"><pre><span></span><code>tests/integration/crackz/gui/
+├── test_gui_smoke.py        # Smoke tests for GUI initialization
+└── ...                       # Future GUI integration tests
+</code></pre></div></p>
+<p><strong>Common GUI Testing Patterns:</strong></p>
+<ol>
+<li>
+<p><strong>Smoke Mode Testing</strong> – Quick verification that GUI starts without errors:
+   <div class="highlight"><pre><span></span><code><span class="n">env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">env</span><span class="p">[</span><span class="s2">&quot;CRACKZ_GUI_SMOKE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;src/crackz/gui/crackz_gui.py&quot;</span><span class="p">],</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Component Initialization Testing</strong> – Verify components can be created:
+   <div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skipif</span><span class="p">(</span><span class="ow">not</span> <span class="n">_TKINTER_AVAILABLE</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CI&quot;</span><span class="p">),</span> 
+                    <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Requires Tkinter&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_component</span><span class="p">():</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTk</span><span class="p">()</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">component</span> <span class="o">=</span> <span class="n">MyComponent</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">component</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">root</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Regression Testing</strong> – Prevent known issues from reoccurring:
+   <div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test_no_unsupported_parameters</span><span class="p">():</span>
+    <span class="c1"># Ensure we don&#39;t use unsupported CustomTkinter parameters</span>
+    <span class="n">browser</span><span class="o">.</span><span class="n">toggle_toolbar_buttons</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Should not raise</span>
+</code></pre></div></p>
+</li>
+</ol>
+<h3 id="performance-regression-detection">Performance Regression Detection<a class="headerlink" href="#performance-regression-detection" title="Permanent link">&para;</a></h3>
+<p>Benchmark tests automatically track performance and <strong>fail if execution time degrades significantly</strong>:
+- <strong>Mean time threshold</strong>: Fails if &gt;20% slower than baseline
+- <strong>Max time threshold</strong>: Fails if &gt;30% slower than baseline</p>
+<p>Use the <code>benchmark</code> task to run benchmarks with automatic comparison and failure on regression:
+<div class="highlight"><pre><span></span><code><span class="c1"># Run benchmarks - compares to last saved baseline and fails on regression</span>
+uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>benchmark
+</code></pre></div></p>
+<p>The first run will save a baseline. Subsequent runs compare against this baseline automatically. If you make intentional changes that affect performance, update the baseline:
+<div class="highlight"><pre><span></span><code><span class="c1"># Update the baseline after intentional performance-impacting changes</span>
+uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>benchmark_save
+</code></pre></div></p>
+<p>Alternatively, you can run benchmarks manually with pytest:
+<div class="highlight"><pre><span></span><code><span class="c1"># Manual benchmark with comparison</span>
+uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span>benchmark<span class="w"> </span>--benchmark-only<span class="w"> </span>--benchmark-autosave<span class="w"> </span>--benchmark-compare<span class="w"> </span>--benchmark-compare-fail<span class="o">=</span>mean:20%
+</code></pre></div></p>
+<p>Baselines are stored in <code>.benchmarks/</code> directory (gitignored).</p>
+<hr />
+<h2 id="coding-standards">Coding Standards<a class="headerlink" href="#coding-standards" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Ruff handles formatting &amp; most style (<code>uv run task format</code> / <code>lint</code>).</li>
+<li>Keep functions focused; prefer explicit names over comments.</li>
+<li>Add/adjust type hints for public interfaces.</li>
+<li>Log with <code>loguru</code> (already configured) rather than <code>print</code>.</li>
+<li>Avoid large monolithic pull requests; split by feature slice.</li>
+</ul>
+<hr />
+<h2 id="commit-style">Commit Style<a class="headerlink" href="#commit-style" title="Permanent link">&para;</a></h2>
+<p>Conventional commits are encouraged (not strictly enforced):
+<code>feat:</code>, <code>fix:</code>, <code>docs:</code>, <code>refactor:</code>, <code>perf:</code>, <code>test:</code>, <code>chore:</code> etc.
+Semantic-release reads the history to derive versions.</p>
+<hr />
+<h2 id="pull-request-checklist">Pull Request Checklist<a class="headerlink" href="#pull-request-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] Linked issue (or clearly explained rationale)</li>
+<li>[ ] Tests updated / added (unit + integration if needed)</li>
+<li>[ ] Docs updated (API / usage / changelog entry if user-facing)</li>
+<li>[ ] Lint + mypy + tests pass locally</li>
+<li>[ ] Avoided unrelated formatting churn</li>
+</ul>
+<hr />
+<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
+<p>Live preview:
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>docs<span class="w">  </span><span class="c1"># serves at http://127.0.0.1:8000</span>
+</code></pre></div>
+Strict build (CI equivalent):
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>build_docs
+</code></pre></div>
+PDF export (uses <code>scripts/export_pdf.py</code>):
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>pdf
+</code></pre></div></p>
+<hr />
+<h2 id="release-process-overview">Release Process (Overview)<a class="headerlink" href="#release-process-overview" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Commits merged to <code>main</code> trigger semantic-release (version bump + changelog + GitHub release).</li>
+<li>Docker images built for full / slim / gpu variants in a separate workflow after successful release.</li>
+<li>PyPI upload currently disabled (<code>upload_to_pypi = false</code>).</li>
+</ul>
+<hr />
+<h2 id="reporting-bugs">Reporting Bugs<a class="headerlink" href="#reporting-bugs" title="Permanent link">&para;</a></h2>
+<p>Provide:
+1. Environment: OS, Python version, CPU/GPU (CUDA?), crackz version.
+2. Command(s) run (exact CLI) or GUI action.
+3. Stack trace and the log snippet (project <code>logs/crackz.log</code> + central log if set).
+4. Minimal reproducible steps (sample images if possible).</p>
+<hr />
+<h2 id="security-issues">Security Issues<a class="headerlink" href="#security-issues" title="Permanent link">&para;</a></h2>
+<p>Do NOT open a public issue for sensitive security problems; instead open a private discussion / email the maintainer.</p>
+<hr />
+<h2 id="code-of-conduct">Code of Conduct<a class="headerlink" href="#code-of-conduct" title="Permanent link">&para;</a></h2>
+<p>We follow the repository <a href="https://github.com/Anaxiatech-AB/crackz/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a>. Be respectful and inclusive.</p>
+<hr />
+<h2 id="questions">Questions?<a class="headerlink" href="#questions" title="Permanent link">&para;</a></h2>
+<p>Open an issue or start a discussion describing your use case. Contributions welcome!</p>
+<hr />
+<h2 id="branching-workflow">Branching &amp; Workflow<a class="headerlink" href="#branching-workflow" title="Permanent link">&para;</a></h2>
+<p>A lightweight trunk‑based model is used: all releasable work lands in <code>main</code>; feature branches are short‑lived.</p>
+<h3 id="core-branch">Core Branch<a class="headerlink" href="#core-branch" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>main</code>: always green &amp; releasable. Protected (recommend: squash merges, required checks).</li>
+</ul>
+<h3 id="ephemeral-branch-naming">Ephemeral Branch Naming<a class="headerlink" href="#ephemeral-branch-naming" title="Permanent link">&para;</a></h3>
+<p>Format: <code>&lt;type&gt;/&lt;scope&gt;-&lt;short-slug&gt;</code> (lowercase, hyphenated). Examples:
+<div class="highlight"><pre><span></span><code>feat/gui-live-preview
+fix/pdf-hero-image
+refactor/logging-bootstrap
+perf/dataloader-prefetch
+chore/ci-release-step
+hotfix/0.17.1-pdf-null-crash
+exp/vector-db-poc
+</code></pre></div>
+Allowed type prefixes:
+- <code>feat</code> – new user‑visible functionality (triggers MINOR bump)
+- <code>fix</code> – bug fix (triggers PATCH bump)
+- <code>perf</code> – performance improvements
+- <code>refactor</code> – internal restructuring (no behavior change)
+- <code>docs</code> – documentation only
+- <code>test</code> – tests only
+- <code>chore</code> – maintenance / deps / infra
+- <code>ci</code> – workflow pipelines
+- <code>build</code> – packaging / build scripts / Docker
+- <code>style</code> – formatting / lint (no logic)
+- <code>hotfix</code> – urgent production issue (fast patch release)
+- <code>exp</code> – experimental spike (must be renamed before merge if kept)
+- <code>wip</code> – draft (never merge directly; rename when ready)</p>
+<p><code>hotfix/*</code> branches are cut from <code>main</code> and merged back quickly, producing a patch via a <code>fix:</code> commit.</p>
+<h3 id="commit-messages-conventional-commits">Commit Messages (Conventional Commits)<a class="headerlink" href="#commit-messages-conventional-commits" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code>&lt;type&gt;(&lt;optional-scope&gt;): &lt;imperative summary&gt;
+
+&lt;body – optional&gt;
+
+&lt;footer – BREAKING CHANGE / issue refs&gt;
+</code></pre></div>
+Examples:
+<div class="highlight"><pre><span></span><code>feat(gui): add real‑time detection preview panel
+fix(pdf): correct missing hero when logo == cover image
+refactor(logging): unify central + project logger bootstrap
+chore(ci): refine release workflow version verification
+</code></pre></div>
+Breaking changes:
+<div class="highlight"><pre><span></span><code>feat!: remove legacy --batch flag
+
+BREAKING CHANGE: The --batch flag was replaced by --batch-size.
+</code></pre></div>
+Semantic release interpretation (default):
+- <code>feat</code> → MINOR bump
+- <code>fix</code> → PATCH bump
+- <code>!</code> or <code>BREAKING CHANGE:</code> footer → MAJOR bump</p>
+<h3 id="pull-request-guidelines">Pull Request Guidelines<a class="headerlink" href="#pull-request-guidelines" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Single focused change; squash merge → one clean conventional commit.</li>
+<li>Keep PR title aligned with final commit message.</li>
+<li>Update docs/tests for user‑facing changes.</li>
+</ul>
+<h3 id="dev-prerelease-builds">Dev / Pre‑Release Builds<a class="headerlink" href="#dev-prerelease-builds" title="Permanent link">&para;</a></h3>
+<p>Manual workflow (<code>Dev Build</code>) creates ephemeral pre‑release artifacts:
+- Version pattern: <code>&lt;base&gt;.devYYYYMMDD+&lt;shortsha&gt;</code>
+- Tag pattern: <code>dev-&lt;computed-dev-version&gt;</code>
+- Artifacts: wheel + sdist, docs site, PDF, optional Docker images (<code>dev-</code> tags)
+Use for early validation without bumping stable semantic version.</p>
+<h3 id="release-flow">Release Flow<a class="headerlink" href="#release-flow" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Merge feature/fix branches into <code>main</code> (squash).</li>
+<li>CI runs tests + semantic-release:</li>
+<li>Determines next version from commit history.</li>
+<li>Builds wheel, sdist, and documentation PDF.</li>
+<li>Updates CHANGELOG, tags <code>vX.Y.Z</code>, creates draft GitHub Release with artifacts.</li>
+<li>Draft release is automatically published (made public).</li>
+<li>Docker images (full + slim + gpu) built &amp; pushed with tags: <code>:X.Y.Z</code> and <code>:latest</code>.</li>
+<li>Docs site + PDF published to GitHub Pages via docs workflow (separate pipeline).</li>
+<li><strong>Optional</strong>: PyInstaller executables can be built manually and added to published releases:</li>
+<li>Go to Actions → PyInstaller Build workflow</li>
+<li>Click "Run workflow"</li>
+<li>Enter version tag (e.g., <code>v0.35.0</code> or <code>latest</code>)</li>
+<li>Select platforms (Windows only by default, or all platforms)</li>
+<li>Binaries are added to the existing GitHub release</li>
+</ol>
+<h3 id="hotfix-flow">Hotfix Flow<a class="headerlink" href="#hotfix-flow" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Branch: <code>hotfix/&lt;next-patch&gt;-&lt;short-desc&gt;</code> from <code>main</code>.</li>
+<li>Implement fix; PR with <code>fix:</code> commit message.</li>
+<li>Merge → semantic-release issues patch version.</li>
+</ol>
+<h3 id="schema-stability-pre-commit-hooks">Schema Stability &amp; Pre-Commit Hooks<a class="headerlink" href="#schema-stability-pre-commit-hooks" title="Permanent link">&para;</a></h3>
+<p>Crackz persists project configuration (YAML) using Pydantic models. To avoid accidental
+breaking changes, we enforce a lightweight <strong>schema snapshot</strong> for <code>TrainingConfig</code>.</p>
+<p>Current safeguards:
+- <code>tests/unit/crackz/project/test_training_config_schema.py</code> – snapshot of ordered field
+  names + defaults. CI fails if the shape drifts.
+- <code>.pre-commit-config.yaml</code> – runs the schema test (and a fast project unit test) before each commit.</p>
+<p>Workflow to enable locally:
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>pre-commit<span class="w">  </span><span class="c1"># or uv tool install pre-commit</span>
+pre-commit<span class="w"> </span>install
+</code></pre></div>
+On commit, hooks will:
+1. Run Ruff lint/format (auto-fix where possible).
+2. Run the TrainingConfig schema snapshot test.
+3. Run a fast project core test (<code>test_project.py</code>).</p>
+<p>Intentional schema change checklist:
+1. Update the Pydantic model (e.g. add optional field with safe default).
+2. Update the snapshot list in the test file.
+3. Update <code>docs/configuration.md</code> under <em>TrainingConfig Contract &amp; Compatibility</em>.
+4. Add / adapt a unit test for new logic (e.g. default behavior).
+5. Mention in <code>CHANGELOG.md</code> (feat / fix) if user‑visible.</p>
+<p>If you accidentally break the snapshot, the failure message will show:
+- Added fields
+- Removed fields
+- Default mismatches</p>
+<blockquote>
+<p>Future: we may extend snapshots to <code>ModelConfig</code> &amp; <code>DetectionConfig</code> once they stabilize further.</p>
+</blockquote>
+<h3 id="quick-reference-table">Quick Reference Table<a class="headerlink" href="#quick-reference-table" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Purpose</th>
+<th>Example Branch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>feat</td>
+<td>New feature</td>
+<td><code>feat/cli-batch-export</code></td>
+</tr>
+<tr>
+<td>fix</td>
+<td>Bug fix</td>
+<td><code>fix/train-metrics-path</code></td>
+</tr>
+<tr>
+<td>perf</td>
+<td>Performance</td>
+<td><code>perf/dataloader-cache</code></td>
+</tr>
+<tr>
+<td>refactor</td>
+<td>Internal change</td>
+<td><code>refactor/model-config</code></td>
+</tr>
+<tr>
+<td>docs</td>
+<td>Docs only</td>
+<td><code>docs/pdf-section</code></td>
+</tr>
+<tr>
+<td>test</td>
+<td>Tests only</td>
+<td><code>test/cli-train-e2e</code></td>
+</tr>
+<tr>
+<td>chore</td>
+<td>Maintenance</td>
+<td><code>chore/update-ruff</code></td>
+</tr>
+<tr>
+<td>ci</td>
+<td>Pipeline</td>
+<td><code>ci/release-tag-fix</code></td>
+</tr>
+<tr>
+<td>build</td>
+<td>Packaging / Docker</td>
+<td><code>build/multiarch-images</code></td>
+</tr>
+<tr>
+<td>style</td>
+<td>Formatting</td>
+<td><code>style/ruff-cleanup</code></td>
+</tr>
+<tr>
+<td>hotfix</td>
+<td>Urgent patch</td>
+<td><code>hotfix/0.17.2-threshold-null</code></td>
+</tr>
+<tr>
+<td>exp</td>
+<td>Experiment</td>
+<td><code>exp/alt-model-head</code></td>
+</tr>
+<tr>
+<td>wip</td>
+<td>Draft (rename later)</td>
+<td><code>wip/gui-layout-pass1</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="do-avoid">DO / AVOID<a class="headerlink" href="#do-avoid" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>DO</th>
+<th>AVOID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Squash merge to keep linear history</td>
+<td>Merging large unrelated bundles</td>
+</tr>
+<tr>
+<td>Write imperative summaries</td>
+<td>Past tense or vague messages</td>
+</tr>
+<tr>
+<td>Include scope when clear (<code>feat(gui):</code>)</td>
+<td>Overloading scope with multiple modules</td>
+</tr>
+<tr>
+<td>Add tests for each behavior change</td>
+<td>Relying only on manual testing</td>
+</tr>
+<tr>
+<td>Use <code>BREAKING CHANGE:</code> explicitly</td>
+<td>Implicit breaking changes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="optional-enhancements-future">Optional Enhancements (Future)<a class="headerlink" href="#optional-enhancements-future" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Commit linting (GitHub Action + commitlint).</li>
+<li>Enforce branch name regex via a CI check.</li>
+<li>Automatic labeling based on branch prefix (e.g., <code>feat/*</code> → label: feature).</li>
+</ul>
+<hr />
+<h2 id="cli-development-standards">CLI Development Standards<a class="headerlink" href="#cli-development-standards" title="Permanent link">&para;</a></h2>
+<p><strong>CRITICAL</strong>: All CLI commands must follow these standardized output patterns for consistent user experience.</p>
+<h3 id="output-conventions">Output Conventions<a class="headerlink" href="#output-conventions" title="Permanent link">&para;</a></h3>
+<h4 id="for-end-user-messages-use-typersecho">For End-User Messages (use <code>typer.secho</code>)<a class="headerlink" href="#for-end-user-messages-use-typersecho" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Success messages</span>
+<span class="n">typer</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="s2">&quot;✅ Operation completed successfully&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="n">typer</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">GREEN</span><span class="p">)</span>
+
+<span class="c1"># Error messages  </span>
+<span class="n">typer</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="s2">&quot;❌ Operation failed&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="n">typer</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">RED</span><span class="p">)</span>
+
+<span class="c1"># Warning messages</span>
+<span class="n">typer</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="s2">&quot;⚠️ Warning message&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="n">typer</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">)</span>
+
+<span class="c1"># Info messages</span>
+<span class="n">typer</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="s2">&quot;ℹ️ Information&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="n">typer</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">CYAN</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="for-operationaldetailed-information-use-logger">For Operational/Detailed Information (use <code>logger</code>)<a class="headerlink" href="#for-operationaldetailed-information-use-logger" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.log</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
+
+<span class="c1"># Detailed progress, technical info, debugging</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Detailed operational information&quot;</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Warning about internal state&quot;</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error details for troubleshooting&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="never-use">❌ <strong>NEVER USE</strong>:<a class="headerlink" href="#never-use" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>print()</code> statements - Use logger instead</li>
+<li><code>typer.echo()</code> - Use <code>typer.secho()</code> with colors</li>
+<li>Rich <code>console.print()</code> in CLI commands - Use logger for detailed output, typer.secho for user messages</li>
+<li>Mixed output methods within the same function</li>
+</ul>
+<h3 id="cli-option-management">CLI Option Management<a class="headerlink" href="#cli-option-management" title="Permanent link">&para;</a></h3>
+<p><strong>Follow the centralized option pattern</strong>:</p>
+<h4 id="1-use-centralized-options-from-srccrackzclioptionspy">1. Use centralized options from <code>src/crackz/cli/options.py</code><a class="headerlink" href="#1-use-centralized-options-from-srccrackzclioptionspy" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.cli.options</span><span class="w"> </span><span class="kn">import</span> <span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span> <span class="n">FORCE_OPTION</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">command_function</span><span class="p">(</span>
+    <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span>
+    <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">FORCE_OPTION</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</code></pre></div>
+<h4 id="2-only-define-module-specific-options-locally-if-truly-unique">2. Only define module-specific options locally if truly unique<a class="headerlink" href="#2-only-define-module-specific-options-locally-if-truly-unique" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Only for options not reused elsewhere</span>
+<span class="n">LOCAL_OPTION</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span>
+    <span class="kc">None</span><span class="p">,</span>
+    <span class="s2">&quot;--local-flag&quot;</span><span class="p">,</span> 
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Module-specific option not reused elsewhere&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+<h4 id="never">❌ <strong>NEVER</strong>:<a class="headerlink" href="#never" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Define duplicate options across modules (e.g., multiple <code>FORCE_OPTION</code> definitions)</li>
+<li>Use inline <code>typer.Option()</code> in function signatures for reusable options</li>
+<li>Mix centralized and inline option definitions</li>
+</ul>
+<h3 id="required-cli-command-pattern">Required CLI Command Pattern<a class="headerlink" href="#required-cli-command-pattern" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="sd">&quot;&quot;&quot;Module docstring explaining CLI command purpose.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">typer</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.cli.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">cli_failure</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.cli.options</span><span class="w"> </span><span class="kn">import</span> <span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span> <span class="n">FORCE_OPTION</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.log</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>  <span class="c1"># Always import logger</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">(</span><span class="n">no_args_is_help</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;command&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">command_function</span><span class="p">(</span>
+    <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span>
+    <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">FORCE_OPTION</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Command description.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Business logic here</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Processing started&quot;</span><span class="p">)</span>
+        <span class="n">typer</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="s2">&quot;✅ Operation completed&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="n">typer</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">GREEN</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">cli_failure</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s2">&quot;Operation name&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="code-quality-standards">Code Quality Standards<a class="headerlink" href="#code-quality-standards" title="Permanent link">&para;</a></h2>
+<h3 id="general-principles">General Principles<a class="headerlink" href="#general-principles" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Minimal changes</strong>: Make the smallest possible modifications to achieve the goal</li>
+<li><strong>Type hints</strong>: Add type hints for all public interfaces</li>
+<li><strong>Explicit naming</strong>: Prefer clear function/variable names over comments</li>
+<li><strong>Logging</strong>: Use <code>loguru</code> logger, not <code>print()</code> statements</li>
+<li><strong>Focus</strong>: Keep functions focused on a single responsibility</li>
+</ul>
+<h3 id="ruff-configuration">Ruff Configuration<a class="headerlink" href="#ruff-configuration" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Line length: 100 characters</li>
+<li>Indent: 4 spaces</li>
+<li>Target: Python 3.13</li>
+<li>Convention: Google-style docstrings</li>
+</ul>
+<h3 id="testing-requirements">Testing Requirements<a class="headerlink" href="#testing-requirements" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Minimum coverage threshold: <strong>75%</strong></li>
+<li>Unit tests in <code>tests/unit/</code></li>
+<li>Integration tests in <code>tests/integration/</code></li>
+<li>Mark tests with <code>@pytest.mark.integration</code> or <code>@pytest.mark.benchmark</code></li>
+</ul>
+<h3 id="when-making-changes">When Making Changes<a class="headerlink" href="#when-making-changes" title="Permanent link">&para;</a></h3>
+<h4 id="code-changes">Code Changes<a class="headerlink" href="#code-changes" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Check current output patterns follow conventions</li>
+<li>Use centralized CLI options from <code>options.py</code></li>
+<li>Add/update tests for new behavior</li>
+<li>Run linting: <code>uv run task lint &amp;&amp; uv run task format</code></li>
+<li>Run type checking: <code>uv run task mypy</code></li>
+<li>Verify tests pass: <code>uv run task tests</code></li>
+</ol>
+<h4 id="cli-command-changes">CLI Command Changes<a class="headerlink" href="#cli-command-changes" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Always</strong> use <code>typer.secho()</code> for end-user messages with appropriate colors</li>
+<li><strong>Always</strong> use <code>logger</code> for operational/detailed information</li>
+<li><strong>Always</strong> import and use centralized options from <code>options.py</code></li>
+<li><strong>Never</strong> mix output methods within the same function</li>
+<li>Test the command manually to verify consistent user experience</li>
+</ol>
+<h3 id="common-pitfalls-to-avoid">Common Pitfalls to Avoid<a class="headerlink" href="#common-pitfalls-to-avoid" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>❌ Don't use <code>print()</code></strong> - Use loguru logger instead</li>
+<li><strong>❌ Don't use <code>typer.echo()</code></strong> - Use <code>typer.secho()</code> with colors</li>
+<li><strong>❌ Don't define duplicate options</strong> - Use centralized options from <code>options.py</code></li>
+<li><strong>❌ Don't mix output methods</strong> - Stick to the standardized patterns</li>
+<li><strong>❌ Don't skip tests</strong> - Add/update tests for behavior changes</li>
+<li><strong>❌ Don't ignore type hints</strong> - Add them to public interfaces</li>
+<li><strong>❌ Don't modify project YAML directly</strong> - Use CLI commands or proper config methods</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Anaxiatech-AB/crackz" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.14.0"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

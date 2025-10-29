@@ -1,0 +1,2438 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI image analysis of cracks in harbors">
+      
+      
+        <meta name="author" content="Theresia Sofia Snow">
+      
+      
+      
+        <link rel="prev" href="../map-viewer/">
+      
+      
+        <link rel="next" href="../configuration/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>CLI Cookbook - Crackz</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/print.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#conventions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Crackz" class="md-header__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Crackz
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CLI Cookbook
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Crackz" class="md-nav__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Crackz
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    End User / Customer Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            End User / Customer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quickstart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-splits-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Splits & Import Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../easy-install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Easy Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GUI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../map-viewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Map Viewer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    CLI Cookbook
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Cookbook
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conventions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Tips
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialize-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initialize Project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clean-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clean Project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import Images
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import-masks-only-utility-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import Masks Only (Utility Script)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-dataset-splits-train-val-test-raw" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Dataset Splits (train / val / test / raw)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding Dataset Splits (train / val / test / raw)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Points
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimum-viable-split-small-datasets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Minimum Viable Split (Small Datasets)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Pitfalls
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-image-masks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating image masks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run Detection
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Run Detection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Selection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#train-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Train Model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Train Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#training-overrides-fast-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Training Overrides (Fast Experiments)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-export-and-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Export and Import
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Export and Import">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#export-a-trained-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Export a Trained Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import-a-pre-trained-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import a Pre-trained Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Workflows
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#package-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package Contents
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geographic-data-gpsexif" class="md-nav__link">
+    <span class="md-ellipsis">
+      Geographic Data (GPS/EXIF)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Geographic Data (GPS/EXIF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-interactive-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Interactive Map
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export-to-geojson" class="md-nav__link">
+    <span class="md-ellipsis">
+      Export to GeoJSON
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gps-data-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPS Data Requirements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging-verbosity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging &amp; Verbosity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#progress-reporting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Progress Reporting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Progress Reporting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cancelling-long-running-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cancelling Long-Running Operations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-a-yaml-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using a YAML Config
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batch-script-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch / Script Execution
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-cpu-updated-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker (CPU) Updated Examples
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Training Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_13" id="__nav_2_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Azure Deployments
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_13">
+            <span class="md-nav__icon md-icon"></span>
+            Azure Deployments
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-batch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure Batch
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VM vs Batch Comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Advanced Performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Migration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../completion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Completion
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pdf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Printable PDF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    License
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Technical / Developer Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Technical / Developer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MCP Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async-callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Async Callbacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../distribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Distribution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Access Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conventions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Tips
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialize-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initialize Project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clean-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clean Project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import Images
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import-masks-only-utility-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import Masks Only (Utility Script)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-dataset-splits-train-val-test-raw" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Dataset Splits (train / val / test / raw)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding Dataset Splits (train / val / test / raw)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Points
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimum-viable-split-small-datasets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Minimum Viable Split (Small Datasets)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Pitfalls
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-image-masks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating image masks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run Detection
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Run Detection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Selection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#train-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Train Model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Train Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#training-overrides-fast-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Training Overrides (Fast Experiments)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-export-and-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Export and Import
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Export and Import">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#export-a-trained-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Export a Trained Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import-a-pre-trained-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import a Pre-trained Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Workflows
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#package-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package Contents
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geographic-data-gpsexif" class="md-nav__link">
+    <span class="md-ellipsis">
+      Geographic Data (GPS/EXIF)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Geographic Data (GPS/EXIF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-interactive-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Interactive Map
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export-to-geojson" class="md-nav__link">
+    <span class="md-ellipsis">
+      Export to GeoJSON
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gps-data-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPS Data Requirements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging-verbosity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging &amp; Verbosity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#progress-reporting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Progress Reporting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Progress Reporting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cancelling-long-running-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cancelling Long-Running Operations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-a-yaml-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using a YAML Config
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batch-script-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch / Script Execution
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-cpu-updated-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker (CPU) Updated Examples
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="cli-cookbook">CLI Cookbook<a class="headerlink" href="#cli-cookbook" title="Permanent link">&para;</a></h1>
+<p>Task-focused examples for common workflows.</p>
+<h2 id="conventions">Conventions<a class="headerlink" href="#conventions" title="Permanent link">&para;</a></h2>
+<p>Project directory layout (after <code>crackz init --name demo-project</code>):
+<div class="highlight"><pre><span></span><code>demo-project/
+  images/
+    raw/ train/ val/ test/
+  masks/
+  artifacts/
+  detections/
+  checkpoints/
+  project.yaml
+</code></pre></div></p>
+<h2 id="general-tips">General Tips<a class="headerlink" href="#general-tips" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Run <code>crackz --help</code> and append <code>--help</code> after any subcommand for options.</li>
+<li>Use <code>--project</code> or <code>--cfg</code> (YAML) – one is required for most run/train operations.</li>
+<li>Prefer relative paths kept inside the project folder for reproducibility.</li>
+<li>Use <code>--debug</code> for verbose logging, <code>--quiet</code> for minimal output.</li>
+<li>Supported image extensions (import + dataset loader): <strong>.jpg, .jpeg, .png, .bmp, .tif, .tiff</strong></li>
+</ul>
+<h2 id="initialize-project">Initialize Project<a class="headerlink" href="#initialize-project" title="Permanent link">&para;</a></h2>
+<p><div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>demo-project
+</code></pre></div>
+Overwrite existing (dangerous):
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>demo-project<span class="w"> </span>--force
+</code></pre></div></p>
+<h2 id="clean-project">Clean Project<a class="headerlink" href="#clean-project" title="Permanent link">&para;</a></h2>
+<p>Remove temporary files, logs, and training artifacts to save disk space:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Preview what will be cleaned (safe)</span>
+crackz<span class="w"> </span>clean<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--dry-run
+
+<span class="c1"># Clean logs and artifacts</span>
+crackz<span class="w"> </span>clean<span class="w"> </span>--project<span class="w"> </span>demo-project
+
+<span class="c1"># Clean only logs, keep checkpoints and detections</span>
+crackz<span class="w"> </span>clean<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--logs-only
+</code></pre></div>
+<p><strong>What gets removed:</strong>
+- Log files (<code>*.log</code>)
+- TensorBoard training logs
+- Model checkpoints (unless <code>--logs-only</code>)
+- Detection results (unless <code>--logs-only</code>)
+- Training metrics (unless <code>--logs-only</code>)</p>
+<p><strong>Always preserved:</strong>
+- Images (all splits: train/val/test/raw)
+- Masks
+- Project configuration</p>
+<p><strong>When to clean:</strong>
+- After training completes to free disk space
+- Before archiving a project
+- When troubleshooting to start fresh with logs</p>
+<h2 id="import-images">Import Images<a class="headerlink" href="#import-images" title="Permanent link">&para;</a></h2>
+<p>Import raw images (resizing &amp; quality normalization) into a split. Supported <code>--type</code>: raw, train, val, test.
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>demo-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>./samples<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="w"> </span>raw<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--quality<span class="w"> </span><span class="m">90</span>
+</code></pre></div>
+Multiple splits (run per split):
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--src<span class="w"> </span>./samples<span class="w"> </span>--type<span class="w"> </span>train<span class="w"> </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--src<span class="w"> </span>./samples<span class="w"> </span>--type<span class="w"> </span>val<span class="w">   </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--src<span class="w"> </span>./samples<span class="w"> </span>--type<span class="w"> </span><span class="nb">test</span><span class="w">  </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+</code></pre></div>
+<strong>Automatic split</strong> (NEW): Import and automatically split images into train/val/test:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>demo-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>./samples<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--split<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--train-ratio<span class="w"> </span><span class="m">0</span>.7<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--val-ratio<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--test-ratio<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+</code></pre></div>
+The <code>--split</code> option automatically shuffles and distributes images across train/val/test directories. Default ratios are 70%/15%/15%. When <code>--split</code> is used, the <code>--type</code> option is ignored. Masks are automatically matched and distributed with their corresponding images.</p>
+<p>For reproducible splits (useful for experiments), add <code>--random-seed</code>:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--src<span class="w"> </span>./samples<span class="w"> </span>--split<span class="w"> </span>--random-seed<span class="w"> </span><span class="m">42</span>
+</code></pre></div></p>
+<p>Include masks (auto-detected from <code>--src/masks</code>), or specify:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--src<span class="w"> </span>./samples<span class="w"> </span>--masks_src<span class="w"> </span>./samples/masks<span class="w"> </span>--type<span class="w"> </span>train
+</code></pre></div>
+Overwrite processed images:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--src<span class="w"> </span>./samples<span class="w"> </span>--type<span class="w"> </span>train<span class="w"> </span>--overwrite
+</code></pre></div></p>
+<blockquote>
+<p>Training requires populated <code>images/train</code> (and ideally <code>val</code>, <code>test</code>). If you only imported to <code>raw/</code>, re-import with <code>--type train</code> or copy those images into <code>train/</code> before <code>crackz detect train</code>. Alternatively, use <code>--split</code> to automatically distribute images across all splits.</p>
+</blockquote>
+<h2 id="import-masks-only-utility-script">Import Masks Only (Utility Script)<a class="headerlink" href="#import-masks-only-utility-script" title="Permanent link">&para;</a></h2>
+<p>For cases where you need to import masks separately from images, or when masks are organized in a split directory structure, use the <code>scripts/import_masks.py</code> utility:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Basic usage - import from organized mask directories</span>
+python<span class="w"> </span>scripts/import_masks.py<span class="w"> </span>&lt;project_dir&gt;<span class="w"> </span>&lt;masks_source_dir&gt;
+
+<span class="c1"># Example: Import masks for skytteren_projekt from smasks directory</span>
+python<span class="w"> </span>scripts/import_masks.py<span class="w"> </span>./skytteren_projekt<span class="w"> </span>./smasks
+
+<span class="c1"># Custom size and quality</span>
+python<span class="w"> </span>scripts/import_masks.py<span class="w"> </span>./my_project<span class="w"> </span>./mask_sources<span class="w"> </span>--size<span class="w"> </span><span class="m">1024</span><span class="w"> </span><span class="m">1024</span><span class="w"> </span>--quality<span class="w"> </span><span class="m">95</span>
+</code></pre></div>
+<p><strong>Directory Structure Expected:</strong>
+The <code>masks_source_dir</code> should contain subdirectories for each split:
+<div class="highlight"><pre><span></span><code>masks_source_dir/
+  train/
+    mask_001.jpg
+    mask_002.png
+    ...
+  val/
+    mask_101.jpg
+    ...
+  test/
+    mask_201.png
+    ...
+</code></pre></div></p>
+<p><strong>What It Does:</strong>
+- Imports masks from split-organized directories (train/val/test)
+- Resizes masks to specified dimensions (default: 512x512)
+- Converts masks to binary PNG format using <code>data.mask_threshold</code> from project config
+- Deletes original mask files after successful conversion
+- Automatically normalizes filenames (removes <code>_mask</code> suffix if present)</p>
+<p><strong>Options:</strong>
+- <code>--size WIDTH HEIGHT</code>: Target size for imported masks (default: 512 512)
+- <code>--quality QUALITY</code>: JPEG/PNG quality 1-100 (default: 90)</p>
+<p><strong>When to Use:</strong>
+- Masks are stored separately from images
+- Masks need to be added to an existing project
+- Re-importing masks with different size/quality settings
+- Masks are organized by split but images are already imported</p>
+<p><strong>Notes:</strong>
+- The script uses the project's <code>data.mask_threshold</code> setting for binary conversion
+- Masks are matched to images by filename stem (without extension)
+- Missing splits (e.g., no <code>val/</code> directory) are safely skipped
+- Binary conversion: pixels ≥ threshold → 255 (white), others → 0 (black)</p>
+<h2 id="understanding-dataset-splits-train-val-test-raw">Understanding Dataset Splits (train / val / test / raw)<a class="headerlink" href="#understanding-dataset-splits-train-val-test-raw" title="Permanent link">&para;</a></h2>
+<p>Proper dataset partitioning is critical for trustworthy model performance assessment in PyTorch (and deep learning in general).</p>
+<table>
+<thead>
+<tr>
+<th>Split</th>
+<th>Purpose</th>
+<th>Used When</th>
+<th>Contains Labels?</th>
+<th>Typical Size %</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>train</td>
+<td>Optimizes model parameters (backprop / gradient descent)</td>
+<td>Every epoch</td>
+<td>Yes (masks)</td>
+<td>60–80</td>
+</tr>
+<tr>
+<td>val</td>
+<td>Monitors generalization, selects best checkpoint, tunes thresholds</td>
+<td>End of epoch (or mid-epoch)</td>
+<td>Yes (masks)</td>
+<td>10–20</td>
+</tr>
+<tr>
+<td>test</td>
+<td>Final, unbiased performance estimate AFTER model selection</td>
+<td>Once after training</td>
+<td>Yes (masks)</td>
+<td>10–20</td>
+</tr>
+<tr>
+<td>raw</td>
+<td>Unlabeled / production imagery for inference &amp; detection output</td>
+<td>Inference only</td>
+<td>No (optional)</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-points">Key Points<a class="headerlink" href="#key-points" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Never tune hyperparameters or pick “best” epoch on the test set—reserve it strictly for a final report.</li>
+<li>The validation set guides early stopping, model selection, and threshold adjustment (e.g. segmentation threshold).</li>
+<li>If you lack enough images for a full split, prefer a small validation set over none; skip a test set only for rapid prototyping.</li>
+<li>Masks (ground-truth) are required for <code>train</code>, <code>val</code>, and <code>test</code>. Missing masks there will degrade learning or metrics. The loader will fabricate a zero mask if absent, which is only meaningful for <code>raw</code>.</li>
+<li>The <code>raw/</code> split is ideal for real-world inference runs that should not influence training statistics.</li>
+</ul>
+<h3 id="recommended-workflow">Recommended Workflow<a class="headerlink" href="#recommended-workflow" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Import or curate labeled data into <code>train</code>, <code>val</code>, and <code>test</code> (add masks with matching filename stems → <code>image_01.jpg</code> / <code>image_01.png</code>).</li>
+<li>Place any unlabeled deployment imagery into <code>raw/</code>.</li>
+<li>Run <code>crackz detect train</code> to fit the model; best checkpoint is picked via validation IoU.</li>
+<li>Run <code>crackz detect run --project &lt;p&gt;</code> on <code>raw/</code> to generate predictions for field data.</li>
+<li>Only after all tuning, evaluate on <code>test</code> to produce final performance metrics (IoU, Dice, etc.).</li>
+</ol>
+<h3 id="minimum-viable-split-small-datasets">Minimum Viable Split (Small Datasets)<a class="headerlink" href="#minimum-viable-split-small-datasets" title="Permanent link">&para;</a></h3>
+<p>If images are scarce (&lt; ~100):
+- Use ~80% train, 20% val; defer a true test set until more data arrives.
+- Report validation metrics, but label them clearly as not a final hold‑out.</p>
+<h3 id="common-pitfalls">Common Pitfalls<a class="headerlink" href="#common-pitfalls" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Pitfall</th>
+<th>Consequence</th>
+<th>Prevention</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Using test as validation</td>
+<td>Inflated metrics / leakage</td>
+<td>Keep test unseen until the end</td>
+</tr>
+<tr>
+<td>Missing masks in train</td>
+<td>Poor learning, near-zero gradients</td>
+<td>Ensure mask filenames match image stems</td>
+</tr>
+<tr>
+<td>Only raw images imported</td>
+<td>Training fails (no supervised data)</td>
+<td>Re-import with <code>--type train</code></td>
+</tr>
+<tr>
+<td>Highly imbalanced splits</td>
+<td>Unstable validation metrics</td>
+<td>Stratify if possible / check counts</td>
+</tr>
+</tbody>
+</table>
+<h3 id="creating-image-masks">Creating image masks<a class="headerlink" href="#creating-image-masks" title="Permanent link">&para;</a></h3>
+<p>Masks (ground-truth) are required for <code>train</code>, <code>val</code>, and <code>test</code> splits. Below is a concise guide for end users on preparing masks that work well with Crackz.</p>
+<ol>
+<li>Tools: choose a labeling tool such as <code>labelme</code>, CVAT, Roboflow, or a generic editor (Photoshop/GIMP). For quick starts, <code>labelme</code> is lightweight: <code>pip install labelme</code>.</li>
+<li>Binary masks: export or save a single-channel mask per image where background = 0 (black) and crack pixels = 255 (white). Avoid anti-aliased/partial-alpha edges that create intermediate values.</li>
+<li>Filenames: masks must share the same filename stem as the image (e.g. <code>image_001.png</code> → <code>images/train/image_001.jpg</code> and <code>masks/train/image_001.png</code>).</li>
+<li>Location: place masks under <code>masks/&lt;split&gt;/</code> (e.g. <code>masks/train/</code>, <code>masks/val/</code>, <code>masks/test/</code>). The import tool will pair masks with images by filename.</li>
+<li>Formats: prefer lossless formats such as PNG or TIFF. Do not use JPEG for mask files because compression introduces artifacts.</li>
+<li>Dimensions: mask pixel dimensions must match the corresponding image exactly.</li>
+<li>Importing: when using <code>crackz import-images</code>, either provide <code>--masks_src</code> or place masks inside the source folder under <code>masks/</code>. When using <code>--split</code>, masks are matched and split automatically.</li>
+</ol>
+<p>Tips:
+- If you have polygon annotations (GeoJSON/LabelMe), export them to filled masks using the labeling tool's export function.
+- For bulk conversion from grayscale annotations, a thresholding step with OpenCV (<code>cv2.threshold</code>) plus morphological cleaning typically yields good binary masks.</p>
+<h2 id="run-detection">Run Detection<a class="headerlink" href="#run-detection" title="Permanent link">&para;</a></h2>
+<p><div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>demo-project
+</code></pre></div>
+With a config file instead of <code>--project</code>:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--cfg<span class="w"> </span>config/detect.yaml
+</code></pre></div></p>
+<h3 id="model-selection">Model Selection<a class="headerlink" href="#model-selection" title="Permanent link">&para;</a></h3>
+<p>By default, detection automatically selects the best available checkpoint (<code>best.ckpt</code> &gt; <code>last.ckpt</code> &gt; <code>final.ckpt</code>). You can override this with the <code>--model</code> option:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Use specific checkpoint by name</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--model<span class="w"> </span>best
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--model<span class="w"> </span>last
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--model<span class="w"> </span>final
+
+<span class="c1"># Use specific epoch checkpoint (e.g., epoch-0.9234.ckpt)</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--model<span class="w"> </span>epoch-0.9234
+</code></pre></div>
+<p><strong>Auto-selection priority</strong> (when <code>--model</code> not specified):
+1. <code>best.ckpt</code> - Highest validation IoU during training
+2. <code>last.ckpt</code> - Most recent training checkpoint
+3. <code>final.ckpt</code> - Final training checkpoint</p>
+<p><strong>Use cases:</strong>
+- <strong>Default (auto-select)</strong>: Production inference with best available model
+- <strong><code>--model best</code></strong>: Explicitly use highest-performing checkpoint
+- <strong><code>--model last</code></strong>: Test most recent training state (useful during iterative development)
+- <strong><code>--model epoch-X</code></strong>: Compare performance across different training epochs</p>
+<h2 id="train-model">Train Model<a class="headerlink" href="#train-model" title="Permanent link">&para;</a></h2>
+<p><div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>demo-project
+</code></pre></div>
+(Uses <code>train/val/test</code> splits; ensure they are populated.)</p>
+<h3 id="training-overrides-fast-experiments">Training Overrides (Fast Experiments)<a class="headerlink" href="#training-overrides-fast-experiments" title="Permanent link">&para;</a></h3>
+<p>For quick smoke tests or CI you can override epochs and batch size at runtime:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--epochs<span class="w"> </span><span class="m">1</span><span class="w"> </span>--batch-size<span class="w"> </span><span class="m">1</span>
+</code></pre></div>
+Notes:
+- Overrides do NOT persist in the project YAML.
+- Useful for validating pipelines and container builds.
+- Combine with a tiny dataset for sub‑minute feedback.</p>
+<h2 id="model-export-and-import">Model Export and Import<a class="headerlink" href="#model-export-and-import" title="Permanent link">&para;</a></h2>
+<p>Share trained models between projects, team members, or deployment environments using portable model packages.</p>
+<h3 id="export-a-trained-model">Export a Trained Model<a class="headerlink" href="#export-a-trained-model" title="Permanent link">&para;</a></h3>
+<p>Export your trained model as a portable zip package:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Auto-selects best checkpoint, outputs to &lt;project-name&gt;_model.zip</span>
+crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--project<span class="w"> </span>demo-project
+
+<span class="c1"># Specify output path</span>
+crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--out<span class="w"> </span>models/harbor_v1.zip
+
+<span class="c1"># Export specific checkpoint (best, last, or final)</span>
+crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--checkpoint<span class="w"> </span>best<span class="w"> </span>--out<span class="w"> </span>best_model.zip
+</code></pre></div>
+<p>Short flags:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">export</span><span class="w"> </span>-p<span class="w"> </span>demo-project<span class="w"> </span>-o<span class="w"> </span>my_model.zip
+crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">export</span><span class="w"> </span>-p<span class="w"> </span>demo-project<span class="w"> </span>-c<span class="w"> </span>final<span class="w"> </span>-o<span class="w"> </span>final_model.zip
+</code></pre></div></p>
+<p><strong>What gets packaged:</strong>
+- Model checkpoint file (<code>.ckpt</code>)
+- Metadata (encoder, architecture, training config)
+- Model configuration for reproducibility</p>
+<p><strong>Default behavior:</strong>
+- Automatically selects best available checkpoint: <code>best.ckpt</code> &gt; <code>last.ckpt</code> &gt; <code>final.ckpt</code>
+- Output defaults to <code>&lt;project_name&gt;_model.zip</code> if <code>--out</code> not specified</p>
+<h3 id="import-a-pre-trained-model">Import a Pre-trained Model<a class="headerlink" href="#import-a-pre-trained-model" title="Permanent link">&para;</a></h3>
+<p>Import a model package into your project:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Import model package</span>
+crackz<span class="w"> </span>model<span class="w"> </span>import<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--model<span class="w"> </span>harbor_v1.zip
+
+<span class="c1"># Overwrite existing checkpoint with same name</span>
+crackz<span class="w"> </span>model<span class="w"> </span>import<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--model<span class="w"> </span>harbor_v1.zip<span class="w"> </span>--force
+</code></pre></div>
+<p>Short flags:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>model<span class="w"> </span>import<span class="w"> </span>-p<span class="w"> </span>demo-project<span class="w"> </span>-m<span class="w"> </span>my_model.zip
+crackz<span class="w"> </span>model<span class="w"> </span>import<span class="w"> </span>-p<span class="w"> </span>demo-project<span class="w"> </span>-m<span class="w"> </span>my_model.zip<span class="w"> </span>--force
+</code></pre></div></p>
+<p><strong>What happens:</strong>
+- Extracts checkpoint to <code>checkpoints/</code> directory
+- Displays model configuration (encoder, weights, classes)
+- Validates package format</p>
+<p><strong>Note:</strong> Import fails if a checkpoint with the same name already exists. Use <code>--force</code> to overwrite.</p>
+<h3 id="common-workflows">Common Workflows<a class="headerlink" href="#common-workflows" title="Permanent link">&para;</a></h3>
+<p><strong>Share with team members:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Team member A: Export trained model</span>
+crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">export</span><span class="w"> </span>-p<span class="w"> </span>training-project<span class="w"> </span>-o<span class="w"> </span>shared/harbor_crack_v1.zip
+
+<span class="c1"># Team member B: Import into their project</span>
+crackz<span class="w"> </span>model<span class="w"> </span>import<span class="w"> </span>-p<span class="w"> </span>deployment-project<span class="w"> </span>-m<span class="w"> </span>shared/harbor_crack_v1.zip
+</code></pre></div></p>
+<p><strong>Transfer learning:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Export base model trained on general cracks</span>
+crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">export</span><span class="w"> </span>-p<span class="w"> </span>general-cracks<span class="w"> </span>-o<span class="w"> </span>pretrained/base_model.zip
+
+<span class="c1"># Import into specialized project for fine-tuning</span>
+crackz<span class="w"> </span>model<span class="w"> </span>import<span class="w"> </span>-p<span class="w"> </span>harbor-specific<span class="w"> </span>-m<span class="w"> </span>pretrained/base_model.zip
+
+<span class="c1"># Fine-tune on harbor-specific data</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>-p<span class="w"> </span>harbor-specific<span class="w"> </span>--epochs<span class="w"> </span><span class="m">10</span>
+</code></pre></div></p>
+<p><strong>Backup before experiments:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Backup current best model before trying new hyperparameters</span>
+crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">export</span><span class="w"> </span>-p<span class="w"> </span>demo-project<span class="w"> </span>-c<span class="w"> </span>best<span class="w"> </span>-o<span class="w"> </span>backups/before_experiment.zip
+
+<span class="c1"># Run experiment</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>-p<span class="w"> </span>demo-project<span class="w"> </span>--epochs<span class="w"> </span><span class="m">50</span>
+
+<span class="c1"># If results are worse, can import the backup</span>
+crackz<span class="w"> </span>model<span class="w"> </span>import<span class="w"> </span>-p<span class="w"> </span>demo-project<span class="w"> </span>-m<span class="w"> </span>backups/before_experiment.zip<span class="w"> </span>--force
+</code></pre></div></p>
+<p><strong>Version control for models:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Export with timestamp</span>
+crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">export</span><span class="w"> </span>-p<span class="w"> </span>demo-project<span class="w"> </span>-o<span class="w"> </span>models/model_2025-10-11.zip
+
+<span class="c1"># Or use git-style versioning</span>
+crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">export</span><span class="w"> </span>-p<span class="w"> </span>demo-project<span class="w"> </span>-o<span class="w"> </span>models/v1.0.0.zip
+</code></pre></div></p>
+<p><strong>Deployment workflow:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Export from training environment</span>
+crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">export</span><span class="w"> </span>-p<span class="w"> </span>training-project<span class="w"> </span>-o<span class="w"> </span>production/model.zip
+
+<span class="c1"># Transfer to production server and import</span>
+crackz<span class="w"> </span>model<span class="w"> </span>import<span class="w"> </span>-p<span class="w"> </span>production-project<span class="w"> </span>-m<span class="w"> </span>production/model.zip
+
+<span class="c1"># Run detection in production</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span>production-project
+</code></pre></div></p>
+<h3 id="package-contents">Package Contents<a class="headerlink" href="#package-contents" title="Permanent link">&para;</a></h3>
+<p>Model packages are standard zip files containing:
+- <code>&lt;checkpoint_name&gt;.ckpt</code> - PyTorch Lightning checkpoint with model weights
+- <code>metadata.json</code> - Model configuration and training metadata</p>
+<p>You can inspect the package manually:
+<div class="highlight"><pre><span></span><code><span class="c1"># Linux/Mac</span>
+unzip<span class="w"> </span>-l<span class="w"> </span>my_model.zip
+
+<span class="c1"># Windows PowerShell</span>
+Expand-Archive<span class="w"> </span>-Path<span class="w"> </span>my_model.zip<span class="w"> </span>-DestinationPath<span class="w"> </span>temp<span class="w"> </span>-Force
+cat<span class="w"> </span>temp<span class="se">\m</span>etadata.json
+</code></pre></div></p>
+<p>Example <code>metadata.json</code>:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;project_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;harbor_detection&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;checkpoint_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;best.ckpt&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;model_config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;encoder&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;resnet34&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;encoder_weights&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;imagenet&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;in_channels&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;num_classes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;threshold&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;loss_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;combo&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;dice_weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;focal_weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h2 id="geographic-data-gpsexif">Geographic Data (GPS/EXIF)<a class="headerlink" href="#geographic-data-gpsexif" title="Permanent link">&para;</a></h2>
+<p>Crackz can extract GPS coordinates from image EXIF data and visualize detection results on interactive maps or export to GeoJSON for GIS analysis.</p>
+<h3 id="create-interactive-map">Create Interactive Map<a class="headerlink" href="#create-interactive-map" title="Permanent link">&para;</a></h3>
+<p>Generate an interactive HTML map showing image locations with detection status:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Generate map for raw split (default)</span>
+crackz<span class="w"> </span>geo<span class="w"> </span>create-map<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--output<span class="w"> </span>harbor_map.html
+
+<span class="c1"># Map for specific split (train/val/test)</span>
+crackz<span class="w"> </span>geo<span class="w"> </span>create-map<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--output<span class="w"> </span>train_map.html<span class="w"> </span>--split<span class="w"> </span>train
+</code></pre></div>
+<p>Short flags:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>geo<span class="w"> </span>create-map<span class="w"> </span>-p<span class="w"> </span>demo-project<span class="w"> </span>-o<span class="w"> </span>map.html<span class="w"> </span>-s<span class="w"> </span>raw
+</code></pre></div></p>
+<p><strong>What it does:</strong>
+- Extracts GPS coordinates from image EXIF data
+- Creates standalone HTML file with Leaflet.js map
+- Blue markers: Images without detection results
+- Red markers: Images with detection results
+- Interactive: Click markers to see image names
+- No internet required after generation</p>
+<p><strong>Use cases:</strong>
+- Visualize drone survey coverage
+- Track detection locations in harbors
+- Quality check GPS data before GIS export
+- Share results with stakeholders (open in any browser)</p>
+<h3 id="export-to-geojson">Export to GeoJSON<a class="headerlink" href="#export-to-geojson" title="Permanent link">&para;</a></h3>
+<p>Export detection results to GeoJSON format for GIS software (QGIS, ArcGIS, etc.):</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Export all images with GPS data</span>
+crackz<span class="w"> </span>geo<span class="w"> </span>export-geojson<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--output<span class="w"> </span>detections.geojson
+
+<span class="c1"># Export specific split</span>
+crackz<span class="w"> </span>geo<span class="w"> </span>export-geojson<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--output<span class="w"> </span>train.geojson<span class="w"> </span>--split<span class="w"> </span>train
+</code></pre></div>
+<p>Short flags:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>geo<span class="w"> </span>export-geojson<span class="w"> </span>-p<span class="w"> </span>demo-project<span class="w"> </span>-o<span class="w"> </span>data.geojson<span class="w"> </span>-s<span class="w"> </span>raw
+</code></pre></div></p>
+<p><strong>GeoJSON structure:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;features&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;geometry&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Point&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">lo</span><span class="kc">n</span><span class="err">gi</span><span class="kc">tu</span><span class="err">de</span><span class="p">,</span><span class="w"> </span><span class="err">la</span><span class="kc">t</span><span class="err">i</span><span class="kc">tu</span><span class="err">de</span><span class="p">]</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;image_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IMG_0001.jpg&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;image_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/image.jpg&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;has_detection&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;latitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">59.123456</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;longitude&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">10.123456</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;demo-project&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;split&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;raw&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;total_images&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;images_with_detections&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Use cases:</strong>
+- Import results into QGIS/ArcGIS for spatial analysis
+- Combine with existing GIS datasets
+- Generate heat maps or density visualizations
+- Create reports with geographic context</p>
+<h3 id="gps-data-requirements">GPS Data Requirements<a class="headerlink" href="#gps-data-requirements" title="Permanent link">&para;</a></h3>
+<p>Images must contain GPS EXIF metadata:
+- <strong>Drone images</strong>: Most DJI drones embed GPS automatically
+- <strong>Smartphones</strong>: Enable location services when taking photos
+- <strong>Supported tags</strong>: GPSLatitude, GPSLongitude, GPSLatitudeRef, GPSLongitudeRef
+- <strong>Formats</strong>: Works with all supported image formats (.jpg, .jpeg, .png, .bmp, .tif, .tiff)</p>
+<p><strong>Check GPS data:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Linux/Mac</span>
+exiftool<span class="w"> </span>image.jpg<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>GPS
+
+<span class="c1"># Python (Pillow)</span>
+from<span class="w"> </span>PIL<span class="w"> </span>import<span class="w"> </span>Image
+<span class="nv">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Image.open<span class="o">(</span><span class="s2">&quot;image.jpg&quot;</span><span class="o">)</span>
+<span class="nv">exif</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>img.getexif<span class="o">()</span>
+<span class="nv">gps_ifd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>exif.get_ifd<span class="o">(</span>0x8825<span class="o">)</span><span class="w">  </span><span class="c1"># 0x8825 is GPS IFD tag</span>
+print<span class="o">(</span>gps_ifd<span class="o">)</span>
+</code></pre></div></p>
+<p><strong>Workflow example:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Import drone photos (GPS data preserved in EXIF)</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>harbor<span class="w"> </span>--src<span class="w"> </span>./drone_photos<span class="w"> </span>--type<span class="w"> </span>raw<span class="w"> </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+
+<span class="c1"># 2. Run detection</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>harbor
+
+<span class="c1"># 3. Generate map to visualize results</span>
+crackz<span class="w"> </span>geo<span class="w"> </span>create-map<span class="w"> </span>--project<span class="w"> </span>harbor<span class="w"> </span>--output<span class="w"> </span>harbor_results.html
+
+<span class="c1"># 4. Export to GeoJSON for GIS analysis</span>
+crackz<span class="w"> </span>geo<span class="w"> </span>export-geojson<span class="w"> </span>--project<span class="w"> </span>harbor<span class="w"> </span>--output<span class="w"> </span>harbor.geojson
+
+<span class="c1"># 5. Open map in browser to review</span>
+<span class="c1"># (or import GeoJSON into QGIS/ArcGIS)</span>
+</code></pre></div></p>
+<h2 id="logging-verbosity">Logging &amp; Verbosity<a class="headerlink" href="#logging-verbosity" title="Permanent link">&para;</a></h2>
+<p><div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>--debug<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>demo-project
+crackz<span class="w"> </span>--quiet<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>demo-project
+crackz<span class="w"> </span>--log-dir<span class="w"> </span>run_logs<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>demo-project
+</code></pre></div>
+Environment override:
+<div class="highlight"><pre><span></span><code><span class="nv">CRACKZ_LOG_DIR</span><span class="o">=</span>logs_debug<span class="w"> </span>crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>demo-project
+</code></pre></div></p>
+<h2 id="progress-reporting">Progress Reporting<a class="headerlink" href="#progress-reporting" title="Permanent link">&para;</a></h2>
+<p>Detection &amp; training show a progress bar; additional log messages appear with <code>--debug</code>.</p>
+<h3 id="cancelling-long-running-operations">Cancelling Long-Running Operations<a class="headerlink" href="#cancelling-long-running-operations" title="Permanent link">&para;</a></h3>
+<p>Press <strong>Ctrl+C</strong> to cancel detection or training operations:
+<div class="highlight"><pre><span></span><code><span class="c1"># Start training</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>demo-project
+
+<span class="c1"># Press Ctrl+C to cancel at any time</span>
+<span class="c1"># The operation will be cancelled gracefully</span>
+<span class="c1"># Partial results (e.g., checkpoints) are preserved</span>
+</code></pre></div></p>
+<p>The CLI will:
+- Intercept the interrupt signal (Ctrl+C)
+- Stop the operation at the next checkpoint
+- Exit with code 130 (standard for Ctrl+C)
+- Preserve any partial progress (e.g., model checkpoints saved before cancellation)</p>
+<h2 id="using-a-yaml-config">Using a YAML Config<a class="headerlink" href="#using-a-yaml-config" title="Permanent link">&para;</a></h2>
+<p>Store unified hyperparameters and paths:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--cfg<span class="w"> </span>configs/detect.yaml
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--cfg<span class="w"> </span>configs/train.yaml
+</code></pre></div></p>
+<h2 id="batch-script-execution">Batch / Script Execution<a class="headerlink" href="#batch-script-execution" title="Permanent link">&para;</a></h2>
+<p>Example bash loop (different projects or configs):
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>P<span class="w"> </span><span class="k">in</span><span class="w"> </span>demo-project<span class="w"> </span>other-project<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$P</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Failed: </span><span class="nv">$P</span><span class="s2">&quot;</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>
+<span class="k">done</span>
+</code></pre></div></p>
+<h2 id="docker-cpu-updated-examples">Docker (CPU) Updated Examples<a class="headerlink" href="#docker-cpu-updated-examples" title="Permanent link">&para;</a></h2>
+<p>Container WORKDIR is now the user home <code>/home/app</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Init project (host ./project mapped to /home/app)</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>project
+<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span>%cd%<span class="se">\p</span>roject:/home/app<span class="w"> </span>crackz-cli<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>demo-project
+
+<span class="c1"># Import images (mount samples to /data)</span>
+<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span>%cd%<span class="se">\p</span>roject:/home/app<span class="w"> </span>-v<span class="w"> </span>%cd%<span class="se">\s</span>amples:/data<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>crackz-cli<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>/home/app/demo-project<span class="w"> </span>--src<span class="w"> </span>/data<span class="w"> </span>--type<span class="w"> </span>raw<span class="w"> </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+
+<span class="c1"># Detection</span>
+<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span>%cd%<span class="se">\p</span>roject:/home/app<span class="w"> </span>crackz-cli<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>/home/app/demo-project
+</code></pre></div>
+<p>GPU variant:
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span>%cd%<span class="se">\p</span>roject:/home/app<span class="w"> </span>crackz-cli:gpu<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>/home/app/demo-project
+</code></pre></div></p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Missing <code>--project</code> or <code>--cfg</code></td>
+<td>Supply one of them; required for detect/train</td>
+</tr>
+<tr>
+<td>No images imported</td>
+<td>Check <code>--src</code> path and file extensions (.jpg/.jpeg/.png/.bmp/.tif/.tiff)</td>
+</tr>
+<tr>
+<td>Training says no images found</td>
+<td>Ensure you imported into <code>images/train</code> (not only <code>raw</code>)</td>
+</tr>
+<tr>
+<td>Empty detections</td>
+<td>Verify model checkpoint &amp; threshold settings</td>
+</tr>
+<tr>
+<td>CUDA not used</td>
+<td>Ensure GPU variant &amp; driver; check <code>torch.cuda.is_available()</code></td>
+</tr>
+<tr>
+<td>Permission errors</td>
+<td>Adjust log or output directory permissions</td>
+</tr>
+</tbody>
+</table>
+<h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
+<ul>
+<li>See <code>api.md</code> for programmatic usage examples (load project + call <code>detect()</code> / <code>train()</code>).<blockquote>
+<p>Need high performance or reproducibility? See <a href="../advanced-performance/">Advanced Performance</a> and <a href="../configuration/#checkpoint-management">Configuration – Checkpoint Management</a>. Export tuned configs with <code>crackz export-config</code>.</p>
+</blockquote>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Anaxiatech-AB/crackz" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.14.0"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

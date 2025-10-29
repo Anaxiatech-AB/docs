@@ -1,0 +1,1825 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI image analysis of cracks in harbors">
+      
+      
+        <meta name="author" content="Theresia Sofia Snow">
+      
+      
+      
+        <link rel="prev" href="../mcp/">
+      
+      
+        <link rel="next" href="../async-callbacks/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Architecture - Crackz</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/print.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#high-level-overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Crackz" class="md-header__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Crackz
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Crackz" class="md-nav__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Crackz
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    End User / Customer Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            End User / Customer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quickstart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-splits-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Splits & Import Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../easy-install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Easy Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GUI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../map-viewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Map Viewer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli-cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Cookbook
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Training Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_13" id="__nav_2_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Azure Deployments
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_13">
+            <span class="md-nav__icon md-icon"></span>
+            Azure Deployments
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-batch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure Batch
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VM vs Batch Comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Advanced Performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Migration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../completion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Completion
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pdf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Printable PDF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    License
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Technical / Developer Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Technical / Developer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MCP Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#high-level-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      High-Level Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="High-Level Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-architecture-model-flexibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Open Architecture &amp; Model Flexibility
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-use-cases-model-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Use Cases &amp; Model Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c4-level-1-container-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      C4 Level 1 (Container View)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c4-context-local-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      C4 Context (Local Execution)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-breakdown-core-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      Component Breakdown (Core Library)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-flow-operational" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Flow (Operational)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-image-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence (Image Import)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-training-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence (Training &amp; Detection)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Resolution
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-local-optional-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment (Local + Optional Docker)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responsibilities-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Responsibilities Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dataset-splits-recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dataset Splits (Recap)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-not-yet-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      Future (Not Yet Implemented)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technology-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technology Stack
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async-callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Async Callbacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../distribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Distribution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Access Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#high-level-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      High-Level Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="High-Level Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-architecture-model-flexibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Open Architecture &amp; Model Flexibility
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-use-cases-model-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Use Cases &amp; Model Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c4-level-1-container-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      C4 Level 1 (Container View)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c4-context-local-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      C4 Context (Local Execution)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-breakdown-core-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      Component Breakdown (Core Library)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-flow-operational" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Flow (Operational)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-image-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence (Image Import)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-training-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sequence (Training &amp; Detection)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Resolution
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-local-optional-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment (Local + Optional Docker)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#responsibilities-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Responsibilities Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dataset-splits-recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dataset Splits (Recap)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-not-yet-implemented" class="md-nav__link">
+    <span class="md-ellipsis">
+      Future (Not Yet Implemented)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technology-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technology Stack
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="system-architecture">System Architecture<a class="headerlink" href="#system-architecture" title="Permanent link">&para;</a></h1>
+<p>This document describes the current (implemented) architecture of Crackz, focusing on the <strong>actual code paths</strong> in this repository. Previous diagrams referenced future or hypothetical services (artifact stores, model servers, remote registries) that are not yet part of the codebase; those have been removed or clearly marked as future work.</p>
+<hr />
+<h2 id="high-level-overview">High-Level Overview<a class="headerlink" href="#high-level-overview" title="Permanent link">&para;</a></h2>
+<p>Crackz consists of two user-facing entry points sharing a common core library:
+- <strong>CLI</strong> (Typer) – primary automation interface (import images, train, detect, export config)
+- <strong>GUI</strong> (CustomTkinter) – exploratory desktop interface (project browsing, import, training &amp; detection triggers, previews)</p>
+<p>Core subsystems:
+- <strong>Project / Configuration</strong>: Pydantic models; YAML + env + defaults merged via <code>pydantic-settings</code>
+- <strong>Image Import &amp; Layout</strong>: Normalizes images into split directories (<code>raw/ train/ val/ test/</code>) and masks
+- <strong>Dataset Layer</strong>: <code>CrackzDataset</code> (Torch <code>Dataset</code>) + DataLoader factory
+- <strong>Training &amp; Detection Pipelines</strong>: PyTorch + PyTorch Lightning orchestration (training, validation, testing, inference)
+- <strong>Performance Utilities</strong>: Global seed, Trainer override extraction
+- <strong>Logging</strong>: Centralized through <code>loguru</code> with structured formatting
+- <strong>Artifacts &amp; Outputs</strong>: Filesystem only (<code>artifacts/</code>, checkpoints, metrics JSON, detection PNGs)</p>
+<p>No network services, model servers, remote registries, or cloud object storage are currently part of runtime behavior.</p>
+<h3 id="open-architecture-model-flexibility">Open Architecture &amp; Model Flexibility<a class="headerlink" href="#open-architecture-model-flexibility" title="Permanent link">&para;</a></h3>
+<p>Crackz is built with an <strong>open architecture</strong> that supports multiple model types and use cases:</p>
+<p><strong>Default Configuration: Segmentation</strong>
+- Binary segmentation (pixel-level classification): crack/no-crack, deviation/no-deviation
+- Uses U-Net architecture with configurable encoder backbones (ResNet, EfficientNet, MobileNet, etc.)
+- Suitable for: structural crack detection, surface defect analysis, damage mapping</p>
+<p><strong>Alternative Model Types</strong>
+While segmentation is the default, the architecture supports:
+- <strong>Classification models</strong>: Whole-image categorization (e.g., "has crack" vs "no crack")
+- <strong>Multi-class segmentation</strong>: Different defect types (cracks, corrosion, spalling)
+- <strong>Custom architectures</strong>: Bring your own PyTorch Lightning model</p>
+<p><strong>Model Acquisition Workflow</strong>
+End users have two primary paths:</p>
+<ol>
+<li><strong>Train Your Own Model</strong></li>
+<li>Import labeled training data (images + masks)</li>
+<li>Configure model architecture and training parameters</li>
+<li>Run <code>crackz detect train</code> to create a custom checkpoint</li>
+<li>
+<p>Ideal for: domain-specific data, unique defect types, custom requirements</p>
+</li>
+<li>
+<p><strong>Use Pre-Trained Models</strong></p>
+</li>
+<li>Acquire ready-made checkpoints from model providers or partners</li>
+<li>Place checkpoint in project's <code>artifacts/training/checkpoints/</code> directory</li>
+<li>Run <code>crackz detect run</code> with existing checkpoint</li>
+<li>Ideal for: quick deployment, standard use cases, proof-of-concept</li>
+</ol>
+<p><strong>Encoder Flexibility</strong>
+The segmentation model supports any encoder from <code>segmentation-models-pytorch</code>, including:
+- ResNet family (resnet18, resnet34, resnet50, resnet101)
+- EfficientNet (efficientnet-b0 through efficientnet-b7)
+- MobileNet (mobilenet_v2) for edge deployment
+- DenseNet, VGG, and many others</p>
+<p>Configure via <code>project.yaml</code>:
+<div class="highlight"><pre><span></span><code><span class="nt">ai</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resnet34</span><span class="w">        </span><span class="c1"># or efficientnet-b0, mobilenet_v2, etc.</span>
+<span class="w">    </span><span class="nt">encoder_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">imagenet</span><span class="w"> </span><span class="c1"># or None for random initialization</span>
+</code></pre></div></p>
+<h3 id="common-use-cases-model-examples">Common Use Cases &amp; Model Examples<a class="headerlink" href="#common-use-cases-model-examples" title="Permanent link">&para;</a></h3>
+<p><strong>1. Harbor Infrastructure Inspection (Segmentation)</strong>
+- <strong>Task</strong>: Detect and map cracks in concrete harbor walls
+- <strong>Model</strong>: U-Net with ResNet34 encoder
+- <strong>Input</strong>: 512×512 grayscale or RGB images
+- <strong>Output</strong>: Binary segmentation mask highlighting crack pixels
+- <strong>Workflow</strong>: Train on labeled harbor images → Deploy for automated inspection</p>
+<p><strong>2. Bridge Surface Analysis (Multi-Class Segmentation)</strong>
+- <strong>Task</strong>: Identify different defect types (cracks, spalling, corrosion)
+- <strong>Model</strong>: U-Net with EfficientNet-B0 encoder, num_classes=3
+- <strong>Input</strong>: High-resolution bridge deck photos
+- <strong>Output</strong>: Multi-class mask (class 1=crack, class 2=spalling, class 3=corrosion)
+- <strong>Workflow</strong>: Acquire pre-trained multi-defect model → Run detections on new structures</p>
+<p><strong>3. Quick Assessment (Classification)</strong>
+- <strong>Task</strong>: Rapid triage - does this image contain any cracks?
+- <strong>Model</strong>: Custom CNN classifier (future extension)
+- <strong>Input</strong>: Full-resolution photos
+- <strong>Output</strong>: Binary label (crack/no-crack) with confidence score
+- <strong>Workflow</strong>: Train lightweight classifier → Process thousands of images for filtering</p>
+<p><strong>4. Deviation Detection (Binary Segmentation)</strong>
+- <strong>Task</strong>: Identify surface irregularities or deviations from standard
+- <strong>Model</strong>: U-Net with MobileNetV2 (for edge deployment)
+- <strong>Input</strong>: Normalized surface scans
+- <strong>Output</strong>: Deviation mask
+- <strong>Workflow</strong>: Train on deviation examples → Deploy on mobile devices</p>
+<p><strong>5. Custom Domain Application</strong>
+- <strong>Task</strong>: Adapt to specific industry (e.g., aerospace panel inspection)
+- <strong>Model</strong>: Fine-tune from ImageNet pre-trained encoder
+- <strong>Input</strong>: Domain-specific imagery (composite materials, metal surfaces)
+- <strong>Output</strong>: Custom defect masks
+- <strong>Workflow</strong>: Collect small labeled dataset → Transfer learning → Production deployment</p>
+<hr />
+<h2 id="c4-level-1-container-view">C4 Level 1 (Container View)<a class="headerlink" href="#c4-level-1-container-view" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>C4Container
+  title Crackz — Container View (Implemented)
+  Person(user, "User")
+  System_Boundary(crackz, "Crackz Local System") {
+    Container(cli, "CLI", "Typer", "Command parsing &amp; dispatch")
+    Container(gui, "GUI", "CustomTkinter", "Desktop inspection &amp; invocation")
+    Container(core, "Core Library", "Python Packages", "project, ai, config, logging")
+    Container(fs, "Local Filesystem", "images/ + artifacts/", "Images, masks, checkpoints, metrics")
+  }
+  Rel(user, cli, "Runs commands")
+  Rel(user, gui, "Interacts (point &amp; click)")
+  Rel(cli, core, "Invokes APIs")
+  Rel(gui, core, "Invokes APIs")
+  Rel(core, fs, "read/write images, masks, checkpoints, metrics")</code></pre>
+<hr />
+<h2 id="c4-context-local-execution">C4 Context (Local Execution)<a class="headerlink" href="#c4-context-local-execution" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>C4Context
+  title Crackz — System Context (Local)
+  Person(user, "User", "Engineer / Operator")
+  System(local, "Crackz Application", "CLI + GUI + Core Library")
+  System_Ext(osfs, "Host Filesystem", "Images + Artifacts")
+  Rel(user, local, "Invoke CLI / Launch GUI")
+  Rel(local, osfs, "read / write")</code></pre>
+<hr />
+<h2 id="component-breakdown-core-library">Component Breakdown (Core Library)<a class="headerlink" href="#component-breakdown-core-library" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>C4Component
+  title Core Library Components (Implemented)
+  Container(core, "core", "Python")
+  Component(project, "Project &amp; Paths", "pydantic", "Project metadata &amp; path helpers")
+  Component(config, "Configuration", "pydantic-settings", "Merge defaults / env / YAML")
+  Component(importer, "Image Importer", "Pillow", "Resize, quality, organize splits &amp; masks")
+  Component(dataset, "Dataset Layer", "Torch Dataset", "CrackzDataset + DataLoader factory")
+  Component(train, "Training Orchestrator", "PyTorch Lightning", "Fit/validate/test + callbacks")
+  Component(detect, "Detection Pipeline", "PyTorch", "Batch inference over dataset splits (raw/test)")
+  Component(metrics, "Metrics &amp; Checkpoints", "Lightning + JSON", "Save val/test metrics &amp; best.ckpt/last.ckpt")
+  Component(perf, "Performance Utilities", "Seeding", "Seed + trainer overrides")
+  Component(logging, "Logging", "loguru", "Structured log sink &amp; setup")
+  Rel(importer, project, "Uses path layout")
+  Rel(dataset, project, "Resolves split directories")
+  Rel(train, dataset, "Consumes (train/val/test) loaders")
+  Rel(detect, dataset, "Consumes detection loader (raw or test)")
+  Rel(train, metrics, "Saves checkpoints + metrics")
+  Rel(detect, metrics, "Writes detection results JSON/PNGs")
+  Rel(project, config, "Initializes from effective settings")
+  Rel(train, perf, "Reads overrides / seed")
+  Rel(detect, perf, "Sets seed (optional)")
+  Rel(dataset, logging, "Reports warnings (missing masks / size mismatch)")</code></pre>
+<hr />
+<h2 id="data-flow-operational">Data Flow (Operational)<a class="headerlink" href="#data-flow-operational" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart LR
+  A["Import Command / GUI Action"] --&gt; B["Image Importer"]
+  B --&gt; C["Split Directories (images/*, masks/*)"]
+  C --&gt; D["Train Command"]
+  D --&gt; E["Training Orchestrator&lt;br/&gt;(Trainer.fit)"]
+  E --&gt; F["Checkpoints &amp;amp; Metrics&lt;br/&gt;(best.ckpt / last.ckpt / JSON)"]
+  F --&gt; G["Detect Command"]
+  G --&gt; H["Inference Loop&lt;br/&gt;(sigmoid → threshold)"]
+  H --&gt; I["Annotated Output&lt;br/&gt;(PNGs + detection_results.json)"]</code></pre>
+<hr />
+<h2 id="sequence-image-import">Sequence (Image Import)<a class="headerlink" href="#sequence-image-import" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>sequenceDiagram
+  participant User
+  participant CLI as CLI / GUI
+  participant Project
+  participant Import as ImageImporter
+  participant FS as Filesystem
+  User-&gt;&gt;CLI: import-images --src ./samples --type train
+  CLI-&gt;&gt;Project: load_project(path|yaml)
+  CLI-&gt;&gt;Import: iterate source images
+  Import-&gt;&gt;FS: resize + normalize + write split file
+  Import-&gt;&gt;FS: write mask (if provided)
+  Import--&gt;&gt;CLI: progress callback
+  CLI--&gt;&gt;User: summary (count, skipped)</code></pre>
+<h2 id="sequence-training-detection">Sequence (Training &amp; Detection)<a class="headerlink" href="#sequence-training-detection" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>sequenceDiagram
+  participant User
+  participant CLI as CLI / GUI
+  participant Project
+  participant DS as CrackzDataset
+  participant Trainer as Lightning Trainer
+  participant Model
+  participant FS as Filesystem
+  User-&gt;&gt;CLI: detect train --project P
+  CLI-&gt;&gt;Project: load_project()
+  CLI-&gt;&gt;DS: build train/val/test datasets
+  DS--&gt;&gt;CLI: DataLoaders
+  CLI-&gt;&gt;Trainer: fit(model, loaders)
+  Trainer-&gt;&gt;FS: save best.ckpt / last.ckpt
+  Trainer--&gt;&gt;CLI: metrics (val/test)
+  CLI--&gt;&gt;User: training summary
+  User-&gt;&gt;CLI: detect run --project P
+  CLI-&gt;&gt;Project: load_project()
+  CLI-&gt;&gt;Model: load checkpoint (best or last)
+  CLI-&gt;&gt;DS: build raw dataset (or test)
+  DS--&gt;&gt;CLI: DataLoader
+  CLI-&gt;&gt;Model: forward (batched)
+  Model--&gt;&gt;CLI: probabilities
+  CLI-&gt;&gt;CLI: threshold -&gt; mask
+  CLI-&gt;&gt;FS: write annotated PNG + JSON metrics
+  CLI--&gt;&gt;User: detection summary</code></pre>
+<hr />
+<h2 id="configuration-resolution">Configuration Resolution<a class="headerlink" href="#configuration-resolution" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+  Defaults[Built-in Defaults] --&gt; Merge
+  YAML[Project YAML] --&gt; Merge
+  Env[Environment] --&gt; Merge
+  Merge --&gt; Effective[Effective Settings]</code></pre>
+<hr />
+<h2 id="deployment-local-optional-docker">Deployment (Local + Optional Docker)<a class="headerlink" href="#deployment-local-optional-docker" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart LR
+  User([User]) --&gt; CLI["CLI (Typer)"]
+  User --&gt; GUI["GUI (CustomTkinter)"]
+  CLI --&gt; CORE["Core Library"]
+  GUI --&gt; CORE
+  CORE --&gt; FS["Filesystem&lt;br/&gt;images / artifacts / checkpoints"]
+  CORE -.optional.-&gt; GPU[("GPU")]
+
+  subgraph Optional_Docker [Optional Docker]
+    IMG["Container Image&lt;br/&gt;(Python 3.13 + deps)"]
+  end
+
+  %% Show that container can host CLI/GUI
+  IMG --&gt; CLI
+  IMG --&gt; GUI</code></pre>
+<hr />
+<h2 id="responsibilities-summary">Responsibilities Summary<a class="headerlink" href="#responsibilities-summary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Module(s)</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project metadata &amp; paths</td>
+<td><code>crackz.project.project</code></td>
+<td>Pydantic models &amp; path helpers</td>
+</tr>
+<tr>
+<td>Config merge</td>
+<td><code>pydantic-settings</code> integration</td>
+<td>YAML + env + defaults</td>
+</tr>
+<tr>
+<td>Import / resize</td>
+<td><code>project.import_images</code> / CLI wrapper</td>
+<td>Resizes, re-encodes, organizes splits &amp; masks</td>
+</tr>
+<tr>
+<td>Dataset / batching</td>
+<td><code>crackz.ai.data</code></td>
+<td>CrackzDataset + mask fallback + collate</td>
+</tr>
+<tr>
+<td>Training orchestration</td>
+<td><code>crackz.ai.detection.train</code></td>
+<td>Lightning Trainer + callbacks</td>
+</tr>
+<tr>
+<td>Inference / detection</td>
+<td><code>crackz.ai.detection.detect</code></td>
+<td>Loads model (checkpoint) + sigmoid + threshold</td>
+</tr>
+<tr>
+<td>Model definition</td>
+<td><code>crackz.ai.model</code></td>
+<td>Segmentation architecture wrapper</td>
+</tr>
+<tr>
+<td>Metrics &amp; checkpoints</td>
+<td><code>crackz.ai.checkpoints</code> (callbacks, selection)</td>
+<td>best.ckpt / last.ckpt resolution</td>
+</tr>
+<tr>
+<td>Device management</td>
+<td><code>crackz.ai.device</code></td>
+<td>Device detection and accelerator utilities</td>
+</tr>
+<tr>
+<td>General utilities</td>
+<td><code>crackz.util</code></td>
+<td>Filesystem operations and cross-cutting concerns</td>
+</tr>
+<tr>
+<td>Performance utilities</td>
+<td><code>crackz.ai.performance</code></td>
+<td>Global RNG (Generator), seed set, precision/devices</td>
+</tr>
+<tr>
+<td>Logging</td>
+<td><code>crackz.log.crackz_logger</code></td>
+<td>Central logger setup</td>
+</tr>
+<tr>
+<td>GUI state &amp; browsing</td>
+<td><code>crackz.gui.*</code></td>
+<td>Project tree, previews, recent projects</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="dataset-splits-recap">Dataset Splits (Recap)<a class="headerlink" href="#dataset-splits-recap" title="Permanent link">&para;</a></h2>
+<p>See the <strong>CLI Cookbook – Understanding Dataset Splits</strong> section for detailed rationale. In brief:
+- <code>train/</code> – learns weights
+- <code>val/</code> – selects checkpoint &amp; thresholds
+- <code>test/</code> – final metric (optional in early prototypes)
+- <code>raw/</code> – inference-only imagery (no labels)</p>
+<hr />
+<h2 id="future-not-yet-implemented">Future (Not Yet Implemented)<a class="headerlink" href="#future-not-yet-implemented" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Planned Capability</th>
+<th>Status</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Remote artifact store (S3 / GCS)</td>
+<td>Planned</td>
+<td>Abstract storage layer needed</td>
+</tr>
+<tr>
+<td>Model registry integration</td>
+<td>Planned</td>
+<td>Could adopt MLflow-compatible API</td>
+</tr>
+<tr>
+<td>Hyperparameter tuning service</td>
+<td>Planned</td>
+<td>Integrate with Optuna / Ray Tune</td>
+</tr>
+<tr>
+<td>Model serving API</td>
+<td>Planned</td>
+<td>TorchServe / FastAPI wrapper</td>
+</tr>
+<tr>
+<td>Advanced augmentation pipeline</td>
+<td>Planned</td>
+<td>Albumentations / custom transforms</td>
+</tr>
+<tr>
+<td>Active learning loop</td>
+<td>Planned</td>
+<td>Feed predictions back into labeling pipeline</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="technology-stack">Technology Stack<a class="headerlink" href="#technology-stack" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Language</strong>: Python 3.11+</li>
+<li><strong>DL Framework</strong>: PyTorch, PyTorch Lightning, segmentation-models-pytorch, torchmetrics, torchvision</li>
+<li><strong>Data &amp; Imaging</strong>: Pillow, (optionally HF datasets in the future)</li>
+<li><strong>CLI</strong>: Typer</li>
+<li><strong>GUI</strong>: CustomTkinter</li>
+<li><strong>Config</strong>: pydantic, pydantic-settings</li>
+<li><strong>Logging</strong>: loguru</li>
+<li><strong>Progress / TUI</strong>: rich</li>
+<li><strong>Packaging / Build</strong>: uv, PyInstaller (GUI binary optional)</li>
+<li><strong>Testing</strong>: pytest (+ coverage, html, benchmarks markers)</li>
+</ul>
+<hr />
+<p><em>Last updated: synchronized with repository implementation on commit timeline of current editing session.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Anaxiatech-AB/crackz" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.14.0"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

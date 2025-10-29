@@ -1,0 +1,3706 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI image analysis of cracks in harbors">
+      
+      
+        <meta name="author" content="Theresia Sofia Snow">
+      
+      
+      
+        <link rel="prev" href="../customer-guide/">
+      
+      
+        <link rel="next" href="../data-splits-guide/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>User Guide - Crackz</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/print.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Crackz" class="md-header__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Crackz
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              User Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Crackz" class="md-nav__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Crackz
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    End User / Customer Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            End User / Customer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quickstart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Capabilities
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-deployment-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two Deployment Paths
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-level-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      High-Level Workflow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Prerequisites
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optional
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPU Considerations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#standard-cpu-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standard CPU Install
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPU Install
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-no-python-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker (No Python Required)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Quick Start
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-initialize-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Initialize a Project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-import-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Import Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-run-detection-lite-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Run Detection (Lite Mode)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-optional-train-on-custom-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: (Optional) Train on Custom Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-view-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: View Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-core-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Core Concepts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Core Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-project-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Project Layout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-data-splits-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Data Splits Explained
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-artifacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Artifacts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-logging-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Logging Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-schema-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5 Schema Versioning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-model-selection-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6 Model Selection &amp; Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-typical-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Typical Workflows
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Typical Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-create-a-new-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Create a New Project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-import-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Import Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-train-a-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Train a Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-run-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4 Run Detection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-view-metrics-tensorboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5 View Metrics (TensorBoard)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-clean-and-maintain-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.6 Clean and Maintain Projects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#67-package-or-distribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.7 Package or Distribute
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-docker-automation-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Docker &amp; Automation Shortcuts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Docker &amp; Automation Shortcuts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-docker-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Docker Variants
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-docker-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Docker Quick Reference
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-makefile-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Makefile Shortcuts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-powershell-helpers-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4 PowerShell Helpers (Windows)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-gui-quick-tour" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. GUI Quick Tour
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. GUI Quick Tour">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-launching-the-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Launching the GUI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-main-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Main Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-main-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 Main Actions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-keyboard-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.4 Keyboard Shortcuts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#85-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.5 Settings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-deployment-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Deployment Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Deployment Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-local-workstation" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1 Local Workstation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-docker-single-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2 Docker (Single Machine)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-azure-batch-distributed" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3 Azure Batch (Distributed)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-azure-vm-single-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.4 Azure VM (Single Instance)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-installation-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1 Installation Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-importtraining-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2 Import/Training Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-detection-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.3 Detection Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-logging-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.4 Logging Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#105-common-error-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.5 Common Error Messages
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. FAQ
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. FAQ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-licensing" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1 Licensing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2 Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-data-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.3 Data &amp; Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.4 Performance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-glossary" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Glossary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Next Steps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Next Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-new-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      For New Users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-advanced-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Advanced Users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-developers" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Developers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commercial-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commercial Deployment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-splits-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Splits & Import Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../easy-install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Easy Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GUI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../map-viewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Map Viewer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli-cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Cookbook
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Training Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_13" id="__nav_2_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Azure Deployments
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_13">
+            <span class="md-nav__icon md-icon"></span>
+            Azure Deployments
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-batch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure Batch
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VM vs Batch Comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Advanced Performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Migration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../completion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Completion
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pdf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Printable PDF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    License
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Technical / Developer Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Technical / Developer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MCP Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async-callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Async Callbacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../distribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Distribution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Access Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Capabilities
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-deployment-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two Deployment Paths
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#high-level-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      High-Level Workflow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Prerequisites
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optional
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPU Considerations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#standard-cpu-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standard CPU Install
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPU Install
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-no-python-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker (No Python Required)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Quick Start
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-initialize-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Initialize a Project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-import-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Import Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-run-detection-lite-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Run Detection (Lite Mode)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-optional-train-on-custom-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: (Optional) Train on Custom Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-view-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: View Results
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-core-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Core Concepts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Core Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-project-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Project Layout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-data-splits-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Data Splits Explained
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-artifacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Artifacts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-logging-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Logging Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-schema-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5 Schema Versioning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-model-selection-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6 Model Selection &amp; Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-typical-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Typical Workflows
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Typical Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-create-a-new-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Create a New Project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-import-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Import Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-train-a-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Train a Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-run-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4 Run Detection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-view-metrics-tensorboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5 View Metrics (TensorBoard)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-clean-and-maintain-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.6 Clean and Maintain Projects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#67-package-or-distribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.7 Package or Distribute
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-docker-automation-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Docker &amp; Automation Shortcuts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Docker &amp; Automation Shortcuts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-docker-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Docker Variants
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-docker-quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Docker Quick Reference
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-makefile-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Makefile Shortcuts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-powershell-helpers-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4 PowerShell Helpers (Windows)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-gui-quick-tour" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. GUI Quick Tour
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. GUI Quick Tour">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-launching-the-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 Launching the GUI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-main-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Main Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-main-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 Main Actions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-keyboard-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.4 Keyboard Shortcuts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#85-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.5 Settings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-deployment-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Deployment Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Deployment Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-local-workstation" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1 Local Workstation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-docker-single-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2 Docker (Single Machine)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-azure-batch-distributed" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3 Azure Batch (Distributed)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-azure-vm-single-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.4 Azure VM (Single Instance)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-installation-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.1 Installation Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-importtraining-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.2 Import/Training Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-detection-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.3 Detection Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-logging-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.4 Logging Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#105-common-error-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.5 Common Error Messages
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. FAQ
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. FAQ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-licensing" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.1 Licensing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.2 Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-data-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.3 Data &amp; Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      11.4 Performance
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-glossary" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Glossary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Next Steps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Next Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-new-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      For New Users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-advanced-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Advanced Users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-developers" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Developers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commercial-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commercial Deployment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="user-guide">User Guide<a class="headerlink" href="#user-guide" title="Permanent link">&para;</a></h1>
+<p>A comprehensive guide to using Crackz for AI-powered crack detection and infrastructure inspection.</p>
+<h2 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
+<p>Crackz is an AI-driven image analysis tool designed for detecting cracks in harbor infrastructure, bridges, and industrial facilities. It provides:</p>
+<ul>
+<li><strong>Automated crack detection</strong> using deep learning segmentation models</li>
+<li><strong>Flexible workflows</strong> via CLI and GUI interfaces</li>
+<li><strong>Structured project management</strong> with train/val/test/raw data splits</li>
+<li><strong>Reproducible results</strong> through configuration snapshots</li>
+<li><strong>Scalable deployment</strong> options (local, Docker, Azure Batch)</li>
+<li><strong>Open architecture</strong> supporting multiple model types and encoders</li>
+</ul>
+<h3 id="model-capabilities">Model Capabilities<a class="headerlink" href="#model-capabilities" title="Permanent link">&para;</a></h3>
+<p><strong>Segmentation Models (Default)</strong>
+- <strong>Binary segmentation</strong>: Pixel-level crack/no-crack or deviation/no-deviation mapping
+- <strong>Multi-class segmentation</strong>: Detect multiple defect types (cracks, corrosion, spalling)
+- <strong>Encoder flexibility</strong>: Choose from 20+ backbones (ResNet, EfficientNet, MobileNet, etc.)
+- <strong>Transfer learning</strong>: Leverage ImageNet pre-trained weights or train from scratch</p>
+<p><strong>Classification Models (Future Extension)</strong>
+- <strong>Whole-image analysis</strong>: Quick assessment ("has crack" vs "no crack")
+- <strong>Triage workflows</strong>: Filter large image sets before detailed segmentation
+- <strong>Edge deployment</strong>: Lightweight models for mobile devices</p>
+<h3 id="two-deployment-paths">Two Deployment Paths<a class="headerlink" href="#two-deployment-paths" title="Permanent link">&para;</a></h3>
+<p><strong>Path 1: Train Custom Model</strong>
+- Import labeled training data (images with ground truth masks)
+- Configure model architecture and hyperparameters
+- Train model via <code>crackz detect train</code>
+- Best for: Domain-specific data, unique defect types, custom requirements</p>
+<p><strong>Path 2: Use Pre-Trained Model</strong>
+- Acquire ready-made checkpoint from model providers or previous projects
+- Place checkpoint in project artifacts directory
+- Run detection immediately with <code>crackz detect run</code>
+- Best for: Quick deployment, standard use cases, proof-of-concept, multi-site consistency</p>
+<h3 id="high-level-workflow">High-Level Workflow<a class="headerlink" href="#high-level-workflow" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph LR
+    A[Create Project] --&gt; B[Import Images]
+    B --&gt; C{Need Custom Model?}
+    C --&gt;|Yes| D[Train Model]
+    C --&gt;|No| E[Run Detection]
+    D --&gt; E
+    E --&gt; F[View Results]
+    F --&gt; G{Satisfied?}
+    G --&gt;|No| H[Adjust Config]
+    H --&gt; D
+    G --&gt;|Yes| I[Export/Package]</code></pre>
+<p><strong>Typical Timeline:</strong>
+- Initial setup: 5-10 minutes
+- Training (light): 5-30 minutes depending on dataset size and hardware
+- Detection: Seconds to minutes per image
+- Full workflow (first run): 30-60 minutes</p>
+<hr />
+<h2 id="2-prerequisites">2. Prerequisites<a class="headerlink" href="#2-prerequisites" title="Permanent link">&para;</a></h2>
+<h3 id="required">Required<a class="headerlink" href="#required" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Python 3.11 – 3.13</strong> (64-bit)</li>
+<li><strong>Operating System</strong>: Linux, macOS, or Windows 10/11</li>
+<li><strong>Disk Space</strong>: ~2-3 GB for PyTorch and model weights</li>
+</ul>
+<h3 id="optional">Optional<a class="headerlink" href="#optional" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>NVIDIA GPU</strong>: CUDA-capable GPU with 4+ GB VRAM for accelerated training/detection</li>
+<li><strong>Docker</strong>: For containerized deployments</li>
+</ul>
+<h3 id="gpu-considerations">GPU Considerations<a class="headerlink" href="#gpu-considerations" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>CPU Performance</th>
+<th>GPU Benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Detection (single image)</td>
+<td>2-5 seconds</td>
+<td>10-50x faster</td>
+</tr>
+<tr>
+<td>Training (small dataset, 10 epochs)</td>
+<td>20-60 minutes</td>
+<td>5-20x faster</td>
+</tr>
+<tr>
+<td>Batch detection (100 images)</td>
+<td>Minutes to hours</td>
+<td>Highly recommended</td>
+</tr>
+</tbody>
+</table>
+<p><strong>GPU Driver Requirements:</strong>
+- CUDA 11.8 or 12.1+ recommended
+- Driver version 520+ for CUDA 12.x
+- Verify: <code>nvidia-smi</code> should show your GPU</p>
+<hr />
+<h2 id="3-installation">3. Installation<a class="headerlink" href="#3-installation" title="Permanent link">&para;</a></h2>
+<p>See the detailed <a href="../installation/">Installation</a> guide for complete instructions. Quick reference:</p>
+<h3 id="standard-cpu-install">Standard CPU Install<a class="headerlink" href="#standard-cpu-install" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install from GitHub Release (replace VERSION with actual version)</span>
+pip<span class="w"> </span>install<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/vVERSION/crackz-VERSION-py3-none-any.whl
+
+<span class="c1"># Or download first, then install</span>
+wget<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/v0.30.2/crackz-0.30.2-py3-none-any.whl
+pip<span class="w"> </span>install<span class="w"> </span>crackz-0.30.2-py3-none-any.whl
+
+<span class="c1"># Verify installation</span>
+crackz<span class="w"> </span>--help
+</code></pre></div>
+<h3 id="gpu-install">GPU Install<a class="headerlink" href="#gpu-install" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install PyTorch with CUDA support first</span>
+pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu121
+
+<span class="c1"># Then install Crackz from GitHub Release</span>
+pip<span class="w"> </span>install<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/vVERSION/crackz-VERSION-py3-none-any.whl
+</code></pre></div>
+<h3 id="docker-no-python-required">Docker (No Python Required)<a class="headerlink" href="#docker-no-python-required" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># CPU version</span>
+docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/anaxiatech-ab/crackz:latest
+
+<span class="c1"># GPU version (requires nvidia-docker)</span>
+docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/anaxiatech-ab/crackz:gpu
+
+<span class="c1"># Slim version (minimal runtime)</span>
+docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/anaxiatech-ab/crackz:slim
+</code></pre></div>
+<p><strong>Registry URL</strong>: https://github.com/Anaxiatech-AB?tab=packages&amp;repo_name=crackz</p>
+<p><strong>Verify Installation:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>--version
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import crackz; print(&#39;Crackz installed successfully&#39;)&quot;</span>
+</code></pre></div></p>
+<hr />
+<h2 id="4-quick-start">4. Quick Start<a class="headerlink" href="#4-quick-start" title="Permanent link">&para;</a></h2>
+<p>Complete end-to-end workflow in under 10 minutes:</p>
+<h3 id="step-1-initialize-a-project">Step 1: Initialize a Project<a class="headerlink" href="#step-1-initialize-a-project" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>my-first-project
+<span class="nb">cd</span><span class="w"> </span>my-first-project
+</code></pre></div>
+<p>This creates the following structure:
+<div class="highlight"><pre><span></span><code>my-first-project/
+├── images/          # Image storage by split
+│   ├── raw/         # Unprocessed images for inference
+│   ├── train/       # Training images
+│   ├── val/         # Validation images
+│   └── test/        # Test images
+├── masks/           # Ground truth masks (optional for raw)
+│   ├── train/
+│   ├── val/
+│   └── test/
+├── artifacts/       # Model outputs (metrics, plots)
+├── detections/      # Detection results (annotated images, JSON)
+├── checkpoints/     # Saved model weights
+├── logs/            # Project-specific logs
+└── project.yaml     # Project configuration
+</code></pre></div></p>
+<h3 id="step-2-import-images">Step 2: Import Images<a class="headerlink" href="#step-2-import-images" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Import sample images for detection (no training)</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>my-first-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>./samples<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="w"> </span>raw<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+</code></pre></div>
+<p><strong>What happens:</strong>
+- Images resized to 512×512 pixels (preserving aspect ratio with padding)
+- Normalized and validated
+- Copied to <code>images/raw/</code></p>
+<h3 id="step-3-run-detection-lite-mode">Step 3: Run Detection (Lite Mode)<a class="headerlink" href="#step-3-run-detection-lite-mode" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Use pre-trained model</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-first-project
+</code></pre></div>
+<p>Results appear in:
+- <code>detections/</code> - Annotated images with highlighted cracks
+- <code>artifacts/metrics.json</code> - Detection statistics</p>
+<h3 id="step-4-optional-train-on-custom-data">Step 4: (Optional) Train on Custom Data<a class="headerlink" href="#step-4-optional-train-on-custom-data" title="Permanent link">&para;</a></h3>
+<p>If you have labeled training data:
+<div class="highlight"><pre><span></span><code><span class="c1"># Import training images with masks</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>my-first-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>./training-data/images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src-masks<span class="w"> </span>./training-data/masks<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="w"> </span>train<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+
+<span class="c1"># Quick training (1 epoch for testing)</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my-first-project<span class="w"> </span>--epochs<span class="w"> </span><span class="m">1</span><span class="w"> </span>--batch-size<span class="w"> </span><span class="m">2</span>
+</code></pre></div></p>
+<h3 id="step-5-view-results">Step 5: View Results<a class="headerlink" href="#step-5-view-results" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check detection outputs</span>
+ls<span class="w"> </span>my-first-project/detections/
+
+<span class="c1"># View metrics</span>
+cat<span class="w"> </span>my-first-project/artifacts/metrics.json
+
+<span class="c1"># Open annotated images</span>
+open<span class="w"> </span>my-first-project/detections/*.png<span class="w">  </span><span class="c1"># macOS</span>
+xdg-open<span class="w"> </span>my-first-project/detections/*.png<span class="w">  </span><span class="c1"># Linux</span>
+</code></pre></div>
+<hr />
+<h2 id="5-core-concepts">5. Core Concepts<a class="headerlink" href="#5-core-concepts" title="Permanent link">&para;</a></h2>
+<h3 id="51-project-layout">5.1 Project Layout<a class="headerlink" href="#51-project-layout" title="Permanent link">&para;</a></h3>
+<p><strong>Project Directory Structure:</strong>
+- <strong><code>images/</code></strong>: Organized by split (raw/train/val/test)
+  - Use <code>raw/</code> for inference-only images
+  - Use <code>train/val/test/</code> for model development
+- <strong><code>masks/</code></strong>: Ground truth segmentation masks (required for train/val/test)
+  - Must match image filenames exactly
+  - Binary masks: 0 = background, 255 = crack
+- <strong><code>artifacts/</code></strong>: Training outputs (loss curves, metrics JSON)
+- <strong><code>detections/</code></strong>: Detection results with overlays
+- <strong><code>checkpoints/</code></strong>: Saved model weights (.ckpt files)
+- <strong><code>logs/</code></strong>: Project-specific log files
+- <strong><code>project.yaml</code></strong>: Configuration file (version-controlled)</p>
+<h3 id="52-data-splits-explained">5.2 Data Splits Explained<a class="headerlink" href="#52-data-splits-explained" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Split</th>
+<th>Purpose</th>
+<th>Masks Required?</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>raw</strong></td>
+<td>Production inference</td>
+<td>No</td>
+<td>Real-world images for detection</td>
+</tr>
+<tr>
+<td><strong>train</strong></td>
+<td>Model training</td>
+<td>Yes</td>
+<td>Learning crack patterns</td>
+</tr>
+<tr>
+<td><strong>val</strong></td>
+<td>Hyperparameter tuning</td>
+<td>Yes</td>
+<td>Model selection, early stopping</td>
+</tr>
+<tr>
+<td><strong>test</strong></td>
+<td>Final evaluation</td>
+<td>Yes</td>
+<td>Unbiased performance report</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Best Practices:</strong>
+- Never tune on test data (use validation instead)
+- Typical split ratios: 70% train, 15% val, 15% test
+- Minimum validation set: 10-20 images
+- Keep test set untouched until final evaluation</p>
+<h3 id="53-artifacts">5.3 Artifacts<a class="headerlink" href="#53-artifacts" title="Permanent link">&para;</a></h3>
+<p>Generated outputs from training and detection:</p>
+<p><strong>Training Artifacts:</strong>
+- <code>metrics.json</code> - Per-epoch loss, IoU, F1 scores
+- <code>loss_curve.png</code> - Training/validation loss visualization
+- <code>confusion_matrix.png</code> - Classification performance (if applicable)</p>
+<p><strong>Detection Artifacts:</strong>
+- Annotated images in <code>detections/</code> with crack overlays
+- <code>metrics.json</code> - Summary statistics (total cracks, coverage %)
+- Optional: Bounding box coordinates, crack area measurements</p>
+<h3 id="54-logging-model">5.4 Logging Model<a class="headerlink" href="#54-logging-model" title="Permanent link">&para;</a></h3>
+<p>Crackz uses a <strong>hybrid two-tier logging system</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Location</th>
+<th>When Active</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Central</strong></td>
+<td>System temp or <code>CRACKZ_LOG_DIR</code></td>
+<td>Always</td>
+<td>Captures issues before/without project</td>
+</tr>
+<tr>
+<td><strong>Project</strong></td>
+<td><code>&lt;project&gt;/logs/</code></td>
+<td>After project load</td>
+<td>Project-specific diagnostics</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Configuration:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set central log directory</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CRACKZ_LOG_DIR</span><span class="o">=</span>~/crackz-logs
+
+<span class="c1"># Both central and project logs will be written</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-project
+</code></pre></div></p>
+<p><strong>Log Levels:</strong>
+- <code>--debug</code>: Verbose output (all operations)
+- Default: Info level (key events only)
+- <code>--quiet</code>: Minimal output (errors only)</p>
+<h3 id="55-schema-versioning">5.5 Schema Versioning<a class="headerlink" href="#55-schema-versioning" title="Permanent link">&para;</a></h3>
+<p>Projects include a schema version for forward compatibility:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">schema_version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0&quot;</span>
+<span class="nt">project</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-project</span>
+<span class="w">  </span><span class="c1"># ... rest of config</span>
+</code></pre></div>
+<p><strong>Migrating Old Projects:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>old-project
+</code></pre></div></p>
+<p>See <a href="../migration/">Migration Guide</a> for details.</p>
+<h3 id="56-model-selection-configuration">5.6 Model Selection &amp; Configuration<a class="headerlink" href="#56-model-selection-configuration" title="Permanent link">&para;</a></h3>
+<p>Crackz supports multiple model architectures to match different use cases.</p>
+<p><strong>Choosing a Model Type</strong></p>
+<table>
+<thead>
+<tr>
+<th>Use Case</th>
+<th>Model Type</th>
+<th>Configuration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Precise crack mapping</td>
+<td>Binary segmentation</td>
+<td><code>num_classes: 1</code> (default)</td>
+</tr>
+<tr>
+<td>Multiple defect types</td>
+<td>Multi-class segmentation</td>
+<td><code>num_classes: 3</code> (e.g., crack/corrosion/spalling)</td>
+</tr>
+<tr>
+<td>Quick screening</td>
+<td>Classification (future)</td>
+<td>Custom model class</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Encoder Selection</strong></p>
+<p>The encoder is the backbone network that extracts features from images:</p>
+<table>
+<thead>
+<tr>
+<th>Encoder</th>
+<th>Speed</th>
+<th>Accuracy</th>
+<th>Memory</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>resnet34</code></td>
+<td>Medium</td>
+<td>Good</td>
+<td>Medium</td>
+<td><strong>Default</strong> - balanced performance</td>
+</tr>
+<tr>
+<td><code>efficientnet-b0</code></td>
+<td>Slow</td>
+<td>Excellent</td>
+<td>High</td>
+<td>Maximum accuracy</td>
+</tr>
+<tr>
+<td><code>mobilenet_v2</code></td>
+<td>Fast</td>
+<td>Fair</td>
+<td>Low</td>
+<td>Edge deployment, real-time</td>
+</tr>
+<tr>
+<td><code>resnet18</code></td>
+<td>Fast</td>
+<td>Fair</td>
+<td>Low</td>
+<td>Rapid prototyping</td>
+</tr>
+<tr>
+<td><code>resnet50</code></td>
+<td>Slow</td>
+<td>Excellent</td>
+<td>High</td>
+<td>Large datasets</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Configuration Example</strong></p>
+<p>Edit <code>&lt;project&gt;/&lt;project&gt;_project.yaml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">ai</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resnet34</span><span class="w">           </span><span class="c1"># Choose encoder backbone</span>
+<span class="w">    </span><span class="nt">encoder_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">imagenet</span><span class="w">   </span><span class="c1"># Use transfer learning (recommended)</span>
+<span class="w">    </span><span class="nt">in_channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">              </span><span class="c1"># RGB images (use 1 for grayscale)</span>
+<span class="w">    </span><span class="nt">num_classes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">              </span><span class="c1"># Binary segmentation</span>
+<span class="w">    </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w">              </span><span class="c1"># Detection sensitivity (0.3=more sensitive, 0.7=less)</span>
+
+<span class="w">  </span><span class="nt">training</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span><span class="w">                  </span><span class="c1"># Number of training iterations</span>
+<span class="w">    </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span><span class="w">               </span><span class="c1"># Images per batch (reduce if out of memory)</span>
+<span class="w">    </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span><span class="w">        </span><span class="c1"># Optimizer learning rate</span>
+</code></pre></div>
+<p><strong>Pre-Trained vs Custom Training</strong></p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Recommendation</th>
+<th>Checkpoint Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standard concrete cracks</td>
+<td>Use pre-trained</td>
+<td>Acquire from model provider</td>
+</tr>
+<tr>
+<td>Harbor-specific patterns</td>
+<td>Train custom</td>
+<td>Import labeled harbor images</td>
+</tr>
+<tr>
+<td>Bridge multi-defect</td>
+<td>Pre-trained or fine-tune</td>
+<td>Start with general model, adapt</td>
+</tr>
+<tr>
+<td>Proof-of-concept</td>
+<td>Use pre-trained</td>
+<td>Quick deployment</td>
+</tr>
+<tr>
+<td>Production deployment</td>
+<td>Train custom</td>
+<td>Domain-specific data</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Acquiring Pre-Trained Models</strong></p>
+<p>Pre-trained checkpoints can come from:
+1. <strong>Model providers</strong>: Commercial or open-source model repositories
+2. <strong>Previous projects</strong>: Reuse successful models across sites
+3. <strong>Partners</strong>: Share validated models within organization
+4. <strong>Transfer learning</strong>: Fine-tune from general-purpose checkpoint</p>
+<p><strong>Importing Models:</strong></p>
+<p>Use the model import command to add a pre-trained model to your project:</p>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>model<span class="w"> </span>import<span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w"> </span>--model<span class="w"> </span>pretrained_model.zip
+</code></pre></div>
+<p>Or use the GUI:
+1. Right-click on the checkpoints folder
+2. Select "📥 Import Model..."
+3. Choose a model package file</p>
+<p><strong>Exporting Models:</strong></p>
+<p>Share or backup your trained models:</p>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w"> </span>--out<span class="w"> </span>my_model.zip
+</code></pre></div>
+<p>Or use the GUI:
+1. Right-click on the checkpoints folder<br />
+2. Select "📦 Export Model..."
+3. Choose where to save the package</p>
+<p>Model packages are portable zip files containing the checkpoint and metadata, making it easy to transfer models between projects, team members, or deployment environments.</p>
+<p><strong>Switching Encoders Mid-Project</strong></p>
+<p>To change encoder on an existing project:
+1. Edit <code>project.yaml</code> → <code>ai.model.encoder</code>
+2. Re-train the model: <code>crackz detect train --project &lt;name&gt;</code>
+3. New checkpoint will use updated encoder</p>
+<p>See <a href="../configuration/">Configuration Reference</a> for complete model configuration options.</p>
+<hr />
+<h2 id="6-typical-workflows">6. Typical Workflows<a class="headerlink" href="#6-typical-workflows" title="Permanent link">&para;</a></h2>
+<h3 id="61-create-a-new-project">6.1 Create a New Project<a class="headerlink" href="#61-create-a-new-project" title="Permanent link">&para;</a></h3>
+<p><strong>CLI:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>harbor-inspection-2025<span class="w"> </span>--description<span class="w"> </span><span class="s2">&quot;Q1 2025 harbor crack survey&quot;</span>
+</code></pre></div></p>
+<p><strong>GUI:</strong>
+1. Launch: <code>crackz-gui</code>
+2. File → New Project (Cmd/Ctrl+N)
+3. Select base folder and enter project name
+4. Project structure created automatically</p>
+<p><strong>Advanced Options:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create with custom settings</span>
+crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>custom-project<span class="w"> </span>--force<span class="w">  </span><span class="c1"># Overwrite if exists</span>
+
+<span class="c1"># Initialize from template (future)</span>
+crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>new-project<span class="w"> </span>--template<span class="w"> </span>harbor-config.yaml
+</code></pre></div></p>
+<h3 id="62-import-images">6.2 Import Images<a class="headerlink" href="#62-import-images" title="Permanent link">&para;</a></h3>
+<p><strong>From Local Directory:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>harbor-inspection-2025<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>~/Pictures/harbor-photos<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="w"> </span>raw<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+</code></pre></div></p>
+<p><strong>With Ground Truth Masks:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>harbor-inspection-2025<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>~/labeled-data/images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src-masks<span class="w"> </span>~/labeled-data/masks<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="w"> </span>train<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+</code></pre></div></p>
+<p><strong>Batch Import Multiple Splits:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Training data</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--src<span class="w"> </span>train_imgs<span class="w"> </span>--src-masks<span class="w"> </span>train_masks<span class="w"> </span>--type<span class="w"> </span>train<span class="w"> </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+
+<span class="c1"># Validation data</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--src<span class="w"> </span>val_imgs<span class="w"> </span>--src-masks<span class="w"> </span>val_masks<span class="w"> </span>--type<span class="w"> </span>val<span class="w"> </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+
+<span class="c1"># Test data</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--src<span class="w"> </span>test_imgs<span class="w"> </span>--src-masks<span class="w"> </span>test_masks<span class="w"> </span>--type<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+</code></pre></div></p>
+<p><strong>Supported Formats:</strong>
+- Images: <code>.jpg</code>, <code>.jpeg</code>, <code>.png</code>, <code>.bmp</code>, <code>.tif</code>, <code>.tiff</code>
+- Masks: <code>.png</code> (grayscale, 0=background, 255=crack)</p>
+<p><strong>Image Preprocessing:</strong>
+- Resizing with aspect ratio preservation
+- Zero-padding to target size
+- Normalization (mean/std from ImageNet)</p>
+<h3 id="63-train-a-model">6.3 Train a Model<a class="headerlink" href="#63-train-a-model" title="Permanent link">&para;</a></h3>
+<p><strong>Basic Training:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my-project
+</code></pre></div></p>
+<p><strong>With Runtime Overrides:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>my-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--epochs<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--batch-size<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--learning-rate<span class="w"> </span><span class="m">0</span>.001
+</code></pre></div></p>
+<p><strong>Note:</strong> Runtime overrides are <strong>not saved</strong> to <code>project.yaml</code> - they're for experimentation only.</p>
+<p><strong>GPU Training:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Automatically uses GPU if available</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--epochs<span class="w"> </span><span class="m">50</span>
+
+<span class="c1"># Verify GPU is being used (check logs)</span>
+tail<span class="w"> </span>-f<span class="w"> </span>my-project/logs/crackz.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>cuda
+</code></pre></div></p>
+<p><strong>Monitor Training Progress:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Watch loss in real-time</span>
+tail<span class="w"> </span>-f<span class="w"> </span>my-project/artifacts/metrics.json
+
+<span class="c1"># Or use TensorBoard (if enabled)</span>
+tensorboard<span class="w"> </span>--logdir<span class="w"> </span>my-project/artifacts/tensorboard
+</code></pre></div></p>
+<p><strong>Early Stopping:</strong>
+Training automatically stops if validation loss doesn't improve for 5 epochs (configurable in <code>project.yaml</code>).</p>
+<h3 id="64-run-detection">6.4 Run Detection<a class="headerlink" href="#64-run-detection" title="Permanent link">&para;</a></h3>
+<p><strong>CPU Detection:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-project
+</code></pre></div></p>
+<p><strong>GPU Detection:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Uses GPU automatically if available</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-project
+
+<span class="c1"># Force CPU (even with GPU available)</span>
+<span class="nv">CUDA_VISIBLE_DEVICES</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="w"> </span>crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-project
+</code></pre></div></p>
+<p><strong>Model Selection:</strong></p>
+<p>By default, detection automatically selects the best available checkpoint. You can override this with the <code>--model</code> option:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Auto-select (default): best.ckpt &gt; last.ckpt &gt; final.ckpt</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-project
+
+<span class="c1"># Explicitly use best checkpoint</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--model<span class="w"> </span>best
+
+<span class="c1"># Use most recent checkpoint (useful during iterative development)</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--model<span class="w"> </span>last
+
+<span class="c1"># Use final checkpoint</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--model<span class="w"> </span>final
+
+<span class="c1"># Use specific epoch checkpoint (e.g., epoch-0.9234.ckpt)</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--model<span class="w"> </span>epoch-0.9234
+</code></pre></div>
+<p><strong>Checkpoint Priority (Auto-selection):</strong>
+1. <strong>best.ckpt</strong> - Highest validation IoU during training (recommended for production)
+2. <strong>last.ckpt</strong> - Most recent training checkpoint
+3. <strong>final.ckpt</strong> - Final training checkpoint</p>
+<p><strong>When to Use Each:</strong>
+- <strong>Auto-select (no <code>--model</code> flag)</strong>: Standard production inference
+- <strong><code>--model best</code></strong>: Explicitly ensure highest-performing model is used
+- <strong><code>--model last</code></strong>: Test most recent training state during development
+- <strong><code>--model final</code></strong>: Use final training state (may differ from best if validation IoU decreased)
+- <strong><code>--model epoch-X</code></strong>: Compare performance across different epochs or reproduce specific results</p>
+<p><strong>Example: Compare Models:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run detection with different checkpoints to compare results</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--model<span class="w"> </span>best
+mv<span class="w"> </span>my-project/detections<span class="w"> </span>my-project/detections-best
+
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--model<span class="w"> </span>last
+mv<span class="w"> </span>my-project/detections<span class="w"> </span>my-project/detections-last
+
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--model<span class="w"> </span>epoch-0.8532
+mv<span class="w"> </span>my-project/detections<span class="w"> </span>my-project/detections-epoch-0.8532
+
+<span class="c1"># Compare detection outputs side by side</span>
+</code></pre></div></p>
+<p><strong>Detection on Specific Split:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Detect on raw images (default)</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-project
+
+<span class="c1"># Detect on test set (with metrics if masks available)</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--split<span class="w"> </span><span class="nb">test</span>
+</code></pre></div></p>
+<p><strong>Batch Processing:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Process multiple projects</span>
+<span class="k">for</span><span class="w"> </span>project<span class="w"> </span><span class="k">in</span><span class="w"> </span>project1<span class="w"> </span>project2<span class="w"> </span>project3<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span>crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span><span class="nv">$project</span>
+<span class="k">done</span>
+</code></pre></div></p>
+<p><strong>Docker Detection:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># CPU</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/my-project:/home/app/my-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ghcr.io/anaxiatech-ab/crackz-cli:latest<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>/home/app/my-project
+
+<span class="c1"># GPU</span>
+docker<span class="w"> </span>run<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/my-project:/home/app/my-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ghcr.io/anaxiatech-ab/crackz-cli:gpu<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>/home/app/my-project
+</code></pre></div></p>
+<h3 id="65-view-metrics-tensorboard">6.5 View Metrics (TensorBoard)<a class="headerlink" href="#65-view-metrics-tensorboard" title="Permanent link">&para;</a></h3>
+<p><strong>Enable TensorBoard in Configuration:</strong></p>
+<p>Edit <code>project.yaml</code>:
+<div class="highlight"><pre><span></span><code><span class="nt">training</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">tensorboard</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div></p>
+<p>Or create a config override:
+<div class="highlight"><pre><span></span><code><span class="c1"># tensorboard-config.yaml</span>
+<span class="nt">training</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">tensorboard</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div></p>
+<p><strong>Start TensorBoard:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># After training with tensorboard enabled</span>
+tensorboard<span class="w"> </span>--logdir<span class="w"> </span>my-project/artifacts/tensorboard
+
+<span class="c1"># Open browser to http://localhost:6006</span>
+</code></pre></div></p>
+<p><strong>What You'll See:</strong>
+- Loss curves (training &amp; validation)
+- IoU metrics over epochs
+- Learning rate schedule
+- Sample predictions (if configured)</p>
+<p><strong>Alternative: View JSON Metrics</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Quick summary</span>
+cat<span class="w"> </span>my-project/artifacts/metrics.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>json.tool
+
+<span class="c1"># Extract specific metrics</span>
+cat<span class="w"> </span>my-project/artifacts/metrics.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.final_val_iou&#39;</span>
+</code></pre></div></p>
+<p>See <a href="../configuration/#tensorboard-integration">Configuration Reference - TensorBoard Integration</a> for details.</p>
+<h3 id="66-clean-and-maintain-projects">6.6 Clean and Maintain Projects<a class="headerlink" href="#66-clean-and-maintain-projects" title="Permanent link">&para;</a></h3>
+<p><strong>Preview Cleanup:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>clean<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--dry-run
+</code></pre></div></p>
+<p><strong>Clean Logs and Artifacts:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>clean<span class="w"> </span>--project<span class="w"> </span>my-project
+</code></pre></div></p>
+<p><strong>Clean Logs Only:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>clean<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--logs-only
+</code></pre></div></p>
+<p><strong>What Gets Removed:</strong>
+- <code>*.log</code> files
+- Temporary training artifacts
+- Old checkpoint files (keeps best/last)
+- Detection outputs (optional)</p>
+<p><strong>Checkpoint Pruning:</strong></p>
+<p>Keep only the best N checkpoints (configured in <code>project.yaml</code>):
+<div class="highlight"><pre><span></span><code><span class="nt">training</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">checkpoint</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">save_top_k</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">  </span><span class="c1"># Keep top 3 checkpoints by validation loss</span>
+</code></pre></div></p>
+<p>Manual pruning:
+<div class="highlight"><pre><span></span><code><span class="c1"># Remove all but the last checkpoint</span>
+rm<span class="w"> </span>my-project/checkpoints/*.ckpt
+<span class="c1"># (except last-*.ckpt)</span>
+
+<span class="c1"># Or keep only best checkpoint</span>
+rm<span class="w"> </span>my-project/checkpoints/epoch*.ckpt
+<span class="c1"># (keep best-*.ckpt)</span>
+</code></pre></div></p>
+<h3 id="67-package-or-distribute">6.7 Package or Distribute<a class="headerlink" href="#67-package-or-distribute" title="Permanent link">&para;</a></h3>
+<p><strong>Export Unified Configuration:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>export-config<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>my-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>my-project-snapshot.yaml
+</code></pre></div></p>
+<p><strong>Share Project:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create archive (excluding large files)</span>
+tar<span class="w"> </span>-czf<span class="w"> </span>my-project.tar.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--exclude<span class="o">=</span><span class="s1">&#39;checkpoints&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--exclude<span class="o">=</span><span class="s1">&#39;detections&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>my-project/
+
+<span class="c1"># Send to collaborator</span>
+<span class="c1"># They extract and run:</span>
+tar<span class="w"> </span>-xzf<span class="w"> </span>my-project.tar.gz
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w">  </span><span class="c1"># Downloads default checkpoint if missing</span>
+</code></pre></div></p>
+<p><strong>Docker Image Distribution:</strong></p>
+<p>See <a href="../distribution/">Distribution Guide</a> for:
+- Building custom Docker images
+- PyInstaller standalone executables
+- Wheel distribution to customers
+- Azure deployment patterns</p>
+<p><strong>Commercial Licensing:</strong></p>
+<p>For customer deployments, see:
+- <a href="../customer-guide/">Customer Guide</a> - Use cases and getting started
+- <a href="../distribution/">Distribution</a> - Packaging and delivery
+- <a href="../license/">License</a> - Commercial terms</p>
+<hr />
+<h2 id="7-docker-automation-shortcuts">7. Docker &amp; Automation Shortcuts<a class="headerlink" href="#7-docker-automation-shortcuts" title="Permanent link">&para;</a></h2>
+<h3 id="71-docker-variants">7.1 Docker Variants<a class="headerlink" href="#71-docker-variants" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Image Tag</th>
+<th>Base</th>
+<th>Use Case</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>latest</code></td>
+<td>Python slim</td>
+<td>General CLI usage</td>
+<td>~1.5 GB</td>
+</tr>
+<tr>
+<td><code>slim</code></td>
+<td>Python slim</td>
+<td>Minimal runtime (wheel only)</td>
+<td>~800 MB</td>
+</tr>
+<tr>
+<td><code>gpu</code></td>
+<td>NVIDIA CUDA</td>
+<td>GPU training/detection</td>
+<td>~3 GB</td>
+</tr>
+</tbody>
+</table>
+<h3 id="72-docker-quick-reference">7.2 Docker Quick Reference<a class="headerlink" href="#72-docker-quick-reference" title="Permanent link">&para;</a></h3>
+<p><strong>Build Local Image:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Full image</span>
+docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>crackz-cli<span class="w"> </span>.
+
+<span class="c1"># Slim image</span>
+docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Dockerfile.slim<span class="w"> </span>-t<span class="w"> </span>crackz-cli:slim<span class="w"> </span>.
+
+<span class="c1"># GPU image</span>
+docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Dockerfile.gpu<span class="w"> </span>-t<span class="w"> </span>crackz-cli:gpu<span class="w"> </span>.
+</code></pre></div></p>
+<p><strong>Run Detection:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># CPU</span>
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/my-project:/home/app/my-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>crackz-cli<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>/home/app
+
+<span class="c1"># GPU</span>
+docker<span class="w"> </span>run<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/my-project:/home/app/my-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>crackz-cli:gpu<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>/home/app
+</code></pre></div></p>
+<p><strong>Interactive Shell:</strong>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/my-project:/home/app/my-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>crackz-cli<span class="w"> </span>bash
+</code></pre></div></p>
+<h3 id="73-makefile-shortcuts">7.3 Makefile Shortcuts<a class="headerlink" href="#73-makefile-shortcuts" title="Permanent link">&para;</a></h3>
+<p>If the repository includes a <code>Makefile</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Build documentation</span>
+make<span class="w"> </span>docs
+
+<span class="c1"># Run tests</span>
+make<span class="w"> </span><span class="nb">test</span>
+
+<span class="c1"># Build Docker image</span>
+make<span class="w"> </span>docker-build
+
+<span class="c1"># Clean artifacts</span>
+make<span class="w"> </span>clean
+</code></pre></div>
+<h3 id="74-powershell-helpers-windows">7.4 PowerShell Helpers (Windows)<a class="headerlink" href="#74-powershell-helpers-windows" title="Permanent link">&para;</a></h3>
+<p><strong>Create PowerShell Alias:</strong>
+<div class="highlight"><pre><span></span><code><span class="c"># Add to $PROFILE</span>
+<span class="k">function</span> <span class="nb">Invoke-Crackz</span> <span class="p">{</span>
+    <span class="n">docker</span> <span class="n">run</span> <span class="p">-</span><span class="n">-rm</span> <span class="n">-v</span> <span class="p">${</span><span class="n">pwd</span><span class="p">}:/</span><span class="n">home</span><span class="p">/</span><span class="n">app</span> <span class="n">ghcr</span><span class="p">.</span><span class="n">io</span><span class="p">/</span><span class="n">anaxiatech-ab</span><span class="p">/</span><span class="n">crackz-cli</span><span class="p">:</span><span class="n">latest</span> <span class="nv">@args</span>
+<span class="p">}</span>
+<span class="nb">Set-Alias</span> <span class="n">crackz</span> <span class="nb">Invoke-Crackz</span>
+
+<span class="c"># Usage</span>
+<span class="n">crackz</span> <span class="n">detect</span> <span class="n">run</span> <span class="p">-</span><span class="n">-project</span> <span class="p">/</span><span class="n">home</span><span class="p">/</span><span class="n">app</span><span class="p">/</span><span class="n">my-project</span>
+</code></pre></div></p>
+<p><strong>Batch Processing Script:</strong>
+<div class="highlight"><pre><span></span><code><span class="c"># process-all.ps1</span>
+<span class="nv">$projects</span> <span class="p">=</span> <span class="nb">Get-ChildItem</span> <span class="n">-Directory</span> <span class="n">-Filter</span> <span class="s2">&quot;*-project&quot;</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$project</span> <span class="k">in</span> <span class="nv">$projects</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">Write-Host</span> <span class="s2">&quot;Processing </span><span class="p">$(</span><span class="nv">$project</span><span class="p">.</span><span class="n">Name</span><span class="p">)</span><span class="s2">...&quot;</span>
+    <span class="n">crackz</span> <span class="n">detect</span> <span class="n">run</span> <span class="p">-</span><span class="n">-project</span> <span class="nv">$project</span><span class="p">.</span><span class="n">FullName</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>See <a href="../docker/">Docker Guide</a> for comprehensive Docker usage.</p>
+<hr />
+<h2 id="8-gui-quick-tour">8. GUI Quick Tour<a class="headerlink" href="#8-gui-quick-tour" title="Permanent link">&para;</a></h2>
+<h3 id="81-launching-the-gui">8.1 Launching the GUI<a class="headerlink" href="#81-launching-the-gui" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>crackz-gui
+</code></pre></div>
+<p>Or:
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>crackz.gui.crackz_gui
+</code></pre></div></p>
+<h3 id="82-main-interface">8.2 Main Interface<a class="headerlink" href="#82-main-interface" title="Permanent link">&para;</a></h3>
+<p><strong>Window Layout:</strong>
+- <strong>Left Sidebar</strong>: Project tree browser (images, masks, artifacts)
+- <strong>Center Pane</strong>: Preview area (thumbnails, text files, JSON)
+- <strong>Top Menu</strong>: File, Edit, View, Help</p>
+<p><strong>Key Features:</strong>
+- <strong>Project Browser</strong>: Navigate project structure with folder tree
+- <strong>Image Preview</strong>: Thumbnail grid for image directories
+- <strong>Text Preview</strong>: Syntax-highlighted JSON/YAML/Markdown viewer
+- <strong>Double-click Images</strong>: Opens full-size popup
+- <strong>Context Menu</strong>: Right-click for quick actions (import, clean, open in explorer)</p>
+<h3 id="83-main-actions">8.3 Main Actions<a class="headerlink" href="#83-main-actions" title="Permanent link">&para;</a></h3>
+<p><strong>Create New Project:</strong>
+1. File → New Project (Cmd/Ctrl+N)
+2. Select base directory
+3. Enter project name (subfolder auto-created)
+4. Click "Create"</p>
+<p><strong>Open Existing Project:</strong>
+1. File → Open Project (Cmd/Ctrl+O)
+2. Navigate to project folder
+3. Select <code>project.yaml</code></p>
+<p><strong>Import Images:</strong>
+1. Right-click on <code>images/raw</code> (or other split)
+2. Select "Import Images"
+3. Choose source directory
+4. Configure resize options
+5. Click "Import"</p>
+<p><strong>Run Detection:</strong>
+1. Right-click project root
+2. Select "Run Detection"
+3. Monitor progress in dialog
+4. View results in <code>detections/</code> folder</p>
+<p><strong>Train Model:</strong>
+1. Right-click project root
+2. Select "Train Model"
+3. Set epochs and batch size
+4. Monitor training progress with estimated time remaining
+5. Checkpoints saved automatically</p>
+<p><strong>View Project Info:</strong>
+1. Click project root in tree
+2. Info panel shows: name, description, image counts, splits, schema version
+3. Or right-click → "Project Info" for detailed modal</p>
+<h3 id="84-keyboard-shortcuts">8.4 Keyboard Shortcuts<a class="headerlink" href="#84-keyboard-shortcuts" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cmd/Ctrl+N</td>
+<td>New Project</td>
+</tr>
+<tr>
+<td>Cmd/Ctrl+O</td>
+<td>Open Project</td>
+</tr>
+<tr>
+<td>Cmd/Ctrl+S</td>
+<td>Save Settings</td>
+</tr>
+<tr>
+<td>Cmd/Ctrl+Q</td>
+<td>Quit</td>
+</tr>
+<tr>
+<td>Cmd/Ctrl+,</td>
+<td>Preferences</td>
+</tr>
+<tr>
+<td>F5</td>
+<td>Refresh Project Tree</td>
+</tr>
+</tbody>
+</table>
+<h3 id="85-settings">8.5 Settings<a class="headerlink" href="#85-settings" title="Permanent link">&para;</a></h3>
+<p>Access via <strong>File → Preferences</strong> (Cmd/Ctrl+,):</p>
+<ul>
+<li><strong>Theme</strong>: Light / Dark (default: dark)</li>
+<li><strong>Default Project Folder</strong>: Auto-fill location for new projects</li>
+<li><strong>Recent Projects</strong>: Clear history</li>
+</ul>
+<p><strong>Window Size Persistence:</strong>
+- Window size saved automatically on resize (debounced)
+- Position restored on next launch</p>
+<p>See <a href="../gui/">GUI Guide</a> for complete feature documentation.</p>
+<hr />
+<h2 id="9-deployment-options">9. Deployment Options<a class="headerlink" href="#9-deployment-options" title="Permanent link">&para;</a></h2>
+<h3 id="91-local-workstation">9.1 Local Workstation<a class="headerlink" href="#91-local-workstation" title="Permanent link">&para;</a></h3>
+<p><strong>Best For:</strong>
+- Development and testing
+- Small datasets (&lt;100 images)
+- Interactive work</p>
+<p><strong>Setup:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install from GitHub Release</span>
+pip<span class="w"> </span>install<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/vVERSION/crackz-VERSION-py3-none-any.whl
+crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>local-project
+</code></pre></div></p>
+<h3 id="92-docker-single-machine">9.2 Docker (Single Machine)<a class="headerlink" href="#92-docker-single-machine" title="Permanent link">&para;</a></h3>
+<p><strong>Best For:</strong>
+- Consistent environments
+- Avoiding Python dependency conflicts
+- CI/CD pipelines</p>
+<p><strong>Setup:</strong>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/anaxiatech-ab/crackz-cli:latest
+docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/project:/home/app<span class="w"> </span>crackz-cli<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>/home/app
+</code></pre></div></p>
+<h3 id="93-azure-batch-distributed">9.3 Azure Batch (Distributed)<a class="headerlink" href="#93-azure-batch-distributed" title="Permanent link">&para;</a></h3>
+<p><strong>Best For:</strong>
+- Large datasets (1000+ images)
+- Parallel processing across multiple VMs
+- Cost-effective spot instances</p>
+<p><strong>Quick Start:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create Batch pool</span>
+./scripts/azure/azure_batch.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--batch-account<span class="w"> </span>myaccount<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--storage-account<span class="w"> </span>mystorage
+
+<span class="c1"># Submit job</span>
+./scripts/azure/submit_batch_job.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>my-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pool-id<span class="w"> </span>crackz-pool
+</code></pre></div></p>
+<p><strong>Key Benefits:</strong>
+- Auto-scaling (0 to 100+ nodes)
+- Container-based (uses Crackz Docker images)
+- Integrated with Azure Storage for input/output</p>
+<p>See <a href="../azure-batch/">Azure Batch Guide</a> for detailed deployment instructions.</p>
+<h3 id="94-azure-vm-single-instance">9.4 Azure VM (Single Instance)<a class="headerlink" href="#94-azure-vm-single-instance" title="Permanent link">&para;</a></h3>
+<p><strong>Best For:</strong>
+- Medium datasets (100-1000 images)
+- GPU acceleration required
+- Simpler setup than Batch</p>
+<p>See <a href="../azure-comparison/">Azure VM vs Batch Comparison</a> to choose the right option.</p>
+<hr />
+<h2 id="10-troubleshooting">10. Troubleshooting<a class="headerlink" href="#10-troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="101-installation-issues">10.1 Installation Issues<a class="headerlink" href="#101-installation-issues" title="Permanent link">&para;</a></h3>
+<p><strong>Problem: Installation fails with dependency errors</strong></p>
+<p><em>Solution:</em>
+<div class="highlight"><pre><span></span><code><span class="c1"># Update pip and setuptools</span>
+pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>setuptools
+
+<span class="c1"># Download and install from GitHub Release</span>
+wget<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/vVERSION/crackz-VERSION-py3-none-any.whl
+pip<span class="w"> </span>install<span class="w"> </span>crackz-VERSION-py3-none-any.whl
+</code></pre></div></p>
+<p><strong>Problem: CUDA not detected despite having GPU</strong></p>
+<p><em>Solution:</em>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify CUDA installation</span>
+nvidia-smi
+
+<span class="c1"># Check PyTorch CUDA support</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(torch.cuda.is_available())&quot;</span>
+
+<span class="c1"># Reinstall PyTorch with CUDA</span>
+pip<span class="w"> </span>uninstall<span class="w"> </span>torch<span class="w"> </span>torchvision
+pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu121
+</code></pre></div></p>
+<h3 id="102-importtraining-issues">10.2 Import/Training Issues<a class="headerlink" href="#102-importtraining-issues" title="Permanent link">&para;</a></h3>
+<p><strong>Problem: <code>No images found in training split</code></strong></p>
+<p><em>Solution:</em>
+- Verify images are in <code>images/train/</code> (not <code>images/raw/</code>)
+- Check file extensions (<code>.jpg</code>, <code>.jpeg</code>, <code>.png</code>, <code>.bmp</code>, <code>.tif</code>, <code>.tiff</code> only)
+- Ensure import command used <code>--type train</code></p>
+<p><strong>Problem: Training says "No masks found"</strong></p>
+<p><em>Solution:</em>
+- Masks required for train/val/test splits
+- Check masks are in <code>masks/train/</code> with same filenames as images
+- Masks must be grayscale PNG: 0=background, 255=crack</p>
+<p><strong>Problem: Out of memory during training</strong></p>
+<p><em>Solution:</em>
+<div class="highlight"><pre><span></span><code><span class="c1"># Reduce batch size</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--batch-size<span class="w"> </span><span class="m">1</span>
+
+<span class="c1"># Or reduce image size</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--src<span class="w"> </span>./data<span class="w"> </span>--type<span class="w"> </span>train<span class="w"> </span>--size<span class="w"> </span><span class="m">256</span><span class="w"> </span><span class="m">256</span>
+
+<span class="c1"># Monitor GPU memory</span>
+nvidia-smi<span class="w"> </span>-l<span class="w"> </span><span class="m">1</span><span class="w">  </span><span class="c1"># Update every second</span>
+</code></pre></div></p>
+<h3 id="103-detection-issues">10.3 Detection Issues<a class="headerlink" href="#103-detection-issues" title="Permanent link">&para;</a></h3>
+<p><strong>Problem: Empty detections directory after running detect</strong></p>
+<p><em>Solution:</em>
+- Check logs: <code>tail my-project/logs/crackz.log</code>
+- Verify images exist in target split (default: <code>raw/</code>)
+- Ensure checkpoint exists: <code>ls my-project/checkpoints/</code>
+- Try: <code>crackz detect run --project my-project --debug</code></p>
+<p><strong>Problem: Detection results look wrong (too many/few cracks)</strong></p>
+<p><em>Solution:</em>
+- Adjust threshold in <code>project.yaml</code>:
+  <div class="highlight"><pre><span></span><code><span class="nt">detection</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w">  </span><span class="c1"># Increase to reduce false positives (0.7)</span>
+<span class="w">                   </span><span class="c1"># Decrease to catch more cracks (0.3)</span>
+</code></pre></div>
+- Retrain model with more/better labeled data
+- Check that images are similar to training data</p>
+<h3 id="104-logging-issues">10.4 Logging Issues<a class="headerlink" href="#104-logging-issues" title="Permanent link">&para;</a></h3>
+<p><strong>Problem: No logs written</strong></p>
+<p><em>Solution:</em>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check permissions</span>
+ls<span class="w"> </span>-la<span class="w"> </span><span class="k">$(</span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import tempfile; print(tempfile.gettempdir())&quot;</span><span class="k">)</span>/crackz_logs
+
+<span class="c1"># Set explicit log directory</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CRACKZ_LOG_DIR</span><span class="o">=</span>~/crackz-logs
+mkdir<span class="w"> </span>-p<span class="w"> </span>~/crackz-logs
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-project
+</code></pre></div></p>
+<p><strong>Problem: Central logs filling up disk</strong></p>
+<p><em>Solution:</em>
+<div class="highlight"><pre><span></span><code><span class="c1"># Clean old logs</span>
+rm<span class="w"> </span>-rf<span class="w"> </span><span class="nv">$CRACKZ_LOG_DIR</span>/*.log
+
+<span class="c1"># Or set retention policy (future feature)</span>
+<span class="c1"># See configuration.md for log rotation settings</span>
+</code></pre></div></p>
+<h3 id="105-common-error-messages">10.5 Common Error Messages<a class="headerlink" href="#105-common-error-messages" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Missing --project or --cfg</code></td>
+<td>Project not specified</td>
+<td>Add <code>--project &lt;name&gt;</code> or <code>--cfg &lt;file&gt;</code></td>
+</tr>
+<tr>
+<td><code>CUDA out of memory</code></td>
+<td>Batch size too large</td>
+<td>Reduce <code>--batch-size</code></td>
+</tr>
+<tr>
+<td><code>Schema version mismatch</code></td>
+<td>Old project format</td>
+<td>Run <code>crackz migrate --project &lt;name&gt;</code></td>
+</tr>
+<tr>
+<td><code>Permission denied writing logs</code></td>
+<td>Insufficient permissions</td>
+<td>Check directory permissions or set <code>CRACKZ_LOG_DIR</code></td>
+</tr>
+<tr>
+<td><code>No checkpoint found</code></td>
+<td>Model not trained</td>
+<td>Train first: <code>crackz detect train --project &lt;name&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="11-faq">11. FAQ<a class="headerlink" href="#11-faq" title="Permanent link">&para;</a></h2>
+<h3 id="111-licensing">11.1 Licensing<a class="headerlink" href="#111-licensing" title="Permanent link">&para;</a></h3>
+<p><strong>Q: Is Crackz free to use?</strong></p>
+<p>A: Crackz is <strong>commercial software</strong> with a source-available license. Contact <a href="mailto:theresia.sofia.snow@gmail.com">theresia.sofia.snow@gmail.com</a> for:
+- Commercial licenses (perpetual, per-organization)
+- Volume discounts for multi-site deployments
+- Proof-of-concept projects
+- Custom training and support</p>
+<p>See <a href="../license/">License</a> and <a href="../customer-guide/">Customer Guide</a> for details.</p>
+<p><strong>Q: Can I use Crackz for academic research?</strong></p>
+<p>A: Academic licenses may be available. Contact the author to discuss your research project.</p>
+<h3 id="112-configuration">11.2 Configuration<a class="headerlink" href="#112-configuration" title="Permanent link">&para;</a></h3>
+<p><strong>Q: Where do logs go?</strong></p>
+<p>A: Crackz uses a <strong>hybrid logging system</strong>:
+- <strong>Central logs</strong>: <code>$CRACKZ_LOG_DIR</code> (env var) or system temp (e.g., <code>/tmp/crackz_logs</code>)
+- <strong>Project logs</strong>: <code>&lt;project&gt;/logs/</code> (always, in addition to central)</p>
+<p>Both log sinks are active when a project is loaded.</p>
+<p><strong>Q: How do I override epochs without changing project.yaml?</strong></p>
+<p>A: Use <strong>runtime overrides</strong> (CLI flags):
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--epochs<span class="w"> </span><span class="m">50</span><span class="w"> </span>--batch-size<span class="w"> </span><span class="m">8</span>
+</code></pre></div></p>
+<p>These are <strong>not saved</strong> to <code>project.yaml</code> - for permanent changes, edit the YAML directly or use the GUI settings dialog.</p>
+<p><strong>Q: Can I use a custom YAML config file?</strong></p>
+<p>A: Yes:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--cfg<span class="w"> </span>my-custom-config.yaml
+</code></pre></div></p>
+<p>Or export a snapshot:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>export-config<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--out<span class="w"> </span>snapshot.yaml
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--cfg<span class="w"> </span>snapshot.yaml
+</code></pre></div></p>
+<h3 id="113-data-models">11.3 Data &amp; Models<a class="headerlink" href="#113-data-models" title="Permanent link">&para;</a></h3>
+<p><strong>Q: What image formats are supported?</strong></p>
+<p>A: <code>.jpg</code>, <code>.jpeg</code>, <code>.png</code>, <code>.bmp</code>, <code>.tif</code>, <code>.tiff</code></p>
+<p><strong>Q: What should mask images look like?</strong></p>
+<p>A: Grayscale PNG files where:
+- 0 (black) = background
+- 255 (white) = crack</p>
+<p>Masks must have the <strong>exact same filename</strong> as corresponding images.</p>
+<p><strong>Q: Can I use pre-trained models from other sources?</strong></p>
+<p>A: Crackz uses segmentation models from <code>segmentation-models-pytorch</code>. You can:
+- Use built-in encoders (ResNet, EfficientNet, etc.)
+- Load custom checkpoints with <code>--checkpoint &lt;path&gt;</code>
+- Transfer learning from ImageNet pretrained weights (default)</p>
+<p><strong>Q: How do I improve detection accuracy?</strong></p>
+<p>A:
+1. <strong>Add more training data</strong> (especially hard examples)
+2. <strong>Balance your dataset</strong> (similar number of cracked/non-cracked images)
+3. <strong>Increase training epochs</strong> (default is often too low)
+4. <strong>Adjust threshold</strong> (detection sensitivity)
+5. <strong>Try different encoders</strong> (edit <code>project.yaml</code> → <code>model.encoder</code>)</p>
+<h3 id="114-performance">11.4 Performance<a class="headerlink" href="#114-performance" title="Permanent link">&para;</a></h3>
+<p><strong>Q: How can I speed up training?</strong></p>
+<p>A:
+- Use GPU (10-50x faster)
+- Increase <code>--batch-size</code> (up to GPU memory limit)
+- Reduce image resolution (<code>--size 256 256</code> instead of <code>512 512</code>)
+- Use a smaller encoder (e.g., <code>mobilenet_v2</code> vs <code>resnet50</code>)</p>
+<p><strong>Q: Can I run multiple detections in parallel?</strong></p>
+<p>A: Yes, either:
+- Multiple Docker containers on same host
+- Azure Batch for distributed processing
+- Bash loop with <code>&amp;</code> for background jobs:
+  <div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>p<span class="w"> </span><span class="k">in</span><span class="w"> </span>project1<span class="w"> </span>project2<span class="w"> </span>project3<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span>crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span><span class="nv">$p</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="k">done</span>
+<span class="nb">wait</span>
+</code></pre></div></p>
+<hr />
+<h2 id="12-glossary">12. Glossary<a class="headerlink" href="#12-glossary" title="Permanent link">&para;</a></h2>
+<p><strong>Artifact</strong>: Generated output file from training or detection (metrics, plots, annotated images).</p>
+<p><strong>Central Log</strong>: System-wide log location (before/outside specific projects), controlled by <code>CRACKZ_LOG_DIR</code>.</p>
+<p><strong>Checkpoint</strong>: Saved model weights (<code>.ckpt</code> file) from a training run. Used for resuming training or running detection.</p>
+<p><strong>Detection</strong>: Inference process that applies a trained model to identify cracks in images.</p>
+<p><strong>Encoder</strong>: Backbone network of the segmentation model (e.g., ResNet, EfficientNet). Extracts features from images.</p>
+<p><strong>IoU (Intersection over Union)</strong>: Metric measuring overlap between predicted and ground truth masks. Range: 0-1 (higher is better).</p>
+<p><strong>Mask</strong>: Binary image representing ground truth (training) or predicted (detection) crack locations.</p>
+<p><strong>Project</strong>: Self-contained directory with images, configuration, and outputs following Crackz structure.</p>
+<p><strong>Schema Version</strong>: Version number in <code>project.yaml</code> indicating config format. Used for migrations when format changes.</p>
+<p><strong>Split</strong>: Data subset category - one of <code>raw</code>, <code>train</code>, <code>val</code>, or <code>test</code>.</p>
+<p><strong>Threshold</strong>: Confidence level (0-1) for classifying pixels as crack vs. background. Lower = more sensitive.</p>
+<hr />
+<h2 id="13-next-steps">13. Next Steps<a class="headerlink" href="#13-next-steps" title="Permanent link">&para;</a></h2>
+<h3 id="for-new-users">For New Users<a class="headerlink" href="#for-new-users" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Complete the <a href="#4-quick-start">Quick Start</a> workflow</li>
+<li>Read the <a href="../cli-cookbook/">CLI Cookbook</a> for common patterns</li>
+<li>Explore <a href="../configuration/">Configuration Reference</a> to customize settings</li>
+</ol>
+<h3 id="for-advanced-users">For Advanced Users<a class="headerlink" href="#for-advanced-users" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Review <a href="../advanced-performance/">Advanced Performance</a> for optimization tips</li>
+<li>Set up <a href="../azure-batch/">Azure Batch</a> for large-scale processing</li>
+<li>Integrate with <a href="../api/">Python API</a> for custom workflows</li>
+</ol>
+<h3 id="for-developers">For Developers<a class="headerlink" href="#for-developers" title="Permanent link">&para;</a></h3>
+<ol>
+<li>See <a href="../contributing/">Contributing Guide</a> to contribute to Crackz</li>
+<li>Read <a href="../architecture/">Architecture</a> for system design</li>
+<li>Check <a href="../migration/">Migration Guide</a> for schema changes</li>
+</ol>
+<h3 id="commercial-deployment">Commercial Deployment<a class="headerlink" href="#commercial-deployment" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Read <a href="../customer-guide/">Customer Guide</a> for business use cases</li>
+<li>Review <a href="../distribution/">Distribution Guide</a> for packaging</li>
+<li>Contact <a href="mailto:theresia.sofia.snow@gmail.com">theresia.sofia.snow@gmail.com</a> for licensing</li>
+</ol>
+<hr />
+<p><strong>Need Help?</strong></p>
+<ul>
+<li><strong>Documentation</strong>: Full guides at <a href="https://github.com/Anaxiatech-AB/crackz/tree/main/docs">docs/</a></li>
+<li><strong>Issues</strong>: <a href="https://github.com/Anaxiatech-AB/crackz/issues">GitHub Issues</a></li>
+<li><strong>Commercial Support</strong>: theresia.sofia.snow@gmail.com</li>
+</ul>
+<hr />
+<p><em>Crackz User Guide v1.0 · Copyright © 2025 Theresia Sofia Snow · Commercial Software</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Anaxiatech-AB/crackz" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.14.0"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

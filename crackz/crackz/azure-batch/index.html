@@ -1,0 +1,2397 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI image analysis of cracks in harbors">
+      
+      
+        <meta name="author" content="Theresia Sofia Snow">
+      
+      
+      
+        <link rel="prev" href="../docker/">
+      
+      
+        <link rel="next" href="../azure-comparison/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Azure Batch - Crackz</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/print.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Crackz" class="md-header__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Crackz
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Azure Batch
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Crackz" class="md-nav__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Crackz
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    End User / Customer Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            End User / Customer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quickstart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-splits-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Splits & Import Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../easy-install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Easy Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GUI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../map-viewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Map Viewer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli-cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Cookbook
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Training Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_13" id="__nav_2_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Azure Deployments
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_13">
+            <span class="md-nav__icon md-icon"></span>
+            Azure Deployments
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Azure Batch
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure Batch
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-create-a-batch-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Create a Batch Pool
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-upload-your-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Upload Your Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-submit-a-job" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Submit a Job
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pool-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pool Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vm-sizes-for-different-workloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      VM Sizes for Different Workloads
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-pool-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Pool Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu-enabled-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPU-Enabled Pool
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-scaling-pools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Auto-Scaling Pools
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batch-processing-multiple-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Processing Multiple Projects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training-and-detection-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Training and Detection Pipeline
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-job-with-output-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Job with Output Files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring-and-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring and Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring and Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-pool-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check Pool Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-running-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Running Jobs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitor-task-progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitor Task Progress
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-task-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Task Logs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cost-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cost Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-low-priority-vms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Low-Priority VMs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pool-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pool Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug-task-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug Task Failures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#increase-batch-quotas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Increase Batch Quotas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with CI/CD
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integration with CI/CD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#github-actions-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      GitHub Actions Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Tuning
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Tuning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optimize-task-slots" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimize Task Slots
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-size-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Size Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Documentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VM vs Batch Comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Advanced Performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Migration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../completion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Completion
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pdf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Printable PDF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    License
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Technical / Developer Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Technical / Developer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MCP Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async-callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Async Callbacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../distribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Distribution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Access Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-create-a-batch-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Create a Batch Pool
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-upload-your-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Upload Your Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-submit-a-job" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Submit a Job
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pool-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pool Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vm-sizes-for-different-workloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      VM Sizes for Different Workloads
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-pool-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Pool Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu-enabled-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPU-Enabled Pool
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-scaling-pools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Auto-Scaling Pools
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batch-processing-multiple-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Processing Multiple Projects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training-and-detection-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Training and Detection Pipeline
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-job-with-output-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Job with Output Files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring-and-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring and Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring and Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-pool-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check Pool Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-running-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      List Running Jobs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitor-task-progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitor Task Progress
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-task-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get Task Logs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cost-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cost Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-low-priority-vms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Low-Priority VMs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pool-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pool Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debug-task-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debug Task Failures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#increase-batch-quotas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Increase Batch Quotas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with CI/CD
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integration with CI/CD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#github-actions-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      GitHub Actions Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Tuning
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Tuning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optimize-task-slots" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimize Task Slots
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-size-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Size Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Documentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="azure-batch-deployment">Azure Batch Deployment<a class="headerlink" href="#azure-batch-deployment" title="Permanent link">&para;</a></h1>
+<p>This guide explains how to deploy and use Crackz on Azure Batch for distributed, scalable crack detection processing.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Azure Batch allows you to run large-scale parallel and high-performance computing (HPC) applications efficiently in the cloud. The Crackz Azure Batch deployment enables:</p>
+<ul>
+<li><strong>Distributed Processing</strong>: Process large datasets across multiple compute nodes</li>
+<li><strong>Scalability</strong>: Automatically scale compute resources based on workload</li>
+<li><strong>Cost Optimization</strong>: Use low-priority VMs to reduce costs</li>
+<li><strong>Container Support</strong>: Run Crackz Docker images directly on Batch nodes</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: For smaller datasets or interactive development, consider using <a href="../azure-comparison/">Azure VM deployment</a> instead. See the <a href="../azure-comparison/">VM vs Batch Comparison</a> to help you decide which option is best for your use case.</p>
+</blockquote>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Azure CLI</strong>: Install the <a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli">Azure CLI</a></li>
+<li><strong>Azure Subscription</strong>: Active Azure subscription with appropriate permissions</li>
+<li><strong>Docker Image</strong>: Built Crackz Docker image (pushed to a container registry)</li>
+<li><strong>Azure Login</strong>: <code>az login</code> to authenticate</li>
+</ol>
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<h3 id="1-create-a-batch-pool">1. Create a Batch Pool<a class="headerlink" href="#1-create-a-batch-pool" title="Permanent link">&para;</a></h3>
+<p>The simplest way to create a Batch pool:</p>
+<div class="highlight"><pre><span></span><code>./scripts/azure/azure_batch.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--batch-account<span class="w"> </span>mycrackzaccount<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--storage-account<span class="w"> </span>mycrackzstorage
+</code></pre></div>
+<p>This creates:
+- A Batch account named <code>mycrackzaccount</code>
+- A storage account named <code>mycrackzstorage</code>
+- A pool with 2 compute nodes (Standard_D2s_v3)
+- A blob container for data storage</p>
+<h3 id="2-upload-your-data">2. Upload Your Data<a class="headerlink" href="#2-upload-your-data" title="Permanent link">&para;</a></h3>
+<p>Upload your Crackz project to Azure Storage:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get storage account key</span>
+<span class="nv">STORAGE_KEY</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>storage<span class="w"> </span>account<span class="w"> </span>keys<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--account-name<span class="w"> </span>mycrackzstorage<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--resource-group<span class="w"> </span>subbaltica-crackz-rg<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--query<span class="w"> </span><span class="s2">&quot;[0].value&quot;</span><span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
+
+<span class="c1"># Upload project directory</span>
+az<span class="w"> </span>storage<span class="w"> </span>blob<span class="w"> </span>upload-batch<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--account-name<span class="w"> </span>mycrackzstorage<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--account-key<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$STORAGE_KEY</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--destination<span class="w"> </span>crackz-data<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--source<span class="w"> </span>./my-project
+</code></pre></div>
+<h3 id="3-submit-a-job">3. Submit a Job<a class="headerlink" href="#3-submit-a-job" title="Permanent link">&para;</a></h3>
+<p>Create and submit a Batch job:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create job</span>
+az<span class="w"> </span>batch<span class="w"> </span>job<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--id<span class="w"> </span>crackz-detection-job<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pool-id<span class="w"> </span>crackz-pool
+
+<span class="c1"># Add tasks to the job</span>
+az<span class="w"> </span>batch<span class="w"> </span>task<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--job-id<span class="w"> </span>crackz-detection-job<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--task-id<span class="w"> </span>detect-task-1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--command-line<span class="w"> </span><span class="s2">&quot;docker run crackz-cli:latest detect run --project /mnt/batch/tasks/fsmounts/crackz-data/my-project&quot;</span>
+</code></pre></div>
+<h2 id="configuration-options">Configuration Options<a class="headerlink" href="#configuration-options" title="Permanent link">&para;</a></h2>
+<h3 id="pool-configuration">Pool Configuration<a class="headerlink" href="#pool-configuration" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--batch-account</code></td>
+<td>Azure Batch account name (required)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>--resource-group</code></td>
+<td>Azure resource group name</td>
+<td><code>subbaltica-crackz-rg</code></td>
+</tr>
+<tr>
+<td><code>--location</code></td>
+<td>Azure region</td>
+<td><code>swedencentral</code></td>
+</tr>
+<tr>
+<td><code>--pool-id</code></td>
+<td>Unique pool identifier</td>
+<td><code>crackz-pool</code></td>
+</tr>
+<tr>
+<td><code>--vm-size</code></td>
+<td>VM size for compute nodes</td>
+<td><code>Standard_D2s_v3</code></td>
+</tr>
+<tr>
+<td><code>--node-count</code></td>
+<td>Number of dedicated nodes</td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>--image</code></td>
+<td>Docker image to use</td>
+<td><code>crackz-cli:latest</code></td>
+</tr>
+<tr>
+<td><code>--storage-account</code></td>
+<td>Storage account for data</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>--container</code></td>
+<td>Blob container name</td>
+<td><code>crackz-data</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="vm-sizes-for-different-workloads">VM Sizes for Different Workloads<a class="headerlink" href="#vm-sizes-for-different-workloads" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>VM Size</th>
+<th>vCPUs</th>
+<th>Memory</th>
+<th>Use Case</th>
+<th>Hourly Cost*</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Standard_D2s_v3</code></td>
+<td>2</td>
+<td>8 GB</td>
+<td>Small datasets, testing</td>
+<td>~$0.10</td>
+</tr>
+<tr>
+<td><code>Standard_D4s_v3</code></td>
+<td>4</td>
+<td>16 GB</td>
+<td>Medium datasets</td>
+<td>~$0.20</td>
+</tr>
+<tr>
+<td><code>Standard_D8s_v3</code></td>
+<td>8</td>
+<td>32 GB</td>
+<td>Large datasets</td>
+<td>~$0.40</td>
+</tr>
+<tr>
+<td><code>Standard_NC6s_v3</code></td>
+<td>6</td>
+<td>112 GB</td>
+<td>GPU acceleration (V100)</td>
+<td>~$3.06</td>
+</tr>
+<tr>
+<td><code>Standard_NC4as_T4_v3</code></td>
+<td>4</td>
+<td>28 GB</td>
+<td>GPU acceleration (T4)</td>
+<td>~$0.53</td>
+</tr>
+</tbody>
+</table>
+<p>* Approximate costs as of 2024, subject to change</p>
+<h2 id="advanced-usage">Advanced Usage<a class="headerlink" href="#advanced-usage" title="Permanent link">&para;</a></h2>
+<h3 id="custom-pool-configuration">Custom Pool Configuration<a class="headerlink" href="#custom-pool-configuration" title="Permanent link">&para;</a></h3>
+<p>Create a pool with custom settings:</p>
+<div class="highlight"><pre><span></span><code>./scripts/azure/azure_batch.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--batch-account<span class="w"> </span>crackz-batch<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pool-id<span class="w"> </span>high-performance-pool<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--vm-size<span class="w"> </span>Standard_D8s_v3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node-count<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--storage-account<span class="w"> </span>crackzstore
+</code></pre></div>
+<h3 id="gpu-enabled-pool">GPU-Enabled Pool<a class="headerlink" href="#gpu-enabled-pool" title="Permanent link">&para;</a></h3>
+<p>For GPU acceleration, use GPU-capable VM sizes:</p>
+<div class="highlight"><pre><span></span><code>./scripts/azure/azure_batch.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--batch-account<span class="w"> </span>crackz-batch-gpu<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pool-id<span class="w"> </span>gpu-pool<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--vm-size<span class="w"> </span>Standard_NC4as_T4_v3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--node-count<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--image<span class="w"> </span>crackz-cli:gpu
+</code></pre></div>
+<h3 id="auto-scaling-pools">Auto-Scaling Pools<a class="headerlink" href="#auto-scaling-pools" title="Permanent link">&para;</a></h3>
+<p>For dynamic workloads, configure auto-scaling by modifying the pool after creation:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Enable auto-scaling</span>
+az<span class="w"> </span>batch<span class="w"> </span>pool<span class="w"> </span>autoscale<span class="w"> </span><span class="nb">enable</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pool-id<span class="w"> </span>crackz-pool<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--account-name<span class="w"> </span>mycrackzaccount<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--auto-scale-formula<span class="w"> </span><span class="s1">&#39;</span>
+<span class="s1">    startingNumberOfVMs = 2;</span>
+<span class="s1">    maxNumberofVMs = 10;</span>
+<span class="s1">    pendingTaskSamplePercent = $PendingTasks.GetSamplePercent(180 * TimeInterval_Second);</span>
+<span class="s1">    pendingTaskSamples = pendingTaskSamplePercent &lt; 70 ? startingNumberOfVMs : avg($PendingTasks.GetSample(180 * TimeInterval_Second));</span>
+<span class="s1">    $TargetDedicatedNodes = min(maxNumberofVMs, pendingTaskSamples);</span>
+<span class="s1">  &#39;</span>
+</code></pre></div>
+<h2 id="workflow-examples">Workflow Examples<a class="headerlink" href="#workflow-examples" title="Permanent link">&para;</a></h2>
+<h3 id="batch-processing-multiple-projects">Batch Processing Multiple Projects<a class="headerlink" href="#batch-processing-multiple-projects" title="Permanent link">&para;</a></h3>
+<p>Process multiple crack detection projects in parallel:</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># Create job</span>
+az<span class="w"> </span>batch<span class="w"> </span>job<span class="w"> </span>create<span class="w"> </span>--id<span class="w"> </span>multi-project-job<span class="w"> </span>--pool-id<span class="w"> </span>crackz-pool
+
+<span class="c1"># Submit tasks for each project</span>
+<span class="k">for</span><span class="w"> </span>project<span class="w"> </span><span class="k">in</span><span class="w"> </span>project1<span class="w"> </span>project2<span class="w"> </span>project3<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>az<span class="w"> </span>batch<span class="w"> </span>task<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--job-id<span class="w"> </span>multi-project-job<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--task-id<span class="w"> </span><span class="s2">&quot;detect-</span><span class="nv">$project</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--command-line<span class="w"> </span><span class="s2">&quot;docker run crackz-cli:latest detect run --project /data/</span><span class="nv">$project</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</code></pre></div>
+<h3 id="training-and-detection-pipeline">Training and Detection Pipeline<a class="headerlink" href="#training-and-detection-pipeline" title="Permanent link">&para;</a></h3>
+<p>Run a complete training and detection pipeline:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Training task</span>
+az<span class="w"> </span>batch<span class="w"> </span>task<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--job-id<span class="w"> </span>pipeline-job<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--task-id<span class="w"> </span>train<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--command-line<span class="w"> </span><span class="s2">&quot;docker run crackz-cli:latest detect train --project /data/my-project --epochs 50&quot;</span>
+
+<span class="c1"># Detection task (depends on training)</span>
+az<span class="w"> </span>batch<span class="w"> </span>task<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--job-id<span class="w"> </span>pipeline-job<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--task-id<span class="w"> </span>detect<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--depends-on<span class="w"> </span>train<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--command-line<span class="w"> </span><span class="s2">&quot;docker run crackz-cli:latest detect run --project /data/my-project&quot;</span>
+</code></pre></div>
+<h3 id="batch-job-with-output-files">Batch Job with Output Files<a class="headerlink" href="#batch-job-with-output-files" title="Permanent link">&para;</a></h3>
+<p>Configure tasks to upload outputs back to storage:</p>
+<div class="highlight"><pre><span></span><code>az<span class="w"> </span>batch<span class="w"> </span>task<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--job-id<span class="w"> </span>output-job<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--task-id<span class="w"> </span>detect-with-output<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--command-line<span class="w"> </span><span class="s2">&quot;docker run -v /mnt/output:/output crackz-cli:latest detect run --project /data/project&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--resource-files<span class="w"> </span><span class="s1">&#39;[{&quot;httpUrl&quot;:&quot;https://mystorage.blob.core.windows.net/input/data.zip&quot;,&quot;filePath&quot;:&quot;data.zip&quot;}]&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output-files<span class="w"> </span><span class="s1">&#39;[{&quot;filePattern&quot;:&quot;/mnt/output/**/*&quot;,&quot;destination&quot;:{&quot;container&quot;:{&quot;containerUrl&quot;:&quot;https://mystorage.blob.core.windows.net/results&quot;}},&quot;uploadOptions&quot;:{&quot;uploadCondition&quot;:&quot;taskCompletion&quot;}}]&#39;</span>
+</code></pre></div>
+<h2 id="monitoring-and-management">Monitoring and Management<a class="headerlink" href="#monitoring-and-management" title="Permanent link">&para;</a></h2>
+<h3 id="check-pool-status">Check Pool Status<a class="headerlink" href="#check-pool-status" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>az<span class="w"> </span>batch<span class="w"> </span>pool<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pool-id<span class="w"> </span>crackz-pool<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--account-name<span class="w"> </span>mycrackzaccount<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--query<span class="w"> </span><span class="s2">&quot;{State:allocationState, DedicatedNodes:currentDedicatedNodes}&quot;</span>
+</code></pre></div>
+<h3 id="list-running-jobs">List Running Jobs<a class="headerlink" href="#list-running-jobs" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>az<span class="w"> </span>batch<span class="w"> </span>job<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--account-name<span class="w"> </span>mycrackzaccount<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>table
+</code></pre></div>
+<h3 id="monitor-task-progress">Monitor Task Progress<a class="headerlink" href="#monitor-task-progress" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>az<span class="w"> </span>batch<span class="w"> </span>task<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--job-id<span class="w"> </span>crackz-detection-job<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--account-name<span class="w"> </span>mycrackzaccount<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>table
+</code></pre></div>
+<h3 id="get-task-logs">Get Task Logs<a class="headerlink" href="#get-task-logs" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>az<span class="w"> </span>batch<span class="w"> </span>task<span class="w"> </span>file<span class="w"> </span>download<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--job-id<span class="w"> </span>crackz-detection-job<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--task-id<span class="w"> </span>detect-task-1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--file-path<span class="w"> </span>stdout.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--destination<span class="w"> </span>./task-stdout.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--account-name<span class="w"> </span>mycrackzaccount
+</code></pre></div>
+<h2 id="cost-optimization">Cost Optimization<a class="headerlink" href="#cost-optimization" title="Permanent link">&para;</a></h2>
+<h3 id="using-low-priority-vms">Using Low-Priority VMs<a class="headerlink" href="#using-low-priority-vms" title="Permanent link">&para;</a></h3>
+<p>Low-priority VMs can reduce costs by up to 80%:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># After pool creation, modify to use low-priority nodes</span>
+az<span class="w"> </span>batch<span class="w"> </span>pool<span class="w"> </span>resize<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pool-id<span class="w"> </span>crackz-pool<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--account-name<span class="w"> </span>mycrackzaccount<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--target-dedicated-nodes<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--target-low-priority-nodes<span class="w"> </span><span class="m">4</span>
+</code></pre></div>
+<p><strong>Note</strong>: Low-priority VMs may be preempted, so ensure your tasks are resilient.</p>
+<h3 id="pool-management">Pool Management<a class="headerlink" href="#pool-management" title="Permanent link">&para;</a></h3>
+<p>Delete pools when not in use:</p>
+<div class="highlight"><pre><span></span><code>./scripts/azure/azure_batch.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--batch-account<span class="w"> </span>mycrackzaccount<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pool-id<span class="w"> </span>crackz-pool<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--destroy
+</code></pre></div>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pool creation fails</td>
+<td>Check quota limits: <code>az batch location quotas show --location &lt;region&gt;</code></td>
+</tr>
+<tr>
+<td>Tasks stuck in "Running"</td>
+<td>Check task logs: <code>az batch task file download</code></td>
+</tr>
+<tr>
+<td>Container image not found</td>
+<td>Ensure image is in an accessible registry</td>
+</tr>
+<tr>
+<td>Authentication errors</td>
+<td>Run <code>az batch account login</code> before operations</td>
+</tr>
+</tbody>
+</table>
+<h3 id="debug-task-failures">Debug Task Failures<a class="headerlink" href="#debug-task-failures" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get task details</span>
+az<span class="w"> </span>batch<span class="w"> </span>task<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--job-id<span class="w"> </span>crackz-detection-job<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--task-id<span class="w"> </span>detect-task-1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--account-name<span class="w"> </span>mycrackzaccount
+
+<span class="c1"># Download stderr</span>
+az<span class="w"> </span>batch<span class="w"> </span>task<span class="w"> </span>file<span class="w"> </span>download<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--job-id<span class="w"> </span>crackz-detection-job<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--task-id<span class="w"> </span>detect-task-1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--file-path<span class="w"> </span>stderr.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--destination<span class="w"> </span>./task-stderr.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--account-name<span class="w"> </span>mycrackzaccount
+</code></pre></div>
+<h3 id="increase-batch-quotas">Increase Batch Quotas<a class="headerlink" href="#increase-batch-quotas" title="Permanent link">&para;</a></h3>
+<p>If you hit quota limits, request an increase:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check current quotas</span>
+az<span class="w"> </span>batch<span class="w"> </span>location<span class="w"> </span>quotas<span class="w"> </span>show<span class="w"> </span>--location<span class="w"> </span>swedencentral
+
+<span class="c1"># Submit quota increase request through Azure Portal</span>
+<span class="c1"># Support &gt; New support request &gt; Issue type: Service and subscription limits</span>
+</code></pre></div>
+<h2 id="integration-with-cicd">Integration with CI/CD<a class="headerlink" href="#integration-with-cicd" title="Permanent link">&para;</a></h2>
+<h3 id="github-actions-example">GitHub Actions Example<a class="headerlink" href="#github-actions-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Azure Batch Processing</span>
+<span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">batch-process</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v5</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Azure Login</span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure/login@v1</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">creds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.AZURE_CREDENTIALS }}</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create Batch Pool</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">./scripts/azure/azure_batch.sh \</span>
+<span class="w">            </span><span class="no">--batch-account ${{ secrets.BATCH_ACCOUNT }} \</span>
+<span class="w">            </span><span class="no">--storage-account ${{ secrets.STORAGE_ACCOUNT }}</span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Submit Batch Job</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">az batch job create --id ci-job-${{ github.run_number }} --pool-id crackz-pool</span>
+<span class="w">          </span><span class="no">az batch task create \</span>
+<span class="w">            </span><span class="no">--job-id ci-job-${{ github.run_number }} \</span>
+<span class="w">            </span><span class="no">--task-id detect \</span>
+<span class="w">            </span><span class="no">--command-line &quot;docker run crackz-cli:latest detect run --project /data/project&quot;</span>
+</code></pre></div>
+<h2 id="security-best-practices">Security Best Practices<a class="headerlink" href="#security-best-practices" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Use Managed Identities</strong>: Avoid storing credentials in code</li>
+<li><strong>Private Container Registries</strong>: Use Azure Container Registry with authentication</li>
+<li><strong>Network Isolation</strong>: Deploy pools in Virtual Networks</li>
+<li><strong>Encryption</strong>: Enable encryption for storage accounts</li>
+<li><strong>RBAC</strong>: Use role-based access control for Batch resources</li>
+</ol>
+<h2 id="performance-tuning">Performance Tuning<a class="headerlink" href="#performance-tuning" title="Permanent link">&para;</a></h2>
+<h3 id="optimize-task-slots">Optimize Task Slots<a class="headerlink" href="#optimize-task-slots" title="Permanent link">&para;</a></h3>
+<p>Adjust <code>taskSlotsPerNode</code> for better resource utilization:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Modify pool to allow multiple tasks per node</span>
+az<span class="w"> </span>batch<span class="w"> </span>pool<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pool-id<span class="w"> </span>crackz-pool<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--account-name<span class="w"> </span>mycrackzaccount<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--json-file<span class="w"> </span>pool-config.json
+</code></pre></div>
+<p>Where <code>pool-config.json</code> contains:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;taskSlotsPerNode&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h3 id="batch-size-configuration">Batch Size Configuration<a class="headerlink" href="#batch-size-configuration" title="Permanent link">&para;</a></h3>
+<p>For detection tasks, adjust batch size based on VM memory:</p>
+<table>
+<thead>
+<tr>
+<th>VM Size</th>
+<th>Recommended Batch Size</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standard_D2s_v3 (8 GB)</td>
+<td>4-8</td>
+<td>Conservative for 512x512 images</td>
+</tr>
+<tr>
+<td>Standard_D4s_v3 (16 GB)</td>
+<td>16-32</td>
+<td>Good balance</td>
+</tr>
+<tr>
+<td>Standard_D8s_v3 (32 GB)</td>
+<td>32-64</td>
+<td>Large batches</td>
+</tr>
+</tbody>
+</table>
+<p>Modify project configuration before uploading:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">ai</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">detection</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16</span><span class="w">  </span><span class="c1"># Adjust based on VM size</span>
+</code></pre></div>
+<h2 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../azure-comparison/">VM vs Batch Comparison</a> - Help choosing between VM and Batch</li>
+<li><a href="../configuration/">Configuration Reference</a> - Project configuration options</li>
+<li><a href="../docker/">Docker Usage</a> - Docker image details</li>
+<li><a href="../advanced-performance/">Advanced Performance</a> - GPU and multi-device training</li>
+<li><a href="https://github.com/Anaxiatech-AB/crackz/blob/main/scripts/azure/azure_vm.sh">Azure VM Deployment</a> - Single VM deployment alternative</li>
+</ul>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/batch/">Azure Batch Documentation</a></li>
+<li><a href="https://azure.microsoft.com/en-us/pricing/details/batch/">Azure Batch Pricing</a></li>
+<li><a href="https://docs.microsoft.com/en-us/cli/azure/batch">Azure CLI Reference</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Anaxiatech-AB/crackz" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.14.0"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2355 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI image analysis of cracks in harbors">
+      
+      
+        <meta name="author" content="Theresia Sofia Snow">
+      
+      
+      
+        <link rel="prev" href="../easy-install/">
+      
+      
+        <link rel="next" href="../gui/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Installation - Crackz</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/print.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-requirements" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Crackz" class="md-header__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Crackz
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Installation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Crackz" class="md-nav__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Crackz
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    End User / Customer Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            End User / Customer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quickstart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-splits-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Splits & Import Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../easy-install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Easy Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-standard-cpu-install-recommended-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Standard CPU Install (recommended default)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Standard CPU Install (recommended default)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-install-direct-from-github-releases-easiest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Install: Direct from GitHub Releases (Easiest)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-installation-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Installation Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-a-install-from-private-github-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option A: Install from Private GitHub Repository
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-download-wheel-from-private-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option B: Download Wheel from Private Repository
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-c-private-package-index-if-configured" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option C: Private package index (if configured)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-d-standalone-executables-no-python-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option D: Standalone Executables (No Python Required)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-gpu-cuda-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. GPU / CUDA Install
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. GPU / CUDA Install">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommended-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Installation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-your-cuda-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check Your CUDA Version
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-github-cli-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using GitHub CLI (Recommended)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-gpu-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify GPU Support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-install-pytorch-first-advanced" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternative: Install PyTorch First (Advanced)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-optional-extras-deprecated" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Optional Extras (Deprecated)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-install-from-a-downloaded-wheel-airgapped-offline" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Install From a Downloaded Wheel (Air‑gapped / Offline)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-install-from-source-no-build-system-tooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Install From Source (no build system tooling)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-upgrading" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Upgrading
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-uninstall" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Uninstall
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-postinstall-sanity-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Post‑Install Sanity Checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Common Issues
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-gpucuda-usage-faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. GPU/CUDA Usage FAQ
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. GPU/CUDA Usage FAQ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-know-if-cuda-is-working" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I know if CUDA is working?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-start-the-cuda-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I start the CUDA version?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-force-gpu-or-cpu-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I force GPU or CPU usage?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-verify-gpu-is-being-used-during-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I verify GPU is being used during training?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-cuda-version-do-i-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      What CUDA version do I need?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting-gpu-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting GPU Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-expectations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Expectations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-environment-variables-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Environment Variables (runtime)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-security-integrity-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Security / Integrity Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-migrating-existing-projects-after-upgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Migrating Existing Projects After Upgrade
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GUI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../map-viewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Map Viewer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli-cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Cookbook
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Training Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_13" id="__nav_2_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Azure Deployments
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_13">
+            <span class="md-nav__icon md-icon"></span>
+            Azure Deployments
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-batch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure Batch
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VM vs Batch Comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Advanced Performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Migration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../completion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Completion
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pdf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Printable PDF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    License
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Technical / Developer Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Technical / Developer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MCP Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async-callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Async Callbacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../distribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Distribution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Access Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-standard-cpu-install-recommended-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Standard CPU Install (recommended default)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Standard CPU Install (recommended default)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-install-direct-from-github-releases-easiest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Install: Direct from GitHub Releases (Easiest)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-installation-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Installation Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-a-install-from-private-github-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option A: Install from Private GitHub Repository
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-download-wheel-from-private-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option B: Download Wheel from Private Repository
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-c-private-package-index-if-configured" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option C: Private package index (if configured)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-d-standalone-executables-no-python-required" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option D: Standalone Executables (No Python Required)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-gpu-cuda-install" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. GPU / CUDA Install
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. GPU / CUDA Install">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommended-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Installation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-your-cuda-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check Your CUDA Version
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-github-cli-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using GitHub CLI (Recommended)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-gpu-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify GPU Support
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-install-pytorch-first-advanced" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternative: Install PyTorch First (Advanced)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-optional-extras-deprecated" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Optional Extras (Deprecated)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-install-from-a-downloaded-wheel-airgapped-offline" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Install From a Downloaded Wheel (Air‑gapped / Offline)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-install-from-source-no-build-system-tooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Install From Source (no build system tooling)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-upgrading" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Upgrading
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-uninstall" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Uninstall
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-postinstall-sanity-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Post‑Install Sanity Checks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Common Issues
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-gpucuda-usage-faq" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. GPU/CUDA Usage FAQ
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. GPU/CUDA Usage FAQ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-know-if-cuda-is-working" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I know if CUDA is working?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-start-the-cuda-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I start the CUDA version?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-force-gpu-or-cpu-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I force GPU or CPU usage?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-do-i-verify-gpu-is-being-used-during-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      How do I verify GPU is being used during training?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-cuda-version-do-i-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      What CUDA version do I need?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting-gpu-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting GPU Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-expectations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Expectations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-environment-variables-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. Environment Variables (runtime)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-security-integrity-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Security / Integrity Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-migrating-existing-projects-after-upgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Migrating Existing Projects After Upgrade
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
+<p>This page covers end‑user (runtime) installation of Crackz. If you're developing the project itself, see the developer workflow in the Quickstart (uv sync etc.).</p>
+<blockquote>
+<p>Licensing: Crackz is distributed under a commercial (source‑available) license. By installing you agree to the terms in the <code>LICENSE</code> file.</p>
+</blockquote>
+<h2 id="1-requirements">1. Requirements<a class="headerlink" href="#1-requirements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Python 3.11 – 3.13 (64‑bit)</li>
+<li>OS: Linux, macOS (CPU), Windows 10/11</li>
+<li>(Optional) NVIDIA GPU + matching CUDA drivers for accelerated training/detection</li>
+<li>Disk space: ~2–3 GB (Torch + model weights + cache)</li>
+</ul>
+<h2 id="2-standard-cpu-install-recommended-default">2. Standard CPU Install (recommended default)<a class="headerlink" href="#2-standard-cpu-install-recommended-default" title="Permanent link">&para;</a></h2>
+<h3 id="quick-install-direct-from-github-releases-easiest">Quick Install: Direct from GitHub Releases (Easiest)<a class="headerlink" href="#quick-install-direct-from-github-releases-easiest" title="Permanent link">&para;</a></h3>
+<p><strong>Prerequisites:</strong>
+- GitHub account with repository access (contact theresia.sofia.snow@gmail.com for customer onboarding)
+- GitHub CLI authenticated: <code>gh auth login</code>
+- Python 3.11+ installed</p>
+<p><strong>Step 1: Install UV package manager (if not already installed)</strong></p>
+<p><strong>macOS/Linux:</strong>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+</code></pre></div></p>
+<p><strong>Windows (PowerShell):</strong>
+<div class="highlight"><pre><span></span><code><span class="nb">irm </span><span class="n">https</span><span class="p">://</span><span class="n">astral</span><span class="p">.</span><span class="n">sh</span><span class="p">/</span><span class="n">uv</span><span class="p">/</span><span class="n">install</span><span class="p">.</span><span class="n">ps1</span> <span class="p">|</span> <span class="nb">iex</span>
+</code></pre></div></p>
+<p><strong>Step 2: Download and install Crackz</strong></p>
+<p><strong>Using GitHub CLI (recommended):</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Login to GitHub</span>
+gh<span class="w"> </span>auth<span class="w"> </span>login
+
+<span class="c1"># Download the latest wheel</span>
+gh<span class="w"> </span>release<span class="w"> </span>download<span class="w"> </span>--repo<span class="w"> </span>anaxiatech/crackz<span class="w"> </span>--pattern<span class="w"> </span><span class="s1">&#39;*.whl&#39;</span>
+
+<span class="c1"># Install with uv</span>
+uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>crackz-*.whl
+
+<span class="c1"># Verify installation</span>
+crackz<span class="w"> </span>--version
+</code></pre></div></p>
+<p><strong>Alternative: Manual download from GitHub web interface:</strong>
+1. Navigate to: https://github.com/Anaxiatech-AB/crackz/releases
+2. Download the latest <code>crackz-VERSION-py3-none-any.whl</code> file
+3. Install it:
+   <div class="highlight"><pre><span></span><code>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>crackz-VERSION-py3-none-any.whl
+</code></pre></div></p>
+<p><strong>What gets installed:</strong>
+- Crackz CLI (<code>crackz</code>)
+- Crackz GUI (<code>crackz-gui</code>)
+- All required dependencies (PyTorch, Lightning, etc.)
+- Isolated virtual environment (managed by uv)</p>
+<p><strong>Note:</strong> For a private repository, you must authenticate with GitHub CLI or download wheels manually from the GitHub web interface while logged in.</p>
+<hr />
+<h3 id="advanced-installation-methods">Advanced Installation Methods<a class="headerlink" href="#advanced-installation-methods" title="Permanent link">&para;</a></h3>
+<p>For developers or users who need more control over the installation:</p>
+<p>Crackz is distributed as a <strong>private commercial product</strong>. Access is provided to licensed customers only through:
+- Private GitHub repository access
+- Private package index (if configured by your organization)
+- Standalone executables delivered directly to customers</p>
+<h3 id="option-a-install-from-private-github-repository">Option A: Install from Private GitHub Repository<a class="headerlink" href="#option-a-install-from-private-github-repository" title="Permanent link">&para;</a></h3>
+<p><strong>For customers with repository access:</strong></p>
+<p>If you've been granted access to the private Crackz repository, you can install from releases or directly from source.</p>
+<p><strong>Install from a specific release:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using pip with GitHub authentication</span>
+pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/OWNER/crackz.git@vVERSION
+
+<span class="c1"># Or download the wheel from the private repository&#39;s Releases page</span>
+<span class="c1"># (Requires GitHub authentication - use personal access token)</span>
+pip<span class="w"> </span>install<span class="w"> </span>https://USERNAME:TOKEN@github.com/OWNER/crackz/releases/download/vVERSION/crackz-VERSION-py3-none-any.whl
+</code></pre></div></p>
+<p><strong>Install the latest version from main branch:</strong>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/OWNER/crackz.git
+</code></pre></div></p>
+<p><strong>Using GitHub CLI (recommended):</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Login with GitHub CLI</span>
+gh<span class="w"> </span>auth<span class="w"> </span>login
+
+<span class="c1"># Download release asset</span>
+gh<span class="w"> </span>release<span class="w"> </span>download<span class="w"> </span>vVERSION<span class="w"> </span>--repo<span class="w"> </span>OWNER/crackz<span class="w"> </span>--pattern<span class="w"> </span><span class="s1">&#39;*.whl&#39;</span>
+
+<span class="c1"># Install the downloaded wheel</span>
+pip<span class="w"> </span>install<span class="w"> </span>crackz-VERSION-py3-none-any.whl
+</code></pre></div></p>
+<p><strong>Using Personal Access Token:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a personal access token with &#39;repo&#39; scope at:</span>
+<span class="c1"># https://github.com/settings/tokens</span>
+
+<span class="c1"># Set your token (keep it secure!)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">GITHUB_TOKEN</span><span class="o">=</span><span class="s2">&quot;ghp_xxxxxxxxxxxx&quot;</span>
+
+<span class="c1"># Install using token authentication</span>
+pip<span class="w"> </span>install<span class="w"> </span>git+https://<span class="si">${</span><span class="nv">GITHUB_TOKEN</span><span class="si">}</span>@github.com/OWNER/crackz.git@vVERSION
+</code></pre></div></p>
+<p><strong>Security best practices:</strong>
+- Never commit tokens to version control
+- Use fine-grained personal access tokens with minimal scope (read-only repo access)
+- Store tokens securely (e.g., password manager, GitHub Secrets for CI/CD)
+- Rotate tokens regularly</p>
+<h3 id="option-b-download-wheel-from-private-repository">Option B: Download Wheel from Private Repository<a class="headerlink" href="#option-b-download-wheel-from-private-repository" title="Permanent link">&para;</a></h3>
+<p><strong>Manual download via GitHub web interface:</strong>
+1. Navigate to the private repository: <code>https://github.com/OWNER/crackz</code>
+2. Go to the Releases page
+3. Download the wheel file for your desired version: <code>crackz-VERSION-py3-none-any.whl</code>
+4. Install locally:
+   <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>crackz-VERSION-py3-none-any.whl
+</code></pre></div></p>
+<p><strong>Using curl with authentication:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Download wheel using GitHub token</span>
+curl<span class="w"> </span>-L<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: token </span><span class="si">${</span><span class="nv">GITHUB_TOKEN</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>crackz.whl<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>https://github.com/OWNER/crackz/releases/download/vVERSION/crackz-VERSION-py3-none-any.whl
+
+<span class="c1"># Install the downloaded wheel</span>
+pip<span class="w"> </span>install<span class="w"> </span>crackz.whl
+</code></pre></div></p>
+<h3 id="option-c-private-package-index-if-configured">Option C: Private package index (if configured)<a class="headerlink" href="#option-c-private-package-index-if-configured" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># If your organization has configured a private index</span>
+pip<span class="w"> </span>install<span class="w"> </span>--index-url<span class="w"> </span>https://pypi.company.com/simple/<span class="w"> </span>crackz
+</code></pre></div>
+<p><strong>For select customers with private index access:</strong></p>
+<p>If you've been provided access to a private package repository, you can install Crackz directly using pip:</p>
+<p><strong>One-time installation:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using the provided index URL and credentials</span>
+pip<span class="w"> </span>install<span class="w"> </span>crackz<span class="w"> </span>--index-url<span class="w"> </span>https://INDEX_URL/simple/
+
+<span class="c1"># Example with authentication (if required):</span>
+pip<span class="w"> </span>install<span class="w"> </span>crackz<span class="w"> </span>--index-url<span class="w"> </span>https://USERNAME:TOKEN@pypi.company.com/simple/
+</code></pre></div></p>
+<p><strong>Configure pip permanently</strong> (recommended for easier updates):</p>
+<p>Create or edit <code>~/.config/pip/pip.conf</code> (Linux/macOS) or <code>%APPDATA%\pip\pip.ini</code> (Windows):</p>
+<div class="highlight"><pre><span></span><code><span class="k">[global]</span>
+<span class="na">index-url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">https://USERNAME:TOKEN@pypi.company.com/simple/</span>
+</code></pre></div>
+<p>Then install normally:
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>crackz
+pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>crackz<span class="w">  </span><span class="c1"># For updates</span>
+</code></pre></div></p>
+<p><strong>Using environment variables</strong> (for CI/CD or temporary use):
+<div class="highlight"><pre><span></span><code><span class="c1"># Set credentials via environment variables</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PIP_INDEX_URL</span><span class="o">=</span><span class="s2">&quot;https://pypi.company.com/simple/&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PIP_EXTRA_INDEX_URL</span><span class="o">=</span><span class="s2">&quot;https://pypi.org/simple&quot;</span><span class="w">  </span><span class="c1"># Fallback to PyPI for dependencies</span>
+
+pip<span class="w"> </span>install<span class="w"> </span>crackz
+</code></pre></div></p>
+<p><strong>Supported private package index providers:</strong>
+- <strong>Cloudsmith</strong> - <code>https://dl.cloudsmith.io/TOKEN/org/repo/python/simple/</code>
+- <strong>Artifactory</strong> - <code>https://artifactory.company.com/artifactory/api/pypi/pypi-local/simple/</code>
+- <strong>Gemfury</strong> - <code>https://pypi.fury.io/TOKEN/USERNAME/</code>
+- <strong>AWS CodeArtifact</strong> - <code>https://aws:TOKEN@domain.d.codeartifact.region.amazonaws.com/pypi/repo/simple/</code>
+- <strong>Azure Artifacts</strong> - <code>https://pkgs.dev.azure.com/org/_packaging/feed/pypi/simple/</code>
+- <strong>Self-hosted devpi</strong> - <code>https://devpi.company.com/username/index/+simple/</code></p>
+<p><strong>Security best practices:</strong>
+- Never commit credentials to version control
+- Use tokens instead of passwords when available
+- Store credentials in pip config file with restricted permissions:
+  <div class="highlight"><pre><span></span><code>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span>~/.config/pip/pip.conf<span class="w">  </span><span class="c1"># Linux/macOS</span>
+</code></pre></div>
+- For CI/CD, use secret management (GitHub Secrets, etc.)</p>
+<p><strong>Troubleshooting private index installation:</strong>
+- <strong>401 Unauthorized</strong>: Check your credentials/token
+- <strong>404 Not Found</strong>: Verify the index URL and package name
+- <strong>SSL errors</strong>: Your organization may use custom CA certificates
+  <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>--trusted-host<span class="w"> </span>pypi.company.com<span class="w"> </span>crackz
+<span class="c1"># Or add CA cert:</span>
+pip<span class="w"> </span>install<span class="w"> </span>--cert<span class="w"> </span>/path/to/ca-bundle.crt<span class="w"> </span>crackz
+</code></pre></div>
+- <strong>Mixed dependencies</strong>: If some packages aren't in your private index:
+  <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>crackz<span class="w"> </span>--extra-index-url<span class="w"> </span>https://pypi.org/simple/
+</code></pre></div></p>
+<h3 id="option-d-standalone-executables-no-python-required">Option D: Standalone Executables (No Python Required)<a class="headerlink" href="#option-d-standalone-executables-no-python-required" title="Permanent link">&para;</a></h3>
+<p>For users who <strong>don't have Python installed</strong> or prefer standalone applications, PyInstaller executables are available:</p>
+<p><strong>Download:</strong>
+1. Visit the <a href="https://github.com/Anaxiatech-AB/crackz/releases">GitHub Releases page</a>
+2. Download the appropriate executable for your platform:
+   - <strong>Windows</strong>: <code>crackz.exe</code> (CLI) or <code>crackz-gui.exe</code> (GUI)
+   - <strong>Linux</strong>: <code>crackz</code> (CLI) or <code>crackz-gui</code> (GUI)
+   - <strong>macOS</strong>: <code>crackz</code> (CLI) or <code>crackz-gui</code> (GUI)</p>
+<p><strong>Installation:</strong></p>
+<p><strong>Windows:</strong>
+<div class="highlight"><pre><span></span><code>REM Download the executables from GitHub Releases
+REM Move them to a permanent location
+mkdir C:\Program Files\Crackz
+move crackz.exe &quot;C:\Program Files\Crackz\&quot;
+move crackz-gui.exe &quot;C:\Program Files\Crackz\&quot;
+
+REM Add to PATH (optional, for CLI access from anywhere)
+setx PATH &quot;%PATH%;C:\Program Files\Crackz&quot;
+</code></pre></div></p>
+<p><strong>Linux/macOS:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Download the executables from GitHub Releases</span>
+chmod<span class="w"> </span>+x<span class="w"> </span>crackz<span class="w"> </span>crackz-gui
+
+<span class="c1"># Move to a system directory (optional)</span>
+sudo<span class="w"> </span>mv<span class="w"> </span>crackz<span class="w"> </span>/usr/local/bin/
+sudo<span class="w"> </span>mv<span class="w"> </span>crackz-gui<span class="w"> </span>/usr/local/bin/
+
+<span class="c1"># Or keep in a local directory and add to PATH</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>~/Applications/crackz
+mv<span class="w"> </span>crackz<span class="w"> </span>crackz-gui<span class="w"> </span>~/Applications/crackz/
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=&quot;$HOME/Applications/crackz:$PATH&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+<span class="nb">source</span><span class="w"> </span>~/.bashrc
+</code></pre></div></p>
+<p><strong>Usage:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run CLI directly (no Python needed)</span>
+crackz<span class="w"> </span>--help
+crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>myproject
+
+<span class="c1"># Run GUI by double-clicking crackz-gui.exe (Windows)</span>
+<span class="c1"># Or run from command line:</span>
+crackz-gui
+</code></pre></div></p>
+<p><strong>Notes about standalone executables:</strong>
+- ✅ <strong>No Python installation required</strong> - everything is bundled
+- ✅ <strong>Includes PyTorch runtime</strong> - works out of the box
+- ⚠️ <strong>Larger file size</strong> - ~180-250 MB (CPU) or ~250-350 MB (CUDA)
+- ⚠️ <strong>Platform-specific</strong> - download the version built for your OS
+- ⚠️ <strong>CUDA executables</strong> require NVIDIA GPU and compatible drivers
+- 📦 <strong>Self-contained</strong> - all dependencies are included</p>
+<p><strong>GPU-enabled executables:</strong></p>
+<p>For GPU acceleration, download the CUDA-enabled executables (if available):
+- Filename pattern: <code>crackz-cuda.exe</code> or <code>crackz-gui-cuda.exe</code>
+- Requires: NVIDIA GPU with CUDA 11.8+ drivers
+- Verify GPU support: Run the executable and check logs for "Running inference on cuda device"</p>
+<p><strong>Troubleshooting executables:</strong>
+- <strong>Windows Defender warning</strong>: Unsigned executables may trigger SmartScreen. Click "More info" → "Run anyway"
+- <strong>Slow first run</strong>: Initial startup extracts bundled files to temp directory (~30 seconds)
+- <strong>Antivirus false positive</strong>: PyInstaller executables sometimes trigger AV. Add to exclusions if needed
+- <strong>Missing DLL errors</strong>: Ensure Visual C++ Redistributable is installed (Windows)</p>
+<p>Verify:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>--help
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import crackz; import importlib.metadata as m; print(m.version(&#39;crackz&#39;))&quot;</span>
+</code></pre></div></p>
+<h2 id="3-gpu-cuda-install">3. GPU / CUDA Install<a class="headerlink" href="#3-gpu-cuda-install" title="Permanent link">&para;</a></h2>
+<p>Crackz now provides <strong>separate wheels for different PyTorch variants</strong> to ensure optimal GPU support:</p>
+<ul>
+<li><code>crackz-VERSION-py3-none-any.whl</code> - <strong>CPU version</strong> (default)</li>
+<li><code>crackz_cu118-VERSION-py3-none-any.whl</code> - <strong>CUDA 11.8</strong> version</li>
+<li><code>crackz_cu128-VERSION-py3-none-any.whl</code> - <strong>CUDA 12.8</strong> version</li>
+</ul>
+<h3 id="recommended-installation">Recommended Installation<a class="headerlink" href="#recommended-installation" title="Permanent link">&para;</a></h3>
+<p><strong>For CPU (default):</strong>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/vVERSION/crackz-VERSION-py3-none-any.whl
+</code></pre></div></p>
+<p><strong>For CUDA 11.8 (RTX 20/30 series, older drivers):</strong>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/vVERSION/crackz_cu118-VERSION-py3-none-any.whl
+</code></pre></div></p>
+<p><strong>For CUDA 12.8 (RTX 40 series, newer drivers):</strong>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/vVERSION/crackz_cu128-VERSION-py3-none-any.whl
+</code></pre></div></p>
+<h3 id="check-your-cuda-version">Check Your CUDA Version<a class="headerlink" href="#check-your-cuda-version" title="Permanent link">&para;</a></h3>
+<p>To determine which version to install, check your CUDA toolkit version:</p>
+<p><strong>Windows:</strong>
+<div class="highlight"><pre><span></span><code>nvidia-smi
+</code></pre></div>
+Look for "CUDA Version" in the output (e.g., "CUDA Version: 12.4" means use cu128)</p>
+<p><strong>Linux:</strong>
+<div class="highlight"><pre><span></span><code>nvcc<span class="w"> </span>--version
+<span class="c1"># Or check driver</span>
+nvidia-smi<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;CUDA Version&quot;</span>
+</code></pre></div></p>
+<p><strong>Compatibility guide:</strong>
+- CUDA 11.x drivers → use <code>crackz_cu118</code>
+- CUDA 12.x drivers → use <code>crackz_cu128</code>
+- No NVIDIA GPU → use <code>crackz</code> (CPU version)</p>
+<h3 id="using-github-cli-recommended">Using GitHub CLI (Recommended)<a class="headerlink" href="#using-github-cli-recommended" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Login first</span>
+gh<span class="w"> </span>auth<span class="w"> </span>login
+
+<span class="c1"># Download and install CPU version</span>
+gh<span class="w"> </span>release<span class="w"> </span>download<span class="w"> </span>vVERSION<span class="w"> </span>--repo<span class="w"> </span>OWNER/crackz<span class="w"> </span>--pattern<span class="w"> </span><span class="s1">&#39;crackz-*.whl&#39;</span>
+pip<span class="w"> </span>install<span class="w"> </span>crackz-VERSION-py3-none-any.whl
+
+<span class="c1"># Or CUDA 12.8 version</span>
+gh<span class="w"> </span>release<span class="w"> </span>download<span class="w"> </span>vVERSION<span class="w"> </span>--repo<span class="w"> </span>OWNER/crackz<span class="w"> </span>--pattern<span class="w"> </span><span class="s1">&#39;crackz_cu128-*.whl&#39;</span>
+pip<span class="w"> </span>install<span class="w"> </span>crackz_cu128-VERSION-py3-none-any.whl
+</code></pre></div>
+<h3 id="verify-gpu-support">Verify GPU Support<a class="headerlink" href="#verify-gpu-support" title="Permanent link">&para;</a></h3>
+<p>After installation, verify that PyTorch detects your GPU:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(f&#39;CUDA available: {torch.cuda.is_available()}&#39;); print(f&#39;Device: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else \&quot;CPU\&quot;}&#39;)&quot;</span>
+</code></pre></div>
+<p>Expected output with GPU:
+<div class="highlight"><pre><span></span><code>CUDA available: True
+Device: NVIDIA GeForce RTX 4090
+</code></pre></div></p>
+<h3 id="alternative-install-pytorch-first-advanced">Alternative: Install PyTorch First (Advanced)<a class="headerlink" href="#alternative-install-pytorch-first-advanced" title="Permanent link">&para;</a></h3>
+<p>If you need a specific PyTorch build not covered by the wheel variants:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install specific PyTorch version first</span>
+pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu121
+
+<span class="c1"># Then install Crackz without PyTorch dependencies</span>
+pip<span class="w"> </span>install<span class="w"> </span>--no-deps<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/vVERSION/crackz-VERSION-py3-none-any.whl
+
+<span class="c1"># Install remaining dependencies</span>
+pip<span class="w"> </span>install<span class="w"> </span>clirunner<span class="w"> </span>customtkinter<span class="w"> </span>datasets<span class="w"> </span>diskcache<span class="w"> </span>loguru<span class="w"> </span>matplotlib<span class="w"> </span>pillow<span class="w"> </span>pydantic<span class="w"> </span>pydantic-settings<span class="w"> </span>pytorch-lightning<span class="w"> </span>rich<span class="w"> </span>segmentation-models-pytorch<span class="w"> </span>tensorboard<span class="w"> </span>torchmetrics<span class="w"> </span>typer<span class="w"> </span>platformdirs
+</code></pre></div>
+<p>See: https://pytorch.org/get-started/locally/ for all available PyTorch builds.</p>
+<h2 id="4-optional-extras-deprecated">4. Optional Extras (Deprecated)<a class="headerlink" href="#4-optional-extras-deprecated" title="Permanent link">&para;</a></h2>
+<p><strong>Note:</strong> The <code>cpu</code> and <code>cu128</code> extras in older versions are now replaced by separate wheel files. Use the variant-specific wheels described in Section 3 instead.
+<div class="highlight"><pre><span></span><code><span class="c1"># Download wheel first, then install with extras</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;crackz-VERSION-py3-none-any.whl[cu128]&quot;</span><span class="w"> </span>--extra-index-url<span class="w"> </span>https://download.pytorch.org/whl/cu128
+</code></pre></div>
+If an extra fails to resolve, fall back to the explicit torch sequence in section 3.</p>
+<h2 id="5-install-from-a-downloaded-wheel-airgapped-offline">5. Install From a Downloaded Wheel (Air‑gapped / Offline)<a class="headerlink" href="#5-install-from-a-downloaded-wheel-airgapped-offline" title="Permanent link">&para;</a></h2>
+<ol>
+<li>On a machine with internet, download the Crackz wheel from GitHub Releases:
+   <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>crackz_wheels
+<span class="nb">cd</span><span class="w"> </span>crackz_wheels
+
+<span class="c1"># Download Crackz wheel</span>
+wget<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/vVERSION/crackz-VERSION-py3-none-any.whl
+
+<span class="c1"># Download all dependencies</span>
+pip<span class="w"> </span>download<span class="w"> </span>-r<span class="w"> </span>&lt;<span class="o">(</span>pip<span class="w"> </span>show<span class="w"> </span>-f<span class="w"> </span>crackz<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Requires<span class="o">)</span><span class="w"> </span>-d<span class="w"> </span>.
+<span class="c1"># Or download from the wheel itself:</span>
+pip<span class="w"> </span>download<span class="w"> </span>crackz-VERSION-py3-none-any.whl<span class="w"> </span>-d<span class="w"> </span>.
+</code></pre></div></li>
+<li>Transfer the directory to the offline machine.</li>
+<li>Install locally:
+   <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>--no-index<span class="w"> </span>--find-links<span class="w"> </span>crackz_wheels<span class="w"> </span>crackz-VERSION-py3-none-any.whl
+</code></pre></div></li>
+</ol>
+<h2 id="6-install-from-source-no-build-system-tooling">6. Install From Source (no build system tooling)<a class="headerlink" href="#6-install-from-source-no-build-system-tooling" title="Permanent link">&para;</a></h2>
+<p>If you cloned the repository (runtime only):
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>.
+</code></pre></div>
+This performs a build via the backend defined in <code>pyproject.toml</code>.</p>
+<h2 id="7-upgrading">7. Upgrading<a class="headerlink" href="#7-upgrading" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Download the new version from GitHub Releases</span>
+pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/vNEW_VERSION/crackz-NEW_VERSION-py3-none-any.whl
+
+<span class="c1"># Or if using a private index:</span>
+pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>--index-url<span class="w"> </span>https://pypi.company.com/simple/<span class="w"> </span>crackz
+</code></pre></div>
+<h2 id="8-uninstall">8. Uninstall<a class="headerlink" href="#8-uninstall" title="Permanent link">&para;</a></h2>
+<p><div class="highlight"><pre><span></span><code>pip<span class="w"> </span>uninstall<span class="w"> </span>crackz
+</code></pre></div>
+(You may remove generated project folders / logs manually.)</p>
+<h2 id="9-postinstall-sanity-checks">9. Post‑Install Sanity Checks<a class="headerlink" href="#9-postinstall-sanity-checks" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>--version
+crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>sanity-test
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>sanity-test<span class="w">  </span><span class="c1"># (Will use default config; may download model weights)</span>
+</code></pre></div>
+<h2 id="10-common-issues">10. Common Issues<a class="headerlink" href="#10-common-issues" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>torch / torchvision mismatch</td>
+<td>Mixed CUDA versions</td>
+<td>Reinstall both from same index (see section 3)</td>
+</tr>
+<tr>
+<td><code>No module named crackz</code></td>
+<td>Wrong interpreter / venv</td>
+<td>Activate correct virtual environment</td>
+</tr>
+<tr>
+<td><code>CUDA not available</code></td>
+<td>Missing driver or CPU build</td>
+<td>Verify <code>torch.cuda.is_available()</code>; reinstall correct CUDA wheel</td>
+</tr>
+<tr>
+<td>Slow first run</td>
+<td>Model + dataset cache warmup</td>
+<td>Subsequent runs faster</td>
+</tr>
+<tr>
+<td>Permission denied writing logs</td>
+<td>Read-only directory</td>
+<td>Set <code>CRACKZ_LOG_DIR</code> env var to writable path</td>
+</tr>
+<tr>
+<td>Version shows unexpected version string (e.g., hardcoded or fallback value)</td>
+<td>Package metadata not found or corrupted</td>
+<td>Reinstall package: <code>pip install --force-reinstall crackz-VERSION.whl</code>; verify installation and metadata. If using a hardcoded fallback, update the version in <code>pyproject.toml</code> or the relevant source file.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="11-gpucuda-usage-faq">11. GPU/CUDA Usage FAQ<a class="headerlink" href="#11-gpucuda-usage-faq" title="Permanent link">&para;</a></h2>
+<h3 id="how-do-i-know-if-cuda-is-working">How do I know if CUDA is working?<a class="headerlink" href="#how-do-i-know-if-cuda-is-working" title="Permanent link">&para;</a></h3>
+<p>After installing with CUDA support, verify it's working:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check if CUDA is available</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(f&#39;CUDA available: {torch.cuda.is_available()}&#39;)&quot;</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(f&#39;CUDA device: {torch.cuda.get_device_name(0)}&#39;)&quot;</span><span class="w"> </span>
+</code></pre></div>
+<p>Expected output:
+<div class="highlight"><pre><span></span><code>CUDA available: True
+CUDA device: NVIDIA GeForce RTX 3080
+</code></pre></div></p>
+<h3 id="how-do-i-start-the-cuda-version">How do I start the CUDA version?<a class="headerlink" href="#how-do-i-start-the-cuda-version" title="Permanent link">&para;</a></h3>
+<p><strong>You don't need to do anything special!</strong> Once you've installed Crackz with CUDA support (see Section 3), it will automatically detect and use your GPU when available.</p>
+<p><strong>The same commands work for both CPU and GPU:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># These commands automatically use GPU if available:</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my_project
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my_project
+crackz-gui<span class="w">  </span><span class="c1"># GUI will use GPU automatically</span>
+</code></pre></div>
+<h3 id="how-do-i-force-gpu-or-cpu-usage">How do I force GPU or CPU usage?<a class="headerlink" href="#how-do-i-force-gpu-or-cpu-usage" title="Permanent link">&para;</a></h3>
+<p>Crackz automatically uses your GPU if available, but you can override this:</p>
+<p><strong>In the GUI:</strong>
+1. Open Project → Settings
+2. Go to the "AI Model" tab
+3. Set <strong>Device</strong> to:
+   - <code>cuda</code> - Force GPU (fails if no GPU)
+   - <code>mps</code> - Force Apple Metal (macOS only)
+   - <code>cpu</code> - Force CPU (slower but works everywhere)</p>
+<p><strong>In the CLI:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Force GPU usage (will error if CUDA not available)</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my_project<span class="w"> </span>--device<span class="w"> </span>cuda
+
+<span class="c1"># Force CPU usage (useful for debugging)</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my_project<span class="w"> </span>--device<span class="w"> </span>cpu
+
+<span class="c1"># Let Crackz auto-detect (default)</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my_project
+</code></pre></div>
+<p><strong>In project YAML:</strong></p>
+<p>Edit <code>&lt;project&gt;/&lt;project&gt;_project.yaml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">ai</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cuda</span><span class="w">  </span><span class="c1"># or cpu, or mps</span>
+</code></pre></div>
+<h3 id="how-do-i-verify-gpu-is-being-used-during-training">How do I verify GPU is being used during training?<a class="headerlink" href="#how-do-i-verify-gpu-is-being-used-during-training" title="Permanent link">&para;</a></h3>
+<p><strong>Check the logs:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my_project
+</code></pre></div></p>
+<p>Look for output like:
+<div class="highlight"><pre><span></span><code>GPU available: True, used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+</code></pre></div></p>
+<p><strong>Monitor GPU usage:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># NVIDIA GPUs</span>
+watch<span class="w"> </span>-n<span class="w"> </span><span class="m">1</span><span class="w"> </span>nvidia-smi
+
+<span class="c1"># Should show Python process using GPU memory and compute</span>
+</code></pre></div>
+<h3 id="what-cuda-version-do-i-need">What CUDA version do I need?<a class="headerlink" href="#what-cuda-version-do-i-need" title="Permanent link">&para;</a></h3>
+<p><strong>For Windows:</strong>
+- Install CUDA 11.8 (most compatible)
+- Download <code>crackz_cu118-VERSION-py3-none-any.whl</code> from releases</p>
+<p><strong>For Linux:</strong>
+- Modern GPUs: CUDA 12.8 (recommended)
+- Older GPUs: CUDA 11.8
+- Download <code>crackz_cu128-VERSION-py3-none-any.whl</code> or <code>crackz_cu118-VERSION-py3-none-any.whl</code></p>
+<p><strong>Check your installed CUDA version:</strong>
+<div class="highlight"><pre><span></span><code>nvcc<span class="w"> </span>--version<span class="w">  </span><span class="c1"># If CUDA toolkit installed</span>
+nvidia-smi<span class="w">  </span><span class="c1"># Shows driver version (different from CUDA toolkit)</span>
+</code></pre></div></p>
+<p><strong>Note:</strong> You can use PyTorch with CUDA support even without installing the CUDA toolkit - PyTorch bundles what it needs!</p>
+<h3 id="troubleshooting-gpu-issues">Troubleshooting GPU Issues<a class="headerlink" href="#troubleshooting-gpu-issues" title="Permanent link">&para;</a></h3>
+<p><strong>"CUDA not available" but I have a GPU:</strong></p>
+<ol>
+<li>
+<p>Verify you installed the CUDA variant of torch:
+   <div class="highlight"><pre><span></span><code>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(torch.__version__)&quot;</span>
+<span class="c1"># Should show: 2.5.0+cu118 or 2.5.0+cu128</span>
+<span class="c1"># If it shows just 2.5.0, you have CPU-only version</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Reinstall with CUDA support:
+   <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>uninstall<span class="w"> </span>torch<span class="w"> </span>torchvision
+pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu118
+</code></pre></div></p>
+</li>
+</ol>
+<p><strong>"CUDA out of memory" errors:</strong></p>
+<p>Reduce batch size in project settings:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># GUI: Project → Settings → Training → Batch Size</span>
+<span class="c1"># CLI:</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my_project<span class="w"> </span>--batch-size<span class="w"> </span><span class="m">2</span>
+</code></pre></div>
+<p><strong>GPU slower than expected:</strong></p>
+<ul>
+<li>Check GPU isn't throttling: <code>nvidia-smi</code> (temperature, power limit)</li>
+<li>Ensure you're not running other GPU applications</li>
+<li>Try increasing batch size (GPU utilization might be low)</li>
+</ul>
+<h3 id="performance-expectations">Performance Expectations<a class="headerlink" href="#performance-expectations" title="Permanent link">&para;</a></h3>
+<p><strong>Training speed comparison (approximate):</strong>
+- CPU (8-core): ~5-10 images/second
+- GPU (RTX 3060): ~30-50 images/second
+- GPU (RTX 4090): ~100-200 images/second</p>
+<p><strong>Detection speed comparison:</strong>
+- CPU: ~2-5 images/second
+- GPU: ~20-100 images/second (depending on model/GPU)</p>
+<p>If you're not seeing these speeds, verify GPU is actually being used (see above).</p>
+<h2 id="12-environment-variables-runtime">12. Environment Variables (runtime)<a class="headerlink" href="#12-environment-variables-runtime" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Purpose</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CRACKZ_LOG_DIR</td>
+<td>Log directory</td>
+<td>logs</td>
+</tr>
+<tr>
+<td>PYTHONUNBUFFERED</td>
+<td>Immediate stdout</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Example override:
+<div class="highlight"><pre><span></span><code><span class="nv">CRACKZ_LOG_DIR</span><span class="o">=</span>my_logs<span class="w"> </span>crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>myproj
+</code></pre></div>
+(On Windows PowerShell: <code>$Env:CRACKZ_LOG_DIR='my_logs'</code> before running the command.)</p>
+<h2 id="13-security-integrity-notes">13. Security / Integrity Notes<a class="headerlink" href="#13-security-integrity-notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Use <code>pip install --require-hashes -r requirements.txt</code> if you export a locked set of dependencies.</li>
+<li>Prefer virtual environments to isolate dependencies.</li>
+</ul>
+<h2 id="14-next-steps">14. Next Steps<a class="headerlink" href="#14-next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Follow the Quickstart to set up a project.</li>
+<li>Review Configuration for dataset paths &amp; model options.</li>
+<li>Consult CLI Cookbook for common command patterns.</li>
+</ul>
+<h2 id="15-migrating-existing-projects-after-upgrade">15. Migrating Existing Projects After Upgrade<a class="headerlink" href="#15-migrating-existing-projects-after-upgrade" title="Permanent link">&para;</a></h2>
+<p>Older projects (created before schema_version field) can be upgraded in-place:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w">         </span><span class="c1"># applies changes + backup</span>
+crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w"> </span>--dry-run<span class="w">  </span><span class="c1"># preview only</span>
+</code></pre></div>
+In CI set <code>CRACKZ_AUTO_MIGRATE=1</code> to apply automatically when commands load the project.</p>
+<hr />
+<p>Need a Docker or GUI setup instead? See the dedicated Docker and GUI pages.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Anaxiatech-AB/crackz" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.14.0"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

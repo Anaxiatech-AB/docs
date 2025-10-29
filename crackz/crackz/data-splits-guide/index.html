@@ -1,0 +1,2775 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI image analysis of cracks in harbors">
+      
+      
+        <meta name="author" content="Theresia Sofia Snow">
+      
+      
+      
+        <link rel="prev" href="../user-guide/">
+      
+      
+        <link rel="next" href="../easy-install/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Data Splits & Import Guide - Crackz</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/print.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#table-of-contents" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Crackz" class="md-header__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Crackz
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data Splits & Import Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Crackz" class="md-nav__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Crackz
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    End User / Customer Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            End User / Customer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Quickstart
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Data Splits & Import Guide
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Splits & Import Guide
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-data-splits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Data Splits
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding Data Splits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-four-split-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Four Split Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detailed-explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detailed Explanation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Explanation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#raw-split-imagesraw" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raw Split (images/raw/)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#train-split-imagestrain-maskstrain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Train Split (images/train/ + masks/train/)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-split-imagesval-masksval" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation Split (images/val/ + masks/val/)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-split-imagestest-maskstest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Split (images/test/ + masks/test/)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-split-ratios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Split Ratios
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import-with-automatic-split" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import with Automatic Split
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Import with Automatic Split">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to Use
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLI Usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLI Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-import-with-split" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Import with Split
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reproducible-split-with-seed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reproducible Split (with Seed)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-ratios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Ratios
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gui-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      GUI Usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GUI Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-by-step-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step-by-Step Guide
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visual-indicators" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visual Indicators
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-training-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Training Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Training Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scenario
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Create Project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-import-with-automatic-split" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Import with Automatic Split
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-verify-split" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Verify Split
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-train-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Train Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-evaluate-on-test-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Evaluate on Test Set
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-deploy-on-production-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 6: Deploy on Production Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Do's ✅
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#donts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Don'ts ❌
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-quality-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Quality Checklist
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues-and-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues and Solutions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Issues and Solutions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-ratios-must-sum-to-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: "Ratios must sum to 1.0"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-validation-split-is-empty" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Validation split is empty
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-masks-not-found-for-some-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Masks not found for some images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-different-split-on-each-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Different split on each import
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-training-fails-with-not-enough-validation-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Training fails with "not enough validation data"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-out-of-memory-during-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Out of memory during training
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Topics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Topics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stratified-splitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stratified Splitting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross-Validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#incremental-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      Incremental Training
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#split-summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Split Summary Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-ratios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Ratios
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Further Reading
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../easy-install/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Easy Install
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GUI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../map-viewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Map Viewer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli-cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Cookbook
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Training Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_13" id="__nav_2_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Azure Deployments
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_13">
+            <span class="md-nav__icon md-icon"></span>
+            Azure Deployments
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-batch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure Batch
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VM vs Batch Comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Advanced Performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Migration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../completion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Completion
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pdf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Printable PDF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    License
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Technical / Developer Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Technical / Developer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MCP Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async-callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Async Callbacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../distribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Distribution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Access Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-data-splits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Data Splits
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding Data Splits">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-four-split-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Four Split Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detailed-explanation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detailed Explanation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Explanation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#raw-split-imagesraw" class="md-nav__link">
+    <span class="md-ellipsis">
+      Raw Split (images/raw/)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#train-split-imagestrain-maskstrain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Train Split (images/train/ + masks/train/)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-split-imagesval-masksval" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation Split (images/val/ + masks/val/)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-split-imagestest-maskstest" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Split (images/test/ + masks/test/)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-split-ratios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Split Ratios
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#import-with-automatic-split" class="md-nav__link">
+    <span class="md-ellipsis">
+      Import with Automatic Split
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Import with Automatic Split">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to Use
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLI Usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLI Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-import-with-split" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Import with Split
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reproducible-split-with-seed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reproducible Split (with Seed)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-ratios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Ratios
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gui-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      GUI Usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GUI Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-by-step-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step-by-Step Guide
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visual-indicators" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visual Indicators
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-training-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Training Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Training Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scenario
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Create Project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-import-with-automatic-split" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Import with Automatic Split
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-verify-split" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Verify Split
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-train-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Train Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-evaluate-on-test-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Evaluate on Test Set
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-deploy-on-production-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 6: Deploy on Production Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Do's ✅
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#donts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Don'ts ❌
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-quality-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Quality Checklist
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues-and-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues and Solutions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Issues and Solutions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#issue-ratios-must-sum-to-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: "Ratios must sum to 1.0"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-validation-split-is-empty" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Validation split is empty
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-masks-not-found-for-some-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Masks not found for some images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-different-split-on-each-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Different split on each import
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-training-fails-with-not-enough-validation-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Training fails with "not enough validation data"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#issue-out-of-memory-during-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      Issue: Out of memory during training
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Topics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Topics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stratified-splitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stratified Splitting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross-Validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#incremental-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      Incremental Training
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#split-summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Split Summary Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-ratios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Ratios
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Further Reading
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="data-splits-and-import-guide">Data Splits and Import Guide<a class="headerlink" href="#data-splits-and-import-guide" title="Permanent link">&para;</a></h1>
+<p>A comprehensive guide to understanding and using Crackz's data organization system for training and detection.</p>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#understanding-data-splits">Understanding Data Splits</a></li>
+<li><a href="#import-with-automatic-split">Import with Automatic Split</a></li>
+<li><a href="#complete-training-workflow">Complete Training Workflow</a></li>
+<li><a href="#best-practices">Best Practices</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ol>
+<hr />
+<h2 id="understanding-data-splits">Understanding Data Splits<a class="headerlink" href="#understanding-data-splits" title="Permanent link">&para;</a></h2>
+<p>Crackz organizes images into four different directories based on their purpose. Understanding these splits is essential for effective model training and deployment.</p>
+<h3 id="the-four-split-types">The Four Split Types<a class="headerlink" href="#the-four-split-types" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Split</th>
+<th>Purpose</th>
+<th>Masks Required?</th>
+<th>Used During Training?</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>raw</strong></td>
+<td>Production inference</td>
+<td>❌ No</td>
+<td>❌ No</td>
+<td>Real-world images you want to analyze</td>
+</tr>
+<tr>
+<td><strong>train</strong></td>
+<td>Model training</td>
+<td>✅ Yes</td>
+<td>✅ Yes</td>
+<td>Teaching the model crack patterns</td>
+</tr>
+<tr>
+<td><strong>val</strong></td>
+<td>Validation</td>
+<td>✅ Yes</td>
+<td>✅ Yes (monitoring)</td>
+<td>Checking training progress</td>
+</tr>
+<tr>
+<td><strong>test</strong></td>
+<td>Final evaluation</td>
+<td>✅ Yes</td>
+<td>❌ No</td>
+<td>Measuring real-world performance</td>
+</tr>
+</tbody>
+</table>
+<h3 id="detailed-explanation">Detailed Explanation<a class="headerlink" href="#detailed-explanation" title="Permanent link">&para;</a></h3>
+<h4 id="raw-split-imagesraw">Raw Split (<code>images/raw/</code>)<a class="headerlink" href="#raw-split-imagesraw" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose:</strong> Detection on new, unlabeled images</p>
+<p><strong>Characteristics:</strong>
+- No masks required
+- Used for production deployments
+- Perfect for batch processing real-world images
+- Model outputs predictions without ground truth comparison</p>
+<p><strong>Example Use Case:</strong></p>
+<blockquote>
+<p>You have 1,000 photos of harbor infrastructure. You want to detect cracks automatically. Put these images in <code>raw/</code> and run detection.</p>
+</blockquote>
+<p><strong>How to Import:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--src<span class="w"> </span>./photos<span class="w"> </span>--type<span class="w"> </span>raw<span class="w"> </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+</code></pre></div></p>
+<hr />
+<h4 id="train-split-imagestrain-maskstrain">Train Split (<code>images/train/</code> + <code>masks/train/</code>)<a class="headerlink" href="#train-split-imagestrain-maskstrain" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose:</strong> Training the model</p>
+<p><strong>Characteristics:</strong>
+- Masks <strong>required</strong> - each image must have a corresponding mask
+- The model learns crack patterns from these examples
+- Typically the largest split (60-80% of labeled data)
+- Used during every training epoch</p>
+<p><strong>What Happens During Training:</strong>
+- Model sees each train image
+- Makes a prediction
+- Compares prediction to the ground truth mask
+- Adjusts weights to improve accuracy</p>
+<p><strong>Example Use Case:</strong></p>
+<blockquote>
+<p>You manually labeled 700 images with crack annotations. These teach the model what cracks look like.</p>
+</blockquote>
+<p><strong>Mask Requirements:</strong>
+- Filename must match image (e.g., <code>img001.jpg</code> → <code>img001.png</code>)
+- Binary format: 0 (black) = background, 255 (white) = crack
+- Same dimensions as the image
+- PNG or TIFF format (lossless)</p>
+<hr />
+<h4 id="validation-split-imagesval-masksval">Validation Split (<code>images/val/</code> + <code>masks/val/</code>)<a class="headerlink" href="#validation-split-imagesval-masksval" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose:</strong> Monitoring training progress</p>
+<p><strong>Characteristics:</strong>
+- Masks <strong>required</strong>
+- Used to evaluate model during training (not for training itself)
+- Helps prevent overfitting
+- Guides hyperparameter tuning decisions
+- Typically 15-20% of labeled data
+- <strong>Minimum recommended: 10-20 images</strong></p>
+<p><strong>What Happens During Training:</strong>
+- After each epoch, model evaluates on validation set
+- Loss and accuracy metrics are computed
+- Early stopping triggers if validation performance degrades
+- <strong>Model never updates weights based on validation data</strong></p>
+<p><strong>Example Use Case:</strong></p>
+<blockquote>
+<p>You held out 150 labeled images. After each training epoch, the model checks its performance on these to ensure it's not just memorizing the training data.</p>
+</blockquote>
+<p><strong>Why It's Important:</strong>
+- Prevents overfitting (model performs well on train but poorly on new data)
+- Helps choose best checkpoint during training
+- Provides feedback for hyperparameter tuning (batch size, learning rate, etc.)</p>
+<hr />
+<h4 id="test-split-imagestest-maskstest">Test Split (<code>images/test/</code> + <code>masks/test/</code>)<a class="headerlink" href="#test-split-imagestest-maskstest" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose:</strong> Final, unbiased evaluation</p>
+<p><strong>Characteristics:</strong>
+- Masks <strong>required</strong>
+- <strong>Never</strong> used during training or validation
+- Kept completely separate until final evaluation
+- Provides realistic performance estimate
+- Typically 10-15% of labeled data</p>
+<p><strong>What Happens During Testing:</strong>
+- Run <strong>after</strong> training is complete
+- Model makes predictions on test images (seen for the first time)
+- Predictions compared to ground truth masks
+- Final metrics (IoU, precision, recall) computed</p>
+<p><strong>Example Use Case:</strong></p>
+<blockquote>
+<p>You held out 150 labeled images that the model has never seen. After training completes, you test on these to get an honest measure of real-world performance.</p>
+</blockquote>
+<p><strong>Why It's Important:</strong>
+- Provides unbiased performance estimate
+- Simulates real-world deployment
+- Cannot be used for tuning (would bias the results)
+- Essential for reporting final model performance</p>
+<hr />
+<h2 id="recommended-split-ratios">Recommended Split Ratios<a class="headerlink" href="#recommended-split-ratios" title="Permanent link">&para;</a></h2>
+<p>Choose ratios based on your dataset size:</p>
+<table>
+<thead>
+<tr>
+<th>Dataset Size</th>
+<th>Train</th>
+<th>Val</th>
+<th>Test</th>
+<th>Reasoning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tiny (&lt;50 images)</strong></td>
+<td>60%</td>
+<td>25%</td>
+<td>15%</td>
+<td>Need larger val set for reliable feedback</td>
+</tr>
+<tr>
+<td><strong>Small (50-100)</strong></td>
+<td>70%</td>
+<td>20%</td>
+<td>10%</td>
+<td>Balance between training and validation</td>
+</tr>
+<tr>
+<td><strong>Medium (100-1000)</strong></td>
+<td>70%</td>
+<td>15%</td>
+<td>15%</td>
+<td>Standard research practice</td>
+</tr>
+<tr>
+<td><strong>Large (&gt;1000)</strong></td>
+<td>80%</td>
+<td>10%</td>
+<td>10%</td>
+<td>More data for training, smaller % still gives good validation</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Absolute Minimums:</strong>
+- Validation: At least 10 images (preferably 20+)
+- Test: At least 10 images
+- Train: At least 30-50 images for basic training</p>
+<hr />
+<h2 id="import-with-automatic-split">Import with Automatic Split<a class="headerlink" href="#import-with-automatic-split" title="Permanent link">&para;</a></h2>
+<p>The <strong>Import with Split</strong> feature automatically distributes your images into train/val/test directories, eliminating manual file organization.</p>
+<h3 id="when-to-use">When to Use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h3>
+<p>✅ <strong>Use Import with Split when you:</strong>
+- Have labeled images with corresponding masks
+- Want to train a custom model
+- Need automatic random distribution
+- Want reproducible splits</p>
+<p>❌ <strong>Don't use Import with Split for:</strong>
+- Production images for detection (use <code>--type raw</code> instead)
+- Images without masks
+- Re-organizing already split data</p>
+<h3 id="cli-usage">CLI Usage<a class="headerlink" href="#cli-usage" title="Permanent link">&para;</a></h3>
+<h4 id="basic-import-with-split">Basic Import with Split<a class="headerlink" href="#basic-import-with-split" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>my-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>./labeled-data/images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src-masks<span class="w"> </span>./labeled-data/masks<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--split-ratios<span class="w"> </span><span class="m">0</span>.7<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+</code></pre></div>
+<p><strong>What happens:</strong>
+1. Discovers all images in source directory
+2. Matches masks by filename
+3. Randomly shuffles files
+4. Splits according to ratios (70% train, 15% val, 15% test)
+5. Resizes images to 512×512
+6. Copies to appropriate directories
+7. Displays summary of split results</p>
+<h4 id="reproducible-split-with-seed">Reproducible Split (with Seed)<a class="headerlink" href="#reproducible-split-with-seed" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>my-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>./labeled-data/images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src-masks<span class="w"> </span>./labeled-data/masks<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--split-ratios<span class="w"> </span><span class="m">0</span>.7<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--seed<span class="w"> </span><span class="m">42</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+</code></pre></div>
+<p><strong>Why use a seed:</strong>
+- Same split every time you import
+- Reproducible experiments
+- Consistent with team members
+- Re-import if you need to adjust image size</p>
+<h4 id="custom-ratios">Custom Ratios<a class="headerlink" href="#custom-ratios" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Small dataset: larger validation set</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>my-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>./small-dataset/images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src-masks<span class="w"> </span>./small-dataset/masks<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--split-ratios<span class="w"> </span><span class="m">0</span>.6<span class="w"> </span><span class="m">0</span>.25<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+
+<span class="c1"># Large dataset: more for training</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>my-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>./large-dataset/images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src-masks<span class="w"> </span>./large-dataset/masks<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--split-ratios<span class="w"> </span><span class="m">0</span>.8<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+</code></pre></div>
+<h3 id="gui-usage">GUI Usage<a class="headerlink" href="#gui-usage" title="Permanent link">&para;</a></h3>
+<p>The GUI provides a visual, user-friendly interface for importing with split.</p>
+<h4 id="step-by-step-guide">Step-by-Step Guide<a class="headerlink" href="#step-by-step-guide" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Open the Import Dialog</strong></li>
+<li>Right-click on the project root in the file browser</li>
+<li>
+<p>Select "📊 Import Images with Split..."</p>
+</li>
+<li>
+<p><strong>Select Your Files</strong></p>
+</li>
+<li>Click "📁 Select Images..." </li>
+<li>Browse to your images directory</li>
+<li>Click "📁 Select Masks..." </li>
+<li>Browse to your masks directory</li>
+<li>
+<p>Status shows: "Found X images, Y masks"</p>
+</li>
+<li>
+<p><strong>Configure Split Ratios</strong></p>
+</li>
+<li>Drag the sliders to set percentages</li>
+<li><strong>Train slider</strong>: Percentage for training (default 70%)</li>
+<li><strong>Val slider</strong>: Percentage for validation (default 15%)</li>
+<li><strong>Test slider</strong>: Percentage for testing (default 15%)</li>
+<li>
+<p>Watch the <strong>Total indicator</strong>:</p>
+<ul>
+<li>Green ✓ = Sum equals 100% (ready to import)</li>
+<li>Red ✗ = Sum doesn't equal 100% (adjust sliders)</li>
+</ul>
+</li>
+<li>
+<p><strong>Optional: Set Random Seed</strong></p>
+</li>
+<li>Check "Use random seed" for reproducible splits</li>
+<li>Enter a number (e.g., 42)</li>
+<li>
+<p>Same seed = same split every time</p>
+</li>
+<li>
+<p><strong>Configure Image Settings</strong></p>
+</li>
+<li>Width and height (default 512×512 pixels)</li>
+<li>
+<p>Quality slider (default 90%)</p>
+</li>
+<li>
+<p><strong>Start Import</strong></p>
+</li>
+<li>Click "Import" button</li>
+<li>Progress bar shows status</li>
+<li>Success message when complete</li>
+</ol>
+<h4 id="visual-indicators">Visual Indicators<a class="headerlink" href="#visual-indicators" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>File count</strong>: Shows discovered images and masks</li>
+<li><strong>Ratio total</strong>: Must be green ✓ to proceed</li>
+<li><strong>Progress bar</strong>: Real-time import progress</li>
+<li><strong>Status messages</strong>: Shows which split is being processed</li>
+</ul>
+<hr />
+<h2 id="complete-training-workflow">Complete Training Workflow<a class="headerlink" href="#complete-training-workflow" title="Permanent link">&para;</a></h2>
+<p>Here's a complete end-to-end example showing how to use data splits effectively.</p>
+<h3 id="scenario">Scenario<a class="headerlink" href="#scenario" title="Permanent link">&para;</a></h3>
+<p>You have 200 labeled images of harbor cracks and want to train a custom detection model.</p>
+<h3 id="step-1-create-project">Step 1: Create Project<a class="headerlink" href="#step-1-create-project" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>harbor-inspection
+<span class="nb">cd</span><span class="w"> </span>harbor-inspection
+</code></pre></div>
+<p><strong>Result:</strong> Empty project structure created</p>
+<h3 id="step-2-import-with-automatic-split">Step 2: Import with Automatic Split<a class="headerlink" href="#step-2-import-with-automatic-split" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>.<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>~/datasets/harbor-cracks/images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src-masks<span class="w"> </span>~/datasets/harbor-cracks/masks<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--split-ratios<span class="w"> </span><span class="m">0</span>.7<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--seed<span class="w"> </span><span class="m">42</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+</code></pre></div>
+<p><strong>Result:</strong>
+- 140 images → <code>images/train/</code> (70%)
+- 30 images → <code>images/val/</code> (15%)
+- 30 images → <code>images/test/</code> (15%)
+- Matching masks in corresponding <code>masks/</code> directories</p>
+<h3 id="step-3-verify-split">Step 3: Verify Split<a class="headerlink" href="#step-3-verify-split" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Count images</span>
+ls<span class="w"> </span>images/train/<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="w">   </span><span class="c1"># Should show 140</span>
+ls<span class="w"> </span>images/val/<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="w">     </span><span class="c1"># Should show 30</span>
+ls<span class="w"> </span>images/test/<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="w">    </span><span class="c1"># Should show 30</span>
+
+<span class="c1"># Count masks (should match images)</span>
+ls<span class="w"> </span>masks/train/<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="w">    </span><span class="c1"># Should show 140</span>
+ls<span class="w"> </span>masks/val/<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="w">      </span><span class="c1"># Should show 30</span>
+ls<span class="w"> </span>masks/test/<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="w">     </span><span class="c1"># Should show 30</span>
+</code></pre></div>
+<h3 id="step-4-train-model">Step 4: Train Model<a class="headerlink" href="#step-4-train-model" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--epochs<span class="w"> </span><span class="m">50</span><span class="w"> </span>--batch-size<span class="w"> </span><span class="m">8</span>
+</code></pre></div>
+<p><strong>What happens during training:</strong>
+- Model learns from <code>images/train/</code> and <code>masks/train/</code>
+- After each epoch, validates on <code>images/val/</code> and <code>masks/val/</code>
+- Saves best checkpoint based on validation performance
+- <strong>Test set remains completely unused</strong></p>
+<p><strong>Output:</strong>
+- Training metrics in <code>artifacts/metrics.json</code>
+- Loss curves in <code>artifacts/loss_curve.png</code>
+- Best model in <code>checkpoints/best.ckpt</code></p>
+<h3 id="step-5-evaluate-on-test-set">Step 5: Evaluate on Test Set<a class="headerlink" href="#step-5-evaluate-on-test-set" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--split<span class="w"> </span><span class="nb">test</span>
+</code></pre></div>
+<p><strong>What happens:</strong>
+- Loads best checkpoint
+- Runs detection on <code>images/test/</code> (first time model sees these)
+- Compares to <code>masks/test/</code> for ground truth
+- Generates performance metrics</p>
+<p><strong>Output:</strong>
+- Test results in <code>detections/</code>
+- Final metrics showing real-world performance</p>
+<h3 id="step-6-deploy-on-production-data">Step 6: Deploy on Production Data<a class="headerlink" href="#step-6-deploy-on-production-data" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Import new unlabeled images</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>.<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>~/new-harbor-photos<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="w"> </span>raw<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+
+<span class="c1"># Run detection</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--split<span class="w"> </span>raw
+</code></pre></div>
+<p><strong>Result:</strong> Annotated images in <code>detections/</code> showing detected cracks</p>
+<hr />
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="dos">Do's ✅<a class="headerlink" href="#dos" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Use reproducible seeds</strong> when experimenting
+   <div class="highlight"><pre><span></span><code>--seed<span class="w"> </span><span class="m">42</span><span class="w">  </span><span class="c1"># Same split every time</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Keep backups</strong> of original data before importing
+   <div class="highlight"><pre><span></span><code>cp<span class="w"> </span>-r<span class="w"> </span>original-data<span class="w"> </span>backup/
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Verify split balance</strong> - check all splits have similar crack/no-crack ratios
+   <div class="highlight"><pre><span></span><code><span class="c1"># Check if splits are representative</span>
+ls<span class="w"> </span>images/train/<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+ls<span class="w"> </span>images/val/<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Use minimum validation size</strong> - at least 10-20 images
+   <div class="highlight"><pre><span></span><code><span class="c1"># For 50 images: 0.6, 0.25, 0.15 ensures val gets ~13 images</span>
+--split-ratios<span class="w"> </span><span class="m">0</span>.6<span class="w"> </span><span class="m">0</span>.25<span class="w"> </span><span class="m">0</span>.15
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Document your split</strong> - record seed and ratios in project notes
+   <div class="highlight"><pre><span></span><code><span class="c1"># In project documentation</span>
+<span class="nt">split_info</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">seed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">42</span>
+<span class="w">  </span><span class="nt">ratios</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.7</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.15</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.15</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2025-10-19</span>
+</code></pre></div></p>
+</li>
+</ol>
+<h3 id="donts">Don'ts ❌<a class="headerlink" href="#donts" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Don't tune on test data</strong> - never use test set for hyperparameter decisions</li>
+<li><strong>Don't re-split frequently</strong> - this breaks reproducibility and wastes time</li>
+<li><strong>Don't skip validation</strong> - training without validation often leads to overfitting</li>
+<li><strong>Don't use tiny val sets</strong> - fewer than 10 images gives unreliable feedback</li>
+<li><strong>Don't mix splits</strong> - keep train/val/test completely separate</li>
+<li><strong>Don't forget masks</strong> - train/val/test splits require corresponding masks</li>
+</ol>
+<h3 id="data-quality-checklist">Data Quality Checklist<a class="headerlink" href="#data-quality-checklist" title="Permanent link">&para;</a></h3>
+<p>Before importing with split, verify:</p>
+<ul>
+<li>[ ] All images have corresponding masks</li>
+<li>[ ] Mask filenames match image filenames exactly</li>
+<li>[ ] Masks are binary (0 and 255 only)</li>
+<li>[ ] Masks are same dimensions as images</li>
+<li>[ ] At least 30 images total (preferably 100+)</li>
+<li>[ ] Diverse conditions (lighting, angles, crack types)</li>
+<li>[ ] Clean annotations (no mislabeled cracks)</li>
+</ul>
+<hr />
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="common-issues-and-solutions">Common Issues and Solutions<a class="headerlink" href="#common-issues-and-solutions" title="Permanent link">&para;</a></h3>
+<h4 id="issue-ratios-must-sum-to-10">Issue: "Ratios must sum to 1.0"<a class="headerlink" href="#issue-ratios-must-sum-to-10" title="Permanent link">&para;</a></h4>
+<p><strong>Symptom:</strong> Error when trying to import with split</p>
+<p><strong>Cause:</strong> Train + val + test ratios don't equal 1.0 exactly</p>
+<p><strong>Solution:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Wrong: 0.7 + 0.2 + 0.2 = 1.1 ❌</span>
+<span class="c1"># Right: 0.7 + 0.15 + 0.15 = 1.0 ✅</span>
+--split-ratios<span class="w"> </span><span class="m">0</span>.7<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="m">0</span>.15
+</code></pre></div></p>
+<h4 id="issue-validation-split-is-empty">Issue: Validation split is empty<a class="headerlink" href="#issue-validation-split-is-empty" title="Permanent link">&para;</a></h4>
+<p><strong>Symptom:</strong> After import, <code>images/val/</code> has no files</p>
+<p><strong>Cause:</strong> Too few images or val ratio too small</p>
+<p><strong>Solution:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># If you have 10 images and use 0.7/0.15/0.15:</span>
+<span class="c1"># train=7, val=1, test=2 (works)</span>
+
+<span class="c1"># If you have 5 images and use 0.8/0.1/0.1:</span>
+<span class="c1"># train=4, val=0, test=1 (val is empty!)</span>
+
+<span class="c1"># Solution: Use larger val ratio or more images</span>
+--split-ratios<span class="w"> </span><span class="m">0</span>.6<span class="w"> </span><span class="m">0</span>.25<span class="w"> </span><span class="m">0</span>.15<span class="w">  </span><span class="c1"># Ensures val gets at least 1</span>
+</code></pre></div></p>
+<h4 id="issue-masks-not-found-for-some-images">Issue: Masks not found for some images<a class="headerlink" href="#issue-masks-not-found-for-some-images" title="Permanent link">&para;</a></h4>
+<p><strong>Symptom:</strong> Warning about missing masks during import</p>
+<p><strong>Cause:</strong> Mask filenames don't match image filenames</p>
+<p><strong>Solution:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Image: images/crack_001.jpg</span>
+<span class="c1"># Mask must be: masks/crack_001.png (same stem)</span>
+
+<span class="c1"># Check your filenames:</span>
+ls<span class="w"> </span>images/<span class="w"> </span>&gt;<span class="w"> </span>image_list.txt
+ls<span class="w"> </span>masks/<span class="w"> </span>&gt;<span class="w"> </span>mask_list.txt
+<span class="c1"># Compare the stems (filename without extension)</span>
+</code></pre></div></p>
+<h4 id="issue-different-split-on-each-import">Issue: Different split on each import<a class="headerlink" href="#issue-different-split-on-each-import" title="Permanent link">&para;</a></h4>
+<p><strong>Symptom:</strong> Files go to different splits each time</p>
+<p><strong>Cause:</strong> No seed specified, random shuffle differs</p>
+<p><strong>Solution:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add --seed for reproducible splits</span>
+--seed<span class="w"> </span><span class="m">42</span>
+</code></pre></div></p>
+<h4 id="issue-training-fails-with-not-enough-validation-data">Issue: Training fails with "not enough validation data"<a class="headerlink" href="#issue-training-fails-with-not-enough-validation-data" title="Permanent link">&para;</a></h4>
+<p><strong>Symptom:</strong> Training crashes or warns about validation set</p>
+<p><strong>Cause:</strong> Validation split too small (&lt; 10 images)</p>
+<p><strong>Solution:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Increase validation ratio</span>
+--split-ratios<span class="w"> </span><span class="m">0</span>.65<span class="w"> </span><span class="m">0</span>.25<span class="w"> </span><span class="m">0</span>.1<span class="w">  </span><span class="c1"># Gives more to validation</span>
+</code></pre></div></p>
+<h4 id="issue-out-of-memory-during-training">Issue: Out of memory during training<a class="headerlink" href="#issue-out-of-memory-during-training" title="Permanent link">&para;</a></h4>
+<p><strong>Symptom:</strong> CUDA out of memory or system crash</p>
+<p><strong>Cause:</strong> Batch size too large or images too big</p>
+<p><strong>Solution:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Import with smaller size</span>
+--size<span class="w"> </span><span class="m">256</span><span class="w"> </span><span class="m">256</span><span class="w">  </span><span class="c1"># Instead of 512 512</span>
+
+<span class="c1"># Or reduce batch size during training</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--batch-size<span class="w"> </span><span class="m">2</span><span class="w">  </span><span class="c1"># Instead of 8</span>
+</code></pre></div></p>
+<hr />
+<h2 id="advanced-topics">Advanced Topics<a class="headerlink" href="#advanced-topics" title="Permanent link">&para;</a></h2>
+<h3 id="stratified-splitting">Stratified Splitting<a class="headerlink" href="#stratified-splitting" title="Permanent link">&para;</a></h3>
+<p>For datasets with imbalanced classes (many no-crack, few crack images), consider manual stratification:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Separate images by class first</span>
+mkdir<span class="w"> </span>temp/crack<span class="w"> </span>temp/no-crack
+
+<span class="c1"># Move files to class folders</span>
+<span class="c1"># ... organize manually or with script ...</span>
+
+<span class="c1"># Import each class separately with same ratio</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--src<span class="w"> </span>temp/crack<span class="w"> </span>--split-ratios<span class="w"> </span><span class="m">0</span>.7<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span>--seed<span class="w"> </span><span class="m">42</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--src<span class="w"> </span>temp/no-crack<span class="w"> </span>--split-ratios<span class="w"> </span><span class="m">0</span>.7<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span>--seed<span class="w"> </span><span class="m">42</span>
+</code></pre></div>
+<h3 id="cross-validation">Cross-Validation<a class="headerlink" href="#cross-validation" title="Permanent link">&para;</a></h3>
+<p>For small datasets, consider k-fold cross-validation:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Import full dataset to train</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--src<span class="w"> </span>data<span class="w"> </span>--type<span class="w"> </span>train<span class="w"> </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+
+<span class="c1"># Manually create folds by moving files between train/val</span>
+<span class="c1"># Train 5 models with different train/val splits</span>
+<span class="c1"># Average results for robust performance estimate</span>
+</code></pre></div>
+<h3 id="incremental-training">Incremental Training<a class="headerlink" href="#incremental-training" title="Permanent link">&para;</a></h3>
+<p>Adding new data to existing splits:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Import new batch with same seed and ratios</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>new-data<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--split-ratios<span class="w"> </span><span class="m">0</span>.7<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--seed<span class="w"> </span><span class="m">42</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+
+<span class="c1"># WARNING: This adds to existing splits</span>
+<span class="c1"># Consider fresh re-import of all data for clean splits</span>
+</code></pre></div>
+<hr />
+<h2 id="quick-reference">Quick Reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
+<h3 id="split-summary-table">Split Summary Table<a class="headerlink" href="#split-summary-table" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Split</th>
+<th>Dir</th>
+<th>Masks</th>
+<th>Used in Training</th>
+<th>Used in Testing</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Raw</td>
+<td><code>images/raw/</code></td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>Production detection</td>
+</tr>
+<tr>
+<td>Train</td>
+<td><code>images/train/</code></td>
+<td>Yes</td>
+<td>Yes (learning)</td>
+<td>No</td>
+<td>Teaching model</td>
+</tr>
+<tr>
+<td>Val</td>
+<td><code>images/val/</code></td>
+<td>Yes</td>
+<td>Yes (monitoring)</td>
+<td>No</td>
+<td>Preventing overfit</td>
+</tr>
+<tr>
+<td>Test</td>
+<td><code>images/test/</code></td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+<td>Final evaluation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="common-commands">Common Commands<a class="headerlink" href="#common-commands" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Import for training (with split)</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--src<span class="w"> </span>data/images<span class="w"> </span>--src-masks<span class="w"> </span>data/masks<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--split-ratios<span class="w"> </span><span class="m">0</span>.7<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span>--seed<span class="w"> </span><span class="m">42</span><span class="w"> </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+
+<span class="c1"># Import for detection (no split)</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--src<span class="w"> </span>photos<span class="w"> </span>--type<span class="w"> </span>raw<span class="w"> </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
+
+<span class="c1"># Train on train split, validate on val split</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--epochs<span class="w"> </span><span class="m">50</span><span class="w"> </span>--batch-size<span class="w"> </span><span class="m">8</span>
+
+<span class="c1"># Test on test split</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--split<span class="w"> </span><span class="nb">test</span>
+
+<span class="c1"># Detect on raw split</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--split<span class="w"> </span>raw
+</code></pre></div>
+<h3 id="recommended-ratios">Recommended Ratios<a class="headerlink" href="#recommended-ratios" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Standard</strong>: 70% train, 15% val, 15% test</li>
+<li><strong>Small dataset</strong>: 60% train, 25% val, 15% test</li>
+<li><strong>Large dataset</strong>: 80% train, 10% val, 10% test</li>
+</ul>
+<hr />
+<h2 id="further-reading">Further Reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../user-guide/">User Guide</a> - Complete Crackz documentation</li>
+<li><a href="../gui/">GUI Guide</a> - Using the graphical interface</li>
+<li><a href="../cli-cookbook/">CLI Cookbook</a> - Command-line recipes</li>
+<li><a href="../training-config/">Training Configuration</a> - Advanced training settings</li>
+<li><a href="../configuration/">Configuration Guide</a> - Project configuration details</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Anaxiatech-AB/crackz" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.14.0"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

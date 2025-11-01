@@ -2096,7 +2096,7 @@ saved on disk are expected to remain loadable across MINOR and PATCH releases.</
 - Serialization: Only include primitive / Pydantic-friendly types to keep YAML diff-friendly.</p>
 <p><code>tensorboard</code> Field Rationale:
 - Added after initial releases to optionally enable structured log output for TensorBoard
-  under <code>artifacts/training/tensorboard</code>.
+  under <code>artifacts/runtime/tensorboard/</code>.
 - Older project YAML won't contain the key; code must treat missing attribute as <code>False</code>.
   We enforce this via <code>getattr(project.ai.training, "tensorboard", False)</code> in the trainer code.</p>
 <p>Backward Compatibility Pattern (example):
@@ -2309,10 +2309,10 @@ Windows (PowerShell):
 </code></pre></div></p>
 <h3 id="viewing-tensorboard-logs">Viewing TensorBoard Logs<a class="headerlink" href="#viewing-tensorboard-logs" title="Permanent link">&para;</a></h3>
 <p>After training starts, TensorBoard logs are saved to:
-<div class="highlight"><pre><span></span><code>&lt;artifacts_path&gt;/training/tensorboard/
+<div class="highlight"><pre><span></span><code>&lt;artifacts_path&gt;/runtime/tensorboard/
 </code></pre></div></p>
 <p>Launch TensorBoard to view metrics:
-<div class="highlight"><pre><span></span><code>tensorboard<span class="w"> </span>--logdir<span class="w"> </span>demo-project/artifacts/training/tensorboard
+<div class="highlight"><pre><span></span><code>tensorboard<span class="w"> </span>--logdir<span class="w"> </span>demo-project/artifacts/runtime/tensorboard
 </code></pre></div></p>
 <p>Then open http://localhost:6006 in your browser.</p>
 <h3 id="what-gets-logged">What Gets Logged<a class="headerlink" href="#what-gets-logged" title="Permanent link">&para;</a></h3>
@@ -2326,7 +2326,7 @@ Windows (PowerShell):
 <h3 id="docker-usage">Docker Usage<a class="headerlink" href="#docker-usage" title="Permanent link">&para;</a></h3>
 <p>When using Docker, expose TensorBoard's port and mount the project directory:
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/demo-project:/workspace<span class="w"> </span>-p<span class="w"> </span><span class="m">6006</span>:6006<span class="w"> </span>crackz-cli<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>tensorboard<span class="w"> </span>--logdir<span class="w"> </span>/workspace/artifacts/training/tensorboard
+<span class="w">  </span>tensorboard<span class="w"> </span>--logdir<span class="w"> </span>/workspace/artifacts/runtime/tensorboard
 </code></pre></div></p>
 <h2 id="overriding-strategy-examples">Overriding Strategy Examples<a class="headerlink" href="#overriding-strategy-examples" title="Permanent link">&para;</a></h2>
 <table>
@@ -2352,10 +2352,11 @@ Windows (PowerShell):
 </tbody>
 </table>
 <h2 id="checkpoint-management">Checkpoint Management<a class="headerlink" href="#checkpoint-management" title="Permanent link">&para;</a></h2>
-<p>Checkpoints live under: <code>&lt;artifacts_path&gt;/checkpoints/</code> and may include:
+<p>Checkpoints live under: <code>&lt;artifacts_path&gt;/models/</code> and may include:
 - <code>best.ckpt</code> (highest monitored metric)
 - <code>last.ckpt</code> (latest epoch)
-- Patterned files: <code>EPOCH-VALIOU.ckpt</code> (e.g., <code>003-0.3000.ckpt</code>)</p>
+- Patterned files: <code>epoch={N}-val_iou={score}.ckpt</code> (e.g., <code>epoch=9-val_iou=0.8234.ckpt</code>)</p>
+<p><strong>Note:</strong> Legacy projects may have checkpoints in <code>&lt;artifacts_path&gt;/checkpoints/</code> - both locations are supported for backward compatibility.</p>
 <h3 id="configuration-options">Configuration Options<a class="headerlink" href="#configuration-options" title="Permanent link">&para;</a></h3>
 <p>Control checkpoint saving behavior in your project YAML:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">ai</span><span class="p">:</span>

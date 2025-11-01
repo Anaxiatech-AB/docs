@@ -719,9 +719,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#version-2-changes-current" class="md-nav__link">
+  <a href="#version-3-changes-current" class="md-nav__link">
     <span class="md-ellipsis">
-      Version 2 Changes (Current)
+      Version 3 Changes (Current)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-2-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version 2 Changes
     </span>
   </a>
   
@@ -747,6 +756,30 @@
       Manual Migration Command
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Manual Migration Command">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-only-migration-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schema-Only Migration (Default)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-migration-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Migration (Optional)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -783,6 +816,39 @@
       GUI Migration
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="GUI Migration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automated-migration-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Automated Migration Detection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schema-migration-dialog" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schema Migration Dialog
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-migration-dialog-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Migration Dialog (NEW)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1242,9 +1308,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#version-2-changes-current" class="md-nav__link">
+  <a href="#version-3-changes-current" class="md-nav__link">
     <span class="md-ellipsis">
-      Version 2 Changes (Current)
+      Version 3 Changes (Current)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-2-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version 2 Changes
     </span>
   </a>
   
@@ -1270,6 +1345,30 @@
       Manual Migration Command
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Manual Migration Command">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-only-migration-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schema-Only Migration (Default)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-migration-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Migration (Optional)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1306,6 +1405,39 @@
       GUI Migration
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="GUI Migration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automated-migration-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Automated Migration Detection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schema-migration-dialog" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schema Migration Dialog
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-migration-dialog-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Migration Dialog (NEW)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1379,25 +1511,43 @@ It never removes user data.</p>
 </tr>
 <tr>
 <td>2</td>
-<td>Added <code>data</code> section with <code>mask_threshold: 50</code></td>
-<td>Current version - binary mask conversion support</td>
+<td>Added <code>data</code> section with <code>mask_threshold: 1</code></td>
+<td>Binary mask conversion support</td>
+</tr>
+<tr>
+<td>3</td>
+<td>New artifacts structure + <code>project.crackz_version</code> tracking</td>
+<td><strong>Current version</strong> - Improved organization</td>
 </tr>
 </tbody>
 </table>
-<h3 id="version-2-changes-current">Version 2 Changes (Current)<a class="headerlink" href="#version-2-changes-current" title="Permanent link">&para;</a></h3>
-<p>Schema version 2 introduces the <code>data</code> configuration section for data preprocessing:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">data</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">mask_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
-<span class="nt">schema_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<h3 id="version-3-changes-current">Version 3 Changes (Current)<a class="headerlink" href="#version-3-changes-current" title="Permanent link">&para;</a></h3>
+<p>Schema version 3 introduces improved artifacts organization and version tracking:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">schema_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="nt">project</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_project</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My crack detection project</span>
+<span class="w">  </span><span class="nt">created</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2025-01-15T10:30:00Z&#39;</span>
+<span class="w">  </span><span class="nt">crackz_version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;0.50.0&#39;</span><span class="w">  </span><span class="c1"># NEW: Tracks Crackz app version</span>
 </code></pre></div>
 <p><strong>What gets added:</strong>
-- <code>data.mask_threshold</code>: Threshold for converting imported masks to binary format (default: 50)
-- Binary mask conversion during image import automatically uses this threshold
-- Masks are converted: pixels ≥ threshold → 255 (white), others → 0 (black)</p>
+- <code>project.crackz_version</code>: Tracks which Crackz version created/last modified the project
+- New artifacts directory structure (backward compatible):
+  - <code>checkpoints/</code> to <code>models/</code> (clearer purpose for model weights)
+  - <code>runtime/</code> for temporary artifacts (TensorBoard, Lightning logs)
+  - <code>detections/visualizations/</code> for PNG detection outputs</p>
 <p><strong>Backward compatibility:</strong>
-- Projects without the <code>data</code> section will have it added with <code>mask_threshold: 50</code>
-- This provides balanced filtering of noise while preserving valid annotations
-- No impact on existing mask files - only affects future imports</p>
+- Old projects continue working - <code>checkpoints_path</code> checks legacy <code>checkpoints/</code> directory first
+- New writes automatically use improved structure (<code>models/</code>, <code>runtime/</code>, etc.)
+- <strong>File migration available</strong> - optionally migrate existing files to new structure
+- Migration only updates schema version and adds <code>crackz_version</code> field by default</p>
+<h3 id="version-2-changes">Version 2 Changes<a class="headerlink" href="#version-2-changes" title="Permanent link">&para;</a></h3>
+<p>Schema version 2 introduced the <code>data</code> configuration section:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">mask_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">schema_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</code></pre></div>
+<p>Added <code>data.mask_threshold</code> for binary mask conversion during image import.</p>
 <h2 id="cli-auto-assisted-migration">CLI Auto / Assisted Migration<a class="headerlink" href="#cli-auto-assisted-migration" title="Permanent link">&para;</a></h2>
 <p>Most CLI commands that load a project (e.g. <code>detect train</code>, <code>detect run</code>, image
 imports, exporting configs, pruning checkpoints) now check the schema version
@@ -1418,18 +1568,53 @@ crackz<span class="w"> </span>migrate<span class="w"> </span>--cfg<span class="w
 </code></pre></div>
 <p>Common flags:
 - <code>--dry-run</code> : Show what would change without writing.
-- <code>--no-backup</code> : Skip writing <code>&lt;file&gt;.bak</code> before overwrite.</p>
-<p>Examples:
+- <code>--no-backup</code> : Skip writing <code>&lt;file&gt;.bak</code> before overwrite.
+- <code>--migrate-files</code> : <strong>NEW</strong> Also migrate artifacts directory structure (checkpoints to models, etc.)</p>
+<h3 id="schema-only-migration-default">Schema-Only Migration (Default)<a class="headerlink" href="#schema-only-migration-default" title="Permanent link">&para;</a></h3>
+<p>Basic migration only updates the YAML schema and adds missing fields:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Using project directory</span>
 crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>my_project<span class="w"> </span>--dry-run
 crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>my_project
 
 <span class="c1"># Using direct YAML file path</span>
 crackz<span class="w"> </span>migrate<span class="w"> </span>--cfg<span class="w"> </span>my_project/my_project_project.yaml
-</code></pre></div></p>
+</code></pre></div>
+<h3 id="file-migration-optional">File Migration (Optional)<a class="headerlink" href="#file-migration-optional" title="Permanent link">&para;</a></h3>
+<p><strong>NEW in v3</strong>: Optionally migrate the actual artifacts directory structure:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Preview what files would be moved</span>
+crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>my_project<span class="w"> </span>--migrate-files<span class="w"> </span>--dry-run
+
+<span class="c1"># Migrate both schema AND files</span>
+crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>my_project<span class="w"> </span>--migrate-files
+</code></pre></div>
+<p>File migration moves:
+- <code>checkpoints/</code> to <code>models/</code>
+- <code>training/tensorboard/</code> to <code>runtime/tensorboard/</code>
+- <code>training/lightning_logs/</code> to <code>runtime/lightning_logs/</code>
+- <code>detections/*.png</code> to <code>detections/visualizations/</code></p>
+<p><strong>Safety features:</strong>
+- Always creates backup of entire artifacts directory before moving files
+- Interactive confirmation before proceeding
+- Automatic rollback if migration fails
+- Detailed progress reporting</p>
 <h2 id="backups">Backups<a class="headerlink" href="#backups" title="Permanent link">&para;</a></h2>
-<p>By default a <code>&lt;name&gt;_project.yaml.bak</code> is written before modifying the original.
-You can revert by replacing the new file with the backup.</p>
+<p>By default, a <strong>timestamped backup</strong> is created before modifying the original project file.
+Backup files use the format: <code>{filename}.v{version}.{timestamp}.bak</code></p>
+<p><strong>Example:</strong>
+<div class="highlight"><pre><span></span><code>myproject_project.v2.20250115_143022.bak
+</code></pre></div></p>
+<p>This format includes:
+- <strong>Version number</strong> (<code>v2</code>) - Shows which schema version this backup came from
+- <strong>Timestamp</strong> (<code>20250115_143022</code>) - UTC timestamp ensures unique backups per migration
+- Multiple migrations create multiple backups (never overwrites previous backups)</p>
+<p><strong>To revert a migration:</strong>
+1. Locate the timestamped backup file (e.g., <code>myproject_project.v2.20250115_143022.bak</code>)
+2. Remove or rename the current YAML file
+3. Rename the backup file to remove the <code>.v2.20250115_143022.bak</code> suffix</p>
+<p><strong>Benefits:</strong>
+- Never lose migration history (each migration creates a unique backup)
+- Easy to identify which version a backup came from
+- Can rollback to any previous migration step if needed</p>
 <h2 id="environment-variable-summary">Environment Variable Summary<a class="headerlink" href="#environment-variable-summary" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -1452,11 +1637,40 @@ You can revert by replacing the new file with the backup.</p>
 
 <span class="n">result</span> <span class="o">=</span> <span class="n">migrate_project_file</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;my_project&quot;</span><span class="p">))</span>  <span class="c1"># or path/to_yaml</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="c1"># Example result:</span>
+<span class="c1"># {</span>
+<span class="c1">#   &#39;status&#39;: &#39;migrated&#39;,</span>
+<span class="c1">#   &#39;from_version&#39;: 2,</span>
+<span class="c1">#   &#39;to_version&#39;: 3,</span>
+<span class="c1">#   &#39;steps&#39;: [&#39;2-&gt;3: updated to artifacts structure v3 + added crackz_version tracking&#39;],</span>
+<span class="c1">#   &#39;path&#39;: &#39;my_project/my_project_project.yaml&#39;,</span>
+<span class="c1">#   &#39;backup_path&#39;: &#39;my_project/my_project_project.v2.20250115_143022.bak&#39;,</span>
+<span class="c1">#   &#39;dry_run&#39;: False</span>
+<span class="c1"># }</span>
 </code></pre></div>
-<p>The result dict contains: <code>status</code>, <code>from_version</code>, <code>to_version</code>, <code>steps</code>, <code>path</code>.</p>
+<p>The result dict contains:
+- <code>status</code>: "migrated", "noop", or "up-to-date"
+- <code>from_version</code>: Original schema version
+- <code>to_version</code>: Final schema version
+- <code>steps</code>: List of migration step descriptions
+- <code>path</code>: Path to migrated file
+- <code>backup_path</code>: Path to backup file (if created)
+- <code>dry_run</code>: Whether this was a dry run</p>
 <h2 id="gui-migration">GUI Migration<a class="headerlink" href="#gui-migration" title="Permanent link">&para;</a></h2>
-<p>When opening a project in the GUI, a dialog offers migration if the schema is older.
-A backup is created automatically; declining leaves the project untouched.</p>
+<h3 id="automated-migration-detection">Automated Migration Detection<a class="headerlink" href="#automated-migration-detection" title="Permanent link">&para;</a></h3>
+<p>When opening a project in the GUI, automatic detection occurs for:</p>
+<ol>
+<li><strong>Schema Migration</strong>: Always prompted and performed when project schema is outdated</li>
+<li><strong>File Migration</strong>: Detects when artifacts directory structure needs updating</li>
+</ol>
+<h3 id="schema-migration-dialog">Schema Migration Dialog<a class="headerlink" href="#schema-migration-dialog" title="Permanent link">&para;</a></h3>
+<p>When opening a project with an old schema version, the GUI displays a dialog offering migration. A backup is created automatically; declining leaves the project untouched.</p>
+<h3 id="file-migration-dialog-new">File Migration Dialog (NEW)<a class="headerlink" href="#file-migration-dialog-new" title="Permanent link">&para;</a></h3>
+<p>When artifacts directory structure is outdated, the GUI displays an informational dialog explaining:
+- Benefits of the new structure (better organization, clearer separation)
+- Safety measures (backup creation, rollback capability)
+- User options: "Migrate", "Skip", or "Cancel"</p>
+<p>The migration process shows progress and handles any errors gracefully with automatic rollback.</p>
 <h2 id="safety-and-idempotence">Safety and Idempotence<a class="headerlink" href="#safety-and-idempotence" title="Permanent link">&para;</a></h2>
 <p>Running migration on an already up-to-date project is a no-op.
 Repeated runs after success make no further changes.</p>
@@ -1481,9 +1695,14 @@ Repeated runs after success make no further changes.</p>
 <td>Re-run migration or add field manually</td>
 </tr>
 <tr>
-<td>Backup file grows stale</td>
-<td>Multiple migrations not needed</td>
-<td>Remove old <code>.bak</code> after verifying new file</td>
+<td>Many <code>.bak</code> files accumulate</td>
+<td>Multiple migrations over time</td>
+<td>Safe to delete old backups after verifying current project works</td>
+</tr>
+<tr>
+<td>Need to rollback migration</td>
+<td>Migration caused issues</td>
+<td>Rename timestamped <code>.bak</code> file to remove suffix and replace current YAML</td>
 </tr>
 </tbody>
 </table>

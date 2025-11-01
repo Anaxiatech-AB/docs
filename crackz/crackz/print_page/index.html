@@ -1224,10 +1224,13 @@ python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;i
 │   └── test/
 ├── artifacts/       # Model outputs (metrics, plots)
 ├── detections/      # Detection results (annotated images, JSON)
-├── checkpoints/     # Saved model weights
+├── models/          # Saved model weights (or checkpoints/ in older projects)
 ├── logs/            # Project-specific logs
 └── project.yaml     # Project configuration
 </code></pre></div></p>
+<blockquote>
+<p><strong>Note</strong>: Older projects may use <code>checkpoints/</code> instead of <code>models/</code>. Use <code>crackz migrate --project &lt;project&gt; --migrate-files</code> to upgrade to the new structure, or the GUI will prompt you automatically when opening the project.</p>
+</blockquote>
 <h3 id="step-2-import-images">Step 2: Import Images<a class="headerlink" href="#step-2-import-images" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Import sample images for detection (no training)</span>
 crackz<span class="w"> </span>import-images<span class="w"> </span><span class="se">\</span>
@@ -1283,7 +1286,7 @@ xdg-open<span class="w"> </span>my-first-project/detections/*.png<span class="w"
   - Binary masks: 0 = background, 255 = crack
 - <strong><code>artifacts/</code></strong>: Training outputs (loss curves, metrics JSON)
 - <strong><code>detections/</code></strong>: Detection results with overlays
-- <strong><code>checkpoints/</code></strong>: Saved model weights (.ckpt files)
+- <strong><code>models/</code></strong>: Saved model weights (.ckpt files) [or <code>checkpoints/</code> in older projects]
 - <strong><code>logs/</code></strong>: Project-specific log files
 - <strong><code>project.yaml</code></strong>: Configuration file (version-controlled)</p>
 <h3 id="52-data-splits-explained">5.2 Data Splits Explained<a class="headerlink" href="#52-data-splits-explained" title="Permanent link">&para;</a></h3>
@@ -1528,7 +1531,7 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>model<span class="w"> </span>import<span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w"> </span>--model<span class="w"> </span>pretrained_model.zip
 </code></pre></div>
 <p>Or use the GUI:
-1. Right-click on the checkpoints folder
+1. Right-click on the models folder (or checkpoints in older projects)
 2. Select "📥 Import Model..."
 3. Choose a model package file</p>
 <p><strong>Exporting Models:</strong></p>
@@ -1536,7 +1539,7 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w"> </span>--out<span class="w"> </span>my_model.zip
 </code></pre></div>
 <p>Or use the GUI:
-1. Right-click on the checkpoints folder<br />
+1. Right-click on the models folder (or checkpoints in older projects)
 2. Select "📦 Export Model..."
 3. Choose where to save the package</p>
 <p>Model packages are portable zip files containing the checkpoint and metadata, making it easy to transfer models between projects, team members, or deployment environments.</p>
@@ -2080,7 +2083,7 @@ nvidia-smi<span class="w"> </span>-l<span class="w"> </span><span class="m">1</s
 <p><em>Solution:</em>
 - Check logs: <code>tail my-project/logs/crackz.log</code>
 - Verify images exist in target split (default: <code>raw/</code>)
-- Ensure checkpoint exists: <code>ls my-project/checkpoints/</code>
+- Ensure checkpoint exists: <code>ls my-project/models/</code> (or <code>my-project/checkpoints/</code> in older projects)
 - Try: <code>crackz detect run --project my-project --debug</code></p>
 <p><strong>Problem: Detection results look wrong (too many/few cracks)</strong></p>
 <p><em>Solution:</em>
@@ -2893,6 +2896,23 @@ crackz-gui
 <li>Select the folder and click <strong>Open</strong></li>
 </ol>
 <p>Recent projects appear in the welcome screen and <strong>File → Recent Projects</strong> menu for quick access.</p>
+<h3 id="automatic-migration-support">Automatic Migration Support<a class="headerlink" href="#automatic-migration-support" title="Permanent link">&para;</a></h3>
+<p>When opening a project with an outdated configuration or file structure, the GUI automatically detects migration needs and provides user-friendly dialogs:</p>
+<h4 id="schema-migration">Schema Migration<a class="headerlink" href="#schema-migration" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Automatic Detection</strong>: When project schema is outdated (v0, v1, v2), a dialog prompts for migration</li>
+<li><strong>Safe Process</strong>: Backup is always created before migration</li>
+<li><strong>User Choice</strong>: Option to migrate now, skip, or cancel</li>
+</ul>
+<h4 id="file-migration-new">File Migration (NEW)<a class="headerlink" href="#file-migration-new" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Structure Detection</strong>: Identifies when artifacts directory uses old structure (checkpoints/, training/, etc.)</li>
+<li><strong>Informational Dialog</strong>: Explains benefits of new organization and safety measures</li>
+<li><strong>User Options</strong>: "Migrate" (reorganizes files), "Skip" (continue with old structure), or "Cancel"</li>
+<li><strong>Progress Tracking</strong>: Shows migration progress with detailed feedback</li>
+<li><strong>Error Handling</strong>: Automatic rollback if migration fails</li>
+</ul>
+<p>This ensures your projects always use the latest, most organized structure without requiring manual CLI commands.</p>
 <h3 id="project-settings">Project Settings<a class="headerlink" href="#project-settings" title="Permanent link">&para;</a></h3>
 <p>Access project settings via <strong>Project → Settings</strong> or by clicking the settings icon. Settings are organized into tabs:</p>
 <h4 id="project-tab">Project Tab<a class="headerlink" href="#project-tab" title="Permanent link">&para;</a></h4>
@@ -3029,7 +3049,7 @@ crackz-gui
 <ol>
 <li>Click <strong>Model → Import Model</strong></li>
 <li>Select checkpoint file (<code>.ckpt</code>)</li>
-<li>Model is copied to project's checkpoints directory</li>
+<li>Model is copied to project's models directory (or checkpoints in older projects)</li>
 <li>Available immediately for detection</li>
 </ol>
 <p><img alt="Import Model Menu" src="../assets/gui/import_model_menu.png" /></p>
@@ -3596,7 +3616,7 @@ saved on disk are expected to remain loadable across MINOR and PATCH releases.</
 - Serialization: Only include primitive / Pydantic-friendly types to keep YAML diff-friendly.</p>
 <p><code>tensorboard</code> Field Rationale:
 - Added after initial releases to optionally enable structured log output for TensorBoard
-  under <code>artifacts/training/tensorboard</code>.
+  under <code>artifacts/runtime/tensorboard/</code>.
 - Older project YAML won't contain the key; code must treat missing attribute as <code>False</code>.
   We enforce this via <code>getattr(project.ai.training, "tensorboard", False)</code> in the trainer code.</p>
 <p>Backward Compatibility Pattern (example):
@@ -3809,10 +3829,10 @@ Windows (PowerShell):
 </code></pre></div></p>
 <h3 id="viewing-tensorboard-logs">Viewing TensorBoard Logs<a class="headerlink" href="#viewing-tensorboard-logs" title="Permanent link">&para;</a></h3>
 <p>After training starts, TensorBoard logs are saved to:
-<div class="highlight"><pre><span></span><code>&lt;artifacts_path&gt;/training/tensorboard/
+<div class="highlight"><pre><span></span><code>&lt;artifacts_path&gt;/runtime/tensorboard/
 </code></pre></div></p>
 <p>Launch TensorBoard to view metrics:
-<div class="highlight"><pre><span></span><code>tensorboard<span class="w"> </span>--logdir<span class="w"> </span>demo-project/artifacts/training/tensorboard
+<div class="highlight"><pre><span></span><code>tensorboard<span class="w"> </span>--logdir<span class="w"> </span>demo-project/artifacts/runtime/tensorboard
 </code></pre></div></p>
 <p>Then open http://localhost:6006 in your browser.</p>
 <h3 id="what-gets-logged">What Gets Logged<a class="headerlink" href="#what-gets-logged" title="Permanent link">&para;</a></h3>
@@ -3826,7 +3846,7 @@ Windows (PowerShell):
 <h3 id="docker-usage">Docker Usage<a class="headerlink" href="#docker-usage" title="Permanent link">&para;</a></h3>
 <p>When using Docker, expose TensorBoard's port and mount the project directory:
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/demo-project:/workspace<span class="w"> </span>-p<span class="w"> </span><span class="m">6006</span>:6006<span class="w"> </span>crackz-cli<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>tensorboard<span class="w"> </span>--logdir<span class="w"> </span>/workspace/artifacts/training/tensorboard
+<span class="w">  </span>tensorboard<span class="w"> </span>--logdir<span class="w"> </span>/workspace/artifacts/runtime/tensorboard
 </code></pre></div></p>
 <h2 id="overriding-strategy-examples">Overriding Strategy Examples<a class="headerlink" href="#overriding-strategy-examples" title="Permanent link">&para;</a></h2>
 <table>
@@ -3852,10 +3872,11 @@ Windows (PowerShell):
 </tbody>
 </table>
 <h2 id="checkpoint-management">Checkpoint Management<a class="headerlink" href="#checkpoint-management" title="Permanent link">&para;</a></h2>
-<p>Checkpoints live under: <code>&lt;artifacts_path&gt;/checkpoints/</code> and may include:
+<p>Checkpoints live under: <code>&lt;artifacts_path&gt;/models/</code> and may include:
 - <code>best.ckpt</code> (highest monitored metric)
 - <code>last.ckpt</code> (latest epoch)
-- Patterned files: <code>EPOCH-VALIOU.ckpt</code> (e.g., <code>003-0.3000.ckpt</code>)</p>
+- Patterned files: <code>epoch={N}-val_iou={score}.ckpt</code> (e.g., <code>epoch=9-val_iou=0.8234.ckpt</code>)</p>
+<p><strong>Note:</strong> Legacy projects may have checkpoints in <code>&lt;artifacts_path&gt;/checkpoints/</code> - both locations are supported for backward compatibility.</p>
 <h3 id="configuration-options">Configuration Options<a class="headerlink" href="#configuration-options" title="Permanent link">&para;</a></h3>
 <p>Control checkpoint saving behavior in your project YAML:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">ai</span><span class="p">:</span>
@@ -6142,25 +6163,43 @@ It never removes user data.</p>
 </tr>
 <tr>
 <td>2</td>
-<td>Added <code>data</code> section with <code>mask_threshold: 50</code></td>
-<td>Current version - binary mask conversion support</td>
+<td>Added <code>data</code> section with <code>mask_threshold: 1</code></td>
+<td>Binary mask conversion support</td>
+</tr>
+<tr>
+<td>3</td>
+<td>New artifacts structure + <code>project.crackz_version</code> tracking</td>
+<td><strong>Current version</strong> - Improved organization</td>
 </tr>
 </tbody>
 </table>
-<h3 id="version-2-changes-current">Version 2 Changes (Current)<a class="headerlink" href="#version-2-changes-current" title="Permanent link">&para;</a></h3>
-<p>Schema version 2 introduces the <code>data</code> configuration section for data preprocessing:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">data</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">mask_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
-<span class="nt">schema_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<h3 id="version-3-changes-current">Version 3 Changes (Current)<a class="headerlink" href="#version-3-changes-current" title="Permanent link">&para;</a></h3>
+<p>Schema version 3 introduces improved artifacts organization and version tracking:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">schema_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="nt">project</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_project</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My crack detection project</span>
+<span class="w">  </span><span class="nt">created</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2025-01-15T10:30:00Z&#39;</span>
+<span class="w">  </span><span class="nt">crackz_version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;0.50.0&#39;</span><span class="w">  </span><span class="c1"># NEW: Tracks Crackz app version</span>
 </code></pre></div>
 <p><strong>What gets added:</strong>
-- <code>data.mask_threshold</code>: Threshold for converting imported masks to binary format (default: 50)
-- Binary mask conversion during image import automatically uses this threshold
-- Masks are converted: pixels ≥ threshold → 255 (white), others → 0 (black)</p>
+- <code>project.crackz_version</code>: Tracks which Crackz version created/last modified the project
+- New artifacts directory structure (backward compatible):
+  - <code>checkpoints/</code> to <code>models/</code> (clearer purpose for model weights)
+  - <code>runtime/</code> for temporary artifacts (TensorBoard, Lightning logs)
+  - <code>detections/visualizations/</code> for PNG detection outputs</p>
 <p><strong>Backward compatibility:</strong>
-- Projects without the <code>data</code> section will have it added with <code>mask_threshold: 50</code>
-- This provides balanced filtering of noise while preserving valid annotations
-- No impact on existing mask files - only affects future imports</p>
+- Old projects continue working - <code>checkpoints_path</code> checks legacy <code>checkpoints/</code> directory first
+- New writes automatically use improved structure (<code>models/</code>, <code>runtime/</code>, etc.)
+- <strong>File migration available</strong> - optionally migrate existing files to new structure
+- Migration only updates schema version and adds <code>crackz_version</code> field by default</p>
+<h3 id="version-2-changes">Version 2 Changes<a class="headerlink" href="#version-2-changes" title="Permanent link">&para;</a></h3>
+<p>Schema version 2 introduced the <code>data</code> configuration section:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">mask_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="nt">schema_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</code></pre></div>
+<p>Added <code>data.mask_threshold</code> for binary mask conversion during image import.</p>
 <h2 id="cli-auto-assisted-migration">CLI Auto / Assisted Migration<a class="headerlink" href="#cli-auto-assisted-migration" title="Permanent link">&para;</a></h2>
 <p>Most CLI commands that load a project (e.g. <code>detect train</code>, <code>detect run</code>, image
 imports, exporting configs, pruning checkpoints) now check the schema version
@@ -6181,18 +6220,53 @@ crackz<span class="w"> </span>migrate<span class="w"> </span>--cfg<span class="w
 </code></pre></div>
 <p>Common flags:
 - <code>--dry-run</code> : Show what would change without writing.
-- <code>--no-backup</code> : Skip writing <code>&lt;file&gt;.bak</code> before overwrite.</p>
-<p>Examples:
+- <code>--no-backup</code> : Skip writing <code>&lt;file&gt;.bak</code> before overwrite.
+- <code>--migrate-files</code> : <strong>NEW</strong> Also migrate artifacts directory structure (checkpoints to models, etc.)</p>
+<h3 id="schema-only-migration-default">Schema-Only Migration (Default)<a class="headerlink" href="#schema-only-migration-default" title="Permanent link">&para;</a></h3>
+<p>Basic migration only updates the YAML schema and adds missing fields:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Using project directory</span>
 crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>my_project<span class="w"> </span>--dry-run
 crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>my_project
 
 <span class="c1"># Using direct YAML file path</span>
 crackz<span class="w"> </span>migrate<span class="w"> </span>--cfg<span class="w"> </span>my_project/my_project_project.yaml
-</code></pre></div></p>
+</code></pre></div>
+<h3 id="file-migration-optional">File Migration (Optional)<a class="headerlink" href="#file-migration-optional" title="Permanent link">&para;</a></h3>
+<p><strong>NEW in v3</strong>: Optionally migrate the actual artifacts directory structure:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Preview what files would be moved</span>
+crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>my_project<span class="w"> </span>--migrate-files<span class="w"> </span>--dry-run
+
+<span class="c1"># Migrate both schema AND files</span>
+crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>my_project<span class="w"> </span>--migrate-files
+</code></pre></div>
+<p>File migration moves:
+- <code>checkpoints/</code> to <code>models/</code>
+- <code>training/tensorboard/</code> to <code>runtime/tensorboard/</code>
+- <code>training/lightning_logs/</code> to <code>runtime/lightning_logs/</code>
+- <code>detections/*.png</code> to <code>detections/visualizations/</code></p>
+<p><strong>Safety features:</strong>
+- Always creates backup of entire artifacts directory before moving files
+- Interactive confirmation before proceeding
+- Automatic rollback if migration fails
+- Detailed progress reporting</p>
 <h2 id="backups">Backups<a class="headerlink" href="#backups" title="Permanent link">&para;</a></h2>
-<p>By default a <code>&lt;name&gt;_project.yaml.bak</code> is written before modifying the original.
-You can revert by replacing the new file with the backup.</p>
+<p>By default, a <strong>timestamped backup</strong> is created before modifying the original project file.
+Backup files use the format: <code>{filename}.v{version}.{timestamp}.bak</code></p>
+<p><strong>Example:</strong>
+<div class="highlight"><pre><span></span><code>myproject_project.v2.20250115_143022.bak
+</code></pre></div></p>
+<p>This format includes:
+- <strong>Version number</strong> (<code>v2</code>) - Shows which schema version this backup came from
+- <strong>Timestamp</strong> (<code>20250115_143022</code>) - UTC timestamp ensures unique backups per migration
+- Multiple migrations create multiple backups (never overwrites previous backups)</p>
+<p><strong>To revert a migration:</strong>
+1. Locate the timestamped backup file (e.g., <code>myproject_project.v2.20250115_143022.bak</code>)
+2. Remove or rename the current YAML file
+3. Rename the backup file to remove the <code>.v2.20250115_143022.bak</code> suffix</p>
+<p><strong>Benefits:</strong>
+- Never lose migration history (each migration creates a unique backup)
+- Easy to identify which version a backup came from
+- Can rollback to any previous migration step if needed</p>
 <h2 id="environment-variable-summary">Environment Variable Summary<a class="headerlink" href="#environment-variable-summary" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -6215,11 +6289,40 @@ You can revert by replacing the new file with the backup.</p>
 
 <span class="n">result</span> <span class="o">=</span> <span class="n">migrate_project_file</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;my_project&quot;</span><span class="p">))</span>  <span class="c1"># or path/to_yaml</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="c1"># Example result:</span>
+<span class="c1"># {</span>
+<span class="c1">#   &#39;status&#39;: &#39;migrated&#39;,</span>
+<span class="c1">#   &#39;from_version&#39;: 2,</span>
+<span class="c1">#   &#39;to_version&#39;: 3,</span>
+<span class="c1">#   &#39;steps&#39;: [&#39;2-&gt;3: updated to artifacts structure v3 + added crackz_version tracking&#39;],</span>
+<span class="c1">#   &#39;path&#39;: &#39;my_project/my_project_project.yaml&#39;,</span>
+<span class="c1">#   &#39;backup_path&#39;: &#39;my_project/my_project_project.v2.20250115_143022.bak&#39;,</span>
+<span class="c1">#   &#39;dry_run&#39;: False</span>
+<span class="c1"># }</span>
 </code></pre></div>
-<p>The result dict contains: <code>status</code>, <code>from_version</code>, <code>to_version</code>, <code>steps</code>, <code>path</code>.</p>
+<p>The result dict contains:
+- <code>status</code>: "migrated", "noop", or "up-to-date"
+- <code>from_version</code>: Original schema version
+- <code>to_version</code>: Final schema version
+- <code>steps</code>: List of migration step descriptions
+- <code>path</code>: Path to migrated file
+- <code>backup_path</code>: Path to backup file (if created)
+- <code>dry_run</code>: Whether this was a dry run</p>
 <h2 id="gui-migration">GUI Migration<a class="headerlink" href="#gui-migration" title="Permanent link">&para;</a></h2>
-<p>When opening a project in the GUI, a dialog offers migration if the schema is older.
-A backup is created automatically; declining leaves the project untouched.</p>
+<h3 id="automated-migration-detection">Automated Migration Detection<a class="headerlink" href="#automated-migration-detection" title="Permanent link">&para;</a></h3>
+<p>When opening a project in the GUI, automatic detection occurs for:</p>
+<ol>
+<li><strong>Schema Migration</strong>: Always prompted and performed when project schema is outdated</li>
+<li><strong>File Migration</strong>: Detects when artifacts directory structure needs updating</li>
+</ol>
+<h3 id="schema-migration-dialog">Schema Migration Dialog<a class="headerlink" href="#schema-migration-dialog" title="Permanent link">&para;</a></h3>
+<p>When opening a project with an old schema version, the GUI displays a dialog offering migration. A backup is created automatically; declining leaves the project untouched.</p>
+<h3 id="file-migration-dialog-new">File Migration Dialog (NEW)<a class="headerlink" href="#file-migration-dialog-new" title="Permanent link">&para;</a></h3>
+<p>When artifacts directory structure is outdated, the GUI displays an informational dialog explaining:
+- Benefits of the new structure (better organization, clearer separation)
+- Safety measures (backup creation, rollback capability)
+- User options: "Migrate", "Skip", or "Cancel"</p>
+<p>The migration process shows progress and handles any errors gracefully with automatic rollback.</p>
 <h2 id="safety-and-idempotence">Safety and Idempotence<a class="headerlink" href="#safety-and-idempotence" title="Permanent link">&para;</a></h2>
 <p>Running migration on an already up-to-date project is a no-op.
 Repeated runs after success make no further changes.</p>
@@ -6244,9 +6347,14 @@ Repeated runs after success make no further changes.</p>
 <td>Re-run migration or add field manually</td>
 </tr>
 <tr>
-<td>Backup file grows stale</td>
-<td>Multiple migrations not needed</td>
-<td>Remove old <code>.bak</code> after verifying new file</td>
+<td>Many <code>.bak</code> files accumulate</td>
+<td>Multiple migrations over time</td>
+<td>Safe to delete old backups after verifying current project works</td>
+</tr>
+<tr>
+<td>Need to rollback migration</td>
+<td>Migration caused issues</td>
+<td>Rename timestamped <code>.bak</code> file to remove suffix and replace current YAML</td>
 </tr>
 </tbody>
 </table>
@@ -6414,7 +6522,7 @@ This will:
 - <strong>Training &amp; Detection Pipelines</strong>: PyTorch + PyTorch Lightning orchestration (training, validation, testing, inference)
 - <strong>Performance Utilities</strong>: Global seed, Trainer override extraction
 - <strong>Logging</strong>: Centralized through <code>loguru</code> with structured formatting
-- <strong>Artifacts &amp; Outputs</strong>: Filesystem only (<code>artifacts/</code>, checkpoints, metrics JSON, detection PNGs)</p>
+- <strong>Artifacts &amp; Outputs</strong>: Filesystem only (<code>artifacts/models/</code>, <code>artifacts/runtime/</code>, metrics JSON, detection PNGs)</p>
 <p>No network services, model servers, remote registries, or cloud object storage are currently part of runtime behavior.</p>
 <h3 id="open-architecture-model-flexibility">Open Architecture &amp; Model Flexibility<a class="headerlink" href="#open-architecture-model-flexibility" title="Permanent link">&para;</a></h3>
 <p>Crackz is built with an <strong>open architecture</strong> that supports multiple model types and use cases:</p>
@@ -6441,7 +6549,7 @@ End users have two primary paths:</p>
 <p><strong>Use Pre-Trained Models</strong></p>
 </li>
 <li>Acquire ready-made checkpoints from model providers or partners</li>
-<li>Place checkpoint in project's <code>artifacts/training/checkpoints/</code> directory</li>
+<li>Place checkpoint in project's <code>artifacts/models/</code> directory</li>
 <li>Run <code>crackz detect run</code> with existing checkpoint</li>
 <li>Ideal for: quick deployment, standard use cases, proof-of-concept</li>
 </ol>
@@ -6604,7 +6712,7 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
   User --&gt; GUI["GUI (CustomTkinter)"]
   CLI --&gt; CORE["Core Library"]
   GUI --&gt; CORE
-  CORE --&gt; FS["Filesystem&lt;br/&gt;images / artifacts / checkpoints"]
+  CORE --&gt; FS["Filesystem&lt;br/&gt;images / artifacts/models / artifacts/runtime"]
   CORE -.optional.-&gt; GPU[("GPU")]
 
   subgraph Optional_Docker [Optional Docker]
@@ -7711,11 +7819,7 @@ BaseModel-compatible configuration that ensures model extensibility.
 
               <details class="quote">
                 <summary>Source code in <code>src/crackz/project/project.py</code></summary>
-                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 59</span>
-<span class="normal"> 60</span>
-<span class="normal"> 61</span>
-<span class="normal"> 62</span>
-<span class="normal"> 63</span>
+                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 63</span>
 <span class="normal"> 64</span>
 <span class="normal"> 65</span>
 <span class="normal"> 66</span>
@@ -8079,7 +8183,72 @@ BaseModel-compatible configuration that ensures model extensibility.
 <span class="normal">424</span>
 <span class="normal">425</span>
 <span class="normal">426</span>
-<span class="normal">427</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Project</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="normal">427</span>
+<span class="normal">428</span>
+<span class="normal">429</span>
+<span class="normal">430</span>
+<span class="normal">431</span>
+<span class="normal">432</span>
+<span class="normal">433</span>
+<span class="normal">434</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span>
+<span class="normal">442</span>
+<span class="normal">443</span>
+<span class="normal">444</span>
+<span class="normal">445</span>
+<span class="normal">446</span>
+<span class="normal">447</span>
+<span class="normal">448</span>
+<span class="normal">449</span>
+<span class="normal">450</span>
+<span class="normal">451</span>
+<span class="normal">452</span>
+<span class="normal">453</span>
+<span class="normal">454</span>
+<span class="normal">455</span>
+<span class="normal">456</span>
+<span class="normal">457</span>
+<span class="normal">458</span>
+<span class="normal">459</span>
+<span class="normal">460</span>
+<span class="normal">461</span>
+<span class="normal">462</span>
+<span class="normal">463</span>
+<span class="normal">464</span>
+<span class="normal">465</span>
+<span class="normal">466</span>
+<span class="normal">467</span>
+<span class="normal">468</span>
+<span class="normal">469</span>
+<span class="normal">470</span>
+<span class="normal">471</span>
+<span class="normal">472</span>
+<span class="normal">473</span>
+<span class="normal">474</span>
+<span class="normal">475</span>
+<span class="normal">476</span>
+<span class="normal">477</span>
+<span class="normal">478</span>
+<span class="normal">479</span>
+<span class="normal">480</span>
+<span class="normal">481</span>
+<span class="normal">482</span>
+<span class="normal">483</span>
+<span class="normal">484</span>
+<span class="normal">485</span>
+<span class="normal">486</span>
+<span class="normal">487</span>
+<span class="normal">488</span>
+<span class="normal">489</span>
+<span class="normal">490</span>
+<span class="normal">491</span>
+<span class="normal">492</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Project</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a project model with configuration for storing project details.</span>
 
@@ -8124,20 +8293,61 @@ BaseModel-compatible configuration that ensures model extensibility.
         <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">artifacts_path</span><span class="p">)</span> <span class="o">/</span> <span class="n">DETECTIONS_DIR_NAME</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">models_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the path to the models directory (new structure).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Path: The path to the models directory.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">artifacts_path</span><span class="p">)</span> <span class="o">/</span> <span class="n">MODELS_DIR_NAME</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">checkpoints_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the path to the checkpoints directory.</span>
 
+<span class="sd">        Deprecated: Use models_path instead. This property provides</span>
+<span class="sd">        backward compatibility by checking for legacy &#39;checkpoints&#39;</span>
+<span class="sd">        directory and falling back to new &#39;models&#39; directory.</span>
+
 <span class="sd">        Returns:</span>
-<span class="sd">            Path: The path to the checkpoints directory derived from the</span>
-<span class="sd">                  provided image path.</span>
+<span class="sd">            Path: The path to the models directory (or legacy checkpoints for old projects).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">artifacts_path</span><span class="p">)</span> <span class="o">/</span> <span class="n">CHECKPOINTS_DIR_NAME</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;checkpoints_path is deprecated and will be removed in a future version. &quot;</span>
+            <span class="s2">&quot;Use models_path instead.&quot;</span><span class="p">,</span>
+            <span class="ne">DeprecationWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># For backward compatibility: if legacy checkpoints directory exists and models doesn&#39;t,</span>
+        <span class="c1"># use the legacy directory. Otherwise use the new models directory.</span>
+        <span class="n">legacy_checkpoints_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">artifacts_path</span><span class="p">)</span> <span class="o">/</span> <span class="n">CHECKPOINTS_DIR_NAME</span>
+        <span class="n">models_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">models_path</span>
+
+        <span class="k">if</span> <span class="n">legacy_checkpoints_dir</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">models_dir</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">legacy_checkpoints_dir</span>
+        <span class="k">return</span> <span class="n">models_dir</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">runtime_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the path to the runtime directory for logs and temporary artifacts.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Path: The path to the runtime directory.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">artifacts_path</span> <span class="o">/</span> <span class="n">RUNTIME_DIR_NAME</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">training_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the path to the training directory.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">artifacts_path</span> <span class="o">/</span> <span class="n">TRAINING_DIR_NAME</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">detections_visualizations_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the path to the detection visualizations subdirectory.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">detections_path</span> <span class="o">/</span> <span class="n">VISUALIZATIONS_DIR_NAME</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">detection_results_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
@@ -8151,8 +8361,13 @@ BaseModel-compatible configuration that ensures model extensibility.
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">tensorboard_logs_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the path to the TensorBoard logs directory.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">artifacts_path</span> <span class="o">/</span> <span class="n">TRAINING_DIR_NAME</span> <span class="o">/</span> <span class="s2">&quot;tensorboard&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the path to the TensorBoard logs directory (in runtime/).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">runtime_path</span> <span class="o">/</span> <span class="s2">&quot;tensorboard&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">lightning_logs_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the path to the PyTorch Lightning logs directory (in runtime/).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">runtime_path</span> <span class="o">/</span> <span class="s2">&quot;lightning_logs&quot;</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">val_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
@@ -8312,6 +8527,12 @@ BaseModel-compatible configuration that ensures model extensibility.
                 <span class="kn">from</span><span class="w"> </span><span class="nn">crackz.project.migration</span><span class="w"> </span><span class="kn">import</span> <span class="n">CURRENT_SCHEMA_VERSION</span>
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">schema_version</span> <span class="o">=</span> <span class="n">CURRENT_SCHEMA_VERSION</span>
+
+            <span class="c1"># Update Crackz version on save to track last modification</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">crackz.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_version</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">crackz_version</span> <span class="o">=</span> <span class="n">get_version</span><span class="p">()</span>
+
             <span class="k">with</span> <span class="n">path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="n">yaml</span><span class="o">.</span><span class="n">safe_dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">),</span> <span class="n">f</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">allow_unicode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Project &#39;</span><span class="si">{}</span><span class="s2">&#39; saved successfully to </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
@@ -8396,25 +8617,34 @@ BaseModel-compatible configuration that ensures model extensibility.
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">create_dir</span><span class="p">(</span><span class="n">dir_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">project_path</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
         <span class="n">create_dir</span><span class="p">(</span><span class="n">dir_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">artifacts_path</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+
+        <span class="c1"># Create new artifact subdirectories</span>
+        <span class="n">create_dir</span><span class="p">(</span><span class="n">dir_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">models_path</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+        <span class="n">create_dir</span><span class="p">(</span><span class="n">dir_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">detections_path</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+        <span class="n">create_dir</span><span class="p">(</span><span class="n">dir_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">detections_visualizations_path</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+        <span class="n">create_dir</span><span class="p">(</span><span class="n">dir_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">training_path</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+        <span class="n">create_dir</span><span class="p">(</span><span class="n">dir_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">runtime_path</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+
         <span class="n">setup_image_dir</span><span class="p">(</span><span class="n">image_path</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">image_path</span><span class="p">),</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
         <span class="n">setup_image_dir</span><span class="p">(</span><span class="n">image_path</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">image_mask_path</span><span class="p">),</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">logs_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Clean temporary files and logs from the project.</span>
 
-<span class="sd">        By default, cleans logs, training artifacts, checkpoints, and detections.</span>
+<span class="sd">        By default, cleans logs, training artifacts, models, and detections.</span>
 <span class="sd">        Images and masks are always preserved.</span>
 
-<span class="sd">        :param logs_only: If True, only clean log files, preserve artifacts</span>
+<span class="sd">        :param logs_only: If True, only clean log files and runtime artifacts,</span>
+<span class="sd">            preserve models/results</span>
 <span class="sd">        :return: Number of items removed</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
 
         <span class="n">cleaned_count</span> <span class="o">=</span> <span class="mi">0</span>
 
-        <span class="c1"># Define paths to clean</span>
+        <span class="c1"># Define paths to clean - always clean runtime directory</span>
         <span class="n">paths_to_clean</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tensorboard_logs_path</span><span class="p">,</span>  <span class="c1"># TensorBoard logs</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">runtime_path</span><span class="p">,</span>  <span class="c1"># Runtime artifacts (TensorBoard, Lightning logs)</span>
         <span class="p">]</span>
 
         <span class="c1"># Add log files pattern</span>
@@ -8425,8 +8655,8 @@ BaseModel-compatible configuration that ensures model extensibility.
         <span class="k">if</span> <span class="ow">not</span> <span class="n">logs_only</span><span class="p">:</span>
             <span class="n">paths_to_clean</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
                 <span class="p">[</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">checkpoints_path</span><span class="p">,</span>  <span class="c1"># Model checkpoints</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">detections_path</span><span class="p">,</span>  <span class="c1"># Detection results</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">models_path</span><span class="p">,</span>  <span class="c1"># Model checkpoints</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">detections_path</span><span class="p">,</span>  <span class="c1"># Detection results (includes visualizations)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">training_metrics_path</span><span class="p">,</span>  <span class="c1"># Training metrics</span>
                 <span class="p">]</span>
             <span class="p">)</span>
@@ -8561,21 +8791,21 @@ BaseModel-compatible configuration that ensures model extensibility.
 
 
 
-<h3 id="crackz.project.project.Project.checkpoints_path" class="doc doc-heading">
-            <span class="doc doc-object-name doc-attribute-name">checkpoints_path</span>
+<h3 id="crackz.project.project.Project.models_path" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">models_path</span>
 
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
-<a href="#crackz.project.project.Project.checkpoints_path" class="headerlink" title="Permanent link">&para;</a></h3>
-<div class="doc-signature codehilite"><pre><span></span><code><span class="n">checkpoints_path</span>
+<a href="#crackz.project.project.Project.models_path" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="n">models_path</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Gets the path to the checkpoints directory.</p>
+        <p>Gets the path to the models directory (new structure).</p>
 
 
     <p><span class="doc-section-title">Returns:</span></p>
@@ -8593,8 +8823,104 @@ BaseModel-compatible configuration that ensures model extensibility.
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The path to the checkpoints directory derived from the
-  provided image path.</p>
+                <p>The path to the models directory.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="crackz.project.project.Project.checkpoints_path" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">checkpoints_path</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#crackz.project.project.Project.checkpoints_path" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="n">checkpoints_path</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Gets the path to the checkpoints directory.</p>
+<p>Deprecated: Use models_path instead. This property provides
+backward compatibility by checking for legacy 'checkpoints'
+directory and falling back to new 'models' directory.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>Path</code></td>            <td>
+                  <code><span title="pathlib.Path">Path</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The path to the models directory (or legacy checkpoints for old projects).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="crackz.project.project.Project.runtime_path" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">runtime_path</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#crackz.project.project.Project.runtime_path" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="n">runtime_path</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Gets the path to the runtime directory for logs and temporary artifacts.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>Path</code></td>            <td>
+                  <code><span title="pathlib.Path">Path</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The path to the runtime directory.</p>
               </div>
             </td>
           </tr>
@@ -8624,6 +8950,30 @@ BaseModel-compatible configuration that ensures model extensibility.
     <div class="doc doc-contents ">
 
         <p>Gets the path to the training directory.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="crackz.project.project.Project.detections_visualizations_path" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">detections_visualizations_path</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#crackz.project.project.Project.detections_visualizations_path" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="n">detections_visualizations_path</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Gets the path to the detection visualizations subdirectory.</p>
 
     </div>
 
@@ -8695,7 +9045,31 @@ BaseModel-compatible configuration that ensures model extensibility.
 
     <div class="doc doc-contents ">
 
-        <p>Gets the path to the TensorBoard logs directory.</p>
+        <p>Gets the path to the TensorBoard logs directory (in runtime/).</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="crackz.project.project.Project.lightning_logs_path" class="doc doc-heading">
+            <span class="doc doc-object-name doc-attribute-name">lightning_logs_path</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#crackz.project.project.Project.lightning_logs_path" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="n">lightning_logs_path</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Gets the path to the PyTorch Lightning logs directory (in runtime/).</p>
 
     </div>
 
@@ -9137,20 +9511,20 @@ If the given value does not map to a valid type, the function defaults to the
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">244</span>
-<span class="normal">245</span>
-<span class="normal">246</span>
-<span class="normal">247</span>
-<span class="normal">248</span>
-<span class="normal">249</span>
-<span class="normal">250</span>
-<span class="normal">251</span>
-<span class="normal">252</span>
-<span class="normal">253</span>
-<span class="normal">254</span>
-<span class="normal">255</span>
-<span class="normal">256</span>
-<span class="normal">257</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">map_type_to_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_type</span><span class="p">:</span> <span class="n">ImagesType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">map_type_to_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_type</span><span class="p">:</span> <span class="n">ImagesType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Maps a given image type to its corresponding directory path.</span>
 
@@ -9195,20 +9569,20 @@ If the given value does not map to a valid type, the function defaults to the
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">259</span>
-<span class="normal">260</span>
-<span class="normal">261</span>
-<span class="normal">262</span>
-<span class="normal">263</span>
-<span class="normal">264</span>
-<span class="normal">265</span>
-<span class="normal">266</span>
-<span class="normal">267</span>
-<span class="normal">268</span>
-<span class="normal">269</span>
-<span class="normal">270</span>
-<span class="normal">271</span>
-<span class="normal">272</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">map_type_to_masks_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_type</span><span class="p">:</span> <span class="n">ImagesType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">map_type_to_masks_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_type</span><span class="p">:</span> <span class="n">ImagesType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Maps a given image type to its corresponding directory path.</span>
 
@@ -9253,30 +9627,36 @@ encountered during the saving process.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">274</span>
-<span class="normal">275</span>
-<span class="normal">276</span>
-<span class="normal">277</span>
-<span class="normal">278</span>
-<span class="normal">279</span>
-<span class="normal">280</span>
-<span class="normal">281</span>
-<span class="normal">282</span>
-<span class="normal">283</span>
-<span class="normal">284</span>
-<span class="normal">285</span>
-<span class="normal">286</span>
-<span class="normal">287</span>
-<span class="normal">288</span>
-<span class="normal">289</span>
-<span class="normal">290</span>
-<span class="normal">291</span>
-<span class="normal">292</span>
-<span class="normal">293</span>
-<span class="normal">294</span>
-<span class="normal">295</span>
-<span class="normal">296</span>
-<span class="normal">297</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save_project</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span>
+<span class="normal">349</span>
+<span class="normal">350</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save_project</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Saves the given project to a file in YAML format. The function serializes</span>
 <span class="sd">    the project data using the model&#39;s `model_dump` method, and writes it to</span>
@@ -9294,6 +9674,12 @@ encountered during the saving process.</p>
             <span class="kn">from</span><span class="w"> </span><span class="nn">crackz.project.migration</span><span class="w"> </span><span class="kn">import</span> <span class="n">CURRENT_SCHEMA_VERSION</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">schema_version</span> <span class="o">=</span> <span class="n">CURRENT_SCHEMA_VERSION</span>
+
+        <span class="c1"># Update Crackz version on save to track last modification</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">crackz.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_version</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">crackz_version</span> <span class="o">=</span> <span class="n">get_version</span><span class="p">()</span>
+
         <span class="k">with</span> <span class="n">path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">yaml</span><span class="o">.</span><span class="n">safe_dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">),</span> <span class="n">f</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">allow_unicode</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Project &#39;</span><span class="si">{}</span><span class="s2">&#39; saved successfully to </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
@@ -9337,31 +9723,31 @@ encountered during the saving process.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">299</span>
-<span class="normal">300</span>
-<span class="normal">301</span>
-<span class="normal">302</span>
-<span class="normal">303</span>
-<span class="normal">304</span>
-<span class="normal">305</span>
-<span class="normal">306</span>
-<span class="normal">307</span>
-<span class="normal">308</span>
-<span class="normal">309</span>
-<span class="normal">310</span>
-<span class="normal">311</span>
-<span class="normal">312</span>
-<span class="normal">313</span>
-<span class="normal">314</span>
-<span class="normal">315</span>
-<span class="normal">316</span>
-<span class="normal">317</span>
-<span class="normal">318</span>
-<span class="normal">319</span>
-<span class="normal">320</span>
-<span class="normal">321</span>
-<span class="normal">322</span>
-<span class="normal">323</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">import_image_files</span><span class="p">(</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span>
+<span class="normal">373</span>
+<span class="normal">374</span>
+<span class="normal">375</span>
+<span class="normal">376</span>
+<span class="normal">377</span>
+<span class="normal">378</span>
+<span class="normal">379</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">import_image_files</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">files</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span>
     <span class="n">dest_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
@@ -9431,45 +9817,45 @@ encountered during the saving process.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">325</span>
-<span class="normal">326</span>
-<span class="normal">327</span>
-<span class="normal">328</span>
-<span class="normal">329</span>
-<span class="normal">330</span>
-<span class="normal">331</span>
-<span class="normal">332</span>
-<span class="normal">333</span>
-<span class="normal">334</span>
-<span class="normal">335</span>
-<span class="normal">336</span>
-<span class="normal">337</span>
-<span class="normal">338</span>
-<span class="normal">339</span>
-<span class="normal">340</span>
-<span class="normal">341</span>
-<span class="normal">342</span>
-<span class="normal">343</span>
-<span class="normal">344</span>
-<span class="normal">345</span>
-<span class="normal">346</span>
-<span class="normal">347</span>
-<span class="normal">348</span>
-<span class="normal">349</span>
-<span class="normal">350</span>
-<span class="normal">351</span>
-<span class="normal">352</span>
-<span class="normal">353</span>
-<span class="normal">354</span>
-<span class="normal">355</span>
-<span class="normal">356</span>
-<span class="normal">357</span>
-<span class="normal">358</span>
-<span class="normal">359</span>
-<span class="normal">360</span>
-<span class="normal">361</span>
-<span class="normal">362</span>
-<span class="normal">363</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">import_images</span><span class="p">(</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">381</span>
+<span class="normal">382</span>
+<span class="normal">383</span>
+<span class="normal">384</span>
+<span class="normal">385</span>
+<span class="normal">386</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span>
+<span class="normal">393</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span>
+<span class="normal">397</span>
+<span class="normal">398</span>
+<span class="normal">399</span>
+<span class="normal">400</span>
+<span class="normal">401</span>
+<span class="normal">402</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span>
+<span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span>
+<span class="normal">414</span>
+<span class="normal">415</span>
+<span class="normal">416</span>
+<span class="normal">417</span>
+<span class="normal">418</span>
+<span class="normal">419</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">import_images</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">source_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
     <span class="n">masks_source_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -9536,19 +9922,27 @@ exist, it optionally allows overwriting them based on the <code>force</code> par
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">365</span>
-<span class="normal">366</span>
-<span class="normal">367</span>
-<span class="normal">368</span>
-<span class="normal">369</span>
-<span class="normal">370</span>
-<span class="normal">371</span>
-<span class="normal">372</span>
-<span class="normal">373</span>
-<span class="normal">374</span>
-<span class="normal">375</span>
-<span class="normal">376</span>
-<span class="normal">377</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_project_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span>
+<span class="normal">427</span>
+<span class="normal">428</span>
+<span class="normal">429</span>
+<span class="normal">430</span>
+<span class="normal">431</span>
+<span class="normal">432</span>
+<span class="normal">433</span>
+<span class="normal">434</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_project_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the necessary directories for a given project. If the directories already</span>
 <span class="sd">    exist, it optionally allows overwriting them based on the `force` parameter.</span>
@@ -9559,6 +9953,14 @@ exist, it optionally allows overwriting them based on the <code>force</code> par
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">create_dir</span><span class="p">(</span><span class="n">dir_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">project_path</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
     <span class="n">create_dir</span><span class="p">(</span><span class="n">dir_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">artifacts_path</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+
+    <span class="c1"># Create new artifact subdirectories</span>
+    <span class="n">create_dir</span><span class="p">(</span><span class="n">dir_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">models_path</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+    <span class="n">create_dir</span><span class="p">(</span><span class="n">dir_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">detections_path</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+    <span class="n">create_dir</span><span class="p">(</span><span class="n">dir_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">detections_visualizations_path</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+    <span class="n">create_dir</span><span class="p">(</span><span class="n">dir_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">training_path</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+    <span class="n">create_dir</span><span class="p">(</span><span class="n">dir_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">runtime_path</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
+
     <span class="n">setup_image_dir</span><span class="p">(</span><span class="n">image_path</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">image_path</span><span class="p">),</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
     <span class="n">setup_image_dir</span><span class="p">(</span><span class="n">image_path</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paths</span><span class="o">.</span><span class="n">image_mask_path</span><span class="p">),</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -9581,78 +9983,81 @@ exist, it optionally allows overwriting them based on the <code>force</code> par
     <div class="doc doc-contents ">
 
         <p>Clean temporary files and logs from the project.</p>
-<p>By default, cleans logs, training artifacts, checkpoints, and detections.
+<p>By default, cleans logs, training artifacts, models, and detections.
 Images and masks are always preserved.</p>
-<p>:param logs_only: If True, only clean log files, preserve artifacts
+<p>:param logs_only: If True, only clean log files and runtime artifacts,
+    preserve models/results
 :return: Number of items removed</p>
 
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">379</span>
-<span class="normal">380</span>
-<span class="normal">381</span>
-<span class="normal">382</span>
-<span class="normal">383</span>
-<span class="normal">384</span>
-<span class="normal">385</span>
-<span class="normal">386</span>
-<span class="normal">387</span>
-<span class="normal">388</span>
-<span class="normal">389</span>
-<span class="normal">390</span>
-<span class="normal">391</span>
-<span class="normal">392</span>
-<span class="normal">393</span>
-<span class="normal">394</span>
-<span class="normal">395</span>
-<span class="normal">396</span>
-<span class="normal">397</span>
-<span class="normal">398</span>
-<span class="normal">399</span>
-<span class="normal">400</span>
-<span class="normal">401</span>
-<span class="normal">402</span>
-<span class="normal">403</span>
-<span class="normal">404</span>
-<span class="normal">405</span>
-<span class="normal">406</span>
-<span class="normal">407</span>
-<span class="normal">408</span>
-<span class="normal">409</span>
-<span class="normal">410</span>
-<span class="normal">411</span>
-<span class="normal">412</span>
-<span class="normal">413</span>
-<span class="normal">414</span>
-<span class="normal">415</span>
-<span class="normal">416</span>
-<span class="normal">417</span>
-<span class="normal">418</span>
-<span class="normal">419</span>
-<span class="normal">420</span>
-<span class="normal">421</span>
-<span class="normal">422</span>
-<span class="normal">423</span>
-<span class="normal">424</span>
-<span class="normal">425</span>
-<span class="normal">426</span>
-<span class="normal">427</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">logs_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">443</span>
+<span class="normal">444</span>
+<span class="normal">445</span>
+<span class="normal">446</span>
+<span class="normal">447</span>
+<span class="normal">448</span>
+<span class="normal">449</span>
+<span class="normal">450</span>
+<span class="normal">451</span>
+<span class="normal">452</span>
+<span class="normal">453</span>
+<span class="normal">454</span>
+<span class="normal">455</span>
+<span class="normal">456</span>
+<span class="normal">457</span>
+<span class="normal">458</span>
+<span class="normal">459</span>
+<span class="normal">460</span>
+<span class="normal">461</span>
+<span class="normal">462</span>
+<span class="normal">463</span>
+<span class="normal">464</span>
+<span class="normal">465</span>
+<span class="normal">466</span>
+<span class="normal">467</span>
+<span class="normal">468</span>
+<span class="normal">469</span>
+<span class="normal">470</span>
+<span class="normal">471</span>
+<span class="normal">472</span>
+<span class="normal">473</span>
+<span class="normal">474</span>
+<span class="normal">475</span>
+<span class="normal">476</span>
+<span class="normal">477</span>
+<span class="normal">478</span>
+<span class="normal">479</span>
+<span class="normal">480</span>
+<span class="normal">481</span>
+<span class="normal">482</span>
+<span class="normal">483</span>
+<span class="normal">484</span>
+<span class="normal">485</span>
+<span class="normal">486</span>
+<span class="normal">487</span>
+<span class="normal">488</span>
+<span class="normal">489</span>
+<span class="normal">490</span>
+<span class="normal">491</span>
+<span class="normal">492</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">logs_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Clean temporary files and logs from the project.</span>
 
-<span class="sd">    By default, cleans logs, training artifacts, checkpoints, and detections.</span>
+<span class="sd">    By default, cleans logs, training artifacts, models, and detections.</span>
 <span class="sd">    Images and masks are always preserved.</span>
 
-<span class="sd">    :param logs_only: If True, only clean log files, preserve artifacts</span>
+<span class="sd">    :param logs_only: If True, only clean log files and runtime artifacts,</span>
+<span class="sd">        preserve models/results</span>
 <span class="sd">    :return: Number of items removed</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
 
     <span class="n">cleaned_count</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="c1"># Define paths to clean</span>
+    <span class="c1"># Define paths to clean - always clean runtime directory</span>
     <span class="n">paths_to_clean</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tensorboard_logs_path</span><span class="p">,</span>  <span class="c1"># TensorBoard logs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">runtime_path</span><span class="p">,</span>  <span class="c1"># Runtime artifacts (TensorBoard, Lightning logs)</span>
     <span class="p">]</span>
 
     <span class="c1"># Add log files pattern</span>
@@ -9663,8 +10068,8 @@ Images and masks are always preserved.</p>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">logs_only</span><span class="p">:</span>
         <span class="n">paths_to_clean</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
             <span class="p">[</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">checkpoints_path</span><span class="p">,</span>  <span class="c1"># Model checkpoints</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">detections_path</span><span class="p">,</span>  <span class="c1"># Detection results</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">models_path</span><span class="p">,</span>  <span class="c1"># Model checkpoints</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">detections_path</span><span class="p">,</span>  <span class="c1"># Detection results (includes visualizations)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">training_metrics_path</span><span class="p">,</span>  <span class="c1"># Training metrics</span>
             <span class="p">]</span>
         <span class="p">)</span>
@@ -9727,21 +10132,21 @@ directory structure, and saving the corresponding Project object. It ensures.</p
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">430</span>
-<span class="normal">431</span>
-<span class="normal">432</span>
-<span class="normal">433</span>
-<span class="normal">434</span>
-<span class="normal">435</span>
-<span class="normal">436</span>
-<span class="normal">437</span>
-<span class="normal">438</span>
-<span class="normal">439</span>
-<span class="normal">440</span>
-<span class="normal">441</span>
-<span class="normal">442</span>
-<span class="normal">443</span>
-<span class="normal">444</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_project_and_save</span><span class="p">(</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">495</span>
+<span class="normal">496</span>
+<span class="normal">497</span>
+<span class="normal">498</span>
+<span class="normal">499</span>
+<span class="normal">500</span>
+<span class="normal">501</span>
+<span class="normal">502</span>
+<span class="normal">503</span>
+<span class="normal">504</span>
+<span class="normal">505</span>
+<span class="normal">506</span>
+<span class="normal">507</span>
+<span class="normal">508</span>
+<span class="normal">509</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_project_and_save</span><span class="p">(</span>
     <span class="n">metadata</span><span class="p">:</span> <span class="n">ProjectMetadata</span><span class="p">,</span>
     <span class="n">paths</span><span class="p">:</span> <span class="n">ProjectPaths</span><span class="p">,</span>
     <span class="n">ai</span><span class="p">:</span> <span class="n">AIConfig</span> <span class="o">=</span> <span class="n">default_ai_config</span><span class="p">,</span>
@@ -9792,50 +10197,56 @@ proper storage of project-related information including paths and metadata.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">448</span>
-<span class="normal">449</span>
-<span class="normal">450</span>
-<span class="normal">451</span>
-<span class="normal">452</span>
-<span class="normal">453</span>
-<span class="normal">454</span>
-<span class="normal">455</span>
-<span class="normal">456</span>
-<span class="normal">457</span>
-<span class="normal">458</span>
-<span class="normal">459</span>
-<span class="normal">460</span>
-<span class="normal">461</span>
-<span class="normal">462</span>
-<span class="normal">463</span>
-<span class="normal">464</span>
-<span class="normal">465</span>
-<span class="normal">466</span>
-<span class="normal">467</span>
-<span class="normal">468</span>
-<span class="normal">469</span>
-<span class="normal">470</span>
-<span class="normal">471</span>
-<span class="normal">472</span>
-<span class="normal">473</span>
-<span class="normal">474</span>
-<span class="normal">475</span>
-<span class="normal">476</span>
-<span class="normal">477</span>
-<span class="normal">478</span>
-<span class="normal">479</span>
-<span class="normal">480</span>
-<span class="normal">481</span>
-<span class="normal">482</span>
-<span class="normal">483</span>
-<span class="normal">484</span>
-<span class="normal">485</span>
-<span class="normal">486</span>
-<span class="normal">487</span>
-<span class="normal">488</span>
-<span class="normal">489</span>
-<span class="normal">490</span>
-<span class="normal">491</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_project</span><span class="p">(</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">513</span>
+<span class="normal">514</span>
+<span class="normal">515</span>
+<span class="normal">516</span>
+<span class="normal">517</span>
+<span class="normal">518</span>
+<span class="normal">519</span>
+<span class="normal">520</span>
+<span class="normal">521</span>
+<span class="normal">522</span>
+<span class="normal">523</span>
+<span class="normal">524</span>
+<span class="normal">525</span>
+<span class="normal">526</span>
+<span class="normal">527</span>
+<span class="normal">528</span>
+<span class="normal">529</span>
+<span class="normal">530</span>
+<span class="normal">531</span>
+<span class="normal">532</span>
+<span class="normal">533</span>
+<span class="normal">534</span>
+<span class="normal">535</span>
+<span class="normal">536</span>
+<span class="normal">537</span>
+<span class="normal">538</span>
+<span class="normal">539</span>
+<span class="normal">540</span>
+<span class="normal">541</span>
+<span class="normal">542</span>
+<span class="normal">543</span>
+<span class="normal">544</span>
+<span class="normal">545</span>
+<span class="normal">546</span>
+<span class="normal">547</span>
+<span class="normal">548</span>
+<span class="normal">549</span>
+<span class="normal">550</span>
+<span class="normal">551</span>
+<span class="normal">552</span>
+<span class="normal">553</span>
+<span class="normal">554</span>
+<span class="normal">555</span>
+<span class="normal">556</span>
+<span class="normal">557</span>
+<span class="normal">558</span>
+<span class="normal">559</span>
+<span class="normal">560</span>
+<span class="normal">561</span>
+<span class="normal">562</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_project</span><span class="p">(</span>
     <span class="n">metadata</span><span class="p">:</span> <span class="n">ProjectMetadata</span><span class="p">,</span>
     <span class="n">paths</span><span class="p">:</span> <span class="n">ProjectPaths</span><span class="p">,</span>
     <span class="n">ai</span><span class="p">:</span> <span class="n">AIConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -9866,6 +10277,12 @@ proper storage of project-related information including paths and metadata.</p>
         <span class="p">)</span>
     <span class="k">if</span> <span class="n">logging</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">logging</span> <span class="o">=</span> <span class="n">default_logging_config</span><span class="o">.</span><span class="n">model_copy</span><span class="p">()</span>
+
+    <span class="c1"># Set Crackz version on new projects</span>
+    <span class="k">if</span> <span class="n">metadata</span><span class="o">.</span><span class="n">crackz_version</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">crackz.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_version</span>
+
+        <span class="n">metadata</span><span class="o">.</span><span class="n">crackz_version</span> <span class="o">=</span> <span class="n">get_version</span><span class="p">()</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Creating new project </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">metadata</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
     <span class="n">project</span> <span class="o">=</span> <span class="n">Project</span><span class="p">(</span>
@@ -9903,9 +10320,9 @@ proper storage of project-related information including paths and metadata.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">494</span>
-<span class="normal">495</span>
-<span class="normal">496</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save_project</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">565</span>
+<span class="normal">566</span>
+<span class="normal">567</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save_project</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;See `Project.save_project`.&quot;&quot;&quot;</span>
     <span class="n">project</span><span class="o">.</span><span class="n">save_project</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
@@ -9999,41 +10416,41 @@ read, or parsed, the function logs an error.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">499</span>
-<span class="normal">500</span>
-<span class="normal">501</span>
-<span class="normal">502</span>
-<span class="normal">503</span>
-<span class="normal">504</span>
-<span class="normal">505</span>
-<span class="normal">506</span>
-<span class="normal">507</span>
-<span class="normal">508</span>
-<span class="normal">509</span>
-<span class="normal">510</span>
-<span class="normal">511</span>
-<span class="normal">512</span>
-<span class="normal">513</span>
-<span class="normal">514</span>
-<span class="normal">515</span>
-<span class="normal">516</span>
-<span class="normal">517</span>
-<span class="normal">518</span>
-<span class="normal">519</span>
-<span class="normal">520</span>
-<span class="normal">521</span>
-<span class="normal">522</span>
-<span class="normal">523</span>
-<span class="normal">524</span>
-<span class="normal">525</span>
-<span class="normal">526</span>
-<span class="normal">527</span>
-<span class="normal">528</span>
-<span class="normal">529</span>
-<span class="normal">530</span>
-<span class="normal">531</span>
-<span class="normal">532</span>
-<span class="normal">533</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_project</span><span class="p">(</span><span class="n">project_file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Project</span><span class="p">:</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">570</span>
+<span class="normal">571</span>
+<span class="normal">572</span>
+<span class="normal">573</span>
+<span class="normal">574</span>
+<span class="normal">575</span>
+<span class="normal">576</span>
+<span class="normal">577</span>
+<span class="normal">578</span>
+<span class="normal">579</span>
+<span class="normal">580</span>
+<span class="normal">581</span>
+<span class="normal">582</span>
+<span class="normal">583</span>
+<span class="normal">584</span>
+<span class="normal">585</span>
+<span class="normal">586</span>
+<span class="normal">587</span>
+<span class="normal">588</span>
+<span class="normal">589</span>
+<span class="normal">590</span>
+<span class="normal">591</span>
+<span class="normal">592</span>
+<span class="normal">593</span>
+<span class="normal">594</span>
+<span class="normal">595</span>
+<span class="normal">596</span>
+<span class="normal">597</span>
+<span class="normal">598</span>
+<span class="normal">599</span>
+<span class="normal">600</span>
+<span class="normal">601</span>
+<span class="normal">602</span>
+<span class="normal">603</span>
+<span class="normal">604</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_project</span><span class="p">(</span><span class="n">project_file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Project</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads a project configuration from the specified file path. The</span>
 <span class="sd">    configuration file is expected to be in YAML format, and its content</span>
@@ -10101,38 +10518,38 @@ or parsed, an appropriate exception is raised.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">536</span>
-<span class="normal">537</span>
-<span class="normal">538</span>
-<span class="normal">539</span>
-<span class="normal">540</span>
-<span class="normal">541</span>
-<span class="normal">542</span>
-<span class="normal">543</span>
-<span class="normal">544</span>
-<span class="normal">545</span>
-<span class="normal">546</span>
-<span class="normal">547</span>
-<span class="normal">548</span>
-<span class="normal">549</span>
-<span class="normal">550</span>
-<span class="normal">551</span>
-<span class="normal">552</span>
-<span class="normal">553</span>
-<span class="normal">554</span>
-<span class="normal">555</span>
-<span class="normal">556</span>
-<span class="normal">557</span>
-<span class="normal">558</span>
-<span class="normal">559</span>
-<span class="normal">560</span>
-<span class="normal">561</span>
-<span class="normal">562</span>
-<span class="normal">563</span>
-<span class="normal">564</span>
-<span class="normal">565</span>
-<span class="normal">566</span>
-<span class="normal">567</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_project_from_path</span><span class="p">(</span><span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Project</span><span class="p">:</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">607</span>
+<span class="normal">608</span>
+<span class="normal">609</span>
+<span class="normal">610</span>
+<span class="normal">611</span>
+<span class="normal">612</span>
+<span class="normal">613</span>
+<span class="normal">614</span>
+<span class="normal">615</span>
+<span class="normal">616</span>
+<span class="normal">617</span>
+<span class="normal">618</span>
+<span class="normal">619</span>
+<span class="normal">620</span>
+<span class="normal">621</span>
+<span class="normal">622</span>
+<span class="normal">623</span>
+<span class="normal">624</span>
+<span class="normal">625</span>
+<span class="normal">626</span>
+<span class="normal">627</span>
+<span class="normal">628</span>
+<span class="normal">629</span>
+<span class="normal">630</span>
+<span class="normal">631</span>
+<span class="normal">632</span>
+<span class="normal">633</span>
+<span class="normal">634</span>
+<span class="normal">635</span>
+<span class="normal">636</span>
+<span class="normal">637</span>
+<span class="normal">638</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_project_from_path</span><span class="p">(</span><span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Project</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads a project configuration from a specified path and returns a Project instance.</span>
 
@@ -10202,33 +10619,33 @@ provided.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">570</span>
-<span class="normal">571</span>
-<span class="normal">572</span>
-<span class="normal">573</span>
-<span class="normal">574</span>
-<span class="normal">575</span>
-<span class="normal">576</span>
-<span class="normal">577</span>
-<span class="normal">578</span>
-<span class="normal">579</span>
-<span class="normal">580</span>
-<span class="normal">581</span>
-<span class="normal">582</span>
-<span class="normal">583</span>
-<span class="normal">584</span>
-<span class="normal">585</span>
-<span class="normal">586</span>
-<span class="normal">587</span>
-<span class="normal">588</span>
-<span class="normal">589</span>
-<span class="normal">590</span>
-<span class="normal">591</span>
-<span class="normal">592</span>
-<span class="normal">593</span>
-<span class="normal">594</span>
-<span class="normal">595</span>
-<span class="normal">596</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_from_project_path_or_cfg</span><span class="p">(</span><span class="n">cfg</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Project</span><span class="p">:</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">641</span>
+<span class="normal">642</span>
+<span class="normal">643</span>
+<span class="normal">644</span>
+<span class="normal">645</span>
+<span class="normal">646</span>
+<span class="normal">647</span>
+<span class="normal">648</span>
+<span class="normal">649</span>
+<span class="normal">650</span>
+<span class="normal">651</span>
+<span class="normal">652</span>
+<span class="normal">653</span>
+<span class="normal">654</span>
+<span class="normal">655</span>
+<span class="normal">656</span>
+<span class="normal">657</span>
+<span class="normal">658</span>
+<span class="normal">659</span>
+<span class="normal">660</span>
+<span class="normal">661</span>
+<span class="normal">662</span>
+<span class="normal">663</span>
+<span class="normal">664</span>
+<span class="normal">665</span>
+<span class="normal">666</span>
+<span class="normal">667</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_from_project_path_or_cfg</span><span class="p">(</span><span class="n">cfg</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Project</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads a project either from the provided project path or configuration file.</span>
 
@@ -10384,10 +10801,7 @@ errors due to arbitrary strings.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/crackz/project/types.py</code></summary>
-                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
+                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">26</span>
 <span class="normal">27</span>
 <span class="normal">28</span>
 <span class="normal">29</span>
@@ -10403,7 +10817,10 @@ errors due to arbitrary strings.</p>
 <span class="normal">39</span>
 <span class="normal">40</span>
 <span class="normal">41</span>
-<span class="normal">42</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ImagesType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ImagesType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents different types of image datasets.</span>
 
@@ -11514,7 +11931,7 @@ real-time GUI updates.</p>
     <span class="n">log_interval</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_train_batches</span><span class="p">))</span>
 
     <span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
-        <span class="n">default_root_dir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">checkpoints_path</span><span class="p">),</span>
+        <span class="n">default_root_dir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">runtime_path</span><span class="p">),</span>  <span class="c1"># Lightning logs go to runtime/</span>
         <span class="n">max_epochs</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">epochs</span><span class="p">,</span>
         <span class="n">accelerator</span><span class="o">=</span><span class="n">accelerator</span><span class="p">,</span>
         <span class="n">logger</span><span class="o">=</span><span class="n">tb_logger</span><span class="p">,</span>
@@ -11739,9 +12156,7 @@ Allows GUI to update in real-time without file polling.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/ai/detection/detection_runner.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">231</span>
 <span class="normal">232</span>
 <span class="normal">233</span>
 <span class="normal">234</span>
@@ -11817,7 +12232,15 @@ Allows GUI to update in real-time without file polling.</p>
 <span class="normal">304</span>
 <span class="normal">305</span>
 <span class="normal">306</span>
-<span class="normal">307</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">detect</span><span class="p">(</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">detect</span><span class="p">(</span>
     <span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span>
     <span class="n">progress_reporter</span><span class="p">:</span> <span class="n">ProgressReporter</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">cancellation_token</span><span class="p">:</span> <span class="n">CancellationToken</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -11864,8 +12287,13 @@ Allows GUI to update in real-time without file polling.</p>
         <span class="n">project</span><span class="p">,</span> <span class="n">reporter</span><span class="p">,</span> <span class="n">checkpoint_name</span>
     <span class="p">)</span>
 
-    <span class="n">output_dir</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">detections_path</span>
-    <span class="n">ensure_dir</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span>
+    <span class="c1"># Use visualizations subdirectory for PNG files</span>
+    <span class="n">visualizations_dir</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">detections_visualizations_path</span>
+    <span class="n">ensure_dir</span><span class="p">(</span><span class="n">visualizations_dir</span><span class="p">)</span>
+
+    <span class="c1"># Main detections directory for JSON results</span>
+    <span class="n">detections_dir</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">detections_path</span>
+    <span class="n">ensure_dir</span><span class="p">(</span><span class="n">detections_dir</span><span class="p">)</span>
 
     <span class="n">results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">threshold</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">threshold</span>
@@ -11883,7 +12311,8 @@ Allows GUI to update in real-time without file polling.</p>
             <span class="n">model</span><span class="p">,</span>
             <span class="n">device</span><span class="p">,</span>
             <span class="n">threshold</span><span class="p">,</span>
-            <span class="n">output_dir</span><span class="p">,</span>
+            <span class="n">visualizations_dir</span><span class="p">,</span>  <span class="c1"># PNG files go to visualizations/</span>
+            <span class="n">detections_dir</span><span class="p">,</span>  <span class="c1"># JSON file goes to detections/</span>
             <span class="n">results</span><span class="p">,</span>
             <span class="n">reporter</span><span class="p">,</span>
             <span class="n">runtime_tracker</span><span class="p">,</span>
@@ -11894,7 +12323,7 @@ Allows GUI to update in real-time without file polling.</p>
         <span class="p">)</span>
 
     <span class="c1"># Finalize</span>
-    <span class="n">save_metrics_json</span><span class="p">(</span><span class="n">results</span><span class="o">=</span><span class="n">results</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">)</span>
+    <span class="n">save_metrics_json</span><span class="p">(</span><span class="n">results</span><span class="o">=</span><span class="n">results</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">detections_dir</span><span class="p">)</span>
     <span class="n">reporter</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;Detection finished ✅&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -15018,14 +15447,10 @@ epochs with many batches.</p>
 <span class="normal">243</span>
 <span class="normal">244</span>
 <span class="normal">245</span>
-<span class="normal">246</span>
-<span class="normal">247</span>
-<span class="normal">248</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MetricsLoggerCallback</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">Callback</span><span class="p">):</span>
+<span class="normal">246</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MetricsLoggerCallback</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">Callback</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Collects and persists scalar metrics; optionally forwards them to an external reporter.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span> <span class="n">reporter</span><span class="p">:</span> <span class="n">MetricsReporter</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span> <span class="n">reporter</span><span class="p">:</span> <span class="n">MetricsReporter</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">project</span> <span class="o">=</span> <span class="n">project</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_reporter</span> <span class="o">=</span> <span class="n">reporter</span>
@@ -15256,9 +15681,9 @@ epochs with many batches.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_train_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_train_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Store total epochs when training starts.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_total_epochs</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">max_epochs</span>
 </code></pre></div></td></tr></table></div>
@@ -15289,7 +15714,9 @@ The main metrics history is preserved and only updated at epoch end.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 67</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
 <span class="normal"> 68</span>
 <span class="normal"> 69</span>
 <span class="normal"> 70</span>
@@ -15322,9 +15749,7 @@ The main metrics history is preserved and only updated at epoch end.</p>
 <span class="normal"> 97</span>
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
-<span class="normal">100</span>
-<span class="normal">101</span>
-<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_train_batch_end</span><span class="p">(</span>
+<span class="normal">100</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_train_batch_end</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span>
     <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">,</span>  <span class="c1"># noqa: ARG002</span>
@@ -15384,9 +15809,9 @@ The main metrics history is preserved and only updated at epoch end.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">104</span>
-<span class="normal">105</span>
-<span class="normal">106</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_train_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_train_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Capture training metrics at the end of each training epoch.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_capture</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">callback_metrics</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="n">trainer</span><span class="o">.</span><span class="n">current_epoch</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -15413,9 +15838,9 @@ The main metrics history is preserved and only updated at epoch end.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_validation_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_validation_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Capture validation metrics at the end of validation.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_capture</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">callback_metrics</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="s2">&quot;val&quot;</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="n">trainer</span><span class="o">.</span><span class="n">current_epoch</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -15442,11 +15867,11 @@ The main metrics history is preserved and only updated at epoch end.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">112</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
 <span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_test_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
+<span class="normal">114</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_test_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Capture test metrics at the end of testing.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_capture</span><span class="p">(</span>
         <span class="n">trainer</span><span class="o">.</span><span class="n">callback_metrics</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="s2">&quot;current_epoch&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -15475,9 +15900,9 @@ The main metrics history is preserved and only updated at epoch end.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_fit_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_fit_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Final save at the end of training.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_save</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
@@ -15530,7 +15955,9 @@ especially important for GUI displays.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
-                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">252</span>
+                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
 <span class="normal">253</span>
 <span class="normal">254</span>
 <span class="normal">255</span>
@@ -15635,9 +16062,7 @@ especially important for GUI displays.</p>
 <span class="normal">354</span>
 <span class="normal">355</span>
 <span class="normal">356</span>
-<span class="normal">357</span>
-<span class="normal">358</span>
-<span class="normal">359</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ProgressCallback</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">Callback</span><span class="p">):</span>
+<span class="normal">357</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ProgressCallback</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">Callback</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Reports training/testing progress via an optional external reporter.</span>
 
 <span class="sd">    This callback tracks progress at both the epoch and batch level to provide</span>
@@ -15779,16 +16204,16 @@ especially important for GUI displays.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">279</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
 <span class="normal">280</span>
 <span class="normal">281</span>
 <span class="normal">282</span>
 <span class="normal">283</span>
 <span class="normal">284</span>
 <span class="normal">285</span>
-<span class="normal">286</span>
-<span class="normal">287</span>
-<span class="normal">288</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">progress</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">286</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">progress</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Report progress via the reporter or log it.&quot;&quot;&quot;</span>
     <span class="c1"># Enhance message with time information if tracker is available</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runtime_tracker</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -15822,12 +16247,12 @@ especially important for GUI displays.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">291</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
 <span class="normal">292</span>
 <span class="normal">293</span>
-<span class="normal">294</span>
-<span class="normal">295</span>
-<span class="normal">296</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_train_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
+<span class="normal">294</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_train_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate total batches for progress tracking.&quot;&quot;&quot;</span>
     <span class="c1"># Get total number of batches per epoch from the trainer</span>
     <span class="k">if</span> <span class="n">trainer</span><span class="o">.</span><span class="n">num_training_batches</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -15857,14 +16282,14 @@ especially important for GUI displays.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">298</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
 <span class="normal">299</span>
 <span class="normal">300</span>
 <span class="normal">301</span>
 <span class="normal">302</span>
-<span class="normal">303</span>
-<span class="normal">304</span>
-<span class="normal">305</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_train_epoch_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
+<span class="normal">303</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_train_epoch_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Report progress at the start of each training epoch.&quot;&quot;&quot;</span>
     <span class="c1"># Check for cancellation</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cancellation_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -15898,7 +16323,9 @@ especially important for GUI displays.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">307</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
 <span class="normal">308</span>
 <span class="normal">309</span>
 <span class="normal">310</span>
@@ -15931,9 +16358,7 @@ especially important for GUI displays.</p>
 <span class="normal">337</span>
 <span class="normal">338</span>
 <span class="normal">339</span>
-<span class="normal">340</span>
-<span class="normal">341</span>
-<span class="normal">342</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_train_batch_end</span><span class="p">(</span>
+<span class="normal">340</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_train_batch_end</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span>
     <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">,</span>  <span class="c1"># noqa: ARG002</span>
@@ -15993,14 +16418,14 @@ especially important for GUI displays.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">344</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
 <span class="normal">345</span>
 <span class="normal">346</span>
 <span class="normal">347</span>
 <span class="normal">348</span>
-<span class="normal">349</span>
-<span class="normal">350</span>
-<span class="normal">351</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_train_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
+<span class="normal">349</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_train_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Report progress at the end of each training epoch.&quot;&quot;&quot;</span>
     <span class="c1"># Check for cancellation</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cancellation_token</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -16032,9 +16457,9 @@ especially important for GUI displays.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">353</span>
-<span class="normal">354</span>
-<span class="normal">355</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_fit_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_fit_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Report progress at the end of training.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="s2">&quot;training finished; testing...&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -16061,9 +16486,9 @@ especially important for GUI displays.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">357</span>
-<span class="normal">358</span>
-<span class="normal">359</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_test_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_test_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Report progress at the end of testing.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;✅ training + testing complete&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -16111,7 +16536,9 @@ standard ImageNet statistics (same as dataset defaults) before logging.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
-                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">362</span>
+                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
 <span class="normal">363</span>
 <span class="normal">364</span>
 <span class="normal">365</span>
@@ -16180,9 +16607,7 @@ standard ImageNet statistics (same as dataset defaults) before logging.</p>
 <span class="normal">428</span>
 <span class="normal">429</span>
 <span class="normal">430</span>
-<span class="normal">431</span>
-<span class="normal">432</span>
-<span class="normal">433</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ImageSampleLogger</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">Callback</span><span class="p">):</span>
+<span class="normal">431</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ImageSampleLogger</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">Callback</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Logs sample input / prediction / mask triplets to TensorBoard after validation epochs.</span>
 
 <span class="sd">    This callback is added only when a TensorBoard logger is active. It keeps a small, fixed</span>
@@ -16290,7 +16715,9 @@ Skips silently if no samples or logger are available.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">388</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">386</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
 <span class="normal">389</span>
 <span class="normal">390</span>
 <span class="normal">391</span>
@@ -16333,9 +16760,7 @@ Skips silently if no samples or logger are available.</p>
 <span class="normal">428</span>
 <span class="normal">429</span>
 <span class="normal">430</span>
-<span class="normal">431</span>
-<span class="normal">432</span>
-<span class="normal">433</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_validation_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">431</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_validation_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="o">.</span><span class="n">LightningModule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Log a grid of sample input / ground-truth / prediction images to TensorBoard.</span>
 
 <span class="sd">    Executed after each validation epoch when a TensorBoard logger is present.</span>
@@ -16592,7 +17017,9 @@ Skips silently if no samples or logger are available.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">436</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">434</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
 <span class="normal">437</span>
 <span class="normal">438</span>
 <span class="normal">439</span>
@@ -16640,9 +17067,7 @@ Skips silently if no samples or logger are available.</p>
 <span class="normal">481</span>
 <span class="normal">482</span>
 <span class="normal">483</span>
-<span class="normal">484</span>
-<span class="normal">485</span>
-<span class="normal">486</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_training_callbacks</span><span class="p">(</span>
+<span class="normal">484</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_training_callbacks</span><span class="p">(</span>
     <span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span>
     <span class="n">val_ds</span><span class="p">:</span> <span class="n">CrackzDataset</span><span class="p">,</span>
     <span class="n">tb_logger</span><span class="p">:</span> <span class="n">TensorBoardLogger</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
@@ -21054,8 +21479,8 @@ to simplify the implementation of the CLI.</p>
 configurations. It saves configs as YAML and ensures paths (artifacts, images,
 logs, etc.) are resolved consistently.</p>
 <p>Log directory behavior:
-- If user provides a log dir inside the project root → stored as relative in YAML.
-- If external → stored absolute.</p>
+- If user provides a log dir inside the project root stored as relative in YAML.
+- If external stored absolute.</p>
 
 
 
@@ -21284,6 +21709,10 @@ logs, etc.) are resolved consistently.</p>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">dry_run</span><span class="o">=</span><span class="n">DRY_RUN_OPTION</span><span class="p">,</span>
     <span class="n">no_backup</span><span class="o">=</span><span class="n">NO_BACKUP_OPTION</span><span class="p">,</span>
+    <span class="n">migrate_files</span><span class="o">=</span><span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Also migrate artifacts directory structure (checkpoints to models, etc.)&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
 <span class="p">)</span>
 </code></pre></div>
 
@@ -21292,73 +21721,94 @@ logs, etc.) are resolved consistently.</p>
         <p>Migrate a project configuration to the current schema version.</p>
 <p>Automatically upgrades legacy YAML (no schema_version) by adding missing fields
 with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</p>
+<p>Optionally migrates the artifacts directory structure from v2 to v3:
+- checkpoints/ to models/
+- training/tensorboard/ to runtime/tensorboard/
+- training/lightning_logs/ to runtime/lightning_logs/
+- detections/*.png to detections/visualizations/</p>
 
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/cli/project_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
-<span class="normal">133</span>
-<span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span>
-<span class="normal">138</span>
-<span class="normal">139</span>
-<span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span>
-<span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span>
-<span class="normal">148</span>
-<span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span>
-<span class="normal">152</span>
-<span class="normal">153</span>
-<span class="normal">154</span>
-<span class="normal">155</span>
-<span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
-<span class="normal">159</span>
-<span class="normal">160</span>
-<span class="normal">161</span>
-<span class="normal">162</span>
-<span class="normal">163</span>
-<span class="normal">164</span>
-<span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span>
-<span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
-<span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span>
-<span class="normal">176</span>
-<span class="normal">177</span>
-<span class="normal">178</span>
-<span class="normal">179</span>
-<span class="normal">180</span>
-<span class="normal">181</span>
-<span class="normal">182</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">migrate_project_config</span><span class="p">(</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">migrate_project_config</span><span class="p">(</span>
     <span class="n">cfg</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">CFG_OPTION</span><span class="p">,</span>
     <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">dry_run</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">DRY_RUN_OPTION</span><span class="p">,</span>
     <span class="n">no_backup</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">NO_BACKUP_OPTION</span><span class="p">,</span>
+    <span class="n">migrate_files</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Also migrate artifacts directory structure (checkpoints to models, etc.)&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Migrate a project configuration to the current schema version.</span>
 
 <span class="sd">    Automatically upgrades legacy YAML (no schema_version) by adding missing fields</span>
 <span class="sd">    with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</span>
+
+<span class="sd">    Optionally migrates the artifacts directory structure from v2 to v3:</span>
+<span class="sd">    - checkpoints/ to models/</span>
+<span class="sd">    - training/tensorboard/ to runtime/tensorboard/</span>
+<span class="sd">    - training/lightning_logs/ to runtime/lightning_logs/</span>
+<span class="sd">    - detections/*.png to detections/visualizations/</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">project_path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">cfg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Either --project or --cfg must be specified.&quot;</span>
@@ -21366,25 +21816,15 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
 
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># Determine the target file to migrate</span>
-        <span class="k">if</span> <span class="n">cfg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">target</span> <span class="o">=</span> <span class="n">cfg</span>
-        <span class="k">elif</span> <span class="n">project_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="c1"># Find the project YAML file in the project directory</span>
-            <span class="n">project_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">project_path</span><span class="p">)</span>
-            <span class="n">yaml_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">project_path</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*_project.yaml&quot;</span><span class="p">))</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">yaml_files</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No *_project.yaml found in </span><span class="si">{</span><span class="n">project_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># noqa: TRY301</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">yaml_files</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Multiple *_project.yaml files found in </span><span class="si">{</span><span class="n">project_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># noqa: TRY301</span>
-            <span class="n">target</span> <span class="o">=</span> <span class="n">yaml_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">typer</span><span class="o">.</span><span class="n">BadParameter</span><span class="p">(</span><span class="s2">&quot;Either --project or --cfg must be specified.&quot;</span><span class="p">)</span>  <span class="c1"># noqa: TRY301</span>
+        <span class="n">target</span><span class="p">,</span> <span class="n">project_dir</span> <span class="o">=</span> <span class="n">_resolve_migration_target</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">project_path</span><span class="p">)</span>
 
+        <span class="c1"># Perform schema migration</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">migrate_project_file</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">dry_run</span><span class="o">=</span><span class="n">dry_run</span><span class="p">,</span> <span class="n">backup</span><span class="o">=</span><span class="ow">not</span> <span class="n">no_backup</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span>
         <span class="n">from_v</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;from_version&quot;</span><span class="p">]</span>
         <span class="n">to_v</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;to_version&quot;</span><span class="p">]</span>
         <span class="n">steps</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;steps&quot;</span><span class="p">])</span> <span class="ow">or</span> <span class="s2">&quot;none&quot;</span>
+
         <span class="c1"># Build message in parts to respect line length</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2"> schema </span><span class="si">{</span><span class="n">from_v</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">to_v</span><span class="si">}</span><span class="s2"> &quot;</span>
@@ -21393,8 +21833,14 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
         <span class="n">ok_states</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;up-to-date&quot;</span><span class="p">,</span> <span class="s2">&quot;noop&quot;</span><span class="p">}</span>
         <span class="n">color</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">GREEN</span> <span class="k">if</span> <span class="n">status</span> <span class="ow">in</span> <span class="n">ok_states</span> <span class="k">else</span> <span class="n">typer</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">CYAN</span>
         <span class="n">typer</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+
+        <span class="c1"># Perform file migration if requested</span>
+        <span class="k">if</span> <span class="n">migrate_files</span><span class="p">:</span>
+            <span class="n">_handle_file_migration</span><span class="p">(</span><span class="n">project_dir</span><span class="p">,</span> <span class="n">dry_run</span><span class="o">=</span><span class="n">dry_run</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">dry_run</span><span class="p">:</span>
             <span class="n">typer</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="s2">&quot;Dry run complete. Rerun without --dry-run to apply.&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="n">typer</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">CYAN</span><span class="p">)</span>
+
     <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># pragma: no cover - defensive</span>
         <span class="n">cli_failure</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s2">&quot;Migration&quot;</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># pragma: no cover - defensive</span>
@@ -21432,64 +21878,64 @@ Images and masks are always preserved.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/cli/project_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">185</span>
-<span class="normal">186</span>
-<span class="normal">187</span>
-<span class="normal">188</span>
-<span class="normal">189</span>
-<span class="normal">190</span>
-<span class="normal">191</span>
-<span class="normal">192</span>
-<span class="normal">193</span>
-<span class="normal">194</span>
-<span class="normal">195</span>
-<span class="normal">196</span>
-<span class="normal">197</span>
-<span class="normal">198</span>
-<span class="normal">199</span>
-<span class="normal">200</span>
-<span class="normal">201</span>
-<span class="normal">202</span>
-<span class="normal">203</span>
-<span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span>
-<span class="normal">207</span>
-<span class="normal">208</span>
-<span class="normal">209</span>
-<span class="normal">210</span>
-<span class="normal">211</span>
-<span class="normal">212</span>
-<span class="normal">213</span>
-<span class="normal">214</span>
-<span class="normal">215</span>
-<span class="normal">216</span>
-<span class="normal">217</span>
-<span class="normal">218</span>
-<span class="normal">219</span>
-<span class="normal">220</span>
-<span class="normal">221</span>
-<span class="normal">222</span>
-<span class="normal">223</span>
-<span class="normal">224</span>
-<span class="normal">225</span>
-<span class="normal">226</span>
-<span class="normal">227</span>
-<span class="normal">228</span>
-<span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span>
-<span class="normal">236</span>
-<span class="normal">237</span>
-<span class="normal">238</span>
-<span class="normal">239</span>
-<span class="normal">240</span>
-<span class="normal">241</span>
-<span class="normal">242</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">clean_project</span><span class="p">(</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">clean_project</span><span class="p">(</span>
     <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">dry_run</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">DRY_RUN_OPTION</span><span class="p">,</span>
@@ -22063,7 +22509,8 @@ Random seed for reproducible splits (default: None for random).</p>
 <span class="normal">256</span>
 <span class="normal">257</span>
 <span class="normal">258</span>
-<span class="normal">259</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">import_images</span><span class="p">(</span>
+<span class="normal">259</span>
+<span class="normal">260</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">import_images</span><span class="p">(</span>
     <span class="n">cfg</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">CFG_OPTION</span><span class="p">,</span>
     <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span>
     <span class="n">source_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">SOURCE_PATH_OPTION</span><span class="p">,</span>
@@ -22183,6 +22630,7 @@ Random seed for reproducible splits (default: None for random).</p>
         <span class="p">)</span>
 
         <span class="k">with</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="n">total</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;files&quot;</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span> <span class="k">as</span> <span class="n">pbar</span><span class="p">:</span>
+
             <span class="k">def</span><span class="w"> </span><span class="nf">do_progress</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
                     <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -23006,16 +23454,26 @@ the expected schema.</p>
 <p>Migrate a project configuration to the current schema version.</p>
 <p>Automatically upgrades legacy YAML (no schema_version) by adding missing fields
 with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</p>
+<p>Optionally migrates the artifacts directory structure from v2 to v3:
+- checkpoints/ to models/
+- training/tensorboard/ to runtime/tensorboard/
+- training/lightning_logs/ to runtime/lightning_logs/
+- detections/*.png to detections/visualizations/</p>
 <p>Usage:</p>
 <div class="highlight"><pre><span></span><code> migrate [OPTIONS]
 </code></pre></div>
 <p>Options:</p>
-<div class="highlight"><pre><span></span><code>  -c, --cfg FILE           Path to YAML pipeline config. Or use --project to
-                           specify the project path.
-  -p, --project DIRECTORY  Project path (overrides config file). Eg --project
-                           ./my_project
-  --dry-run                Show actions without writing/executing them
-  --no-backup              Do not create .bak backup files before overwrite
+<div class="highlight"><pre><span></span><code>  -c, --cfg FILE                  Path to YAML pipeline config. Or use
+                                  --project to specify the project path.
+  -p, --project DIRECTORY         Project path (overrides config file). Eg
+                                  --project ./my_project
+  --dry-run                       Show actions without writing/executing them
+  --no-backup                     Do not create .bak backup files before
+                                  overwrite
+  --migrate-files / --no-migrate-files
+                                  Also migrate artifacts directory structure
+                                  (checkpoints to models, etc.)  \[default:
+                                  no-migrate-files]
 </code></pre></div>
 <h2 id="model">model<a class="headerlink" href="#model" title="Permanent link">&para;</a></h2>
 <p>Usage:</p>
@@ -23060,7 +23518,7 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
 <ul>
 <li><strong>Log files</strong> (<code>*.log</code> in the project's log directory)</li>
 <li><strong>TensorBoard logs</strong> (training visualization data)</li>
-<li><strong>Model checkpoints</strong> (saved model states during training)</li>
+<li><strong>Model checkpoints</strong> (saved model states during training) - stored in <code>models/</code> or <code>checkpoints/</code> for older projects</li>
 <li><strong>Detection results</strong> (inference outputs)</li>
 <li><strong>Training metrics</strong> (training statistics and metrics)</li>
 </ul>
@@ -23077,7 +23535,7 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
 <div class="highlight"><pre><span></span><code>Dry run: The following would be cleaned:
   • /path/to/project/logs/crackz.log
   • /path/to/project/artifacts/training/tensorboard
-  • /path/to/project/artifacts/checkpoints
+  • /path/to/project/artifacts/models
   • /path/to/project/artifacts/detections
 
 Re-run without --dry-run to apply changes.
@@ -23090,7 +23548,7 @@ Re-run without --dry-run to apply changes.
 - Log files (<code>*.log</code>)
 - TensorBoard logs</p>
 <p>But preserves:
-- Model checkpoints
+- Model checkpoints (in <code>models/</code> or legacy <code>checkpoints/</code> directory)
 - Detection results
 - Training metrics</p>
 <h3 id="example-output">Example Output<a class="headerlink" href="#example-output" title="Permanent link">&para;</a></h3>
@@ -23104,7 +23562,7 @@ Project<span class="w"> </span>cleaned!<span class="w"> </span>Removed<span clas
 Project<span class="w"> </span>cleaned!<span class="w"> </span>Removed<span class="w"> </span><span class="m">2</span><span class="w"> </span>items<span class="w"> </span><span class="o">(</span>logs<span class="o">)</span>.
 </code></pre></div></p>
 <h3 id="common-use-cases">Common Use Cases<a class="headerlink" href="#common-use-cases" title="Permanent link">&para;</a></h3>
-<p><strong>After training:</strong> Clean up old checkpoints and logs to save disk space:
+<p><strong>After training:</strong> Clean up old model files and logs to save disk space:
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>clean<span class="w"> </span>-p<span class="w"> </span>./my_project
 </code></pre></div></p>
 <p><strong>Keep artifacts, clean logs:</strong> Useful when debugging or reviewing training metrics:
@@ -23113,31 +23571,53 @@ Project<span class="w"> </span>cleaned!<span class="w"> </span>Removed<span clas
 <p><strong>Safe preview:</strong> Always check what will be deleted first:
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>clean<span class="w"> </span>-p<span class="w"> </span>./my_project<span class="w"> </span>--dry-run
 </code></pre></div></p>
-<h2 id="project-migration-schema-upgrades">Project Migration (Schema Upgrades)<a class="headerlink" href="#project-migration-schema-upgrades" title="Permanent link">&para;</a></h2>
-<p>The <code>migrate</code> command upgrades older project YAML files (legacy ones without a
-<code>schema_version</code>) to the current schema. At present, migration to <strong>schema_version=1</strong>:
-- Adds <code>schema_version: 1</code> if missing
-- Ensures <code>ai.training.tensorboard</code> exists (default <code>false</code>)</p>
+<h2 id="project-migration-schema-file-upgrades">Project Migration (Schema &amp; File Upgrades)<a class="headerlink" href="#project-migration-schema-file-upgrades" title="Permanent link">&para;</a></h2>
+<p>The <code>migrate</code> command upgrades older project YAML files and optionally migrates the artifacts directory structure to the latest organization.</p>
+<h3 id="schema-migration">Schema Migration<a class="headerlink" href="#schema-migration" title="Permanent link">&para;</a></h3>
+<p>Upgrades project configuration to the current schema version. Current migration paths:
+- <strong>Schema v0 → v1</strong>: Adds <code>schema_version: 1</code> and ensures <code>ai.training.tensorboard</code> exists (default <code>false</code>)
+- <strong>Schema v1 → v2</strong>: Adds <code>data.mask_threshold: 1</code> for binary mask conversion
+- <strong>Schema v2 → v3</strong>: Adds <code>crackz_version</code> field with current version</p>
+<h3 id="file-migration-new">File Migration (NEW)<a class="headerlink" href="#file-migration-new" title="Permanent link">&para;</a></h3>
+<p>Optionally reorganizes the artifacts directory structure for better organization:
+- <code>checkpoints/</code> to <code>models/</code> (model files in dedicated directory)
+- <code>training/tensorboard/</code> to <code>runtime/tensorboard/</code> (runtime data separation)
+- <code>training/lightning_logs/</code> to <code>runtime/lightning_logs/</code> (PyTorch Lightning logs)
+- <code>detections/*.png</code> to <code>detections/visualizations/</code> (visualization files organized)</p>
 <h3 id="basic-usage_1">Basic Usage<a class="headerlink" href="#basic-usage_1" title="Permanent link">&para;</a></h3>
-<p>Using the project directory:
+<p>Schema migration only (default):
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>./my_project
 </code></pre></div></p>
+<p>Schema + file migration:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w"> </span>--migrate-files
+</code></pre></div></p>
 <p>Or using the config file:
-<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>--cfg<span class="w"> </span>./my_project/my_project_project.yaml
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>--cfg<span class="w"> </span>./my_project/my_project_project.yaml<span class="w"> </span>--migrate-files
 </code></pre></div></p>
 <p>Short flags are also supported:
-<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>-p<span class="w"> </span>./my_project
-crackz<span class="w"> </span>migrate<span class="w"> </span>-c<span class="w"> </span>./my_project/my_project_project.yaml
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>-p<span class="w"> </span>./my_project<span class="w"> </span>--migrate-files
+crackz<span class="w"> </span>migrate<span class="w"> </span>-c<span class="w"> </span>./my_project/my_project_project.yaml<span class="w"> </span>--migrate-files
 </code></pre></div></p>
 <h3 id="dry-run">Dry Run<a class="headerlink" href="#dry-run" title="Permanent link">&para;</a></h3>
-<p><div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w"> </span>--dry-run
+<p>Preview both schema and file changes without making modifications:
+<div class="highlight"><pre><span></span><code><span class="c1"># Schema changes only</span>
+crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w"> </span>--dry-run
+
+<span class="c1"># Schema + file changes</span>
+crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w"> </span>--migrate-files<span class="w"> </span>--dry-run
 </code></pre></div>
-Displays the steps that <em>would</em> be performed without modifying the file.</p>
-<h3 id="skip-backup">Skip Backup<a class="headerlink" href="#skip-backup" title="Permanent link">&para;</a></h3>
-<p>By default a <code>.bak</code> copy of the original YAML is created when changes occur.
-Disable this with:
+Displays the steps that <em>would</em> be performed without modifying files.</p>
+<h3 id="safety-features">Safety Features<a class="headerlink" href="#safety-features" title="Permanent link">&para;</a></h3>
+<p><strong>Automatic Backups</strong>: By default, backups are created before any changes:
+- Schema files: <code>.v{version}.{timestamp}.bak</code> format
+- File migration: Complete artifacts directory backup before moving files</p>
+<p><strong>Skip Backup</strong> (not recommended):
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w"> </span>--no-backup
 </code></pre></div></p>
+<p><strong>Interactive Confirmation</strong>: File migration requires user confirmation before proceeding, showing:
+- What files will be moved
+- Backup location
+- Rollback instructions if needed</p>
 <h3 id="output-example">Output Example<a class="headerlink" href="#output-example" title="Permanent link">&para;</a></h3>
 <p>First run (migration needed):
 <div class="highlight"><pre><span></span><code>[migrated] my_project schema 0 -&gt; 1 (current=1) steps: 0-&gt;1: added tensorboard default + schema_version=1
@@ -23261,7 +23741,7 @@ Skip them (default already does):
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>model<span class="w"> </span>import<span class="w"> </span>-p<span class="w"> </span>./my_project<span class="w"> </span>-m<span class="w"> </span>my_model.zip
 </code></pre></div></p>
 <p><strong>What happens during import:</strong>
-- Extracts checkpoint to project's checkpoints directory
+- Extracts checkpoint to project's models directory (or checkpoints in older projects)
 - Displays model configuration information
 - Validates the package format</p>
 <p><strong>Overwrite existing checkpoint:</strong>

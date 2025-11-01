@@ -1432,7 +1432,7 @@
 - <strong>Training &amp; Detection Pipelines</strong>: PyTorch + PyTorch Lightning orchestration (training, validation, testing, inference)
 - <strong>Performance Utilities</strong>: Global seed, Trainer override extraction
 - <strong>Logging</strong>: Centralized through <code>loguru</code> with structured formatting
-- <strong>Artifacts &amp; Outputs</strong>: Filesystem only (<code>artifacts/</code>, checkpoints, metrics JSON, detection PNGs)</p>
+- <strong>Artifacts &amp; Outputs</strong>: Filesystem only (<code>artifacts/models/</code>, <code>artifacts/runtime/</code>, metrics JSON, detection PNGs)</p>
 <p>No network services, model servers, remote registries, or cloud object storage are currently part of runtime behavior.</p>
 <h3 id="open-architecture-model-flexibility">Open Architecture &amp; Model Flexibility<a class="headerlink" href="#open-architecture-model-flexibility" title="Permanent link">&para;</a></h3>
 <p>Crackz is built with an <strong>open architecture</strong> that supports multiple model types and use cases:</p>
@@ -1459,7 +1459,7 @@ End users have two primary paths:</p>
 <p><strong>Use Pre-Trained Models</strong></p>
 </li>
 <li>Acquire ready-made checkpoints from model providers or partners</li>
-<li>Place checkpoint in project's <code>artifacts/training/checkpoints/</code> directory</li>
+<li>Place checkpoint in project's <code>artifacts/models/</code> directory</li>
 <li>Run <code>crackz detect run</code> with existing checkpoint</li>
 <li>Ideal for: quick deployment, standard use cases, proof-of-concept</li>
 </ol>
@@ -1622,7 +1622,7 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
   User --&gt; GUI["GUI (CustomTkinter)"]
   CLI --&gt; CORE["Core Library"]
   GUI --&gt; CORE
-  CORE --&gt; FS["Filesystem&lt;br/&gt;images / artifacts / checkpoints"]
+  CORE --&gt; FS["Filesystem&lt;br/&gt;images / artifacts/models / artifacts/runtime"]
   CORE -.optional.-&gt; GPU[("GPU")]
 
   subgraph Optional_Docker [Optional Docker]

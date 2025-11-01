@@ -506,6 +506,39 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#automatic-migration-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Automatic Migration Support
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Automatic Migration Support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schema Migration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-migration-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Migration (NEW)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#project-settings" class="md-nav__link">
     <span class="md-ellipsis">
       Project Settings
@@ -1686,6 +1719,39 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#automatic-migration-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Automatic Migration Support
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Automatic Migration Support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schema Migration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-migration-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Migration (NEW)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#project-settings" class="md-nav__link">
     <span class="md-ellipsis">
       Project Settings
@@ -2185,6 +2251,23 @@ crackz-gui
 <li>Select the folder and click <strong>Open</strong></li>
 </ol>
 <p>Recent projects appear in the welcome screen and <strong>File → Recent Projects</strong> menu for quick access.</p>
+<h3 id="automatic-migration-support">Automatic Migration Support<a class="headerlink" href="#automatic-migration-support" title="Permanent link">&para;</a></h3>
+<p>When opening a project with an outdated configuration or file structure, the GUI automatically detects migration needs and provides user-friendly dialogs:</p>
+<h4 id="schema-migration">Schema Migration<a class="headerlink" href="#schema-migration" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Automatic Detection</strong>: When project schema is outdated (v0, v1, v2), a dialog prompts for migration</li>
+<li><strong>Safe Process</strong>: Backup is always created before migration</li>
+<li><strong>User Choice</strong>: Option to migrate now, skip, or cancel</li>
+</ul>
+<h4 id="file-migration-new">File Migration (NEW)<a class="headerlink" href="#file-migration-new" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Structure Detection</strong>: Identifies when artifacts directory uses old structure (checkpoints/, training/, etc.)</li>
+<li><strong>Informational Dialog</strong>: Explains benefits of new organization and safety measures</li>
+<li><strong>User Options</strong>: "Migrate" (reorganizes files), "Skip" (continue with old structure), or "Cancel"</li>
+<li><strong>Progress Tracking</strong>: Shows migration progress with detailed feedback</li>
+<li><strong>Error Handling</strong>: Automatic rollback if migration fails</li>
+</ul>
+<p>This ensures your projects always use the latest, most organized structure without requiring manual CLI commands.</p>
 <h3 id="project-settings">Project Settings<a class="headerlink" href="#project-settings" title="Permanent link">&para;</a></h3>
 <p>Access project settings via <strong>Project → Settings</strong> or by clicking the settings icon. Settings are organized into tabs:</p>
 <h4 id="project-tab">Project Tab<a class="headerlink" href="#project-tab" title="Permanent link">&para;</a></h4>
@@ -2321,7 +2404,7 @@ crackz-gui
 <ol>
 <li>Click <strong>Model → Import Model</strong></li>
 <li>Select checkpoint file (<code>.ckpt</code>)</li>
-<li>Model is copied to project's checkpoints directory</li>
+<li>Model is copied to project's models directory (or checkpoints in older projects)</li>
 <li>Available immediately for detection</li>
 </ol>
 <p><img alt="Import Model Menu" src="../assets/gui/import_model_menu.png" /></p>

@@ -1130,14 +1130,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-migration-schema-upgrades" class="md-nav__link">
+  <a href="#project-migration-schema-file-upgrades" class="md-nav__link">
     <span class="md-ellipsis">
-      Project Migration (Schema Upgrades)
+      Project Migration (Schema &amp; File Upgrades)
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Project Migration (Schema Upgrades)">
+    <nav class="md-nav" aria-label="Project Migration (Schema &amp; File Upgrades)">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schema Migration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-migration-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Migration (NEW)
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#basic-usage_1" class="md-nav__link">
@@ -1158,9 +1176,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#skip-backup" class="md-nav__link">
+  <a href="#safety-features" class="md-nav__link">
     <span class="md-ellipsis">
-      Skip Backup
+      Safety Features
     </span>
   </a>
   
@@ -1823,14 +1841,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-migration-schema-upgrades" class="md-nav__link">
+  <a href="#project-migration-schema-file-upgrades" class="md-nav__link">
     <span class="md-ellipsis">
-      Project Migration (Schema Upgrades)
+      Project Migration (Schema &amp; File Upgrades)
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Project Migration (Schema Upgrades)">
+    <nav class="md-nav" aria-label="Project Migration (Schema &amp; File Upgrades)">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schema Migration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-migration-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Migration (NEW)
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#basic-usage_1" class="md-nav__link">
@@ -1851,9 +1887,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#skip-backup" class="md-nav__link">
+  <a href="#safety-features" class="md-nav__link">
     <span class="md-ellipsis">
-      Skip Backup
+      Safety Features
     </span>
   </a>
   
@@ -2299,16 +2335,26 @@ the expected schema.</p>
 <p>Migrate a project configuration to the current schema version.</p>
 <p>Automatically upgrades legacy YAML (no schema_version) by adding missing fields
 with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</p>
+<p>Optionally migrates the artifacts directory structure from v2 to v3:
+- checkpoints/ to models/
+- training/tensorboard/ to runtime/tensorboard/
+- training/lightning_logs/ to runtime/lightning_logs/
+- detections/*.png to detections/visualizations/</p>
 <p>Usage:</p>
 <div class="highlight"><pre><span></span><code> migrate [OPTIONS]
 </code></pre></div>
 <p>Options:</p>
-<div class="highlight"><pre><span></span><code>  -c, --cfg FILE           Path to YAML pipeline config. Or use --project to
-                           specify the project path.
-  -p, --project DIRECTORY  Project path (overrides config file). Eg --project
-                           ./my_project
-  --dry-run                Show actions without writing/executing them
-  --no-backup              Do not create .bak backup files before overwrite
+<div class="highlight"><pre><span></span><code>  -c, --cfg FILE                  Path to YAML pipeline config. Or use
+                                  --project to specify the project path.
+  -p, --project DIRECTORY         Project path (overrides config file). Eg
+                                  --project ./my_project
+  --dry-run                       Show actions without writing/executing them
+  --no-backup                     Do not create .bak backup files before
+                                  overwrite
+  --migrate-files / --no-migrate-files
+                                  Also migrate artifacts directory structure
+                                  (checkpoints to models, etc.)  \[default:
+                                  no-migrate-files]
 </code></pre></div>
 <h2 id="model">model<a class="headerlink" href="#model" title="Permanent link">&para;</a></h2>
 <p>Usage:</p>
@@ -2353,7 +2399,7 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
 <ul>
 <li><strong>Log files</strong> (<code>*.log</code> in the project's log directory)</li>
 <li><strong>TensorBoard logs</strong> (training visualization data)</li>
-<li><strong>Model checkpoints</strong> (saved model states during training)</li>
+<li><strong>Model checkpoints</strong> (saved model states during training) - stored in <code>models/</code> or <code>checkpoints/</code> for older projects</li>
 <li><strong>Detection results</strong> (inference outputs)</li>
 <li><strong>Training metrics</strong> (training statistics and metrics)</li>
 </ul>
@@ -2370,7 +2416,7 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
 <div class="highlight"><pre><span></span><code>Dry run: The following would be cleaned:
   • /path/to/project/logs/crackz.log
   • /path/to/project/artifacts/training/tensorboard
-  • /path/to/project/artifacts/checkpoints
+  • /path/to/project/artifacts/models
   • /path/to/project/artifacts/detections
 
 Re-run without --dry-run to apply changes.
@@ -2383,7 +2429,7 @@ Re-run without --dry-run to apply changes.
 - Log files (<code>*.log</code>)
 - TensorBoard logs</p>
 <p>But preserves:
-- Model checkpoints
+- Model checkpoints (in <code>models/</code> or legacy <code>checkpoints/</code> directory)
 - Detection results
 - Training metrics</p>
 <h3 id="example-output">Example Output<a class="headerlink" href="#example-output" title="Permanent link">&para;</a></h3>
@@ -2397,7 +2443,7 @@ Project<span class="w"> </span>cleaned!<span class="w"> </span>Removed<span clas
 Project<span class="w"> </span>cleaned!<span class="w"> </span>Removed<span class="w"> </span><span class="m">2</span><span class="w"> </span>items<span class="w"> </span><span class="o">(</span>logs<span class="o">)</span>.
 </code></pre></div></p>
 <h3 id="common-use-cases">Common Use Cases<a class="headerlink" href="#common-use-cases" title="Permanent link">&para;</a></h3>
-<p><strong>After training:</strong> Clean up old checkpoints and logs to save disk space:
+<p><strong>After training:</strong> Clean up old model files and logs to save disk space:
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>clean<span class="w"> </span>-p<span class="w"> </span>./my_project
 </code></pre></div></p>
 <p><strong>Keep artifacts, clean logs:</strong> Useful when debugging or reviewing training metrics:
@@ -2406,31 +2452,53 @@ Project<span class="w"> </span>cleaned!<span class="w"> </span>Removed<span clas
 <p><strong>Safe preview:</strong> Always check what will be deleted first:
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>clean<span class="w"> </span>-p<span class="w"> </span>./my_project<span class="w"> </span>--dry-run
 </code></pre></div></p>
-<h2 id="project-migration-schema-upgrades">Project Migration (Schema Upgrades)<a class="headerlink" href="#project-migration-schema-upgrades" title="Permanent link">&para;</a></h2>
-<p>The <code>migrate</code> command upgrades older project YAML files (legacy ones without a
-<code>schema_version</code>) to the current schema. At present, migration to <strong>schema_version=1</strong>:
-- Adds <code>schema_version: 1</code> if missing
-- Ensures <code>ai.training.tensorboard</code> exists (default <code>false</code>)</p>
+<h2 id="project-migration-schema-file-upgrades">Project Migration (Schema &amp; File Upgrades)<a class="headerlink" href="#project-migration-schema-file-upgrades" title="Permanent link">&para;</a></h2>
+<p>The <code>migrate</code> command upgrades older project YAML files and optionally migrates the artifacts directory structure to the latest organization.</p>
+<h3 id="schema-migration">Schema Migration<a class="headerlink" href="#schema-migration" title="Permanent link">&para;</a></h3>
+<p>Upgrades project configuration to the current schema version. Current migration paths:
+- <strong>Schema v0 → v1</strong>: Adds <code>schema_version: 1</code> and ensures <code>ai.training.tensorboard</code> exists (default <code>false</code>)
+- <strong>Schema v1 → v2</strong>: Adds <code>data.mask_threshold: 1</code> for binary mask conversion
+- <strong>Schema v2 → v3</strong>: Adds <code>crackz_version</code> field with current version</p>
+<h3 id="file-migration-new">File Migration (NEW)<a class="headerlink" href="#file-migration-new" title="Permanent link">&para;</a></h3>
+<p>Optionally reorganizes the artifacts directory structure for better organization:
+- <code>checkpoints/</code> to <code>models/</code> (model files in dedicated directory)
+- <code>training/tensorboard/</code> to <code>runtime/tensorboard/</code> (runtime data separation)
+- <code>training/lightning_logs/</code> to <code>runtime/lightning_logs/</code> (PyTorch Lightning logs)
+- <code>detections/*.png</code> to <code>detections/visualizations/</code> (visualization files organized)</p>
 <h3 id="basic-usage_1">Basic Usage<a class="headerlink" href="#basic-usage_1" title="Permanent link">&para;</a></h3>
-<p>Using the project directory:
+<p>Schema migration only (default):
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>./my_project
 </code></pre></div></p>
+<p>Schema + file migration:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w"> </span>--migrate-files
+</code></pre></div></p>
 <p>Or using the config file:
-<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>--cfg<span class="w"> </span>./my_project/my_project_project.yaml
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>--cfg<span class="w"> </span>./my_project/my_project_project.yaml<span class="w"> </span>--migrate-files
 </code></pre></div></p>
 <p>Short flags are also supported:
-<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>-p<span class="w"> </span>./my_project
-crackz<span class="w"> </span>migrate<span class="w"> </span>-c<span class="w"> </span>./my_project/my_project_project.yaml
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>-p<span class="w"> </span>./my_project<span class="w"> </span>--migrate-files
+crackz<span class="w"> </span>migrate<span class="w"> </span>-c<span class="w"> </span>./my_project/my_project_project.yaml<span class="w"> </span>--migrate-files
 </code></pre></div></p>
 <h3 id="dry-run">Dry Run<a class="headerlink" href="#dry-run" title="Permanent link">&para;</a></h3>
-<p><div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w"> </span>--dry-run
+<p>Preview both schema and file changes without making modifications:
+<div class="highlight"><pre><span></span><code><span class="c1"># Schema changes only</span>
+crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w"> </span>--dry-run
+
+<span class="c1"># Schema + file changes</span>
+crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w"> </span>--migrate-files<span class="w"> </span>--dry-run
 </code></pre></div>
-Displays the steps that <em>would</em> be performed without modifying the file.</p>
-<h3 id="skip-backup">Skip Backup<a class="headerlink" href="#skip-backup" title="Permanent link">&para;</a></h3>
-<p>By default a <code>.bak</code> copy of the original YAML is created when changes occur.
-Disable this with:
+Displays the steps that <em>would</em> be performed without modifying files.</p>
+<h3 id="safety-features">Safety Features<a class="headerlink" href="#safety-features" title="Permanent link">&para;</a></h3>
+<p><strong>Automatic Backups</strong>: By default, backups are created before any changes:
+- Schema files: <code>.v{version}.{timestamp}.bak</code> format
+- File migration: Complete artifacts directory backup before moving files</p>
+<p><strong>Skip Backup</strong> (not recommended):
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w"> </span>--no-backup
 </code></pre></div></p>
+<p><strong>Interactive Confirmation</strong>: File migration requires user confirmation before proceeding, showing:
+- What files will be moved
+- Backup location
+- Rollback instructions if needed</p>
 <h3 id="output-example">Output Example<a class="headerlink" href="#output-example" title="Permanent link">&para;</a></h3>
 <p>First run (migration needed):
 <div class="highlight"><pre><span></span><code>[migrated] my_project schema 0 -&gt; 1 (current=1) steps: 0-&gt;1: added tensorboard default + schema_version=1
@@ -2554,7 +2622,7 @@ Skip them (default already does):
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>model<span class="w"> </span>import<span class="w"> </span>-p<span class="w"> </span>./my_project<span class="w"> </span>-m<span class="w"> </span>my_model.zip
 </code></pre></div></p>
 <p><strong>What happens during import:</strong>
-- Extracts checkpoint to project's checkpoints directory
+- Extracts checkpoint to project's models directory (or checkpoints in older projects)
 - Displays model configuration information
 - Validates the package format</p>
 <p><strong>Overwrite existing checkpoint:</strong>

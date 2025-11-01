@@ -2618,10 +2618,13 @@ python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;i
 │   └── test/
 ├── artifacts/       # Model outputs (metrics, plots)
 ├── detections/      # Detection results (annotated images, JSON)
-├── checkpoints/     # Saved model weights
+├── models/          # Saved model weights (or checkpoints/ in older projects)
 ├── logs/            # Project-specific logs
 └── project.yaml     # Project configuration
 </code></pre></div></p>
+<blockquote>
+<p><strong>Note</strong>: Older projects may use <code>checkpoints/</code> instead of <code>models/</code>. Use <code>crackz migrate --project &lt;project&gt; --migrate-files</code> to upgrade to the new structure, or the GUI will prompt you automatically when opening the project.</p>
+</blockquote>
 <h3 id="step-2-import-images">Step 2: Import Images<a class="headerlink" href="#step-2-import-images" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Import sample images for detection (no training)</span>
 crackz<span class="w"> </span>import-images<span class="w"> </span><span class="se">\</span>
@@ -2677,7 +2680,7 @@ xdg-open<span class="w"> </span>my-first-project/detections/*.png<span class="w"
   - Binary masks: 0 = background, 255 = crack
 - <strong><code>artifacts/</code></strong>: Training outputs (loss curves, metrics JSON)
 - <strong><code>detections/</code></strong>: Detection results with overlays
-- <strong><code>checkpoints/</code></strong>: Saved model weights (.ckpt files)
+- <strong><code>models/</code></strong>: Saved model weights (.ckpt files) [or <code>checkpoints/</code> in older projects]
 - <strong><code>logs/</code></strong>: Project-specific log files
 - <strong><code>project.yaml</code></strong>: Configuration file (version-controlled)</p>
 <h3 id="52-data-splits-explained">5.2 Data Splits Explained<a class="headerlink" href="#52-data-splits-explained" title="Permanent link">&para;</a></h3>
@@ -2922,7 +2925,7 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>model<span class="w"> </span>import<span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w"> </span>--model<span class="w"> </span>pretrained_model.zip
 </code></pre></div>
 <p>Or use the GUI:
-1. Right-click on the checkpoints folder
+1. Right-click on the models folder (or checkpoints in older projects)
 2. Select "📥 Import Model..."
 3. Choose a model package file</p>
 <p><strong>Exporting Models:</strong></p>
@@ -2930,7 +2933,7 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w"> </span>--out<span class="w"> </span>my_model.zip
 </code></pre></div>
 <p>Or use the GUI:
-1. Right-click on the checkpoints folder<br />
+1. Right-click on the models folder (or checkpoints in older projects)
 2. Select "📦 Export Model..."
 3. Choose where to save the package</p>
 <p>Model packages are portable zip files containing the checkpoint and metadata, making it easy to transfer models between projects, team members, or deployment environments.</p>
@@ -3474,7 +3477,7 @@ nvidia-smi<span class="w"> </span>-l<span class="w"> </span><span class="m">1</s
 <p><em>Solution:</em>
 - Check logs: <code>tail my-project/logs/crackz.log</code>
 - Verify images exist in target split (default: <code>raw/</code>)
-- Ensure checkpoint exists: <code>ls my-project/checkpoints/</code>
+- Ensure checkpoint exists: <code>ls my-project/models/</code> (or <code>my-project/checkpoints/</code> in older projects)
 - Try: <code>crackz detect run --project my-project --debug</code></p>
 <p><strong>Problem: Detection results look wrong (too many/few cracks)</strong></p>
 <p><em>Solution:</em>

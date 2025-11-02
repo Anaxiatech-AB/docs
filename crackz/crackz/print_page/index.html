@@ -96,11 +96,11 @@ table th { background:#f1f5f9; color:#111827; }
   
   <h1>Crackz Documentation</h1>
   <h2>AI Image Analysis</h2>
-  <p class='version'>Version: 0.52.3</p>
+  <p class='version'>Version: 0.53.1</p>
   <p class='company'>© 2025 Anaxiatech AB</p>
 </section>
 <hr class='page-sep'/>
-<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#getting-started'>Getting Started</a></li><li><a href='#installation'>Installation</a></li><li><a href='#user-guide'>User Guide</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#gui'>GUI</a></li><li><a href='#configuration'>Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-comparison'>VM vs Batch Comparison</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#api'>API Reference</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access Management</a></li><li><a href='#pdf'>Printable PDF</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
+<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#getting-started'>Getting Started</a></li><li><a href='#installation'>Installation</a></li><li><a href='#user-guide'>User Guide</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#gui'>GUI</a></li><li><a href='#configuration'>Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-vm-cuda'>Azure VM with CUDA</a></li><li><a href='#azure-comparison'>VM vs Batch Comparison</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#api'>API Reference</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access Management</a></li><li><a href='#pdf'>Printable PDF</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
 <h1>Home</h1>
 <h1 id="crackz">Crackz<a class="headerlink" href="#crackz" title="Permanent link">&para;</a></h1>
 <p>
@@ -763,21 +763,31 @@ crackz-gui
 python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import crackz; import importlib.metadata as m; print(m.version(&#39;crackz&#39;))&quot;</span>
 </code></pre></div></p>
 <h2 id="3-gpu-cuda-install">3. GPU / CUDA Install<a class="headerlink" href="#3-gpu-cuda-install" title="Permanent link">&para;</a></h2>
-<p>Crackz now provides <strong>separate wheels for different PyTorch variants</strong> to ensure optimal GPU support:</p>
+<p>Crackz provides <strong>separate wheels for different PyTorch variants</strong>:</p>
 <ul>
-<li><code>crackz-VERSION-py3-none-any.whl</code> - <strong>CPU version</strong> (default)</li>
-<li><code>crackz_cu118-VERSION-py3-none-any.whl</code> - <strong>CUDA 11.8</strong> version</li>
-<li><code>crackz_cu128-VERSION-py3-none-any.whl</code> - <strong>CUDA 12.8</strong> version</li>
+<li><code>crackz-VERSION-py3-none-any.whl</code> - <strong>CPU version</strong> (includes PyTorch CPU)</li>
+<li><code>crackz_cu118-VERSION-py3-none-any.whl</code> - <strong>CUDA 11.8</strong> version (PyTorch NOT included)</li>
+<li><code>crackz_cu128-VERSION-py3-none-any.whl</code> - <strong>CUDA 12.8</strong> version (PyTorch NOT included)</li>
 </ul>
-<h3 id="recommended-installation">Recommended Installation<a class="headerlink" href="#recommended-installation" title="Permanent link">&para;</a></h3>
+<p>⚠️ <strong>IMPORTANT</strong>: CUDA wheel variants do NOT include PyTorch. You must install PyTorch with CUDA support separately first.</p>
+<h3 id="cpu-installation-one-step">CPU Installation (One Step)<a class="headerlink" href="#cpu-installation-one-step" title="Permanent link">&para;</a></h3>
 <p><strong>For CPU (default):</strong>
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/vVERSION/crackz-VERSION-py3-none-any.whl
 </code></pre></div></p>
-<p><strong>For CUDA 11.8 (RTX 20/30 series, older drivers):</strong>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/vVERSION/crackz_cu118-VERSION-py3-none-any.whl
+<h3 id="cuda-installation-two-steps-required">CUDA Installation (Two Steps Required)<a class="headerlink" href="#cuda-installation-two-steps-required" title="Permanent link">&para;</a></h3>
+<p><strong>For CUDA 11.8 (RTX 20/30 series, older drivers, Windows recommended):</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: Install PyTorch with CUDA 11.8</span>
+pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu118
+
+<span class="c1"># Step 2: Install crackz CUDA variant</span>
+pip<span class="w"> </span>install<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/vVERSION/crackz_cu118-VERSION-py3-none-any.whl
 </code></pre></div></p>
-<p><strong>For CUDA 12.8 (RTX 40 series, newer drivers):</strong>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/vVERSION/crackz_cu128-VERSION-py3-none-any.whl
+<p><strong>For CUDA 12.8 (RTX 40 series, newer drivers, Linux recommended):</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: Install PyTorch with CUDA 12.8</span>
+pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu128
+
+<span class="c1"># Step 2: Install crackz CUDA variant</span>
+pip<span class="w"> </span>install<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/vVERSION/crackz_cu128-VERSION-py3-none-any.whl
 </code></pre></div></p>
 <h3 id="check-your-cuda-version">Check Your CUDA Version<a class="headerlink" href="#check-your-cuda-version" title="Permanent link">&para;</a></h3>
 <p>To determine which version to install, check your CUDA toolkit version:</p>
@@ -795,43 +805,65 @@ nvidia-smi<span class="w"> </span><span class="p">|</span><span class="w"> </spa
 - CUDA 12.x drivers → use <code>crackz_cu128</code>
 - No NVIDIA GPU → use <code>crackz</code> (CPU version)</p>
 <h3 id="using-github-cli-recommended">Using GitHub CLI (Recommended)<a class="headerlink" href="#using-github-cli-recommended" title="Permanent link">&para;</a></h3>
+<p><strong>For CPU:</strong>
 <div class="highlight"><pre><span></span><code><span class="c1"># Login first</span>
 gh<span class="w"> </span>auth<span class="w"> </span>login
 
-<span class="c1"># Download and install CPU version</span>
+<span class="c1"># Download and install CPU version (one step)</span>
 gh<span class="w"> </span>release<span class="w"> </span>download<span class="w"> </span>vVERSION<span class="w"> </span>--repo<span class="w"> </span>OWNER/crackz<span class="w"> </span>--pattern<span class="w"> </span><span class="s1">&#39;crackz-*.whl&#39;</span>
 pip<span class="w"> </span>install<span class="w"> </span>crackz-VERSION-py3-none-any.whl
+</code></pre></div></p>
+<p><strong>For CUDA 12.8:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Login first</span>
+gh<span class="w"> </span>auth<span class="w"> </span>login
 
-<span class="c1"># Or CUDA 12.8 version</span>
+<span class="c1"># Step 1: Install PyTorch with CUDA 12.8</span>
+pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu128
+
+<span class="c1"># Step 2: Download and install crackz CUDA variant</span>
 gh<span class="w"> </span>release<span class="w"> </span>download<span class="w"> </span>vVERSION<span class="w"> </span>--repo<span class="w"> </span>OWNER/crackz<span class="w"> </span>--pattern<span class="w"> </span><span class="s1">&#39;crackz_cu128-*.whl&#39;</span>
 pip<span class="w"> </span>install<span class="w"> </span>crackz_cu128-VERSION-py3-none-any.whl
-</code></pre></div>
+</code></pre></div></p>
 <h3 id="verify-gpu-support">Verify GPU Support<a class="headerlink" href="#verify-gpu-support" title="Permanent link">&para;</a></h3>
 <p>After installation, verify that PyTorch detects your GPU:</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(f&#39;CUDA available: {torch.cuda.is_available()}&#39;); print(f&#39;Device: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else \&quot;CPU\&quot;}&#39;)&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check CUDA availability</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(f&#39;CUDA available: {torch.cuda.is_available()}&#39;)&quot;</span>
+
+<span class="c1"># Check PyTorch version (should include +cu118 or +cu128 suffix)</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(f&#39;PyTorch version: {torch.__version__}&#39;)&quot;</span>
+
+<span class="c1"># Check GPU device name</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(f&#39;Device: {torch.cuda.get_device_name(0) if torch.cuda.is_available() else \&quot;CPU\&quot;}&#39;)&quot;</span>
 </code></pre></div>
 <p>Expected output with GPU:
 <div class="highlight"><pre><span></span><code>CUDA available: True
+PyTorch version: 2.5.0+cu128
 Device: NVIDIA GeForce RTX 4090
 </code></pre></div></p>
-<h3 id="alternative-install-pytorch-first-advanced">Alternative: Install PyTorch First (Advanced)<a class="headerlink" href="#alternative-install-pytorch-first-advanced" title="Permanent link">&para;</a></h3>
-<p>If you need a specific PyTorch build not covered by the wheel variants:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Install specific PyTorch version first</span>
+<p>⚠️ <strong>If PyTorch version doesn't show +cu118 or +cu128 suffix</strong>, you installed the CPU version by mistake. Reinstall PyTorch with the correct index URL (see Step 1 above).</p>
+<h3 id="alternative-pytorch-versions-advanced">Alternative PyTorch Versions (Advanced)<a class="headerlink" href="#alternative-pytorch-versions-advanced" title="Permanent link">&para;</a></h3>
+<p>If you need a specific PyTorch build not covered by cu118/cu128:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: Install specific PyTorch version</span>
 pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu121
 
-<span class="c1"># Then install Crackz without PyTorch dependencies</span>
-pip<span class="w"> </span>install<span class="w"> </span>--no-deps<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/vVERSION/crackz-VERSION-py3-none-any.whl
-
-<span class="c1"># Install remaining dependencies</span>
-pip<span class="w"> </span>install<span class="w"> </span>clirunner<span class="w"> </span>customtkinter<span class="w"> </span>datasets<span class="w"> </span>diskcache<span class="w"> </span>loguru<span class="w"> </span>matplotlib<span class="w"> </span>pillow<span class="w"> </span>pydantic<span class="w"> </span>pydantic-settings<span class="w"> </span>pytorch-lightning<span class="w"> </span>rich<span class="w"> </span>segmentation-models-pytorch<span class="w"> </span>tensorboard<span class="w"> </span>torchmetrics<span class="w"> </span>typer<span class="w"> </span>platformdirs
+<span class="c1"># Step 2: Install crackz CUDA variant (cu118 or cu128, either works)</span>
+pip<span class="w"> </span>install<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/vVERSION/crackz_cu118-VERSION-py3-none-any.whl
 </code></pre></div>
-<p>See: https://pytorch.org/get-started/locally/ for all available PyTorch builds.</p>
+<p>See: https://pytorch.org/get-started/locally/ for all available PyTorch CUDA versions.</p>
+<p><strong>Note</strong>: Since CUDA wheel variants don't include PyTorch, any PyTorch version ≥2.5.0 will work. The wheel variant name (cu118/cu128) is just a recommendation.</p>
 <h2 id="4-optional-extras-deprecated">4. Optional Extras (Deprecated)<a class="headerlink" href="#4-optional-extras-deprecated" title="Permanent link">&para;</a></h2>
-<p><strong>Note:</strong> The <code>cpu</code> and <code>cu128</code> extras in older versions are now replaced by separate wheel files. Use the variant-specific wheels described in Section 3 instead.
-<div class="highlight"><pre><span></span><code><span class="c1"># Download wheel first, then install with extras</span>
-pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;crackz-VERSION-py3-none-any.whl[cu128]&quot;</span><span class="w"> </span>--extra-index-url<span class="w"> </span>https://download.pytorch.org/whl/cu128
-</code></pre></div>
-If an extra fails to resolve, fall back to the explicit torch sequence in section 3.</p>
+<p>⚠️ <strong>DEPRECATED</strong>: The <code>cpu</code> and <code>cu128</code> extras from older versions no longer work correctly and have been removed. Use the two-step installation process described in Section 3 instead.</p>
+<p><strong>Old method (DO NOT USE):</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># This installs CPU PyTorch even with the cu128 extra - BROKEN!</span>
+pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;crackz-VERSION-py3-none-any.whl[cu128]&quot;</span>
+</code></pre></div></p>
+<p><strong>New method (CORRECT):</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Step 1: Install PyTorch with CUDA</span>
+pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu128
+
+<span class="c1"># Step 2: Install crackz</span>
+pip<span class="w"> </span>install<span class="w"> </span>crackz_cu128-VERSION-py3-none-any.whl
+</code></pre></div></p>
 <h2 id="5-install-from-a-downloaded-wheel-airgapped-offline">5. Install From a Downloaded Wheel (Air‑gapped / Offline)<a class="headerlink" href="#5-install-from-a-downloaded-wheel-airgapped-offline" title="Permanent link">&para;</a></h2>
 <ol>
 <li>On a machine with internet, download the Crackz wheel from GitHub Releases:
@@ -883,9 +915,14 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 </thead>
 <tbody>
 <tr>
+<td><code>torch.__version__</code> shows 2.x.x without +cu suffix</td>
+<td>Installed CPU PyTorch instead of CUDA</td>
+<td>Uninstall torch and reinstall with --index-url (see 'CUDA Installation (Two Steps Required)' in Section 3)</td>
+</tr>
+<tr>
 <td>torch / torchvision mismatch</td>
 <td>Mixed CUDA versions</td>
-<td>Reinstall both from same index (see section 3)</td>
+<td>Reinstall both from same index (see 'CUDA Installation (Two Steps Required)' in Section 3)</td>
 </tr>
 <tr>
 <td><code>No module named crackz</code></td>
@@ -893,9 +930,14 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 <td>Activate correct virtual environment</td>
 </tr>
 <tr>
-<td><code>CUDA not available</code></td>
-<td>Missing driver or CPU build</td>
-<td>Verify <code>torch.cuda.is_available()</code>; reinstall correct CUDA wheel</td>
+<td><code>CUDA not available</code> even with CUDA wheel</td>
+<td>CPU PyTorch installed</td>
+<td>Check <code>torch.__version__</code> for +cu suffix; reinstall PyTorch with correct index URL</td>
+</tr>
+<tr>
+<td><code>ModuleNotFoundError: No module named 'torch'</code> with CUDA wheel</td>
+<td>Forgot to install PyTorch first</td>
+<td>CUDA wheels don't include PyTorch - see 'CUDA Installation (Two Steps Required)' in Section 3</td>
 </tr>
 <tr>
 <td>Slow first run</td>
@@ -991,16 +1033,21 @@ nvidia-smi<span class="w">  </span><span class="c1"># Shows driver version (diff
 <p><strong>"CUDA not available" but I have a GPU:</strong></p>
 <ol>
 <li>
-<p>Verify you installed the CUDA variant of torch:
+<p><strong>First, verify you installed the CUDA variant of PyTorch (most common mistake):</strong>
    <div class="highlight"><pre><span></span><code>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(torch.__version__)&quot;</span>
 <span class="c1"># Should show: 2.5.0+cu118 or 2.5.0+cu128</span>
-<span class="c1"># If it shows just 2.5.0, you have CPU-only version</span>
+<span class="c1"># If it shows just 2.5.0, you have CPU-only version!</span>
 </code></pre></div></p>
 </li>
 <li>
-<p>Reinstall with CUDA support:
+<p><strong>If you have CPU version, reinstall PyTorch with CUDA support:</strong>
    <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>uninstall<span class="w"> </span>torch<span class="w"> </span>torchvision
 pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>torchvision<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu118
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Then verify CUDA is available:</strong>
+   <div class="highlight"><pre><span></span><code>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(f&#39;CUDA available: {torch.cuda.is_available()}&#39;)&quot;</span>
 </code></pre></div></p>
 </li>
 </ol>
@@ -5599,6 +5646,663 @@ az<span class="w"> </span>batch<span class="w"> </span>pool<span class="w"> </sp
 <li><a href="https://azure.microsoft.com/en-us/pricing/details/batch/">Azure Batch Pricing</a></li>
 <li><a href="https://docs.microsoft.com/en-us/cli/azure/batch">Azure CLI Reference</a></li>
 </ul>
+</section>
+<hr class='page-sep' />
+<section class='print-section' id='azure-vm-cuda' data-source='azure-vm-cuda.md'>
+<h1>Azure VM with CUDA</h1>
+<h1 id="azure-windows-vm-with-cuda-for-crackz">Azure Windows VM with CUDA for Crackz<a class="headerlink" href="#azure-windows-vm-with-cuda-for-crackz" title="Permanent link">&para;</a></h1>
+<p>Deploy GPU-accelerated Windows VMs on Azure for running Crackz AI inference workloads.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The <code>azure_vm_cuda.sh</code> script creates GPU-enabled Windows 11 Pro virtual machines optimized for Crackz machine learning workloads. It automatically configures:</p>
+<ul>
+<li>✅ <strong>GPU-optimized VM sizes</strong> (NC-series with NVIDIA Tesla GPUs)</li>
+<li>✅ <strong>CUDA Toolkit 11.8</strong> installation</li>
+<li>✅ <strong>Python 3.13 + UV package manager</strong></li>
+<li>✅ <strong>Crackz with GPU support</strong></li>
+<li>✅ <strong>Development tools</strong> (VS Code, Git)</li>
+<li>✅ <strong>Network security</strong> (RDP + ML ports)</li>
+</ul>
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Deploy default GPU VM</span>
+./scripts/azure/azure_vm_cuda.sh
+
+<span class="c1"># Deploy with custom configuration</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>ml-workstation<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span>Standard_NC12s_v3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--location<span class="w"> </span>westus2
+
+<span class="c1"># Connect via RDP and verify</span>
+<span class="c1"># RDP to the public IP, then run:</span>
+nvidia-smi
+<span class="nb">cd</span><span class="w"> </span>C:<span class="se">\C</span>rackz<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>.venv<span class="se">\S</span>cripts<span class="se">\A</span>ctivate.ps1
+python<span class="w"> </span>-m<span class="w"> </span>crackz<span class="w"> </span>--version
+</code></pre></div>
+<h2 id="vm-sizes-gpu-options">VM Sizes &amp; GPU Options<a class="headerlink" href="#vm-sizes-gpu-options" title="Permanent link">&para;</a></h2>
+<h3 id="recommended-sizes">Recommended Sizes<a class="headerlink" href="#recommended-sizes" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>VM Size</th>
+<th>GPU</th>
+<th>VRAM</th>
+<th>CPU Cores</th>
+<th>RAM</th>
+<th>Cost/Hour*</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Standard_NC6s_v3</code></td>
+<td>1x V100</td>
+<td>16GB</td>
+<td>6</td>
+<td>112GB</td>
+<td>~$3.06</td>
+<td>Standard inference</td>
+</tr>
+<tr>
+<td><code>Standard_NC12s_v3</code></td>
+<td>2x V100</td>
+<td>32GB</td>
+<td>12</td>
+<td>224GB</td>
+<td>~$6.12</td>
+<td>Batch processing</td>
+</tr>
+<tr>
+<td><code>Standard_NC24s_v3</code></td>
+<td>4x V100</td>
+<td>64GB</td>
+<td>24</td>
+<td>448GB</td>
+<td>~$12.24</td>
+<td>Large-scale inference</td>
+</tr>
+</tbody>
+</table>
+<h3 id="budget-options">Budget Options<a class="headerlink" href="#budget-options" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>VM Size</th>
+<th>GPU</th>
+<th>VRAM</th>
+<th>CPU Cores</th>
+<th>RAM</th>
+<th>Cost/Hour*</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Standard_NC6s_v2</code></td>
+<td>1x P100</td>
+<td>16GB</td>
+<td>6</td>
+<td>112GB</td>
+<td>~$2.07</td>
+<td>Development</td>
+</tr>
+<tr>
+<td><code>Standard_NV6</code></td>
+<td>1x M60</td>
+<td>8GB</td>
+<td>6</td>
+<td>56GB</td>
+<td>~$1.20</td>
+<td>Testing</td>
+</tr>
+</tbody>
+</table>
+<p>*Approximate East US pricing (subject to change; check Azure for current rates)</p>
+<h2 id="command-reference">Command Reference<a class="headerlink" href="#command-reference" title="Permanent link">&para;</a></h2>
+<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Default deployment (V100 GPU, East US)</span>
+./scripts/azure/azure_vm_cuda.sh
+
+<span class="c1"># Custom name and location</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span>--name<span class="w"> </span>gpu-crackz<span class="w"> </span>--location<span class="w"> </span>westeurope
+
+<span class="c1"># Specific GPU configuration</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span>--size<span class="w"> </span>Standard_NC12s_v3<span class="w"> </span>--location<span class="w"> </span>northeurope
+</code></pre></div>
+<h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--name NAME</code></td>
+<td>VM name</td>
+<td><code>crackz-gpu-vm</code></td>
+</tr>
+<tr>
+<td><code>--location REGION</code></td>
+<td>Azure region</td>
+<td><code>eastus</code></td>
+</tr>
+<tr>
+<td><code>--size SIZE</code></td>
+<td>VM size</td>
+<td><code>Standard_NC6s_v3</code></td>
+</tr>
+<tr>
+<td><code>--user USERNAME</code></td>
+<td>Admin username</td>
+<td><code>crackzuser</code></td>
+</tr>
+<tr>
+<td><code>--password PASSWORD</code></td>
+<td>Admin password</td>
+<td><code>CrackzGpu2024!</code></td>
+</tr>
+<tr>
+<td><code>--mode MODE</code></td>
+<td>Deployment mode</td>
+<td><code>standard</code></td>
+</tr>
+<tr>
+<td><code>--data-disk-size SIZE</code></td>
+<td>Data disk size in GB</td>
+<td><code>1024</code></td>
+</tr>
+<tr>
+<td><code>--storage-type TYPE</code></td>
+<td>Storage type</td>
+<td><code>Premium_LRS</code></td>
+</tr>
+<tr>
+<td><code>--no-data-disk</code></td>
+<td>Skip creating separate data disk</td>
+<td>Create data disk</td>
+</tr>
+<tr>
+<td><code>--no-cuda</code></td>
+<td>Skip CUDA installation</td>
+<td>Install CUDA</td>
+</tr>
+<tr>
+<td><code>--no-crackz</code></td>
+<td>Skip Crackz installation</td>
+<td>Install Crackz</td>
+</tr>
+<tr>
+<td><code>--enable-nested-virt</code></td>
+<td>Enable nested virtualization</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td><code>--destroy</code></td>
+<td>Destroy VM and resources</td>
+<td>Create</td>
+</tr>
+<tr>
+<td><code>--help</code></td>
+<td>Show help</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h3 id="deployment-examples">Deployment Examples<a class="headerlink" href="#deployment-examples" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Production inference server</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>crackz-prod<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span>Standard_NC12s_v3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--location<span class="w"> </span>westus2<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--mode<span class="w"> </span>production
+
+<span class="c1"># Development environment with large storage</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>crackz-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span>Standard_NV6<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--mode<span class="w"> </span>development<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-disk-size<span class="w"> </span><span class="m">2048</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--storage-type<span class="w"> </span>Premium_LRS
+
+<span class="c1"># Budget setup without data disk</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>crackz-simple<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span>Standard_NV6<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--no-data-disk
+
+<span class="c1"># Manual setup (no auto-install)</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>crackz-manual<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span>Standard_NC6s_v3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--no-cuda<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--no-crackz
+
+<span class="c1"># Docker development (with nested virtualization)</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>crackz-docker<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span>Standard_NC6s_v3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--enable-nested-virt
+
+<span class="c1"># Clean up resources</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span>--name<span class="w"> </span>crackz-gpu-vm<span class="w"> </span>--destroy
+</code></pre></div>
+<h2 id="storage-configuration">Storage Configuration<a class="headerlink" href="#storage-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="data-disk-options">Data Disk Options<a class="headerlink" href="#data-disk-options" title="Permanent link">&para;</a></h3>
+<p>The script automatically creates and configures a separate data disk for ML projects:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Default</th>
+<th>Options</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--data-disk-size SIZE</code></td>
+<td>Data disk size in GB</td>
+<td>1024</td>
+<td>32-32767</td>
+</tr>
+<tr>
+<td><code>--storage-type TYPE</code></td>
+<td>Storage performance tier</td>
+<td>Premium_LRS</td>
+<td>Premium_LRS, Standard_LRS</td>
+</tr>
+<tr>
+<td><code>--no-data-disk</code></td>
+<td>Skip data disk creation</td>
+<td>false</td>
+<td>Creates separate disk</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storage-layout">Storage Layout<a class="headerlink" href="#storage-layout" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>C:\ (OS Disk - 127 GB)
+├── Windows/
+├── Program Files/
+├── Users/crackzuser/Desktop/Crackz/   # Crackz installation
+└── ...
+
+D:\ (Data Disk - configurable size)
+├── Projects/                          # ML project workspace
+│   ├── datasets/                     # Training datasets
+│   ├── models/                       # Model checkpoints
+│   ├── outputs/                      # Detection results
+│   └── exports/                      # Exported models
+└── temp/                             # Temporary processing
+</code></pre></div>
+<h3 id="storage-performance">Storage Performance<a class="headerlink" href="#storage-performance" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Performance</th>
+<th>Use Case</th>
+<th>Cost/Month*</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Premium_LRS</strong></td>
+<td>Up to 20,000 IOPS</td>
+<td>Production ML workloads</td>
+<td>~$150/TB</td>
+</tr>
+<tr>
+<td><strong>Standard_LRS</strong></td>
+<td>Up to 2,000 IOPS</td>
+<td>Development/testing</td>
+<td>~$50/TB</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>*Costs for East US region, subject to change</p>
+</blockquote>
+<h3 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Production: High-performance storage</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>ml-prod<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-disk-size<span class="w"> </span><span class="m">2048</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--storage-type<span class="w"> </span>Premium_LRS
+
+<span class="c1"># Development: Cost-effective storage</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>ml-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-disk-size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--storage-type<span class="w"> </span>Standard_LRS
+
+<span class="c1"># Simple setup: No separate disk</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>ml-simple<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--no-data-disk
+</code></pre></div>
+<h2 id="what-gets-installed">What Gets Installed<a class="headerlink" href="#what-gets-installed" title="Permanent link">&para;</a></h2>
+<h3 id="automatic-installation-default">Automatic Installation (default)<a class="headerlink" href="#automatic-installation-default" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>NVIDIA Drivers &amp; CUDA 11.8</strong></li>
+<li>CUDA Toolkit with cuDNN</li>
+<li>Environment variables configured</li>
+<li>
+<p>Compatible with PyTorch</p>
+</li>
+<li>
+<p><strong>Python Environment</strong></p>
+</li>
+<li>Python 3.13.x (latest)</li>
+<li>UV package manager</li>
+<li>
+<p>Virtual environment at <code>C:\Crackz\.venv</code></p>
+</li>
+<li>
+<p><strong>Crackz with GPU Support</strong></p>
+</li>
+<li>Latest release wheel</li>
+<li>CUDA-enabled PyTorch</li>
+<li>
+<p>Desktop shortcut created</p>
+</li>
+<li>
+<p><strong>Development Tools</strong></p>
+</li>
+<li>Visual Studio Code</li>
+<li>Git for Windows</li>
+<li>Windows Terminal (via Chocolatey)</li>
+</ol>
+<h3 id="network-configuration">Network Configuration<a class="headerlink" href="#network-configuration" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>RDP (3389)</strong>: Remote desktop access</li>
+<li><strong>File Upload Web (8080)</strong>: Browser-based image upload interface</li>
+<li><strong>SFTP (22)</strong>: Secure file transfer protocol</li>
+<li><strong>SMB/CIFS (445)</strong>: Windows file sharing</li>
+<li><strong>Jupyter (8888)</strong>: For notebook development</li>
+<li><strong>TensorBoard (6006)</strong>: For training visualization</li>
+<li><strong>Static Public IP</strong>: Consistent connectivity</li>
+</ul>
+<h2 id="post-deployment-setup">Post-Deployment Setup<a class="headerlink" href="#post-deployment-setup" title="Permanent link">&para;</a></h2>
+<h3 id="file-upload-methods-offline-capable">File Upload Methods (Offline Capable)<a class="headerlink" href="#file-upload-methods-offline-capable" title="Permanent link">&para;</a></h3>
+<p>The VM provides multiple ways to upload images for analysis:</p>
+<h4 id="method-1-web-upload-interface-recommended">Method 1: Web Upload Interface (Recommended)<a class="headerlink" href="#method-1-web-upload-interface-recommended" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Connect via RDP to the VM</span>
+<span class="c1"># 2. Double-click &quot;File Upload Server&quot; desktop shortcut</span>
+<span class="c1"># 3. Open browser and go to: http://localhost:8080</span>
+<span class="c1"># 4. Or access remotely: http://&lt;VM-PUBLIC-IP&gt;:8080</span>
+</code></pre></div>
+<p><strong>Features:</strong>
+- ✅ Easy drag-and-drop file upload
+- ✅ Multiple file selection
+- ✅ Progress tracking
+- ✅ Automatic directory organization
+- ✅ Works offline once VM is running</p>
+<h4 id="method-2-network-file-share">Method 2: Network File Share<a class="headerlink" href="#method-2-network-file-share" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># From your local computer:</span>
+<span class="c1"># Windows: \\&lt;VM-PUBLIC-IP&gt;\CrackzUploads</span>
+<span class="c1"># Mac/Linux: smb://&lt;VM-PUBLIC-IP&gt;/CrackzUploads</span>
+
+<span class="c1"># Credentials: crackzuser / CrackzGpu2024!</span>
+</code></pre></div>
+<h4 id="method-3-sftp-secure-file-transfer">Method 3: SFTP (Secure File Transfer)<a class="headerlink" href="#method-3-sftp-secure-file-transfer" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using any SFTP client (WinSCP, FileZilla, etc.)</span>
+sftp<span class="w"> </span>crackzuser@&lt;VM-PUBLIC-IP&gt;
+<span class="c1"># Upload to: /d/Projects/uploads/images/</span>
+</code></pre></div>
+<h4 id="file-organization">File Organization<a class="headerlink" href="#file-organization" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>D:\Projects\uploads\
+├── images/          # Individual images for analysis
+└── batch/          # Batch processing folders
+</code></pre></div>
+<h3 id="1-connect-via-rdp">1. Connect via RDP<a class="headerlink" href="#1-connect-via-rdp" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Use Windows built-in Remote Desktop</span>
+mstsc<span class="w"> </span>/v:&lt;PUBLIC_IP&gt;
+
+<span class="c1"># Or download RDP file</span>
+az<span class="w"> </span>vm<span class="w"> </span>show<span class="w"> </span>-d<span class="w"> </span>-g<span class="w"> </span>crackz-gpu-rg<span class="w"> </span>-n<span class="w"> </span>crackz-gpu-vm<span class="w"> </span>--query<span class="w"> </span>publicIps<span class="w"> </span>-o<span class="w"> </span>tsv
+</code></pre></div>
+<h3 id="2-verify-gpu-setup">2. Verify GPU Setup<a class="headerlink" href="#2-verify-gpu-setup" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c"># Check GPU status</span>
+<span class="n">nvidia-smi</span>
+
+<span class="c"># Test CUDA availability</span>
+<span class="n">python</span> <span class="n">-c</span> <span class="s2">&quot;import torch; print(f&#39;CUDA available: {torch.cuda.is_available()}&#39;)&quot;</span>
+<span class="n">python</span> <span class="n">-c</span> <span class="s2">&quot;import torch; print(f&#39;GPU count: {torch.cuda.device_count()}&#39;)&quot;</span>
+</code></pre></div>
+<h3 id="3-verify-crackz-installation">3. Verify Crackz Installation<a class="headerlink" href="#3-verify-crackz-installation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c"># Activate virtual environment</span>
+<span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">Crackz</span>
+<span class="p">.\.</span><span class="n">venv</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">Activate</span><span class="p">.</span><span class="n">ps1</span>
+
+<span class="c"># Check Crackz version</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="p">-</span><span class="n">-version</span>
+
+<span class="c"># Test GPU detection</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="n">gui</span>  <span class="c"># Should detect CUDA device</span>
+</code></pre></div>
+<h3 id="4-run-analysis-on-uploaded-images">4. Run Analysis on Uploaded Images<a class="headerlink" href="#4-run-analysis-on-uploaded-images" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c"># Activate virtual environment</span>
+<span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">Crackz</span>
+<span class="p">.\.</span><span class="n">venv</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">Activate</span><span class="p">.</span><span class="n">ps1</span>
+
+<span class="c"># Option 1: Direct analysis on uploaded images</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="n">detect</span> <span class="n">run</span> <span class="p">-</span><span class="n">-images</span> <span class="s2">&quot;D:\Projects\uploads\images&quot;</span> <span class="p">-</span><span class="n">-device</span> <span class="n">cuda</span>
+
+<span class="c"># Option 2: Create project and import uploaded images</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="n">init</span> <span class="n">harbor-inspection</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="nb">import-images</span> <span class="s2">&quot;D:\Projects\uploads\images&quot;</span> <span class="n">harbor-inspection</span><span class="p">/</span><span class="n">images</span><span class="p">/</span><span class="n">raw</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="n">detect</span> <span class="n">run</span> <span class="n">harbor-inspection</span> <span class="p">-</span><span class="n">-device</span> <span class="n">cuda</span>
+
+<span class="c"># Option 3: Batch processing multiple folders</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="n">detect</span> <span class="n">run</span> <span class="p">-</span><span class="n">-images</span> <span class="s2">&quot;D:\Projects\uploads\batch\*&quot;</span> <span class="p">-</span><span class="n">-device</span> <span class="n">cuda</span>
+
+<span class="c"># View results</span>
+<span class="n">explorer</span> <span class="s2">&quot;harbor-inspection\artifacts\detection_results&quot;</span>
+</code></pre></div>
+<h3 id="5-traditional-workflow-local-images">5. Traditional Workflow (Local Images)<a class="headerlink" href="#5-traditional-workflow-local-images" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c"># Create test project</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="n">init</span> <span class="nb">test-project</span>
+
+<span class="c"># Import sample images</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="nb">import-images</span> <span class="n">C</span><span class="p">:\</span><span class="n">path</span><span class="p">\</span><span class="n">to</span><span class="p">\</span><span class="n">images</span> <span class="nb">test-project</span><span class="p">/</span><span class="n">images</span><span class="p">/</span><span class="n">raw</span>
+
+<span class="c"># Run GPU-accelerated detection</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="n">detect</span> <span class="n">run</span> <span class="nb">test-project</span> <span class="p">-</span><span class="n">-device</span> <span class="n">cuda</span>
+</code></pre></div>
+<h2 id="best-practices_1">Best Practices<a class="headerlink" href="#best-practices_1" title="Permanent link">&para;</a></h2>
+<h3 id="cost-optimization">Cost Optimization<a class="headerlink" href="#cost-optimization" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ <strong>Use spot instances</strong> for non-critical workloads (-60-90% cost)</li>
+<li>✅ <strong>Auto-shutdown</strong>: Configure automatic shutdown during idle periods</li>
+<li>✅ <strong>Right-size VMs</strong>: Start with smaller sizes and scale up as needed</li>
+<li>✅ <strong>Deallocate when idle</strong>: <code>az vm deallocate</code> to stop compute charges</li>
+</ul>
+<h3 id="performance-optimization">Performance Optimization<a class="headerlink" href="#performance-optimization" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ <strong>Premium SSD storage</strong> for faster I/O (automatically configured)</li>
+<li>✅ <strong>Place in same region</strong> as your data storage</li>
+<li>✅ <strong>Use proximity placement groups</strong> for multi-VM deployments</li>
+<li>✅ <strong>Enable accelerated networking</strong> for high-throughput workloads</li>
+</ul>
+<h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🚨 <strong>CRITICAL: Change default password</strong> immediately after first login</li>
+<li>✅ <strong>Use strong passwords</strong> (12+ characters, mixed case, numbers, symbols)</li>
+<li>✅ <strong>Configure Azure Key Vault</strong> for password management in production</li>
+<li>✅ <strong>Use Azure Bastion</strong> for secure access without public IPs</li>
+<li>✅ <strong>Enable disk encryption</strong> for sensitive data</li>
+<li>✅ <strong>Set up automatic security updates</strong> via Windows Update</li>
+<li>✅ <strong>Monitor access logs</strong> and set up alerts for unusual activity</li>
+</ul>
+<h4 id="default-password-warning">Default Password Warning<a class="headerlink" href="#default-password-warning" title="Permanent link">&para;</a></h4>
+<p>The script uses a default password (<code>CrackzGpu2024!</code>) for initial setup convenience. This password:
+- ❌ Should <strong>NEVER</strong> be used in production
+- ❌ Is visible in deployment logs and command history
+- ❌ Could be compromised if logs are accessed</p>
+<p><strong>Immediate Actions After Deployment:</strong>
+1. Connect via RDP using the default credentials
+2. Change the administrator password immediately
+3. Enable Windows Defender and automatic updates
+4. Consider disabling the built-in administrator account</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
+<h4 id="cuda-installation-failed">CUDA Installation Failed<a class="headerlink" href="#cuda-installation-failed" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c"># Manually install CUDA</span>
+<span class="c"># Download from: https://developer.nvidia.com/cuda-11-8-0-download-archive</span>
+<span class="c"># Choose Windows x86_64 local installer</span>
+</code></pre></div>
+<h4 id="crackz-installation-failed">Crackz Installation Failed<a class="headerlink" href="#crackz-installation-failed" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c"># Manual installation</span>
+<span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">Crackz</span>
+<span class="p">.\.</span><span class="n">venv</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">Activate</span><span class="p">.</span><span class="n">ps1</span>
+<span class="n">uv</span> <span class="n">pip</span> <span class="n">install</span> <span class="p">-</span><span class="n">-find-links</span> <span class="n">https</span><span class="p">://</span><span class="n">download</span><span class="p">.</span><span class="n">pytorch</span><span class="p">.</span><span class="n">org</span><span class="p">/</span><span class="n">whl</span><span class="p">/</span><span class="n">cu118</span> <span class="n">torch</span> <span class="n">torchvision</span>
+<span class="c"># Download wheel from GitHub releases and install</span>
+</code></pre></div>
+<h4 id="gpu-not-detected">GPU Not Detected<a class="headerlink" href="#gpu-not-detected" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c"># Check drivers</span>
+<span class="n">nvidia-smi</span>
+
+<span class="c"># Verify CUDA installation</span>
+<span class="n">nvcc</span> <span class="p">-</span><span class="n">-version</span>
+
+<span class="c"># Check PyTorch CUDA</span>
+<span class="n">python</span> <span class="n">-c</span> <span class="s2">&quot;import torch; print(torch.version.cuda)&quot;</span>
+</code></pre></div>
+<h4 id="performance-issues">Performance Issues<a class="headerlink" href="#performance-issues" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Check GPU utilization: <code>nvidia-smi -l 1</code></li>
+<li>Monitor system resources in Task Manager</li>
+<li>Verify SSD storage performance</li>
+<li>Check network bandwidth to data sources</li>
+</ul>
+<h3 id="logs-and-monitoring">Logs and Monitoring<a class="headerlink" href="#logs-and-monitoring" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c"># Windows Event Logs</span>
+<span class="n">eventvwr</span><span class="p">.</span><span class="n">msc</span>
+
+<span class="c"># CUDA installation logs</span>
+<span class="nb">Get-Content</span> <span class="n">C</span><span class="p">:\</span><span class="n">ProgramData</span><span class="p">\</span><span class="n">NVIDIA</span> <span class="n">Corporation</span><span class="p">\</span><span class="n">CUDA</span> <span class="n">Installer</span><span class="p">\</span><span class="n">log</span><span class="p">.</span><span class="n">txt</span>
+
+<span class="c"># Crackz logs</span>
+<span class="nb">Get-Content</span> <span class="nv">$env:TEMP</span><span class="p">\</span><span class="n">crackz</span><span class="p">-*.</span><span class="n">log</span>
+</code></pre></div>
+<h2 id="regional-availability">Regional Availability<a class="headerlink" href="#regional-availability" title="Permanent link">&para;</a></h2>
+<h3 id="gpu-vm-availability-by-region">GPU VM Availability by Region<a class="headerlink" href="#gpu-vm-availability-by-region" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Region</th>
+<th>NC-series</th>
+<th>NV-series</th>
+<th>Recommended</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>East US</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ Primary</td>
+</tr>
+<tr>
+<td>West US 2</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ Primary</td>
+</tr>
+<tr>
+<td>North Europe</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ EU option</td>
+</tr>
+<tr>
+<td>Southeast Asia</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ APAC option</td>
+</tr>
+<tr>
+<td>West Europe</td>
+<td>⚠️ Limited</td>
+<td>✅</td>
+<td>Backup</td>
+</tr>
+<tr>
+<td>Central US</td>
+<td>⚠️ Limited</td>
+<td>✅</td>
+<td>Backup</td>
+</tr>
+</tbody>
+</table>
+<p>Check current availability:
+<div class="highlight"><pre><span></span><code>az<span class="w"> </span>vm<span class="w"> </span>list-sizes<span class="w"> </span>--location<span class="w"> </span>eastus<span class="w"> </span>--query<span class="w"> </span><span class="s2">&quot;[?contains(name, &#39;NC&#39;)]&quot;</span>
+</code></pre></div></p>
+<h2 id="cost-estimation">Cost Estimation<a class="headerlink" href="#cost-estimation" title="Permanent link">&para;</a></h2>
+<h3 id="monthly-costs-24x7-usage">Monthly Costs (24x7 usage)<a class="headerlink" href="#monthly-costs-24x7-usage" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>VM Cost</th>
+<th>Storage</th>
+<th>Total</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NC6s_v3 (1x V100)</td>
+<td>~$2,203</td>
+<td>~$30</td>
+<td>~$2,233</td>
+<td>Production</td>
+</tr>
+<tr>
+<td>NC6s_v2 (1x P100)</td>
+<td>~$1,490</td>
+<td>~$30</td>
+<td>~$1,520</td>
+<td>Development</td>
+</tr>
+<tr>
+<td>NV6 (1x M60)</td>
+<td>~$864</td>
+<td>~$30</td>
+<td>~$894</td>
+<td>Testing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cost-optimization-tips">Cost Optimization Tips<a class="headerlink" href="#cost-optimization-tips" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Use spot instances (60-90% discount)</span>
+az<span class="w"> </span>vm<span class="w"> </span>create<span class="w"> </span>--priority<span class="w"> </span>Spot<span class="w"> </span>--max-price<span class="w"> </span>-1<span class="w"> </span>...
+
+<span class="c1"># Auto-shutdown schedule</span>
+az<span class="w"> </span>vm<span class="w"> </span>auto-shutdown<span class="w"> </span>--name<span class="w"> </span>crackz-gpu-vm<span class="w"> </span>--resource-group<span class="w"> </span>crackz-gpu-rg<span class="w"> </span>--time<span class="w"> </span><span class="m">1800</span>
+
+<span class="c1"># Deallocate when not in use</span>
+az<span class="w"> </span>vm<span class="w"> </span>deallocate<span class="w"> </span>--name<span class="w"> </span>crackz-gpu-vm<span class="w"> </span>--resource-group<span class="w"> </span>crackz-gpu-rg
+</code></pre></div>
+<h2 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../azure-batch/">Azure Batch Deployment</a> - Multi-VM distributed processing</li>
+<li><a href="../installation/">Installation Guide</a> - General Crackz installation</li>
+<li><a href="../configuration/">Configuration</a> - Crackz configuration options</li>
+<li><a href="../cli-cookbook/">CLI Cookbook</a> - Common command patterns</li>
+</ul>
+<h2 id="support">Support<a class="headerlink" href="#support" title="Permanent link">&para;</a></h2>
+<p>For issues specific to Azure deployment:
+1. Check VM size availability in your region
+2. Verify Azure subscription GPU quotas
+3. Review Azure Activity Log for deployment errors
+4. Contact Azure support for infrastructure issues</p>
+<p>For Crackz-specific issues:
+- <a href="https://github.com/Anaxiatech-AB/crackz/issues">GitHub Issues</a>
+- Check logs in <code>%TEMP%\crackz-*.log</code>
+- Verify GPU detection with test commands above</p>
 </section>
 <hr class='page-sep' />
 <section class='print-section' id='azure-comparison' data-source='azure-comparison.md'>
@@ -23881,9 +24585,9 @@ the import process. Errors during import are logged and appropriately handled.</
                                   \[default: 90]
   -f, --overwrite                 Overwrite existing images in the project
                                   (defaults to False). Eg. --overwrite
-  --split / --no-split            Automatically split images into
+  --split                         Automatically split images into
                                   train/val/test sets. Ignores --type option.
-                                  Eg. --split  \[default: no-split]
+                                  Eg. --split
   --train-ratio FLOAT             Ratio of images for training set when using
                                   --split (default: 0.7). Eg. --train-ratio
                                   0.8  \[default: 0.7]

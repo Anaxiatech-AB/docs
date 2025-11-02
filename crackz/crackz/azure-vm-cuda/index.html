@@ -1,0 +1,2901 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI image analysis of cracks in harbors">
+      
+      
+        <meta name="author" content="Theresia Sofia Snow">
+      
+      
+      
+        <link rel="prev" href="../azure-batch/">
+      
+      
+        <link rel="next" href="../azure-comparison/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Azure VM with CUDA - Crackz</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/print.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Crackz" class="md-header__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Crackz
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Azure VM with CUDA
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Crackz" class="md-nav__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Crackz
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    End User Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            End User Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli-cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Cookbook
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GUI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Training Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-splits-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Splits & Import
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../map-viewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Map Viewer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_9" id="__nav_4_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Azure Deployments
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_9">
+            <span class="md-nav__icon md-icon"></span>
+            Azure Deployments
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-batch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure Batch
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Azure VM with CUDA
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure VM with CUDA
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vm-sizes-gpu-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      VM Sizes &amp; GPU Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="VM Sizes &amp; GPU Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommended-sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Sizes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#budget-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Budget Options
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storage-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Storage Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Storage Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-disk-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Disk Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Storage Layout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Storage Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-gets-installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      What Gets Installed
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What Gets Installed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automatic-installation-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      Automatic Installation (default)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post-deployment-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Post-Deployment Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Post-Deployment Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-upload-methods-offline-capable" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Upload Methods (Offline Capable)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File Upload Methods (Offline Capable)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-web-upload-interface-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 1: Web Upload Interface (Recommended)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-network-file-share" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 2: Network File Share
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-3-sftp-secure-file-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 3: SFTP (Secure File Transfer)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Organization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-connect-via-rdp" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Connect via RDP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-verify-gpu-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Verify GPU Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-verify-crackz-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Verify Crackz Installation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-run-analysis-on-uploaded-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Run Analysis on Uploaded Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-traditional-workflow-local-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Traditional Workflow (Local Images)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cost-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-password-warning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default Password Warning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuda-installation-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      CUDA Installation Failed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crackz-installation-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Crackz Installation Failed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu-not-detected" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPU Not Detected
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logs-and-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logs and Monitoring
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regional-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Regional Availability
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regional Availability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpu-vm-availability-by-region" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPU VM Availability by Region
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cost-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Estimation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cost Estimation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#monthly-costs-24x7-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monthly Costs (24x7 usage)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-optimization-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Optimization Tips
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Documentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VM vs Batch Comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Advanced Performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Migration Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../completion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Shell Completion
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Developer Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Developer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MCP Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async-callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Async Callbacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pr-review-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PR Review Workflow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../distribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Distribution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Additional Resources
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Additional Resources
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Access Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pdf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Printable PDF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    License
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vm-sizes-gpu-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      VM Sizes &amp; GPU Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="VM Sizes &amp; GPU Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommended-sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Sizes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#budget-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Budget Options
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storage-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Storage Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Storage Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-disk-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Disk Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Storage Layout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Storage Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-gets-installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      What Gets Installed
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What Gets Installed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automatic-installation-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      Automatic Installation (default)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post-deployment-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Post-Deployment Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Post-Deployment Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-upload-methods-offline-capable" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Upload Methods (Offline Capable)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File Upload Methods (Offline Capable)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-1-web-upload-interface-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 1: Web Upload Interface (Recommended)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-network-file-share" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 2: Network File Share
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-3-sftp-secure-file-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 3: SFTP (Secure File Transfer)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Organization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1-connect-via-rdp" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Connect via RDP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-verify-gpu-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Verify GPU Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-verify-crackz-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Verify Crackz Installation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-run-analysis-on-uploaded-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Run Analysis on Uploaded Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-traditional-workflow-local-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Traditional Workflow (Local Images)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cost-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-password-warning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default Password Warning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cuda-installation-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      CUDA Installation Failed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crackz-installation-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Crackz Installation Failed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu-not-detected" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPU Not Detected
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logs-and-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logs and Monitoring
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regional-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Regional Availability
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regional Availability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gpu-vm-availability-by-region" class="md-nav__link">
+    <span class="md-ellipsis">
+      GPU VM Availability by Region
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cost-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Estimation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cost Estimation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#monthly-costs-24x7-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monthly Costs (24x7 usage)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost-optimization-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost Optimization Tips
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Documentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="azure-windows-vm-with-cuda-for-crackz">Azure Windows VM with CUDA for Crackz<a class="headerlink" href="#azure-windows-vm-with-cuda-for-crackz" title="Permanent link">&para;</a></h1>
+<p>Deploy GPU-accelerated Windows VMs on Azure for running Crackz AI inference workloads.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The <code>azure_vm_cuda.sh</code> script creates GPU-enabled Windows 11 Pro virtual machines optimized for Crackz machine learning workloads. It automatically configures:</p>
+<ul>
+<li>✅ <strong>GPU-optimized VM sizes</strong> (NC-series with NVIDIA Tesla GPUs)</li>
+<li>✅ <strong>CUDA Toolkit 11.8</strong> installation</li>
+<li>✅ <strong>Python 3.13 + UV package manager</strong></li>
+<li>✅ <strong>Crackz with GPU support</strong></li>
+<li>✅ <strong>Development tools</strong> (VS Code, Git)</li>
+<li>✅ <strong>Network security</strong> (RDP + ML ports)</li>
+</ul>
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Deploy default GPU VM</span>
+./scripts/azure/azure_vm_cuda.sh
+
+<span class="c1"># Deploy with custom configuration</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>ml-workstation<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span>Standard_NC12s_v3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--location<span class="w"> </span>westus2
+
+<span class="c1"># Connect via RDP and verify</span>
+<span class="c1"># RDP to the public IP, then run:</span>
+nvidia-smi
+<span class="nb">cd</span><span class="w"> </span>C:<span class="se">\C</span>rackz<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>.venv<span class="se">\S</span>cripts<span class="se">\A</span>ctivate.ps1
+python<span class="w"> </span>-m<span class="w"> </span>crackz<span class="w"> </span>--version
+</code></pre></div>
+<h2 id="vm-sizes-gpu-options">VM Sizes &amp; GPU Options<a class="headerlink" href="#vm-sizes-gpu-options" title="Permanent link">&para;</a></h2>
+<h3 id="recommended-sizes">Recommended Sizes<a class="headerlink" href="#recommended-sizes" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>VM Size</th>
+<th>GPU</th>
+<th>VRAM</th>
+<th>CPU Cores</th>
+<th>RAM</th>
+<th>Cost/Hour*</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Standard_NC6s_v3</code></td>
+<td>1x V100</td>
+<td>16GB</td>
+<td>6</td>
+<td>112GB</td>
+<td>~$3.06</td>
+<td>Standard inference</td>
+</tr>
+<tr>
+<td><code>Standard_NC12s_v3</code></td>
+<td>2x V100</td>
+<td>32GB</td>
+<td>12</td>
+<td>224GB</td>
+<td>~$6.12</td>
+<td>Batch processing</td>
+</tr>
+<tr>
+<td><code>Standard_NC24s_v3</code></td>
+<td>4x V100</td>
+<td>64GB</td>
+<td>24</td>
+<td>448GB</td>
+<td>~$12.24</td>
+<td>Large-scale inference</td>
+</tr>
+</tbody>
+</table>
+<h3 id="budget-options">Budget Options<a class="headerlink" href="#budget-options" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>VM Size</th>
+<th>GPU</th>
+<th>VRAM</th>
+<th>CPU Cores</th>
+<th>RAM</th>
+<th>Cost/Hour*</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Standard_NC6s_v2</code></td>
+<td>1x P100</td>
+<td>16GB</td>
+<td>6</td>
+<td>112GB</td>
+<td>~$2.07</td>
+<td>Development</td>
+</tr>
+<tr>
+<td><code>Standard_NV6</code></td>
+<td>1x M60</td>
+<td>8GB</td>
+<td>6</td>
+<td>56GB</td>
+<td>~$1.20</td>
+<td>Testing</td>
+</tr>
+</tbody>
+</table>
+<p>*Approximate East US pricing (subject to change; check Azure for current rates)</p>
+<h2 id="command-reference">Command Reference<a class="headerlink" href="#command-reference" title="Permanent link">&para;</a></h2>
+<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Default deployment (V100 GPU, East US)</span>
+./scripts/azure/azure_vm_cuda.sh
+
+<span class="c1"># Custom name and location</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span>--name<span class="w"> </span>gpu-crackz<span class="w"> </span>--location<span class="w"> </span>westeurope
+
+<span class="c1"># Specific GPU configuration</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span>--size<span class="w"> </span>Standard_NC12s_v3<span class="w"> </span>--location<span class="w"> </span>northeurope
+</code></pre></div>
+<h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--name NAME</code></td>
+<td>VM name</td>
+<td><code>crackz-gpu-vm</code></td>
+</tr>
+<tr>
+<td><code>--location REGION</code></td>
+<td>Azure region</td>
+<td><code>eastus</code></td>
+</tr>
+<tr>
+<td><code>--size SIZE</code></td>
+<td>VM size</td>
+<td><code>Standard_NC6s_v3</code></td>
+</tr>
+<tr>
+<td><code>--user USERNAME</code></td>
+<td>Admin username</td>
+<td><code>crackzuser</code></td>
+</tr>
+<tr>
+<td><code>--password PASSWORD</code></td>
+<td>Admin password</td>
+<td><code>CrackzGpu2024!</code></td>
+</tr>
+<tr>
+<td><code>--mode MODE</code></td>
+<td>Deployment mode</td>
+<td><code>standard</code></td>
+</tr>
+<tr>
+<td><code>--data-disk-size SIZE</code></td>
+<td>Data disk size in GB</td>
+<td><code>1024</code></td>
+</tr>
+<tr>
+<td><code>--storage-type TYPE</code></td>
+<td>Storage type</td>
+<td><code>Premium_LRS</code></td>
+</tr>
+<tr>
+<td><code>--no-data-disk</code></td>
+<td>Skip creating separate data disk</td>
+<td>Create data disk</td>
+</tr>
+<tr>
+<td><code>--no-cuda</code></td>
+<td>Skip CUDA installation</td>
+<td>Install CUDA</td>
+</tr>
+<tr>
+<td><code>--no-crackz</code></td>
+<td>Skip Crackz installation</td>
+<td>Install Crackz</td>
+</tr>
+<tr>
+<td><code>--enable-nested-virt</code></td>
+<td>Enable nested virtualization</td>
+<td>Disabled</td>
+</tr>
+<tr>
+<td><code>--destroy</code></td>
+<td>Destroy VM and resources</td>
+<td>Create</td>
+</tr>
+<tr>
+<td><code>--help</code></td>
+<td>Show help</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h3 id="deployment-examples">Deployment Examples<a class="headerlink" href="#deployment-examples" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Production inference server</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>crackz-prod<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span>Standard_NC12s_v3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--location<span class="w"> </span>westus2<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--mode<span class="w"> </span>production
+
+<span class="c1"># Development environment with large storage</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>crackz-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span>Standard_NV6<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--mode<span class="w"> </span>development<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-disk-size<span class="w"> </span><span class="m">2048</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--storage-type<span class="w"> </span>Premium_LRS
+
+<span class="c1"># Budget setup without data disk</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>crackz-simple<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span>Standard_NV6<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--no-data-disk
+
+<span class="c1"># Manual setup (no auto-install)</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>crackz-manual<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span>Standard_NC6s_v3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--no-cuda<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--no-crackz
+
+<span class="c1"># Docker development (with nested virtualization)</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>crackz-docker<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--size<span class="w"> </span>Standard_NC6s_v3<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--enable-nested-virt
+
+<span class="c1"># Clean up resources</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span>--name<span class="w"> </span>crackz-gpu-vm<span class="w"> </span>--destroy
+</code></pre></div>
+<h2 id="storage-configuration">Storage Configuration<a class="headerlink" href="#storage-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="data-disk-options">Data Disk Options<a class="headerlink" href="#data-disk-options" title="Permanent link">&para;</a></h3>
+<p>The script automatically creates and configures a separate data disk for ML projects:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Default</th>
+<th>Options</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--data-disk-size SIZE</code></td>
+<td>Data disk size in GB</td>
+<td>1024</td>
+<td>32-32767</td>
+</tr>
+<tr>
+<td><code>--storage-type TYPE</code></td>
+<td>Storage performance tier</td>
+<td>Premium_LRS</td>
+<td>Premium_LRS, Standard_LRS</td>
+</tr>
+<tr>
+<td><code>--no-data-disk</code></td>
+<td>Skip data disk creation</td>
+<td>false</td>
+<td>Creates separate disk</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storage-layout">Storage Layout<a class="headerlink" href="#storage-layout" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>C:\ (OS Disk - 127 GB)
+├── Windows/
+├── Program Files/
+├── Users/crackzuser/Desktop/Crackz/   # Crackz installation
+└── ...
+
+D:\ (Data Disk - configurable size)
+├── Projects/                          # ML project workspace
+│   ├── datasets/                     # Training datasets
+│   ├── models/                       # Model checkpoints
+│   ├── outputs/                      # Detection results
+│   └── exports/                      # Exported models
+└── temp/                             # Temporary processing
+</code></pre></div>
+<h3 id="storage-performance">Storage Performance<a class="headerlink" href="#storage-performance" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Performance</th>
+<th>Use Case</th>
+<th>Cost/Month*</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Premium_LRS</strong></td>
+<td>Up to 20,000 IOPS</td>
+<td>Production ML workloads</td>
+<td>~$150/TB</td>
+</tr>
+<tr>
+<td><strong>Standard_LRS</strong></td>
+<td>Up to 2,000 IOPS</td>
+<td>Development/testing</td>
+<td>~$50/TB</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>*Costs for East US region, subject to change</p>
+</blockquote>
+<h3 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Production: High-performance storage</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>ml-prod<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-disk-size<span class="w"> </span><span class="m">2048</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--storage-type<span class="w"> </span>Premium_LRS
+
+<span class="c1"># Development: Cost-effective storage</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>ml-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-disk-size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--storage-type<span class="w"> </span>Standard_LRS
+
+<span class="c1"># Simple setup: No separate disk</span>
+./scripts/azure/azure_vm_cuda.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>ml-simple<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--no-data-disk
+</code></pre></div>
+<h2 id="what-gets-installed">What Gets Installed<a class="headerlink" href="#what-gets-installed" title="Permanent link">&para;</a></h2>
+<h3 id="automatic-installation-default">Automatic Installation (default)<a class="headerlink" href="#automatic-installation-default" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>NVIDIA Drivers &amp; CUDA 11.8</strong></li>
+<li>CUDA Toolkit with cuDNN</li>
+<li>Environment variables configured</li>
+<li>
+<p>Compatible with PyTorch</p>
+</li>
+<li>
+<p><strong>Python Environment</strong></p>
+</li>
+<li>Python 3.13.x (latest)</li>
+<li>UV package manager</li>
+<li>
+<p>Virtual environment at <code>C:\Crackz\.venv</code></p>
+</li>
+<li>
+<p><strong>Crackz with GPU Support</strong></p>
+</li>
+<li>Latest release wheel</li>
+<li>CUDA-enabled PyTorch</li>
+<li>
+<p>Desktop shortcut created</p>
+</li>
+<li>
+<p><strong>Development Tools</strong></p>
+</li>
+<li>Visual Studio Code</li>
+<li>Git for Windows</li>
+<li>Windows Terminal (via Chocolatey)</li>
+</ol>
+<h3 id="network-configuration">Network Configuration<a class="headerlink" href="#network-configuration" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>RDP (3389)</strong>: Remote desktop access</li>
+<li><strong>File Upload Web (8080)</strong>: Browser-based image upload interface</li>
+<li><strong>SFTP (22)</strong>: Secure file transfer protocol</li>
+<li><strong>SMB/CIFS (445)</strong>: Windows file sharing</li>
+<li><strong>Jupyter (8888)</strong>: For notebook development</li>
+<li><strong>TensorBoard (6006)</strong>: For training visualization</li>
+<li><strong>Static Public IP</strong>: Consistent connectivity</li>
+</ul>
+<h2 id="post-deployment-setup">Post-Deployment Setup<a class="headerlink" href="#post-deployment-setup" title="Permanent link">&para;</a></h2>
+<h3 id="file-upload-methods-offline-capable">File Upload Methods (Offline Capable)<a class="headerlink" href="#file-upload-methods-offline-capable" title="Permanent link">&para;</a></h3>
+<p>The VM provides multiple ways to upload images for analysis:</p>
+<h4 id="method-1-web-upload-interface-recommended">Method 1: Web Upload Interface (Recommended)<a class="headerlink" href="#method-1-web-upload-interface-recommended" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Connect via RDP to the VM</span>
+<span class="c1"># 2. Double-click &quot;File Upload Server&quot; desktop shortcut</span>
+<span class="c1"># 3. Open browser and go to: http://localhost:8080</span>
+<span class="c1"># 4. Or access remotely: http://&lt;VM-PUBLIC-IP&gt;:8080</span>
+</code></pre></div>
+<p><strong>Features:</strong>
+- ✅ Easy drag-and-drop file upload
+- ✅ Multiple file selection
+- ✅ Progress tracking
+- ✅ Automatic directory organization
+- ✅ Works offline once VM is running</p>
+<h4 id="method-2-network-file-share">Method 2: Network File Share<a class="headerlink" href="#method-2-network-file-share" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># From your local computer:</span>
+<span class="c1"># Windows: \\&lt;VM-PUBLIC-IP&gt;\CrackzUploads</span>
+<span class="c1"># Mac/Linux: smb://&lt;VM-PUBLIC-IP&gt;/CrackzUploads</span>
+
+<span class="c1"># Credentials: crackzuser / CrackzGpu2024!</span>
+</code></pre></div>
+<h4 id="method-3-sftp-secure-file-transfer">Method 3: SFTP (Secure File Transfer)<a class="headerlink" href="#method-3-sftp-secure-file-transfer" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using any SFTP client (WinSCP, FileZilla, etc.)</span>
+sftp<span class="w"> </span>crackzuser@&lt;VM-PUBLIC-IP&gt;
+<span class="c1"># Upload to: /d/Projects/uploads/images/</span>
+</code></pre></div>
+<h4 id="file-organization">File Organization<a class="headerlink" href="#file-organization" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>D:\Projects\uploads\
+├── images/          # Individual images for analysis
+└── batch/          # Batch processing folders
+</code></pre></div>
+<h3 id="1-connect-via-rdp">1. Connect via RDP<a class="headerlink" href="#1-connect-via-rdp" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Use Windows built-in Remote Desktop</span>
+mstsc<span class="w"> </span>/v:&lt;PUBLIC_IP&gt;
+
+<span class="c1"># Or download RDP file</span>
+az<span class="w"> </span>vm<span class="w"> </span>show<span class="w"> </span>-d<span class="w"> </span>-g<span class="w"> </span>crackz-gpu-rg<span class="w"> </span>-n<span class="w"> </span>crackz-gpu-vm<span class="w"> </span>--query<span class="w"> </span>publicIps<span class="w"> </span>-o<span class="w"> </span>tsv
+</code></pre></div>
+<h3 id="2-verify-gpu-setup">2. Verify GPU Setup<a class="headerlink" href="#2-verify-gpu-setup" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c"># Check GPU status</span>
+<span class="n">nvidia-smi</span>
+
+<span class="c"># Test CUDA availability</span>
+<span class="n">python</span> <span class="n">-c</span> <span class="s2">&quot;import torch; print(f&#39;CUDA available: {torch.cuda.is_available()}&#39;)&quot;</span>
+<span class="n">python</span> <span class="n">-c</span> <span class="s2">&quot;import torch; print(f&#39;GPU count: {torch.cuda.device_count()}&#39;)&quot;</span>
+</code></pre></div>
+<h3 id="3-verify-crackz-installation">3. Verify Crackz Installation<a class="headerlink" href="#3-verify-crackz-installation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c"># Activate virtual environment</span>
+<span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">Crackz</span>
+<span class="p">.\.</span><span class="n">venv</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">Activate</span><span class="p">.</span><span class="n">ps1</span>
+
+<span class="c"># Check Crackz version</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="p">-</span><span class="n">-version</span>
+
+<span class="c"># Test GPU detection</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="n">gui</span>  <span class="c"># Should detect CUDA device</span>
+</code></pre></div>
+<h3 id="4-run-analysis-on-uploaded-images">4. Run Analysis on Uploaded Images<a class="headerlink" href="#4-run-analysis-on-uploaded-images" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c"># Activate virtual environment</span>
+<span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">Crackz</span>
+<span class="p">.\.</span><span class="n">venv</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">Activate</span><span class="p">.</span><span class="n">ps1</span>
+
+<span class="c"># Option 1: Direct analysis on uploaded images</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="n">detect</span> <span class="n">run</span> <span class="p">-</span><span class="n">-images</span> <span class="s2">&quot;D:\Projects\uploads\images&quot;</span> <span class="p">-</span><span class="n">-device</span> <span class="n">cuda</span>
+
+<span class="c"># Option 2: Create project and import uploaded images</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="n">init</span> <span class="n">harbor-inspection</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="nb">import-images</span> <span class="s2">&quot;D:\Projects\uploads\images&quot;</span> <span class="n">harbor-inspection</span><span class="p">/</span><span class="n">images</span><span class="p">/</span><span class="n">raw</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="n">detect</span> <span class="n">run</span> <span class="n">harbor-inspection</span> <span class="p">-</span><span class="n">-device</span> <span class="n">cuda</span>
+
+<span class="c"># Option 3: Batch processing multiple folders</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="n">detect</span> <span class="n">run</span> <span class="p">-</span><span class="n">-images</span> <span class="s2">&quot;D:\Projects\uploads\batch\*&quot;</span> <span class="p">-</span><span class="n">-device</span> <span class="n">cuda</span>
+
+<span class="c"># View results</span>
+<span class="n">explorer</span> <span class="s2">&quot;harbor-inspection\artifacts\detection_results&quot;</span>
+</code></pre></div>
+<h3 id="5-traditional-workflow-local-images">5. Traditional Workflow (Local Images)<a class="headerlink" href="#5-traditional-workflow-local-images" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c"># Create test project</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="n">init</span> <span class="nb">test-project</span>
+
+<span class="c"># Import sample images</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="nb">import-images</span> <span class="n">C</span><span class="p">:\</span><span class="n">path</span><span class="p">\</span><span class="n">to</span><span class="p">\</span><span class="n">images</span> <span class="nb">test-project</span><span class="p">/</span><span class="n">images</span><span class="p">/</span><span class="n">raw</span>
+
+<span class="c"># Run GPU-accelerated detection</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">crackz</span> <span class="n">detect</span> <span class="n">run</span> <span class="nb">test-project</span> <span class="p">-</span><span class="n">-device</span> <span class="n">cuda</span>
+</code></pre></div>
+<h2 id="best-practices_1">Best Practices<a class="headerlink" href="#best-practices_1" title="Permanent link">&para;</a></h2>
+<h3 id="cost-optimization">Cost Optimization<a class="headerlink" href="#cost-optimization" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ <strong>Use spot instances</strong> for non-critical workloads (-60-90% cost)</li>
+<li>✅ <strong>Auto-shutdown</strong>: Configure automatic shutdown during idle periods</li>
+<li>✅ <strong>Right-size VMs</strong>: Start with smaller sizes and scale up as needed</li>
+<li>✅ <strong>Deallocate when idle</strong>: <code>az vm deallocate</code> to stop compute charges</li>
+</ul>
+<h3 id="performance-optimization">Performance Optimization<a class="headerlink" href="#performance-optimization" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ <strong>Premium SSD storage</strong> for faster I/O (automatically configured)</li>
+<li>✅ <strong>Place in same region</strong> as your data storage</li>
+<li>✅ <strong>Use proximity placement groups</strong> for multi-VM deployments</li>
+<li>✅ <strong>Enable accelerated networking</strong> for high-throughput workloads</li>
+</ul>
+<h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🚨 <strong>CRITICAL: Change default password</strong> immediately after first login</li>
+<li>✅ <strong>Use strong passwords</strong> (12+ characters, mixed case, numbers, symbols)</li>
+<li>✅ <strong>Configure Azure Key Vault</strong> for password management in production</li>
+<li>✅ <strong>Use Azure Bastion</strong> for secure access without public IPs</li>
+<li>✅ <strong>Enable disk encryption</strong> for sensitive data</li>
+<li>✅ <strong>Set up automatic security updates</strong> via Windows Update</li>
+<li>✅ <strong>Monitor access logs</strong> and set up alerts for unusual activity</li>
+</ul>
+<h4 id="default-password-warning">Default Password Warning<a class="headerlink" href="#default-password-warning" title="Permanent link">&para;</a></h4>
+<p>The script uses a default password (<code>CrackzGpu2024!</code>) for initial setup convenience. This password:
+- ❌ Should <strong>NEVER</strong> be used in production
+- ❌ Is visible in deployment logs and command history
+- ❌ Could be compromised if logs are accessed</p>
+<p><strong>Immediate Actions After Deployment:</strong>
+1. Connect via RDP using the default credentials
+2. Change the administrator password immediately
+3. Enable Windows Defender and automatic updates
+4. Consider disabling the built-in administrator account</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
+<h4 id="cuda-installation-failed">CUDA Installation Failed<a class="headerlink" href="#cuda-installation-failed" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c"># Manually install CUDA</span>
+<span class="c"># Download from: https://developer.nvidia.com/cuda-11-8-0-download-archive</span>
+<span class="c"># Choose Windows x86_64 local installer</span>
+</code></pre></div>
+<h4 id="crackz-installation-failed">Crackz Installation Failed<a class="headerlink" href="#crackz-installation-failed" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c"># Manual installation</span>
+<span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">Crackz</span>
+<span class="p">.\.</span><span class="n">venv</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">Activate</span><span class="p">.</span><span class="n">ps1</span>
+<span class="n">uv</span> <span class="n">pip</span> <span class="n">install</span> <span class="p">-</span><span class="n">-find-links</span> <span class="n">https</span><span class="p">://</span><span class="n">download</span><span class="p">.</span><span class="n">pytorch</span><span class="p">.</span><span class="n">org</span><span class="p">/</span><span class="n">whl</span><span class="p">/</span><span class="n">cu118</span> <span class="n">torch</span> <span class="n">torchvision</span>
+<span class="c"># Download wheel from GitHub releases and install</span>
+</code></pre></div>
+<h4 id="gpu-not-detected">GPU Not Detected<a class="headerlink" href="#gpu-not-detected" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c"># Check drivers</span>
+<span class="n">nvidia-smi</span>
+
+<span class="c"># Verify CUDA installation</span>
+<span class="n">nvcc</span> <span class="p">-</span><span class="n">-version</span>
+
+<span class="c"># Check PyTorch CUDA</span>
+<span class="n">python</span> <span class="n">-c</span> <span class="s2">&quot;import torch; print(torch.version.cuda)&quot;</span>
+</code></pre></div>
+<h4 id="performance-issues">Performance Issues<a class="headerlink" href="#performance-issues" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Check GPU utilization: <code>nvidia-smi -l 1</code></li>
+<li>Monitor system resources in Task Manager</li>
+<li>Verify SSD storage performance</li>
+<li>Check network bandwidth to data sources</li>
+</ul>
+<h3 id="logs-and-monitoring">Logs and Monitoring<a class="headerlink" href="#logs-and-monitoring" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c"># Windows Event Logs</span>
+<span class="n">eventvwr</span><span class="p">.</span><span class="n">msc</span>
+
+<span class="c"># CUDA installation logs</span>
+<span class="nb">Get-Content</span> <span class="n">C</span><span class="p">:\</span><span class="n">ProgramData</span><span class="p">\</span><span class="n">NVIDIA</span> <span class="n">Corporation</span><span class="p">\</span><span class="n">CUDA</span> <span class="n">Installer</span><span class="p">\</span><span class="n">log</span><span class="p">.</span><span class="n">txt</span>
+
+<span class="c"># Crackz logs</span>
+<span class="nb">Get-Content</span> <span class="nv">$env:TEMP</span><span class="p">\</span><span class="n">crackz</span><span class="p">-*.</span><span class="n">log</span>
+</code></pre></div>
+<h2 id="regional-availability">Regional Availability<a class="headerlink" href="#regional-availability" title="Permanent link">&para;</a></h2>
+<h3 id="gpu-vm-availability-by-region">GPU VM Availability by Region<a class="headerlink" href="#gpu-vm-availability-by-region" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Region</th>
+<th>NC-series</th>
+<th>NV-series</th>
+<th>Recommended</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>East US</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ Primary</td>
+</tr>
+<tr>
+<td>West US 2</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ Primary</td>
+</tr>
+<tr>
+<td>North Europe</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ EU option</td>
+</tr>
+<tr>
+<td>Southeast Asia</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅ APAC option</td>
+</tr>
+<tr>
+<td>West Europe</td>
+<td>⚠️ Limited</td>
+<td>✅</td>
+<td>Backup</td>
+</tr>
+<tr>
+<td>Central US</td>
+<td>⚠️ Limited</td>
+<td>✅</td>
+<td>Backup</td>
+</tr>
+</tbody>
+</table>
+<p>Check current availability:
+<div class="highlight"><pre><span></span><code>az<span class="w"> </span>vm<span class="w"> </span>list-sizes<span class="w"> </span>--location<span class="w"> </span>eastus<span class="w"> </span>--query<span class="w"> </span><span class="s2">&quot;[?contains(name, &#39;NC&#39;)]&quot;</span>
+</code></pre></div></p>
+<h2 id="cost-estimation">Cost Estimation<a class="headerlink" href="#cost-estimation" title="Permanent link">&para;</a></h2>
+<h3 id="monthly-costs-24x7-usage">Monthly Costs (24x7 usage)<a class="headerlink" href="#monthly-costs-24x7-usage" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>VM Cost</th>
+<th>Storage</th>
+<th>Total</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NC6s_v3 (1x V100)</td>
+<td>~$2,203</td>
+<td>~$30</td>
+<td>~$2,233</td>
+<td>Production</td>
+</tr>
+<tr>
+<td>NC6s_v2 (1x P100)</td>
+<td>~$1,490</td>
+<td>~$30</td>
+<td>~$1,520</td>
+<td>Development</td>
+</tr>
+<tr>
+<td>NV6 (1x M60)</td>
+<td>~$864</td>
+<td>~$30</td>
+<td>~$894</td>
+<td>Testing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cost-optimization-tips">Cost Optimization Tips<a class="headerlink" href="#cost-optimization-tips" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Use spot instances (60-90% discount)</span>
+az<span class="w"> </span>vm<span class="w"> </span>create<span class="w"> </span>--priority<span class="w"> </span>Spot<span class="w"> </span>--max-price<span class="w"> </span>-1<span class="w"> </span>...
+
+<span class="c1"># Auto-shutdown schedule</span>
+az<span class="w"> </span>vm<span class="w"> </span>auto-shutdown<span class="w"> </span>--name<span class="w"> </span>crackz-gpu-vm<span class="w"> </span>--resource-group<span class="w"> </span>crackz-gpu-rg<span class="w"> </span>--time<span class="w"> </span><span class="m">1800</span>
+
+<span class="c1"># Deallocate when not in use</span>
+az<span class="w"> </span>vm<span class="w"> </span>deallocate<span class="w"> </span>--name<span class="w"> </span>crackz-gpu-vm<span class="w"> </span>--resource-group<span class="w"> </span>crackz-gpu-rg
+</code></pre></div>
+<h2 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../azure-batch/">Azure Batch Deployment</a> - Multi-VM distributed processing</li>
+<li><a href="../installation/">Installation Guide</a> - General Crackz installation</li>
+<li><a href="../configuration/">Configuration</a> - Crackz configuration options</li>
+<li><a href="../cli-cookbook/">CLI Cookbook</a> - Common command patterns</li>
+</ul>
+<h2 id="support">Support<a class="headerlink" href="#support" title="Permanent link">&para;</a></h2>
+<p>For issues specific to Azure deployment:
+1. Check VM size availability in your region
+2. Verify Azure subscription GPU quotas
+3. Review Azure Activity Log for deployment errors
+4. Contact Azure support for infrastructure issues</p>
+<p>For Crackz-specific issues:
+- <a href="https://github.com/Anaxiatech-AB/crackz/issues">GitHub Issues</a>
+- Check logs in <code>%TEMP%\crackz-*.log</code>
+- Verify GPU detection with test commands above</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Anaxiatech-AB/crackz" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.52.0"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

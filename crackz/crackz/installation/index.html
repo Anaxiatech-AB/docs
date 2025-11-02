@@ -1788,7 +1788,7 @@
 
 
 <h1 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h1>
-<p>This page covers end‑user (runtime) installation of Crackz. If you're developing the project itself, see the developer workflow in the Quickstart (uv sync etc.).</p>
+<p>This page covers end‑user (runtime) installation of Crackz. If you're developing the project itself, see the developer workflow in the <a href="../getting-started/">Getting Started</a> guide (<code>uv sync</code> etc.).</p>
 <blockquote>
 <p>Licensing: Crackz is distributed under a commercial (source‑available) license. By installing you agree to the terms in the <code>LICENSE</code> file.</p>
 </blockquote>
@@ -2176,7 +2176,7 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 <p>After installing with CUDA support, verify it's working:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Check if CUDA is available</span>
 python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(f&#39;CUDA available: {torch.cuda.is_available()}&#39;)&quot;</span>
-python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(f&#39;CUDA device: {torch.cuda.get_device_name(0)}&#39;)&quot;</span><span class="w"> </span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(f&#39;CUDA device: {torch.cuda.get_device_name(0)}&#39;)&quot;</span>
 </code></pre></div>
 <p>Expected output:
 <div class="highlight"><pre><span></span><code>CUDA available: True
@@ -2315,9 +2315,9 @@ crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"
 </ul>
 <h2 id="14-next-steps">14. Next Steps<a class="headerlink" href="#14-next-steps" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Follow the Quickstart to set up a project.</li>
-<li>Review Configuration for dataset paths &amp; model options.</li>
-<li>Consult CLI Cookbook for common command patterns.</li>
+<li>Follow the <a href="../getting-started/">Getting Started</a> guide to set up a project.</li>
+<li>Review <a href="../configuration/">Configuration</a> for dataset paths &amp; model options.</li>
+<li>Consult <a href="../cli-cookbook/">CLI Cookbook</a> for common command patterns.</li>
 </ul>
 <h2 id="15-migrating-existing-projects-after-upgrade">15. Migrating Existing Projects After Upgrade<a class="headerlink" href="#15-migrating-existing-projects-after-upgrade" title="Permanent link">&para;</a></h2>
 <p>Older projects (created before schema_version field) can be upgraded in-place:

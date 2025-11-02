@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ways-to-help" class="md-skip">
+        <a href="#ai-assistant-integration-standards" class="md-skip">
           Skip to content
         </a>
       
@@ -911,6 +911,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#ai-assistant-integration-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      AI Assistant Integration &amp; Standards
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ways-to-help" class="md-nav__link">
     <span class="md-ellipsis">
       Ways to Help
@@ -971,11 +980,44 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#commit-style" class="md-nav__link">
+  <a href="#commit-style-release-triggers" class="md-nav__link">
     <span class="md-ellipsis">
-      Commit Style
+      Commit Style &amp; Release Triggers
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Commit Style &amp; Release Triggers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conventional-commit-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conventional Commit Format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pr-title-format-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      PR Title Format Rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automated-validation-pre-commit-hook" class="md-nav__link">
+    <span class="md-ellipsis">
+      Automated Validation (Pre-Commit Hook)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1051,6 +1093,15 @@
   
     <nav class="md-nav" aria-label="Branching &amp; Workflow">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Reference
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#core-branch" class="md-nav__link">
@@ -1556,6 +1607,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#ai-assistant-integration-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      AI Assistant Integration &amp; Standards
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ways-to-help" class="md-nav__link">
     <span class="md-ellipsis">
       Ways to Help
@@ -1616,11 +1676,44 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#commit-style" class="md-nav__link">
+  <a href="#commit-style-release-triggers" class="md-nav__link">
     <span class="md-ellipsis">
-      Commit Style
+      Commit Style &amp; Release Triggers
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Commit Style &amp; Release Triggers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conventional-commit-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conventional Commit Format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pr-title-format-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      PR Title Format Rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automated-validation-pre-commit-hook" class="md-nav__link">
+    <span class="md-ellipsis">
+      Automated Validation (Pre-Commit Hook)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1696,6 +1789,15 @@
   
     <nav class="md-nav" aria-label="Branching &amp; Workflow">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Reference
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#core-branch" class="md-nav__link">
@@ -2019,6 +2121,27 @@ For full context you can also view the repository root files:
 - <a href="https://github.com/Anaxiatech-AB/crackz/blob/main/CHANGELOG.md">CHANGELOG</a>
 - <a href="https://github.com/Anaxiatech-AB/crackz/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></p>
 <hr />
+<h2 id="ai-assistant-integration-standards">AI Assistant Integration &amp; Standards<a class="headerlink" href="#ai-assistant-integration-standards" title="Permanent link">&para;</a></h2>
+<p>Crackz supports AI-assisted development through <a href="../mcp/">Model Context Protocol (MCP)</a>. AI assistants (like Claude Code, GitHub Copilot, etc.) can help with development tasks when they follow our project conventions.</p>
+<p><strong>Key Standards for AI Assistants:</strong>
+1. <strong>Branch Naming</strong>: Must follow <code>&lt;type&gt;/&lt;scope&gt;-&lt;short-slug&gt;</code> format (lowercase, hyphenated)
+2. <strong>Commit Messages</strong>: Must use conventional commit format with lowercase type prefix and colon
+3. <strong>PR Titles</strong>: MUST match conventional commit format to trigger releases
+4. <strong>Code Quality</strong>: Follow CLI output patterns, use centralized options, maintain test coverage</p>
+<p><strong>Example AI-Assisted Workflow:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># AI creates feature branch</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feat/gui-export-panel
+
+<span class="c1"># AI makes changes with proper commit messages</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat(gui): add export panel component&quot;</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat(gui): integrate export panel with main view&quot;</span>
+
+<span class="c1"># When creating PR, AI suggests proper title</span>
+<span class="c1"># ✅ PR Title: &quot;feat(gui): add export panel for detection results&quot;</span>
+<span class="c1"># This triggers a MINOR version release (e.g., 1.2.0 → 1.3.0)</span>
+</code></pre></div></p>
+<p>See <a href="../mcp/">MCP Integration</a> for configuration details.</p>
+<hr />
 <h2 id="ways-to-help">Ways to Help<a class="headerlink" href="#ways-to-help" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Bug reports (include OS, Python version, crackz version, steps to reproduce, expected vs actual)</li>
@@ -2161,10 +2284,64 @@ uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </sp
 <li>Avoid large monolithic pull requests; split by feature slice.</li>
 </ul>
 <hr />
-<h2 id="commit-style">Commit Style<a class="headerlink" href="#commit-style" title="Permanent link">&para;</a></h2>
-<p>Conventional commits are encouraged (not strictly enforced):
-<code>feat:</code>, <code>fix:</code>, <code>docs:</code>, <code>refactor:</code>, <code>perf:</code>, <code>test:</code>, <code>chore:</code> etc.
-Semantic-release reads the history to derive versions.</p>
+<h2 id="commit-style-release-triggers">Commit Style &amp; Release Triggers<a class="headerlink" href="#commit-style-release-triggers" title="Permanent link">&para;</a></h2>
+<p><strong>CRITICAL</strong>: Pull Request titles MUST follow conventional commit format to trigger releases.</p>
+<h3 id="conventional-commit-format">Conventional Commit Format<a class="headerlink" href="#conventional-commit-format" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>&lt;type&gt;(&lt;optional-scope&gt;): &lt;description&gt;
+</code></pre></div>
+<p><strong>Required for releases:</strong>
+- <code>feat:</code> or <code>feat(&lt;scope&gt;):</code> - Triggers MINOR version bump (e.g., 1.2.0 → 1.3.0)
+- <code>fix:</code> or <code>fix(&lt;scope&gt;):</code> - Triggers PATCH version bump (e.g., 1.2.0 → 1.2.1)
+- <code>perf:</code> or <code>perf(&lt;scope&gt;):</code> - Triggers PATCH version bump</p>
+<p><strong>No release triggered (documentation/maintenance):</strong>
+- <code>docs:</code> - Documentation only changes
+- <code>refactor:</code> - Internal code restructuring
+- <code>test:</code> - Test-only changes
+- <code>chore:</code> - Maintenance tasks, dependency updates
+- <code>ci:</code> - CI/CD workflow changes
+- <code>build:</code> - Build system or packaging changes
+- <code>style:</code> - Code formatting (no logic changes)</p>
+<h3 id="pr-title-format-rules">PR Title Format Rules<a class="headerlink" href="#pr-title-format-rules" title="Permanent link">&para;</a></h3>
+<p>When merging Pull Requests, the <strong>merge commit title</strong> determines if a release is triggered:</p>
+<p>✅ <strong>CORRECT</strong> (triggers release):
+<div class="highlight"><pre><span></span><code>feat(gui): add return-to-run-view functionality
+fix(pdf): correct missing hero image
+perf(dataloader): optimize batch processing
+</code></pre></div></p>
+<p>❌ <strong>INCORRECT</strong> (no release):
+<div class="highlight"><pre><span></span><code>Fix GUI image display and add return-to-run-view functionality
+Add new feature to handle user authentication
+Update documentation for new feature
+</code></pre></div></p>
+<p><strong>Key Requirements:</strong>
+1. Type prefix MUST be lowercase (<code>feat:</code>, <code>fix:</code>, not <code>Feat:</code>, <code>Fix:</code>)
+2. Type prefix MUST end with colon (<code>:</code>)
+3. Scope is optional but recommended for clarity: <code>feat(gui):</code>, <code>fix(cli):</code>
+4. Description should be concise and imperative mood</p>
+<p>Semantic-release analyzes the merge commit title to determine version bumps and generate changelogs.</p>
+<h3 id="automated-validation-pre-commit-hook">Automated Validation (Pre-Commit Hook)<a class="headerlink" href="#automated-validation-pre-commit-hook" title="Permanent link">&para;</a></h3>
+<p>A pre-commit hook automatically validates commit messages to ensure they follow the conventional commit format:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install pre-commit hooks (one-time setup)</span>
+pip<span class="w"> </span>install<span class="w"> </span>pre-commit<span class="w">  </span><span class="c1"># or: uv tool install pre-commit</span>
+pre-commit<span class="w"> </span>install
+pre-commit<span class="w"> </span>install<span class="w"> </span>--hook-type<span class="w"> </span>commit-msg
+</code></pre></div>
+<p>Once installed, the hook will:
+- <strong>Validate commit message format</strong> before each commit
+- <strong>Reject invalid formats</strong> with helpful error messages showing correct examples
+- <strong>Allow valid formats</strong> (feat:, fix:, docs:, etc.) to proceed</p>
+<p><strong>Testing the validator manually:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Test with a valid message</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;feat(gui): add export panel&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>temp_msg.txt
+python<span class="w"> </span>scripts/validate_commit_msg.py<span class="w"> </span>temp_msg.txt
+
+<span class="c1"># Test with an invalid message</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Fix bug&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>temp_msg.txt
+python<span class="w"> </span>scripts/validate_commit_msg.py<span class="w"> </span>temp_msg.txt
+</code></pre></div></p>
+<p><strong>Bypassing the hook</strong> (not recommended):
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>commit<span class="w"> </span>--no-verify<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;your message&quot;</span>
+</code></pre></div></p>
 <hr />
 <h2 id="pull-request-checklist">Pull Request Checklist<a class="headerlink" href="#pull-request-checklist" title="Permanent link">&para;</a></h2>
 <ul>
@@ -2211,6 +2388,17 @@ PDF export (uses <code>scripts/export_pdf.py</code>):
 <hr />
 <h2 id="branching-workflow">Branching &amp; Workflow<a class="headerlink" href="#branching-workflow" title="Permanent link">&para;</a></h2>
 <p>A lightweight trunk‑based model is used: all releasable work lands in <code>main</code>; feature branches are short‑lived.</p>
+<h3 id="quick-reference">Quick Reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h3>
+<p><strong>Branch Format</strong>: <code>&lt;type&gt;/&lt;scope&gt;-&lt;short-slug&gt;</code> (lowercase, hyphenated)</p>
+<p><strong>Common Patterns:</strong>
+- New feature: <code>feat/gui-live-preview</code>
+- Bug fix: <code>fix/pdf-rendering-crash</code>
+- Performance: <code>perf/dataloader-optimization</code>
+- Documentation: <code>docs/api-reference-update</code>
+- Refactoring: <code>refactor/config-module-cleanup</code></p>
+<p><strong>IMPORTANT</strong>: When merging, ensure PR title matches conventional commit format:
+- Branch: <code>feat/gui-live-preview</code> → PR Title: <code>feat(gui): add live preview panel</code>
+- Branch: <code>fix/pdf-crash</code> → PR Title: <code>fix(pdf): handle null hero image</code></p>
 <h3 id="core-branch">Core Branch<a class="headerlink" href="#core-branch" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>main</code>: always green &amp; releasable. Protected (recommend: squash merges, required checks).</li>
@@ -2263,11 +2451,28 @@ Semantic release interpretation (default):
 - <code>fix</code> → PATCH bump
 - <code>!</code> or <code>BREAKING CHANGE:</code> footer → MAJOR bump</p>
 <h3 id="pull-request-guidelines">Pull Request Guidelines<a class="headerlink" href="#pull-request-guidelines" title="Permanent link">&para;</a></h3>
+<p><strong>CRITICAL</strong>: PR title format determines if a release is triggered!</p>
 <ul>
-<li>Single focused change; squash merge → one clean conventional commit.</li>
-<li>Keep PR title aligned with final commit message.</li>
-<li>Update docs/tests for user‑facing changes.</li>
+<li><strong>Title Format</strong>: MUST follow conventional commit format (see "Commit Style &amp; Release Triggers" section above)</li>
+<li>✅ <code>feat(gui): add live preview</code> (triggers MINOR release)</li>
+<li>✅ <code>fix(cli): correct path handling</code> (triggers PATCH release)</li>
+<li>✅ <code>docs: update installation guide</code> (no release)</li>
+<li>❌ <code>Fix GUI bugs</code> (no release - wrong format)</li>
+<li>
+<p>❌ <code>Add new feature</code> (no release - wrong format)</p>
+</li>
+<li>
+<p><strong>Merge Strategy</strong>: Squash merge → one clean conventional commit</p>
+</li>
+<li><strong>Single Focus</strong>: One feature/fix per PR for clear changelog entries</li>
+<li><strong>Documentation</strong>: Update docs for user-facing changes</li>
+<li><strong>Tests</strong>: Add/update tests for behavior changes</li>
 </ul>
+<p><strong>Before Merging:</strong>
+1. Verify PR title follows <code>&lt;type&gt;(&lt;scope&gt;): &lt;description&gt;</code> format
+2. Ensure type is lowercase with colon: <code>feat:</code>, <code>fix:</code>, <code>docs:</code>
+3. Confirm tests pass and code is reviewed
+4. Check if release should be triggered (feat/fix/perf) or not (docs/chore/refactor)</p>
 <h3 id="dev-prerelease-builds">Dev / Pre‑Release Builds<a class="headerlink" href="#dev-prerelease-builds" title="Permanent link">&para;</a></h3>
 <p>Manual workflow (<code>Dev Build</code>) creates ephemeral pre‑release artifacts:
 - Version pattern: <code>&lt;base&gt;.devYYYYMMDD+&lt;shortsha&gt;</code>
@@ -2638,7 +2843,7 @@ On commit, hooks will:
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.14.0"}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.52.0"}</script>
     
     
       <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>

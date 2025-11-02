@@ -902,6 +902,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#return-to-run-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      Return to Run View
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#file-watching" class="md-nav__link">
     <span class="md-ellipsis">
       File Watching
@@ -2115,6 +2124,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#return-to-run-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      Return to Run View
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#file-watching" class="md-nav__link">
     <span class="md-ellipsis">
       File Watching
@@ -2339,8 +2357,9 @@ crackz-gui
 - Current epoch and batch progress
 - Elapsed time and estimated time remaining
 - Live validation metrics
-- Hero section highlighting best validation results</p>
-<p>The view updates automatically as training progresses without requiring manual refresh.</p>
+- Hero section highlighting best validation results
+- <strong>Navigate freely</strong>: Switch to other views and return anytime using the progress footer</p>
+<p>The view updates automatically as training progresses without requiring manual refresh. You can navigate to other views during training and easily return by clicking the progress bar, status label, or "View Progress" button in the progress footer.</p>
 <h3 id="training-results">Training Results<a class="headerlink" href="#training-results" title="Permanent link">&para;</a></h3>
 <p>After training completes, view comprehensive results:</p>
 <p><img alt="Training Results" src="../assets/gui/training_results.png" /></p>
@@ -2370,8 +2389,9 @@ crackz-gui
   - Detection rate percentage
 - <strong>Real-time Updates</strong>: Statistics refresh automatically as each image is processed (every 2 seconds)
 - <strong>Progress Tracking</strong>: Shows elapsed time and estimated time remaining
-- <strong>No Flickering</strong>: Optimized to update only changed elements, preventing UI flicker</p>
-<p>The detection run view uses direct callbacks from the detection runner for instant updates, bypassing file polling for better performance.</p>
+- <strong>No Flickering</strong>: Optimized to update only changed elements, preventing UI flicker
+- <strong>Navigate freely</strong>: Switch to other views and return anytime using the progress footer</p>
+<p>The detection run view uses direct callbacks from the detection runner for instant updates, bypassing file polling for better performance. You can navigate to other views during detection and easily return by clicking the progress bar, status label, or "View Progress" button in the progress footer.</p>
 <h3 id="detection-results">Detection Results<a class="headerlink" href="#detection-results" title="Permanent link">&para;</a></h3>
 <p>After detection completes, click <strong>View Summary</strong> to see the full gallery:</p>
 <p><img alt="Detection Results Summary Gallery" src="../assets/gui/detection_results_summary_gallery.png" /></p>
@@ -2510,6 +2530,18 @@ crackz-gui
 - Navigate to other views during operations
 - Cancel operations at any time
 - Queue multiple operations (they run sequentially)</p>
+<h3 id="return-to-run-view">Return to Run View<a class="headerlink" href="#return-to-run-view" title="Permanent link">&para;</a></h3>
+<p>When training or detection is in progress, you can navigate to other views (e.g., browse project files, check settings) without losing access to the live progress updates. The GUI provides multiple ways to return to the active run view:</p>
+<p><strong>Return Methods:</strong>
+- <strong>"View Progress" Button</strong>: A blue button appears in the progress footer between the progress bar and cancel button
+- <strong>Click Progress Bar</strong>: Click anywhere on the progress bar itself (cursor changes to hand pointer)
+- <strong>Click Status Label</strong>: Click the status text showing current operation details</p>
+<p>This feature is particularly useful for:
+- Checking project settings while training runs
+- Reviewing logs during long detection runs
+- Browsing previous results while new detection is in progress
+- Multitasking without losing track of running operations</p>
+<p><strong>Note</strong>: When the operation completes, the progress footer automatically hides and the tracked view is cleared.</p>
 <h3 id="file-watching">File Watching<a class="headerlink" href="#file-watching" title="Permanent link">&para;</a></h3>
 <p>The GUI includes intelligent file watching that automatically refreshes views when files change on disk. This is particularly useful when:
 - Using CLI commands alongside the GUI
@@ -2629,7 +2661,7 @@ crackz-gui
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.14.0"}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.52.0"}</script>
     
     
       <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>

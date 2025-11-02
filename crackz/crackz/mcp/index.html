@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#benefits" class="md-skip">
+        <a href="#overview" class="md-skip">
           Skip to content
         </a>
       
@@ -865,20 +865,62 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#benefits" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Benefits
+      Overview
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#ai-assistant-development-standards" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview
+      AI Assistant Development Standards
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="AI Assistant Development Standards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-branch-naming-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Branch Naming Convention
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-commit-message-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Commit Message Format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-pull-request-title-format-critical" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Pull Request Title Format (CRITICAL)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-code-quality-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Code Quality Standards
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1373,20 +1415,62 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#benefits" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Benefits
+      Overview
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#ai-assistant-development-standards" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview
+      AI Assistant Development Standards
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="AI Assistant Development Standards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-branch-naming-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Branch Naming Convention
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-commit-message-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Commit Message Format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-pull-request-title-format-critical" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Pull Request Title Format (CRITICAL)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-code-quality-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Code Quality Standards
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1646,38 +1730,6 @@
   
 
 
-<div class="highlight"><pre><span></span><code>### CLI vs Logger Output
-
-In CLI commands, maintain clear separation:
-
-```python
-import typer
-from crackz.log import logger
-
-@app.command()
-def train(project_path: Path) -&gt; None:
-    &quot;&quot;&quot;Train a model.&quot;&quot;&quot;
-    # User-facing messages with typer.secho
-    typer.secho(&quot;🚀 Starting training...&quot;, fg=typer.colors.CYAN)
-
-    # Detailed operational info with logger
-    logger.info(&quot;Loading project from {}&quot;, project_path)
-    logger.info(&quot;Training config: epochs={}, batch_size={}&quot;, epochs, batch_size)
-
-    # Success message to user
-    typer.secho(&quot;✅ Training completed successfully&quot;, fg=typer.colors.GREEN)
-
-    # Technical details to log
-    logger.info(&quot;Final metrics: loss={}, accuracy={}&quot;, loss, acc)
-</code></pre></div>
-<h3 id="benefits">Benefits<a class="headerlink" href="#benefits" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Debugging</strong>: All operations are logged for post-mortem analysis</li>
-<li><strong>Auditing</strong>: Complete history of what operations were performed</li>
-<li><strong>Troubleshooting</strong>: Detailed technical information without cluttering user output</li>
-<li><strong>Multi-project</strong>: Central log shows activity across all projects</li>
-<li><strong>Clean CLI</strong>: User sees only important messages, not technical details</li>
-</ul>
 <h1 id="mcp-model-context-protocol-integration">MCP (Model Context Protocol) Integration<a class="headerlink" href="#mcp-model-context-protocol-integration" title="Permanent link">&para;</a></h1>
 <p>Crackz includes built-in support for the Model Context Protocol (MCP), which enables AI assistants to interact with development tools and services in a standardized way.</p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
@@ -1689,6 +1741,63 @@ def train(project_path: Path) -&gt; None:
 <li>Build and run Docker containers</li>
 </ul>
 <p>The configuration defines what servers are available and what permissions the AI has for each service.</p>
+<h2 id="ai-assistant-development-standards">AI Assistant Development Standards<a class="headerlink" href="#ai-assistant-development-standards" title="Permanent link">&para;</a></h2>
+<p>AI assistants working with Crackz MUST follow these conventions:</p>
+<h3 id="1-branch-naming-convention">1. Branch Naming Convention<a class="headerlink" href="#1-branch-naming-convention" title="Permanent link">&para;</a></h3>
+<p><strong>Format</strong>: <code>&lt;type&gt;/&lt;scope&gt;-&lt;short-slug&gt;</code> (lowercase, hyphenated)</p>
+<p><strong>Examples:</strong>
+<div class="highlight"><pre><span></span><code>feat/gui-live-preview<span class="w">        </span><span class="c1"># New GUI feature</span>
+fix/pdf-rendering-crash<span class="w">      </span><span class="c1"># Bug fix in PDF generation</span>
+perf/dataloader-cache<span class="w">        </span><span class="c1"># Performance improvement</span>
+docs/api-reference-update<span class="w">    </span><span class="c1"># Documentation update</span>
+refactor/config-cleanup<span class="w">      </span><span class="c1"># Code refactoring</span>
+</code></pre></div></p>
+<h3 id="2-commit-message-format">2. Commit Message Format<a class="headerlink" href="#2-commit-message-format" title="Permanent link">&para;</a></h3>
+<p><strong>Format</strong>: <code>&lt;type&gt;(&lt;scope&gt;): &lt;description&gt;</code> (lowercase type with colon)</p>
+<p><strong>Examples:</strong>
+<div class="highlight"><pre><span></span><code>feat<span class="o">(</span>gui<span class="o">)</span>:<span class="w"> </span>add<span class="w"> </span>real-time<span class="w"> </span>detection<span class="w"> </span>preview
+fix<span class="o">(</span>cli<span class="o">)</span>:<span class="w"> </span>correct<span class="w"> </span>path<span class="w"> </span>handling<span class="w"> </span><span class="k">in</span><span class="w"> </span>Windows
+perf<span class="o">(</span>dataloader<span class="o">)</span>:<span class="w"> </span>implement<span class="w"> </span>batch<span class="w"> </span>caching
+docs<span class="o">(</span>api<span class="o">)</span>:<span class="w"> </span>update<span class="w"> </span>training<span class="w"> </span>configuration<span class="w"> </span>reference
+</code></pre></div></p>
+<h3 id="3-pull-request-title-format-critical">3. Pull Request Title Format (CRITICAL)<a class="headerlink" href="#3-pull-request-title-format-critical" title="Permanent link">&para;</a></h3>
+<p><strong>The PR title MUST follow conventional commit format to trigger releases!</strong></p>
+<p><strong>Format</strong>: <code>&lt;type&gt;(&lt;scope&gt;): &lt;description&gt;</code></p>
+<p>✅ <strong>CORRECT</strong> (triggers release):
+<div class="highlight"><pre><span></span><code>feat(gui): add export panel for detection results
+fix(pdf): handle missing hero image gracefully
+perf(training): optimize data loading pipeline
+</code></pre></div></p>
+<p>❌ <strong>INCORRECT</strong> (no release triggered):
+<div class="highlight"><pre><span></span><code>Fix GUI bugs and add new feature
+Update documentation
+Add export functionality
+</code></pre></div></p>
+<p><strong>Release Triggers:</strong>
+- <code>feat:</code> or <code>feat(&lt;scope&gt;):</code> → MINOR version bump (1.2.0 → 1.3.0)
+- <code>fix:</code> or <code>fix(&lt;scope&gt;):</code> → PATCH version bump (1.2.0 → 1.2.1)
+- <code>perf:</code> or <code>perf(&lt;scope&gt;):</code> → PATCH version bump (1.2.0 → 1.2.1)</p>
+<p><strong>No Release (maintenance):</strong>
+- <code>docs:</code> - Documentation changes only
+- <code>refactor:</code> - Code restructuring without behavior changes
+- <code>test:</code> - Test-only changes
+- <code>chore:</code> - Maintenance, dependencies, tooling
+- <code>ci:</code> - CI/CD pipeline changes
+- <code>build:</code> - Build system or Docker changes</p>
+<h3 id="4-code-quality-standards">4. Code Quality Standards<a class="headerlink" href="#4-code-quality-standards" title="Permanent link">&para;</a></h3>
+<p><strong>CLI Commands:</strong>
+- Use <code>typer.secho()</code> with colors for user messages
+- Use <code>logger</code> from <code>crackz.log</code> for operational details
+- Import centralized options from <code>crackz.cli.options</code>
+- Never use <code>print()</code> statements</p>
+<p><strong>Testing:</strong>
+- Add/update unit tests for all behavior changes
+- Maintain minimum 75% test coverage
+- Run tests before committing: <code>uv run task tests</code></p>
+<p><strong>Type Safety:</strong>
+- Add type hints to all public interfaces
+- Run mypy: <code>uv run task mypy</code></p>
+<p>See <a href="../contributing/">Contributing Guide</a> for complete details.</p>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
 <h3 id="initialize-mcp-configuration">Initialize MCP Configuration<a class="headerlink" href="#initialize-mcp-configuration" title="Permanent link">&para;</a></h3>
 <p>Create a default MCP configuration file:</p>
@@ -1935,7 +2044,7 @@ from crackz.log import logger</p>
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.14.0"}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.52.0"}</script>
     
     
       <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>

@@ -96,7 +96,7 @@ table th { background:#f1f5f9; color:#111827; }
   
   <h1>Crackz Documentation</h1>
   <h2>AI Image Analysis</h2>
-  <p class='version'>Version: 0.51.0</p>
+  <p class='version'>Version: 0.52.0</p>
   <p class='company'>© 2025 Anaxiatech AB</p>
 </section>
 <hr class='page-sep'/>
@@ -2984,8 +2984,9 @@ crackz-gui
 - Current epoch and batch progress
 - Elapsed time and estimated time remaining
 - Live validation metrics
-- Hero section highlighting best validation results</p>
-<p>The view updates automatically as training progresses without requiring manual refresh.</p>
+- Hero section highlighting best validation results
+- <strong>Navigate freely</strong>: Switch to other views and return anytime using the progress footer</p>
+<p>The view updates automatically as training progresses without requiring manual refresh. You can navigate to other views during training and easily return by clicking the progress bar, status label, or "View Progress" button in the progress footer.</p>
 <h3 id="training-results">Training Results<a class="headerlink" href="#training-results" title="Permanent link">&para;</a></h3>
 <p>After training completes, view comprehensive results:</p>
 <p><img alt="Training Results" src="../assets/gui/training_results.png" /></p>
@@ -3015,8 +3016,9 @@ crackz-gui
   - Detection rate percentage
 - <strong>Real-time Updates</strong>: Statistics refresh automatically as each image is processed (every 2 seconds)
 - <strong>Progress Tracking</strong>: Shows elapsed time and estimated time remaining
-- <strong>No Flickering</strong>: Optimized to update only changed elements, preventing UI flicker</p>
-<p>The detection run view uses direct callbacks from the detection runner for instant updates, bypassing file polling for better performance.</p>
+- <strong>No Flickering</strong>: Optimized to update only changed elements, preventing UI flicker
+- <strong>Navigate freely</strong>: Switch to other views and return anytime using the progress footer</p>
+<p>The detection run view uses direct callbacks from the detection runner for instant updates, bypassing file polling for better performance. You can navigate to other views during detection and easily return by clicking the progress bar, status label, or "View Progress" button in the progress footer.</p>
 <h3 id="detection-results">Detection Results<a class="headerlink" href="#detection-results" title="Permanent link">&para;</a></h3>
 <p>After detection completes, click <strong>View Summary</strong> to see the full gallery:</p>
 <p><img alt="Detection Results Summary Gallery" src="../assets/gui/detection_results_summary_gallery.png" /></p>
@@ -3155,6 +3157,18 @@ crackz-gui
 - Navigate to other views during operations
 - Cancel operations at any time
 - Queue multiple operations (they run sequentially)</p>
+<h3 id="return-to-run-view">Return to Run View<a class="headerlink" href="#return-to-run-view" title="Permanent link">&para;</a></h3>
+<p>When training or detection is in progress, you can navigate to other views (e.g., browse project files, check settings) without losing access to the live progress updates. The GUI provides multiple ways to return to the active run view:</p>
+<p><strong>Return Methods:</strong>
+- <strong>"View Progress" Button</strong>: A blue button appears in the progress footer between the progress bar and cancel button
+- <strong>Click Progress Bar</strong>: Click anywhere on the progress bar itself (cursor changes to hand pointer)
+- <strong>Click Status Label</strong>: Click the status text showing current operation details</p>
+<p>This feature is particularly useful for:
+- Checking project settings while training runs
+- Reviewing logs during long detection runs
+- Browsing previous results while new detection is in progress
+- Multitasking without losing track of running operations</p>
+<p><strong>Note</strong>: When the operation completes, the progress footer automatically hides and the tracked view is cleared.</p>
 <h3 id="file-watching">File Watching<a class="headerlink" href="#file-watching" title="Permanent link">&para;</a></h3>
 <p>The GUI includes intelligent file watching that automatically refreshes views when files change on disk. This is particularly useful when:
 - Using CLI commands alongside the GUI
@@ -23791,38 +23805,6 @@ crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">expo
 <hr class='page-sep' />
 <section class='print-section' id='mcp' data-source='mcp.md'>
 <h1>MCP Integration</h1>
-<div class="highlight"><pre><span></span><code>### CLI vs Logger Output
-
-In CLI commands, maintain clear separation:
-
-```python
-import typer
-from crackz.log import logger
-
-@app.command()
-def train(project_path: Path) -&gt; None:
-    &quot;&quot;&quot;Train a model.&quot;&quot;&quot;
-    # User-facing messages with typer.secho
-    typer.secho(&quot;🚀 Starting training...&quot;, fg=typer.colors.CYAN)
-
-    # Detailed operational info with logger
-    logger.info(&quot;Loading project from {}&quot;, project_path)
-    logger.info(&quot;Training config: epochs={}, batch_size={}&quot;, epochs, batch_size)
-
-    # Success message to user
-    typer.secho(&quot;✅ Training completed successfully&quot;, fg=typer.colors.GREEN)
-
-    # Technical details to log
-    logger.info(&quot;Final metrics: loss={}, accuracy={}&quot;, loss, acc)
-</code></pre></div>
-<h3 id="benefits">Benefits<a class="headerlink" href="#benefits" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Debugging</strong>: All operations are logged for post-mortem analysis</li>
-<li><strong>Auditing</strong>: Complete history of what operations were performed</li>
-<li><strong>Troubleshooting</strong>: Detailed technical information without cluttering user output</li>
-<li><strong>Multi-project</strong>: Central log shows activity across all projects</li>
-<li><strong>Clean CLI</strong>: User sees only important messages, not technical details</li>
-</ul>
 <h1 id="mcp-model-context-protocol-integration">MCP (Model Context Protocol) Integration<a class="headerlink" href="#mcp-model-context-protocol-integration" title="Permanent link">&para;</a></h1>
 <p>Crackz includes built-in support for the Model Context Protocol (MCP), which enables AI assistants to interact with development tools and services in a standardized way.</p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
@@ -23834,6 +23816,63 @@ def train(project_path: Path) -&gt; None:
 <li>Build and run Docker containers</li>
 </ul>
 <p>The configuration defines what servers are available and what permissions the AI has for each service.</p>
+<h2 id="ai-assistant-development-standards">AI Assistant Development Standards<a class="headerlink" href="#ai-assistant-development-standards" title="Permanent link">&para;</a></h2>
+<p>AI assistants working with Crackz MUST follow these conventions:</p>
+<h3 id="1-branch-naming-convention">1. Branch Naming Convention<a class="headerlink" href="#1-branch-naming-convention" title="Permanent link">&para;</a></h3>
+<p><strong>Format</strong>: <code>&lt;type&gt;/&lt;scope&gt;-&lt;short-slug&gt;</code> (lowercase, hyphenated)</p>
+<p><strong>Examples:</strong>
+<div class="highlight"><pre><span></span><code>feat/gui-live-preview<span class="w">        </span><span class="c1"># New GUI feature</span>
+fix/pdf-rendering-crash<span class="w">      </span><span class="c1"># Bug fix in PDF generation</span>
+perf/dataloader-cache<span class="w">        </span><span class="c1"># Performance improvement</span>
+docs/api-reference-update<span class="w">    </span><span class="c1"># Documentation update</span>
+refactor/config-cleanup<span class="w">      </span><span class="c1"># Code refactoring</span>
+</code></pre></div></p>
+<h3 id="2-commit-message-format">2. Commit Message Format<a class="headerlink" href="#2-commit-message-format" title="Permanent link">&para;</a></h3>
+<p><strong>Format</strong>: <code>&lt;type&gt;(&lt;scope&gt;): &lt;description&gt;</code> (lowercase type with colon)</p>
+<p><strong>Examples:</strong>
+<div class="highlight"><pre><span></span><code>feat<span class="o">(</span>gui<span class="o">)</span>:<span class="w"> </span>add<span class="w"> </span>real-time<span class="w"> </span>detection<span class="w"> </span>preview
+fix<span class="o">(</span>cli<span class="o">)</span>:<span class="w"> </span>correct<span class="w"> </span>path<span class="w"> </span>handling<span class="w"> </span><span class="k">in</span><span class="w"> </span>Windows
+perf<span class="o">(</span>dataloader<span class="o">)</span>:<span class="w"> </span>implement<span class="w"> </span>batch<span class="w"> </span>caching
+docs<span class="o">(</span>api<span class="o">)</span>:<span class="w"> </span>update<span class="w"> </span>training<span class="w"> </span>configuration<span class="w"> </span>reference
+</code></pre></div></p>
+<h3 id="3-pull-request-title-format-critical">3. Pull Request Title Format (CRITICAL)<a class="headerlink" href="#3-pull-request-title-format-critical" title="Permanent link">&para;</a></h3>
+<p><strong>The PR title MUST follow conventional commit format to trigger releases!</strong></p>
+<p><strong>Format</strong>: <code>&lt;type&gt;(&lt;scope&gt;): &lt;description&gt;</code></p>
+<p>✅ <strong>CORRECT</strong> (triggers release):
+<div class="highlight"><pre><span></span><code>feat(gui): add export panel for detection results
+fix(pdf): handle missing hero image gracefully
+perf(training): optimize data loading pipeline
+</code></pre></div></p>
+<p>❌ <strong>INCORRECT</strong> (no release triggered):
+<div class="highlight"><pre><span></span><code>Fix GUI bugs and add new feature
+Update documentation
+Add export functionality
+</code></pre></div></p>
+<p><strong>Release Triggers:</strong>
+- <code>feat:</code> or <code>feat(&lt;scope&gt;):</code> → MINOR version bump (1.2.0 → 1.3.0)
+- <code>fix:</code> or <code>fix(&lt;scope&gt;):</code> → PATCH version bump (1.2.0 → 1.2.1)
+- <code>perf:</code> or <code>perf(&lt;scope&gt;):</code> → PATCH version bump (1.2.0 → 1.2.1)</p>
+<p><strong>No Release (maintenance):</strong>
+- <code>docs:</code> - Documentation changes only
+- <code>refactor:</code> - Code restructuring without behavior changes
+- <code>test:</code> - Test-only changes
+- <code>chore:</code> - Maintenance, dependencies, tooling
+- <code>ci:</code> - CI/CD pipeline changes
+- <code>build:</code> - Build system or Docker changes</p>
+<h3 id="4-code-quality-standards">4. Code Quality Standards<a class="headerlink" href="#4-code-quality-standards" title="Permanent link">&para;</a></h3>
+<p><strong>CLI Commands:</strong>
+- Use <code>typer.secho()</code> with colors for user messages
+- Use <code>logger</code> from <code>crackz.log</code> for operational details
+- Import centralized options from <code>crackz.cli.options</code>
+- Never use <code>print()</code> statements</p>
+<p><strong>Testing:</strong>
+- Add/update unit tests for all behavior changes
+- Maintain minimum 75% test coverage
+- Run tests before committing: <code>uv run task tests</code></p>
+<p><strong>Type Safety:</strong>
+- Add type hints to all public interfaces
+- Run mypy: <code>uv run task mypy</code></p>
+<p>See <a href="../contributing/">Contributing Guide</a> for complete details.</p>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
 <h3 id="initialize-mcp-configuration">Initialize MCP Configuration<a class="headerlink" href="#initialize-mcp-configuration" title="Permanent link">&para;</a></h3>
 <p>Create a default MCP configuration file:</p>
@@ -24317,6 +24356,27 @@ For full context you can also view the repository root files:
 - <a href="https://github.com/Anaxiatech-AB/crackz/blob/main/CHANGELOG.md">CHANGELOG</a>
 - <a href="https://github.com/Anaxiatech-AB/crackz/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></p>
 <hr />
+<h2 id="ai-assistant-integration-standards">AI Assistant Integration &amp; Standards<a class="headerlink" href="#ai-assistant-integration-standards" title="Permanent link">&para;</a></h2>
+<p>Crackz supports AI-assisted development through <a href="../mcp/">Model Context Protocol (MCP)</a>. AI assistants (like Claude Code, GitHub Copilot, etc.) can help with development tasks when they follow our project conventions.</p>
+<p><strong>Key Standards for AI Assistants:</strong>
+1. <strong>Branch Naming</strong>: Must follow <code>&lt;type&gt;/&lt;scope&gt;-&lt;short-slug&gt;</code> format (lowercase, hyphenated)
+2. <strong>Commit Messages</strong>: Must use conventional commit format with lowercase type prefix and colon
+3. <strong>PR Titles</strong>: MUST match conventional commit format to trigger releases
+4. <strong>Code Quality</strong>: Follow CLI output patterns, use centralized options, maintain test coverage</p>
+<p><strong>Example AI-Assisted Workflow:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># AI creates feature branch</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feat/gui-export-panel
+
+<span class="c1"># AI makes changes with proper commit messages</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat(gui): add export panel component&quot;</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat(gui): integrate export panel with main view&quot;</span>
+
+<span class="c1"># When creating PR, AI suggests proper title</span>
+<span class="c1"># ✅ PR Title: &quot;feat(gui): add export panel for detection results&quot;</span>
+<span class="c1"># This triggers a MINOR version release (e.g., 1.2.0 → 1.3.0)</span>
+</code></pre></div></p>
+<p>See <a href="../mcp/">MCP Integration</a> for configuration details.</p>
+<hr />
 <h2 id="ways-to-help">Ways to Help<a class="headerlink" href="#ways-to-help" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Bug reports (include OS, Python version, crackz version, steps to reproduce, expected vs actual)</li>
@@ -24459,10 +24519,64 @@ uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </sp
 <li>Avoid large monolithic pull requests; split by feature slice.</li>
 </ul>
 <hr />
-<h2 id="commit-style">Commit Style<a class="headerlink" href="#commit-style" title="Permanent link">&para;</a></h2>
-<p>Conventional commits are encouraged (not strictly enforced):
-<code>feat:</code>, <code>fix:</code>, <code>docs:</code>, <code>refactor:</code>, <code>perf:</code>, <code>test:</code>, <code>chore:</code> etc.
-Semantic-release reads the history to derive versions.</p>
+<h2 id="commit-style-release-triggers">Commit Style &amp; Release Triggers<a class="headerlink" href="#commit-style-release-triggers" title="Permanent link">&para;</a></h2>
+<p><strong>CRITICAL</strong>: Pull Request titles MUST follow conventional commit format to trigger releases.</p>
+<h3 id="conventional-commit-format">Conventional Commit Format<a class="headerlink" href="#conventional-commit-format" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>&lt;type&gt;(&lt;optional-scope&gt;): &lt;description&gt;
+</code></pre></div>
+<p><strong>Required for releases:</strong>
+- <code>feat:</code> or <code>feat(&lt;scope&gt;):</code> - Triggers MINOR version bump (e.g., 1.2.0 → 1.3.0)
+- <code>fix:</code> or <code>fix(&lt;scope&gt;):</code> - Triggers PATCH version bump (e.g., 1.2.0 → 1.2.1)
+- <code>perf:</code> or <code>perf(&lt;scope&gt;):</code> - Triggers PATCH version bump</p>
+<p><strong>No release triggered (documentation/maintenance):</strong>
+- <code>docs:</code> - Documentation only changes
+- <code>refactor:</code> - Internal code restructuring
+- <code>test:</code> - Test-only changes
+- <code>chore:</code> - Maintenance tasks, dependency updates
+- <code>ci:</code> - CI/CD workflow changes
+- <code>build:</code> - Build system or packaging changes
+- <code>style:</code> - Code formatting (no logic changes)</p>
+<h3 id="pr-title-format-rules">PR Title Format Rules<a class="headerlink" href="#pr-title-format-rules" title="Permanent link">&para;</a></h3>
+<p>When merging Pull Requests, the <strong>merge commit title</strong> determines if a release is triggered:</p>
+<p>✅ <strong>CORRECT</strong> (triggers release):
+<div class="highlight"><pre><span></span><code>feat(gui): add return-to-run-view functionality
+fix(pdf): correct missing hero image
+perf(dataloader): optimize batch processing
+</code></pre></div></p>
+<p>❌ <strong>INCORRECT</strong> (no release):
+<div class="highlight"><pre><span></span><code>Fix GUI image display and add return-to-run-view functionality
+Add new feature to handle user authentication
+Update documentation for new feature
+</code></pre></div></p>
+<p><strong>Key Requirements:</strong>
+1. Type prefix MUST be lowercase (<code>feat:</code>, <code>fix:</code>, not <code>Feat:</code>, <code>Fix:</code>)
+2. Type prefix MUST end with colon (<code>:</code>)
+3. Scope is optional but recommended for clarity: <code>feat(gui):</code>, <code>fix(cli):</code>
+4. Description should be concise and imperative mood</p>
+<p>Semantic-release analyzes the merge commit title to determine version bumps and generate changelogs.</p>
+<h3 id="automated-validation-pre-commit-hook">Automated Validation (Pre-Commit Hook)<a class="headerlink" href="#automated-validation-pre-commit-hook" title="Permanent link">&para;</a></h3>
+<p>A pre-commit hook automatically validates commit messages to ensure they follow the conventional commit format:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install pre-commit hooks (one-time setup)</span>
+pip<span class="w"> </span>install<span class="w"> </span>pre-commit<span class="w">  </span><span class="c1"># or: uv tool install pre-commit</span>
+pre-commit<span class="w"> </span>install
+pre-commit<span class="w"> </span>install<span class="w"> </span>--hook-type<span class="w"> </span>commit-msg
+</code></pre></div>
+<p>Once installed, the hook will:
+- <strong>Validate commit message format</strong> before each commit
+- <strong>Reject invalid formats</strong> with helpful error messages showing correct examples
+- <strong>Allow valid formats</strong> (feat:, fix:, docs:, etc.) to proceed</p>
+<p><strong>Testing the validator manually:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Test with a valid message</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;feat(gui): add export panel&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>temp_msg.txt
+python<span class="w"> </span>scripts/validate_commit_msg.py<span class="w"> </span>temp_msg.txt
+
+<span class="c1"># Test with an invalid message</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Fix bug&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>temp_msg.txt
+python<span class="w"> </span>scripts/validate_commit_msg.py<span class="w"> </span>temp_msg.txt
+</code></pre></div></p>
+<p><strong>Bypassing the hook</strong> (not recommended):
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>commit<span class="w"> </span>--no-verify<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;your message&quot;</span>
+</code></pre></div></p>
 <hr />
 <h2 id="pull-request-checklist">Pull Request Checklist<a class="headerlink" href="#pull-request-checklist" title="Permanent link">&para;</a></h2>
 <ul>
@@ -24509,6 +24623,17 @@ PDF export (uses <code>scripts/export_pdf.py</code>):
 <hr />
 <h2 id="branching-workflow">Branching &amp; Workflow<a class="headerlink" href="#branching-workflow" title="Permanent link">&para;</a></h2>
 <p>A lightweight trunk‑based model is used: all releasable work lands in <code>main</code>; feature branches are short‑lived.</p>
+<h3 id="quick-reference">Quick Reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h3>
+<p><strong>Branch Format</strong>: <code>&lt;type&gt;/&lt;scope&gt;-&lt;short-slug&gt;</code> (lowercase, hyphenated)</p>
+<p><strong>Common Patterns:</strong>
+- New feature: <code>feat/gui-live-preview</code>
+- Bug fix: <code>fix/pdf-rendering-crash</code>
+- Performance: <code>perf/dataloader-optimization</code>
+- Documentation: <code>docs/api-reference-update</code>
+- Refactoring: <code>refactor/config-module-cleanup</code></p>
+<p><strong>IMPORTANT</strong>: When merging, ensure PR title matches conventional commit format:
+- Branch: <code>feat/gui-live-preview</code> → PR Title: <code>feat(gui): add live preview panel</code>
+- Branch: <code>fix/pdf-crash</code> → PR Title: <code>fix(pdf): handle null hero image</code></p>
 <h3 id="core-branch">Core Branch<a class="headerlink" href="#core-branch" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>main</code>: always green &amp; releasable. Protected (recommend: squash merges, required checks).</li>
@@ -24561,11 +24686,28 @@ Semantic release interpretation (default):
 - <code>fix</code> → PATCH bump
 - <code>!</code> or <code>BREAKING CHANGE:</code> footer → MAJOR bump</p>
 <h3 id="pull-request-guidelines">Pull Request Guidelines<a class="headerlink" href="#pull-request-guidelines" title="Permanent link">&para;</a></h3>
+<p><strong>CRITICAL</strong>: PR title format determines if a release is triggered!</p>
 <ul>
-<li>Single focused change; squash merge → one clean conventional commit.</li>
-<li>Keep PR title aligned with final commit message.</li>
-<li>Update docs/tests for user‑facing changes.</li>
+<li><strong>Title Format</strong>: MUST follow conventional commit format (see "Commit Style &amp; Release Triggers" section above)</li>
+<li>✅ <code>feat(gui): add live preview</code> (triggers MINOR release)</li>
+<li>✅ <code>fix(cli): correct path handling</code> (triggers PATCH release)</li>
+<li>✅ <code>docs: update installation guide</code> (no release)</li>
+<li>❌ <code>Fix GUI bugs</code> (no release - wrong format)</li>
+<li>
+<p>❌ <code>Add new feature</code> (no release - wrong format)</p>
+</li>
+<li>
+<p><strong>Merge Strategy</strong>: Squash merge → one clean conventional commit</p>
+</li>
+<li><strong>Single Focus</strong>: One feature/fix per PR for clear changelog entries</li>
+<li><strong>Documentation</strong>: Update docs for user-facing changes</li>
+<li><strong>Tests</strong>: Add/update tests for behavior changes</li>
 </ul>
+<p><strong>Before Merging:</strong>
+1. Verify PR title follows <code>&lt;type&gt;(&lt;scope&gt;): &lt;description&gt;</code> format
+2. Ensure type is lowercase with colon: <code>feat:</code>, <code>fix:</code>, <code>docs:</code>
+3. Confirm tests pass and code is reviewed
+4. Check if release should be triggered (feat/fix/perf) or not (docs/chore/refactor)</p>
 <h3 id="dev-prerelease-builds">Dev / Pre‑Release Builds<a class="headerlink" href="#dev-prerelease-builds" title="Permanent link">&para;</a></h3>
 <p>Manual workflow (<code>Dev Build</code>) creates ephemeral pre‑release artifacts:
 - Version pattern: <code>&lt;base&gt;.devYYYYMMDD+&lt;shortsha&gt;</code>

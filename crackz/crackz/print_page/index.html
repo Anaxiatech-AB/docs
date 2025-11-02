@@ -100,7 +100,7 @@ table th { background:#f1f5f9; color:#111827; }
   <p class='company'>© 2025 Anaxiatech AB</p>
 </section>
 <hr class='page-sep'/>
-<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#getting-started'>Getting Started</a></li><li><a href='#installation'>Installation</a></li><li><a href='#user-guide'>User Guide</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#gui'>GUI</a></li><li><a href='#configuration'>Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-comparison'>VM vs Batch Comparison</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#api'>API Reference</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access Management</a></li><li><a href='#pdf'>Printable PDF</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
+<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#getting-started'>Getting Started</a></li><li><a href='#installation'>Installation</a></li><li><a href='#user-guide'>User Guide</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#gui'>GUI</a></li><li><a href='#configuration'>Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-comparison'>VM vs Batch Comparison</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#api'>API Reference</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access Management</a></li><li><a href='#pdf'>Printable PDF</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
 <h1>Home</h1>
 <h1 id="crackz">Crackz<a class="headerlink" href="#crackz" title="Permanent link">&para;</a></h1>
 <p>
@@ -24382,6 +24382,7 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <li>Bug reports (include OS, Python version, crackz version, steps to reproduce, expected vs actual)</li>
 <li>Feature requests (describe the workflow / problem first, not only the solution idea)</li>
 <li>Pull requests (small &amp; focused; draft early to get feedback)</li>
+<li><strong>Pull request reviews</strong> (see <a href="../pr-review-workflow/">PR Review Workflow</a> for detailed guide)</li>
 <li>Documentation improvements (typos, clarifications, examples)</li>
 <li>Performance / profiling suggestions</li>
 </ul>
@@ -25014,6 +25015,347 @@ On commit, hooks will:
 <li><strong>❌ Don't ignore type hints</strong> - Add them to public interfaces</li>
 <li><strong>❌ Don't modify project YAML directly</strong> - Use CLI commands or proper config methods</li>
 </ol>
+</section>
+<hr class='page-sep' />
+<section class='print-section' id='pr-review-workflow' data-source='pr-review-workflow.md'>
+<h1>PR Review Workflow</h1>
+<h1 id="pull-request-review-workflow-with-claude-code">Pull Request Review Workflow with Claude Code<a class="headerlink" href="#pull-request-review-workflow-with-claude-code" title="Permanent link">&para;</a></h1>
+<p>This guide shows how to use Claude Code with GitHub CLI to review pull requests efficiently.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li>GitHub CLI (<code>gh</code>) installed and authenticated</li>
+<li>Claude Code CLI tool running</li>
+<li>Repository cloned locally</li>
+</ul>
+<h2 id="quick-reference-commands">Quick Reference Commands<a class="headerlink" href="#quick-reference-commands" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># List open PRs</span>
+gh<span class="w"> </span>pr<span class="w"> </span>list
+
+<span class="c1"># View PR details</span>
+gh<span class="w"> </span>pr<span class="w"> </span>view<span class="w"> </span>&lt;number&gt;
+
+<span class="c1"># View PR diff</span>
+gh<span class="w"> </span>pr<span class="w"> </span>diff<span class="w"> </span>&lt;number&gt;
+
+<span class="c1"># Check CI status</span>
+gh<span class="w"> </span>pr<span class="w"> </span>checks<span class="w"> </span>&lt;number&gt;
+
+<span class="c1"># Review PR</span>
+gh<span class="w"> </span>pr<span class="w"> </span>review<span class="w"> </span>&lt;number&gt;<span class="w"> </span>--approve
+gh<span class="w"> </span>pr<span class="w"> </span>review<span class="w"> </span>&lt;number&gt;<span class="w"> </span>--comment<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;your comment&quot;</span>
+gh<span class="w"> </span>pr<span class="w"> </span>review<span class="w"> </span>&lt;number&gt;<span class="w"> </span>--request-changes<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;needs changes&quot;</span>
+</code></pre></div>
+<h2 id="step-by-step-pr-review-workflow">Step-by-Step PR Review Workflow<a class="headerlink" href="#step-by-step-pr-review-workflow" title="Permanent link">&para;</a></h2>
+<h3 id="1-list-available-prs">1. List Available PRs<a class="headerlink" href="#1-list-available-prs" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># List all open PRs</span>
+gh<span class="w"> </span>pr<span class="w"> </span>list
+
+<span class="c1"># List PRs with specific labels</span>
+gh<span class="w"> </span>pr<span class="w"> </span>list<span class="w"> </span>--label<span class="w"> </span><span class="s2">&quot;ready-for-review&quot;</span>
+
+<span class="c1"># List your own PRs</span>
+gh<span class="w"> </span>pr<span class="w"> </span>list<span class="w"> </span>--author<span class="w"> </span>@me
+</code></pre></div>
+<h3 id="2-view-pr-details">2. View PR Details<a class="headerlink" href="#2-view-pr-details" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># View PR summary</span>
+gh<span class="w"> </span>pr<span class="w"> </span>view<span class="w"> </span><span class="m">254</span>
+
+<span class="c1"># View PR with comments</span>
+gh<span class="w"> </span>pr<span class="w"> </span>view<span class="w"> </span><span class="m">254</span><span class="w"> </span>--comments
+
+<span class="c1"># Open PR in browser</span>
+gh<span class="w"> </span>pr<span class="w"> </span>view<span class="w"> </span><span class="m">254</span><span class="w"> </span>--web
+</code></pre></div>
+<p><strong>Example Output:</strong>
+<div class="highlight"><pre><span></span><code>fix(docs): resolve build failures and clarify release standards #254
+Open • theresiasnow wants to merge 4 commits into main from fix/docs-build-and-standards
+
+  This PR fixes critical documentation build failures...
+
+  View this pull request on GitHub: https://github.com/owner/repo/pull/254
+</code></pre></div></p>
+<h3 id="3-review-pr-changes">3. Review PR Changes<a class="headerlink" href="#3-review-pr-changes" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># View full diff</span>
+gh<span class="w"> </span>pr<span class="w"> </span>diff<span class="w"> </span><span class="m">254</span>
+
+<span class="c1"># View only changed filenames</span>
+gh<span class="w"> </span>pr<span class="w"> </span>diff<span class="w"> </span><span class="m">254</span><span class="w"> </span>--name-only
+
+<span class="c1"># View diff in browser</span>
+gh<span class="w"> </span>pr<span class="w"> </span>diff<span class="w"> </span><span class="m">254</span><span class="w"> </span>--web
+</code></pre></div>
+<h3 id="4-check-ci-status">4. Check CI Status<a class="headerlink" href="#4-check-ci-status" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># View all checks</span>
+gh<span class="w"> </span>pr<span class="w"> </span>checks<span class="w"> </span><span class="m">254</span>
+
+<span class="c1"># View only required checks</span>
+gh<span class="w"> </span>pr<span class="w"> </span>checks<span class="w"> </span><span class="m">254</span><span class="w"> </span>--required
+
+<span class="c1"># Watch checks until completion</span>
+gh<span class="w"> </span>pr<span class="w"> </span>checks<span class="w"> </span><span class="m">254</span><span class="w"> </span>--watch
+
+<span class="c1"># Open checks in browser</span>
+gh<span class="w"> </span>pr<span class="w"> </span>checks<span class="w"> </span><span class="m">254</span><span class="w"> </span>--web
+</code></pre></div>
+<p><strong>Example Output:</strong>
+<div class="highlight"><pre><span></span><code>✓ Build and Test (ubuntu-latest) — pass
+✓ Build and Test (windows-latest) — pass
+✓ Integration Tests — pass
+✓ Lint and Format — pass
+</code></pre></div></p>
+<h3 id="5-checkout-pr-locally-for-detailed-review">5. Checkout PR Locally for Detailed Review<a class="headerlink" href="#5-checkout-pr-locally-for-detailed-review" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Checkout PR to review code locally</span>
+gh<span class="w"> </span>pr<span class="w"> </span>checkout<span class="w"> </span><span class="m">254</span>
+
+<span class="c1"># This creates/switches to the PR branch</span>
+<span class="c1"># Now you can:</span>
+<span class="c1"># - Run tests: uv run task tests</span>
+<span class="c1"># - Run linting: uv run task lint</span>
+<span class="c1"># - Build docs: uv run task build_docs</span>
+<span class="c1"># - Run the code locally</span>
+</code></pre></div>
+<h3 id="6-review-pr-files-with-claude-code">6. Review PR Files with Claude Code<a class="headerlink" href="#6-review-pr-files-with-claude-code" title="Permanent link">&para;</a></h3>
+<p>Once you've checked out the PR, you can ask Claude Code to review specific aspects:</p>
+<p><strong>Review code quality:</strong>
+<div class="highlight"><pre><span></span><code>Review the changes in scripts/validate_commit_msg.py for:
+- Code quality and readability
+- Error handling
+- Edge cases
+- Documentation completeness
+</code></pre></div></p>
+<p><strong>Review documentation:</strong>
+<div class="highlight"><pre><span></span><code>Review the changes in docs/contributing.md for:
+- Clarity and completeness
+- Correct formatting
+- Broken links
+- Consistency with existing docs
+</code></pre></div></p>
+<p><strong>Review tests:</strong>
+<div class="highlight"><pre><span></span><code>Check if the changes need additional tests and identify any edge cases not covered.
+</code></pre></div></p>
+<h3 id="7-submit-your-review">7. Submit Your Review<a class="headerlink" href="#7-submit-your-review" title="Permanent link">&para;</a></h3>
+<p><strong>Approve PR:</strong>
+<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>pr<span class="w"> </span>review<span class="w"> </span><span class="m">254</span><span class="w"> </span>--approve<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;LGTM! Code quality looks good, tests pass.&quot;</span>
+</code></pre></div></p>
+<p><strong>Comment on PR:</strong>
+<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>pr<span class="w"> </span>review<span class="w"> </span><span class="m">254</span><span class="w"> </span>--comment<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;Good work! Minor suggestion: consider adding error handling for X.&quot;</span>
+</code></pre></div></p>
+<p><strong>Request Changes:</strong>
+<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>pr<span class="w"> </span>review<span class="w"> </span><span class="m">254</span><span class="w"> </span>--request-changes<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;Please address the linting issues in validate_commit_msg.py before merging.&quot;</span>
+</code></pre></div></p>
+<p><strong>Review with multi-line comment:</strong>
+<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>pr<span class="w"> </span>review<span class="w"> </span><span class="m">254</span><span class="w"> </span>--approve<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">Great PR! Here&#39;s my review:</span>
+
+<span class="s">✅ Code quality: Excellent</span>
+<span class="s">✅ Tests: All passing</span>
+<span class="s">✅ Documentation: Clear and complete</span>
+<span class="s">✅ Linting: All checks pass</span>
+
+<span class="s">Minor suggestions:</span>
+<span class="s">- Consider adding a note about pre-commit hook in README</span>
+<span class="s">- The error messages are very helpful</span>
+
+<span class="s">Approved for merge.</span>
+<span class="s">EOF</span>
+<span class="k">)</span><span class="s2">&quot;</span>
+</code></pre></div></p>
+<h3 id="8-return-to-main-branch">8. Return to Main Branch<a class="headerlink" href="#8-return-to-main-branch" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># After review, switch back to main</span>
+git<span class="w"> </span>checkout<span class="w"> </span>main
+</code></pre></div>
+<h2 id="advanced-workflows">Advanced Workflows<a class="headerlink" href="#advanced-workflows" title="Permanent link">&para;</a></h2>
+<h3 id="review-multiple-prs-efficiently">Review Multiple PRs Efficiently<a class="headerlink" href="#review-multiple-prs-efficiently" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># List all PRs and store numbers</span>
+gh<span class="w"> </span>pr<span class="w"> </span>list
+
+<span class="c1"># Review each PR in sequence</span>
+<span class="k">for</span><span class="w"> </span>pr<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">254</span><span class="w"> </span><span class="m">255</span><span class="w"> </span><span class="m">256</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Reviewing PR #</span><span class="nv">$pr</span><span class="s2">&quot;</span>
+<span class="w">    </span>gh<span class="w"> </span>pr<span class="w"> </span>view<span class="w"> </span><span class="nv">$pr</span>
+<span class="w">    </span>gh<span class="w"> </span>pr<span class="w"> </span>diff<span class="w"> </span><span class="nv">$pr</span><span class="w"> </span>--name-only
+<span class="w">    </span>gh<span class="w"> </span>pr<span class="w"> </span>checks<span class="w"> </span><span class="nv">$pr</span>
+<span class="w">    </span><span class="c1"># Ask Claude Code to review changes</span>
+<span class="k">done</span>
+</code></pre></div>
+<h3 id="review-with-json-output-for-automation">Review with JSON Output for Automation<a class="headerlink" href="#review-with-json-output-for-automation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get PR data as JSON</span>
+gh<span class="w"> </span>pr<span class="w"> </span>view<span class="w"> </span><span class="m">254</span><span class="w"> </span>--json<span class="w"> </span>title,body,author,createdAt,additions,deletions,files
+
+<span class="c1"># Get check status as JSON</span>
+gh<span class="w"> </span>pr<span class="w"> </span>checks<span class="w"> </span><span class="m">254</span><span class="w"> </span>--json<span class="w"> </span>name,state,completedAt
+</code></pre></div>
+<h3 id="watch-pr-checks-in-real-time">Watch PR Checks in Real-Time<a class="headerlink" href="#watch-pr-checks-in-real-time" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Continuously monitor checks until completion</span>
+gh<span class="w"> </span>pr<span class="w"> </span>checks<span class="w"> </span><span class="m">254</span><span class="w"> </span>--watch<span class="w"> </span>--interval<span class="w"> </span><span class="m">30</span>
+
+<span class="c1"># This will update every 30 seconds until all checks complete</span>
+</code></pre></div>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="1-always-check-ci-before-reviewing">1. <strong>Always Check CI Before Reviewing</strong><a class="headerlink" href="#1-always-check-ci-before-reviewing" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Wait for checks to complete before reviewing</span>
+gh<span class="w"> </span>pr<span class="w"> </span>checks<span class="w"> </span><span class="m">254</span><span class="w"> </span>--watch
+</code></pre></div>
+<h3 id="2-review-locally-for-complex-changes">2. <strong>Review Locally for Complex Changes</strong><a class="headerlink" href="#2-review-locally-for-complex-changes" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># For complex PRs, checkout and test locally</span>
+gh<span class="w"> </span>pr<span class="w"> </span>checkout<span class="w"> </span><span class="m">254</span>
+uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>lint
+uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>tests
+uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>build_docs
+</code></pre></div>
+<h3 id="3-use-claude-code-for-deep-review">3. <strong>Use Claude Code for Deep Review</strong><a class="headerlink" href="#3-use-claude-code-for-deep-review" title="Permanent link">&para;</a></h3>
+<p>After checking out the PR, ask Claude Code to:
+- Analyze code quality and patterns
+- Identify potential bugs or edge cases
+- Suggest improvements
+- Check test coverage
+- Review documentation completeness</p>
+<h3 id="4-provide-constructive-feedback">4. <strong>Provide Constructive Feedback</strong><a class="headerlink" href="#4-provide-constructive-feedback" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Instead of just &quot;needs work&quot;</span>
+gh<span class="w"> </span>pr<span class="w"> </span>review<span class="w"> </span><span class="m">254</span><span class="w"> </span>--request-changes<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">Thanks for the PR! A few items to address:</span>
+
+<span class="s">1. Linting: Please run `uv run task lint` to fix PLR2004 error</span>
+<span class="s">2. Tests: Add test case for empty commit message</span>
+<span class="s">3. Docs: Update contributing.md with hook installation steps</span>
+
+<span class="s">Otherwise looks great!</span>
+<span class="s">EOF</span>
+<span class="k">)</span><span class="s2">&quot;</span>
+</code></pre></div>
+<h3 id="5-verify-release-triggers">5. <strong>Verify Release Triggers</strong><a class="headerlink" href="#5-verify-release-triggers" title="Permanent link">&para;</a></h3>
+<p>For Crackz specifically, always check:
+<div class="highlight"><pre><span></span><code><span class="c1"># Check PR title format</span>
+gh<span class="w"> </span>pr<span class="w"> </span>view<span class="w"> </span><span class="m">254</span><span class="w"> </span>--json<span class="w"> </span>title
+
+<span class="c1"># Should match: &lt;type&gt;(&lt;scope&gt;): &lt;description&gt;</span>
+<span class="c1"># Examples:</span>
+<span class="c1"># ✅ feat(gui): add export panel</span>
+<span class="c1"># ✅ fix(docs): resolve build failures</span>
+<span class="c1"># ❌ Fix bugs</span>
+</code></pre></div></p>
+<h2 id="common-review-scenarios">Common Review Scenarios<a class="headerlink" href="#common-review-scenarios" title="Permanent link">&para;</a></h2>
+<h3 id="reviewing-a-bug-fix">Reviewing a Bug Fix<a class="headerlink" href="#reviewing-a-bug-fix" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. View the PR</span>
+gh<span class="w"> </span>pr<span class="w"> </span>view<span class="w"> </span>&lt;number&gt;
+
+<span class="c1"># 2. Check what files changed</span>
+gh<span class="w"> </span>pr<span class="w"> </span>diff<span class="w"> </span>&lt;number&gt;<span class="w"> </span>--name-only
+
+<span class="c1"># 3. View the actual changes</span>
+gh<span class="w"> </span>pr<span class="w"> </span>diff<span class="w"> </span>&lt;number&gt;
+
+<span class="c1"># 4. Checkout and test the fix</span>
+gh<span class="w"> </span>pr<span class="w"> </span>checkout<span class="w"> </span>&lt;number&gt;
+<span class="c1"># Test the fix...</span>
+
+<span class="c1"># 5. Run all pre-commit checks (lint, format, mypy, tests)</span>
+uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>pre_commit
+
+<span class="c1"># 6. Approve if all looks good</span>
+gh<span class="w"> </span>pr<span class="w"> </span>review<span class="w"> </span>&lt;number&gt;<span class="w"> </span>--approve<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;Bug fix verified, all pre-commit checks pass.&quot;</span>
+</code></pre></div>
+<h3 id="reviewing-new-documentation">Reviewing New Documentation<a class="headerlink" href="#reviewing-new-documentation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. View the PR</span>
+gh<span class="w"> </span>pr<span class="w"> </span>view<span class="w"> </span>&lt;number&gt;
+
+<span class="c1"># 2. Checkout the branch</span>
+gh<span class="w"> </span>pr<span class="w"> </span>checkout<span class="w"> </span>&lt;number&gt;
+
+<span class="c1"># 3. Build docs to check for errors</span>
+uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>build_docs
+
+<span class="c1"># 4. Review locally with live server</span>
+uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>docs
+<span class="c1"># Opens at http://127.0.0.1:8000</span>
+
+<span class="c1"># 5. Ask Claude Code to review</span>
+<span class="s2">&quot;Review the documentation changes for clarity, completeness, and broken links&quot;</span>
+
+<span class="c1"># 6. Approve or request changes</span>
+gh<span class="w"> </span>pr<span class="w"> </span>review<span class="w"> </span>&lt;number&gt;<span class="w"> </span>--approve
+</code></pre></div>
+<h3 id="reviewing-new-features">Reviewing New Features<a class="headerlink" href="#reviewing-new-features" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. View PR and check size</span>
+gh<span class="w"> </span>pr<span class="w"> </span>view<span class="w"> </span>&lt;number&gt;<span class="w"> </span>--json<span class="w"> </span>additions,deletions,files
+
+<span class="c1"># 2. Check CI status</span>
+gh<span class="w"> </span>pr<span class="w"> </span>checks<span class="w"> </span>&lt;number&gt;
+
+<span class="c1"># 3. Checkout locally</span>
+gh<span class="w"> </span>pr<span class="w"> </span>checkout<span class="w"> </span>&lt;number&gt;
+
+<span class="c1"># 4. Run full test suite</span>
+uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>all_tests
+
+<span class="c1"># 5. Test the feature manually</span>
+<span class="c1"># ... manual testing ...</span>
+
+<span class="c1"># 6. Ask Claude Code for code review</span>
+<span class="s2">&quot;Review this feature for:</span>
+<span class="s2">- Code quality and maintainability</span>
+<span class="s2">- Test coverage</span>
+<span class="s2">- Documentation completeness</span>
+<span class="s2">- Potential edge cases&quot;</span>
+
+<span class="c1"># 7. Provide detailed review</span>
+gh<span class="w"> </span>pr<span class="w"> </span>review<span class="w"> </span>&lt;number&gt;<span class="w"> </span>--approve<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;Feature works well, tests comprehensive.&quot;</span>
+</code></pre></div>
+<h2 id="integration-with-cicd">Integration with CI/CD<a class="headerlink" href="#integration-with-cicd" title="Permanent link">&para;</a></h2>
+<p>The PR review workflow integrates with Crackz's CI/CD:</p>
+<ol>
+<li><strong>Build Checks</strong>: Ensure code builds on all platforms</li>
+<li><strong>Test Checks</strong>: Verify unit and integration tests pass</li>
+<li><strong>Lint Checks</strong>: Confirm code style compliance</li>
+<li><strong>Release Trigger</strong>: PR title determines if release is triggered</li>
+</ol>
+<h3 id="release-workflow-behavior">Release Workflow Behavior<a class="headerlink" href="#release-workflow-behavior" title="Permanent link">&para;</a></h3>
+<p>When a PR is merged to main, the release workflow runs and provides clear feedback:</p>
+<p><strong>✅ Release Created</strong> (feat/fix/perf commits):
+<div class="highlight"><pre><span></span><code>✅ Release workflow completed successfully
+🎉 New release published: v0.52.1
+📦 Artifacts built and uploaded
+📝 CHANGELOG updated
+🏷️ Git tag created
+</code></pre></div></p>
+<p><strong>ℹ️ No Release Created</strong> (docs/chore/refactor commits):
+<div class="highlight"><pre><span></span><code>ℹ️ Release workflow completed - No release created
+🔍 Reason: No conventional commits found that trigger releases
+✅ This is expected behavior for documentation and maintenance commits
+</code></pre></div></p>
+<p>The workflow always completes successfully - it never fails just because no release was triggered.</p>
+<p>Always verify:
+- ✅ All checks pass before approving
+- ✅ PR title follows conventional commit format
+- ✅ Documentation updated for user-facing changes
+- ✅ Tests added for new functionality</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="github-cli-not-authenticated">GitHub CLI Not Authenticated<a class="headerlink" href="#github-cli-not-authenticated" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>auth<span class="w"> </span>login
+</code></pre></div>
+<h3 id="cant-find-pr">Can't Find PR<a class="headerlink" href="#cant-find-pr" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Make sure you&#39;re in the right repository</span>
+gh<span class="w"> </span>repo<span class="w"> </span>view
+
+<span class="c1"># Or specify repository explicitly</span>
+gh<span class="w"> </span>pr<span class="w"> </span>view<span class="w"> </span><span class="m">254</span><span class="w"> </span>-R<span class="w"> </span>Anaxiatech-AB/crackz
+</code></pre></div>
+<h3 id="pr-checkout-conflicts">PR Checkout Conflicts<a class="headerlink" href="#pr-checkout-conflicts" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Stash local changes first</span>
+git<span class="w"> </span>stash
+
+<span class="c1"># Then checkout PR</span>
+gh<span class="w"> </span>pr<span class="w"> </span>checkout<span class="w"> </span>&lt;number&gt;
+
+<span class="c1"># Restore changes later</span>
+git<span class="w"> </span>stash<span class="w"> </span>pop
+</code></pre></div>
+<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../contributing/">Contributing Guide</a> - Full contribution guidelines</li>
+<li><a href="../mcp/">MCP Integration</a> - AI assistant standards</li>
+<li><a href="https://cli.github.com/manual">GitHub CLI Manual</a> - Complete gh reference</li>
+</ul>
 </section>
 <hr class='page-sep' />
 <section class='print-section' id='distribution' data-source='distribution.md'>

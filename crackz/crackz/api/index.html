@@ -2139,6 +2139,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#crackz.ai.device.AIDevice.test_device" class="md-nav__link">
+    <span class="md-ellipsis">
+      test_device
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4364,6 +4373,15 @@
   <a href="#crackz.ai.device.AIDevice.default" class="md-nav__link">
     <span class="md-ellipsis">
       default
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crackz.ai.device.AIDevice.test_device" class="md-nav__link">
+    <span class="md-ellipsis">
+      test_device
     </span>
   </a>
   
@@ -16640,42 +16658,143 @@ and device-specific operations.</p>
 
               <details class="quote">
                 <summary>Source code in <code>src/crackz/ai/device/device.py</code></summary>
-                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AIDevice</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AIDevice</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Available AI devices.&quot;&quot;&quot;</span>
 
     <span class="n">CPU</span> <span class="o">=</span> <span class="s2">&quot;cpu&quot;</span>
@@ -16711,6 +16830,107 @@ and device-specific operations.</p>
             <span class="k">if</span> <span class="n">dev</span> <span class="ow">in</span> <span class="n">AIDevice</span><span class="o">.</span><span class="n">available_devices</span><span class="p">():</span>
                 <span class="k">return</span> <span class="n">dev</span>
         <span class="k">return</span> <span class="n">AIDevice</span><span class="o">.</span><span class="n">CPU</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_device</span><span class="p">(</span><span class="n">device_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># noqa: PLR0911</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test if a device is available and working.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            device_name: Device name to test (&#39;cpu&#39;, &#39;cuda&#39;, &#39;mps&#39;, etc.)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Tuple of (success, message, details_dict) where:</span>
+<span class="sd">            - success: True if device works</span>
+<span class="sd">            - message: Human-readable result message</span>
+<span class="sd">            - details_dict: Additional device information</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">details</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Create a test tensor on the device</span>
+            <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">device_name</span><span class="p">)</span>
+
+            <span class="c1"># Use larger tensor size for GPU devices to better detect issues</span>
+            <span class="c1"># 1000x1000 = ~4MB, representative of actual model workloads</span>
+            <span class="c1"># but still fast enough for a UI test</span>
+            <span class="n">tensor_size</span> <span class="o">=</span> <span class="mi">1000</span> <span class="k">if</span> <span class="n">device_name</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="s2">&quot;mps&quot;</span><span class="p">}</span> <span class="k">else</span> <span class="mi">100</span>
+            <span class="n">test_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">tensor_size</span><span class="p">,</span> <span class="n">tensor_size</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+
+            <span class="c1"># Perform matrix multiplication to verify device works</span>
+            <span class="c1"># This will properly initialize GPU and test computation</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">test_tensor</span><span class="p">,</span> <span class="n">test_tensor</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>  <span class="c1"># Force computation and transfer to CPU</span>
+
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">error_msg</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s2">&quot;out of memory&quot;</span> <span class="ow">in</span> <span class="n">error_msg</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                <span class="k">return</span> <span class="p">(</span>
+                    <span class="kc">False</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;❌ Device &#39;</span><span class="si">{</span><span class="n">device_name</span><span class="si">}</span><span class="s2">&#39; out of memory</span><span class="se">\n\n</span><span class="s2">Try closing other applications.&quot;</span><span class="p">,</span>
+                    <span class="n">details</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="s2">&quot;not available&quot;</span> <span class="ow">in</span> <span class="n">error_msg</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">or</span> <span class="s2">&quot;not found&quot;</span> <span class="ow">in</span> <span class="n">error_msg</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                <span class="k">return</span> <span class="p">(</span>
+                    <span class="kc">False</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;❌ Device &#39;</span><span class="si">{</span><span class="n">device_name</span><span class="si">}</span><span class="s2">&#39; is not available</span><span class="se">\n\n</span><span class="si">{</span><span class="n">error_msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">details</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;❌ Device test failed</span><span class="se">\n\n</span><span class="si">{</span><span class="n">error_msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">details</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Device test failed unexpectedly&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;❌ Unexpected error testing device</span><span class="se">\n\n</span><span class="si">{</span><span class="n">e</span><span class="si">!s}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">details</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Get device-specific details and build success message</span>
+            <span class="k">if</span> <span class="n">device_name</span> <span class="o">==</span> <span class="s2">&quot;cuda&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+                    <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;❌ CUDA not available on this system&quot;</span><span class="p">,</span> <span class="n">details</span>
+
+                <span class="n">details</span><span class="p">[</span><span class="s2">&quot;cuda_version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">cuda</span>
+                <span class="n">details</span><span class="p">[</span><span class="s2">&quot;device_count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">())</span>
+                <span class="n">details</span><span class="p">[</span><span class="s2">&quot;device_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">get_device_name</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">details</span><span class="p">[</span><span class="s2">&quot;device_capability&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">get_device_capability</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+                <span class="p">)</span>
+                <span class="n">memory_allocated</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">memory_allocated</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">2</span>
+                <span class="n">memory_reserved</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">memory_reserved</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">2</span>
+                <span class="n">memory_total</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">get_device_properties</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">total_memory</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">2</span>
+                <span class="n">details</span><span class="p">[</span><span class="s2">&quot;memory_allocated&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">memory_allocated</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> MB&quot;</span>
+                <span class="n">details</span><span class="p">[</span><span class="s2">&quot;memory_reserved&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">memory_reserved</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> MB&quot;</span>
+                <span class="n">details</span><span class="p">[</span><span class="s2">&quot;memory_total&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">memory_total</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> MB&quot;</span>
+
+                <span class="n">success_msg</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;✅ CUDA is working!</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;GPU: </span><span class="si">{</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;device_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;CUDA Version: </span><span class="si">{</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;cuda_version&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Compute Capability: </span><span class="si">{</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;device_capability&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Total Memory: </span><span class="si">{</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;memory_total&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Available: </span><span class="si">{</span><span class="n">memory_total</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">memory_reserved</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> MB&quot;</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">success_msg</span><span class="p">,</span> <span class="n">details</span>
+
+            <span class="k">if</span> <span class="n">device_name</span> <span class="o">==</span> <span class="s2">&quot;mps&quot;</span><span class="p">:</span>
+                <span class="n">details</span><span class="p">[</span><span class="s2">&quot;backend&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Apple Metal Performance Shaders&quot;</span>
+                <span class="n">details</span><span class="p">[</span><span class="s2">&quot;pytorch_version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">__version__</span>
+                <span class="n">success_msg</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;✅ MPS (Apple Silicon GPU) is working!</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Backend: </span><span class="si">{</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;backend&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;PyTorch Version: </span><span class="si">{</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;pytorch_version&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">success_msg</span><span class="p">,</span> <span class="n">details</span>
+
+            <span class="k">if</span> <span class="n">device_name</span> <span class="o">==</span> <span class="s2">&quot;cpu&quot;</span><span class="p">:</span>
+                <span class="n">details</span><span class="p">[</span><span class="s2">&quot;cpu_count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">get_num_threads</span><span class="p">())</span>
+                <span class="n">details</span><span class="p">[</span><span class="s2">&quot;pytorch_version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">__version__</span>
+                <span class="n">success_msg</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;✅ CPU device is working!</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Threads: </span><span class="si">{</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;cpu_count&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;PyTorch Version: </span><span class="si">{</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;pytorch_version&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">success_msg</span><span class="p">,</span> <span class="n">details</span>
+
+            <span class="c1"># Generic success for other devices</span>
+            <span class="n">details</span><span class="p">[</span><span class="s2">&quot;device_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">device</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;✅ Device &#39;</span><span class="si">{</span><span class="n">device_name</span><span class="si">}</span><span class="s2">&#39; is working!&quot;</span><span class="p">,</span> <span class="n">details</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -16829,6 +17049,323 @@ and device-specific operations.</p>
         <span class="k">if</span> <span class="n">dev</span> <span class="ow">in</span> <span class="n">AIDevice</span><span class="o">.</span><span class="n">available_devices</span><span class="p">():</span>
             <span class="k">return</span> <span class="n">dev</span>
     <span class="k">return</span> <span class="n">AIDevice</span><span class="o">.</span><span class="n">CPU</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="crackz.ai.device.AIDevice.test_device" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">test_device</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
+  </span>
+
+<a href="#crackz.ai.device.AIDevice.test_device" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">test_device</span><span class="p">(</span><span class="n">device_name</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Test if a device is available and working.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>device_name</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Device name to test ('cpu', 'cuda', 'mps', etc.)</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Tuple of (success, message, details_dict) where:</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <ul>
+<li>success: True if device works</li>
+</ul>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <ul>
+<li>message: Human-readable result message</li>
+</ul>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="tuple">tuple</span>[<span title="bool">bool</span>, <span title="str">str</span>, <span title="dict">dict</span>[<span title="str">str</span>, <span title="str">str</span>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <ul>
+<li>details_dict: Additional device information</li>
+</ul>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="quote">
+              <summary>Source code in <code>src/crackz/ai/device/device.py</code></summary>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_device</span><span class="p">(</span><span class="n">device_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>  <span class="c1"># noqa: PLR0911</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test if a device is available and working.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        device_name: Device name to test (&#39;cpu&#39;, &#39;cuda&#39;, &#39;mps&#39;, etc.)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple of (success, message, details_dict) where:</span>
+<span class="sd">        - success: True if device works</span>
+<span class="sd">        - message: Human-readable result message</span>
+<span class="sd">        - details_dict: Additional device information</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">details</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Create a test tensor on the device</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">device_name</span><span class="p">)</span>
+
+        <span class="c1"># Use larger tensor size for GPU devices to better detect issues</span>
+        <span class="c1"># 1000x1000 = ~4MB, representative of actual model workloads</span>
+        <span class="c1"># but still fast enough for a UI test</span>
+        <span class="n">tensor_size</span> <span class="o">=</span> <span class="mi">1000</span> <span class="k">if</span> <span class="n">device_name</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="s2">&quot;mps&quot;</span><span class="p">}</span> <span class="k">else</span> <span class="mi">100</span>
+        <span class="n">test_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">tensor_size</span><span class="p">,</span> <span class="n">tensor_size</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="c1"># Perform matrix multiplication to verify device works</span>
+        <span class="c1"># This will properly initialize GPU and test computation</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">test_tensor</span><span class="p">,</span> <span class="n">test_tensor</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>  <span class="c1"># Force computation and transfer to CPU</span>
+
+    <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">error_msg</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;out of memory&quot;</span> <span class="ow">in</span> <span class="n">error_msg</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="kc">False</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;❌ Device &#39;</span><span class="si">{</span><span class="n">device_name</span><span class="si">}</span><span class="s2">&#39; out of memory</span><span class="se">\n\n</span><span class="s2">Try closing other applications.&quot;</span><span class="p">,</span>
+                <span class="n">details</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;not available&quot;</span> <span class="ow">in</span> <span class="n">error_msg</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">or</span> <span class="s2">&quot;not found&quot;</span> <span class="ow">in</span> <span class="n">error_msg</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="kc">False</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;❌ Device &#39;</span><span class="si">{</span><span class="n">device_name</span><span class="si">}</span><span class="s2">&#39; is not available</span><span class="se">\n\n</span><span class="si">{</span><span class="n">error_msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">details</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;❌ Device test failed</span><span class="se">\n\n</span><span class="si">{</span><span class="n">error_msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">details</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Device test failed unexpectedly&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;❌ Unexpected error testing device</span><span class="se">\n\n</span><span class="si">{</span><span class="n">e</span><span class="si">!s}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">details</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Get device-specific details and build success message</span>
+        <span class="k">if</span> <span class="n">device_name</span> <span class="o">==</span> <span class="s2">&quot;cuda&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+                <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;❌ CUDA not available on this system&quot;</span><span class="p">,</span> <span class="n">details</span>
+
+            <span class="n">details</span><span class="p">[</span><span class="s2">&quot;cuda_version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">cuda</span>
+            <span class="n">details</span><span class="p">[</span><span class="s2">&quot;device_count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">())</span>
+            <span class="n">details</span><span class="p">[</span><span class="s2">&quot;device_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">get_device_name</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">details</span><span class="p">[</span><span class="s2">&quot;device_capability&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">get_device_capability</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+            <span class="p">)</span>
+            <span class="n">memory_allocated</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">memory_allocated</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">2</span>
+            <span class="n">memory_reserved</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">memory_reserved</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">2</span>
+            <span class="n">memory_total</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">get_device_properties</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">total_memory</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">**</span><span class="mi">2</span>
+            <span class="n">details</span><span class="p">[</span><span class="s2">&quot;memory_allocated&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">memory_allocated</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> MB&quot;</span>
+            <span class="n">details</span><span class="p">[</span><span class="s2">&quot;memory_reserved&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">memory_reserved</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> MB&quot;</span>
+            <span class="n">details</span><span class="p">[</span><span class="s2">&quot;memory_total&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">memory_total</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> MB&quot;</span>
+
+            <span class="n">success_msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;✅ CUDA is working!</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;GPU: </span><span class="si">{</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;device_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;CUDA Version: </span><span class="si">{</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;cuda_version&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Compute Capability: </span><span class="si">{</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;device_capability&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Total Memory: </span><span class="si">{</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;memory_total&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Available: </span><span class="si">{</span><span class="n">memory_total</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">memory_reserved</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> MB&quot;</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">success_msg</span><span class="p">,</span> <span class="n">details</span>
+
+        <span class="k">if</span> <span class="n">device_name</span> <span class="o">==</span> <span class="s2">&quot;mps&quot;</span><span class="p">:</span>
+            <span class="n">details</span><span class="p">[</span><span class="s2">&quot;backend&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Apple Metal Performance Shaders&quot;</span>
+            <span class="n">details</span><span class="p">[</span><span class="s2">&quot;pytorch_version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">__version__</span>
+            <span class="n">success_msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;✅ MPS (Apple Silicon GPU) is working!</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Backend: </span><span class="si">{</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;backend&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;PyTorch Version: </span><span class="si">{</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;pytorch_version&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">success_msg</span><span class="p">,</span> <span class="n">details</span>
+
+        <span class="k">if</span> <span class="n">device_name</span> <span class="o">==</span> <span class="s2">&quot;cpu&quot;</span><span class="p">:</span>
+            <span class="n">details</span><span class="p">[</span><span class="s2">&quot;cpu_count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">get_num_threads</span><span class="p">())</span>
+            <span class="n">details</span><span class="p">[</span><span class="s2">&quot;pytorch_version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">__version__</span>
+            <span class="n">success_msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;✅ CPU device is working!</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Threads: </span><span class="si">{</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;cpu_count&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;PyTorch Version: </span><span class="si">{</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;pytorch_version&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">success_msg</span><span class="p">,</span> <span class="n">details</span>
+
+        <span class="c1"># Generic success for other devices</span>
+        <span class="n">details</span><span class="p">[</span><span class="s2">&quot;device_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">device</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;✅ Device &#39;</span><span class="si">{</span><span class="n">device_name</span><span class="si">}</span><span class="s2">&#39; is working!&quot;</span><span class="p">,</span> <span class="n">details</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

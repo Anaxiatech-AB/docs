@@ -3529,8 +3529,15 @@ nvidia-smi<span class="w"> </span>-l<span class="w"> </span><span class="m">1</s
 <p><em>Solution:</em>
 - Adjust threshold in <code>project.yaml</code>:
   <div class="highlight"><pre><span></span><code><span class="nt">detection</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w">  </span><span class="c1"># Increase to reduce false positives (0.7)</span>
-<span class="w">                   </span><span class="c1"># Decrease to catch more cracks (0.3)</span>
+<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w">  </span><span class="c1"># Pixel-level binarization threshold</span>
+<span class="w">                  </span><span class="c1"># Increase to reduce false positives (0.7)</span>
+<span class="w">                  </span><span class="c1"># Decrease to catch more cracks (0.3)</span>
+
+<span class="w">  </span><span class="c1"># Severity categorization thresholds (crack area %)</span>
+<span class="w">  </span><span class="nt">min_confidence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.005</span><span class="w">     </span><span class="c1"># Min to save (0.5% crack area)</span>
+<span class="w">  </span><span class="nt">medium_confidence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span><span class="w">   </span><span class="c1"># &quot;Probable Crack&quot; threshold (2%)</span>
+<span class="w">  </span><span class="nt">high_confidence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span><span class="w">     </span><span class="c1"># &quot;Crack Detected&quot; threshold (5%)</span>
+<span class="w">  </span><span class="nt">min_crack_area_px</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">    </span><span class="c1"># Filter out detections &lt; 100 pixels</span>
 </code></pre></div>
 - Retrain model with more/better labeled data
 - Check that images are similar to training data</p>

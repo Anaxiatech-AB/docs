@@ -2136,8 +2136,15 @@ nvidia-smi<span class="w"> </span>-l<span class="w"> </span><span class="m">1</s
 <p><em>Solution:</em>
 - Adjust threshold in <code>project.yaml</code>:
   <div class="highlight"><pre><span></span><code><span class="nt">detection</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w">  </span><span class="c1"># Increase to reduce false positives (0.7)</span>
-<span class="w">                   </span><span class="c1"># Decrease to catch more cracks (0.3)</span>
+<span class="w">  </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w">  </span><span class="c1"># Pixel-level binarization threshold</span>
+<span class="w">                  </span><span class="c1"># Increase to reduce false positives (0.7)</span>
+<span class="w">                  </span><span class="c1"># Decrease to catch more cracks (0.3)</span>
+
+<span class="w">  </span><span class="c1"># Severity categorization thresholds (crack area %)</span>
+<span class="w">  </span><span class="nt">min_confidence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.005</span><span class="w">     </span><span class="c1"># Min to save (0.5% crack area)</span>
+<span class="w">  </span><span class="nt">medium_confidence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span><span class="w">   </span><span class="c1"># &quot;Probable Crack&quot; threshold (2%)</span>
+<span class="w">  </span><span class="nt">high_confidence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span><span class="w">     </span><span class="c1"># &quot;Crack Detected&quot; threshold (5%)</span>
+<span class="w">  </span><span class="nt">min_crack_area_px</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">    </span><span class="c1"># Filter out detections &lt; 100 pixels</span>
 </code></pre></div>
 - Retrain model with more/better labeled data
 - Check that images are similar to training data</p>
@@ -2975,7 +2982,15 @@ crackz-gui
 <p>Configure training hyperparameters (epochs, batch size, learning rate, optimizer).</p>
 <p><img alt="Project Settings - Training" src="../assets/gui/project_settings_ai_training.png" /></p>
 <h4 id="detection-tab">Detection Tab<a class="headerlink" href="#detection-tab" title="Permanent link">&para;</a></h4>
-<p>Set detection-specific options (batch size, confidence thresholds).</p>
+<p>Configure detection-specific options:</p>
+<ul>
+<li><strong>Batch Size</strong>: Number of images processed per detection batch</li>
+<li><strong>Severity Thresholds</strong>: Customize crack severity categorization</li>
+<li>Min Confidence (default 0.005): Minimum crack area % to save detections</li>
+<li>Medium Confidence (default 0.02): "Probable Crack" threshold (2% area)</li>
+<li>High Confidence (default 0.05): "Crack Detected" threshold (5% area)</li>
+<li><strong>Min Crack Area</strong>: Suppress detections smaller than N pixels (speckle noise filter)</li>
+</ul>
 <p><img alt="Project Settings - Detection" src="../assets/gui/project_settings_detection.png" /></p>
 <h4 id="paths-tab">Paths Tab<a class="headerlink" href="#paths-tab" title="Permanent link">&para;</a></h4>
 <p>View and customize project directory structure.</p>
@@ -3746,8 +3761,76 @@ silent change without guide coverage.</p>
 <td>None</td>
 <td>Optional seed for deterministic detection (transforms/order)</td>
 </tr>
+<tr>
+<td>min_crack_area_px</td>
+<td>0</td>
+<td>Minimum crack area in pixels to suppress speckle noise</td>
+</tr>
+<tr>
+<td>min_confidence</td>
+<td>0.005</td>
+<td>Minimum confidence (0.5% crack area) to save detections</td>
+</tr>
+<tr>
+<td>medium_confidence</td>
+<td>0.02</td>
+<td>Threshold for "Probable Crack" severity (2% crack area)</td>
+</tr>
+<tr>
+<td>high_confidence</td>
+<td>0.05</td>
+<td>Threshold for "Crack Detected" severity (5% crack area)</td>
+</tr>
 </tbody>
 </table>
+<h4 id="severity-thresholds">Severity Thresholds<a class="headerlink" href="#severity-thresholds" title="Permanent link">&para;</a></h4>
+<p>The <code>min_confidence</code>, <code>medium_confidence</code>, and <code>high_confidence</code> fields control crack severity categorization:</p>
+<ul>
+<li><strong>min_confidence</strong> (default 0.005): Minimum crack area percentage to save a detection. Images with lower confidence are filtered out entirely.</li>
+<li><strong>medium_confidence</strong> (default 0.02): Threshold between "Possible Crack" and "Probable Crack" categories (2% crack area).</li>
+<li><strong>high_confidence</strong> (default 0.05): Threshold for "Crack Detected" category (5% crack area).</li>
+</ul>
+<p><strong>Severity Categories:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Confidence Range</th>
+<th>Severity Category</th>
+<th>Typical Crack Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&gt;= high_confidence (0.05)</td>
+<td>Crack Detected</td>
+<td>5%+ crack area</td>
+</tr>
+<tr>
+<td>&gt;= medium_confidence (0.02)</td>
+<td>Probable Crack</td>
+<td>2-5% crack area</td>
+</tr>
+<tr>
+<td>&gt;= min_confidence (0.005)</td>
+<td>Possible Crack</td>
+<td>0.5-2% crack area</td>
+</tr>
+<tr>
+<td>&lt; min_confidence (0.005)</td>
+<td>(filtered out)</td>
+<td>Not saved</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> The "confidence" metric represents <strong>crack area percentage</strong> (mean probability over the whole image), not maximum pixel confidence. Typical values for images with cracks range from 0.5-8% (0.005-0.08 as decimal).</p>
+<p><strong>Example Configuration:</strong>
+<div class="highlight"><pre><span></span><code><span class="nt">ai</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">detection</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">min_confidence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.005</span><span class="w">     </span><span class="c1"># Save detections with ≥0.5% crack area</span>
+<span class="w">    </span><span class="nt">medium_confidence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span><span class="w">   </span><span class="c1"># &quot;Probable Crack&quot; at ≥2% crack area</span>
+<span class="w">    </span><span class="nt">high_confidence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span><span class="w">     </span><span class="c1"># &quot;Crack Detected&quot; at ≥5% crack area</span>
+<span class="w">    </span><span class="nt">min_crack_area_px</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">    </span><span class="c1"># Suppress detections smaller than 100 pixels</span>
+</code></pre></div></p>
 <h2 id="data-configuration-section">Data Configuration Section<a class="headerlink" href="#data-configuration-section" title="Permanent link">&para;</a></h2>
 <p>The <code>data</code> section controls data preprocessing and validation behavior.</p>
 <table>
@@ -12953,20 +13036,7 @@ Allows GUI to update in real-time without file polling.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/ai/detection/detection_runner.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">254</span>
-<span class="normal">255</span>
-<span class="normal">256</span>
-<span class="normal">257</span>
-<span class="normal">258</span>
-<span class="normal">259</span>
-<span class="normal">260</span>
-<span class="normal">261</span>
-<span class="normal">262</span>
-<span class="normal">263</span>
-<span class="normal">264</span>
-<span class="normal">265</span>
-<span class="normal">266</span>
-<span class="normal">267</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">267</span>
 <span class="normal">268</span>
 <span class="normal">269</span>
 <span class="normal">270</span>
@@ -13039,7 +13109,28 @@ Allows GUI to update in real-time without file polling.</p>
 <span class="normal">337</span>
 <span class="normal">338</span>
 <span class="normal">339</span>
-<span class="normal">340</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">detect</span><span class="p">(</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span>
+<span class="normal">349</span>
+<span class="normal">350</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">detect</span><span class="p">(</span>
     <span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span>
     <span class="n">progress_reporter</span><span class="p">:</span> <span class="n">ProgressReporter</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">cancellation_token</span><span class="p">:</span> <span class="n">CancellationToken</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -13099,6 +13190,11 @@ Allows GUI to update in real-time without file polling.</p>
     <span class="n">batch_size</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">detection</span><span class="o">.</span><span class="n">batch_size</span>
     <span class="n">min_crack_area_px</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">detection</span><span class="o">.</span><span class="n">min_crack_area_px</span>
 
+    <span class="c1"># Extract configurable severity thresholds from config</span>
+    <span class="n">min_confidence</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">detection</span><span class="o">.</span><span class="n">min_confidence</span>
+    <span class="n">medium_confidence</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">detection</span><span class="o">.</span><span class="n">medium_confidence</span>
+    <span class="n">high_confidence</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">detection</span><span class="o">.</span><span class="n">high_confidence</span>
+
     <span class="c1"># Inference loop</span>
     <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">loader</span><span class="p">):</span>
         <span class="c1"># Check for cancellation before processing each batch</span>
@@ -13121,6 +13217,9 @@ Allows GUI to update in real-time without file polling.</p>
             <span class="n">min_crack_area_px</span><span class="o">=</span><span class="n">min_crack_area_px</span><span class="p">,</span>  <span class="c1"># Speckle noise suppression</span>
             <span class="n">save_interval</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>  <span class="c1"># Save every 5 images to balance responsiveness and performance</span>
             <span class="n">result_callback</span><span class="o">=</span><span class="n">result_callback</span><span class="p">,</span>  <span class="c1"># Pass callback for real-time GUI updates</span>
+            <span class="n">min_confidence</span><span class="o">=</span><span class="n">min_confidence</span><span class="p">,</span>  <span class="c1"># Configurable severity thresholds</span>
+            <span class="n">medium_confidence</span><span class="o">=</span><span class="n">medium_confidence</span><span class="p">,</span>
+            <span class="n">high_confidence</span><span class="o">=</span><span class="n">high_confidence</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="c1"># Finalize</span>
@@ -13140,15 +13239,17 @@ Allows GUI to update in real-time without file polling.</p>
 
 
 <a href="#crackz.ai.detection.categorize_crack_severity" class="headerlink" title="Permanent link">&para;</a></h2>
-<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">categorize_crack_severity</span><span class="p">(</span><span class="n">confidence</span><span class="p">)</span>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">categorize_crack_severity</span><span class="p">(</span>
+    <span class="n">confidence</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">high_threshold</span><span class="o">=</span><span class="n">DEFAULT_HIGH_CONFIDENCE</span><span class="p">,</span>
+    <span class="n">medium_threshold</span><span class="o">=</span><span class="n">DEFAULT_MEDIUM_CONFIDENCE</span><span class="p">,</span>
+<span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Categorize crack detection severity based on confidence level.</p>
-<p>Note: When MIN_CONFIDENCE_THRESHOLD = 0.5, images with "Possible Crack" severity
-(confidence &lt; 0.5) are filtered out before saving, so this category only appears
-during in-memory processing, not in saved detection results.</p>
+        <p>Categorize crack detection severity based on crack area percentage.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -13171,11 +13272,45 @@ during in-memory processing, not in saved detection results.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Mean prediction probability (0.0 to 1.0)</p>
+                <p>Crack area percentage as decimal (0.0 to 1.0)
+       Represents mean probability over whole image.
+       Typical values: 0.005-0.08 (0.5%-8% crack coverage)</p>
               </div>
             </td>
             <td>
                 <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>high_threshold</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Threshold for "Crack Detected" category (default 0.05 = 5%)</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="crackz.ai.detection.severity.DEFAULT_HIGH_CONFIDENCE">DEFAULT_HIGH_CONFIDENCE</span></code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>medium_threshold</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Threshold for "Probable Crack" category (default 0.02 = 2%)</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="crackz.ai.detection.severity.DEFAULT_MEDIUM_CONFIDENCE">DEFAULT_MEDIUM_CONFIDENCE</span></code>
             </td>
           </tr>
       </tbody>
@@ -13198,9 +13333,9 @@ during in-memory processing, not in saved detection results.</p>
             <td>
               <div class="doc-md-description">
                 <p>Severity category:
-- "Crack Detected" (confidence &gt;= 0.7)
-- "Probable Crack" (0.5 &lt;= confidence &lt; 0.7)
-- "Possible Crack" (confidence &lt; 0.5) - filtered from saved results</p>
+- "Crack Detected" (crack_area &gt;= high_threshold)
+- "Probable Crack" (medium_threshold &lt;= crack_area &lt; high_threshold)
+- "Possible Crack" (crack_area &lt; medium_threshold)</p>
               </div>
             </td>
           </tr>
@@ -13208,12 +13343,27 @@ during in-memory processing, not in saved detection results.</p>
     </table>
 
 
+<details class="note" open>
+  <summary>Note</summary>
+  <p>Images with confidence &lt; min_confidence (default 0.005 = 0.5% area) are
+filtered out before saving to detection_results.json.</p>
+</details>
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <div class="codehilite"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">categorize_crack_severity</span><span class="p">(</span><span class="mf">0.08</span><span class="p">)</span>  <span class="c1"># 8% crack area</span>
+<span class="go">&#39;Crack Detected&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">categorize_crack_severity</span><span class="p">(</span><span class="mf">0.03</span><span class="p">)</span>  <span class="c1"># 3% crack area</span>
+<span class="go">&#39;Probable Crack&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">categorize_crack_severity</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>  <span class="c1"># 1% crack area</span>
+<span class="go">&#39;Possible Crack&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">categorize_crack_severity</span><span class="p">(</span><span class="mf">0.03</span><span class="p">,</span> <span class="n">high_threshold</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>  <span class="c1"># Custom threshold</span>
+<span class="go">&#39;Crack Detected&#39;</span>
+</code></pre></div>
+
+
             <details class="quote">
               <summary>Source code in <code>src/crackz/ai/detection/severity.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
 <span class="normal">30</span>
 <span class="normal">31</span>
 <span class="normal">32</span>
@@ -13230,25 +13380,66 @@ during in-memory processing, not in saved detection results.</p>
 <span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
-<span class="normal">46</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">categorize_crack_severity</span><span class="p">(</span><span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Categorize crack detection severity based on confidence level.</span>
-
-<span class="sd">    Note: When MIN_CONFIDENCE_THRESHOLD = 0.5, images with &quot;Possible Crack&quot; severity</span>
-<span class="sd">    (confidence &lt; 0.5) are filtered out before saving, so this category only appears</span>
-<span class="sd">    during in-memory processing, not in saved detection results.</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">categorize_crack_severity</span><span class="p">(</span>
+    <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">high_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">DEFAULT_HIGH_CONFIDENCE</span><span class="p">,</span>
+    <span class="n">medium_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">DEFAULT_MEDIUM_CONFIDENCE</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Categorize crack detection severity based on crack area percentage.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        confidence: Mean prediction probability (0.0 to 1.0)</span>
+<span class="sd">        confidence: Crack area percentage as decimal (0.0 to 1.0)</span>
+<span class="sd">                   Represents mean probability over whole image.</span>
+<span class="sd">                   Typical values: 0.005-0.08 (0.5%-8% crack coverage)</span>
+<span class="sd">        high_threshold: Threshold for &quot;Crack Detected&quot; category (default 0.05 = 5%)</span>
+<span class="sd">        medium_threshold: Threshold for &quot;Probable Crack&quot; category (default 0.02 = 2%)</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Severity category:</span>
-<span class="sd">            - &quot;Crack Detected&quot; (confidence &gt;= 0.7)</span>
-<span class="sd">            - &quot;Probable Crack&quot; (0.5 &lt;= confidence &lt; 0.7)</span>
-<span class="sd">            - &quot;Possible Crack&quot; (confidence &lt; 0.5) - filtered from saved results</span>
+<span class="sd">            - &quot;Crack Detected&quot; (crack_area &gt;= high_threshold)</span>
+<span class="sd">            - &quot;Probable Crack&quot; (medium_threshold &lt;= crack_area &lt; high_threshold)</span>
+<span class="sd">            - &quot;Possible Crack&quot; (crack_area &lt; medium_threshold)</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Images with confidence &lt; min_confidence (default 0.005 = 0.5% area) are</span>
+<span class="sd">        filtered out before saving to detection_results.json.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; categorize_crack_severity(0.08)  # 8% crack area</span>
+<span class="sd">        &#39;Crack Detected&#39;</span>
+<span class="sd">        &gt;&gt;&gt; categorize_crack_severity(0.03)  # 3% crack area</span>
+<span class="sd">        &#39;Probable Crack&#39;</span>
+<span class="sd">        &gt;&gt;&gt; categorize_crack_severity(0.01)  # 1% crack area</span>
+<span class="sd">        &#39;Possible Crack&#39;</span>
+<span class="sd">        &gt;&gt;&gt; categorize_crack_severity(0.03, high_threshold=0.02)  # Custom threshold</span>
+<span class="sd">        &#39;Crack Detected&#39;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">confidence</span> <span class="o">&gt;=</span> <span class="n">HIGH_CONFIDENCE_THRESHOLD</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">confidence</span> <span class="o">&gt;=</span> <span class="n">high_threshold</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;Crack Detected&quot;</span>
-    <span class="k">if</span> <span class="n">confidence</span> <span class="o">&gt;=</span> <span class="n">MEDIUM_CONFIDENCE_THRESHOLD</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">confidence</span> <span class="o">&gt;=</span> <span class="n">medium_threshold</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;Probable Crack&quot;</span>
     <span class="k">return</span> <span class="s2">&quot;Possible Crack&quot;</span>
 </code></pre></div></td></tr></table></div>

@@ -544,6 +544,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="DetectionConfig Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#severity-thresholds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Severity Thresholds
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1519,6 +1534,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="DetectionConfig Fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#severity-thresholds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Severity Thresholds
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -2211,8 +2241,76 @@ silent change without guide coverage.</p>
 <td>None</td>
 <td>Optional seed for deterministic detection (transforms/order)</td>
 </tr>
+<tr>
+<td>min_crack_area_px</td>
+<td>0</td>
+<td>Minimum crack area in pixels to suppress speckle noise</td>
+</tr>
+<tr>
+<td>min_confidence</td>
+<td>0.005</td>
+<td>Minimum confidence (0.5% crack area) to save detections</td>
+</tr>
+<tr>
+<td>medium_confidence</td>
+<td>0.02</td>
+<td>Threshold for "Probable Crack" severity (2% crack area)</td>
+</tr>
+<tr>
+<td>high_confidence</td>
+<td>0.05</td>
+<td>Threshold for "Crack Detected" severity (5% crack area)</td>
+</tr>
 </tbody>
 </table>
+<h4 id="severity-thresholds">Severity Thresholds<a class="headerlink" href="#severity-thresholds" title="Permanent link">&para;</a></h4>
+<p>The <code>min_confidence</code>, <code>medium_confidence</code>, and <code>high_confidence</code> fields control crack severity categorization:</p>
+<ul>
+<li><strong>min_confidence</strong> (default 0.005): Minimum crack area percentage to save a detection. Images with lower confidence are filtered out entirely.</li>
+<li><strong>medium_confidence</strong> (default 0.02): Threshold between "Possible Crack" and "Probable Crack" categories (2% crack area).</li>
+<li><strong>high_confidence</strong> (default 0.05): Threshold for "Crack Detected" category (5% crack area).</li>
+</ul>
+<p><strong>Severity Categories:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Confidence Range</th>
+<th>Severity Category</th>
+<th>Typical Crack Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&gt;= high_confidence (0.05)</td>
+<td>Crack Detected</td>
+<td>5%+ crack area</td>
+</tr>
+<tr>
+<td>&gt;= medium_confidence (0.02)</td>
+<td>Probable Crack</td>
+<td>2-5% crack area</td>
+</tr>
+<tr>
+<td>&gt;= min_confidence (0.005)</td>
+<td>Possible Crack</td>
+<td>0.5-2% crack area</td>
+</tr>
+<tr>
+<td>&lt; min_confidence (0.005)</td>
+<td>(filtered out)</td>
+<td>Not saved</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> The "confidence" metric represents <strong>crack area percentage</strong> (mean probability over the whole image), not maximum pixel confidence. Typical values for images with cracks range from 0.5-8% (0.005-0.08 as decimal).</p>
+<p><strong>Example Configuration:</strong>
+<div class="highlight"><pre><span></span><code><span class="nt">ai</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">detection</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">min_confidence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.005</span><span class="w">     </span><span class="c1"># Save detections with ≥0.5% crack area</span>
+<span class="w">    </span><span class="nt">medium_confidence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span><span class="w">   </span><span class="c1"># &quot;Probable Crack&quot; at ≥2% crack area</span>
+<span class="w">    </span><span class="nt">high_confidence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span><span class="w">     </span><span class="c1"># &quot;Crack Detected&quot; at ≥5% crack area</span>
+<span class="w">    </span><span class="nt">min_crack_area_px</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">    </span><span class="c1"># Suppress detections smaller than 100 pixels</span>
+</code></pre></div></p>
 <h2 id="data-configuration-section">Data Configuration Section<a class="headerlink" href="#data-configuration-section" title="Permanent link">&para;</a></h2>
 <p>The <code>data</code> section controls data preprocessing and validation behavior.</p>
 <table>

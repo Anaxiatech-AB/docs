@@ -2347,7 +2347,15 @@ crackz-gui
 <p>Configure training hyperparameters (epochs, batch size, learning rate, optimizer).</p>
 <p><img alt="Project Settings - Training" src="../assets/gui/project_settings_ai_training.png" /></p>
 <h4 id="detection-tab">Detection Tab<a class="headerlink" href="#detection-tab" title="Permanent link">&para;</a></h4>
-<p>Set detection-specific options (batch size, confidence thresholds).</p>
+<p>Configure detection-specific options:</p>
+<ul>
+<li><strong>Batch Size</strong>: Number of images processed per detection batch</li>
+<li><strong>Severity Thresholds</strong>: Customize crack severity categorization</li>
+<li>Min Confidence (default 0.005): Minimum crack area % to save detections</li>
+<li>Medium Confidence (default 0.02): "Probable Crack" threshold (2% area)</li>
+<li>High Confidence (default 0.05): "Crack Detected" threshold (5% area)</li>
+<li><strong>Min Crack Area</strong>: Suppress detections smaller than N pixels (speckle noise filter)</li>
+</ul>
 <p><img alt="Project Settings - Detection" src="../assets/gui/project_settings_detection.png" /></p>
 <h4 id="paths-tab">Paths Tab<a class="headerlink" href="#paths-tab" title="Permanent link">&para;</a></h4>
 <p>View and customize project directory structure.</p>

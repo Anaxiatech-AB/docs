@@ -1499,7 +1499,7 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 </tbody>
 </table>
 <p><strong>Encoder Selection</strong></p>
-<p>The encoder is the backbone network that extracts features from images:</p>
+<p>The encoder is the backbone network that extracts features from images. <strong>EfficientNet models are recommended</strong> for crack detection due to superior fine-grained pattern recognition:</p>
 <table>
 <thead>
 <tr>
@@ -1512,18 +1512,46 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 </thead>
 <tbody>
 <tr>
-<td><code>resnet34</code></td>
+<td><code>efficientnet-b3</code></td>
 <td>Medium</td>
-<td>Good</td>
+<td>Excellent</td>
 <td>Medium</td>
-<td><strong>Default</strong> - balanced performance</td>
+<td><strong>⭐ Recommended</strong> - Best for crack detection</td>
 </tr>
 <tr>
 <td><code>efficientnet-b0</code></td>
-<td>Slow</td>
+<td>Medium</td>
 <td>Excellent</td>
+<td>Low</td>
+<td>Budget-friendly, still excellent</td>
+</tr>
+<tr>
+<td><code>resnet34</code></td>
+<td>Medium</td>
+<td>Very Good</td>
+<td>Medium</td>
+<td>Default - solid baseline</td>
+</tr>
+<tr>
+<td><code>efficientnet-b7</code></td>
+<td>Slow</td>
+<td>Best</td>
 <td>High</td>
-<td>Maximum accuracy</td>
+<td>Maximum accuracy, resource-intensive</td>
+</tr>
+<tr>
+<td><code>resnet50</code></td>
+<td>Slow</td>
+<td>Very Good</td>
+<td>High</td>
+<td>Large datasets, ResNet alternative</td>
+</tr>
+<tr>
+<td><code>resnet101</code></td>
+<td>Very Slow</td>
+<td>Very Good</td>
+<td>Very High</td>
+<td>Research, very large datasets</td>
 </tr>
 <tr>
 <td><code>mobilenet_v2</code></td>
@@ -1535,16 +1563,16 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 <tr>
 <td><code>resnet18</code></td>
 <td>Fast</td>
-<td>Fair</td>
+<td>Good</td>
 <td>Low</td>
 <td>Rapid prototyping</td>
 </tr>
 <tr>
-<td><code>resnet50</code></td>
-<td>Slow</td>
-<td>Excellent</td>
-<td>High</td>
-<td>Large datasets</td>
+<td><code>densenet121</code></td>
+<td>Medium</td>
+<td>Very Good</td>
+<td>Medium</td>
+<td>Dense connections, good gradients</td>
 </tr>
 </tbody>
 </table>
@@ -4018,7 +4046,7 @@ You can also serialize a live <code>Project</code> back to a config:
 </tbody>
 </table>
 <p><strong>Supported Encoders</strong></p>
-<p>Crackz uses <code>segmentation-models-pytorch</code> and supports any encoder from that library. Common options:</p>
+<p>Crackz uses <code>segmentation-models-pytorch</code> and supports any encoder from that library. <strong>EfficientNet models are highly recommended for crack detection</strong> due to compound scaling and superior feature extraction for fine-grained patterns:</p>
 <table>
 <thead>
 <tr>
@@ -4031,6 +4059,27 @@ You can also serialize a live <code>Project</code> back to a config:
 </thead>
 <tbody>
 <tr>
+<td><code>efficientnet-b0</code></td>
+<td>4M</td>
+<td>Medium</td>
+<td>Excellent</td>
+<td><strong>⭐ Best value</strong> - efficient &amp; accurate</td>
+</tr>
+<tr>
+<td><code>efficientnet-b3</code></td>
+<td>10M</td>
+<td>Slow</td>
+<td>Excellent</td>
+<td><strong>⭐ Recommended</strong> - production crack detection</td>
+</tr>
+<tr>
+<td><code>efficientnet-b7</code></td>
+<td>64M</td>
+<td>Very Slow</td>
+<td>Best</td>
+<td>Maximum accuracy, state-of-the-art</td>
+</tr>
+<tr>
 <td><code>resnet18</code></td>
 <td>11M</td>
 <td>Fast</td>
@@ -4042,7 +4091,7 @@ You can also serialize a live <code>Project</code> back to a config:
 <td>21M</td>
 <td>Medium</td>
 <td>Very Good</td>
-<td><strong>Default</strong> - balanced performance</td>
+<td>Default - balanced performance</td>
 </tr>
 <tr>
 <td><code>resnet50</code></td>
@@ -4059,25 +4108,11 @@ You can also serialize a live <code>Project</code> back to a config:
 <td>Research, very large datasets</td>
 </tr>
 <tr>
-<td><code>efficientnet-b0</code></td>
-<td>4M</td>
+<td><code>densenet121</code></td>
+<td>7M</td>
 <td>Medium</td>
-<td>Excellent</td>
-<td>Accuracy-optimized, efficient</td>
-</tr>
-<tr>
-<td><code>efficientnet-b3</code></td>
-<td>10M</td>
-<td>Slow</td>
-<td>Excellent</td>
-<td>Higher accuracy, more parameters</td>
-</tr>
-<tr>
-<td><code>efficientnet-b7</code></td>
-<td>64M</td>
-<td>Very Slow</td>
-<td>Best</td>
-<td>State-of-the-art accuracy</td>
+<td>Very Good</td>
+<td>Dense connections, good gradients</td>
 </tr>
 <tr>
 <td><code>mobilenet_v2</code></td>
@@ -4085,13 +4120,6 @@ You can also serialize a live <code>Project</code> back to a config:
 <td>Very Fast</td>
 <td>Fair</td>
 <td>Edge deployment, real-time</td>
-</tr>
-<tr>
-<td><code>densenet121</code></td>
-<td>7M</td>
-<td>Medium</td>
-<td>Very Good</td>
-<td>Dense connections, good gradients</td>
 </tr>
 <tr>
 <td><code>vgg16</code></td>
@@ -4615,7 +4643,7 @@ Load &amp; summarize:
 </code></pre></div></p>
 <p><strong>Crack Severity Categorization:</strong> Detection results include a <code>crack_severity</code> field that categorizes detections based on confidence levels:
 - <strong>"Crack Detected"</strong> (confidence ≥ 0.7): High confidence detection
-- <strong>"Probable Crack"</strong> (confidence ≥ 0.5): Medium confidence detection<br />
+- <strong>"Probable Crack"</strong> (confidence ≥ 0.5): Medium confidence detection
 - <strong>"Possible Crack"</strong> (confidence &lt; 0.5): Low confidence detection</p>
 <p>This categorization helps reduce false positives by distinguishing between confident detections and uncertain ones. The GUI displays these categories with color coding for easy visual identification.</p>
 <h2 id="reproducibility-tips-planned-enhancements">Reproducibility Tips (Planned Enhancements)<a class="headerlink" href="#reproducibility-tips-planned-enhancements" title="Permanent link">&para;</a></h2>

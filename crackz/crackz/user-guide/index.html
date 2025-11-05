@@ -2882,7 +2882,7 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 </tbody>
 </table>
 <p><strong>Encoder Selection</strong></p>
-<p>The encoder is the backbone network that extracts features from images:</p>
+<p>The encoder is the backbone network that extracts features from images. <strong>EfficientNet models are recommended</strong> for crack detection due to superior fine-grained pattern recognition:</p>
 <table>
 <thead>
 <tr>
@@ -2895,18 +2895,46 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 </thead>
 <tbody>
 <tr>
-<td><code>resnet34</code></td>
+<td><code>efficientnet-b3</code></td>
 <td>Medium</td>
-<td>Good</td>
+<td>Excellent</td>
 <td>Medium</td>
-<td><strong>Default</strong> - balanced performance</td>
+<td><strong>⭐ Recommended</strong> - Best for crack detection</td>
 </tr>
 <tr>
 <td><code>efficientnet-b0</code></td>
-<td>Slow</td>
+<td>Medium</td>
 <td>Excellent</td>
+<td>Low</td>
+<td>Budget-friendly, still excellent</td>
+</tr>
+<tr>
+<td><code>resnet34</code></td>
+<td>Medium</td>
+<td>Very Good</td>
+<td>Medium</td>
+<td>Default - solid baseline</td>
+</tr>
+<tr>
+<td><code>efficientnet-b7</code></td>
+<td>Slow</td>
+<td>Best</td>
 <td>High</td>
-<td>Maximum accuracy</td>
+<td>Maximum accuracy, resource-intensive</td>
+</tr>
+<tr>
+<td><code>resnet50</code></td>
+<td>Slow</td>
+<td>Very Good</td>
+<td>High</td>
+<td>Large datasets, ResNet alternative</td>
+</tr>
+<tr>
+<td><code>resnet101</code></td>
+<td>Very Slow</td>
+<td>Very Good</td>
+<td>Very High</td>
+<td>Research, very large datasets</td>
 </tr>
 <tr>
 <td><code>mobilenet_v2</code></td>
@@ -2918,16 +2946,16 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 <tr>
 <td><code>resnet18</code></td>
 <td>Fast</td>
-<td>Fair</td>
+<td>Good</td>
 <td>Low</td>
 <td>Rapid prototyping</td>
 </tr>
 <tr>
-<td><code>resnet50</code></td>
-<td>Slow</td>
-<td>Excellent</td>
-<td>High</td>
-<td>Large datasets</td>
+<td><code>densenet121</code></td>
+<td>Medium</td>
+<td>Very Good</td>
+<td>Medium</td>
+<td>Dense connections, good gradients</td>
 </tr>
 </tbody>
 </table>

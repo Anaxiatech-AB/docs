@@ -476,6 +476,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#creating-and-editing-masks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating and Editing Masks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating and Editing Masks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interactive-mask-editor-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interactive Mask Editor (CLI)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#converting-masks-to-binary-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Converting Masks to Binary Format
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#understanding-dataset-splits-train-val-test-raw" class="md-nav__link">
     <span class="md-ellipsis">
       Understanding Dataset Splits (train / val / test / raw)
@@ -1574,6 +1607,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#creating-and-editing-masks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating and Editing Masks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating and Editing Masks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interactive-mask-editor-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interactive Mask Editor (CLI)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#converting-masks-to-binary-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Converting Masks to Binary Format
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#understanding-dataset-splits-train-val-test-raw" class="md-nav__link">
     <span class="md-ellipsis">
       Understanding Dataset Splits (train / val / test / raw)
@@ -2004,8 +2070,91 @@ The <code>masks_source_dir</code> should contain subdirectories for each split:
 - Masks are matched to images by filename stem (without extension)
 - Missing splits (e.g., no <code>val/</code> directory) are safely skipped
 - Binary conversion: pixels ≥ threshold → 255 (white), others → 0 (black)</p>
+<hr />
+<h2 id="creating-and-editing-masks">Creating and Editing Masks<a class="headerlink" href="#creating-and-editing-masks" title="Permanent link">&para;</a></h2>
+<h3 id="interactive-mask-editor-cli">Interactive Mask Editor (CLI)<a class="headerlink" href="#interactive-mask-editor-cli" title="Permanent link">&para;</a></h3>
+<p>Open the GUI mask editor from the command line to create or edit crack masks:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Basic usage - edit an image (mask path auto-derived)</span>
+crackz<span class="w"> </span>masks<span class="w"> </span>edit<span class="w"> </span>images/train/crack_001.jpg
+
+<span class="c1"># With custom mask path</span>
+crackz<span class="w"> </span>masks<span class="w"> </span>edit<span class="w"> </span>photo.jpg<span class="w"> </span>--mask<span class="w"> </span>output/my_mask.png
+
+<span class="c1"># With project context (smart path derivation)</span>
+crackz<span class="w"> </span>masks<span class="w"> </span>edit<span class="w"> </span>images/raw/inspection.jpg<span class="w"> </span>--project<span class="w"> </span>my_harbor_project
+</code></pre></div>
+<p><strong>What It Does:</strong>
+- Opens interactive GUI mask editor from terminal
+- Allows painting crack masks with brush tool
+- Supports eraser, undo/redo, adjustable brush size/opacity
+- Saves binary PNG masks (0=background, 255=crack)
+- Works standalone without launching full GUI application</p>
+<p><strong>Mask Path Derivation:</strong>
+If <code>--mask</code> is not specified, the save path is intelligently derived:</p>
+<ol>
+<li>
+<p><strong>Project Structure</strong> (if <code>--project</code> provided):
+   <div class="highlight"><pre><span></span><code>Image:  project/images/train/crack_001.jpg
+Mask:   project/masks/train/crack_001.png  ← Auto-derived
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Adjacent Directory</strong>:
+   <div class="highlight"><pre><span></span><code>Image:  data/images/train/photo.jpg
+Mask:   data/masks/train/photo.png  ← Auto-derived
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Local Subdirectory</strong> (fallback):
+   <div class="highlight"><pre><span></span><code>Image:  /tmp/photo.jpg
+Mask:   /tmp/masks/photo.png  ← Auto-derived
+</code></pre></div></p>
+</li>
+</ol>
+<p><strong>Requirements:</strong>
+- Display server (X11, Wayland, or macOS GUI)
+- GUI dependencies (<code>customtkinter</code> package)
+- Mouse or trackpad for drawing</p>
+<p><strong>Use Cases:</strong>
+- Quick mask creation without full GUI
+- Batch processing in scripts:
+  <div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>img<span class="w"> </span><span class="k">in</span><span class="w"> </span>images/train/*.jpg<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span>crackz<span class="w"> </span>masks<span class="w"> </span>edit<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$img</span><span class="s2">&quot;</span><span class="w"> </span>--project<span class="w"> </span>my_project
+<span class="k">done</span>
+</code></pre></div>
+- Remote editing via SSH with X forwarding:
+  <div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>-X<span class="w"> </span>user@server
+crackz<span class="w"> </span>masks<span class="w"> </span>edit<span class="w"> </span>/data/harbor/crack.jpg
+</code></pre></div></p>
+<p><strong>Tips:</strong>
+- Command blocks until editor is closed (modal operation)
+- Use ↶ Undo / ↷ Redo for corrections (up to 20 levels)
+- Adjust brush size for large areas vs fine details
+- Cancel closes editor without saving</p>
+<h3 id="converting-masks-to-binary-format">Converting Masks to Binary Format<a class="headerlink" href="#converting-masks-to-binary-format" title="Permanent link">&para;</a></h3>
+<p>If you have existing grayscale masks, convert them to binary format required for training:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Convert all masks in a project (uses project threshold)</span>
+crackz<span class="w"> </span>masks<span class="w"> </span>convert<span class="w"> </span>--project<span class="w"> </span>my_harbor_project
+
+<span class="c1"># Convert with custom threshold</span>
+crackz<span class="w"> </span>masks<span class="w"> </span>convert<span class="w"> </span>--project<span class="w"> </span>my_harbor_project<span class="w"> </span>--threshold<span class="w"> </span><span class="m">128</span>
+</code></pre></div>
+<p><strong>What It Does:</strong>
+- Finds all non-PNG mask files in train/val/test/raw directories
+- Converts them to binary PNG (only 0 and 255 values)
+- Deletes original non-PNG files after conversion
+- Uses project's configured threshold or custom value</p>
+<p><strong>Threshold Logic:</strong>
+- Pixels ≥ threshold → 255 (crack/foreground)
+- Pixels &lt; threshold → 0 (background)
+- Default from project config (typically 1 for JPEG masks)</p>
+<p><strong>When to Use:</strong>
+- After importing masks from external sources
+- When masks contain grayscale values (not binary)
+- Before training (binary masks are required)
+- JPEG compression created grayscale artifacts</p>
+<hr />
 <h2 id="understanding-dataset-splits-train-val-test-raw">Understanding Dataset Splits (train / val / test / raw)<a class="headerlink" href="#understanding-dataset-splits-train-val-test-raw" title="Permanent link">&para;</a></h2>
-<p>Proper dataset partitioning is critical for trustworthy model performance assessment in PyTorch (and deep learning in general).</p>
 <table>
 <thead>
 <tr>

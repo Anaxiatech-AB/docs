@@ -2490,8 +2490,91 @@ The <code>masks_source_dir</code> should contain subdirectories for each split:
 - Masks are matched to images by filename stem (without extension)
 - Missing splits (e.g., no <code>val/</code> directory) are safely skipped
 - Binary conversion: pixels ≥ threshold → 255 (white), others → 0 (black)</p>
+<hr />
+<h2 id="creating-and-editing-masks">Creating and Editing Masks<a class="headerlink" href="#creating-and-editing-masks" title="Permanent link">&para;</a></h2>
+<h3 id="interactive-mask-editor-cli">Interactive Mask Editor (CLI)<a class="headerlink" href="#interactive-mask-editor-cli" title="Permanent link">&para;</a></h3>
+<p>Open the GUI mask editor from the command line to create or edit crack masks:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Basic usage - edit an image (mask path auto-derived)</span>
+crackz<span class="w"> </span>masks<span class="w"> </span>edit<span class="w"> </span>images/train/crack_001.jpg
+
+<span class="c1"># With custom mask path</span>
+crackz<span class="w"> </span>masks<span class="w"> </span>edit<span class="w"> </span>photo.jpg<span class="w"> </span>--mask<span class="w"> </span>output/my_mask.png
+
+<span class="c1"># With project context (smart path derivation)</span>
+crackz<span class="w"> </span>masks<span class="w"> </span>edit<span class="w"> </span>images/raw/inspection.jpg<span class="w"> </span>--project<span class="w"> </span>my_harbor_project
+</code></pre></div>
+<p><strong>What It Does:</strong>
+- Opens interactive GUI mask editor from terminal
+- Allows painting crack masks with brush tool
+- Supports eraser, undo/redo, adjustable brush size/opacity
+- Saves binary PNG masks (0=background, 255=crack)
+- Works standalone without launching full GUI application</p>
+<p><strong>Mask Path Derivation:</strong>
+If <code>--mask</code> is not specified, the save path is intelligently derived:</p>
+<ol>
+<li>
+<p><strong>Project Structure</strong> (if <code>--project</code> provided):
+   <div class="highlight"><pre><span></span><code>Image:  project/images/train/crack_001.jpg
+Mask:   project/masks/train/crack_001.png  ← Auto-derived
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Adjacent Directory</strong>:
+   <div class="highlight"><pre><span></span><code>Image:  data/images/train/photo.jpg
+Mask:   data/masks/train/photo.png  ← Auto-derived
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Local Subdirectory</strong> (fallback):
+   <div class="highlight"><pre><span></span><code>Image:  /tmp/photo.jpg
+Mask:   /tmp/masks/photo.png  ← Auto-derived
+</code></pre></div></p>
+</li>
+</ol>
+<p><strong>Requirements:</strong>
+- Display server (X11, Wayland, or macOS GUI)
+- GUI dependencies (<code>customtkinter</code> package)
+- Mouse or trackpad for drawing</p>
+<p><strong>Use Cases:</strong>
+- Quick mask creation without full GUI
+- Batch processing in scripts:
+  <div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>img<span class="w"> </span><span class="k">in</span><span class="w"> </span>images/train/*.jpg<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span>crackz<span class="w"> </span>masks<span class="w"> </span>edit<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$img</span><span class="s2">&quot;</span><span class="w"> </span>--project<span class="w"> </span>my_project
+<span class="k">done</span>
+</code></pre></div>
+- Remote editing via SSH with X forwarding:
+  <div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>-X<span class="w"> </span>user@server
+crackz<span class="w"> </span>masks<span class="w"> </span>edit<span class="w"> </span>/data/harbor/crack.jpg
+</code></pre></div></p>
+<p><strong>Tips:</strong>
+- Command blocks until editor is closed (modal operation)
+- Use ↶ Undo / ↷ Redo for corrections (up to 20 levels)
+- Adjust brush size for large areas vs fine details
+- Cancel closes editor without saving</p>
+<h3 id="converting-masks-to-binary-format">Converting Masks to Binary Format<a class="headerlink" href="#converting-masks-to-binary-format" title="Permanent link">&para;</a></h3>
+<p>If you have existing grayscale masks, convert them to binary format required for training:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Convert all masks in a project (uses project threshold)</span>
+crackz<span class="w"> </span>masks<span class="w"> </span>convert<span class="w"> </span>--project<span class="w"> </span>my_harbor_project
+
+<span class="c1"># Convert with custom threshold</span>
+crackz<span class="w"> </span>masks<span class="w"> </span>convert<span class="w"> </span>--project<span class="w"> </span>my_harbor_project<span class="w"> </span>--threshold<span class="w"> </span><span class="m">128</span>
+</code></pre></div>
+<p><strong>What It Does:</strong>
+- Finds all non-PNG mask files in train/val/test/raw directories
+- Converts them to binary PNG (only 0 and 255 values)
+- Deletes original non-PNG files after conversion
+- Uses project's configured threshold or custom value</p>
+<p><strong>Threshold Logic:</strong>
+- Pixels ≥ threshold → 255 (crack/foreground)
+- Pixels &lt; threshold → 0 (background)
+- Default from project config (typically 1 for JPEG masks)</p>
+<p><strong>When to Use:</strong>
+- After importing masks from external sources
+- When masks contain grayscale values (not binary)
+- Before training (binary masks are required)
+- JPEG compression created grayscale artifacts</p>
+<hr />
 <h2 id="understanding-dataset-splits-train-val-test-raw">Understanding Dataset Splits (train / val / test / raw)<a class="headerlink" href="#understanding-dataset-splits-train-val-test-raw" title="Permanent link">&para;</a></h2>
-<p>Proper dataset partitioning is critical for trustworthy model performance assessment in PyTorch (and deep learning in general).</p>
 <table>
 <thead>
 <tr>
@@ -3064,11 +3147,60 @@ crackz-gui
 <p>After import, view images in each split via the project tree:</p>
 <p><img alt="Images Raw View" src="../assets/gui/images_raw_view.png" /></p>
 <hr />
+<h2 id="creating-and-editing-masks">Creating and Editing Masks<a class="headerlink" href="#creating-and-editing-masks" title="Permanent link">&para;</a></h2>
+<h3 id="mask-editor-overview">Mask Editor Overview<a class="headerlink" href="#mask-editor-overview" title="Permanent link">&para;</a></h3>
+<p>The interactive mask editor allows you to create and edit crack masks for training data. Masks are binary images where white pixels (255) indicate cracks and black pixels (0) indicate background.</p>
+<h3 id="opening-the-mask-editor">Opening the Mask Editor<a class="headerlink" href="#opening-the-mask-editor" title="Permanent link">&para;</a></h3>
+<p>There are three ways to open the mask editor:</p>
+<p><strong>1. Context Menu (Browser Tree)</strong>
+- Right-click any image file in the <code>images/</code> folder (train/val/test/raw)
+- Select <strong>🎨 Edit Mask</strong> from the context menu</p>
+<p><strong>2. Badge Icon (Thumbnail View)</strong>
+- Browse to any images folder in the project tree
+- Click the <strong>🎨</strong> badge shown below image thumbnails
+- Badge appears only for images in the <code>images/</code> directory</p>
+<p><strong>3. Image Preview (Right Pane)</strong>
+- Click any image in the browser to open its preview
+- Click the <strong>🎨 Edit Mask</strong> button in the Actions section
+- Available for all images in the <code>images/</code> directory</p>
+<h3 id="using-the-mask-editor">Using the Mask Editor<a class="headerlink" href="#using-the-mask-editor" title="Permanent link">&para;</a></h3>
+<p>The mask editor provides an intuitive interface for painting crack masks:</p>
+<p><strong>Tools:</strong>
+- <strong>🖌️ Brush Tool</strong> - Paint crack areas (white/255)
+- <strong>🧹 Eraser Tool</strong> - Remove painted areas (black/0)</p>
+<p><strong>Controls:</strong>
+- <strong>Brush Size Slider</strong> - Adjust brush size (5-100 pixels)
+- <strong>Opacity Slider</strong> - Control mask overlay transparency (0.1-1.0)
+- <strong>↶ Undo / ↷ Redo</strong> - Up to 20 levels of undo history
+- <strong>💾 Save Mask</strong> - Save as binary PNG to <code>masks/</code> directory
+- <strong>✕ Cancel</strong> - Close without saving changes</p>
+<p><strong>Tips:</strong>
+- <strong>Smooth strokes</strong>: Drag slowly for precise control
+- <strong>Large areas</strong>: Increase brush size for quick coverage
+- <strong>Fine details</strong>: Reduce brush size for accuracy
+- <strong>See through</strong>: Adjust opacity to see original image better
+- <strong>Mistakes</strong>: Use undo or switch to eraser tool</p>
+<h3 id="mask-file-structure">Mask File Structure<a class="headerlink" href="#mask-file-structure" title="Permanent link">&para;</a></h3>
+<p>Masks are automatically saved to match your image structure:</p>
+<div class="highlight"><pre><span></span><code>project/
+├── images/
+│   └── train/
+│       └── crack_001.jpg        # Original image
+└── masks/
+    └── train/
+        └── crack_001.png        # Binary mask (auto-created)
+</code></pre></div>
+<p><strong>Mask Properties:</strong>
+- <strong>Format</strong>: PNG (8-bit grayscale)
+- <strong>Values</strong>: Only 0 (background) or 255 (crack)
+- <strong>Size</strong>: Same dimensions as source image
+- <strong>Naming</strong>: Same filename as image (with .png extension)</p>
+<h3 id="binary-mask-conversion">Binary Mask Conversion<a class="headerlink" href="#binary-mask-conversion" title="Permanent link">&para;</a></h3>
+<p>If you have existing masks with grayscale values, use the <strong>Masks → Convert</strong> command to convert them to binary format required for training.</p>
+<hr />
 <h2 id="model-training">Model Training<a class="headerlink" href="#model-training" title="Permanent link">&para;</a></h2>
 <h3 id="starting-training">Starting Training<a class="headerlink" href="#starting-training" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Ensure you have imported training and validation images with masks</li>
-<li>Click <strong>Detect → Train Model</strong> or press <strong>Ctrl+T</strong></li>
 <li>Training begins with real-time progress updates</li>
 </ol>
 <h3 id="training-run-view">Training Run View<a class="headerlink" href="#training-run-view" title="Permanent link">&para;</a></h3>
@@ -25388,6 +25520,29 @@ the import process. Errors during import are logged and appropriately handled.</
   -t, --threshold INTEGER RANGE  Threshold for binary conversion (0-255). Uses
                                  project config if -1 (default).  \[default:
                                  -1; -1&lt;=x&lt;=255]
+</code></pre></div>
+<h3 id="edit">edit<a class="headerlink" href="#edit" title="Permanent link">&para;</a></h3>
+<p>Open interactive mask editor for an image.</p>
+<p>This command opens a GUI window where you can:
+- Paint crack masks with a brush tool
+- Erase mask areas with an eraser tool
+- Adjust brush size and mask transparency
+- Undo/redo changes
+- Save masks as binary PNG files</p>
+<p>Example:
+    crackz masks edit images/train/image1.jpg
+    crackz masks edit images/raw/photo.png --mask masks/raw/photo.png
+    crackz masks edit --project my_project images/train/img.jpg</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> masks edit [OPTIONS] IMAGE_PATH
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  IMAGE_PATH               Path to the image file to create/edit mask for
+                           \[required]
+  -m, --mask PATH          Path to save mask. If not provided, derives from
+                           image path in masks directory.
+  -p, --project DIRECTORY  Project path (overrides config file). Eg --project
+                           ./my_project
 </code></pre></div>
 <h2 id="mcp">mcp<a class="headerlink" href="#mcp" title="Permanent link">&para;</a></h2>
 <p>Usage:</p>

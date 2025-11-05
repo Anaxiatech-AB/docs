@@ -1017,6 +1017,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#edit" class="md-nav__link">
+    <span class="md-ellipsis">
+      edit
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1751,6 +1760,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#edit" class="md-nav__link">
+    <span class="md-ellipsis">
+      edit
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2364,6 +2382,29 @@ the import process. Errors during import are logged and appropriately handled.</
   -t, --threshold INTEGER RANGE  Threshold for binary conversion (0-255). Uses
                                  project config if -1 (default).  \[default:
                                  -1; -1&lt;=x&lt;=255]
+</code></pre></div>
+<h3 id="edit">edit<a class="headerlink" href="#edit" title="Permanent link">&para;</a></h3>
+<p>Open interactive mask editor for an image.</p>
+<p>This command opens a GUI window where you can:
+- Paint crack masks with a brush tool
+- Erase mask areas with an eraser tool
+- Adjust brush size and mask transparency
+- Undo/redo changes
+- Save masks as binary PNG files</p>
+<p>Example:
+    crackz masks edit images/train/image1.jpg
+    crackz masks edit images/raw/photo.png --mask masks/raw/photo.png
+    crackz masks edit --project my_project images/train/img.jpg</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> masks edit [OPTIONS] IMAGE_PATH
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  IMAGE_PATH               Path to the image file to create/edit mask for
+                           \[required]
+  -m, --mask PATH          Path to save mask. If not provided, derives from
+                           image path in masks directory.
+  -p, --project DIRECTORY  Project path (overrides config file). Eg --project
+                           ./my_project
 </code></pre></div>
 <h2 id="mcp">mcp<a class="headerlink" href="#mcp" title="Permanent link">&para;</a></h2>
 <p>Usage:</p>

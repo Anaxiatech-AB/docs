@@ -100,7 +100,7 @@ table th { background:#f1f5f9; color:#111827; }
   <p class='company'>© 2025 Anaxiatech AB</p>
 </section>
 <hr class='page-sep'/>
-<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#getting-started'>Getting Started</a></li><li><a href='#installation'>Installation</a></li><li><a href='#user-guide'>User Guide</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#gui'>GUI</a></li><li><a href='#configuration'>Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-vm-cuda'>Azure VM with CUDA</a></li><li><a href='#azure-comparison'>VM vs Batch Comparison</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#api'>API Reference</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access Management</a></li><li><a href='#pdf'>Printable PDF</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
+<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#getting-started'>Getting Started</a></li><li><a href='#installation'>Installation</a></li><li><a href='#user-guide'>User Guide</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#gui'>GUI</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#configuration'>Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-vm-cuda'>Azure VM with CUDA</a></li><li><a href='#azure-comparison'>VM vs Batch Comparison</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#api'>API Reference</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access Management</a></li><li><a href='#pdf'>Printable PDF</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
 <h1>Home</h1>
 <h1 id="crackz">Crackz<a class="headerlink" href="#crackz" title="Permanent link">&para;</a></h1>
 <p>
@@ -864,7 +864,39 @@ pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> 
 <span class="c1"># Step 2: Install crackz</span>
 pip<span class="w"> </span>install<span class="w"> </span>crackz_cu128-VERSION-py3-none-any.whl
 </code></pre></div></p>
-<h2 id="5-install-from-a-downloaded-wheel-airgapped-offline">5. Install From a Downloaded Wheel (Air‑gapped / Offline)<a class="headerlink" href="#5-install-from-a-downloaded-wheel-airgapped-offline" title="Permanent link">&para;</a></h2>
+<h2 id="5-optional-features">5. Optional Features<a class="headerlink" href="#5-optional-features" title="Permanent link">&para;</a></h2>
+<h3 id="secure-credential-storage-keyring">Secure Credential Storage (keyring)<a class="headerlink" href="#secure-credential-storage-keyring" title="Permanent link">&para;</a></h3>
+<p>For enhanced security when storing API keys (e.g., for the AI Chat Assistant), you can install the optional <code>keyring</code> library. This provides OS-level encrypted credential storage:</p>
+<p><strong>Installation:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># With uv</span>
+uv<span class="w"> </span>add<span class="w"> </span>keyring
+
+<span class="c1"># With pip</span>
+pip<span class="w"> </span>install<span class="w"> </span>keyring
+</code></pre></div></p>
+<p><strong>What it provides:</strong>
+- <strong>Windows</strong>: Integration with Windows Credential Manager
+- <strong>macOS</strong>: Integration with Keychain
+- <strong>Linux</strong>: Integration with Secret Service (GNOME Keyring, KWallet, etc.)</p>
+<p><strong>Usage:</strong>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.gui.state.secure_storage</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">store_api_key</span><span class="p">,</span>
+    <span class="n">retrieve_api_key</span><span class="p">,</span>
+    <span class="n">is_secure_storage_available</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Check availability</span>
+<span class="k">if</span> <span class="n">is_secure_storage_available</span><span class="p">():</span>
+    <span class="n">store_api_key</span><span class="p">(</span><span class="s2">&quot;your-api-key&quot;</span><span class="p">)</span>
+    <span class="n">api_key</span> <span class="o">=</span> <span class="n">retrieve_api_key</span><span class="p">()</span>
+</code></pre></div></p>
+<p><strong>When to use:</strong>
+- ✅ <strong>Enterprise deployments</strong> - Required for production environments
+- ✅ <strong>Shared machines</strong> - Prevents API key exposure
+- ✅ <strong>Automation scripts</strong> - Secure credential management
+- ⚠️ <strong>Development/personal use</strong> - Optional but recommended</p>
+<p><strong>Note:</strong> Without keyring installed, API keys will be stored in plaintext in the application settings file. See <a href="../ai-chat/#secure-storage-with-keyring-optional">AI Chat documentation</a> for details.</p>
+<h2 id="6-install-from-a-downloaded-wheel-airgapped-offline">6. Install From a Downloaded Wheel (Air‑gapped / Offline)<a class="headerlink" href="#6-install-from-a-downloaded-wheel-airgapped-offline" title="Permanent link">&para;</a></h2>
 <ol>
 <li>On a machine with internet, download the Crackz wheel from GitHub Releases:
    <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>crackz_wheels
@@ -883,28 +915,28 @@ pip<span class="w"> </span>download<span class="w"> </span>crackz-VERSION-py3-no
    <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>--no-index<span class="w"> </span>--find-links<span class="w"> </span>crackz_wheels<span class="w"> </span>crackz-VERSION-py3-none-any.whl
 </code></pre></div></li>
 </ol>
-<h2 id="6-install-from-source-no-build-system-tooling">6. Install From Source (no build system tooling)<a class="headerlink" href="#6-install-from-source-no-build-system-tooling" title="Permanent link">&para;</a></h2>
+<h2 id="7-install-from-source-no-build-system-tooling">7. Install From Source (no build system tooling)<a class="headerlink" href="#7-install-from-source-no-build-system-tooling" title="Permanent link">&para;</a></h2>
 <p>If you cloned the repository (runtime only):
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>.
 </code></pre></div>
 This performs a build via the backend defined in <code>pyproject.toml</code>.</p>
-<h2 id="7-upgrading">7. Upgrading<a class="headerlink" href="#7-upgrading" title="Permanent link">&para;</a></h2>
+<h2 id="8-upgrading">8. Upgrading<a class="headerlink" href="#8-upgrading" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># Download the new version from GitHub Releases</span>
 pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>https://github.com/Anaxiatech-AB/crackz/releases/download/vNEW_VERSION/crackz-NEW_VERSION-py3-none-any.whl
 
 <span class="c1"># Or if using a private index:</span>
 pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>--index-url<span class="w"> </span>https://pypi.company.com/simple/<span class="w"> </span>crackz
 </code></pre></div>
-<h2 id="8-uninstall">8. Uninstall<a class="headerlink" href="#8-uninstall" title="Permanent link">&para;</a></h2>
+<h2 id="9-uninstall">9. Uninstall<a class="headerlink" href="#9-uninstall" title="Permanent link">&para;</a></h2>
 <p><div class="highlight"><pre><span></span><code>pip<span class="w"> </span>uninstall<span class="w"> </span>crackz
 </code></pre></div>
 (You may remove generated project folders / logs manually.)</p>
-<h2 id="9-postinstall-sanity-checks">9. Post‑Install Sanity Checks<a class="headerlink" href="#9-postinstall-sanity-checks" title="Permanent link">&para;</a></h2>
+<h2 id="10-postinstall-sanity-checks">10. Post‑Install Sanity Checks<a class="headerlink" href="#10-postinstall-sanity-checks" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>--version
 crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>sanity-test
 crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>sanity-test<span class="w">  </span><span class="c1"># (Will use default config; may download model weights)</span>
 </code></pre></div>
-<h2 id="10-common-issues">10. Common Issues<a class="headerlink" href="#10-common-issues" title="Permanent link">&para;</a></h2>
+<h2 id="11-common-issues">11. Common Issues<a class="headerlink" href="#11-common-issues" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -956,7 +988,7 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 </tr>
 </tbody>
 </table>
-<h2 id="11-gpucuda-usage-faq">11. GPU/CUDA Usage FAQ<a class="headerlink" href="#11-gpucuda-usage-faq" title="Permanent link">&para;</a></h2>
+<h2 id="12-gpucuda-usage-faq">12. GPU/CUDA Usage FAQ<a class="headerlink" href="#12-gpucuda-usage-faq" title="Permanent link">&para;</a></h2>
 <h3 id="how-do-i-know-if-cuda-is-working">How do I know if CUDA is working?<a class="headerlink" href="#how-do-i-know-if-cuda-is-working" title="Permanent link">&para;</a></h3>
 <p>After installing with CUDA support, verify it's working:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Check if CUDA is available</span>
@@ -1072,7 +1104,7 @@ crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"
 - CPU: ~2-5 images/second
 - GPU: ~20-100 images/second (depending on model/GPU)</p>
 <p>If you're not seeing these speeds, verify GPU is actually being used (see above).</p>
-<h2 id="12-environment-variables-runtime">12. Environment Variables (runtime)<a class="headerlink" href="#12-environment-variables-runtime" title="Permanent link">&para;</a></h2>
+<h2 id="13-environment-variables-runtime">13. Environment Variables (runtime)<a class="headerlink" href="#13-environment-variables-runtime" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -1094,6 +1126,7 @@ crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"
 </tr>
 </tbody>
 </table>
+<h2 id="14-security-integrity-notes">14. Security / Integrity Notes<a class="headerlink" href="#14-security-integrity-notes" title="Permanent link">&para;</a></h2>
 <p>Example override:
 <div class="highlight"><pre><span></span><code><span class="nv">CRACKZ_LOG_DIR</span><span class="o">=</span>my_logs<span class="w"> </span>crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>myproj
 </code></pre></div>
@@ -1103,13 +1136,13 @@ crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"
 <li>Use <code>pip install --require-hashes -r requirements.txt</code> if you export a locked set of dependencies.</li>
 <li>Prefer virtual environments to isolate dependencies.</li>
 </ul>
-<h2 id="14-next-steps">14. Next Steps<a class="headerlink" href="#14-next-steps" title="Permanent link">&para;</a></h2>
+<h2 id="15-next-steps">15. Next Steps<a class="headerlink" href="#15-next-steps" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Follow the <a href="../getting-started/">Getting Started</a> guide to set up a project.</li>
 <li>Review <a href="../configuration/">Configuration</a> for dataset paths &amp; model options.</li>
 <li>Consult <a href="../cli-cookbook/">CLI Cookbook</a> for common command patterns.</li>
 </ul>
-<h2 id="15-migrating-existing-projects-after-upgrade">15. Migrating Existing Projects After Upgrade<a class="headerlink" href="#15-migrating-existing-projects-after-upgrade" title="Permanent link">&para;</a></h2>
+<h2 id="16-migrating-existing-projects-after-upgrade">16. Migrating Existing Projects After Upgrade<a class="headerlink" href="#16-migrating-existing-projects-after-upgrade" title="Permanent link">&para;</a></h2>
 <p>Older projects (created before schema_version field) can be upgraded in-place:
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w">         </span><span class="c1"># applies changes + backup</span>
 crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>./my_project<span class="w"> </span>--dry-run<span class="w">  </span><span class="c1"># preview only</span>
@@ -3208,8 +3241,27 @@ crackz-gui
 <td><strong>Cmd/Ctrl+Q</strong></td>
 <td>Quit Application</td>
 </tr>
+<tr>
+<td><strong><code>§</code></strong> or <strong><code>~</code></strong></td>
+<td>Toggle AI Chat Assistant</td>
+</tr>
+<tr>
+<td><strong>Cmd/Ctrl+/</strong></td>
+<td>Toggle AI Chat Assistant (alternative)</td>
+</tr>
 </tbody>
 </table>
+<hr />
+<h2 id="ai-chat-assistant">AI Chat Assistant<a class="headerlink" href="#ai-chat-assistant" title="Permanent link">&para;</a></h2>
+<p>The GUI includes an integrated AI-powered chat assistant to help with your crack detection workflows. Access it via:
+- Keyboard: <strong><code>§</code></strong> (Swedish/Nordic), <strong><code>~</code></strong> (US), or <strong>Cmd/Ctrl+/</strong>
+- Menu: <strong>Help → AI Chat Assistant</strong></p>
+<p>The assistant provides:
+- Real-time help with detection parameter tuning
+- Project configuration analysis and optimization suggestions
+- Guidance on using Crackz features
+- Contextual advice based on your current project state</p>
+<p><strong>See the full <a href="../ai-chat/">AI Chat Assistant Guide</a> for detailed documentation.</strong></p>
 <hr />
 <h2 id="performance-tips">Performance Tips<a class="headerlink" href="#performance-tips" title="Permanent link">&para;</a></h2>
 <h3 id="gpu-acceleration">GPU Acceleration<a class="headerlink" href="#gpu-acceleration" title="Permanent link">&para;</a></h3>
@@ -3286,6 +3338,372 @@ crackz-gui
 <li><strong>Need automation?</strong> Check <a href="../cli-cookbook/">CLI Cookbook</a></li>
 <li><strong>Docker deployment?</strong> Read the <a href="../docker/">Docker Guide</a></li>
 </ul>
+</section>
+<hr class='page-sep' />
+<section class='print-section' id='ai-chat' data-source='ai-chat.md'>
+<h1>AI Chat Assistant</h1>
+<h1 id="ai-chat-assistant">AI Chat Assistant<a class="headerlink" href="#ai-chat-assistant" title="Permanent link">&para;</a></h1>
+<p>The Crackz GUI includes an integrated AI chat assistant powered by Anthropic's Claude API. This feature provides real-time help with crack detection workflows, parameter tuning, and project management.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The AI chat assistant is a floating window that provides contextual help based on your current project state. It can:</p>
+<ul>
+<li>Analyze your project configuration and suggest optimizations</li>
+<li>Help tune detection parameters for better results</li>
+<li>Explain crack detection concepts and workflows</li>
+<li>Provide guidance on using Crackz features</li>
+<li>Answer questions about your specific project</li>
+</ul>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Anthropic API Key</strong>: You need a valid API key from <a href="https://console.anthropic.com/settings/keys">Anthropic Console</a></li>
+<li><strong>Internet Connection</strong>: Required for API communication</li>
+</ol>
+<h3 id="security-notice">Security Notice<a class="headerlink" href="#security-notice" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">API Key Storage</p>
+<p>Your Anthropic API key is currently stored in <strong>plaintext</strong> in the application settings file.</p>
+<p><strong>For Development/Personal Use:</strong>
+- Keep the settings file secure with appropriate file permissions
+- Never commit the settings file to version control
+- Consider using environment variables for CI/CD</p>
+<p><strong>For Enterprise/Production Use:</strong>
+- Implement secure credential storage (Windows Credential Manager, macOS Keychain, etc.)
+- Use key rotation policies
+- Consider encrypted storage or external secret management systems
+- Review your organization's security policies before deployment</p>
+</div>
+<h3 id="secure-storage-with-keyring-optional">Secure Storage with Keyring (Optional)<a class="headerlink" href="#secure-storage-with-keyring-optional" title="Permanent link">&para;</a></h3>
+<p>Crackz provides optional integration with the <a href="https://pypi.org/project/keyring/">keyring</a> library for secure credential storage. This uses your operating system's native secure storage:</p>
+<ul>
+<li><strong>Windows</strong>: Windows Credential Manager</li>
+<li><strong>macOS</strong>: Keychain</li>
+<li><strong>Linux</strong>: Secret Service (GNOME Keyring, KWallet, etc.)</li>
+</ul>
+<p><strong>Installation:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install keyring support</span>
+uv<span class="w"> </span>add<span class="w"> </span>keyring
+
+<span class="c1"># Or with pip</span>
+pip<span class="w"> </span>install<span class="w"> </span>keyring
+</code></pre></div>
+<p><strong>Usage:</strong></p>
+<p>Once keyring is installed, you can use it programmatically in your Python scripts:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.gui.state.secure_storage</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">store_api_key</span><span class="p">,</span>
+    <span class="n">retrieve_api_key</span><span class="p">,</span>
+    <span class="n">is_secure_storage_available</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Check if keyring is available</span>
+<span class="k">if</span> <span class="n">is_secure_storage_available</span><span class="p">():</span>
+    <span class="c1"># Store API key securely</span>
+    <span class="n">store_api_key</span><span class="p">(</span><span class="s2">&quot;your-api-key-here&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Retrieve API key</span>
+    <span class="n">api_key</span> <span class="o">=</span> <span class="n">retrieve_api_key</span><span class="p">()</span>
+
+    <span class="c1"># Delete API key</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">crackz.gui.state.secure_storage</span><span class="w"> </span><span class="kn">import</span> <span class="n">delete_api_key</span>
+    <span class="n">delete_api_key</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Keyring not available - falling back to plaintext storage&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>✅ <strong>Encrypted storage</strong> using OS-level encryption</li>
+<li>✅ <strong>No plaintext</strong> API keys in settings files</li>
+<li>✅ <strong>Cross-platform</strong> support (Windows/macOS/Linux)</li>
+<li>✅ <strong>Optional dependency</strong> - fallback to plaintext if not installed</li>
+<li>✅ <strong>Zero configuration</strong> - uses OS defaults automatically</li>
+</ul>
+<p><strong>Note:</strong> The GUI currently stores API keys in plaintext settings. Keyring integration is available for custom scripts and automation workflows. Full GUI integration is planned for a future release.</p>
+<h3 id="initial-setup">Initial Setup<a class="headerlink" href="#initial-setup" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Open Chat Window</strong>:</li>
+<li>Press <strong><code>§</code></strong> (Swedish/Nordic keyboards)</li>
+<li>Press <strong><code>~</code></strong> (US keyboards)</li>
+<li>Press <strong><code>Ctrl+/</code></strong> (Windows) or <strong><code>Cmd+/</code></strong> (Mac)</li>
+<li>
+<p>Or use menu: <strong>Help</strong> → <strong>AI Chat Assistant</strong></p>
+</li>
+<li>
+<p><strong>Configure API Key</strong>:</p>
+</li>
+<li>Click the <strong>⚙ Settings</strong> button in the chat window</li>
+<li>Paste your Anthropic API key</li>
+<li>Select your preferred Claude model</li>
+<li>Click <strong>Save</strong></li>
+</ol>
+<p>!!! tip "Secure Storage Alternative"
+       For better security, consider storing your API key in an environment variable <code>ANTHROPIC_API_KEY</code>
+       instead of the settings file. The application will use this environment variable if available.</p>
+<ol>
+<li><strong>Start Chatting</strong>:</li>
+<li>Type your question in the input box</li>
+<li>Press <strong>Enter</strong> to send</li>
+<li>Use <strong>Shift+Enter</strong> or <strong>Ctrl+Enter</strong> for multi-line messages</li>
+</ol>
+<h2 id="keyboard-shortcuts">Keyboard Shortcuts<a class="headerlink" href="#keyboard-shortcuts" title="Permanent link">&para;</a></h2>
+<h3 id="openingclosing-chat">Opening/Closing Chat<a class="headerlink" href="#openingclosing-chat" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>§</code></strong> - Toggle chat window (Swedish/Nordic keyboards)</li>
+<li><strong><code>~</code></strong> - Toggle chat window (US keyboards)</li>
+<li><strong><code>Ctrl+/</code></strong> or <strong><code>Cmd+/</code></strong> - Toggle chat window (all keyboards)</li>
+</ul>
+<h3 id="in-chat-window">In Chat Window<a class="headerlink" href="#in-chat-window" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Enter</strong> - Send message</li>
+<li><strong>Shift+Enter</strong> - Insert newline (multi-line message)</li>
+<li><strong>Ctrl+Enter</strong> - Insert newline (multi-line message)</li>
+</ul>
+<h2 id="available-models">Available Models<a class="headerlink" href="#available-models" title="Permanent link">&para;</a></h2>
+<p>Choose the model that best fits your needs in the settings dialog:</p>
+<h3 id="claude-sonnet-45-default">Claude Sonnet 4.5 (Default)<a class="headerlink" href="#claude-sonnet-45-default" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Best balance</strong> of intelligence, speed, and cost</li>
+<li><strong>Excellent</strong> for coding and agentic tasks</li>
+<li><strong>200K token</strong> context window</li>
+<li><strong>Recommended</strong> for most users</li>
+</ul>
+<h3 id="claude-haiku-45">Claude Haiku 4.5<a class="headerlink" href="#claude-haiku-45" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Fastest</strong> model with near-frontier intelligence</li>
+<li><strong>Most economical</strong> option</li>
+<li><strong>200K token</strong> context window</li>
+<li><strong>Best for</strong>: Quick questions, simple queries</li>
+</ul>
+<h3 id="claude-opus-41">Claude Opus 4.1<a class="headerlink" href="#claude-opus-41" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Most capable</strong> model for complex reasoning</li>
+<li><strong>Premium</strong> intelligence and accuracy</li>
+<li><strong>200K token</strong> context window</li>
+<li><strong>Best for</strong>: Complex analysis, detailed explanations</li>
+</ul>
+<h2 id="project-context">Project Context<a class="headerlink" href="#project-context" title="Permanent link">&para;</a></h2>
+<p>The AI assistant automatically has access to your current project context, including:</p>
+<ul>
+<li>Project name and description</li>
+<li>AI configuration (model, training parameters)</li>
+<li>Detection settings (threshold, confidence, NMS)</li>
+<li>Data splits (train/val/test image counts)</li>
+<li>Training history and metrics</li>
+</ul>
+<p>This allows the assistant to provide specific, actionable advice for your project.</p>
+<h2 id="example-use-cases">Example Use Cases<a class="headerlink" href="#example-use-cases" title="Permanent link">&para;</a></h2>
+<h3 id="tune-detection-parameters">Tune Detection Parameters<a class="headerlink" href="#tune-detection-parameters" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>You: My detection is finding too many false positives. How can I reduce them?
+
+AI: Based on your project, I recommend:
+1. Increase confidence_threshold from 0.25 to 0.4
+2. Adjust iou_threshold to 0.5 for stricter overlap filtering
+3. Consider retraining with more negative examples
+
+Would you like me to explain how to adjust these in your project?
+</code></pre></div>
+<h3 id="training-guidance">Training Guidance<a class="headerlink" href="#training-guidance" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>You: How many epochs should I train for?
+
+AI: For your dataset with 150 training images:
+- Start with 50 epochs as a baseline
+- Monitor validation loss - it should decrease steadily
+- If validation loss plateaus before 50 epochs, you can stop early
+- If still improving at 50, try 75-100 epochs
+
+Your current batch_size of 8 is good for this dataset size.
+</code></pre></div>
+<h3 id="project-analysis">Project Analysis<a class="headerlink" href="#project-analysis" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>You: Analyze my project configuration
+
+AI: Here&#39;s what I found in your oslo_project:
+✅ Good splits: 70/20/10 train/val/test distribution
+⚠️  Low image count (150 total) - consider data augmentation
+✅ Reasonable batch_size (8) for dataset
+💡 Suggestion: Enable data augmentation in training config
+💡 Suggestion: Consider collecting more diverse training data
+</code></pre></div>
+<h3 id="feature-questions">Feature Questions<a class="headerlink" href="#feature-questions" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>You: How do I export detection results to CSV?
+
+AI: To export detection results:
+1. Run detection: `crackz detect run &lt;project&gt;`
+2. Results are saved in project/artifacts/detections/
+3. Use export command: `crackz export --format csv &lt;project&gt;`
+
+Or in GUI:
+1. Click &quot;Run Detection&quot; button
+2. Results appear in Detection Results panel
+3. Click &quot;Export&quot; → &quot;CSV Format&quot;
+</code></pre></div>
+<h2 id="character-limits">Character Limits<a class="headerlink" href="#character-limits" title="Permanent link">&para;</a></h2>
+<p>The input box has a character limit to ensure efficient API usage:</p>
+<ul>
+<li><strong>Up to 3,500 characters</strong>: Green indicator (optimal)</li>
+<li><strong>3,500-3,800 characters</strong>: Orange indicator (warning)</li>
+<li><strong>Over 3,800 characters</strong>: Red indicator (too long)</li>
+</ul>
+<p>If your message is too long, consider:
+- Breaking it into multiple smaller questions
+- Removing unnecessary details
+- Being more concise in your description</p>
+<h2 id="privacy-security">Privacy &amp; Security<a class="headerlink" href="#privacy-security" title="Permanent link">&para;</a></h2>
+<h3 id="api-key-storage">API Key Storage<a class="headerlink" href="#api-key-storage" title="Permanent link">&para;</a></h3>
+<ul>
+<li>API keys are stored <strong>locally</strong> in your application settings</li>
+<li>Keys are <strong>never</strong> transmitted except to Anthropic's API</li>
+<li>Consider using environment variables for production</li>
+</ul>
+<h3 id="data-sent-to-claude">Data Sent to Claude<a class="headerlink" href="#data-sent-to-claude" title="Permanent link">&para;</a></h3>
+<p>When you send a message, the following data is transmitted to Anthropic:
+- Your message text
+- Conversation history (previous messages in current session)
+- Project context (configuration, not images or training data)</p>
+<p><strong>Not sent:</strong>
+- Image files
+- Training data
+- Detection results (unless explicitly mentioned in your message)</p>
+<h3 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Don't include sensitive information in messages</li>
+<li>Use project-specific terminology to get better help</li>
+<li>Clear conversation history when switching projects</li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="api-key-not-configured">"API key not configured"<a class="headerlink" href="#api-key-not-configured" title="Permanent link">&para;</a></h3>
+<p><strong>Solution</strong>: Click the ⚙ Settings button and enter your Anthropic API key.</p>
+<h3 id="error-code-401-invalid-x-api-key">"Error code: 401 - invalid x-api-key"<a class="headerlink" href="#error-code-401-invalid-x-api-key" title="Permanent link">&para;</a></h3>
+<p><strong>Solution</strong>: Your API key is invalid or expired. Get a new key from <a href="https://console.anthropic.com/settings/keys">Anthropic Console</a>.</p>
+<h3 id="error-code-404-model-not-found">"Error code: 404 - model not found"<a class="headerlink" href="#error-code-404-model-not-found" title="Permanent link">&para;</a></h3>
+<p><strong>Solution</strong>: The selected model doesn't exist. Open settings and select a valid model:
+- <code>claude-sonnet-4-5-20250929</code>
+- <code>claude-haiku-4-5-20251001</code>
+- <code>claude-opus-4-1-20250805</code></p>
+<h3 id="chat-window-wont-open">Chat window won't open<a class="headerlink" href="#chat-window-wont-open" title="Permanent link">&para;</a></h3>
+<p><strong>Solutions</strong>:
+- Try alternative keyboard shortcuts: <code>§</code>, <code>~</code>, or <code>Ctrl+/</code>
+- Use menu: Help → AI Chat Assistant
+- Check if window is behind main window (click taskbar icon)</p>
+<h3 id="slow-responses">Slow responses<a class="headerlink" href="#slow-responses" title="Permanent link">&para;</a></h3>
+<p><strong>Causes</strong>:
+- Network latency
+- Model processing time (Opus is slower than Sonnet/Haiku)
+- Long conversation history</p>
+<p><strong>Solutions</strong>:
+- Clear conversation history (🗑️ Clear button)
+- Switch to Claude Haiku 4.5 for faster responses
+- Check your internet connection</p>
+<h3 id="no-project-context-in-responses">No project context in responses<a class="headerlink" href="#no-project-context-in-responses" title="Permanent link">&para;</a></h3>
+<p><strong>Solution</strong>: Make sure a project is loaded in the main GUI. The AI can only provide project-specific advice when a project is active.</p>
+<h2 id="api-costs">API Costs<a class="headerlink" href="#api-costs" title="Permanent link">&para;</a></h2>
+<p>Using the AI chat assistant incurs costs from Anthropic based on your usage:</p>
+<h3 id="pricing-as-of-november-2024">Pricing (as of November 2024)<a class="headerlink" href="#pricing-as-of-november-2024" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Claude Sonnet 4.5</strong>: $3/MTok input, $15/MTok output</li>
+<li><strong>Claude Haiku 4.5</strong>: $1/MTok input, $5/MTok output</li>
+<li><strong>Claude Opus 4.1</strong>: $15/MTok input, $75/MTok output</li>
+</ul>
+<h3 id="cost-management-tips">Cost Management Tips<a class="headerlink" href="#cost-management-tips" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Use Haiku</strong> for simple questions (3-5x cheaper)</li>
+<li><strong>Clear history</strong> regularly to reduce context size</li>
+<li><strong>Be concise</strong> in your messages</li>
+<li><strong>Monitor usage</strong> in <a href="https://console.anthropic.com/settings/plans">Anthropic Console</a></li>
+</ol>
+<h3 id="typical-usage-examples">Typical Usage Examples<a class="headerlink" href="#typical-usage-examples" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Simple question (~100 tokens): $0.0003 - $0.0015</li>
+<li>Detailed analysis (~500 tokens): $0.0015 - $0.0075</li>
+<li>Extended conversation (5 messages): $0.005 - $0.025</li>
+</ul>
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<h3 id="components">Components<a class="headerlink" href="#components" title="Permanent link">&para;</a></h3>
+<h4 id="chatwindow-chat_windowpy">ChatWindow (<code>chat_window.py</code>)<a class="headerlink" href="#chatwindow-chat_windowpy" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Floating Tkinter window with always-on-top behavior</li>
+<li>Message display with auto-scroll</li>
+<li>Input box with character counter</li>
+<li>Settings and Clear buttons</li>
+</ul>
+<h4 id="aichatservice-ai_chatpy">AIChatService (<code>ai_chat.py</code>)<a class="headerlink" href="#aichatservice-ai_chatpy" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Manages conversation history</li>
+<li>Handles async API calls to Claude</li>
+<li>Provides project context extraction</li>
+<li>Thread-safe callback mechanism</li>
+</ul>
+<h4 id="chatsettingsdialog-chat_settings_dialogpy">ChatSettingsDialog (<code>chat_settings_dialog.py</code>)<a class="headerlink" href="#chatsettingsdialog-chat_settings_dialogpy" title="Permanent link">&para;</a></h4>
+<ul>
+<li>API key configuration</li>
+<li>Model selection</li>
+<li>Settings persistence</li>
+</ul>
+<h3 id="key-features">Key Features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h3>
+<h4 id="async-communication">Async Communication<a class="headerlink" href="#async-communication" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Runs API calls in background thread</li>
+<li>Non-blocking UI during API requests</li>
+<li>Typing indicator shows activity</li>
+</ul>
+<h4 id="context-awareness">Context Awareness<a class="headerlink" href="#context-awareness" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Automatically extracts project information</li>
+<li>Includes configuration in system prompt</li>
+<li>Maintains conversation history</li>
+</ul>
+<h4 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Graceful API error recovery</li>
+<li>User-friendly error messages</li>
+<li>Fallback for missing API key</li>
+</ul>
+<h2 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h2>
+<h3 id="adding-new-context">Adding New Context<a class="headerlink" href="#adding-new-context" title="Permanent link">&para;</a></h3>
+<p>To add more project context to the AI assistant:</p>
+<ol>
+<li>
+<p>Edit <code>ai_chat.py</code> method <code>_get_context()</code>:
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_get_context</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_state</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_state</span><span class="o">.</span><span class="n">project</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;No project loaded&quot;</span>
+
+    <span class="n">project</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_state</span><span class="o">.</span><span class="n">project</span>
+
+    <span class="c1"># Add your new context here</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    Current project: </span><span class="si">{</span><span class="n">project</span><span class="o">.</span><span class="n">name</span><span class="si">}</span>
+
+<span class="s2">    Your new context:</span>
+<span class="s2">    - Additional info: </span><span class="si">{</span><span class="n">project</span><span class="o">.</span><span class="n">additional_info</span><span class="si">}</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Context is automatically included in every message to Claude</p>
+</li>
+</ol>
+<h3 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h3>
+<p>Run GUI tests:
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>tests
+</code></pre></div></p>
+<p>Manual testing checklist:
+- [ ] Open/close chat window with keyboard shortcuts
+- [ ] Configure API key in settings
+- [ ] Send message and receive response
+- [ ] Test multi-line messages with Shift+Enter
+- [ ] Clear conversation history
+- [ ] Test error handling (invalid API key)
+- [ ] Verify project context in responses</p>
+<h2 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../gui/">GUI User Guide</a> - Main GUI documentation</li>
+<li><a href="../configuration/">Configuration</a> - Project settings</li>
+<li><a href="../user-guide/">Detection Guide</a> - Running crack detection</li>
+</ul>
+<h2 id="support">Support<a class="headerlink" href="#support" title="Permanent link">&para;</a></h2>
+<p>For issues or questions:
+- <strong>Documentation</strong>: Check <a href="https://anaxiatech-ab.github.io/crackz/">docs/</a>
+- <strong>Issues</strong>: <a href="https://github.com/Anaxiatech-AB/crackz/issues">GitHub Issues</a>
+- <strong>Email</strong>: theresia.lundgren@anaxiatech.se</p>
 </section>
 <hr class='page-sep' />
 <section class='print-section' id='configuration' data-source='configuration.md'>

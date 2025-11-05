@@ -2113,15 +2113,18 @@
 <h2 id="clean">clean<a class="headerlink" href="#clean" title="Permanent link">&para;</a></h2>
 <p>Clean temporary files and logs from a project.</p>
 <p>By default, cleans logs, training artifacts, checkpoints, and detections.
-Images and masks are always preserved.</p>
+Images and masks are always preserved. The best model checkpoint is preserved by default.</p>
 <p>Usage:</p>
 <div class="highlight"><pre><span></span><code> clean [OPTIONS]
 </code></pre></div>
 <p>Options:</p>
-<div class="highlight"><pre><span></span><code>  -p, --project DIRECTORY  Project path (overrides config file). Eg --project
-                           ./my_project
-  --dry-run                Show actions without writing/executing them
-  --logs-only              Only clean log files, preserve artifacts
+<div class="highlight"><pre><span></span><code>  -p, --project DIRECTORY         Project path (overrides config file). Eg
+                                  --project ./my_project
+  --dry-run                       Show actions without writing/executing them
+  --logs-only                     Only clean log files, preserve artifacts
+  --keep-best-model / --no-keep-best-model
+                                  Keep the best model checkpoint when cleaning
+                                  (default: keep)  \[default: keep-best-model]
 </code></pre></div>
 <h2 id="detect">detect<a class="headerlink" href="#detect" title="Permanent link">&para;</a></h2>
 <p>Usage:</p>

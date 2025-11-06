@@ -100,7 +100,7 @@ table th { background:#f1f5f9; color:#111827; }
   <p class='company'>© 2025 Anaxiatech AB</p>
 </section>
 <hr class='page-sep'/>
-<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#getting-started'>Getting Started</a></li><li><a href='#installation'>Installation</a></li><li><a href='#user-guide'>User Guide</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#gui'>GUI</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#configuration'>Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-vm-cuda'>Azure VM with CUDA</a></li><li><a href='#azure-comparison'>VM vs Batch Comparison</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#api'>API Reference</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access Management</a></li><li><a href='#pdf'>Printable PDF</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
+<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#getting-started'>Getting Started</a></li><li><a href='#installation'>Installation</a></li><li><a href='#user-guide'>User Guide</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#gui'>GUI</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#configuration'>Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-vm-cuda'>Azure VM with CUDA</a></li><li><a href='#azure-comparison'>VM vs Batch Comparison</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#01-scope'>Project Scope</a></li><li><a href='#02-decisions'>Architecture Decisions</a></li><li><a href='#03-tasks'>Current Tasks</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#api'>API Reference</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access Management</a></li><li><a href='#pdf'>Printable PDF</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
 <h1>Home</h1>
 <h1 id="crackz">Crackz<a class="headerlink" href="#crackz" title="Permanent link">&para;</a></h1>
 <p>
@@ -8105,6 +8105,861 @@ This will:
 <li>See the <a href="../cli-cookbook/">CLI Cookbook</a> for command usage examples.</li>
 <li>Visit <a href="../configuration/">Configuration</a> and <a href="../advanced-performance/">Advanced Performance</a> for tuning.</li>
 </ul>
+</section>
+<hr class='page-sep' />
+<section class='print-section' id='01-scope' data-source='01-scope.md'>
+<h1>Project Scope</h1>
+<h1 id="project-scope">Project Scope<a class="headerlink" href="#project-scope" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>What we're building and why</strong></p>
+</blockquote>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p><strong>Crackz</strong> is a commercial AI-powered image analysis tool for detecting cracks in harbor and bridge infrastructure. It provides maritime engineers and infrastructure inspectors with automated crack detection to improve safety assessments and reduce manual inspection time.</p>
+<h2 id="business-goals">Business Goals<a class="headerlink" href="#business-goals" title="Permanent link">&para;</a></h2>
+<h3 id="primary-objectives">Primary Objectives<a class="headerlink" href="#primary-objectives" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Automate crack detection</strong> in harbor concrete structures</li>
+<li><strong>Reduce inspection time</strong> from manual visual inspection to automated analysis</li>
+<li><strong>Improve detection accuracy</strong> with AI-powered segmentation models</li>
+<li><strong>Enable enterprise deployment</strong> with Docker, GPU support, and team management</li>
+<li><strong>Support offline operation</strong> for maritime environments with limited connectivity</li>
+</ol>
+<h3 id="success-criteria">Success Criteria<a class="headerlink" href="#success-criteria" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Detection accuracy &gt;85% IoU on validation sets</li>
+<li>Processing speed &lt;5 seconds per image on CPU</li>
+<li>Memory usage &lt;4GB RAM for standard workflows</li>
+<li>Successful deployment to 5+ customer organizations</li>
+<li>95% customer satisfaction with detection quality</li>
+</ul>
+<h2 id="target-users">Target Users<a class="headerlink" href="#target-users" title="Permanent link">&para;</a></h2>
+<h3 id="primary-users">Primary Users<a class="headerlink" href="#primary-users" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Harbor Inspection Engineers</strong></li>
+<li>Need: Fast, reliable crack detection for routine inspections</li>
+<li>Pain point: Manual inspection is time-consuming and subjective</li>
+<li>
+<p>Success: Reduce inspection time by 60%</p>
+</li>
+<li>
+<p><strong>Infrastructure Managers</strong></p>
+</li>
+<li>Need: Historical tracking of crack progression over time</li>
+<li>Pain point: Inconsistent documentation across inspections</li>
+<li>
+<p>Success: Reproducible project structure with versioned results</p>
+</li>
+<li>
+<p><strong>Maritime Authorities</strong></p>
+</li>
+<li>Need: Compliance reporting with standardized detection metrics</li>
+<li>Pain point: Manual report generation from inspection photos</li>
+<li>Success: Automated reporting with PDF export and GPS mapping</li>
+</ol>
+<h3 id="secondary-users">Secondary Users<a class="headerlink" href="#secondary-users" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>IT Administrators</strong> (enterprise deployment)</li>
+<li><strong>Data Scientists</strong> (model training and tuning)</li>
+<li><strong>Bridge Inspectors</strong> (similar use case to harbors)</li>
+</ol>
+<h2 id="core-features-current">Core Features (Current)<a class="headerlink" href="#core-features-current" title="Permanent link">&para;</a></h2>
+<h3 id="project-management">Project Management<a class="headerlink" href="#project-management" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ Project scaffolding with reproducible directory structure</li>
+<li>✅ Image import with preprocessing (resize, organize splits)</li>
+<li>✅ Project migration for schema versioning</li>
+<li>✅ Clean command for maintenance (logs, artifacts)</li>
+</ul>
+<h3 id="ai-pipeline">AI Pipeline<a class="headerlink" href="#ai-pipeline" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ Training pipeline with PyTorch Lightning</li>
+<li>✅ Detection pipeline with batch processing</li>
+<li>✅ Model checkpointing and resumption</li>
+<li>✅ TensorBoard integration for training visualization</li>
+<li>✅ Runtime overrides (epochs, batch size) without YAML edits</li>
+</ul>
+<h3 id="user-interfaces">User Interfaces<a class="headerlink" href="#user-interfaces" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ <strong>CLI</strong> (Typer): Primary interface for automation and CI/CD</li>
+<li>✅ <strong>GUI</strong> (CustomTkinter): Desktop app for visual project management</li>
+<li>✅ <strong>Docker</strong>: Three variants (full, slim, GPU) for enterprise deployment</li>
+</ul>
+<h3 id="deployment-operations">Deployment &amp; Operations<a class="headerlink" href="#deployment-operations" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ Docker images with multi-stage builds</li>
+<li>✅ Azure Batch support for distributed processing</li>
+<li>✅ Azure VM deployment scripts (CPU and GPU)</li>
+<li>✅ Hybrid logging (central + per-project)</li>
+<li>✅ GPS/EXIF support with interactive maps and GeoJSON export</li>
+</ul>
+<h3 id="integration">Integration<a class="headerlink" href="#integration" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ MCP (Model Context Protocol) for AI assistant integration</li>
+<li>✅ Shell completion (bash, zsh, fish, PowerShell)</li>
+<li>✅ GitHub Actions CI/CD workflows</li>
+<li>✅ GitHub Copilot optimization</li>
+</ul>
+<h2 id="features-planned-backlog">Features (Planned - Backlog)<a class="headerlink" href="#features-planned-backlog" title="Permanent link">&para;</a></h2>
+<h3 id="near-term-next-3-6-months">Near-term (Next 3-6 months)<a class="headerlink" href="#near-term-next-3-6-months" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] <strong>Push update solution</strong> for continuous model improvement (#282)</li>
+<li>[ ] <strong>Large photo mosaic import</strong> for high-resolution scans (#215)</li>
+<li>[ ] <strong>Word document report generator</strong> (complementing existing PDF export)</li>
+<li>[ ] <strong>Severity classification</strong> beyond binary crack/no-crack</li>
+<li>[ ] <strong>Web API</strong> for remote detection requests</li>
+</ul>
+<h3 id="long-term-6-12-months">Long-term (6-12 months)<a class="headerlink" href="#long-term-6-12-months" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] <strong>Qt GUI migration</strong> for improved cross-platform support (#127)</li>
+<li>[ ] <strong>Multi-model ensemble</strong> for improved accuracy</li>
+<li>[ ] <strong>Active learning</strong> workflow for efficient labeling</li>
+<li>[ ] <strong>Cloud-native deployment</strong> (Kubernetes, serverless)</li>
+<li>[ ] <strong>Mobile app</strong> for field inspection with offline sync</li>
+</ul>
+<h2 id="constraints">Constraints<a class="headerlink" href="#constraints" title="Permanent link">&para;</a></h2>
+<h3 id="technical-constraints">Technical Constraints<a class="headerlink" href="#technical-constraints" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Python 3.11+</strong> minimum (3.13 recommended for performance)</li>
+<li><strong>PyTorch ecosystem</strong> (switching ML frameworks not feasible)</li>
+<li><strong>YAML-based config</strong> for human readability (no binary configs)</li>
+<li><strong>Backward compatibility</strong> for project schemas (must support migration)</li>
+<li><strong>Offline-first design</strong> (no required internet connectivity)</li>
+</ol>
+<h3 id="performance-constraints">Performance Constraints<a class="headerlink" href="#performance-constraints" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Memory</strong>: Must run on laptops with 8GB RAM (4GB allocated)</li>
+<li><strong>CPU speed</strong>: &lt;5 seconds per image on modern Intel/AMD CPUs</li>
+<li><strong>GPU training</strong>: Support CUDA 11.8+ and 12.x</li>
+<li><strong>Container startup</strong>: &lt;30 seconds cold start</li>
+<li><strong>Test coverage</strong>: Minimum 75% (enforced in CI)</li>
+</ol>
+<h3 id="business-constraints">Business Constraints<a class="headerlink" href="#business-constraints" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Commercial licensing</strong>: GPL-3.0 source-available model</li>
+<li><strong>Enterprise deployment</strong>: Must support air-gapped environments</li>
+<li><strong>Customer support</strong>: Email support within 24 hours</li>
+<li><strong>Data privacy</strong>: No telemetry, no cloud-required features</li>
+<li><strong>Stability</strong>: No breaking changes without major version bump</li>
+</ol>
+<h3 id="development-constraints">Development Constraints<a class="headerlink" href="#development-constraints" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>CI/CD</strong>: All tests must pass on GitHub Actions</li>
+<li><strong>Code quality</strong>: Ruff linting, mypy type checking enforced</li>
+<li><strong>Documentation</strong>: All public APIs must be documented</li>
+<li><strong>Performance</strong>: No regressions &gt;20% without justification</li>
+<li><strong>Git workflow</strong>: No direct pushes to main, all changes via PR</li>
+</ol>
+<h2 id="non-goals">Non-Goals<a class="headerlink" href="#non-goals" title="Permanent link">&para;</a></h2>
+<h3 id="explicitly-out-of-scope">Explicitly Out of Scope<a class="headerlink" href="#explicitly-out-of-scope" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Real-time video detection</strong> (focus on still images)</li>
+<li><strong>3D reconstruction</strong> (2D segmentation only)</li>
+<li><strong>Mobile-first UI</strong> (desktop and CLI focus)</li>
+<li><strong>Multi-user collaboration</strong> (single-user project management)</li>
+<li><strong>Cloud storage integration</strong> (local storage only)</li>
+<li><strong>Third-party API dependencies</strong> (self-contained operation)</li>
+</ol>
+<h3 id="why-these-are-out-of-scope">Why These Are Out of Scope<a class="headerlink" href="#why-these-are-out-of-scope" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Real-time video</strong>: Harbor inspections use high-res still photos, not video</li>
+<li><strong>3D reconstruction</strong>: Not required by customers, adds complexity</li>
+<li><strong>Mobile-first</strong>: Harbor engineers use laptops/tablets with keyboards</li>
+<li><strong>Multi-user collaboration</strong>: Single inspector per project is current workflow</li>
+<li><strong>Cloud storage</strong>: Customer data privacy requirements favor local storage</li>
+<li><strong>Third-party APIs</strong>: Offline operation is critical for maritime environments</li>
+</ul>
+<h2 id="success-metrics">Success Metrics<a class="headerlink" href="#success-metrics" title="Permanent link">&para;</a></h2>
+<h3 id="product-metrics">Product Metrics<a class="headerlink" href="#product-metrics" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Detection Accuracy</strong>: &gt;85% IoU on held-out test sets</li>
+<li><strong>Processing Speed</strong>: &lt;5s per image (CPU), &lt;1s per image (GPU)</li>
+<li><strong>Memory Usage</strong>: &lt;4GB RAM for typical workflows</li>
+<li><strong>Crash Rate</strong>: &lt;1% of operations (measured in telemetry opt-in)</li>
+<li><strong>Test Coverage</strong>: &gt;75% line coverage, &gt;80% target</li>
+</ul>
+<h3 id="business-metrics">Business Metrics<a class="headerlink" href="#business-metrics" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Customer Adoption</strong>: 10+ active customer organizations</li>
+<li><strong>User Satisfaction</strong>: 4.5+ stars (5-point scale) from customer feedback</li>
+<li><strong>Inspection Time Reduction</strong>: 50%+ reported by users</li>
+<li><strong>Support Response Time</strong>: &lt;24 hours for email support</li>
+<li><strong>Documentation Coverage</strong>: 100% of CLI commands documented</li>
+</ul>
+<h3 id="development-metrics">Development Metrics<a class="headerlink" href="#development-metrics" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>CI/CD Success Rate</strong>: &gt;95% of runs pass</li>
+<li><strong>Release Cadence</strong>: Minor releases every 2-3 weeks</li>
+<li><strong>Issue Resolution Time</strong>: &lt;7 days for bugs, &lt;30 days for features</li>
+<li><strong>Code Review Time</strong>: &lt;48 hours for PR review</li>
+<li><strong>Build Time</strong>: &lt;10 minutes for full CI pipeline</li>
+</ul>
+<h2 id="stakeholders">Stakeholders<a class="headerlink" href="#stakeholders" title="Permanent link">&para;</a></h2>
+<h3 id="internal">Internal<a class="headerlink" href="#internal" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Theresia Lundgren</strong> (Author, Lead Developer, Product Owner)</li>
+<li><strong>Anaxiatech AB</strong> (Development company)</li>
+</ul>
+<h3 id="external">External<a class="headerlink" href="#external" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Harbor Inspection Teams</strong> (End users, feature requests)</li>
+<li><strong>IT Administrators</strong> (Deployment, enterprise requirements)</li>
+<li><strong>Maritime Authorities</strong> (Compliance, reporting needs)</li>
+<li><strong>Bridge Inspection Companies</strong> (Adjacent market, potential expansion)</li>
+</ul>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<h3 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../installation/">Installation Guide</a> - Setup and deployment</li>
+<li><a href="../user-guide/">User Guide</a> - End-user documentation</li>
+<li><a href="../cli-cookbook/">CLI Cookbook</a> - Common workflows</li>
+<li><a href="../architecture/">Architecture</a> - Technical architecture</li>
+<li><a href="../contributing/">Contributing</a> - Development guidelines</li>
+</ul>
+<h3 id="external-resources">External Resources<a class="headerlink" href="#external-resources" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://lightning.ai/docs/pytorch/stable/">PyTorch Lightning</a></li>
+<li><a href="https://typer.tiangolo.com/">Typer</a></li>
+<li><a href="https://docs.pydantic.dev/">Pydantic</a></li>
+<li><a href="https://docs.docker.com/">Docker</a></li>
+</ul>
+<hr />
+<p><strong>Last Updated</strong>: 2025-11-06
+<strong>Status</strong>: Active development
+<strong>Version</strong>: 0.57.x</p>
+</section>
+<hr class='page-sep' />
+<section class='print-section' id='02-decisions' data-source='02-decisions.md'>
+<h1>Architecture Decisions</h1>
+<h1 id="architecture-decisions">Architecture Decisions<a class="headerlink" href="#architecture-decisions" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Key technical decisions and their rationale</strong> (ADR-style)</p>
+</blockquote>
+<p>This document records important architecture decisions made during Crackz development. Each decision includes context, the decision itself, and consequences.</p>
+<h2 id="format">Format<a class="headerlink" href="#format" title="Permanent link">&para;</a></h2>
+<p>Each decision follows this structure:
+- <strong>Context</strong>: Why we needed to make a decision
+- <strong>Decision</strong>: What we chose
+- <strong>Consequences</strong>: Trade-offs and implications
+- <strong>Status</strong>: Active | Deprecated | Superseded</p>
+<hr />
+<h2 id="adr-001-use-uv-instead-of-pip-or-poetry">ADR-001: Use <code>uv</code> Instead of <code>pip</code> or <code>poetry</code><a class="headerlink" href="#adr-001-use-uv-instead-of-pip-or-poetry" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Python package management is slow with pip and complex with poetry. Development teams need fast, reliable dependency installation.</p>
+<p><strong>Decision</strong>: Use <code>uv</code> (Astral's package manager) exclusively for all package operations.</p>
+<p><strong>Consequences</strong>:
+- ✅ 10-100x faster installs compared to pip
+- ✅ Automatic virtual environment management
+- ✅ Built-in lockfile support (uv.lock)
+- ✅ Drop-in pip replacement
+- ⚠️ Relatively new tool (requires team adoption)
+- ⚠️ Some edge cases with complex C extensions</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>.github/workflows/</code>, <code>pyproject.toml</code>, all documentation</p>
+<hr />
+<h2 id="adr-002-pytorch-lightning-for-ml-pipeline">ADR-002: PyTorch Lightning for ML Pipeline<a class="headerlink" href="#adr-002-pytorch-lightning-for-ml-pipeline" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Raw PyTorch requires significant boilerplate for training loops, checkpointing, and distributed training.</p>
+<p><strong>Decision</strong>: Use PyTorch Lightning as the ML framework layer.</p>
+<p><strong>Consequences</strong>:
+- ✅ Production-ready training with minimal boilerplate
+- ✅ Built-in checkpointing, logging, and callbacks
+- ✅ Easy GPU/multi-GPU scaling
+- ✅ TensorBoard integration out of the box
+- ⚠️ Additional abstraction layer to learn
+- ⚠️ Opinionated structure (less flexibility)</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>src/crackz/ai/training.py</code>, <code>src/crackz/ai/models.py</code></p>
+<hr />
+<h2 id="adr-003-typer-for-cli-framework">ADR-003: Typer for CLI Framework<a class="headerlink" href="#adr-003-typer-for-cli-framework" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Need type-safe CLI with good DX, auto-generated help, and modern Python features.</p>
+<p><strong>Decision</strong>: Use Typer instead of Click or argparse.</p>
+<p><strong>Consequences</strong>:
+- ✅ Type hints drive CLI interface (DRY principle)
+- ✅ Excellent auto-generated help text
+- ✅ Easy to test and maintain
+- ✅ Built on Click (mature foundation)
+- ⚠️ Less flexible than raw Click for complex UIs
+- ⚠️ Learning curve for developers used to argparse</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>src/crackz/cli/</code>, all CLI commands</p>
+<hr />
+<h2 id="adr-004-customtkinter-for-gui-not-qt">ADR-004: CustomTkinter for GUI (Not Qt)<a class="headerlink" href="#adr-004-customtkinter-for-gui-not-qt" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Need lightweight desktop GUI. Qt requires commercial licensing for proprietary software; Tkinter is too basic.</p>
+<p><strong>Decision</strong>: Use CustomTkinter (modern Tkinter wrapper) instead of Qt or Kivy.</p>
+<p><strong>Consequences</strong>:
+- ✅ No licensing costs (compatible with GPL-3.0)
+- ✅ Modern dark mode support
+- ✅ Lightweight (~1MB vs Qt's ~50MB)
+- ✅ Easy to package with PyInstaller
+- ⚠️ Less feature-rich than Qt
+- ⚠️ Limited third-party widgets
+- ⚠️ Known issue: some customers want Qt migration (#127)</p>
+<p><strong>Status</strong>: Active (Qt migration under consideration)</p>
+<p><strong>Related</strong>: <code>src/crackz/gui/</code>, issue #127</p>
+<hr />
+<h2 id="adr-005-pydantic-v2-for-configuration">ADR-005: Pydantic v2 for Configuration<a class="headerlink" href="#adr-005-pydantic-v2-for-configuration" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Need type-safe config validation with YAML serialization. Manual validation is error-prone.</p>
+<p><strong>Decision</strong>: Use Pydantic v2 models for all configuration with YAML backend.</p>
+<p><strong>Consequences</strong>:
+- ✅ Type-safe validation at load time
+- ✅ Auto-generated JSON schemas
+- ✅ Excellent error messages for invalid configs
+- ✅ Easy to extend and version (schema_version field)
+- ⚠️ YAML library dependency (pyyaml)
+- ⚠️ Learning curve for Pydantic's API</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>src/crackz/config/</code>, project YAML files</p>
+<hr />
+<h2 id="adr-006-hybrid-logging-architecture">ADR-006: Hybrid Logging Architecture<a class="headerlink" href="#adr-006-hybrid-logging-architecture" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Need system-wide logs for debugging AND per-project logs for customer audit trails.</p>
+<p><strong>Decision</strong>: Implement hybrid logging with:
+- Central log sink (pre-project operations, global context)
+- Per-project log sink (project-specific operations)</p>
+<p><strong>Consequences</strong>:
+- ✅ Complete audit trail per project
+- ✅ System-wide logging for debugging
+- ✅ Flexible central log location (env var, flag, or temp)
+- ⚠️ Slightly more complex logging setup
+- ⚠️ Two log locations to manage</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>src/crackz/log/</code>, <code>CRACKZ_LOG_DIR</code> env var</p>
+<hr />
+<h2 id="adr-007-centralized-cli-options-pattern">ADR-007: Centralized CLI Options Pattern<a class="headerlink" href="#adr-007-centralized-cli-options-pattern" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: CLI option definitions were duplicated across modules (e.g., multiple <code>FORCE_OPTION</code> definitions).</p>
+<p><strong>Decision</strong>: Centralize all reusable CLI options in <code>src/crackz/cli/options.py</code>.</p>
+<p><strong>Consequences</strong>:
+- ✅ Single source of truth for option definitions
+- ✅ Consistent help text and behavior
+- ✅ Easy to update globally
+- ⚠️ Requires discipline to import (not re-define)
+- ⚠️ One-time refactoring effort to consolidate</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>src/crackz/cli/options.py</code>, all CLI commands</p>
+<hr />
+<h2 id="adr-008-conventional-commits-for-versioning">ADR-008: Conventional Commits for Versioning<a class="headerlink" href="#adr-008-conventional-commits-for-versioning" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Manual versioning and changelog generation is error-prone and time-consuming.</p>
+<p><strong>Decision</strong>: Use conventional commits (<code>feat:</code>, <code>fix:</code>, etc.) with semantic-release for automated versioning.</p>
+<p><strong>Consequences</strong>:
+- ✅ Automatic version bumps (major, minor, patch)
+- ✅ Auto-generated changelog from commits
+- ✅ Clear commit history for code review
+- ⚠️ Team must follow commit conventions
+- ⚠️ Bad commit messages affect release notes</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>.releaserc.yml</code>, GitHub Actions workflows</p>
+<hr />
+<h2 id="adr-009-three-docker-variants-full-slim-gpu">ADR-009: Three Docker Variants (Full, Slim, GPU)<a class="headerlink" href="#adr-009-three-docker-variants-full-slim-gpu" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Different deployment scenarios need different image sizes and capabilities.</p>
+<p><strong>Decision</strong>: Provide three Dockerfiles:
+- <strong>Dockerfile</strong>: Balanced full-featured image
+- <strong>Dockerfile.slim</strong>: Minimal runtime (no dev tools)
+- <strong>Dockerfile.gpu</strong>: CUDA runtime for GPU workloads</p>
+<p><strong>Consequences</strong>:
+- ✅ Optimized images for each use case
+- ✅ Faster pulls for slim (smaller size)
+- ✅ GPU support without bloating CPU images
+- ⚠️ Three Dockerfiles to maintain
+- ⚠️ Need clear documentation on which to use</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>Dockerfile</code>, <code>Dockerfile.slim</code>, <code>Dockerfile.gpu</code>, <code>Makefile</code></p>
+<hr />
+<h2 id="adr-010-uv-sync-in-docker-not-wheel-builds">ADR-010: <code>uv sync</code> in Docker (Not Wheel Builds)<a class="headerlink" href="#adr-010-uv-sync-in-docker-not-wheel-builds" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Building wheels in Docker is slow and complex. <code>uv sync</code> is faster and simpler.</p>
+<p><strong>Decision</strong>: Use <code>uv sync</code> directly in Docker images instead of pre-built wheels.</p>
+<p><strong>Consequences</strong>:
+- ✅ Faster Docker builds (uv's speed)
+- ✅ Simpler Dockerfile (no multi-stage wheel building)
+- ✅ Consistent with local development workflow
+- ⚠️ Requires uv installed in base image
+- ⚠️ Build cache depends on pyproject.toml + uv.lock</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: All Dockerfiles</p>
+<hr />
+<h2 id="adr-011-ruff-for-linting-and-formatting">ADR-011: Ruff for Linting and Formatting<a class="headerlink" href="#adr-011-ruff-for-linting-and-formatting" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Traditional Python linting (flake8, black, isort) requires multiple tools and is slow.</p>
+<p><strong>Decision</strong>: Use Ruff for both linting and formatting (replaces black, isort, flake8, etc.).</p>
+<p><strong>Consequences</strong>:
+- ✅ 10-100x faster than traditional tools
+- ✅ Single tool for linting + formatting
+- ✅ Compatible with existing configs (black, isort rules)
+- ✅ Excellent VS Code integration
+- ⚠️ Newer tool (less mature than black)
+- ⚠️ Some edge cases in AST-based fixes</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>pyproject.toml</code> (Ruff config), pre-commit hooks</p>
+<hr />
+<h2 id="adr-012-75-minimum-test-coverage">ADR-012: 75% Minimum Test Coverage<a class="headerlink" href="#adr-012-75-minimum-test-coverage" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Need quality gates without over-constraining development. 100% is unrealistic; &lt;70% is too low.</p>
+<p><strong>Decision</strong>: Enforce 75% minimum test coverage in CI (target 85%).</p>
+<p><strong>Consequences</strong>:
+- ✅ Catches most untested code paths
+- ✅ Realistic target for teams
+- ✅ Enforced automatically in CI
+- ⚠️ Can be gamed with trivial tests
+- ⚠️ Doesn't measure test quality</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>pyproject.toml</code> (pytest-cov config), CI workflows</p>
+<hr />
+<h2 id="adr-013-performance-regression-tests-with-benchmarks">ADR-013: Performance Regression Tests with Benchmarks<a class="headerlink" href="#adr-013-performance-regression-tests-with-benchmarks" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Performance regressions are hard to catch without automated measurement.</p>
+<p><strong>Decision</strong>: Use pytest-benchmark with automated regression detection (&gt;20% mean, &gt;30% max).</p>
+<p><strong>Consequences</strong>:
+- ✅ Catches performance regressions before merge
+- ✅ Historical performance tracking
+- ✅ Baseline updates after intentional changes
+- ⚠️ Benchmark stability depends on CI environment
+- ⚠️ Requires baseline management</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>tests/unit/benchmarks/</code>, <code>.benchmarks/</code> (gitignored)</p>
+<hr />
+<h2 id="adr-014-project-schema-versioning-with-migrations">ADR-014: Project Schema Versioning with Migrations<a class="headerlink" href="#adr-014-project-schema-versioning-with-migrations" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Project YAML format evolves over time. Breaking old projects is unacceptable for customers.</p>
+<p><strong>Decision</strong>: Add <code>schema_version</code> field to project configs with migration system.</p>
+<p><strong>Consequences</strong>:
+- ✅ Backward compatibility for customer projects
+- ✅ Explicit migration path for breaking changes
+- ✅ Safe upgrades (creates .bak files)
+- ⚠️ Migration code must be maintained
+- ⚠️ Testing migrations requires old project fixtures</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>crackz migrate</code>, <code>src/crackz/config/</code>, <code>schema_version</code> field</p>
+<hr />
+<h2 id="adr-015-typersecho-for-user-messages-logger-for-technical-info">ADR-015: <code>typer.secho()</code> for User Messages, <code>logger</code> for Technical Info<a class="headerlink" href="#adr-015-typersecho-for-user-messages-logger-for-technical-info" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Mixed output methods (print, echo, console.print) created inconsistent UX.</p>
+<p><strong>Decision</strong>: Standardize on:
+- <code>typer.secho()</code> with colors for end-user messages
+- <code>logger</code> for technical/operational information
+- NEVER use <code>print()</code>, <code>typer.echo()</code>, or <code>console.print()</code></p>
+<p><strong>Consequences</strong>:
+- ✅ Consistent user experience across all CLI commands
+- ✅ Clear separation: user messages vs operational logs
+- ✅ Better testability (can capture typer output)
+- ⚠️ Requires team discipline to follow conventions
+- ⚠️ One-time refactoring effort to standardize existing code</p>
+<p><strong>Status</strong>: Active (strictly enforced)</p>
+<p><strong>Related</strong>: All CLI commands, <code>CONTRIBUTING.md</code>, <code>DEVELOPMENT_STANDARDS.md</code></p>
+<hr />
+<h2 id="adr-016-github-actions-for-cicd">ADR-016: GitHub Actions for CI/CD<a class="headerlink" href="#adr-016-github-actions-for-cicd" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Need reliable, cloud-based CI/CD with good GitHub integration.</p>
+<p><strong>Decision</strong>: Use GitHub Actions exclusively (no Travis, CircleCI, etc.).</p>
+<p><strong>Consequences</strong>:
+- ✅ Native GitHub integration (PRs, issues, releases)
+- ✅ Free for public repos, generous for private
+- ✅ Good ecosystem of third-party actions
+- ✅ Matrix builds for multi-platform testing
+- ⚠️ Vendor lock-in to GitHub
+- ⚠️ YAML workflow syntax (learning curve)</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>.github/workflows/</code></p>
+<hr />
+<h2 id="adr-017-mcp-model-context-protocol-integration">ADR-017: MCP (Model Context Protocol) Integration<a class="headerlink" href="#adr-017-mcp-model-context-protocol-integration" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: AI assistants (Claude, Copilot) need standardized access to development tools.</p>
+<p><strong>Decision</strong>: Implement MCP integration with <code>crackz mcp init</code> command.</p>
+<p><strong>Consequences</strong>:
+- ✅ Standardized AI assistant integration
+- ✅ Fine-grained permission control
+- ✅ Future-proof for AI-powered development
+- ⚠️ Relatively new protocol (evolving spec)
+- ⚠️ Limited ecosystem currently</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>src/crackz/cli/mcp_cli.py</code>, <code>.mcp/config.json</code></p>
+<hr />
+<h2 id="adr-018-gpsexif-support-with-geojson-export">ADR-018: GPS/EXIF Support with GeoJSON Export<a class="headerlink" href="#adr-018-gpsexif-support-with-geojson-export" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Harbor inspections often have GPS-tagged photos. Customers need location-based reports.</p>
+<p><strong>Decision</strong>: Add GPS extraction from EXIF, interactive maps (Folium), and GeoJSON export.</p>
+<p><strong>Consequences</strong>:
+- ✅ Location-aware detection results
+- ✅ Interactive HTML maps for visual reporting
+- ✅ GeoJSON export for GIS integration
+- ⚠️ Not all images have GPS data (graceful fallback)
+- ⚠️ Privacy considerations (GPS data in exports)</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>crackz geo</code> commands, <code>src/crackz/geo/</code></p>
+<hr />
+<h2 id="summary-of-current-technology-stack">Summary of Current Technology Stack<a class="headerlink" href="#summary-of-current-technology-stack" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Decision Area</th>
+<th>Chosen Technology</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Package Manager</td>
+<td><code>uv</code></td>
+<td>Active</td>
+</tr>
+<tr>
+<td>ML Framework</td>
+<td>PyTorch Lightning</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>CLI Framework</td>
+<td>Typer</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>GUI Framework</td>
+<td>CustomTkinter</td>
+<td>Active (Qt migration considered)</td>
+</tr>
+<tr>
+<td>Configuration</td>
+<td>Pydantic v2 + YAML</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Logging</td>
+<td>Loguru (hybrid)</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Linting/Formatting</td>
+<td>Ruff</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Type Checking</td>
+<td>mypy</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Testing</td>
+<td>pytest + pytest-cov + pytest-benchmark</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>CI/CD</td>
+<td>GitHub Actions</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Versioning</td>
+<td>semantic-release + conventional commits</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Docker Strategy</td>
+<td>Three variants (full, slim, GPU)</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Migration Strategy</td>
+<td>Schema versioning + crackz migrate</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Output Standards</td>
+<td>typer.secho + logger</td>
+<td>Active (enforced)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>Last Updated</strong>: 2025-11-06
+<strong>Maintained By</strong>: Theresia Lundgren (theresia.lundgren@anaxiatech.se)</p>
+<p><strong>How to Propose New ADRs</strong>:
+1. Create issue describing the decision needed
+2. Research alternatives with pros/cons
+3. Discuss with team/community
+4. Add ADR to this document via PR
+5. Update related documentation</p>
+</section>
+<hr class='page-sep' />
+<section class='print-section' id='03-tasks' data-source='03-tasks.md'>
+<h1>Current Tasks</h1>
+<h1 id="current-tasks-backlog">Current Tasks &amp; Backlog<a class="headerlink" href="#current-tasks-backlog" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Active work items and planned features</strong>
+Last updated: 2025-11-06</p>
+</blockquote>
+<h2 id="how-to-use-this-file">How to Use This File<a class="headerlink" href="#how-to-use-this-file" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Check off tasks as you complete them: <code>- [x] Task description</code></li>
+<li>Add new tasks as they come up</li>
+<li>Use priority labels: 🔴 High | 🟡 Medium | 🟢 Low</li>
+<li>Link to GitHub issues where applicable</li>
+</ul>
+<hr />
+<h2 id="active-work-in-progress">🚀 Active Work (In Progress)<a class="headerlink" href="#active-work-in-progress" title="Permanent link">&para;</a></h2>
+<h3 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] 🟡 Add Claude Code workflow structure files (#current)</li>
+<li>[x] Create CONTEXT.md (compressed orientation)</li>
+<li>[x] Create PLAYBOOK.md (how this project works)</li>
+<li>[x] Create docs/01-scope.md (goals &amp; constraints)</li>
+<li>[x] Create docs/02-decisions.md (ADR-style decisions)</li>
+<li>[x] Create docs/03-tasks.md (this file)</li>
+<li>[ ] Add dev docs section explaining the setup</li>
+<li>[ ] Update README.md to reference new structure</li>
+</ul>
+<hr />
+<h2 id="backlog-prioritized">📋 Backlog (Prioritized)<a class="headerlink" href="#backlog-prioritized" title="Permanent link">&para;</a></h2>
+<h3 id="high-priority">High Priority 🔴<a class="headerlink" href="#high-priority" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] 🔴 <strong>Investigate push update solution</strong> (<a href="https://github.com/Anaxiatech-AB/crackz/issues/282">#282</a>)</li>
+<li>Context: Need continuous model improvement workflow</li>
+<li>Acceptance: Define push update mechanism for model improvements</li>
+<li>
+<p>Estimated effort: 1-2 weeks</p>
+</li>
+<li>
+<p>[ ] 🔴 <strong>Large photo mosaic import</strong> (<a href="https://github.com/Anaxiatech-AB/crackz/issues/215">#215</a>)</p>
+</li>
+<li>Context: High-resolution harbor scans need mosaic/tiling</li>
+<li>Acceptance: Import and process large photos (&gt;10000x10000px)</li>
+<li>Estimated effort: 2-3 weeks</li>
+</ul>
+<h3 id="medium-priority">Medium Priority 🟡<a class="headerlink" href="#medium-priority" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] 🟡 <strong>Word document report generator</strong></li>
+<li>Context: Complement existing PDF export with Word format</li>
+<li>Acceptance: <code>crackz report export --format docx</code></li>
+<li>Estimated effort: 1 week</li>
+<li>
+<p>Note: Basic implementation already exists, needs testing/polish</p>
+</li>
+<li>
+<p>[ ] 🟡 <strong>Severity classification beyond binary crack/no-crack</strong></p>
+</li>
+<li>Context: Customers want severity levels (minor/moderate/severe)</li>
+<li>Acceptance: Multi-class segmentation with severity thresholds</li>
+<li>
+<p>Estimated effort: 2-3 weeks</p>
+</li>
+<li>
+<p>[ ] 🟡 <strong>Web API for remote detection requests</strong></p>
+</li>
+<li>Context: Enable remote processing from web apps</li>
+<li>Acceptance: REST API with FastAPI, authentication, rate limiting</li>
+<li>Estimated effort: 2 weeks</li>
+</ul>
+<h3 id="low-priority">Low Priority 🟢<a class="headerlink" href="#low-priority" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] 🟢 <strong>Qt GUI migration</strong> (<a href="https://github.com/Anaxiatech-AB/crackz/issues/127">#127</a>)</li>
+<li>Context: Some customers prefer Qt over Tkinter</li>
+<li>Acceptance: Rewrite GUI with PyQt6 or PySide6</li>
+<li>Estimated effort: 4-6 weeks</li>
+<li>
+<p>Note: Requires licensing decision (GPL vs commercial)</p>
+</li>
+<li>
+<p>[ ] 🟢 <strong>Multi-model ensemble for improved accuracy</strong></p>
+</li>
+<li>Context: Ensemble models can improve detection accuracy</li>
+<li>Acceptance: Combine multiple model predictions</li>
+<li>
+<p>Estimated effort: 2-3 weeks</p>
+</li>
+<li>
+<p>[ ] 🟢 <strong>Active learning workflow for efficient labeling</strong></p>
+</li>
+<li>Context: Reduce manual labeling effort</li>
+<li>Acceptance: Suggest images for labeling based on model uncertainty</li>
+<li>Estimated effort: 3-4 weeks</li>
+</ul>
+<hr />
+<h2 id="technical-debt">🔧 Technical Debt<a class="headerlink" href="#technical-debt" title="Permanent link">&para;</a></h2>
+<h3 id="code-quality">Code Quality<a class="headerlink" href="#code-quality" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] 🟡 Increase test coverage to 85% (currently 75%+)</li>
+<li>Focus areas: GUI, edge cases, error handling</li>
+<li>
+<p>Estimated effort: Ongoing</p>
+</li>
+<li>
+<p>[ ] 🟢 Refactor GUI code for better testability</p>
+</li>
+<li>Context: GUI tests are minimal due to Tkinter complexity</li>
+<li>
+<p>Estimated effort: 1-2 weeks</p>
+</li>
+<li>
+<p>[ ] 🟢 Add integration tests for Azure deployment scripts</p>
+</li>
+<li>Context: Azure scripts are tested manually</li>
+<li>Estimated effort: 1 week</li>
+</ul>
+<h3 id="documentation_1">Documentation<a class="headerlink" href="#documentation_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] 🟡 Add video tutorials for common workflows</li>
+<li>Project initialization</li>
+<li>Image import and training</li>
+<li>Detection and reporting</li>
+<li>
+<p>Estimated effort: 1 week</p>
+</li>
+<li>
+<p>[ ] 🟢 Create troubleshooting guide for common errors</p>
+</li>
+<li>CUDA issues</li>
+<li>Memory errors</li>
+<li>Docker problems</li>
+<li>Estimated effort: 3-4 days</li>
+</ul>
+<h3 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] 🟢 Profile and optimize detection pipeline</li>
+<li>Context: Some customers report slow detection on CPU</li>
+<li>Acceptance: Identify bottlenecks, improve by 20%</li>
+<li>
+<p>Estimated effort: 1 week</p>
+</li>
+<li>
+<p>[ ] 🟢 Optimize Docker image sizes</p>
+</li>
+<li>Current: full (~2GB), slim (~1.5GB), gpu (~3GB)</li>
+<li>Target: Reduce by 20-30%</li>
+<li>Estimated effort: 3-4 days</li>
+</ul>
+<hr />
+<h2 id="feature-requests-from-customers">🎯 Feature Requests (From Customers)<a class="headerlink" href="#feature-requests-from-customers" title="Permanent link">&para;</a></h2>
+<h3 id="requested-features">Requested Features<a class="headerlink" href="#requested-features" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] 🟡 <strong>Export detection results to Excel</strong></li>
+<li>Customer: Harbor Authority North</li>
+<li>Use case: Integration with existing spreadsheet workflows</li>
+<li>
+<p>Estimated effort: 3-4 days</p>
+</li>
+<li>
+<p>[ ] 🟢 <strong>Batch processing with progress notifications</strong></p>
+</li>
+<li>Customer: Bridge Inspection Co.</li>
+<li>Use case: Process 1000+ images with email notification on completion</li>
+<li>
+<p>Estimated effort: 1 week</p>
+</li>
+<li>
+<p>[ ] 🟢 <strong>Custom severity thresholds per project</strong></p>
+</li>
+<li>Customer: Maritime Infrastructure Ltd.</li>
+<li>Use case: Different crack severity standards per region</li>
+<li>Estimated effort: 3-4 days</li>
+</ul>
+<hr />
+<h2 id="known-issues">🐛 Known Issues<a class="headerlink" href="#known-issues" title="Permanent link">&para;</a></h2>
+<h3 id="bugs-to-fix">Bugs to Fix<a class="headerlink" href="#bugs-to-fix" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] 🔴 GUI occasionally freezes on large project load</li>
+<li>Reproduce: Load project with &gt;5000 images</li>
+<li>Workaround: Use CLI for large projects</li>
+<li>
+<p>Root cause: Synchronous file tree building</p>
+</li>
+<li>
+<p>[ ] 🟡 CUDA detection fails on some Windows 11 systems</p>
+</li>
+<li>Reproduce: Windows 11 + NVIDIA driver 545+</li>
+<li>Workaround: Use CPU mode or older driver</li>
+<li>
+<p>Investigation needed</p>
+</li>
+<li>
+<p>[ ] 🟢 Shell completion doesn't work in PowerShell 7.3+</p>
+</li>
+<li>Reproduce: PowerShell 7.3 on Windows</li>
+<li>Workaround: Use PowerShell 5.1</li>
+<li>Related to Typer/Click completion changes</li>
+</ul>
+<hr />
+<h2 id="recently-completed">✅ Recently Completed<a class="headerlink" href="#recently-completed" title="Permanent link">&para;</a></h2>
+<h3 id="november-2025">November 2025<a class="headerlink" href="#november-2025" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] ✅ Word document report generator with CLI and GUI support</li>
+<li>[x] ✅ Optimize GitHub Pages deployment (60-70% faster builds)</li>
+<li>[x] ✅ Add support for Python 3.13</li>
+</ul>
+<h3 id="october-2025">October 2025<a class="headerlink" href="#october-2025" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] ✅ GitHub Copilot optimization (copilot-instructions.md)</li>
+<li>[x] ✅ Add MCP (Model Context Protocol) integration</li>
+<li>[x] ✅ GPS/EXIF support with GeoJSON export</li>
+<li>[x] ✅ Interactive map viewer for GPS-tagged detections</li>
+</ul>
+<h3 id="september-2025">September 2025<a class="headerlink" href="#september-2025" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[x] ✅ Azure Batch deployment scripts</li>
+<li>[x] ✅ Azure VM CUDA setup automation</li>
+<li>[x] ✅ Docker image optimization (3 variants)</li>
+</ul>
+<hr />
+<h2 id="roadmap">📅 Roadmap<a class="headerlink" href="#roadmap" title="Permanent link">&para;</a></h2>
+<h3 id="q4-2025-current">Q4 2025 (Current)<a class="headerlink" href="#q4-2025-current" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Focus: Stability, documentation, performance</li>
+<li>Goals:</li>
+<li>85% test coverage</li>
+<li>&lt;5s detection on all CPU platforms</li>
+<li>Complete Claude Code workflow integration</li>
+<li>Resolve all high-priority bugs</li>
+</ul>
+<h3 id="q1-2026">Q1 2026<a class="headerlink" href="#q1-2026" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Focus: Enterprise features</li>
+<li>Goals:</li>
+<li>Push update solution for continuous improvement</li>
+<li>Large photo mosaic import</li>
+<li>Web API for remote detection</li>
+<li>Severity classification</li>
+</ul>
+<h3 id="q2-2026">Q2 2026<a class="headerlink" href="#q2-2026" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Focus: Expansion and scaling</li>
+<li>Goals:</li>
+<li>Active learning workflow</li>
+<li>Multi-model ensemble</li>
+<li>Mobile app prototype</li>
+<li>Cloud-native deployment (Kubernetes)</li>
+</ul>
+<hr />
+<h2 id="ideas-unscoped">💡 Ideas (Unscoped)<a class="headerlink" href="#ideas-unscoped" title="Permanent link">&para;</a></h2>
+<h3 id="future-considerations">Future Considerations<a class="headerlink" href="#future-considerations" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Real-time collaboration on projects (multi-user)</li>
+<li>[ ] Cloud storage integration (S3, Azure Blob)</li>
+<li>[ ] Automated crack progression tracking over time</li>
+<li>[ ] 3D reconstruction from multiple angles</li>
+<li>[ ] Integration with drone imagery workflows</li>
+<li>[ ] Augmented reality overlay for field inspection</li>
+<li>[ ] Mobile app for iOS/Android</li>
+</ul>
+<h3 id="community-requests">Community Requests<a class="headerlink" href="#community-requests" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Check <a href="https://github.com/Anaxiatech-AB/crackz/issues">GitHub Issues</a> for community requests</li>
+<li>Vote on features using GitHub reactions (👍 = priority)</li>
+</ul>
+<hr />
+<h2 id="metrics">📊 Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h2>
+<h3 id="current-state-as-of-2025-11-06">Current State (as of 2025-11-06)<a class="headerlink" href="#current-state-as-of-2025-11-06" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Test Coverage</strong>: 75%+ (target: 85%)</li>
+<li><strong>Open Issues</strong>: 3 (<a href="https://github.com/Anaxiatech-AB/crackz/issues/282">#282</a>, <a href="https://github.com/Anaxiatech-AB/crackz/issues/215">#215</a>, <a href="https://github.com/Anaxiatech-AB/crackz/issues/127">#127</a>)</li>
+<li><strong>Open PRs</strong>: 0</li>
+<li><strong>Last Release</strong>: v0.57.1</li>
+<li><strong>Release Cadence</strong>: ~2 weeks (minor releases)</li>
+</ul>
+<h3 id="goals-for-next-release-v0580">Goals for Next Release (v0.58.0)<a class="headerlink" href="#goals-for-next-release-v0580" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Complete Claude Code workflow structure</li>
+<li>[ ] Resolve GUI freeze issue (#pending)</li>
+<li>[ ] Add Excel export feature</li>
+<li>[ ] Improve documentation coverage</li>
+</ul>
+<hr />
+<h2 id="contributing">🤝 Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
+<p>Want to help with these tasks?</p>
+<ol>
+<li><strong>Pick a task</strong> from the backlog (start with 🟢 Low priority)</li>
+<li><strong>Comment on the related GitHub issue</strong> (or create one)</li>
+<li><strong>Read the contributing guide</strong>: <a href="../contributing/">Contributing</a></li>
+<li><strong>Follow the development workflow</strong>: See <a href="../contributing/">Contributing</a> and DEVELOPMENT_STANDARDS.md in repo root</li>
+<li><strong>Submit a PR</strong> with tests and documentation</li>
+</ol>
+<hr />
+<p><strong>Maintained By</strong>: Theresia Lundgren (theresia.lundgren@anaxiatech.se)
+<strong>How to Update</strong>: Edit this file directly, commit with <code>docs: update task list</code></p>
 </section>
 <hr class='page-sep' />
 <section class='print-section' id='architecture' data-source='architecture.md'>

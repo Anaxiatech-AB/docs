@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../advanced-performance/">
+        <link rel="prev" href="../01-scope/">
       
       
-        <link rel="next" href="../completion/">
+        <link rel="next" href="../03-tasks/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Migration Guide - Crackz</title>
+        <title>Architecture Decisions - Crackz</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#when-migration-is-needed" class="md-skip">
+        <a href="#format" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Migration Guide
+              Architecture Decisions
             
           </span>
         </div>
@@ -303,8 +303,6 @@
       
   
   
-    
-  
   
   
     
@@ -317,11 +315,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
@@ -337,7 +335,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             End User Documentation
@@ -718,30 +716,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Migration Guide
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../migration/" class="md-nav__link">
         
   
   
@@ -752,197 +730,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#when-migration-is-needed" class="md-nav__link">
-    <span class="md-ellipsis">
-      When Migration Is Needed
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#schema-version-history" class="md-nav__link">
-    <span class="md-ellipsis">
-      Schema Version History
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Schema Version History">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#version-3-changes-current" class="md-nav__link">
-    <span class="md-ellipsis">
-      Version 3 Changes (Current)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#version-2-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Version 2 Changes
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cli-auto-assisted-migration" class="md-nav__link">
-    <span class="md-ellipsis">
-      CLI Auto / Assisted Migration
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#manual-migration-command" class="md-nav__link">
-    <span class="md-ellipsis">
-      Manual Migration Command
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Manual Migration Command">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#schema-only-migration-default" class="md-nav__link">
-    <span class="md-ellipsis">
-      Schema-Only Migration (Default)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#file-migration-optional" class="md-nav__link">
-    <span class="md-ellipsis">
-      File Migration (Optional)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#backups" class="md-nav__link">
-    <span class="md-ellipsis">
-      Backups
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#environment-variable-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Environment Variable Summary
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#programmatic-migration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Programmatic Migration
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#gui-migration" class="md-nav__link">
-    <span class="md-ellipsis">
-      GUI Migration
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="GUI Migration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#automated-migration-detection" class="md-nav__link">
-    <span class="md-ellipsis">
-      Automated Migration Detection
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#schema-migration-dialog" class="md-nav__link">
-    <span class="md-ellipsis">
-      Schema Migration Dialog
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#file-migration-dialog-new" class="md-nav__link">
-    <span class="md-ellipsis">
-      File Migration Dialog (NEW)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#safety-and-idempotence" class="md-nav__link">
-    <span class="md-ellipsis">
-      Safety and Idempotence
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      Troubleshooting
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -982,8 +769,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -994,11 +783,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
@@ -1014,7 +803,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Developer Documentation
@@ -1048,10 +837,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../02-decisions/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Architecture Decisions
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1062,6 +871,206 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Format
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-001-use-uv-instead-of-pip-or-poetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-001: Use uv Instead of pip or poetry
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-002-pytorch-lightning-for-ml-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-002: PyTorch Lightning for ML Pipeline
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-003-typer-for-cli-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-003: Typer for CLI Framework
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-004-customtkinter-for-gui-not-qt" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-004: CustomTkinter for GUI (Not Qt)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-005-pydantic-v2-for-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-005: Pydantic v2 for Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-006-hybrid-logging-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-006: Hybrid Logging Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-007-centralized-cli-options-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-007: Centralized CLI Options Pattern
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-008-conventional-commits-for-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-008: Conventional Commits for Versioning
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-009-three-docker-variants-full-slim-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-009: Three Docker Variants (Full, Slim, GPU)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-010-uv-sync-in-docker-not-wheel-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-010: uv sync in Docker (Not Wheel Builds)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-011-ruff-for-linting-and-formatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-011: Ruff for Linting and Formatting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-012-75-minimum-test-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-012: 75% Minimum Test Coverage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-013-performance-regression-tests-with-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-013: Performance Regression Tests with Benchmarks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-014-project-schema-versioning-with-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-014: Project Schema Versioning with Migrations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-015-typersecho-for-user-messages-logger-for-technical-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-015: typer.secho() for User Messages, logger for Technical Info
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-016-github-actions-for-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-016: GitHub Actions for CI/CD
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-017-mcp-model-context-protocol-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-017: MCP (Model Context Protocol) Integration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-018-gpsexif-support-with-geojson-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-018: GPS/EXIF Support with GeoJSON Export
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-current-technology-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary of Current Technology Stack
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1450,171 +1459,180 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#when-migration-is-needed" class="md-nav__link">
+  <a href="#format" class="md-nav__link">
     <span class="md-ellipsis">
-      When Migration Is Needed
+      Format
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#schema-version-history" class="md-nav__link">
+  <a href="#adr-001-use-uv-instead-of-pip-or-poetry" class="md-nav__link">
     <span class="md-ellipsis">
-      Schema Version History
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Schema Version History">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#version-3-changes-current" class="md-nav__link">
-    <span class="md-ellipsis">
-      Version 3 Changes (Current)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#version-2-changes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Version 2 Changes
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cli-auto-assisted-migration" class="md-nav__link">
-    <span class="md-ellipsis">
-      CLI Auto / Assisted Migration
+      ADR-001: Use uv Instead of pip or poetry
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#manual-migration-command" class="md-nav__link">
+  <a href="#adr-002-pytorch-lightning-for-ml-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
-      Manual Migration Command
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Manual Migration Command">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#schema-only-migration-default" class="md-nav__link">
-    <span class="md-ellipsis">
-      Schema-Only Migration (Default)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#file-migration-optional" class="md-nav__link">
-    <span class="md-ellipsis">
-      File Migration (Optional)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#backups" class="md-nav__link">
-    <span class="md-ellipsis">
-      Backups
+      ADR-002: PyTorch Lightning for ML Pipeline
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#environment-variable-summary" class="md-nav__link">
+  <a href="#adr-003-typer-for-cli-framework" class="md-nav__link">
     <span class="md-ellipsis">
-      Environment Variable Summary
+      ADR-003: Typer for CLI Framework
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#programmatic-migration" class="md-nav__link">
+  <a href="#adr-004-customtkinter-for-gui-not-qt" class="md-nav__link">
     <span class="md-ellipsis">
-      Programmatic Migration
+      ADR-004: CustomTkinter for GUI (Not Qt)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#gui-migration" class="md-nav__link">
+  <a href="#adr-005-pydantic-v2-for-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      GUI Migration
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="GUI Migration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#automated-migration-detection" class="md-nav__link">
-    <span class="md-ellipsis">
-      Automated Migration Detection
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#schema-migration-dialog" class="md-nav__link">
-    <span class="md-ellipsis">
-      Schema Migration Dialog
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#file-migration-dialog-new" class="md-nav__link">
-    <span class="md-ellipsis">
-      File Migration Dialog (NEW)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#safety-and-idempotence" class="md-nav__link">
-    <span class="md-ellipsis">
-      Safety and Idempotence
+      ADR-005: Pydantic v2 for Configuration
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
+  <a href="#adr-006-hybrid-logging-architecture" class="md-nav__link">
     <span class="md-ellipsis">
-      Troubleshooting
+      ADR-006: Hybrid Logging Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-007-centralized-cli-options-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-007: Centralized CLI Options Pattern
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-008-conventional-commits-for-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-008: Conventional Commits for Versioning
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-009-three-docker-variants-full-slim-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-009: Three Docker Variants (Full, Slim, GPU)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-010-uv-sync-in-docker-not-wheel-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-010: uv sync in Docker (Not Wheel Builds)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-011-ruff-for-linting-and-formatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-011: Ruff for Linting and Formatting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-012-75-minimum-test-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-012: 75% Minimum Test Coverage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-013-performance-regression-tests-with-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-013: Performance Regression Tests with Benchmarks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-014-project-schema-versioning-with-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-014: Project Schema Versioning with Migrations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-015-typersecho-for-user-messages-logger-for-technical-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-015: typer.secho() for User Messages, logger for Technical Info
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-016-github-actions-for-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-016: GitHub Actions for CI/CD
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-017-mcp-model-context-protocol-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-017: MCP (Model Context Protocol) Integration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-018-gpsexif-support-with-geojson-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      ADR-018: GPS/EXIF Support with GeoJSON Export
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-current-technology-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary of Current Technology Stack
     </span>
   </a>
   
@@ -1639,234 +1657,341 @@
   
 
 
-<h1 id="project-schema-migration">Project Schema Migration<a class="headerlink" href="#project-schema-migration" title="Permanent link">&para;</a></h1>
-<p>Crackz versions project YAML files with a simple integer <code>schema_version</code> field.
-When new optional fields are added (e.g. <code>ai.training.tensorboard</code>) the schema
-version increases and a lightweight in-place migration is available.</p>
-<h2 id="when-migration-is-needed">When Migration Is Needed<a class="headerlink" href="#when-migration-is-needed" title="Permanent link">&para;</a></h2>
-<p>You may need migration if:
-- Your project YAML has no <code>schema_version</code> field (legacy v0)
-- The value is lower than the current <code>CURRENT_SCHEMA_VERSION</code> exposed by
-  <code>crackz.project.migration</code></p>
-<p>Migration adds any missing defaulted fields and stamps the new <code>schema_version</code>.
-It never removes user data.</p>
-<h2 id="schema-version-history">Schema Version History<a class="headerlink" href="#schema-version-history" title="Permanent link">&para;</a></h2>
+<h1 id="architecture-decisions">Architecture Decisions<a class="headerlink" href="#architecture-decisions" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Key technical decisions and their rationale</strong> (ADR-style)</p>
+</blockquote>
+<p>This document records important architecture decisions made during Crackz development. Each decision includes context, the decision itself, and consequences.</p>
+<h2 id="format">Format<a class="headerlink" href="#format" title="Permanent link">&para;</a></h2>
+<p>Each decision follows this structure:
+- <strong>Context</strong>: Why we needed to make a decision
+- <strong>Decision</strong>: What we chose
+- <strong>Consequences</strong>: Trade-offs and implications
+- <strong>Status</strong>: Active | Deprecated | Superseded</p>
+<hr />
+<h2 id="adr-001-use-uv-instead-of-pip-or-poetry">ADR-001: Use <code>uv</code> Instead of <code>pip</code> or <code>poetry</code><a class="headerlink" href="#adr-001-use-uv-instead-of-pip-or-poetry" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Python package management is slow with pip and complex with poetry. Development teams need fast, reliable dependency installation.</p>
+<p><strong>Decision</strong>: Use <code>uv</code> (Astral's package manager) exclusively for all package operations.</p>
+<p><strong>Consequences</strong>:
+- ✅ 10-100x faster installs compared to pip
+- ✅ Automatic virtual environment management
+- ✅ Built-in lockfile support (uv.lock)
+- ✅ Drop-in pip replacement
+- ⚠️ Relatively new tool (requires team adoption)
+- ⚠️ Some edge cases with complex C extensions</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>.github/workflows/</code>, <code>pyproject.toml</code>, all documentation</p>
+<hr />
+<h2 id="adr-002-pytorch-lightning-for-ml-pipeline">ADR-002: PyTorch Lightning for ML Pipeline<a class="headerlink" href="#adr-002-pytorch-lightning-for-ml-pipeline" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Raw PyTorch requires significant boilerplate for training loops, checkpointing, and distributed training.</p>
+<p><strong>Decision</strong>: Use PyTorch Lightning as the ML framework layer.</p>
+<p><strong>Consequences</strong>:
+- ✅ Production-ready training with minimal boilerplate
+- ✅ Built-in checkpointing, logging, and callbacks
+- ✅ Easy GPU/multi-GPU scaling
+- ✅ TensorBoard integration out of the box
+- ⚠️ Additional abstraction layer to learn
+- ⚠️ Opinionated structure (less flexibility)</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>src/crackz/ai/training.py</code>, <code>src/crackz/ai/models.py</code></p>
+<hr />
+<h2 id="adr-003-typer-for-cli-framework">ADR-003: Typer for CLI Framework<a class="headerlink" href="#adr-003-typer-for-cli-framework" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Need type-safe CLI with good DX, auto-generated help, and modern Python features.</p>
+<p><strong>Decision</strong>: Use Typer instead of Click or argparse.</p>
+<p><strong>Consequences</strong>:
+- ✅ Type hints drive CLI interface (DRY principle)
+- ✅ Excellent auto-generated help text
+- ✅ Easy to test and maintain
+- ✅ Built on Click (mature foundation)
+- ⚠️ Less flexible than raw Click for complex UIs
+- ⚠️ Learning curve for developers used to argparse</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>src/crackz/cli/</code>, all CLI commands</p>
+<hr />
+<h2 id="adr-004-customtkinter-for-gui-not-qt">ADR-004: CustomTkinter for GUI (Not Qt)<a class="headerlink" href="#adr-004-customtkinter-for-gui-not-qt" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Need lightweight desktop GUI. Qt requires commercial licensing for proprietary software; Tkinter is too basic.</p>
+<p><strong>Decision</strong>: Use CustomTkinter (modern Tkinter wrapper) instead of Qt or Kivy.</p>
+<p><strong>Consequences</strong>:
+- ✅ No licensing costs (compatible with GPL-3.0)
+- ✅ Modern dark mode support
+- ✅ Lightweight (~1MB vs Qt's ~50MB)
+- ✅ Easy to package with PyInstaller
+- ⚠️ Less feature-rich than Qt
+- ⚠️ Limited third-party widgets
+- ⚠️ Known issue: some customers want Qt migration (#127)</p>
+<p><strong>Status</strong>: Active (Qt migration under consideration)</p>
+<p><strong>Related</strong>: <code>src/crackz/gui/</code>, issue #127</p>
+<hr />
+<h2 id="adr-005-pydantic-v2-for-configuration">ADR-005: Pydantic v2 for Configuration<a class="headerlink" href="#adr-005-pydantic-v2-for-configuration" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Need type-safe config validation with YAML serialization. Manual validation is error-prone.</p>
+<p><strong>Decision</strong>: Use Pydantic v2 models for all configuration with YAML backend.</p>
+<p><strong>Consequences</strong>:
+- ✅ Type-safe validation at load time
+- ✅ Auto-generated JSON schemas
+- ✅ Excellent error messages for invalid configs
+- ✅ Easy to extend and version (schema_version field)
+- ⚠️ YAML library dependency (pyyaml)
+- ⚠️ Learning curve for Pydantic's API</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>src/crackz/config/</code>, project YAML files</p>
+<hr />
+<h2 id="adr-006-hybrid-logging-architecture">ADR-006: Hybrid Logging Architecture<a class="headerlink" href="#adr-006-hybrid-logging-architecture" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Need system-wide logs for debugging AND per-project logs for customer audit trails.</p>
+<p><strong>Decision</strong>: Implement hybrid logging with:
+- Central log sink (pre-project operations, global context)
+- Per-project log sink (project-specific operations)</p>
+<p><strong>Consequences</strong>:
+- ✅ Complete audit trail per project
+- ✅ System-wide logging for debugging
+- ✅ Flexible central log location (env var, flag, or temp)
+- ⚠️ Slightly more complex logging setup
+- ⚠️ Two log locations to manage</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>src/crackz/log/</code>, <code>CRACKZ_LOG_DIR</code> env var</p>
+<hr />
+<h2 id="adr-007-centralized-cli-options-pattern">ADR-007: Centralized CLI Options Pattern<a class="headerlink" href="#adr-007-centralized-cli-options-pattern" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: CLI option definitions were duplicated across modules (e.g., multiple <code>FORCE_OPTION</code> definitions).</p>
+<p><strong>Decision</strong>: Centralize all reusable CLI options in <code>src/crackz/cli/options.py</code>.</p>
+<p><strong>Consequences</strong>:
+- ✅ Single source of truth for option definitions
+- ✅ Consistent help text and behavior
+- ✅ Easy to update globally
+- ⚠️ Requires discipline to import (not re-define)
+- ⚠️ One-time refactoring effort to consolidate</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>src/crackz/cli/options.py</code>, all CLI commands</p>
+<hr />
+<h2 id="adr-008-conventional-commits-for-versioning">ADR-008: Conventional Commits for Versioning<a class="headerlink" href="#adr-008-conventional-commits-for-versioning" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Manual versioning and changelog generation is error-prone and time-consuming.</p>
+<p><strong>Decision</strong>: Use conventional commits (<code>feat:</code>, <code>fix:</code>, etc.) with semantic-release for automated versioning.</p>
+<p><strong>Consequences</strong>:
+- ✅ Automatic version bumps (major, minor, patch)
+- ✅ Auto-generated changelog from commits
+- ✅ Clear commit history for code review
+- ⚠️ Team must follow commit conventions
+- ⚠️ Bad commit messages affect release notes</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>.releaserc.yml</code>, GitHub Actions workflows</p>
+<hr />
+<h2 id="adr-009-three-docker-variants-full-slim-gpu">ADR-009: Three Docker Variants (Full, Slim, GPU)<a class="headerlink" href="#adr-009-three-docker-variants-full-slim-gpu" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Different deployment scenarios need different image sizes and capabilities.</p>
+<p><strong>Decision</strong>: Provide three Dockerfiles:
+- <strong>Dockerfile</strong>: Balanced full-featured image
+- <strong>Dockerfile.slim</strong>: Minimal runtime (no dev tools)
+- <strong>Dockerfile.gpu</strong>: CUDA runtime for GPU workloads</p>
+<p><strong>Consequences</strong>:
+- ✅ Optimized images for each use case
+- ✅ Faster pulls for slim (smaller size)
+- ✅ GPU support without bloating CPU images
+- ⚠️ Three Dockerfiles to maintain
+- ⚠️ Need clear documentation on which to use</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>Dockerfile</code>, <code>Dockerfile.slim</code>, <code>Dockerfile.gpu</code>, <code>Makefile</code></p>
+<hr />
+<h2 id="adr-010-uv-sync-in-docker-not-wheel-builds">ADR-010: <code>uv sync</code> in Docker (Not Wheel Builds)<a class="headerlink" href="#adr-010-uv-sync-in-docker-not-wheel-builds" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Building wheels in Docker is slow and complex. <code>uv sync</code> is faster and simpler.</p>
+<p><strong>Decision</strong>: Use <code>uv sync</code> directly in Docker images instead of pre-built wheels.</p>
+<p><strong>Consequences</strong>:
+- ✅ Faster Docker builds (uv's speed)
+- ✅ Simpler Dockerfile (no multi-stage wheel building)
+- ✅ Consistent with local development workflow
+- ⚠️ Requires uv installed in base image
+- ⚠️ Build cache depends on pyproject.toml + uv.lock</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: All Dockerfiles</p>
+<hr />
+<h2 id="adr-011-ruff-for-linting-and-formatting">ADR-011: Ruff for Linting and Formatting<a class="headerlink" href="#adr-011-ruff-for-linting-and-formatting" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Traditional Python linting (flake8, black, isort) requires multiple tools and is slow.</p>
+<p><strong>Decision</strong>: Use Ruff for both linting and formatting (replaces black, isort, flake8, etc.).</p>
+<p><strong>Consequences</strong>:
+- ✅ 10-100x faster than traditional tools
+- ✅ Single tool for linting + formatting
+- ✅ Compatible with existing configs (black, isort rules)
+- ✅ Excellent VS Code integration
+- ⚠️ Newer tool (less mature than black)
+- ⚠️ Some edge cases in AST-based fixes</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>pyproject.toml</code> (Ruff config), pre-commit hooks</p>
+<hr />
+<h2 id="adr-012-75-minimum-test-coverage">ADR-012: 75% Minimum Test Coverage<a class="headerlink" href="#adr-012-75-minimum-test-coverage" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Need quality gates without over-constraining development. 100% is unrealistic; &lt;70% is too low.</p>
+<p><strong>Decision</strong>: Enforce 75% minimum test coverage in CI (target 85%).</p>
+<p><strong>Consequences</strong>:
+- ✅ Catches most untested code paths
+- ✅ Realistic target for teams
+- ✅ Enforced automatically in CI
+- ⚠️ Can be gamed with trivial tests
+- ⚠️ Doesn't measure test quality</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>pyproject.toml</code> (pytest-cov config), CI workflows</p>
+<hr />
+<h2 id="adr-013-performance-regression-tests-with-benchmarks">ADR-013: Performance Regression Tests with Benchmarks<a class="headerlink" href="#adr-013-performance-regression-tests-with-benchmarks" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Performance regressions are hard to catch without automated measurement.</p>
+<p><strong>Decision</strong>: Use pytest-benchmark with automated regression detection (&gt;20% mean, &gt;30% max).</p>
+<p><strong>Consequences</strong>:
+- ✅ Catches performance regressions before merge
+- ✅ Historical performance tracking
+- ✅ Baseline updates after intentional changes
+- ⚠️ Benchmark stability depends on CI environment
+- ⚠️ Requires baseline management</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>tests/unit/benchmarks/</code>, <code>.benchmarks/</code> (gitignored)</p>
+<hr />
+<h2 id="adr-014-project-schema-versioning-with-migrations">ADR-014: Project Schema Versioning with Migrations<a class="headerlink" href="#adr-014-project-schema-versioning-with-migrations" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Project YAML format evolves over time. Breaking old projects is unacceptable for customers.</p>
+<p><strong>Decision</strong>: Add <code>schema_version</code> field to project configs with migration system.</p>
+<p><strong>Consequences</strong>:
+- ✅ Backward compatibility for customer projects
+- ✅ Explicit migration path for breaking changes
+- ✅ Safe upgrades (creates .bak files)
+- ⚠️ Migration code must be maintained
+- ⚠️ Testing migrations requires old project fixtures</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>crackz migrate</code>, <code>src/crackz/config/</code>, <code>schema_version</code> field</p>
+<hr />
+<h2 id="adr-015-typersecho-for-user-messages-logger-for-technical-info">ADR-015: <code>typer.secho()</code> for User Messages, <code>logger</code> for Technical Info<a class="headerlink" href="#adr-015-typersecho-for-user-messages-logger-for-technical-info" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Mixed output methods (print, echo, console.print) created inconsistent UX.</p>
+<p><strong>Decision</strong>: Standardize on:
+- <code>typer.secho()</code> with colors for end-user messages
+- <code>logger</code> for technical/operational information
+- NEVER use <code>print()</code>, <code>typer.echo()</code>, or <code>console.print()</code></p>
+<p><strong>Consequences</strong>:
+- ✅ Consistent user experience across all CLI commands
+- ✅ Clear separation: user messages vs operational logs
+- ✅ Better testability (can capture typer output)
+- ⚠️ Requires team discipline to follow conventions
+- ⚠️ One-time refactoring effort to standardize existing code</p>
+<p><strong>Status</strong>: Active (strictly enforced)</p>
+<p><strong>Related</strong>: All CLI commands, <code>CONTRIBUTING.md</code>, <code>DEVELOPMENT_STANDARDS.md</code></p>
+<hr />
+<h2 id="adr-016-github-actions-for-cicd">ADR-016: GitHub Actions for CI/CD<a class="headerlink" href="#adr-016-github-actions-for-cicd" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Need reliable, cloud-based CI/CD with good GitHub integration.</p>
+<p><strong>Decision</strong>: Use GitHub Actions exclusively (no Travis, CircleCI, etc.).</p>
+<p><strong>Consequences</strong>:
+- ✅ Native GitHub integration (PRs, issues, releases)
+- ✅ Free for public repos, generous for private
+- ✅ Good ecosystem of third-party actions
+- ✅ Matrix builds for multi-platform testing
+- ⚠️ Vendor lock-in to GitHub
+- ⚠️ YAML workflow syntax (learning curve)</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>.github/workflows/</code></p>
+<hr />
+<h2 id="adr-017-mcp-model-context-protocol-integration">ADR-017: MCP (Model Context Protocol) Integration<a class="headerlink" href="#adr-017-mcp-model-context-protocol-integration" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: AI assistants (Claude, Copilot) need standardized access to development tools.</p>
+<p><strong>Decision</strong>: Implement MCP integration with <code>crackz mcp init</code> command.</p>
+<p><strong>Consequences</strong>:
+- ✅ Standardized AI assistant integration
+- ✅ Fine-grained permission control
+- ✅ Future-proof for AI-powered development
+- ⚠️ Relatively new protocol (evolving spec)
+- ⚠️ Limited ecosystem currently</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>src/crackz/cli/mcp_cli.py</code>, <code>.mcp/config.json</code></p>
+<hr />
+<h2 id="adr-018-gpsexif-support-with-geojson-export">ADR-018: GPS/EXIF Support with GeoJSON Export<a class="headerlink" href="#adr-018-gpsexif-support-with-geojson-export" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Harbor inspections often have GPS-tagged photos. Customers need location-based reports.</p>
+<p><strong>Decision</strong>: Add GPS extraction from EXIF, interactive maps (Folium), and GeoJSON export.</p>
+<p><strong>Consequences</strong>:
+- ✅ Location-aware detection results
+- ✅ Interactive HTML maps for visual reporting
+- ✅ GeoJSON export for GIS integration
+- ⚠️ Not all images have GPS data (graceful fallback)
+- ⚠️ Privacy considerations (GPS data in exports)</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>crackz geo</code> commands, <code>src/crackz/geo/</code></p>
+<hr />
+<h2 id="summary-of-current-technology-stack">Summary of Current Technology Stack<a class="headerlink" href="#summary-of-current-technology-stack" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Version</th>
-<th>Changes</th>
-<th>Notes</th>
+<th>Decision Area</th>
+<th>Chosen Technology</th>
+<th>Status</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>0 (legacy)</td>
-<td>No <code>schema_version</code> field, no <code>ai.training.tensorboard</code></td>
-<td>Original projects created before versioning</td>
+<td>Package Manager</td>
+<td><code>uv</code></td>
+<td>Active</td>
 </tr>
 <tr>
-<td>1</td>
-<td>Added <code>schema_version: 1</code> and <code>ai.training.tensorboard: false</code></td>
-<td>First versioned schema</td>
+<td>ML Framework</td>
+<td>PyTorch Lightning</td>
+<td>Active</td>
 </tr>
 <tr>
-<td>2</td>
-<td>Added <code>data</code> section with <code>mask_threshold: 1</code></td>
-<td>Binary mask conversion support</td>
+<td>CLI Framework</td>
+<td>Typer</td>
+<td>Active</td>
 </tr>
 <tr>
-<td>3</td>
-<td>New artifacts structure + <code>project.crackz_version</code> tracking</td>
-<td><strong>Current version</strong> - Improved organization</td>
+<td>GUI Framework</td>
+<td>CustomTkinter</td>
+<td>Active (Qt migration considered)</td>
+</tr>
+<tr>
+<td>Configuration</td>
+<td>Pydantic v2 + YAML</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Logging</td>
+<td>Loguru (hybrid)</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Linting/Formatting</td>
+<td>Ruff</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Type Checking</td>
+<td>mypy</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Testing</td>
+<td>pytest + pytest-cov + pytest-benchmark</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>CI/CD</td>
+<td>GitHub Actions</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Versioning</td>
+<td>semantic-release + conventional commits</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Docker Strategy</td>
+<td>Three variants (full, slim, GPU)</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Migration Strategy</td>
+<td>Schema versioning + crackz migrate</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Output Standards</td>
+<td>typer.secho + logger</td>
+<td>Active (enforced)</td>
 </tr>
 </tbody>
 </table>
-<h3 id="version-3-changes-current">Version 3 Changes (Current)<a class="headerlink" href="#version-3-changes-current" title="Permanent link">&para;</a></h3>
-<p>Schema version 3 introduces improved artifacts organization and version tracking:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">schema_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
-<span class="nt">project</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_project</span>
-<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My crack detection project</span>
-<span class="w">  </span><span class="nt">created</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2025-01-15T10:30:00Z&#39;</span>
-<span class="w">  </span><span class="nt">crackz_version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;0.50.0&#39;</span><span class="w">  </span><span class="c1"># NEW: Tracks Crackz app version</span>
-</code></pre></div>
-<p><strong>What gets added:</strong>
-- <code>project.crackz_version</code>: Tracks which Crackz version created/last modified the project
-- New artifacts directory structure (backward compatible):
-  - <code>checkpoints/</code> to <code>models/</code> (clearer purpose for model weights)
-  - <code>runtime/</code> for temporary artifacts (TensorBoard, Lightning logs)
-  - <code>detections/visualizations/</code> for PNG detection outputs</p>
-<p><strong>Backward compatibility:</strong>
-- Old projects continue working - <code>checkpoints_path</code> checks legacy <code>checkpoints/</code> directory first
-- New writes automatically use improved structure (<code>models/</code>, <code>runtime/</code>, etc.)
-- <strong>File migration available</strong> - optionally migrate existing files to new structure
-- Migration only updates schema version and adds <code>crackz_version</code> field by default</p>
-<h3 id="version-2-changes">Version 2 Changes<a class="headerlink" href="#version-2-changes" title="Permanent link">&para;</a></h3>
-<p>Schema version 2 introduced the <code>data</code> configuration section:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">data</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">mask_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-<span class="nt">schema_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
-</code></pre></div>
-<p>Added <code>data.mask_threshold</code> for binary mask conversion during image import.</p>
-<h2 id="cli-auto-assisted-migration">CLI Auto / Assisted Migration<a class="headerlink" href="#cli-auto-assisted-migration" title="Permanent link">&para;</a></h2>
-<p>Most CLI commands that load a project (e.g. <code>detect train</code>, <code>detect run</code>, image
-imports, exporting configs, pruning checkpoints) now check the schema version
-and will:</p>
-<ol>
-<li>Interactive terminal:</li>
-<li>Prompt: <code>Project schema v0 &lt; v1. Migrate now? [y/N]:</code></li>
-<li>On Yes: Runs in-place migration with a <code>.bak</code> backup.</li>
-<li>Non-interactive (CI, pipelines):</li>
-<li>If <code>CRACKZ_AUTO_MIGRATE=1</code> is set, migration runs automatically.</li>
-<li>Otherwise a guidance message is printed and the old schema is used.</li>
-</ol>
-<h2 id="manual-migration-command">Manual Migration Command<a class="headerlink" href="#manual-migration-command" title="Permanent link">&para;</a></h2>
-<p>Use the explicit command to inspect or apply migrations:</p>
-<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>&lt;path-to-project-dir&gt;
-<span class="c1"># or</span>
-crackz<span class="w"> </span>migrate<span class="w"> </span>--cfg<span class="w"> </span>&lt;path-to-project-yaml&gt;
-</code></pre></div>
-<p>Common flags:
-- <code>--dry-run</code> : Show what would change without writing.
-- <code>--no-backup</code> : Skip writing <code>&lt;file&gt;.bak</code> before overwrite.
-- <code>--migrate-files</code> : <strong>NEW</strong> Also migrate artifacts directory structure (checkpoints to models, etc.)</p>
-<h3 id="schema-only-migration-default">Schema-Only Migration (Default)<a class="headerlink" href="#schema-only-migration-default" title="Permanent link">&para;</a></h3>
-<p>Basic migration only updates the YAML schema and adds missing fields:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Using project directory</span>
-crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>my_project<span class="w"> </span>--dry-run
-crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>my_project
-
-<span class="c1"># Using direct YAML file path</span>
-crackz<span class="w"> </span>migrate<span class="w"> </span>--cfg<span class="w"> </span>my_project/my_project_project.yaml
-</code></pre></div>
-<h3 id="file-migration-optional">File Migration (Optional)<a class="headerlink" href="#file-migration-optional" title="Permanent link">&para;</a></h3>
-<p><strong>NEW in v3</strong>: Optionally migrate the actual artifacts directory structure:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Preview what files would be moved</span>
-crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>my_project<span class="w"> </span>--migrate-files<span class="w"> </span>--dry-run
-
-<span class="c1"># Migrate both schema AND files</span>
-crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>my_project<span class="w"> </span>--migrate-files
-</code></pre></div>
-<p>File migration moves:
-- <code>checkpoints/</code> to <code>models/</code>
-- <code>training/tensorboard/</code> to <code>runtime/tensorboard/</code>
-- <code>training/lightning_logs/</code> to <code>runtime/lightning_logs/</code>
-- <code>detections/*.png</code> to <code>detections/visualizations/</code></p>
-<p><strong>Safety features:</strong>
-- Always creates backup of entire artifacts directory before moving files
-- Interactive confirmation before proceeding
-- Automatic rollback if migration fails
-- Detailed progress reporting</p>
-<h2 id="backups">Backups<a class="headerlink" href="#backups" title="Permanent link">&para;</a></h2>
-<p>By default, a <strong>timestamped backup</strong> is created before modifying the original project file.
-Backup files use the format: <code>{filename}.v{version}.{timestamp}.bak</code></p>
-<p><strong>Example:</strong>
-<div class="highlight"><pre><span></span><code>myproject_project.v2.20250115_143022.bak
-</code></pre></div></p>
-<p>This format includes:
-- <strong>Version number</strong> (<code>v2</code>) - Shows which schema version this backup came from
-- <strong>Timestamp</strong> (<code>20250115_143022</code>) - UTC timestamp ensures unique backups per migration
-- Multiple migrations create multiple backups (never overwrites previous backups)</p>
-<p><strong>To revert a migration:</strong>
-1. Locate the timestamped backup file (e.g., <code>myproject_project.v2.20250115_143022.bak</code>)
-2. Remove or rename the current YAML file
-3. Rename the backup file to remove the <code>.v2.20250115_143022.bak</code> suffix</p>
-<p><strong>Benefits:</strong>
-- Never lose migration history (each migration creates a unique backup)
-- Easy to identify which version a backup came from
-- Can rollback to any previous migration step if needed</p>
-<h2 id="environment-variable-summary">Environment Variable Summary<a class="headerlink" href="#environment-variable-summary" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Variable</th>
-<th>Effect</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>CRACKZ_AUTO_MIGRATE=1</code></td>
-<td>Auto-migrate without prompt in non-interactive sessions</td>
-</tr>
-</tbody>
-</table>
-<h2 id="programmatic-migration">Programmatic Migration<a class="headerlink" href="#programmatic-migration" title="Permanent link">&para;</a></h2>
-<p>You can call the library function directly:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.project.migration</span><span class="w"> </span><span class="kn">import</span> <span class="n">migrate_project_file</span>
-
-<span class="n">result</span> <span class="o">=</span> <span class="n">migrate_project_file</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;my_project&quot;</span><span class="p">))</span>  <span class="c1"># or path/to_yaml</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-<span class="c1"># Example result:</span>
-<span class="c1"># {</span>
-<span class="c1">#   &#39;status&#39;: &#39;migrated&#39;,</span>
-<span class="c1">#   &#39;from_version&#39;: 2,</span>
-<span class="c1">#   &#39;to_version&#39;: 3,</span>
-<span class="c1">#   &#39;steps&#39;: [&#39;2-&gt;3: updated to artifacts structure v3 + added crackz_version tracking&#39;],</span>
-<span class="c1">#   &#39;path&#39;: &#39;my_project/my_project_project.yaml&#39;,</span>
-<span class="c1">#   &#39;backup_path&#39;: &#39;my_project/my_project_project.v2.20250115_143022.bak&#39;,</span>
-<span class="c1">#   &#39;dry_run&#39;: False</span>
-<span class="c1"># }</span>
-</code></pre></div>
-<p>The result dict contains:
-- <code>status</code>: "migrated", "noop", or "up-to-date"
-- <code>from_version</code>: Original schema version
-- <code>to_version</code>: Final schema version
-- <code>steps</code>: List of migration step descriptions
-- <code>path</code>: Path to migrated file
-- <code>backup_path</code>: Path to backup file (if created)
-- <code>dry_run</code>: Whether this was a dry run</p>
-<h2 id="gui-migration">GUI Migration<a class="headerlink" href="#gui-migration" title="Permanent link">&para;</a></h2>
-<h3 id="automated-migration-detection">Automated Migration Detection<a class="headerlink" href="#automated-migration-detection" title="Permanent link">&para;</a></h3>
-<p>When opening a project in the GUI, automatic detection occurs for:</p>
-<ol>
-<li><strong>Schema Migration</strong>: Always prompted and performed when project schema is outdated</li>
-<li><strong>File Migration</strong>: Detects when artifacts directory structure needs updating</li>
-</ol>
-<h3 id="schema-migration-dialog">Schema Migration Dialog<a class="headerlink" href="#schema-migration-dialog" title="Permanent link">&para;</a></h3>
-<p>When opening a project with an old schema version, the GUI displays a dialog offering migration. A backup is created automatically; declining leaves the project untouched.</p>
-<h3 id="file-migration-dialog-new">File Migration Dialog (NEW)<a class="headerlink" href="#file-migration-dialog-new" title="Permanent link">&para;</a></h3>
-<p>When artifacts directory structure is outdated, the GUI displays an informational dialog explaining:
-- Benefits of the new structure (better organization, clearer separation)
-- Safety measures (backup creation, rollback capability)
-- User options: "Migrate", "Skip", or "Cancel"</p>
-<p>The migration process shows progress and handles any errors gracefully with automatic rollback.</p>
-<h2 id="safety-and-idempotence">Safety and Idempotence<a class="headerlink" href="#safety-and-idempotence" title="Permanent link">&para;</a></h2>
-<p>Running migration on an already up-to-date project is a no-op.
-Repeated runs after success make no further changes.</p>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Symptom</th>
-<th>Cause</th>
-<th>Resolution</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Prompt appears every run</td>
-<td>Write failed, read-only filesystem</td>
-<td>Ensure write permissions to project directory</td>
-</tr>
-<tr>
-<td>Field still missing after migration</td>
-<td>Uncommitted manual edits reverted defaults</td>
-<td>Re-run migration or add field manually</td>
-</tr>
-<tr>
-<td>Many <code>.bak</code> files accumulate</td>
-<td>Multiple migrations over time</td>
-<td>Safe to delete old backups after verifying current project works</td>
-</tr>
-<tr>
-<td>Need to rollback migration</td>
-<td>Migration caused issues</td>
-<td>Rename timestamped <code>.bak</code> file to remove suffix and replace current YAML</td>
-</tr>
-</tbody>
-</table>
+<hr />
+<p><strong>Last Updated</strong>: 2025-11-06
+<strong>Maintained By</strong>: Theresia Lundgren (theresia.lundgren@anaxiatech.se)</p>
+<p><strong>How to Propose New ADRs</strong>:
+1. Create issue describing the decision needed
+2. Research alternatives with pros/cons
+3. Discuss with team/community
+4. Add ADR to this document via PR
+5. Update related documentation</p>
 
 
 

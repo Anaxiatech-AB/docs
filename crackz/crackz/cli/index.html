@@ -533,6 +533,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../reporting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Report Generation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../docker/" class="md-nav__link">
         
   
@@ -566,10 +589,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_11" >
         
           
-          <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_11" id="__nav_4_11_label" tabindex="0">
             
   
   
@@ -582,8 +605,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_10">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_11">
             <span class="md-nav__icon md-icon"></span>
             Azure Deployments
           </label>
@@ -1105,6 +1128,30 @@
   <a href="#import" class="md-nav__link">
     <span class="md-ellipsis">
       import
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#report" class="md-nav__link">
+    <span class="md-ellipsis">
+      report
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="report">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      generate
     </span>
   </a>
   
@@ -1859,6 +1906,30 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#report" class="md-nav__link">
+    <span class="md-ellipsis">
+      report
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="report">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate" class="md-nav__link">
+    <span class="md-ellipsis">
+      generate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#project-cleaning" class="md-nav__link">
     <span class="md-ellipsis">
       Project Cleaning
@@ -2497,6 +2568,40 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
   -m, --model PATH         Path to model package file to import  \[required]
   --force / --no-force     Overwrite existing checkpoint if it exists
                            \[default: no-force]
+</code></pre></div>
+<h2 id="report">report<a class="headerlink" href="#report" title="Permanent link">&para;</a></h2>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> report [OPTIONS] COMMAND [ARGS]...
+</code></pre></div>
+<h3 id="generate">generate<a class="headerlink" href="#generate" title="Permanent link">&para;</a></h3>
+<p>Generate a professional Word document report with detection results.</p>
+<p>Creates a branded report containing:
+- Project information and metadata
+- Detection statistics and severity breakdown
+- Sample images with detection overlays
+- Company branding and contact information</p>
+<p>The report is saved as a .docx file that can be opened in Microsoft Word
+or compatible applications.</p>
+<p>Examples:
+    # Generate report for project
+    crackz report generate --project /path/to/project</p>
+<div class="codehilite"><pre><span></span><code><span class="gh">#</span> Specify custom output path
+crackz report generate --project /path/to/project --output report.docx
+
+<span class="gh">#</span> Use config file
+crackz report generate --cfg project_config.yaml
+</code></pre></div>
+
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> report generate [OPTIONS]
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  -c, --cfg FILE           Path to YAML pipeline config. Or use --project to
+                           specify the project path.
+  -p, --project DIRECTORY  Project path (overrides config file). Eg --project
+                           ./my_project
+  -o, --output PATH        Output path for the report (defaults to project
+                           directory).
 </code></pre></div>
 <h2 id="project-cleaning">Project Cleaning<a class="headerlink" href="#project-cleaning" title="Permanent link">&para;</a></h2>
 <p>The <code>clean</code> command removes temporary files, logs, and training artifacts from a project while preserving important data like images and masks.</p>

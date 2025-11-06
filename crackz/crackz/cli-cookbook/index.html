@@ -779,6 +779,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#generate-reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate Reports
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#next" class="md-nav__link">
     <span class="md-ellipsis">
       Next
@@ -941,6 +950,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../reporting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Report Generation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../docker/" class="md-nav__link">
         
   
@@ -974,10 +1006,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_11" >
         
           
-          <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_11" id="__nav_4_11_label" tabindex="0">
             
   
   
@@ -990,8 +1022,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_10">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_11">
             <span class="md-nav__icon md-icon"></span>
             Azure Deployments
           </label>
@@ -1910,6 +1942,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#generate-reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate Reports
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#next" class="md-nav__link">
     <span class="md-ellipsis">
       Next
@@ -2600,6 +2641,28 @@ mkdir<span class="w"> </span>-p<span class="w"> </span>project
 </tr>
 </tbody>
 </table>
+<h2 id="generate-reports">Generate Reports<a class="headerlink" href="#generate-reports" title="Permanent link">&para;</a></h2>
+<p>Create professional Word documents with detection results:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Generate report with default name (project_name_report.docx)</span>
+crackz<span class="w"> </span>report<span class="w"> </span>generate<span class="w"> </span>--project<span class="w"> </span>demo-project
+
+<span class="c1"># Specify custom output path</span>
+crackz<span class="w"> </span>report<span class="w"> </span>generate<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--output<span class="w"> </span>inspection_report.docx
+
+<span class="c1"># Use config file instead of project path</span>
+crackz<span class="w"> </span>report<span class="w"> </span>generate<span class="w"> </span>--cfg<span class="w"> </span>project.yaml<span class="w"> </span>--output<span class="w"> </span>report.docx
+</code></pre></div>
+<p><strong>Report contents:</strong>
+- Project information and metadata
+- Detection statistics (total images, detection rate, confidence)
+- Severity breakdown (Crack Detected, Probable, Possible, None)
+- Sample images organized by severity (up to 5 per category)
+- Anaxiatech branding and contact information</p>
+<p><strong>Requirements:</strong>
+- Detection must be run first (<code>crackz detect run</code>)
+- Output format: Microsoft Word (.docx)
+- Compatible with: Word, LibreOffice, Google Docs, Pages</p>
+<p>For detailed documentation, see <a href="../reporting/">Report Generation</a>.</p>
 <h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
 <ul>
 <li>See <code>api.md</code> for programmatic usage examples (load project + call <code>detect()</code> / <code>train()</code>).<blockquote>

@@ -100,7 +100,7 @@ table th { background:#f1f5f9; color:#111827; }
   <p class='company'>© 2025 Anaxiatech AB</p>
 </section>
 <hr class='page-sep'/>
-<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#getting-started'>Getting Started</a></li><li><a href='#installation'>Installation</a></li><li><a href='#user-guide'>User Guide</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#gui'>GUI</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#configuration'>Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-vm-cuda'>Azure VM with CUDA</a></li><li><a href='#azure-comparison'>VM vs Batch Comparison</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#api'>API Reference</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access Management</a></li><li><a href='#pdf'>Printable PDF</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
+<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#getting-started'>Getting Started</a></li><li><a href='#installation'>Installation</a></li><li><a href='#user-guide'>User Guide</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#gui'>GUI</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#configuration'>Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-vm-cuda'>Azure VM with CUDA</a></li><li><a href='#azure-comparison'>VM vs Batch Comparison</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#api'>API Reference</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access Management</a></li><li><a href='#pdf'>Printable PDF</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
 <h1>Home</h1>
 <h1 id="crackz">Crackz<a class="headerlink" href="#crackz" title="Permanent link">&para;</a></h1>
 <p>
@@ -3048,6 +3048,28 @@ mkdir<span class="w"> </span>-p<span class="w"> </span>project
 </tr>
 </tbody>
 </table>
+<h2 id="generate-reports">Generate Reports<a class="headerlink" href="#generate-reports" title="Permanent link">&para;</a></h2>
+<p>Create professional Word documents with detection results:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Generate report with default name (project_name_report.docx)</span>
+crackz<span class="w"> </span>report<span class="w"> </span>generate<span class="w"> </span>--project<span class="w"> </span>demo-project
+
+<span class="c1"># Specify custom output path</span>
+crackz<span class="w"> </span>report<span class="w"> </span>generate<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--output<span class="w"> </span>inspection_report.docx
+
+<span class="c1"># Use config file instead of project path</span>
+crackz<span class="w"> </span>report<span class="w"> </span>generate<span class="w"> </span>--cfg<span class="w"> </span>project.yaml<span class="w"> </span>--output<span class="w"> </span>report.docx
+</code></pre></div>
+<p><strong>Report contents:</strong>
+- Project information and metadata
+- Detection statistics (total images, detection rate, confidence)
+- Severity breakdown (Crack Detected, Probable, Possible, None)
+- Sample images organized by severity (up to 5 per category)
+- Anaxiatech branding and contact information</p>
+<p><strong>Requirements:</strong>
+- Detection must be run first (<code>crackz detect run</code>)
+- Output format: Microsoft Word (.docx)
+- Compatible with: Word, LibreOffice, Google Docs, Pages</p>
+<p>For detailed documentation, see <a href="../reporting/">Report Generation</a>.</p>
 <h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
 <ul>
 <li>See <code>api.md</code> for programmatic usage examples (load project + call <code>detect()</code> / <code>train()</code>).<blockquote>
@@ -5600,6 +5622,206 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 <li><code>src/crackz/gui/components/browser/toolbar.py</code> - Toolbar with map button</li>
 <li><code>src/crackz/project/geoposition.py</code> - GPS extraction utilities</li>
 <li><code>scripts/add_test_gps_data.py</code> - Add GPS data to test images</li>
+</ul>
+</section>
+<hr class='page-sep' />
+<section class='print-section' id='reporting' data-source='reporting.md'>
+<h1>Report Generation</h1>
+<h1 id="report-generation">Report Generation<a class="headerlink" href="#report-generation" title="Permanent link">&para;</a></h1>
+<p>Generate professional Word documents with detection results and analysis.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The reporting feature creates branded Microsoft Word documents (.docx) containing:</p>
+<ul>
+<li><strong>Project Information</strong>: Name, description, creation date</li>
+<li><strong>Detection Statistics</strong>: Total images analyzed, detection rate, average confidence</li>
+<li><strong>Severity Breakdown</strong>: Distribution of crack severity levels</li>
+<li><strong>Sample Images</strong>: Representative detection results organized by severity</li>
+<li><strong>Anaxiatech Branding</strong>: Company logo, colors, and contact information</li>
+</ul>
+<p>Reports are ideal for sharing inspection results with clients, stakeholders, or archival purposes.</p>
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<h3 id="basic-report-generation">Basic Report Generation<a class="headerlink" href="#basic-report-generation" title="Permanent link">&para;</a></h3>
+<p>Generate a report for your project:</p>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>report<span class="w"> </span>generate<span class="w"> </span>--project<span class="w"> </span>demo-project
+</code></pre></div>
+<p>This creates <code>demo-project_report.docx</code> in the project directory.</p>
+<h3 id="custom-output-path">Custom Output Path<a class="headerlink" href="#custom-output-path" title="Permanent link">&para;</a></h3>
+<p>Specify where to save the report:</p>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>report<span class="w"> </span>generate<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--output<span class="w"> </span>inspection_report.docx
+</code></pre></div>
+<h3 id="using-config-file">Using Config File<a class="headerlink" href="#using-config-file" title="Permanent link">&para;</a></h3>
+<p>Generate from a YAML configuration:</p>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>report<span class="w"> </span>generate<span class="w"> </span>--cfg<span class="w"> </span>project_config.yaml<span class="w"> </span>--output<span class="w"> </span>report.docx
+</code></pre></div>
+<h2 id="report-contents">Report Contents<a class="headerlink" href="#report-contents" title="Permanent link">&para;</a></h2>
+<h3 id="1-header-section">1. Header Section<a class="headerlink" href="#1-header-section" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Anaxiatech logo</strong> (automatically included if available)</li>
+<li><strong>Document title</strong>: "Harbor Infrastructure Inspection Report"</li>
+<li><strong>Subtitle</strong>: "Crack Detection Analysis"</li>
+<li><strong>Generation date</strong>: Timestamp when report was created</li>
+</ul>
+<h3 id="2-project-information">2. Project Information<a class="headerlink" href="#2-project-information" title="Permanent link">&para;</a></h3>
+<p>A table containing:
+- Project name
+- Description
+- Creation date</p>
+<h3 id="3-detection-statistics">3. Detection Statistics<a class="headerlink" href="#3-detection-statistics" title="Permanent link">&para;</a></h3>
+<p>Summary metrics including:
+- Total images analyzed
+- Number of images with detected cracks
+- Overall detection rate (%)
+- Average confidence level (%)</p>
+<h3 id="4-severity-breakdown">4. Severity Breakdown<a class="headerlink" href="#4-severity-breakdown" title="Permanent link">&para;</a></h3>
+<p>Distribution of results by confidence level:
+- <strong>Crack Detected</strong>: High confidence detections (≥5% default)
+- <strong>Probable Crack</strong>: Medium confidence (2-5% default)
+- <strong>Possible Crack</strong>: Low confidence (0.5-2% default)
+- <strong>No Crack</strong>: Below detection threshold</p>
+<p>Each severity level shows:
+- Number of images
+- Percentage of total
+- Color-coded for easy identification</p>
+<h3 id="5-detection-results">5. Detection Results<a class="headerlink" href="#5-detection-results" title="Permanent link">&para;</a></h3>
+<p>Sample images organized by severity (up to 5 images per category):
+- Original filename
+- <strong>Detection visualization images</strong> with crack overlays and heatmaps
+- Confidence percentage
+- Crack area percentage (when available)</p>
+<p>The report includes the actual detection visualization images showing:
+- Red/yellow overlay highlighting detected cracks
+- Color-coded intensity based on detection confidence
+- Visual representation of the AI's crack detection</p>
+<p><strong>Note:</strong> Images are automatically resized to fit page width while maintaining aspect ratio. Large image sets show a representative sample with a note about complete results.</p>
+<h3 id="6-company-information">6. Company Information<a class="headerlink" href="#6-company-information" title="Permanent link">&para;</a></h3>
+<ul>
+<li>About Anaxiatech section</li>
+<li>Contact information (email, website)</li>
+<li>Disclaimer about AI-generated results</li>
+</ul>
+<h2 id="report-customization">Report Customization<a class="headerlink" href="#report-customization" title="Permanent link">&para;</a></h2>
+<h3 id="severity-thresholds">Severity Thresholds<a class="headerlink" href="#severity-thresholds" title="Permanent link">&para;</a></h3>
+<p>Confidence thresholds are configured in your project's detection settings:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">ai</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">detection</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">min_confidence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.005</span><span class="w">      </span><span class="c1"># 0.5% - Possible Crack threshold</span>
+<span class="w">    </span><span class="nt">medium_confidence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span><span class="w">    </span><span class="c1"># 2% - Probable Crack threshold</span>
+<span class="w">    </span><span class="nt">high_confidence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span><span class="w">      </span><span class="c1"># 5% - Crack Detected threshold</span>
+</code></pre></div>
+<p>Adjust these values to control how detections are categorized in reports.</p>
+<h3 id="image-limits">Image Limits<a class="headerlink" href="#image-limits" title="Permanent link">&para;</a></h3>
+<p>By default, reports include up to 5 sample images per severity level to keep file sizes manageable. This prevents extremely large documents when processing hundreds or thousands of images.</p>
+<p>For complete results, refer to the project's <code>detections/</code> directory.</p>
+<h2 id="use-cases">Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h2>
+<h3 id="client-deliverables">Client Deliverables<a class="headerlink" href="#client-deliverables" title="Permanent link">&para;</a></h3>
+<p>Share inspection results with harbor authorities or infrastructure managers:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>report<span class="w"> </span>generate<span class="w"> </span>--project<span class="w"> </span>harbor_inspection_2024<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span><span class="s2">&quot;Harbor_Inspection_Report_2024-Q4.docx&quot;</span>
+</code></pre></div></p>
+<h3 id="progress-reports">Progress Reports<a class="headerlink" href="#progress-reports" title="Permanent link">&para;</a></h3>
+<p>Document ongoing monitoring campaigns:
+<div class="highlight"><pre><span></span><code><span class="c1"># Monthly reports</span>
+crackz<span class="w"> </span>report<span class="w"> </span>generate<span class="w"> </span>--project<span class="w"> </span>monthly_monitoring<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span><span class="s2">&quot;reports/2024-11_monitoring.docx&quot;</span>
+</code></pre></div></p>
+<h3 id="compliance-documentation">Compliance Documentation<a class="headerlink" href="#compliance-documentation" title="Permanent link">&para;</a></h3>
+<p>Create records for regulatory compliance:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>report<span class="w"> </span>generate<span class="w"> </span>--project<span class="w"> </span>compliance_check<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span><span class="s2">&quot;compliance/inspection_</span><span class="k">$(</span>date<span class="w"> </span>+%Y%m%d<span class="k">)</span><span class="s2">.docx&quot;</span>
+</code></pre></div></p>
+<h3 id="internal-reviews">Internal Reviews<a class="headerlink" href="#internal-reviews" title="Permanent link">&para;</a></h3>
+<p>Generate reports for internal quality assurance:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>report<span class="w"> </span>generate<span class="w"> </span>--project<span class="w"> </span>qa_validation<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span><span class="s2">&quot;internal/qa_review.docx&quot;</span>
+</code></pre></div></p>
+<h2 id="technical-details">Technical Details<a class="headerlink" href="#technical-details" title="Permanent link">&para;</a></h2>
+<h3 id="output-format">Output Format<a class="headerlink" href="#output-format" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Format</strong>: Microsoft Word (.docx) - Office 2007 and later</li>
+<li><strong>Compatibility</strong>: Microsoft Word, LibreOffice, Google Docs, Apple Pages</li>
+<li><strong>Styling</strong>: Professional theme with Anaxiatech brand colors</li>
+<li><strong>Images</strong>: Embedded at appropriate resolution (max 6 inches width)</li>
+</ul>
+<h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Detection must be run first (<code>crackz detect run</code>)</li>
+<li>Detection results JSON must exist in project</li>
+<li>Sufficient disk space for Word document (typically 5-50 MB depending on images)</li>
+</ul>
+<h3 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h3>
+<p>Report generation typically takes:
+- <strong>Small projects</strong> (10-50 images): 1-5 seconds
+- <strong>Medium projects</strong> (50-200 images): 5-15 seconds
+- <strong>Large projects</strong> (200+ images): 15-30 seconds</p>
+<p>Large projects show only sample images to maintain reasonable generation times.</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="no-detection-results">No Detection Results<a class="headerlink" href="#no-detection-results" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: "No detection results found for project"</p>
+<p><strong>Solution</strong>: Run detection first:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>demo-project
+</code></pre></div></p>
+<h3 id="images-not-appearing">Images Not Appearing<a class="headerlink" href="#images-not-appearing" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: Report shows "⚠️ Detection image not found" messages</p>
+<p><strong>Causes</strong>:
+- Detection visualizations were deleted or moved
+- Detection hasn't been run yet
+- Project directory structure is incorrect</p>
+<p><strong>Solution</strong>: Verify detection visualization images exist:
+<div class="highlight"><pre><span></span><code><span class="c1"># Check for visualization images (new structure)</span>
+ls<span class="w"> </span>-la<span class="w"> </span>demo-project/artifacts/detections/visualizations/
+
+<span class="c1"># Or legacy location (older projects)</span>
+ls<span class="w"> </span>-la<span class="w"> </span>demo-project/artifacts/detections/*.png
+</code></pre></div></p>
+<p>Re-run detection if needed:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>demo-project
+</code></pre></div></p>
+<p><strong>Note</strong>: The report uses detection visualization images from <code>artifacts/detections/visualizations/</code> 
+which show the original images with crack overlays. These are automatically generated during detection.</p>
+<h3 id="large-file-size">Large File Size<a class="headerlink" href="#large-file-size" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: Report file is very large (&gt;100 MB)</p>
+<p><strong>Cause</strong>: High-resolution detection images</p>
+<p><strong>Solutions</strong>:
+1. The report automatically limits to 5 images per severity level
+2. For smaller files, reduce detection image resolution in project config:
+   <div class="highlight"><pre><span></span><code><span class="nt">data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">512</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">]</span><span class="w">  </span><span class="c1"># Use smaller images</span>
+</code></pre></div></p>
+<h3 id="permission-denied">Permission Denied<a class="headerlink" href="#permission-denied" title="Permanent link">&para;</a></h3>
+<p><strong>Problem</strong>: Cannot save report file</p>
+<p><strong>Solutions</strong>:
+- Check write permissions on output directory
+- Close the file if it's open in Word or another application
+- Specify a different output path with <code>--output</code></p>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="naming-conventions">Naming Conventions<a class="headerlink" href="#naming-conventions" title="Permanent link">&para;</a></h3>
+<p>Use descriptive, dated filenames:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>report<span class="w"> </span>generate<span class="w"> </span>--project<span class="w"> </span>harbor_main<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span><span class="s2">&quot;Harbor_Main_Inspection_2024-11-05.docx&quot;</span>
+</code></pre></div></p>
+<h3 id="batch-processing">Batch Processing<a class="headerlink" href="#batch-processing" title="Permanent link">&para;</a></h3>
+<p>Generate reports for multiple projects:
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>project<span class="w"> </span><span class="k">in</span><span class="w"> </span>project1<span class="w"> </span>project2<span class="w"> </span>project3<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>crackz<span class="w"> </span>report<span class="w"> </span>generate<span class="w"> </span>--project<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$project</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span><span class="s2">&quot;reports/</span><span class="si">${</span><span class="nv">project</span><span class="si">}</span><span class="s2">_</span><span class="k">$(</span>date<span class="w"> </span>+%Y%m%d<span class="k">)</span><span class="s2">.docx&quot;</span>
+<span class="k">done</span>
+</code></pre></div></p>
+<h3 id="archive-with-project">Archive with Project<a class="headerlink" href="#archive-with-project" title="Permanent link">&para;</a></h3>
+<p>Keep report alongside project data:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>report<span class="w"> </span>generate<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w">  </span><span class="c1"># Creates demo-project/demo-project_report.docx</span>
+</code></pre></div></p>
+<h3 id="version-control">Version Control<a class="headerlink" href="#version-control" title="Permanent link">&para;</a></h3>
+<p>Track report parameters in project config:
+<div class="highlight"><pre><span></span><code><span class="c1"># Add to project notes</span>
+<span class="nt">project</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">notes</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Report</span><span class="nv"> </span><span class="s">generated</span><span class="nv"> </span><span class="s">2024-11-05</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">default</span><span class="nv"> </span><span class="s">thresholds&quot;</span>
+</code></pre></div></p>
+<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../cli/#detection-commands">Detection CLI</a> - Running crack detection</li>
+<li><a href="../configuration/">Configuration</a> - Adjusting detection parameters</li>
+<li><a href="../cli-cookbook/">CLI Cookbook</a> - Common workflow examples</li>
+<li><a href="../user-guide/#project-structure">Project Structure</a> - Understanding project layout</li>
 </ul>
 </section>
 <hr class='page-sep' />
@@ -23540,9 +23762,7 @@ to simplify the implementation of the CLI.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/cli/crackz_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">53</span>
 <span class="normal">54</span>
 <span class="normal">55</span>
 <span class="normal">56</span>
@@ -23559,7 +23779,9 @@ to simplify the implementation of the CLI.</p>
 <span class="normal">67</span>
 <span class="normal">68</span>
 <span class="normal">69</span>
-<span class="normal">70</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">invoke_without_command</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">invoke_without_command</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">main_callback</span><span class="p">(</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">version</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span>  <span class="c1"># noqa: ARG001</span>
@@ -23603,16 +23825,16 @@ to simplify the implementation of the CLI.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/cli/crackz_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">75</span>
 <span class="normal">76</span>
 <span class="normal">77</span>
 <span class="normal">78</span>
 <span class="normal">79</span>
 <span class="normal">80</span>
 <span class="normal">81</span>
-<span class="normal">82</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute the main application entry point.&quot;&quot;&quot;</span>
     <span class="c1"># Critical: Add freeze_support for Windows multiprocessing in PyInstaller builds</span>
     <span class="c1"># This prevents multiple windows from spawning when using DataLoader with num_workers &gt; 0</span>
@@ -25655,6 +25877,40 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
   -m, --model PATH         Path to model package file to import  \[required]
   --force / --no-force     Overwrite existing checkpoint if it exists
                            \[default: no-force]
+</code></pre></div>
+<h2 id="report">report<a class="headerlink" href="#report" title="Permanent link">&para;</a></h2>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> report [OPTIONS] COMMAND [ARGS]...
+</code></pre></div>
+<h3 id="generate">generate<a class="headerlink" href="#generate" title="Permanent link">&para;</a></h3>
+<p>Generate a professional Word document report with detection results.</p>
+<p>Creates a branded report containing:
+- Project information and metadata
+- Detection statistics and severity breakdown
+- Sample images with detection overlays
+- Company branding and contact information</p>
+<p>The report is saved as a .docx file that can be opened in Microsoft Word
+or compatible applications.</p>
+<p>Examples:
+    # Generate report for project
+    crackz report generate --project /path/to/project</p>
+<div class="codehilite"><pre><span></span><code><span class="gh">#</span> Specify custom output path
+crackz report generate --project /path/to/project --output report.docx
+
+<span class="gh">#</span> Use config file
+crackz report generate --cfg project_config.yaml
+</code></pre></div>
+
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> report generate [OPTIONS]
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  -c, --cfg FILE           Path to YAML pipeline config. Or use --project to
+                           specify the project path.
+  -p, --project DIRECTORY  Project path (overrides config file). Eg --project
+                           ./my_project
+  -o, --output PATH        Output path for the report (defaults to project
+                           directory).
 </code></pre></div>
 <h2 id="project-cleaning">Project Cleaning<a class="headerlink" href="#project-cleaning" title="Permanent link">&para;</a></h2>
 <p>The <code>clean</code> command removes temporary files, logs, and training artifacts from a project while preserving important data like images and masks.</p>

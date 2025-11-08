@@ -96,7 +96,7 @@ table th { background:#f1f5f9; color:#111827; }
   
   <h1>Crackz Documentation</h1>
   <h2>AI Image Analysis</h2>
-  <p class='version'>Version: 0.58.0</p>
+  <p class='version'>Version: 0.58.1</p>
   <p class='company'>© 2025 Anaxiatech AB</p>
 </section>
 <hr class='page-sep'/>
@@ -160,7 +160,7 @@ table th { background:#f1f5f9; color:#111827; }
 <tbody>
 <tr>
 <td><strong>Interfaces</strong></td>
-<td>CLI (<code>crackz</code>) and GUI (<code>crackz-gui</code>) for all workflows</td>
+<td>CLI (<code>crackz</code>), GUI (<code>crackz-gui</code>), and Web Dashboard (Streamlit)</td>
 </tr>
 <tr>
 <td><strong>Data Management</strong></td>
@@ -238,6 +238,7 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 <li><a href="user-guide/">User Guide</a> – Complete workflows and features</li>
 <li><a href="cli-cookbook/">CLI Cookbook</a> – Common command patterns</li>
 <li><a href="gui/">GUI Guide</a> – Graphical interface documentation</li>
+<li><a href="dashboard/">Dashboard Guide</a> – Interactive web dashboard</li>
 <li><a href="configuration/">Configuration</a> – Detailed settings reference</li>
 </ul>
 <h3 id="for-developers">For Developers<a class="headerlink" href="#for-developers" title="Permanent link">&para;</a></h3>
@@ -24617,9 +24618,7 @@ to simplify the implementation of the CLI.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/cli/crackz_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">55</span>
 <span class="normal">56</span>
 <span class="normal">57</span>
 <span class="normal">58</span>
@@ -24636,7 +24635,9 @@ to simplify the implementation of the CLI.</p>
 <span class="normal">69</span>
 <span class="normal">70</span>
 <span class="normal">71</span>
-<span class="normal">72</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">invoke_without_command</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">invoke_without_command</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">main_callback</span><span class="p">(</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">version</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span>  <span class="c1"># noqa: ARG001</span>
@@ -24680,16 +24681,16 @@ to simplify the implementation of the CLI.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/cli/crackz_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">77</span>
 <span class="normal">78</span>
 <span class="normal">79</span>
 <span class="normal">80</span>
 <span class="normal">81</span>
 <span class="normal">82</span>
 <span class="normal">83</span>
-<span class="normal">84</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute the main application entry point.&quot;&quot;&quot;</span>
     <span class="c1"># Critical: Add freeze_support for Windows multiprocessing in PyInstaller builds</span>
     <span class="c1"># This prevents multiple windows from spawning when using DataLoader with num_workers &gt; 0</span>
@@ -26361,6 +26362,27 @@ Images and masks are always preserved. The best model checkpoint is preserved by
                                   Keep the best model checkpoint when cleaning
                                   (default: keep)  \[default: keep-best-model]
 </code></pre></div>
+<h2 id="dashboard">dashboard<a class="headerlink" href="#dashboard" title="Permanent link">&para;</a></h2>
+<p>Launch the Streamlit dashboard</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> dashboard [OPTIONS] COMMAND [ARGS]...
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  -p, --project TEXT  Project name or path to load initially
+  --port INTEGER      Port number for the Streamlit server  \[default: 8501]
+</code></pre></div>
+<h3 id="launch">launch<a class="headerlink" href="#launch" title="Permanent link">&para;</a></h3>
+<p>Launch the Streamlit dashboard.</p>
+<p>Args:
+    project: Optional project name or path to load initially
+    port: Port number for the Streamlit server (default: 8501)</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> dashboard launch [OPTIONS]
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  -p, --project TEXT  Project name or path to load initially
+  --port INTEGER      Port number for the Streamlit server  \[default: 8501]
+</code></pre></div>
 <h2 id="detect">detect<a class="headerlink" href="#detect" title="Permanent link">&para;</a></h2>
 <p>Usage:</p>
 <div class="highlight"><pre><span></span><code> detect [OPTIONS] COMMAND [ARGS]...
@@ -26767,9 +26789,79 @@ crackz report generate --cfg project_config.yaml
   -o, --output PATH        Output path for the report (defaults to project
                            directory).
 </code></pre></div>
+<h2 id="dashboard_1">Dashboard<a class="headerlink" href="#dashboard_1" title="Permanent link">&para;</a></h2>
+<p>The <code>dashboard</code> command launches an interactive web-based dashboard for visualizing detection results, training metrics, and GPS locations.</p>
+<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
+<p>Launch the dashboard with a project:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project
+</code></pre></div></p>
+<p>The dashboard will open automatically in your web browser at <code>http://localhost:8501</code>.</p>
+<h3 id="custom-port">Custom Port<a class="headerlink" href="#custom-port" title="Permanent link">&para;</a></h3>
+<p>Specify a different port:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--port<span class="w"> </span><span class="m">8080</span>
+</code></pre></div></p>
+<h3 id="without-initial-project">Without Initial Project<a class="headerlink" href="#without-initial-project" title="Permanent link">&para;</a></h3>
+<p>Launch the dashboard and select a project from the UI:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>dashboard
+</code></pre></div></p>
+<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h3>
+<p>The dashboard provides four main pages:</p>
+<ol>
+<li><strong>Detection Results</strong> (📊)</li>
+<li>View detection statistics and charts</li>
+<li>Browse detection visualizations</li>
+<li>Filter and sort results</li>
+<li>
+<p>Export data as CSV/JSON</p>
+</li>
+<li>
+<p><strong>GPS Map</strong> (🗺️)</p>
+</li>
+<li>Interactive map with detection markers</li>
+<li>Heatmap visualization</li>
+<li>Location-based filtering</li>
+<li>
+<p>Export GPS data</p>
+</li>
+<li>
+<p><strong>Training Metrics</strong> (📈)</p>
+</li>
+<li>Training/validation loss curves</li>
+<li>Metrics comparison across epochs</li>
+<li>
+<p>Export training data</p>
+</li>
+<li>
+<p><strong>Parameter Tuning</strong> (⚙️)</p>
+</li>
+<li>Interactive threshold adjustment</li>
+<li>Real-time overlay preview</li>
+<li>Export optimal parameters</li>
+</ol>
+<h3 id="common-use-cases">Common Use Cases<a class="headerlink" href="#common-use-cases" title="Permanent link">&para;</a></h3>
+<p><strong>View detection results:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>--project<span class="w"> </span>my-project
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project
+<span class="c1"># Navigate to &quot;Detection Results&quot; page</span>
+</code></pre></div></p>
+<p><strong>Monitor training:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--epochs<span class="w"> </span><span class="m">50</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project
+<span class="c1"># Navigate to &quot;Training Metrics&quot; page</span>
+</code></pre></div></p>
+<p><strong>Visualize crack locations:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project
+<span class="c1"># Navigate to &quot;GPS Map&quot; page</span>
+</code></pre></div></p>
+<p><strong>Optimize parameters:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project
+<span class="c1"># Navigate to &quot;Parameter Tuning&quot; page</span>
+<span class="c1"># Adjust thresholds and preview results</span>
+</code></pre></div></p>
+<p>For detailed dashboard documentation, see the <a href="../dashboard/">Dashboard Guide</a>.</p>
 <h2 id="project-cleaning">Project Cleaning<a class="headerlink" href="#project-cleaning" title="Permanent link">&para;</a></h2>
 <p>The <code>clean</code> command removes temporary files, logs, and training artifacts from a project while preserving important data like images and masks.</p>
-<h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
+<h3 id="basic-usage_1">Basic Usage<a class="headerlink" href="#basic-usage_1" title="Permanent link">&para;</a></h3>
 <p>Clean a project using the project directory:
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>clean<span class="w"> </span>--project<span class="w"> </span>./my_project
 </code></pre></div></p>
@@ -26824,7 +26916,7 @@ Project<span class="w"> </span>cleaned!<span class="w"> </span>Removed<span clas
 
 Project<span class="w"> </span>cleaned!<span class="w"> </span>Removed<span class="w"> </span><span class="m">2</span><span class="w"> </span>items<span class="w"> </span><span class="o">(</span>logs<span class="o">)</span>.
 </code></pre></div></p>
-<h3 id="common-use-cases">Common Use Cases<a class="headerlink" href="#common-use-cases" title="Permanent link">&para;</a></h3>
+<h3 id="common-use-cases_1">Common Use Cases<a class="headerlink" href="#common-use-cases_1" title="Permanent link">&para;</a></h3>
 <p><strong>After training:</strong> Clean up old model files and logs to save disk space:
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>clean<span class="w"> </span>-p<span class="w"> </span>./my_project
 </code></pre></div></p>
@@ -26847,7 +26939,7 @@ Project<span class="w"> </span>cleaned!<span class="w"> </span>Removed<span clas
 - <code>training/tensorboard/</code> to <code>runtime/tensorboard/</code> (runtime data separation)
 - <code>training/lightning_logs/</code> to <code>runtime/lightning_logs/</code> (PyTorch Lightning logs)
 - <code>detections/*.png</code> to <code>detections/visualizations/</code> (visualization files organized)</p>
-<h3 id="basic-usage_1">Basic Usage<a class="headerlink" href="#basic-usage_1" title="Permanent link">&para;</a></h3>
+<h3 id="basic-usage_2">Basic Usage<a class="headerlink" href="#basic-usage_2" title="Permanent link">&para;</a></h3>
 <p>Schema migration only (default):
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>migrate<span class="w"> </span>--project<span class="w"> </span>./my_project
 </code></pre></div></p>

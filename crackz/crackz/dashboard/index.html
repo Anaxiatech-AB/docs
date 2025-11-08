@@ -1,0 +1,2051 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI image analysis of cracks in harbors">
+      
+      
+        <meta name="author" content="Theresia Sofia Snow">
+      
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Streamlit Dashboard - Crackz</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/print.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#screenshots" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Crackz" class="md-header__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Crackz
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Streamlit Dashboard
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Crackz" class="md-nav__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Crackz
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    End User Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            End User Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli-cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Cookbook
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GUI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai-chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AI Chat Assistant
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Training Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-splits-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Splits & Import
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../map-viewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Map Viewer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reporting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Report Generation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Docker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_11" id="__nav_4_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Azure Deployments
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_11">
+            <span class="md-nav__icon md-icon"></span>
+            Azure Deployments
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-batch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure Batch
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-vm-cuda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Azure VM with CUDA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    VM vs Batch Comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Advanced Performance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Migration Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../completion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Shell Completion
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Developer Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Developer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Project Scope
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-decisions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture Decisions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Current Tasks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MCP Integration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async-callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Async Callbacks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pr-review-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PR Review Workflow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../distribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Distribution
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Additional Resources
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Additional Resources
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Customer Access Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pdf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Printable PDF
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    License
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#screenshots" class="md-nav__link">
+    <span class="md-ellipsis">
+      Screenshots
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#launch-the-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Launch the Dashboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-launch-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternative Launch Methods
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dashboard-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dashboard Pages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dashboard Pages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-detection-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Detection Results 📊
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-gps-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. GPS Map 🗺️
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-training-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Training Metrics 📈
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-parameter-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Parameter Tuning ⚙️
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project Structure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Locations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#port-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Port Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#streamlit-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Streamlit Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependencies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-detection-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Detection Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-gps-visualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      For GPS Visualization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-training-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Training Metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-parameter-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      For Parameter Tuning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dashboard-wont-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dashboard Won't Start
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-detection-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      No Detection Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-gps-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      No GPS Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-training-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      No Training Metrics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Tips
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with CLI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      CLI Reference
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Workflow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Documentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Support
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="streamlit-dashboard">Streamlit Dashboard<a class="headerlink" href="#streamlit-dashboard" title="Permanent link">&para;</a></h1>
+<p>The Crackz Streamlit dashboard provides an interactive web-based interface for analyzing crack detection results, visualizing training metrics, and exploring GPS-tagged crack locations.</p>
+<h2 id="screenshots">Screenshots<a class="headerlink" href="#screenshots" title="Permanent link">&para;</a></h2>
+<!-- TODO: Add screenshots of each dashboard page -->
+<!-- Recommended screenshots:
+1. Home page with project selection
+2. Detection Results page showing charts and table
+3. GPS Map page with markers
+4. Training Metrics page with loss curves
+5. Parameter Tuning page with image overlay
+-->
+
+<p><em>Screenshots to be added</em></p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The dashboard is a comprehensive visualization tool that complements the CLI and GUI, offering:</p>
+<ul>
+<li><strong>Interactive data exploration</strong> with filters and sorting</li>
+<li><strong>Rich visualizations</strong> using Plotly charts</li>
+<li><strong>GPS mapping</strong> with Folium for geographic visualization</li>
+<li><strong>Real-time parameter tuning</strong> for detection thresholds</li>
+<li><strong>Export capabilities</strong> for results and metrics</li>
+</ul>
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<h3 id="launch-the-dashboard">Launch the Dashboard<a class="headerlink" href="#launch-the-dashboard" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Launch with a specific project</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project
+
+<span class="c1"># Launch with custom port</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--port<span class="w"> </span><span class="m">8502</span>
+</code></pre></div>
+<p>The dashboard will automatically open in your default web browser at <code>http://localhost:8501</code>.</p>
+<h3 id="alternative-launch-methods">Alternative Launch Methods<a class="headerlink" href="#alternative-launch-methods" title="Permanent link">&para;</a></h3>
+<p>You can also launch the dashboard directly with Streamlit:</p>
+<div class="highlight"><pre><span></span><code>streamlit<span class="w"> </span>run<span class="w"> </span>src/crackz/dashboard/app.py<span class="w"> </span>--<span class="w"> </span>--project<span class="w"> </span>my-project
+</code></pre></div>
+<p>Or programmatically from Python:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.dashboard</span><span class="w"> </span><span class="kn">import</span> <span class="n">launch_dashboard</span>
+
+<span class="n">launch_dashboard</span><span class="p">(</span><span class="n">project_name</span><span class="o">=</span><span class="s2">&quot;my-project&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8501</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="dashboard-pages">Dashboard Pages<a class="headerlink" href="#dashboard-pages" title="Permanent link">&para;</a></h2>
+<p>The dashboard consists of four main pages accessible from the sidebar menu:</p>
+<h3 id="1-detection-results">1. Detection Results 📊<a class="headerlink" href="#1-detection-results" title="Permanent link">&para;</a></h3>
+<p>View and analyze crack detection results with comprehensive visualizations and statistics.</p>
+<p><strong>Features:</strong>
+- Summary metrics (total detections, average confidence, average IoU, crack count)
+- Interactive charts:
+  - Detection counts (cracks vs no cracks)
+  - Confidence score distribution
+  - IoU score distribution (when ground truth available)
+  - Crack severity distribution
+- Filterable and sortable results table
+- Paginated image gallery showing detection visualizations
+- Export results as CSV or JSON</p>
+<p><strong>Usage:</strong>
+1. Select a project from the home page
+2. Navigate to "Detection Results" page
+3. Use filters to refine results (crack presence, confidence threshold)
+4. Sort by various metrics (batch, confidence, IoU)
+5. Browse detection visualizations in the image gallery</p>
+<h3 id="2-gps-map">2. GPS Map 🗺️<a class="headerlink" href="#2-gps-map" title="Permanent link">&para;</a></h3>
+<p>Visualize crack locations on an interactive map using GPS coordinates from image EXIF metadata.</p>
+<p><strong>Features:</strong>
+- Interactive Folium maps with marker clusters
+- Color-coded markers:
+  - 🔴 Red: Cracks detected
+  - 🟢 Green: No cracks
+  - 🔵 Blue: Unknown status
+- Heatmap visualization showing crack concentration
+- Filters:
+  - Show all locations / cracks only / no cracks
+  - Minimum confidence threshold
+- Location details table with GPS coordinates
+- Export GPS data as CSV</p>
+<p><strong>GPS Data Requirements:</strong>
+- Images must contain EXIF GPS metadata
+- GPS coordinates are automatically extracted from image files
+- Supports images from test/val/train/raw splits</p>
+<p><strong>Usage:</strong>
+1. Ensure your images have GPS EXIF metadata
+2. Navigate to "GPS Map" page
+3. Choose between markers or heatmap view
+4. Apply filters to focus on specific detections
+5. Click markers for detailed information</p>
+<p><strong>Troubleshooting:</strong>
+If no GPS data is shown:
+- Verify images have GPS metadata: <code>crackz geo extract-gps --project &lt;name&gt;</code>
+- Check that images are in your project's data directories
+- Use GPS-enabled cameras or phones to capture images</p>
+<h3 id="3-training-metrics">3. Training Metrics 📈<a class="headerlink" href="#3-training-metrics" title="Permanent link">&para;</a></h3>
+<p>Monitor model training progress with detailed metrics and visualizations.</p>
+<p><strong>Features:</strong>
+- Training summary (total epochs, final losses, best validation loss)
+- Training and validation loss plots over epochs
+- Additional metrics visualization (accuracy, precision, recall, etc.)
+- Epoch-by-epoch metrics table
+- Training configuration display
+- Export metrics as CSV or JSON</p>
+<p><strong>Data Source:</strong>
+Metrics are loaded from <code>artifacts/training/training_metrics.json</code></p>
+<p><strong>Usage:</strong>
+1. Train a model: <code>crackz train --project &lt;name&gt;</code>
+2. Navigate to "Training Metrics" page
+3. Review loss curves and metrics
+4. Compare training vs validation performance
+5. Export metrics for further analysis</p>
+<h3 id="4-parameter-tuning">4. Parameter Tuning ⚙️<a class="headerlink" href="#4-parameter-tuning" title="Permanent link">&para;</a></h3>
+<p>Interactively adjust detection parameters and preview results in real-time.</p>
+<p><strong>Features:</strong>
+- Adjustable parameters:
+  - Detection threshold (0.0 - 1.0)
+  - Minimum confidence (0.0 - 1.0)
+  - Overlay transparency (0.0 - 1.0)
+  - Overlay color (RGB color picker)
+- View modes:
+  - Original image
+  - Overlay with mask
+  - Side-by-side comparison (original | mask | overlay)
+- Real-time detection statistics:
+  - Crack coverage percentage
+  - Crack pixel count
+  - Image dimensions
+- Parameter export as JSON
+- Image selection from multiple sources</p>
+<p><strong>Usage:</strong>
+1. Navigate to "Parameter Tuning" page
+2. Select an image from the dropdown
+3. Adjust parameters using sliders and color picker
+4. Switch between view modes to compare
+5. Export optimal settings for production use</p>
+<h2 id="project-structure">Project Structure<a class="headerlink" href="#project-structure" title="Permanent link">&para;</a></h2>
+<p>The dashboard is organized as follows:</p>
+<div class="highlight"><pre><span></span><code>src/crackz/dashboard/
+├── __init__.py          # Launch function
+├── app.py              # Main dashboard app
+├── pages/              # Dashboard pages
+│   ├── 1_📊_Detection_Results.py
+│   ├── 2_🗺️_GPS_Map.py
+│   ├── 3_📈_Training_Metrics.py
+│   └── 4_⚙️_Parameter_Tuning.py
+└── utils/              # Utility modules
+    ├── data_loader.py  # Data loading functions
+    ├── image_utils.py  # Image processing utilities
+    ├── map_utils.py    # GPS mapping utilities
+    └── viz_utils.py    # Visualization functions
+</code></pre></div>
+<h2 id="data-locations">Data Locations<a class="headerlink" href="#data-locations" title="Permanent link">&para;</a></h2>
+<p>The dashboard reads data from these project locations:</p>
+<table>
+<thead>
+<tr>
+<th>Data Type</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Detection visualizations</td>
+<td><code>artifacts/detections/visualizations/</code></td>
+</tr>
+<tr>
+<td>Detection results JSON</td>
+<td><code>artifacts/detections/detection_results.json</code></td>
+</tr>
+<tr>
+<td>Training metrics JSON</td>
+<td><code>artifacts/training/training_metrics.json</code></td>
+</tr>
+<tr>
+<td>Source images</td>
+<td><code>data/{test,val,train,raw}/</code></td>
+</tr>
+<tr>
+<td>GPS coordinates</td>
+<td>Extracted from image EXIF metadata</td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<h3 id="port-configuration">Port Configuration<a class="headerlink" href="#port-configuration" title="Permanent link">&para;</a></h3>
+<p>Change the default port (8501) when launching:</p>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--port<span class="w"> </span><span class="m">8080</span>
+</code></pre></div>
+<h3 id="streamlit-configuration">Streamlit Configuration<a class="headerlink" href="#streamlit-configuration" title="Permanent link">&para;</a></h3>
+<p>Create <code>.streamlit/config.toml</code> in your project root to customize Streamlit:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[server]</span>
+<span class="n">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8501</span>
+<span class="n">headless</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+
+<span class="k">[theme]</span>
+<span class="n">primaryColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#FF4B4B&quot;</span>
+<span class="n">backgroundColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#FFFFFF&quot;</span>
+<span class="n">secondaryBackgroundColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#F0F2F6&quot;</span>
+<span class="n">textColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#262730&quot;</span>
+<span class="n">font</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sans serif&quot;</span>
+</code></pre></div>
+<p>See <a href="https://docs.streamlit.io/library/advanced-features/configuration">Streamlit configuration docs</a> for more options.</p>
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<p>The dashboard requires these dependencies (automatically installed):</p>
+<ul>
+<li><code>streamlit&gt;=1.30.0</code> - Dashboard framework</li>
+<li><code>streamlit-folium&gt;=0.15.0</code> - Map integration</li>
+<li><code>folium&gt;=0.15.0</code> - Interactive maps</li>
+<li><code>plotly&gt;=5.18.0</code> - Interactive charts</li>
+<li><code>pandas&gt;=2.0.0</code> - Data manipulation</li>
+</ul>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="for-detection-results">For Detection Results<a class="headerlink" href="#for-detection-results" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Run detection first</strong>: Generate visualizations before viewing in dashboard
+   <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>--project<span class="w"> </span>my-project
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Use meaningful thresholds</strong>: Filter results with appropriate confidence thresholds</p>
+</li>
+<li>
+<p><strong>Export data</strong>: Download CSV/JSON for further analysis or reporting</p>
+</li>
+</ol>
+<h3 id="for-gps-visualization">For GPS Visualization<a class="headerlink" href="#for-gps-visualization" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Verify GPS metadata</strong>: Check images have GPS before expecting map data
+   <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>geo<span class="w"> </span>extract-gps<span class="w"> </span>--project<span class="w"> </span>my-project
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Use heatmap for patterns</strong>: Switch to heatmap view to identify crack concentration areas</p>
+</li>
+<li>
+<p><strong>Filter by confidence</strong>: Focus on high-confidence detections for more reliable mapping</p>
+</li>
+</ol>
+<h3 id="for-training-metrics">For Training Metrics<a class="headerlink" href="#for-training-metrics" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Monitor regularly</strong>: Check training metrics periodically during long training runs</p>
+</li>
+<li>
+<p><strong>Compare epochs</strong>: Use the epoch table to identify the best checkpoint</p>
+</li>
+<li>
+<p><strong>Watch for overfitting</strong>: Look for divergence between training and validation loss</p>
+</li>
+</ol>
+<h3 id="for-parameter-tuning">For Parameter Tuning<a class="headerlink" href="#for-parameter-tuning" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Start with defaults</strong>: Begin with threshold=0.5, confidence=0.3</p>
+</li>
+<li>
+<p><strong>Test multiple images</strong>: Verify parameters work across different scenarios</p>
+</li>
+<li>
+<p><strong>Export settings</strong>: Save optimal parameters for batch processing</p>
+</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="dashboard-wont-start">Dashboard Won't Start<a class="headerlink" href="#dashboard-wont-start" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Error when launching dashboard</p>
+<p><strong>Solutions</strong>:
+- Ensure Streamlit is installed: <code>uv sync</code> or <code>pip install streamlit</code>
+- Check port availability: Try a different port with <code>--port 8502</code>
+- Verify project path is correct</p>
+<h3 id="no-detection-images">No Detection Images<a class="headerlink" href="#no-detection-images" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Image gallery is empty</p>
+<p><strong>Solutions</strong>:
+- Run detection: <code>crackz detect --project &lt;name&gt;</code>
+- Check visualizations directory: <code>artifacts/detections/visualizations/</code>
+- Verify project has source images in data directories</p>
+<h3 id="no-gps-data">No GPS Data<a class="headerlink" href="#no-gps-data" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Map shows no markers</p>
+<p><strong>Solutions</strong>:
+- Verify images have GPS metadata
+- Use <code>crackz geo extract-gps</code> to check for GPS data
+- Ensure images are in supported directories (test/val/train/raw)</p>
+<h3 id="no-training-metrics">No Training Metrics<a class="headerlink" href="#no-training-metrics" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Training page shows no data</p>
+<p><strong>Solutions</strong>:
+- Train a model first: <code>crackz train --project &lt;name&gt;</code>
+- Check metrics file exists: <code>artifacts/training/training_metrics.json</code>
+- Verify training completed successfully</p>
+<h2 id="performance-tips">Performance Tips<a class="headerlink" href="#performance-tips" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Use pagination</strong>: The image gallery auto-paginates for better performance with many images</p>
+</li>
+<li>
+<p><strong>Filter early</strong>: Apply filters before loading large datasets</p>
+</li>
+<li>
+<p><strong>Close unused tabs</strong>: Navigate to specific pages rather than keeping all open</p>
+</li>
+<li>
+<p><strong>Limit image size</strong>: Large images may slow down rendering; resize if needed</p>
+</li>
+</ol>
+<h2 id="integration-with-cli">Integration with CLI<a class="headerlink" href="#integration-with-cli" title="Permanent link">&para;</a></h2>
+<p>The dashboard complements CLI workflows:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Initialize project</span>
+crackz<span class="w"> </span>init<span class="w"> </span>my-project
+
+<span class="c1"># 2. Import images</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--source<span class="w"> </span>./photos<span class="w"> </span>--project<span class="w"> </span>my-project
+
+<span class="c1"># 3. Train model</span>
+crackz<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my-project
+
+<span class="c1"># 4. Run detection</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>--project<span class="w"> </span>my-project
+
+<span class="c1"># 5. Launch dashboard to view results</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project
+</code></pre></div>
+<h2 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
+<h3 id="python-api">Python API<a class="headerlink" href="#python-api" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.dashboard</span><span class="w"> </span><span class="kn">import</span> <span class="n">launch_dashboard</span>
+
+<span class="c1"># Launch dashboard programmatically</span>
+<span class="n">launch_dashboard</span><span class="p">(</span>
+    <span class="n">project_name</span><span class="o">=</span><span class="s2">&quot;my-project&quot;</span><span class="p">,</span>  <span class="c1"># Optional: project to load</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">8501</span>                   <span class="c1"># Optional: server port</span>
+<span class="p">)</span>
+</code></pre></div>
+<h3 id="cli-reference">CLI Reference<a class="headerlink" href="#cli-reference" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show help</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--help
+
+<span class="c1"># Launch with project</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project
+
+<span class="c1"># Launch with custom port</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--port<span class="w"> </span><span class="m">8080</span>
+
+<span class="c1"># Launch without initial project</span>
+crackz<span class="w"> </span>dashboard
+</code></pre></div>
+<h2 id="example-workflow">Example Workflow<a class="headerlink" href="#example-workflow" title="Permanent link">&para;</a></h2>
+<p>Here's a complete workflow using the dashboard:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Create and setup project</span>
+crackz<span class="w"> </span>init<span class="w"> </span>harbor-inspection
+crackz<span class="w"> </span>import-images<span class="w"> </span>--source<span class="w"> </span>./drone-photos<span class="w"> </span>--project<span class="w"> </span>harbor-inspection
+
+<span class="c1"># 2. Train model</span>
+crackz<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>harbor-inspection<span class="w"> </span>--epochs<span class="w"> </span><span class="m">50</span>
+
+<span class="c1"># 3. View training progress</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>harbor-inspection
+<span class="c1"># Navigate to &quot;Training Metrics&quot; page to review</span>
+
+<span class="c1"># 4. Run detection on test set</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>--project<span class="w"> </span>harbor-inspection<span class="w"> </span>--split<span class="w"> </span><span class="nb">test</span>
+
+<span class="c1"># 5. Analyze results</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>harbor-inspection
+<span class="c1"># Navigate to &quot;Detection Results&quot; page</span>
+<span class="c1"># Navigate to &quot;GPS Map&quot; page to see locations</span>
+
+<span class="c1"># 6. Tune parameters if needed</span>
+<span class="c1"># Use &quot;Parameter Tuning&quot; page to optimize thresholds</span>
+
+<span class="c1"># 7. Re-run with optimized parameters</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>--project<span class="w"> </span>harbor-inspection<span class="w"> </span>--threshold<span class="w"> </span><span class="m">0</span>.6
+
+<span class="c1"># 8. Generate final report</span>
+crackz<span class="w"> </span>report<span class="w"> </span>generate<span class="w"> </span>--project<span class="w"> </span>harbor-inspection<span class="w"> </span>--format<span class="w"> </span>pdf
+</code></pre></div>
+<h2 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../cli/">CLI Reference</a> - Command-line interface documentation</li>
+<li><a href="../gui/">GUI Guide</a> - Desktop GUI application guide</li>
+<li><a href="../getting-started/">Getting Started</a> - Initial setup and first steps</li>
+<li><a href="../user-guide/">User Guide</a> - Comprehensive user documentation</li>
+<li><a href="../map-viewer/">Map Viewer</a> - GPS visualization in the GUI</li>
+</ul>
+<h2 id="support">Support<a class="headerlink" href="#support" title="Permanent link">&para;</a></h2>
+<p>For issues or questions about the dashboard:</p>
+<ol>
+<li>Check <a href="#troubleshooting">Troubleshooting</a> section above</li>
+<li>Review <a href="https://docs.streamlit.io/">Streamlit documentation</a></li>
+<li>Open an issue on GitHub with the <code>dashboard</code> label</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Anaxiatech-AB/crackz" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.52.0"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

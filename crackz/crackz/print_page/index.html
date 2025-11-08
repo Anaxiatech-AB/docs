@@ -100,7 +100,7 @@ table th { background:#f1f5f9; color:#111827; }
   <p class='company'>© 2025 Anaxiatech AB</p>
 </section>
 <hr class='page-sep'/>
-<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#getting-started'>Getting Started</a></li><li><a href='#installation'>Installation</a></li><li><a href='#user-guide'>User Guide</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#gui'>GUI</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#configuration'>Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-vm-cuda'>Azure VM with CUDA</a></li><li><a href='#azure-comparison'>VM vs Batch Comparison</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#01-scope'>Project Scope</a></li><li><a href='#02-decisions'>Architecture Decisions</a></li><li><a href='#03-tasks'>Current Tasks</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#api'>API Reference</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access Management</a></li><li><a href='#pdf'>Printable PDF</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
+<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#getting-started'>Getting Started</a></li><li><a href='#installation'>Installation</a></li><li><a href='#user-guide'>User Guide</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#gui'>GUI</a></li><li><a href='#dashboard'>Dashboard</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#configuration'>Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-vm-cuda'>Azure VM with CUDA</a></li><li><a href='#azure-comparison'>VM vs Batch Comparison</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#01-scope'>Project Scope</a></li><li><a href='#02-decisions'>Architecture Decisions</a></li><li><a href='#03-tasks'>Current Tasks</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#api'>API Reference</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access Management</a></li><li><a href='#pdf'>Printable PDF</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
 <h1>Home</h1>
 <h1 id="crackz">Crackz<a class="headerlink" href="#crackz" title="Permanent link">&para;</a></h1>
 <p>
@@ -3521,6 +3521,394 @@ crackz-gui
 <li><strong>Need automation?</strong> Check <a href="../cli-cookbook/">CLI Cookbook</a></li>
 <li><strong>Docker deployment?</strong> Read the <a href="../docker/">Docker Guide</a></li>
 </ul>
+</section>
+<hr class='page-sep' />
+<section class='print-section' id='dashboard' data-source='dashboard.md'>
+<h1>Dashboard</h1>
+<h1 id="streamlit-dashboard">Streamlit Dashboard<a class="headerlink" href="#streamlit-dashboard" title="Permanent link">&para;</a></h1>
+<p>The Crackz Streamlit dashboard provides an interactive web-based interface for analyzing crack detection results, visualizing training metrics, and exploring GPS-tagged crack locations.</p>
+<h2 id="dashboard-screenshots">Dashboard Screenshots<a class="headerlink" href="#dashboard-screenshots" title="Permanent link">&para;</a></h2>
+<h3 id="home-page">Home Page<a class="headerlink" href="#home-page" title="Permanent link">&para;</a></h3>
+<p><img alt="Home" src="../assets/dashboard/home.png" /></p>
+<h3 id="detection-results">Detection Results<a class="headerlink" href="#detection-results" title="Permanent link">&para;</a></h3>
+<p><img alt="Detection Results" src="../assets/dashboard/detection_results.png" /></p>
+<h3 id="gps-map">GPS Map<a class="headerlink" href="#gps-map" title="Permanent link">&para;</a></h3>
+<p><img alt="Gps Map" src="../assets/dashboard/gps_map.png" /></p>
+<h3 id="training-metrics">Training Metrics<a class="headerlink" href="#training-metrics" title="Permanent link">&para;</a></h3>
+<p><img alt="Training Metrics" src="../assets/dashboard/training_metrics.png" /></p>
+<h3 id="parameter-tuning">Parameter Tuning<a class="headerlink" href="#parameter-tuning" title="Permanent link">&para;</a></h3>
+<p><img alt="Parameter Tuning" src="../assets/dashboard/parameter_tuning.png" /></p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The dashboard is a comprehensive visualization tool that complements the CLI and GUI, offering:</p>
+<ul>
+<li><strong>Interactive data exploration</strong> with filters and sorting</li>
+<li><strong>Rich visualizations</strong> using Plotly charts</li>
+<li><strong>GPS mapping</strong> with Folium for geographic visualization</li>
+<li><strong>Real-time parameter tuning</strong> for detection thresholds</li>
+<li><strong>Export capabilities</strong> for results and metrics</li>
+</ul>
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<h3 id="launch-the-dashboard">Launch the Dashboard<a class="headerlink" href="#launch-the-dashboard" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Launch with a specific project</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project
+
+<span class="c1"># Launch with custom port</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--port<span class="w"> </span><span class="m">8502</span>
+</code></pre></div>
+<p>The dashboard will automatically open in your default web browser at <code>http://localhost:8501</code>.</p>
+<h3 id="alternative-launch-methods">Alternative Launch Methods<a class="headerlink" href="#alternative-launch-methods" title="Permanent link">&para;</a></h3>
+<p>You can also launch the dashboard directly with Streamlit:</p>
+<div class="highlight"><pre><span></span><code>streamlit<span class="w"> </span>run<span class="w"> </span>src/crackz/dashboard/app.py<span class="w"> </span>--<span class="w"> </span>--project<span class="w"> </span>my-project
+</code></pre></div>
+<p>Or programmatically from Python:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.dashboard</span><span class="w"> </span><span class="kn">import</span> <span class="n">launch_dashboard</span>
+
+<span class="n">launch_dashboard</span><span class="p">(</span><span class="n">project_name</span><span class="o">=</span><span class="s2">&quot;my-project&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8501</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="dashboard-pages">Dashboard Pages<a class="headerlink" href="#dashboard-pages" title="Permanent link">&para;</a></h2>
+<p>The dashboard consists of four main pages accessible from the sidebar menu:</p>
+<h3 id="1-detection-results">1. Detection Results 📊<a class="headerlink" href="#1-detection-results" title="Permanent link">&para;</a></h3>
+<p>View and analyze crack detection results with comprehensive visualizations and statistics.</p>
+<p><strong>Features:</strong>
+- Summary metrics (total detections, average confidence, average IoU, crack count)
+- Interactive charts:
+  - Detection counts (cracks vs no cracks)
+  - Confidence score distribution
+  - IoU score distribution (when ground truth available)
+  - Crack severity distribution
+- Filterable and sortable results table
+- Paginated image gallery showing detection visualizations
+- Export results as CSV or JSON</p>
+<p><strong>Usage:</strong>
+1. Select a project from the home page
+2. Navigate to "Detection Results" page
+3. Use filters to refine results (crack presence, confidence threshold)
+4. Sort by various metrics (batch, confidence, IoU)
+5. Browse detection visualizations in the image gallery</p>
+<h3 id="2-gps-map">2. GPS Map 🗺️<a class="headerlink" href="#2-gps-map" title="Permanent link">&para;</a></h3>
+<p>Visualize crack locations on an interactive map using GPS coordinates from image EXIF metadata.</p>
+<p><strong>Features:</strong>
+- Interactive Folium maps with marker clusters
+- Color-coded markers:
+  - 🔴 Red: Cracks detected
+  - 🟢 Green: No cracks
+  - 🔵 Blue: Unknown status
+- Heatmap visualization showing crack concentration
+- Filters:
+  - Show all locations / cracks only / no cracks
+  - Minimum confidence threshold
+- Location details table with GPS coordinates
+- Export GPS data as CSV</p>
+<p><strong>GPS Data Requirements:</strong>
+- Images must contain EXIF GPS metadata
+- GPS coordinates are automatically extracted from image files
+- Supports images from test/val/train/raw splits</p>
+<p><strong>Usage:</strong>
+1. Ensure your images have GPS EXIF metadata
+2. Navigate to "GPS Map" page
+3. Choose between markers or heatmap view
+4. Apply filters to focus on specific detections
+5. Click markers for detailed information</p>
+<p><strong>Troubleshooting:</strong>
+If no GPS data is shown:
+- Verify images have GPS metadata: <code>crackz geo extract-gps --project &lt;name&gt;</code>
+- Check that images are in your project's data directories
+- Use GPS-enabled cameras or phones to capture images</p>
+<h3 id="3-training-metrics">3. Training Metrics 📈<a class="headerlink" href="#3-training-metrics" title="Permanent link">&para;</a></h3>
+<p>Monitor model training progress with detailed metrics and visualizations.</p>
+<p><strong>Features:</strong>
+- Training summary (total epochs, final losses, best validation loss)
+- Training and validation loss plots over epochs
+- Additional metrics visualization (accuracy, precision, recall, etc.)
+- Epoch-by-epoch metrics table
+- Training configuration display
+- Export metrics as CSV or JSON</p>
+<p><strong>Data Source:</strong>
+Metrics are loaded from <code>artifacts/training/training_metrics.json</code></p>
+<p><strong>Usage:</strong>
+1. Train a model: <code>crackz train --project &lt;name&gt;</code>
+2. Navigate to "Training Metrics" page
+3. Review loss curves and metrics
+4. Compare training vs validation performance
+5. Export metrics for further analysis</p>
+<h3 id="4-parameter-tuning">4. Parameter Tuning ⚙️<a class="headerlink" href="#4-parameter-tuning" title="Permanent link">&para;</a></h3>
+<p>Interactively adjust detection parameters and preview results in real-time.</p>
+<p><strong>Features:</strong>
+- Adjustable parameters:
+  - Detection threshold (0.0 - 1.0)
+  - Minimum confidence (0.0 - 1.0)
+  - Overlay transparency (0.0 - 1.0)
+  - Overlay color (RGB color picker)
+- View modes:
+  - Original image
+  - Overlay with mask
+  - Side-by-side comparison (original | mask | overlay)
+- Real-time detection statistics:
+  - Crack coverage percentage
+  - Crack pixel count
+  - Image dimensions
+- Parameter export as JSON
+- Image selection from multiple sources</p>
+<p><strong>Usage:</strong>
+1. Navigate to "Parameter Tuning" page
+2. Select an image from the dropdown
+3. Adjust parameters using sliders and color picker
+4. Switch between view modes to compare
+5. Export optimal settings for production use</p>
+<h2 id="project-structure">Project Structure<a class="headerlink" href="#project-structure" title="Permanent link">&para;</a></h2>
+<p>The dashboard is organized as follows:</p>
+<div class="highlight"><pre><span></span><code>src/crackz/dashboard/
+├── __init__.py          # Launch function
+├── app.py              # Main dashboard app
+├── pages/              # Dashboard pages
+│   ├── 1_📊_Detection_Results.py
+│   ├── 2_🗺️_GPS_Map.py
+│   ├── 3_📈_Training_Metrics.py
+│   └── 4_⚙️_Parameter_Tuning.py
+└── utils/              # Utility modules
+    ├── data_loader.py  # Data loading functions
+    ├── image_utils.py  # Image processing utilities
+    ├── map_utils.py    # GPS mapping utilities
+    └── viz_utils.py    # Visualization functions
+</code></pre></div>
+<h2 id="data-locations">Data Locations<a class="headerlink" href="#data-locations" title="Permanent link">&para;</a></h2>
+<p>The dashboard reads data from these project locations:</p>
+<table>
+<thead>
+<tr>
+<th>Data Type</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Detection visualizations</td>
+<td><code>artifacts/detections/visualizations/</code></td>
+</tr>
+<tr>
+<td>Detection results JSON</td>
+<td><code>artifacts/detections/detection_results.json</code></td>
+</tr>
+<tr>
+<td>Training metrics JSON</td>
+<td><code>artifacts/training/training_metrics.json</code></td>
+</tr>
+<tr>
+<td>Source images</td>
+<td><code>data/{test,val,train,raw}/</code></td>
+</tr>
+<tr>
+<td>GPS coordinates</td>
+<td>Extracted from image EXIF metadata</td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<h3 id="port-configuration">Port Configuration<a class="headerlink" href="#port-configuration" title="Permanent link">&para;</a></h3>
+<p>Change the default port (8501) when launching:</p>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--port<span class="w"> </span><span class="m">8080</span>
+</code></pre></div>
+<h3 id="streamlit-configuration">Streamlit Configuration<a class="headerlink" href="#streamlit-configuration" title="Permanent link">&para;</a></h3>
+<p>Create <code>.streamlit/config.toml</code> in your project root to customize Streamlit:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[server]</span>
+<span class="n">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8501</span>
+<span class="n">headless</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+
+<span class="k">[theme]</span>
+<span class="n">primaryColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#FF4B4B&quot;</span>
+<span class="n">backgroundColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#FFFFFF&quot;</span>
+<span class="n">secondaryBackgroundColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#F0F2F6&quot;</span>
+<span class="n">textColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#262730&quot;</span>
+<span class="n">font</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sans serif&quot;</span>
+</code></pre></div>
+<p>See <a href="https://docs.streamlit.io/library/advanced-features/configuration">Streamlit configuration docs</a> for more options.</p>
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<p>The dashboard requires these dependencies (automatically installed):</p>
+<ul>
+<li><code>streamlit&gt;=1.30.0</code> - Dashboard framework</li>
+<li><code>streamlit-folium&gt;=0.15.0</code> - Map integration</li>
+<li><code>folium&gt;=0.15.0</code> - Interactive maps</li>
+<li><code>plotly&gt;=5.18.0</code> - Interactive charts</li>
+<li><code>pandas&gt;=2.0.0</code> - Data manipulation</li>
+</ul>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="for-detection-results">For Detection Results<a class="headerlink" href="#for-detection-results" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Run detection first</strong>: Generate visualizations before viewing in dashboard
+   <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>--project<span class="w"> </span>my-project
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Use meaningful thresholds</strong>: Filter results with appropriate confidence thresholds</p>
+</li>
+<li>
+<p><strong>Export data</strong>: Download CSV/JSON for further analysis or reporting</p>
+</li>
+</ol>
+<h3 id="for-gps-visualization">For GPS Visualization<a class="headerlink" href="#for-gps-visualization" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Verify GPS metadata</strong>: Check images have GPS before expecting map data
+   <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>geo<span class="w"> </span>extract-gps<span class="w"> </span>--project<span class="w"> </span>my-project
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Use heatmap for patterns</strong>: Switch to heatmap view to identify crack concentration areas</p>
+</li>
+<li>
+<p><strong>Filter by confidence</strong>: Focus on high-confidence detections for more reliable mapping</p>
+</li>
+</ol>
+<h3 id="for-training-metrics">For Training Metrics<a class="headerlink" href="#for-training-metrics" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Monitor regularly</strong>: Check training metrics periodically during long training runs</p>
+</li>
+<li>
+<p><strong>Compare epochs</strong>: Use the epoch table to identify the best checkpoint</p>
+</li>
+<li>
+<p><strong>Watch for overfitting</strong>: Look for divergence between training and validation loss</p>
+</li>
+</ol>
+<h3 id="for-parameter-tuning">For Parameter Tuning<a class="headerlink" href="#for-parameter-tuning" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Start with defaults</strong>: Begin with threshold=0.5, confidence=0.3</p>
+</li>
+<li>
+<p><strong>Test multiple images</strong>: Verify parameters work across different scenarios</p>
+</li>
+<li>
+<p><strong>Export settings</strong>: Save optimal parameters for batch processing</p>
+</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="dashboard-wont-start">Dashboard Won't Start<a class="headerlink" href="#dashboard-wont-start" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Error when launching dashboard</p>
+<p><strong>Solutions</strong>:
+- Ensure Streamlit is installed: <code>uv sync</code> or <code>pip install streamlit</code>
+- Check port availability: Try a different port with <code>--port 8502</code>
+- Verify project path is correct</p>
+<h3 id="no-detection-images">No Detection Images<a class="headerlink" href="#no-detection-images" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Image gallery is empty</p>
+<p><strong>Solutions</strong>:
+- Run detection: <code>crackz detect --project &lt;name&gt;</code>
+- Check visualizations directory: <code>artifacts/detections/visualizations/</code>
+- Verify project has source images in data directories</p>
+<h3 id="no-gps-data">No GPS Data<a class="headerlink" href="#no-gps-data" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Map shows no markers</p>
+<p><strong>Solutions</strong>:
+- Verify images have GPS metadata
+- Use <code>crackz geo extract-gps</code> to check for GPS data
+- Ensure images are in supported directories (test/val/train/raw)</p>
+<h3 id="no-training-metrics">No Training Metrics<a class="headerlink" href="#no-training-metrics" title="Permanent link">&para;</a></h3>
+<p><strong>Issue</strong>: Training page shows no data</p>
+<p><strong>Solutions</strong>:
+- Train a model first: <code>crackz train --project &lt;name&gt;</code>
+- Check metrics file exists: <code>artifacts/training/training_metrics.json</code>
+- Verify training completed successfully</p>
+<h2 id="performance-tips">Performance Tips<a class="headerlink" href="#performance-tips" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Use pagination</strong>: The image gallery auto-paginates for better performance with many images</p>
+</li>
+<li>
+<p><strong>Filter early</strong>: Apply filters before loading large datasets</p>
+</li>
+<li>
+<p><strong>Close unused tabs</strong>: Navigate to specific pages rather than keeping all open</p>
+</li>
+<li>
+<p><strong>Limit image size</strong>: Large images may slow down rendering; resize if needed</p>
+</li>
+</ol>
+<h2 id="integration-with-cli">Integration with CLI<a class="headerlink" href="#integration-with-cli" title="Permanent link">&para;</a></h2>
+<p>The dashboard complements CLI workflows:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Initialize project</span>
+crackz<span class="w"> </span>init<span class="w"> </span>my-project
+
+<span class="c1"># 2. Import images</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--source<span class="w"> </span>./photos<span class="w"> </span>--project<span class="w"> </span>my-project
+
+<span class="c1"># 3. Train model</span>
+crackz<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my-project
+
+<span class="c1"># 4. Run detection</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>--project<span class="w"> </span>my-project
+
+<span class="c1"># 5. Launch dashboard to view results</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project
+</code></pre></div>
+<h2 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
+<h3 id="python-api">Python API<a class="headerlink" href="#python-api" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.dashboard</span><span class="w"> </span><span class="kn">import</span> <span class="n">launch_dashboard</span>
+
+<span class="c1"># Launch dashboard programmatically</span>
+<span class="n">launch_dashboard</span><span class="p">(</span>
+    <span class="n">project_name</span><span class="o">=</span><span class="s2">&quot;my-project&quot;</span><span class="p">,</span>  <span class="c1"># Optional: project to load</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">8501</span>                   <span class="c1"># Optional: server port</span>
+<span class="p">)</span>
+</code></pre></div>
+<h3 id="cli-reference">CLI Reference<a class="headerlink" href="#cli-reference" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show help</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--help
+
+<span class="c1"># Launch with project</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project
+
+<span class="c1"># Launch with custom port</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--port<span class="w"> </span><span class="m">8080</span>
+
+<span class="c1"># Launch without initial project</span>
+crackz<span class="w"> </span>dashboard
+</code></pre></div>
+<h2 id="example-workflow">Example Workflow<a class="headerlink" href="#example-workflow" title="Permanent link">&para;</a></h2>
+<p>Here's a complete workflow using the dashboard:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Create and setup project</span>
+crackz<span class="w"> </span>init<span class="w"> </span>harbor-inspection
+crackz<span class="w"> </span>import-images<span class="w"> </span>--source<span class="w"> </span>./drone-photos<span class="w"> </span>--project<span class="w"> </span>harbor-inspection
+
+<span class="c1"># 2. Train model</span>
+crackz<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>harbor-inspection<span class="w"> </span>--epochs<span class="w"> </span><span class="m">50</span>
+
+<span class="c1"># 3. View training progress</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>harbor-inspection
+<span class="c1"># Navigate to &quot;Training Metrics&quot; page to review</span>
+
+<span class="c1"># 4. Run detection on test set</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>--project<span class="w"> </span>harbor-inspection<span class="w"> </span>--split<span class="w"> </span><span class="nb">test</span>
+
+<span class="c1"># 5. Analyze results</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>harbor-inspection
+<span class="c1"># Navigate to &quot;Detection Results&quot; page</span>
+<span class="c1"># Navigate to &quot;GPS Map&quot; page to see locations</span>
+
+<span class="c1"># 6. Tune parameters if needed</span>
+<span class="c1"># Use &quot;Parameter Tuning&quot; page to optimize thresholds</span>
+
+<span class="c1"># 7. Re-run with optimized parameters</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>--project<span class="w"> </span>harbor-inspection<span class="w"> </span>--threshold<span class="w"> </span><span class="m">0</span>.6
+
+<span class="c1"># 8. Generate final report</span>
+crackz<span class="w"> </span>report<span class="w"> </span>generate<span class="w"> </span>--project<span class="w"> </span>harbor-inspection<span class="w"> </span>--format<span class="w"> </span>pdf
+</code></pre></div>
+<h2 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../cli/">CLI Reference</a> - Command-line interface documentation</li>
+<li><a href="../gui/">GUI Guide</a> - Desktop GUI application guide</li>
+<li><a href="../getting-started/">Getting Started</a> - Initial setup and first steps</li>
+<li><a href="../user-guide/">User Guide</a> - Comprehensive user documentation</li>
+<li><a href="../map-viewer/">Map Viewer</a> - GPS visualization in the GUI</li>
+</ul>
+<h2 id="support">Support<a class="headerlink" href="#support" title="Permanent link">&para;</a></h2>
+<p>For issues or questions about the dashboard:</p>
+<ol>
+<li>Check <a href="#troubleshooting">Troubleshooting</a> section above</li>
+<li>Review <a href="https://docs.streamlit.io/">Streamlit documentation</a></li>
+<li>Open an issue on GitHub with the <code>dashboard</code> label</li>
+</ol>
 </section>
 <hr class='page-sep' />
 <section class='print-section' id='ai-chat' data-source='ai-chat.md'>

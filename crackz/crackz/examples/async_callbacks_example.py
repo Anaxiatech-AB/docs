@@ -196,9 +196,7 @@ def example_async_with_gui_helpers(project: Project) -> None:
         print(f"[GUI] Metrics: {metrics}")
 
     # Start async consumers (manages event loop for you)
-    loop, _tasks = start_gui_callback_consumers(
-        dispatcher, update_progress_ui, update_metrics_ui
-    )
+    loop, _tasks = start_gui_callback_consumers(dispatcher, update_progress_ui, update_metrics_ui)
 
     # Run training
     progress_reporter = dispatcher.create_sync_progress_reporter()

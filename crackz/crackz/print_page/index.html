@@ -27535,16 +27535,54 @@ crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">expo
 <section class='print-section' id='mcp' data-source='mcp.md'>
 <h1>MCP Integration</h1>
 <h1 id="mcp-model-context-protocol-integration">MCP (Model Context Protocol) Integration<a class="headerlink" href="#mcp-model-context-protocol-integration" title="Permanent link">&para;</a></h1>
-<p>Crackz includes built-in support for the Model Context Protocol (MCP), which enables AI assistants to interact with development tools and services in a standardized way.</p>
+<p>Crackz includes built-in support for the Model Context Protocol (MCP), which enables AI assistants to interact with development tools and services in a standardized way using <strong>code execution</strong> for maximum efficiency.</p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>MCP provides a unified interface for AI assistants to:</p>
 <ul>
-<li>Access the filesystem</li>
-<li>Run package manager commands (uv)</li>
+<li>Execute Python code in a secure environment</li>
+<li>Access the filesystem with progressive disclosure</li>
+<li>Manage packages with the uv package manager</li>
 <li>Interact with GitHub repositories</li>
-<li>Build and run Docker containers</li>
 </ul>
-<p>The configuration defines what servers are available and what permissions the AI has for each service.</p>
+<p>The configuration follows Anthropic's best practices for <a href="https://www.anthropic.com/engineering/code-execution-with-mcp">code execution with MCP</a>, using code to compose MCP operations efficiently and minimize token consumption.</p>
+<h2 id="key-concepts">Key Concepts<a class="headerlink" href="#key-concepts" title="Permanent link">&para;</a></h2>
+<h3 id="code-execution-with-mcp">Code Execution with MCP<a class="headerlink" href="#code-execution-with-mcp" title="Permanent link">&para;</a></h3>
+<p>Instead of making direct tool calls that pass all data through the model's context window, AI assistants write Python code to:</p>
+<ul>
+<li><strong>Filter data before returning results</strong>: Process large datasets in code, return only relevant information</li>
+<li><strong>Compose operations efficiently</strong>: Loop over operations without alternating tool calls through the model</li>
+<li><strong>Load tools on-demand</strong>: Use progressive disclosure to read tool definitions only when needed</li>
+<li><strong>Maintain state</strong>: Keep intermediate results in the execution environment, not in context</li>
+</ul>
+<p><strong>Example - Traditional approach (inefficient):</strong>
+<div class="highlight"><pre><span></span><code>TOOL CALL: filesystem.readDirectory(&quot;src/&quot;)
+→ returns 50 files in context
+
+TOOL CALL: filesystem.readFile(&quot;src/file1.py&quot;)
+→ returns full file in context
+
+TOOL CALL: filesystem.readFile(&quot;src/file2.py&quot;)
+→ returns full file in context
+</code></pre></div></p>
+<p><strong>Example - Code execution approach (efficient):</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Discover and filter in code</span>
+<span class="n">files</span> <span class="o">=</span> <span class="k">await</span> <span class="n">filesystem</span><span class="o">.</span><span class="n">readDirectory</span><span class="p">(</span><span class="s2">&quot;src/&quot;</span><span class="p">)</span>
+<span class="n">python_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.py&quot;</span><span class="p">)]</span>
+
+<span class="c1"># Load only what&#39;s needed</span>
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">python_files</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>  <span class="c1"># Top 5 only</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="k">await</span> <span class="n">filesystem</span><span class="o">.</span><span class="n">readFile</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;src/</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># Process in code, log summary only</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="si">}</span><span class="s2"> lines&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<h3 id="progressive-disclosure">Progressive Disclosure<a class="headerlink" href="#progressive-disclosure" title="Permanent link">&para;</a></h3>
+<p>Load tool definitions on-demand rather than upfront:</p>
+<ol>
+<li>List directories to discover available modules</li>
+<li>Read specific files only when needed</li>
+<li>Search for relevant tools before loading full definitions</li>
+<li>Keep context lean by loading incrementally</li>
+</ol>
 <h2 id="ai-assistant-development-standards">AI Assistant Development Standards<a class="headerlink" href="#ai-assistant-development-standards" title="Permanent link">&para;</a></h2>
 <p>AI assistants working with Crackz MUST follow these conventions:</p>
 <h3 id="1-branch-naming-convention">1. Branch Naming Convention<a class="headerlink" href="#1-branch-naming-convention" title="Permanent link">&para;</a></h3>
@@ -27617,26 +27655,38 @@ Add export functionality
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>mcp<span class="w"> </span>validate
 </code></pre></div>
 <h2 id="configuration-structure">Configuration Structure<a class="headerlink" href="#configuration-structure" title="Permanent link">&para;</a></h2>
-<p>The MCP configuration is a JSON file with three main sections:</p>
-<h3 id="servers">Servers<a class="headerlink" href="#servers" title="Permanent link">&para;</a></h3>
+<p>The MCP configuration is a JSON file (<code>.mcp/config.json</code>) with servers, metadata, and patterns sections:</p>
+<h3 id="mcp-servers">MCP Servers<a class="headerlink" href="#mcp-servers" title="Permanent link">&para;</a></h3>
 <p>Defines the services available to AI assistants:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;servers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;filesystem&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mcp://filesystem&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;uv&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mcp://uv&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;github&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mcp://github.com&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;docker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mcp://docker&quot;</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h3>
-<p>Specifies what operations are allowed on each service:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;filesystem&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;read&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;write&quot;</span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;github&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;read&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;write&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;release&quot;</span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;uv&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;run&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;build&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;sync&quot;</span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;docker&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;build&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;run&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;filesystem&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;stdio&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;npx&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-y&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;@modelcontextprotocol/server-filesystem&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;.&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Filesystem operations with progressive disclosure&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;github&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;stdio&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;npx&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-y&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;@modelcontextprotocol/server-github&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;env&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;GITHUB_PERSONAL_ACCESS_TOKEN&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${GITHUB_TOKEN}&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GitHub operations (issues, PRs, releases)&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;python&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;stdio&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;npx&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-y&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;@modelcontextprotocol/server-python&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Python code execution environment&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;uv&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;stdio&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;npx&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-y&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;@modelcontextprotocol/server-uv&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;UV package manager operations&quot;</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -27646,9 +27696,41 @@ Add export functionality
 <span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Crackz&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;manager&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uv&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3.13&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;package_manager&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uv&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;framework&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pytorch-lightning&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;cli&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;typer&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;gui&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;customtkinter&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;testing&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pytest&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;ci&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;github-actions&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;release&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;semantic-release&quot;</span>
+<span class="w">    </span><span class="nt">&quot;release&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;semantic-release&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;code_execution&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;progressive_disclosure&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="patterns">Patterns<a class="headerlink" href="#patterns" title="Permanent link">&para;</a></h3>
+<p>Defines recommended usage patterns:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;patterns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;code_execution&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Use code execution to interact with MCP servers efficiently&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;examples&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;Filter large datasets in code before returning results&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Loop over operations without alternating tool calls&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Compose multiple MCP operations in a single execution&quot;</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;progressive_disclosure&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Load tool definitions on-demand&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;workflow&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;List directories to discover modules&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Read specific files as needed&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Load documentation when relevant&quot;</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -27691,56 +27773,89 @@ crackz<span class="w"> </span>mcp<span class="w"> </span>validate
 crackz<span class="w"> </span>mcp<span class="w"> </span>validate<span class="w"> </span>--config<span class="w"> </span>custom/mcp.json
 </code></pre></div>
 <h2 id="customization">Customization<a class="headerlink" href="#customization" title="Permanent link">&para;</a></h2>
-<h3 id="custom-servers">Custom Servers<a class="headerlink" href="#custom-servers" title="Permanent link">&para;</a></h3>
-<p>Add your own MCP-compatible servers:</p>
+<h3 id="adding-custom-servers">Adding Custom Servers<a class="headerlink" href="#adding-custom-servers" title="Permanent link">&para;</a></h3>
+<p>Add your own MCP-compatible servers to <code>.mcp/config.json</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;servers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;filesystem&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mcp://filesystem&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;custom-api&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mcp://api.example.com&quot;</span>
+<span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;filesystem&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;custom-api&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;stdio&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;./custom-mcp-server.js&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Custom MCP server for specialized operations&quot;</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h3 id="restricted-permissions">Restricted Permissions<a class="headerlink" href="#restricted-permissions" title="Permanent link">&para;</a></h3>
-<p>Limit what operations AI assistants can perform:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;filesystem&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;read&quot;</span><span class="p">],</span><span class="w">  </span><span class="c1">// Read-only</span>
-<span class="w">    </span><span class="nt">&quot;github&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;read&quot;</span><span class="p">],</span><span class="w">      </span><span class="c1">// No write or release</span>
-<span class="w">    </span><span class="nt">&quot;uv&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;run&quot;</span><span class="p">],</span><span class="w">           </span><span class="c1">// Can run but not build or sync</span>
-<span class="w">    </span><span class="nt">&quot;docker&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;run&quot;</span><span class="p">]</span><span class="w">        </span><span class="c1">// Can run but not build</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="extended-metadata">Extended Metadata<a class="headerlink" href="#extended-metadata" title="Permanent link">&para;</a></h3>
+<h3 id="extending-metadata">Extending Metadata<a class="headerlink" href="#extending-metadata" title="Permanent link">&para;</a></h3>
 <p>Add custom project metadata:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;project&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Crackz&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;manager&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uv&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;ci&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;github-actions&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;release&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;semantic-release&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;team&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ML Ops&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;repository&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://github.com/Anaxiatech-AB/crackz&quot;</span>
+<span class="w">    </span><span class="nt">&quot;repository&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://github.com/Anaxiatech-AB/crackz&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;custom_field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your_value&quot;</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="integration-with-ai-assistants">Integration with AI Assistants<a class="headerlink" href="#integration-with-ai-assistants" title="Permanent link">&para;</a></h2>
 <p>AI assistants that support MCP can use this configuration to:</p>
 <ol>
-<li><strong>Understand project context</strong>: Programming language, build tools, CI/CD pipeline</li>
-<li><strong>Execute operations safely</strong>: Respect defined permissions for each service</li>
-<li><strong>Provide better assistance</strong>: Context-aware suggestions and actions</li>
+<li><strong>Execute Python code</strong>: Write code to compose MCP operations efficiently</li>
+<li><strong>Use progressive disclosure</strong>: Load tool definitions on-demand to minimize tokens</li>
+<li><strong>Filter data in code</strong>: Process large results before passing to context</li>
+<li><strong>Understand project context</strong>: Access metadata about language, frameworks, and tools</li>
+<li><strong>Maintain state</strong>: Keep intermediate results in execution environment</li>
 </ol>
+<h3 id="code-execution-best-practices">Code Execution Best Practices<a class="headerlink" href="#code-execution-best-practices" title="Permanent link">&para;</a></h3>
+<p><strong>DO:</strong>
+- Write Python code to filter and transform data before returning results
+- Use loops and conditionals in code rather than chaining tool calls
+- Load only the files and tools you need for the current task
+- Keep intermediate data in the execution environment</p>
+<p><strong>DON'T:</strong>
+- Pass large datasets through the model context unnecessarily
+- Load all tool definitions upfront
+- Make sequential tool calls when a loop would be more efficient
+- Return raw data when a summary would suffice</p>
+<h3 id="example-workflows">Example Workflows<a class="headerlink" href="#example-workflows" title="Permanent link">&para;</a></h3>
+<p><strong>Efficient file discovery:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># List Python files in src/</span>
+<span class="n">files</span> <span class="o">=</span> <span class="k">await</span> <span class="n">filesystem</span><span class="o">.</span><span class="n">readDirectory</span><span class="p">(</span><span class="s2">&quot;src/crackz&quot;</span><span class="p">)</span>
+<span class="n">py_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.py&quot;</span><span class="p">)]</span>
+
+<span class="c1"># Read only the first 3 for initial analysis</span>
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">py_files</span><span class="p">[:</span><span class="mi">3</span><span class="p">]:</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="k">await</span> <span class="n">filesystem</span><span class="o">.</span><span class="n">readFile</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;src/crackz/</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">lines</span><span class="si">}</span><span class="s2"> lines&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Efficient GitHub operations:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get recent PRs and filter in code</span>
+<span class="n">prs</span> <span class="o">=</span> <span class="k">await</span> <span class="n">github</span><span class="o">.</span><span class="n">listPullRequests</span><span class="p">(</span><span class="n">repo</span><span class="o">=</span><span class="s2">&quot;Anaxiatech-AB/crackz&quot;</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s2">&quot;open&quot;</span><span class="p">)</span>
+<span class="n">priority_prs</span> <span class="o">=</span> <span class="p">[</span><span class="n">pr</span> <span class="k">for</span> <span class="n">pr</span> <span class="ow">in</span> <span class="n">prs</span> <span class="k">if</span> <span class="s2">&quot;feat:&quot;</span> <span class="ow">in</span> <span class="n">pr</span><span class="o">.</span><span class="n">title</span> <span class="ow">or</span> <span class="s2">&quot;fix:&quot;</span> <span class="ow">in</span> <span class="n">pr</span><span class="o">.</span><span class="n">title</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">priority_prs</span><span class="p">)</span><span class="si">}</span><span class="s2"> priority PRs out of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">prs</span><span class="p">)</span><span class="si">}</span><span class="s2"> total&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">pr</span> <span class="ow">in</span> <span class="n">priority_prs</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>  <span class="c1"># Show top 5 only</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;#</span><span class="si">{</span><span class="n">pr</span><span class="o">.</span><span class="n">number</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">pr</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Efficient package operations:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install multiple packages in one operation</span>
+<span class="n">packages</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;pytest&quot;</span><span class="p">,</span> <span class="s2">&quot;ruff&quot;</span><span class="p">,</span> <span class="s2">&quot;mypy&quot;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">pkg</span> <span class="ow">in</span> <span class="n">packages</span><span class="p">:</span>
+    <span class="k">await</span> <span class="n">uv</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">package</span><span class="o">=</span><span class="n">pkg</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Installed </span><span class="si">{</span><span class="n">pkg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div></p>
 <h2 id="default-configuration">Default Configuration<a class="headerlink" href="#default-configuration" title="Permanent link">&para;</a></h2>
 <p>The default MCP configuration for Crackz includes:</p>
 <ul>
-<li><strong>Filesystem</strong>: Read and write access for managing project files</li>
-<li><strong>UV</strong>: Run, build, and sync operations for package management</li>
-<li><strong>GitHub</strong>: Read, write, and release permissions for version control</li>
-<li><strong>Docker</strong>: Build and run operations for containerized workflows</li>
+<li><strong>Filesystem</strong>: Progressive discovery and file operations</li>
+<li><strong>Python</strong>: Code execution environment for composing operations</li>
+<li><strong>UV</strong>: Package management with uv tooling</li>
+<li><strong>GitHub</strong>: Version control operations (issues, PRs, releases)</li>
 </ul>
-<p>This configuration matches the development workflow described in the <a href="../contributing/">Contributing Guide</a>.</p>
+<p>This configuration follows <a href="https://www.anthropic.com/engineering/code-execution-with-mcp">Anthropic's best practices for code execution with MCP</a> to minimize token usage and maximize agent efficiency.</p>
 <h2 id="logging-practices">Logging Practices<a class="headerlink" href="#logging-practices" title="Permanent link">&para;</a></h2>
 <p>Crackz uses <strong>Loguru</strong> for logging with a hybrid approach: central logs + per-project logs.</p>
 <h3 id="when-to-use-logging">When to Use Logging<a class="headerlink" href="#when-to-use-logging" title="Permanent link">&para;</a></h3>

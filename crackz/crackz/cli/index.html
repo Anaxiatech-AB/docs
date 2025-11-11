@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#clean" class="md-skip">
+        <a href="#active-learning" class="md-skip">
           Skip to content
         </a>
       
@@ -1003,6 +1003,39 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#active-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      active-learning
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="active-learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#info" class="md-nav__link">
+    <span class="md-ellipsis">
+      info
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run" class="md-nav__link">
+    <span class="md-ellipsis">
+      run
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#clean" class="md-nav__link">
     <span class="md-ellipsis">
       clean
@@ -1055,7 +1088,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#run" class="md-nav__link">
+  <a href="#run_1" class="md-nav__link">
     <span class="md-ellipsis">
       run
     </span>
@@ -1244,6 +1277,39 @@
   <a href="#import" class="md-nav__link">
     <span class="md-ellipsis">
       import
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#propagate-masks" class="md-nav__link">
+    <span class="md-ellipsis">
+      propagate-masks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="propagate-masks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#find-similar" class="md-nav__link">
+    <span class="md-ellipsis">
+      find-similar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      run
     </span>
   </a>
   
@@ -1854,6 +1920,39 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#active-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      active-learning
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="active-learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#info" class="md-nav__link">
+    <span class="md-ellipsis">
+      info
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run" class="md-nav__link">
+    <span class="md-ellipsis">
+      run
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#clean" class="md-nav__link">
     <span class="md-ellipsis">
       clean
@@ -1906,7 +2005,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#run" class="md-nav__link">
+  <a href="#run_1" class="md-nav__link">
     <span class="md-ellipsis">
       run
     </span>
@@ -2095,6 +2194,39 @@
   <a href="#import" class="md-nav__link">
     <span class="md-ellipsis">
       import
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#propagate-masks" class="md-nav__link">
+    <span class="md-ellipsis">
+      propagate-masks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="propagate-masks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#find-similar" class="md-nav__link">
+    <span class="md-ellipsis">
+      find-similar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      run
     </span>
   </a>
   
@@ -2441,6 +2573,39 @@
   --show-completion     Show completion for the current shell, to copy it or
                         customize the installation.
 </code></pre></div>
+<h2 id="active-learning">active-learning<a class="headerlink" href="#active-learning" title="Permanent link">&para;</a></h2>
+<p>Active learning commands for image prioritization</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> active-learning [OPTIONS] COMMAND [ARGS]...
+</code></pre></div>
+<h3 id="info">info<a class="headerlink" href="#info" title="Permanent link">&para;</a></h3>
+<p>Show information about active learning methods.</p>
+<p>Displays descriptions of available uncertainty calculation methods
+and their use cases.</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> active-learning info [OPTIONS]
+</code></pre></div>
+<h3 id="run">run<a class="headerlink" href="#run" title="Permanent link">&para;</a></h3>
+<p>Prioritize images by uncertainty for efficient annotation.</p>
+<p>Analyzes unlabeled images and ranks them by uncertainty score.
+Images with higher uncertainty benefit most from annotation.</p>
+<p>Example:
+    crackz active-learning run --project ./demo --top-n 50 --out priorities.json</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> active-learning run [OPTIONS]
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  -p, --project DIRECTORY         Project path (overrides config file). Eg
+                                  --project ./my_project
+  -m, --method [entropy|max_probability|variance|mean_confidence]
+                                  Uncertainty calculation method  \[default:
+                                  entropy]
+  -n, --top-n INTEGER RANGE       Return only top N most uncertain images
+                                  (default: all)  \[x&gt;=1]
+  -s, --split TEXT                Image split to process (raw/train/val/test)
+                                  \[default: raw]
+  -o, --out PATH                  Output file or directory path
+</code></pre></div>
 <h2 id="clean">clean<a class="headerlink" href="#clean" title="Permanent link">&para;</a></h2>
 <p>Clean temporary files and logs from a project.</p>
 <p>By default, cleans logs, training artifacts, checkpoints, and detections.
@@ -2494,7 +2659,7 @@ Images and masks are always preserved. The best model checkpoint is preserved by
   -p, --project DIRECTORY   Project path (overrides config file). Eg --project
                             ./my_project
 </code></pre></div>
-<h3 id="run">run<a class="headerlink" href="#run" title="Permanent link">&para;</a></h3>
+<h3 id="run_1">run<a class="headerlink" href="#run_1" title="Permanent link">&para;</a></h3>
 <p>Run the detection process based on the given configuration or project path.</p>
 <p>Usage:</p>
 <div class="highlight"><pre><span></span><code> detect run [OPTIONS]
@@ -2849,6 +3014,57 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
   -m, --model PATH         Path to model package file to import  \[required]
   --force / --no-force     Overwrite existing checkpoint if it exists
                            \[default: no-force]
+</code></pre></div>
+<h2 id="propagate-masks">propagate-masks<a class="headerlink" href="#propagate-masks" title="Permanent link">&para;</a></h2>
+<p>Mask propagation commands</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> propagate-masks [OPTIONS] COMMAND [ARGS]...
+</code></pre></div>
+<h3 id="find-similar">find-similar<a class="headerlink" href="#find-similar" title="Permanent link">&para;</a></h3>
+<p>Find similar images to a reference image.</p>
+<p>Compares images using feature matching (SIFT) and reports similarity scores.</p>
+<p>Example:
+    crackz propagate-masks find-similar --reference ref.jpg \
+        --search-dir ./images --threshold 0.8 --top-n 10</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> propagate-masks find-similar [OPTIONS]
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  -r, --reference FILE         Reference image path  \[required]
+  -d, --search-dir DIRECTORY   Directory to search for similar images
+                               \[required]
+  -t, --threshold FLOAT RANGE  Minimum similarity score (0-1)  \[default: 0.8;
+                               0.0&lt;=x&lt;=1.0]
+  -n, --top-n INTEGER RANGE    Show only top N most similar images  \[x&gt;=1]
+  -o, --out PATH               Output file or directory path
+</code></pre></div>
+<h3 id="run_2">run<a class="headerlink" href="#run_2" title="Permanent link">&para;</a></h3>
+<p>Propagate mask from reference image to similar images.</p>
+<p>Finds similar images using feature matching and transforms the reference
+mask to match each target image using homography.</p>
+<p>Example:
+    crackz propagate-masks run --project ./demo \
+        --reference ref.jpg --mask ref_mask.png \
+        --split raw --out ./masks</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> propagate-masks run [OPTIONS]
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  -p, --project DIRECTORY      Project path (overrides config file). Eg
+                               --project ./my_project
+  -r, --reference FILE         Reference image path  \[required]
+  -m, --mask FILE              Reference mask path  \[required]
+  -s, --split TEXT             Target image split to propagate to
+                               (raw/train/val/test)  \[default: raw]
+  -o, --out PATH               Output file or directory path
+  -t, --threshold FLOAT RANGE  Minimum similarity score (0-1)  \[default: 0.8;
+                               0.0&lt;=x&lt;=1.0]
+  --min-matches INTEGER RANGE  Minimum feature matches required  \[default:
+                               10; x&gt;=1]
+  --sift / --orb               Use SIFT (True) or ORB (False) features
+                               \[default: sift]
+  -f, --force                  Force overwrite if file/directory already
+                               exists
 </code></pre></div>
 <h2 id="report">report<a class="headerlink" href="#report" title="Permanent link">&para;</a></h2>
 <p>Usage:</p>

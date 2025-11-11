@@ -1874,6 +1874,125 @@ rm<span class="w"> </span>my-project/checkpoints/*.ckpt
 rm<span class="w"> </span>my-project/checkpoints/epoch*.ckpt
 <span class="c1"># (keep best-*.ckpt)</span>
 </code></pre></div></p>
+<h3 id="67-phase-2-semi-automated-mask-creation">6.7 Phase 2: Semi-Automated Mask Creation<a class="headerlink" href="#67-phase-2-semi-automated-mask-creation" title="Permanent link">&para;</a></h3>
+<p>Phase 2 introduces AI-assisted workflows to accelerate annotation and reduce manual labeling effort.</p>
+<h4 id="active-learning-workflow">Active Learning Workflow<a class="headerlink" href="#active-learning-workflow" title="Permanent link">&para;</a></h4>
+<p>Use uncertainty-based prioritization to maximize annotation efficiency:</p>
+<p><strong>Step 1: Train initial model on small labeled dataset</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Train on 50-100 manually labeled images</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>harbor-project<span class="w"> </span>--epochs<span class="w"> </span><span class="m">10</span>
+</code></pre></div></p>
+<p><strong>Step 2: Find most uncertain images</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Prioritize top 50 images from raw/unlabeled pool</span>
+uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>active-learning<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>harbor-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--split<span class="w"> </span>raw<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--top-n<span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--method<span class="w"> </span>entropy<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>priorities.json
+</code></pre></div></p>
+<p><strong>Available uncertainty methods:</strong>
+- <code>entropy</code> - High entropy = uncertain predictions (default)
+- <code>max_probability</code> - Low confidence = needs review
+- <code>variance</code> - High disagreement across pixels
+- <code>mean_confidence</code> - Distance from decision boundary</p>
+<p><strong>Step 3: Annotate prioritized images</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Use GUI mask editor or external tools</span>
+<span class="c1"># Focus on top-ranked images from priorities.json</span>
+</code></pre></div></p>
+<p><strong>Step 4: Import new annotations and retrain</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Move annotated images to train split</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>harbor-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>annotated_batch<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src-masks<span class="w"> </span>annotated_masks<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="w"> </span>train
+
+<span class="c1"># Retrain with expanded dataset</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>harbor-project<span class="w"> </span>--epochs<span class="w"> </span><span class="m">15</span>
+</code></pre></div></p>
+<p><strong>Step 5: Repeat cycle</strong>
+Continue active learning iterations until desired accuracy.</p>
+<h4 id="mask-propagation-workflow">Mask Propagation Workflow<a class="headerlink" href="#mask-propagation-workflow" title="Permanent link">&para;</a></h4>
+<p>Copy masks across similar images using feature matching:</p>
+<p><strong>Step 1: Manually annotate reference image</strong>
+Create high-quality mask for one representative image (e.g., <code>wall_section_01.jpg</code>).</p>
+<p><strong>Step 2: Find similar images</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Preview similarity scores</span>
+uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>propagate-masks<span class="w"> </span>find-similar<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>harbor-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reference<span class="w"> </span>wall_section_01.jpg<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--split<span class="w"> </span>raw<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>similarities.json
+</code></pre></div></p>
+<p><strong>Step 3: Propagate mask</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Copy mask to similar images (&gt;80% similarity)</span>
+uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>propagate-masks<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>harbor-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reference<span class="w"> </span>wall_section_01.jpg<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--mask<span class="w"> </span>wall_section_01_mask.png<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--split<span class="w"> </span>raw<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--threshold<span class="w"> </span><span class="m">0</span>.8<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>propagated_masks/
+</code></pre></div></p>
+<p><strong>Step 4: Review and correct</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Import propagated masks</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>harbor-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>images_with_propagated<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src-masks<span class="w"> </span>propagated_masks<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="w"> </span>train
+
+<span class="c1"># Review in GUI mask editor - correct errors before training</span>
+</code></pre></div></p>
+<p><strong>When to use mask propagation:</strong>
+- Same structure from different angles (e.g., harbor wall sections)
+- Sequential video frames (drone walkthrough)
+- Temporal monitoring (same location over time)
+- Adjacent sections of continuous structures</p>
+<p><strong>Parameter tuning:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># More permissive (more propagations, less reliable)</span>
+--threshold<span class="w"> </span><span class="m">0</span>.6<span class="w"> </span>--min-matches<span class="w"> </span><span class="m">5</span>
+
+<span class="c1"># Stricter (fewer propagations, higher quality)</span>
+--threshold<span class="w"> </span><span class="m">0</span>.9<span class="w"> </span>--min-matches<span class="w"> </span><span class="m">20</span><span class="w"> </span>--sift
+</code></pre></div></p>
+<p><strong>Output:</strong> Propagated masks include confidence scores for quality assessment.</p>
+<h4 id="combined-workflow-active-learning-propagation">Combined Workflow: Active Learning + Propagation<a class="headerlink" href="#combined-workflow-active-learning-propagation" title="Permanent link">&para;</a></h4>
+<p><strong>Step 1: Initial training</strong> (50 manual annotations)
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>harbor-project
+</code></pre></div></p>
+<p><strong>Step 2: Find uncertain images</strong>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>active-learning<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>harbor-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--top-n<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--method<span class="w"> </span>entropy<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>uncertain.json
+</code></pre></div></p>
+<p><strong>Step 3: Manually annotate 5 diverse reference images</strong>
+Select images covering different viewpoints/structures from uncertain.json.</p>
+<p><strong>Step 4: Propagate masks</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># For each reference image</span>
+uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>propagate-masks<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reference<span class="w"> </span>ref1.jpg<span class="w"> </span>--mask<span class="w"> </span>ref1_mask.png<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>harbor-project<span class="w"> </span>--threshold<span class="w"> </span><span class="m">0</span>.8
+
+<span class="c1"># Propagate remaining references...</span>
+</code></pre></div></p>
+<p><strong>Step 5: Review + import + retrain</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Import all propagated masks</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>harbor-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>propagated_images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src-masks<span class="w"> </span>propagated_masks<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="w"> </span>train
+
+<span class="c1"># Retrain with 50 original + ~40 propagated = 90 annotations</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>harbor-project<span class="w"> </span>--epochs<span class="w"> </span><span class="m">15</span>
+</code></pre></div></p>
+<p><strong>Step 6: Repeat active learning cycle</strong>
+Continue until target accuracy (e.g., IoU &gt;0.85).</p>
+<p><strong>Efficiency gains:</strong>
+- Traditional: 200 manual annotations (~40 hours)
+- With Phase 2: 60 manual + 140 propagated (~15 hours)
+- <strong>60% time reduction</strong> for equivalent model performance</p>
 <h3 id="67-package-or-distribute">6.7 Package or Distribute<a class="headerlink" href="#67-package-or-distribute" title="Permanent link">&para;</a></h3>
 <p><strong>Export Unified Configuration:</strong>
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>export-config<span class="w"> </span><span class="se">\</span>
@@ -3071,6 +3190,111 @@ crackz<span class="w"> </span>report<span class="w"> </span>generate<span class=
 - Output format: Microsoft Word (.docx)
 - Compatible with: Word, LibreOffice, Google Docs, Pages</p>
 <p>For detailed documentation, see <a href="../reporting/">Report Generation</a>.</p>
+<h2 id="active-learning-phase-2">Active Learning (Phase 2)<a class="headerlink" href="#active-learning-phase-2" title="Permanent link">&para;</a></h2>
+<p>Prioritize unlabeled images by uncertainty to maximize annotation efficiency.</p>
+<h3 id="find-top-priority-images">Find Top Priority Images<a class="headerlink" href="#find-top-priority-images" title="Permanent link">&para;</a></h3>
+<p>Identify which images would most benefit from annotation:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Find top 50 most uncertain images</span>
+uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>active-learning<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>demo-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--top-n<span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--method<span class="w"> </span>entropy<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>priorities.json
+</code></pre></div>
+<p><strong>Available uncertainty methods:</strong>
+- <code>entropy</code> - High entropy indicates uncertain predictions (default)
+- <code>max_probability</code> - Lower confidence = higher uncertainty
+- <code>variance</code> - High disagreement across pixels
+- <code>mean_confidence</code> - Distance from decision boundary</p>
+<h3 id="view-method-descriptions">View Method Descriptions<a class="headerlink" href="#view-method-descriptions" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>active-learning<span class="w"> </span>info
+</code></pre></div>
+<h3 id="process-specific-split">Process Specific Split<a class="headerlink" href="#process-specific-split" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Prioritize images in &#39;raw&#39; split (default)</span>
+uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>active-learning<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--split<span class="w"> </span>raw
+
+<span class="c1"># Prioritize images in &#39;train&#39; split</span>
+uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>active-learning<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--split<span class="w"> </span>train
+</code></pre></div>
+<h3 id="output-format">Output Format<a class="headerlink" href="#output-format" title="Permanent link">&para;</a></h3>
+<p>JSON output includes ranked images with uncertainty scores:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;entropy&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;total_images&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;prioritized_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;images&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;image_042.jpg&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;uncertainty_score&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.8234</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;rank&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Workflow:</strong>
+1. Train initial model on small labeled dataset
+2. Run active learning on unlabeled images
+3. Annotate top-N prioritized images
+4. Retrain model with new annotations
+5. Repeat until desired accuracy</p>
+<h2 id="mask-propagation-phase-2">Mask Propagation (Phase 2)<a class="headerlink" href="#mask-propagation-phase-2" title="Permanent link">&para;</a></h2>
+<p>Copy masks from one image to similar images using feature matching.</p>
+<h3 id="propagate-to-similar-images">Propagate to Similar Images<a class="headerlink" href="#propagate-to-similar-images" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Find similar images and propagate mask</span>
+uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>propagate-masks<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>demo-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reference<span class="w"> </span>wall_01.jpg<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--mask<span class="w"> </span>wall_01_mask.png<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--split<span class="w"> </span>raw<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--threshold<span class="w"> </span><span class="m">0</span>.8<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>./propagated_masks
+</code></pre></div>
+<p><strong>Parameters:</strong>
+- <code>--threshold</code> - Similarity cutoff (0.6-0.95, default: 0.8)
+- <code>--min-matches</code> - Required feature points (default: 10)
+- <code>--sift</code> / <code>--orb</code> - Feature detector (SIFT = accurate, ORB = faster)</p>
+<h3 id="find-similar-images-only">Find Similar Images Only<a class="headerlink" href="#find-similar-images-only" title="Permanent link">&para;</a></h3>
+<p>Preview which images are similar without propagating:</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>propagate-masks<span class="w"> </span>find-similar<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>demo-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reference<span class="w"> </span>wall_01.jpg<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--split<span class="w"> </span>raw<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>similarities.json
+</code></pre></div>
+<h3 id="advanced-options">Advanced Options<a class="headerlink" href="#advanced-options" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># More permissive matching (more propagations, less accurate)</span>
+uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>propagate-masks<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reference<span class="w"> </span>ref.jpg<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--mask<span class="w"> </span>ref.png<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>demo-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--threshold<span class="w"> </span><span class="m">0</span>.6<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--min-matches<span class="w"> </span><span class="m">5</span>
+
+<span class="c1"># Stricter matching (fewer propagations, more reliable)</span>
+uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>propagate-masks<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reference<span class="w"> </span>ref.jpg<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--mask<span class="w"> </span>ref.png<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>demo-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--threshold<span class="w"> </span><span class="m">0</span>.9<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--min-matches<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--sift
+</code></pre></div>
+<h3 id="use-orb-features-faster">Use ORB Features (Faster)<a class="headerlink" href="#use-orb-features-faster" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>propagate-masks<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reference<span class="w"> </span>ref.jpg<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--mask<span class="w"> </span>ref.png<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>demo-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--orb
+</code></pre></div>
+<p><strong>When to use mask propagation:</strong>
+- Same structure photographed from different angles
+- Sequential frames from video walkthrough
+- Adjacent sections of the same structure
+- Temporal monitoring (same location over time)</p>
+<p><strong>Output:</strong>
+- Propagated masks saved to specified directory
+- Confidence scores included for quality assessment
+- Only images above similarity threshold are processed</p>
 <h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
 <ul>
 <li>See <code>api.md</code> for programmatic usage examples (load project + call <code>detect()</code> / <code>train()</code>).<blockquote>
@@ -25006,11 +25230,7 @@ to simplify the implementation of the CLI.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/cli/crackz_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">59</span>
 <span class="normal">60</span>
 <span class="normal">61</span>
 <span class="normal">62</span>
@@ -25025,7 +25245,11 @@ to simplify the implementation of the CLI.</p>
 <span class="normal">71</span>
 <span class="normal">72</span>
 <span class="normal">73</span>
-<span class="normal">74</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">invoke_without_command</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">invoke_without_command</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">main_callback</span><span class="p">(</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">version</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span>  <span class="c1"># noqa: ARG001</span>
@@ -25069,16 +25293,16 @@ to simplify the implementation of the CLI.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/cli/crackz_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">81</span>
 <span class="normal">82</span>
 <span class="normal">83</span>
 <span class="normal">84</span>
 <span class="normal">85</span>
-<span class="normal">86</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute the main application entry point.&quot;&quot;&quot;</span>
     <span class="c1"># Critical: Add freeze_support for Windows multiprocessing in PyInstaller builds</span>
     <span class="c1"># This prevents multiple windows from spawning when using DataLoader with num_workers &gt; 0</span>
@@ -26734,6 +26958,39 @@ is provided.</p>
   --show-completion     Show completion for the current shell, to copy it or
                         customize the installation.
 </code></pre></div>
+<h2 id="active-learning">active-learning<a class="headerlink" href="#active-learning" title="Permanent link">&para;</a></h2>
+<p>Active learning commands for image prioritization</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> active-learning [OPTIONS] COMMAND [ARGS]...
+</code></pre></div>
+<h3 id="info">info<a class="headerlink" href="#info" title="Permanent link">&para;</a></h3>
+<p>Show information about active learning methods.</p>
+<p>Displays descriptions of available uncertainty calculation methods
+and their use cases.</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> active-learning info [OPTIONS]
+</code></pre></div>
+<h3 id="run">run<a class="headerlink" href="#run" title="Permanent link">&para;</a></h3>
+<p>Prioritize images by uncertainty for efficient annotation.</p>
+<p>Analyzes unlabeled images and ranks them by uncertainty score.
+Images with higher uncertainty benefit most from annotation.</p>
+<p>Example:
+    crackz active-learning run --project ./demo --top-n 50 --out priorities.json</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> active-learning run [OPTIONS]
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  -p, --project DIRECTORY         Project path (overrides config file). Eg
+                                  --project ./my_project
+  -m, --method [entropy|max_probability|variance|mean_confidence]
+                                  Uncertainty calculation method  \[default:
+                                  entropy]
+  -n, --top-n INTEGER RANGE       Return only top N most uncertain images
+                                  (default: all)  \[x&gt;=1]
+  -s, --split TEXT                Image split to process (raw/train/val/test)
+                                  \[default: raw]
+  -o, --out PATH                  Output file or directory path
+</code></pre></div>
 <h2 id="clean">clean<a class="headerlink" href="#clean" title="Permanent link">&para;</a></h2>
 <p>Clean temporary files and logs from a project.</p>
 <p>By default, cleans logs, training artifacts, checkpoints, and detections.
@@ -26787,7 +27044,7 @@ Images and masks are always preserved. The best model checkpoint is preserved by
   -p, --project DIRECTORY   Project path (overrides config file). Eg --project
                             ./my_project
 </code></pre></div>
-<h3 id="run">run<a class="headerlink" href="#run" title="Permanent link">&para;</a></h3>
+<h3 id="run_1">run<a class="headerlink" href="#run_1" title="Permanent link">&para;</a></h3>
 <p>Run the detection process based on the given configuration or project path.</p>
 <p>Usage:</p>
 <div class="highlight"><pre><span></span><code> detect run [OPTIONS]
@@ -27142,6 +27399,57 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
   -m, --model PATH         Path to model package file to import  \[required]
   --force / --no-force     Overwrite existing checkpoint if it exists
                            \[default: no-force]
+</code></pre></div>
+<h2 id="propagate-masks">propagate-masks<a class="headerlink" href="#propagate-masks" title="Permanent link">&para;</a></h2>
+<p>Mask propagation commands</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> propagate-masks [OPTIONS] COMMAND [ARGS]...
+</code></pre></div>
+<h3 id="find-similar">find-similar<a class="headerlink" href="#find-similar" title="Permanent link">&para;</a></h3>
+<p>Find similar images to a reference image.</p>
+<p>Compares images using feature matching (SIFT) and reports similarity scores.</p>
+<p>Example:
+    crackz propagate-masks find-similar --reference ref.jpg \
+        --search-dir ./images --threshold 0.8 --top-n 10</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> propagate-masks find-similar [OPTIONS]
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  -r, --reference FILE         Reference image path  \[required]
+  -d, --search-dir DIRECTORY   Directory to search for similar images
+                               \[required]
+  -t, --threshold FLOAT RANGE  Minimum similarity score (0-1)  \[default: 0.8;
+                               0.0&lt;=x&lt;=1.0]
+  -n, --top-n INTEGER RANGE    Show only top N most similar images  \[x&gt;=1]
+  -o, --out PATH               Output file or directory path
+</code></pre></div>
+<h3 id="run_2">run<a class="headerlink" href="#run_2" title="Permanent link">&para;</a></h3>
+<p>Propagate mask from reference image to similar images.</p>
+<p>Finds similar images using feature matching and transforms the reference
+mask to match each target image using homography.</p>
+<p>Example:
+    crackz propagate-masks run --project ./demo \
+        --reference ref.jpg --mask ref_mask.png \
+        --split raw --out ./masks</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> propagate-masks run [OPTIONS]
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  -p, --project DIRECTORY      Project path (overrides config file). Eg
+                               --project ./my_project
+  -r, --reference FILE         Reference image path  \[required]
+  -m, --mask FILE              Reference mask path  \[required]
+  -s, --split TEXT             Target image split to propagate to
+                               (raw/train/val/test)  \[default: raw]
+  -o, --out PATH               Output file or directory path
+  -t, --threshold FLOAT RANGE  Minimum similarity score (0-1)  \[default: 0.8;
+                               0.0&lt;=x&lt;=1.0]
+  --min-matches INTEGER RANGE  Minimum feature matches required  \[default:
+                               10; x&gt;=1]
+  --sift / --orb               Use SIFT (True) or ORB (False) features
+                               \[default: sift]
+  -f, --force                  Force overwrite if file/directory already
+                               exists
 </code></pre></div>
 <h2 id="report">report<a class="headerlink" href="#report" title="Permanent link">&para;</a></h2>
 <p>Usage:</p>
@@ -28201,7 +28509,12 @@ For full context you can also view the repository root files:
 - <a href="https://github.com/Anaxiatech-AB/crackz/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></p>
 <hr />
 <h2 id="ai-assistant-integration-standards">AI Assistant Integration &amp; Standards<a class="headerlink" href="#ai-assistant-integration-standards" title="Permanent link">&para;</a></h2>
-<p>Crackz supports AI-assisted development through <a href="../mcp/">Model Context Protocol (MCP)</a>. AI assistants (like Claude Code, GitHub Copilot, etc.) can help with development tasks when they follow our project conventions.</p>
+<p>Crackz supports AI-assisted development through multiple channels:</p>
+<ul>
+<li><strong>Model Context Protocol (MCP)</strong>: See <a href="../mcp/">MCP Integration</a> for configuration with Claude Code and other AI assistants</li>
+<li><strong>GitHub Copilot</strong>: Custom instructions in <code>.github/copilot-instructions.md</code> with automated setup workflow in <code>.github/workflows/copilot-setup-steps.yml</code></li>
+</ul>
+<p>AI assistants (like Claude Code, GitHub Copilot, etc.) can help with development tasks when they follow our project conventions.</p>
 <p><strong>Key Standards for AI Assistants:</strong>
 1. <strong>Branch Naming</strong>: Must follow <code>&lt;type&gt;/&lt;scope&gt;-&lt;short-slug&gt;</code> format (lowercase, hyphenated)
 2. <strong>Commit Messages</strong>: Must use conventional commit format with lowercase type prefix and colon

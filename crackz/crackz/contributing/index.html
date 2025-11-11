@@ -2306,7 +2306,12 @@ For full context you can also view the repository root files:
 - <a href="https://github.com/Anaxiatech-AB/crackz/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></p>
 <hr />
 <h2 id="ai-assistant-integration-standards">AI Assistant Integration &amp; Standards<a class="headerlink" href="#ai-assistant-integration-standards" title="Permanent link">&para;</a></h2>
-<p>Crackz supports AI-assisted development through <a href="../mcp/">Model Context Protocol (MCP)</a>. AI assistants (like Claude Code, GitHub Copilot, etc.) can help with development tasks when they follow our project conventions.</p>
+<p>Crackz supports AI-assisted development through multiple channels:</p>
+<ul>
+<li><strong>Model Context Protocol (MCP)</strong>: See <a href="../mcp/">MCP Integration</a> for configuration with Claude Code and other AI assistants</li>
+<li><strong>GitHub Copilot</strong>: Custom instructions in <code>.github/copilot-instructions.md</code> with automated setup workflow in <code>.github/workflows/copilot-setup-steps.yml</code></li>
+</ul>
+<p>AI assistants (like Claude Code, GitHub Copilot, etc.) can help with development tasks when they follow our project conventions.</p>
 <p><strong>Key Standards for AI Assistants:</strong>
 1. <strong>Branch Naming</strong>: Must follow <code>&lt;type&gt;/&lt;scope&gt;-&lt;short-slug&gt;</code> format (lowercase, hyphenated)
 2. <strong>Commit Messages</strong>: Must use conventional commit format with lowercase type prefix and colon

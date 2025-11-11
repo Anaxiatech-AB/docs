@@ -718,6 +718,48 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#67-phase-2-semi-automated-mask-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.7 Phase 2: Semi-Automated Mask Creation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.7 Phase 2: Semi-Automated Mask Creation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#active-learning-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Active Learning Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mask-propagation-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mask Propagation Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combined-workflow-active-learning-propagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Combined Workflow: Active Learning + Propagation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#67-package-or-distribute" class="md-nav__link">
     <span class="md-ellipsis">
       6.7 Package or Distribute
@@ -2287,6 +2329,48 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#67-phase-2-semi-automated-mask-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.7 Phase 2: Semi-Automated Mask Creation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.7 Phase 2: Semi-Automated Mask Creation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#active-learning-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Active Learning Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mask-propagation-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mask Propagation Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combined-workflow-active-learning-propagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Combined Workflow: Active Learning + Propagation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#67-package-or-distribute" class="md-nav__link">
     <span class="md-ellipsis">
       6.7 Package or Distribute
@@ -3371,6 +3455,125 @@ rm<span class="w"> </span>my-project/checkpoints/*.ckpt
 rm<span class="w"> </span>my-project/checkpoints/epoch*.ckpt
 <span class="c1"># (keep best-*.ckpt)</span>
 </code></pre></div></p>
+<h3 id="67-phase-2-semi-automated-mask-creation">6.7 Phase 2: Semi-Automated Mask Creation<a class="headerlink" href="#67-phase-2-semi-automated-mask-creation" title="Permanent link">&para;</a></h3>
+<p>Phase 2 introduces AI-assisted workflows to accelerate annotation and reduce manual labeling effort.</p>
+<h4 id="active-learning-workflow">Active Learning Workflow<a class="headerlink" href="#active-learning-workflow" title="Permanent link">&para;</a></h4>
+<p>Use uncertainty-based prioritization to maximize annotation efficiency:</p>
+<p><strong>Step 1: Train initial model on small labeled dataset</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Train on 50-100 manually labeled images</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>harbor-project<span class="w"> </span>--epochs<span class="w"> </span><span class="m">10</span>
+</code></pre></div></p>
+<p><strong>Step 2: Find most uncertain images</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Prioritize top 50 images from raw/unlabeled pool</span>
+uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>active-learning<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>harbor-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--split<span class="w"> </span>raw<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--top-n<span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--method<span class="w"> </span>entropy<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>priorities.json
+</code></pre></div></p>
+<p><strong>Available uncertainty methods:</strong>
+- <code>entropy</code> - High entropy = uncertain predictions (default)
+- <code>max_probability</code> - Low confidence = needs review
+- <code>variance</code> - High disagreement across pixels
+- <code>mean_confidence</code> - Distance from decision boundary</p>
+<p><strong>Step 3: Annotate prioritized images</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Use GUI mask editor or external tools</span>
+<span class="c1"># Focus on top-ranked images from priorities.json</span>
+</code></pre></div></p>
+<p><strong>Step 4: Import new annotations and retrain</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Move annotated images to train split</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>harbor-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>annotated_batch<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src-masks<span class="w"> </span>annotated_masks<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="w"> </span>train
+
+<span class="c1"># Retrain with expanded dataset</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>harbor-project<span class="w"> </span>--epochs<span class="w"> </span><span class="m">15</span>
+</code></pre></div></p>
+<p><strong>Step 5: Repeat cycle</strong>
+Continue active learning iterations until desired accuracy.</p>
+<h4 id="mask-propagation-workflow">Mask Propagation Workflow<a class="headerlink" href="#mask-propagation-workflow" title="Permanent link">&para;</a></h4>
+<p>Copy masks across similar images using feature matching:</p>
+<p><strong>Step 1: Manually annotate reference image</strong>
+Create high-quality mask for one representative image (e.g., <code>wall_section_01.jpg</code>).</p>
+<p><strong>Step 2: Find similar images</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Preview similarity scores</span>
+uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>propagate-masks<span class="w"> </span>find-similar<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>harbor-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reference<span class="w"> </span>wall_section_01.jpg<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--split<span class="w"> </span>raw<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>similarities.json
+</code></pre></div></p>
+<p><strong>Step 3: Propagate mask</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Copy mask to similar images (&gt;80% similarity)</span>
+uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>propagate-masks<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>harbor-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reference<span class="w"> </span>wall_section_01.jpg<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--mask<span class="w"> </span>wall_section_01_mask.png<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--split<span class="w"> </span>raw<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--threshold<span class="w"> </span><span class="m">0</span>.8<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>propagated_masks/
+</code></pre></div></p>
+<p><strong>Step 4: Review and correct</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Import propagated masks</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>harbor-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>images_with_propagated<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src-masks<span class="w"> </span>propagated_masks<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="w"> </span>train
+
+<span class="c1"># Review in GUI mask editor - correct errors before training</span>
+</code></pre></div></p>
+<p><strong>When to use mask propagation:</strong>
+- Same structure from different angles (e.g., harbor wall sections)
+- Sequential video frames (drone walkthrough)
+- Temporal monitoring (same location over time)
+- Adjacent sections of continuous structures</p>
+<p><strong>Parameter tuning:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># More permissive (more propagations, less reliable)</span>
+--threshold<span class="w"> </span><span class="m">0</span>.6<span class="w"> </span>--min-matches<span class="w"> </span><span class="m">5</span>
+
+<span class="c1"># Stricter (fewer propagations, higher quality)</span>
+--threshold<span class="w"> </span><span class="m">0</span>.9<span class="w"> </span>--min-matches<span class="w"> </span><span class="m">20</span><span class="w"> </span>--sift
+</code></pre></div></p>
+<p><strong>Output:</strong> Propagated masks include confidence scores for quality assessment.</p>
+<h4 id="combined-workflow-active-learning-propagation">Combined Workflow: Active Learning + Propagation<a class="headerlink" href="#combined-workflow-active-learning-propagation" title="Permanent link">&para;</a></h4>
+<p><strong>Step 1: Initial training</strong> (50 manual annotations)
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>harbor-project
+</code></pre></div></p>
+<p><strong>Step 2: Find uncertain images</strong>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>active-learning<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>harbor-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--top-n<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--method<span class="w"> </span>entropy<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>uncertain.json
+</code></pre></div></p>
+<p><strong>Step 3: Manually annotate 5 diverse reference images</strong>
+Select images covering different viewpoints/structures from uncertain.json.</p>
+<p><strong>Step 4: Propagate masks</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># For each reference image</span>
+uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </span>propagate-masks<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--reference<span class="w"> </span>ref1.jpg<span class="w"> </span>--mask<span class="w"> </span>ref1_mask.png<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>harbor-project<span class="w"> </span>--threshold<span class="w"> </span><span class="m">0</span>.8
+
+<span class="c1"># Propagate remaining references...</span>
+</code></pre></div></p>
+<p><strong>Step 5: Review + import + retrain</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Import all propagated masks</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>harbor-project<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>propagated_images<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src-masks<span class="w"> </span>propagated_masks<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="w"> </span>train
+
+<span class="c1"># Retrain with 50 original + ~40 propagated = 90 annotations</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>harbor-project<span class="w"> </span>--epochs<span class="w"> </span><span class="m">15</span>
+</code></pre></div></p>
+<p><strong>Step 6: Repeat active learning cycle</strong>
+Continue until target accuracy (e.g., IoU &gt;0.85).</p>
+<p><strong>Efficiency gains:</strong>
+- Traditional: 200 manual annotations (~40 hours)
+- With Phase 2: 60 manual + 140 propagated (~15 hours)
+- <strong>60% time reduction</strong> for equivalent model performance</p>
 <h3 id="67-package-or-distribute">6.7 Package or Distribute<a class="headerlink" href="#67-package-or-distribute" title="Permanent link">&para;</a></h3>
 <p><strong>Export Unified Configuration:</strong>
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>export-config<span class="w"> </span><span class="se">\</span>

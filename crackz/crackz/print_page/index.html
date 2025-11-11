@@ -1709,6 +1709,100 @@ crackz<span class="w"> </span>import-images<span class="w"> </span>--project<spa
 - Resizing with aspect ratio preservation
 - Zero-padding to target size
 - Normalization (mean/std from ImageNet)</p>
+<h3 id="621-creating-masks-manually">6.2.1 Creating Masks Manually<a class="headerlink" href="#621-creating-masks-manually" title="Permanent link">&para;</a></h3>
+<p>If you don't have pre-labeled masks, you can create them using the <strong>Crackz mask editor</strong> in the GUI:</p>
+<h4 id="quick-start-creating-your-first-mask">Quick Start: Creating Your First Mask<a class="headerlink" href="#quick-start-creating-your-first-mask" title="Permanent link">&para;</a></h4>
+<p><strong>1. Open the GUI and Your Project</strong>
+<div class="highlight"><pre><span></span><code>crackz-gui
+</code></pre></div>
+Then open your project via <strong>File → Open Project</strong>.</p>
+<p><strong>2. Navigate to Images</strong>
+- In the project browser tree, expand <code>images/train/</code> (or any split)
+- You'll see your imported images in the thumbnail view</p>
+<p><strong>3. Open Mask Editor</strong>
+Choose one of three methods:
+- <strong>Right-click</strong> an image → <strong>🎨 Edit Mask</strong>
+- <strong>Click the 🎨 badge</strong> below the image thumbnail
+- <strong>Click the image</strong> to preview, then click <strong>🎨 Edit Mask</strong> button</p>
+<p><strong>4. Paint Your Mask</strong>
+- Click <strong>🖌️ Brush</strong> tool (or press <code>B</code>)
+- Adjust <strong>Brush Size</strong> slider (start with 30-50px for large cracks)
+- Paint over crack areas—watch the <strong>green circle cursor</strong> show your brush size
+- Use <strong>🧹 Eraser</strong> (or press <code>E</code>) to fix mistakes
+- Use <strong>↶ Undo</strong> (Ctrl+Z) if needed—you have 20 undo levels</p>
+<p><strong>5. Save and Continue</strong>
+- Click <strong>💾 Save Mask</strong> when done
+- The mask is automatically saved to <code>masks/train/</code> with the same filename
+- Repeat for more images</p>
+<p><strong>Typical annotation time:</strong> 30 seconds to 3 minutes per image, depending on crack complexity.</p>
+<h4 id="mask-editor-features">Mask Editor Features<a class="headerlink" href="#mask-editor-features" title="Permanent link">&para;</a></h4>
+<p>The mask editor is a <strong>professional-grade annotation tool</strong> with:</p>
+<ul>
+<li><strong>Two-row toolbar</strong>: All tools visible without crowding</li>
+<li><strong>Visual brush cursor</strong>: Green circle shows brush size, red for eraser</li>
+<li><strong>Undo/Redo</strong>: 20 levels of history for safe editing</li>
+<li><strong>Clear button</strong>: Reset the entire mask with one click (with confirmation)</li>
+<li><strong>Opacity adjustment</strong>: See through the mask to verify alignment</li>
+<li><strong>Keyboard shortcuts</strong>: <code>B</code> for brush, <code>E</code> for eraser, <code>Ctrl+Z</code> to undo</li>
+</ul>
+<p><strong>For detailed UI reference, see the <a href="../gui/#using-the-mask-editor">GUI Guide: Mask Editor section</a>.</strong></p>
+<h4 id="best-practices-for-manual-annotation">Best Practices for Manual Annotation<a class="headerlink" href="#best-practices-for-manual-annotation" title="Permanent link">&para;</a></h4>
+<p><strong>Quality Guidelines:</strong>
+- ✅ <strong>Cover cracks fully</strong>: Paint the entire crack width, not just the centerline
+- ✅ <strong>Include fine details</strong>: Don't skip hairline cracks—they help training
+- ✅ <strong>Consistent labeling</strong>: Use the same criteria across all images (e.g., always include crack shadows)
+- ✅ <strong>Check at low opacity</strong>: Lower opacity to 0.2-0.3 to verify you didn't miss anything
+- ❌ <strong>Don't over-paint</strong>: Only paint actual cracks, not stains or texture variations
+- ❌ <strong>Don't rush</strong>: Quality &gt; quantity—a few good masks beat many poor ones</p>
+<p><strong>Efficiency Tips:</strong>
+- <strong>Start with large brush</strong> (50-100px) for quick coverage of wide cracks
+- <strong>Switch to small brush</strong> (5-20px) for fine details and edges
+- <strong>Use keyboard shortcuts</strong> (<code>B</code>, <code>E</code>, <code>Ctrl+Z</code>) instead of clicking buttons
+- <strong>Save frequently</strong>: Don't lose work—save after each image
+- <strong>Take breaks</strong>: Annotation fatigue reduces quality after ~30 minutes</p>
+<p><strong>Annotation Order:</strong>
+1. <strong>Annotate diverse examples first</strong>: Cover different crack types, locations, and lighting conditions
+2. <strong>Aim for 30-50 images minimum</strong> before first training run
+3. <strong>Then use semi-automated workflows</strong>: See <a href="#67-phase-2-semi-automated-mask-creation">Phase 2B: Semi-Automated Mask Creation</a></p>
+<h4 id="how-many-masks-do-you-need">How Many Masks Do You Need?<a class="headerlink" href="#how-many-masks-do-you-need" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Dataset Size</th>
+<th>Use Case</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>10-30 masks</strong></td>
+<td>Proof-of-concept</td>
+<td>Sufficient for initial testing, not production</td>
+</tr>
+<tr>
+<td><strong>50-100 masks</strong></td>
+<td>Small project</td>
+<td>Good starting point for custom training</td>
+</tr>
+<tr>
+<td><strong>100-500 masks</strong></td>
+<td>Standard project</td>
+<td>Recommended for reliable production model</td>
+</tr>
+<tr>
+<td><strong>500-2000 masks</strong></td>
+<td>Large project</td>
+<td>Ideal for high-accuracy, generalized model</td>
+</tr>
+<tr>
+<td><strong>2000+ masks</strong></td>
+<td>Research/enterprise</td>
+<td>Maximizes robustness and edge case handling</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: With <strong>mask propagation</strong> (Phase 2B), you can manually annotate ~50 images and semi-automatically create 100-500+ masks, dramatically reducing effort.</p>
+<p><strong>Next Step</strong>: After creating masks, proceed to <a href="#63-train-a-model">6.3 Train a Model</a>.</p>
 <h3 id="63-train-a-model">6.3 Train a Model<a class="headerlink" href="#63-train-a-model" title="Permanent link">&para;</a></h3>
 <p><strong>Basic Training:</strong>
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my-project
@@ -1875,8 +1969,10 @@ rm<span class="w"> </span>my-project/checkpoints/epoch*.ckpt
 <span class="c1"># (keep best-*.ckpt)</span>
 </code></pre></div></p>
 <h3 id="67-phase-2-semi-automated-mask-creation">6.7 Phase 2: Semi-Automated Mask Creation<a class="headerlink" href="#67-phase-2-semi-automated-mask-creation" title="Permanent link">&para;</a></h3>
-<p>Phase 2 introduces AI-assisted workflows to accelerate annotation and reduce manual labeling effort.</p>
-<h4 id="active-learning-workflow">Active Learning Workflow<a class="headerlink" href="#active-learning-workflow" title="Permanent link">&para;</a></h4>
+<p>Phase 2 introduces AI-assisted workflows to accelerate annotation and reduce manual labeling effort by <strong>50-80%</strong>. These features are available in the <strong>GUI</strong> and (partially) via <strong>CLI</strong>.</p>
+<p><strong>📘 For comprehensive GUI workflow documentation, see <a href="../gui/#phase-2b-semi-automated-mask-creation">GUI Guide: Phase 2B Semi-Automated Workflows</a>.</strong></p>
+<p>This section covers CLI-based workflows for automation and scripting.</p>
+<h4 id="active-learning-workflow-cli">Active Learning Workflow (CLI)<a class="headerlink" href="#active-learning-workflow-cli" title="Permanent link">&para;</a></h4>
 <p>Use uncertainty-based prioritization to maximize annotation efficiency:</p>
 <p><strong>Step 1: Train initial model on small labeled dataset</strong>
 <div class="highlight"><pre><span></span><code><span class="c1"># Train on 50-100 manually labeled images</span>
@@ -1912,7 +2008,9 @@ crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"
 </code></pre></div></p>
 <p><strong>Step 5: Repeat cycle</strong>
 Continue active learning iterations until desired accuracy.</p>
-<h4 id="mask-propagation-workflow">Mask Propagation Workflow<a class="headerlink" href="#mask-propagation-workflow" title="Permanent link">&para;</a></h4>
+<h4 id="mask-propagation-workflow-cli">Mask Propagation Workflow (CLI)<a class="headerlink" href="#mask-propagation-workflow-cli" title="Permanent link">&para;</a></h4>
+<p><strong>For GUI-based mask propagation with visual similarity tuning, see <a href="../gui/#mask-propagation-workflow">GUI Guide: Mask Propagation Workflow</a>.</strong></p>
+<p>This section covers CLI-based propagation for automation and batch processing.</p>
 <p>Copy masks across similar images using feature matching:</p>
 <p><strong>Step 1: Manually annotate reference image</strong>
 Create high-quality mask for one representative image (e.g., <code>wall_section_01.jpg</code>).</p>
@@ -3439,22 +3537,121 @@ crackz-gui
 - Click the <strong>🎨 Edit Mask</strong> button in the Actions section
 - Available for all images in the <code>images/</code> directory</p>
 <h3 id="using-the-mask-editor">Using the Mask Editor<a class="headerlink" href="#using-the-mask-editor" title="Permanent link">&para;</a></h3>
-<p>The mask editor provides an intuitive interface for painting crack masks:</p>
-<p><strong>Tools:</strong>
+<p>The mask editor provides an intuitive interface for painting crack masks with professional drawing tools and visual feedback.</p>
+<h4 id="user-interface">User Interface<a class="headerlink" href="#user-interface" title="Permanent link">&para;</a></h4>
+<p>The mask editor window features a <strong>two-row toolbar</strong> for optimal layout and control visibility:</p>
+<p><strong>Row 1: Tools and Actions</strong>
+- <strong>🎨 Title</strong> - Shows current image name
 - <strong>🖌️ Brush Tool</strong> - Paint crack areas (white/255)
-- <strong>🧹 Eraser Tool</strong> - Remove painted areas (black/0)</p>
-<p><strong>Controls:</strong>
+- <strong>🧹 Eraser Tool</strong> - Remove painted areas (black/0)
+- <strong>↶ Undo</strong> - Undo last action (up to 20 steps)
+- <strong>↷ Redo</strong> - Redo previously undone action
+- <strong>🗑️ Clear</strong> - Reset entire mask (with confirmation)
+- <strong>🔄 Propagate to Similar</strong> - Find and annotate similar images (right-aligned)</p>
+<p><strong>Row 2: Settings</strong>
 - <strong>Brush Size Slider</strong> - Adjust brush size (5-100 pixels)
-- <strong>Opacity Slider</strong> - Control mask overlay transparency (0.1-1.0)
-- <strong>↶ Undo / ↷ Redo</strong> - Up to 20 levels of undo history
+- <strong>Opacity Slider</strong> - Control mask overlay transparency (0.1-1.0)</p>
+<p><strong>Bottom Toolbar:</strong>
 - <strong>💾 Save Mask</strong> - Save as binary PNG to <code>masks/</code> directory
 - <strong>✕ Cancel</strong> - Close without saving changes</p>
-<p><strong>Tips:</strong>
-- <strong>Smooth strokes</strong>: Drag slowly for precise control
-- <strong>Large areas</strong>: Increase brush size for quick coverage
-- <strong>Fine details</strong>: Reduce brush size for accuracy
-- <strong>See through</strong>: Adjust opacity to see original image better
-- <strong>Mistakes</strong>: Use undo or switch to eraser tool</p>
+<blockquote>
+<p><strong>Note</strong>: Screenshot placeholders pending. The mask editor interface features a clean two-row toolbar design with all controls clearly visible at 1000px+ window width.</p>
+</blockquote>
+<h4 id="visual-feedback">Visual Feedback<a class="headerlink" href="#visual-feedback" title="Permanent link">&para;</a></h4>
+<p>The mask editor provides <strong>real-time visual cursor feedback</strong> to help you paint precisely:</p>
+<ul>
+<li><strong>Brush Cursor</strong>: A colored circle follows your mouse cursor, showing the exact brush size</li>
+<li><strong>Green circle</strong> when Brush tool is active</li>
+<li><strong>Red circle</strong> when Eraser tool is active</li>
+<li><strong>Dynamic sizing</strong>: Circle size updates immediately when you adjust the Brush Size slider</li>
+<li><strong>Preview before painting</strong>: See exactly where your stroke will go before clicking</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: Screenshot placeholders pending. The visual cursor provides immediate feedback with color-coded circles (green for brush, red for eraser) matching your current brush size.</p>
+</blockquote>
+<h4 id="controls-and-keyboard-shortcuts">Controls and Keyboard Shortcuts<a class="headerlink" href="#controls-and-keyboard-shortcuts" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Mouse</th>
+<th>Keyboard</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Paint</strong></td>
+<td>Left-click + drag</td>
+<td>—</td>
+<td>Paint crack areas with brush</td>
+</tr>
+<tr>
+<td><strong>Erase</strong></td>
+<td>Left-click + drag (eraser mode)</td>
+<td>—</td>
+<td>Remove painted areas</td>
+</tr>
+<tr>
+<td><strong>Switch to Brush</strong></td>
+<td>Click 🖌️ button</td>
+<td><code>B</code></td>
+<td>Activate brush tool</td>
+</tr>
+<tr>
+<td><strong>Switch to Eraser</strong></td>
+<td>Click 🧹 button</td>
+<td><code>E</code></td>
+<td>Activate eraser tool</td>
+</tr>
+<tr>
+<td><strong>Undo</strong></td>
+<td>Click ↶ button</td>
+<td><code>Ctrl+Z</code> / <code>Cmd+Z</code></td>
+<td>Undo last action</td>
+</tr>
+<tr>
+<td><strong>Redo</strong></td>
+<td>Click ↷ button</td>
+<td><code>Ctrl+Y</code> / <code>Cmd+Shift+Z</code></td>
+<td>Redo undone action</td>
+</tr>
+<tr>
+<td><strong>Clear All</strong></td>
+<td>Click 🗑️ button</td>
+<td>—</td>
+<td>Reset entire mask (confirms first)</td>
+</tr>
+<tr>
+<td><strong>Save</strong></td>
+<td>Click 💾 button</td>
+<td><code>Ctrl+S</code> / <code>Cmd+S</code></td>
+<td>Save mask and close</td>
+</tr>
+<tr>
+<td><strong>Cancel</strong></td>
+<td>Click ✕ button</td>
+<td><code>Esc</code></td>
+<td>Close without saving</td>
+</tr>
+</tbody>
+</table>
+<h4 id="workflow-tips">Workflow Tips<a class="headerlink" href="#workflow-tips" title="Permanent link">&para;</a></h4>
+<p><strong>For precise annotation:</strong>
+1. <strong>Start with large brush</strong>: Use 50-100px to quickly cover large crack areas
+2. <strong>Reduce for details</strong>: Switch to 5-20px for fine cracks and edges
+3. <strong>Adjust opacity</strong>: Lower opacity (0.3-0.5) to see the original image through the mask
+4. <strong>Use undo liberally</strong>: Don't worry about mistakes—you have 20 undo levels
+5. <strong>Watch the cursor</strong>: The colored circle helps you plan your strokes before clicking</p>
+<p><strong>For efficient workflow:</strong>
+- <strong>Save frequently</strong>: Click Save Mask after completing each annotation
+- <strong>Use Clear for restarts</strong>: If you need to start over, use Clear instead of manually erasing everything
+- <strong>Take breaks</strong>: Long annotation sessions can cause fatigue—save and return later</p>
+<p><strong>For quality masks:</strong>
+- <strong>Paint smoothly</strong>: Slow, deliberate strokes produce cleaner masks
+- <strong>Cover cracks fully</strong>: Make sure the entire crack width is painted white
+- <strong>Include fine details</strong>: Don't skip hairline cracks—they matter for training
+- <strong>Check at low opacity</strong>: Lower opacity to 0.2-0.3 to verify you didn't miss any cracks</p>
 <h3 id="mask-file-structure">Mask File Structure<a class="headerlink" href="#mask-file-structure" title="Permanent link">&para;</a></h3>
 <p>Masks are automatically saved to match your image structure:</p>
 <div class="highlight"><pre><span></span><code>project/
@@ -3472,6 +3669,224 @@ crackz-gui
 - <strong>Naming</strong>: Same filename as image (with .png extension)</p>
 <h3 id="binary-mask-conversion">Binary Mask Conversion<a class="headerlink" href="#binary-mask-conversion" title="Permanent link">&para;</a></h3>
 <p>If you have existing masks with grayscale values, use the <strong>Masks → Convert</strong> command to convert them to binary format required for training.</p>
+<hr />
+<h2 id="phase-2b-semi-automated-mask-creation">Phase 2B: Semi-Automated Mask Creation<a class="headerlink" href="#phase-2b-semi-automated-mask-creation" title="Permanent link">&para;</a></h2>
+<p>The Phase 2B feature set introduces powerful <strong>semi-automated workflows</strong> to accelerate mask annotation. Instead of manually annotating every image, you can:</p>
+<ol>
+<li><strong>Manually annotate a few representative images</strong> (5-10 images)</li>
+<li><strong>Propagate masks to similar images</strong> using feature matching</li>
+<li><strong>Batch review and refine</strong> propagated masks quickly</li>
+<li><strong>(Coming Soon) Active learning</strong> to prioritize the most valuable images for annotation</li>
+</ol>
+<p>These workflows can reduce annotation time by <strong>50-80%</strong> for large datasets with similar crack patterns.</p>
+<h3 id="mask-propagation-workflow">Mask Propagation Workflow<a class="headerlink" href="#mask-propagation-workflow" title="Permanent link">&para;</a></h3>
+<p><strong>Mask propagation</strong> uses computer vision (SIFT/ORB feature matching) to find images similar to the one you just annotated, then transfers your mask to those images automatically.</p>
+<h4 id="when-to-use-mask-propagation">When to Use Mask Propagation<a class="headerlink" href="#when-to-use-mask-propagation" title="Permanent link">&para;</a></h4>
+<p>✅ <strong>Good use cases:</strong>
+- Harbor infrastructure with <strong>repetitive patterns</strong> (same concrete texture, consistent lighting)
+- Large datasets where <strong>cracks appear in similar locations</strong> (e.g., joints, edges)
+- Images from the <strong>same structure or session</strong> (consistent viewpoint)
+- <strong>Initial dataset creation</strong> where you need many training examples quickly</p>
+<p>❌ <strong>Less effective for:</strong>
+- Highly variable images (different structures, angles, lighting)
+- Unique or one-off crack patterns
+- Datasets with significant perspective changes</p>
+<h4 id="step-by-step-propagation">Step-by-Step Propagation<a class="headerlink" href="#step-by-step-propagation" title="Permanent link">&para;</a></h4>
+<p><strong>1. Annotate a Representative Image</strong>
+- Open the mask editor on an image with a typical crack pattern
+- Paint the mask carefully (this will be your "template")
+- Click <strong>Save Mask</strong> when finished</p>
+<p><strong>2. Open Propagation Dialog</strong>
+- With the same image still selected, click <strong>🔄 Propagate to Similar</strong> in the mask editor toolbar
+- Or right-click the image in the browser and select <strong>🔄 Propagate Mask to Similar Images</strong></p>
+<p><strong>3. Configure Propagation Settings</strong></p>
+<p>The propagation dialog shows:
+- <strong>Source image preview</strong> with your annotated mask
+- <strong>Similarity threshold slider</strong> (0.0 - 1.0)
+  - <strong>Higher values</strong> (0.7-1.0): Only very similar images, fewer false positives
+  - <strong>Lower values</strong> (0.3-0.6): More images, but may include less similar ones
+  - <strong>Default</strong>: 0.5 (balanced)
+- <strong>Feature matching method</strong>: SIFT (default, more accurate) or ORB (faster)
+- <strong>Gallery of candidate images</strong> sorted by similarity score</p>
+<blockquote>
+<p><strong>Note</strong>: Screenshot placeholders pending. The propagation dialog provides an intuitive interface for tuning similarity thresholds and reviewing candidate matches before batch processing.</p>
+</blockquote>
+<p><strong>4. Review and Select Candidates</strong>
+- Scroll through the <strong>similarity gallery</strong> showing all candidate images
+- Each thumbnail shows:
+  - <strong>Similarity score</strong> (0.0-1.0) indicating match quality
+  - <strong>Checkbox</strong> to include/exclude from batch
+- <strong>Select high-quality matches</strong>: Check images with similarity &gt; 0.6
+- <strong>Deselect poor matches</strong>: Uncheck images that look different</p>
+<p><strong>5. Propagate Masks</strong>
+- Click <strong>Propagate to Selected</strong> to transfer your mask to all checked images
+- A progress bar shows transformation and saving progress
+- When complete, the batch review interface opens automatically</p>
+<h4 id="how-propagation-works-technical">How Propagation Works (Technical)<a class="headerlink" href="#how-propagation-works-technical" title="Permanent link">&para;</a></h4>
+<p>Mask propagation uses <strong>feature-based image alignment</strong>:</p>
+<ol>
+<li><strong>Feature Detection</strong>: Extracts keypoints (corners, edges) from both source and target images</li>
+<li><strong>Feature Matching</strong>: Finds corresponding keypoints between images</li>
+<li><strong>Homography Estimation</strong>: Calculates geometric transformation (rotation, scale, perspective)</li>
+<li><strong>Mask Warping</strong>: Applies transformation to your mask, aligning it with the target image</li>
+<li><strong>Quality Filtering</strong>: Only propagates if sufficient feature matches are found (&gt;10 matches)</li>
+</ol>
+<p>This approach works well for:
+- Images of the same structure from different angles
+- Sequential images with camera movement
+- Images with consistent structural features (corners, edges, patterns)</p>
+<h3 id="batch-review-interface">Batch Review Interface<a class="headerlink" href="#batch-review-interface" title="Permanent link">&para;</a></h3>
+<p>After mask propagation, the <strong>Batch Review Interface</strong> helps you quickly verify and refine the propagated masks.</p>
+<blockquote>
+<p><strong>Note</strong>: Screenshot placeholders pending. The batch review interface displays a 3×3 grid of images with their propagated masks, confidence badges, and keyboard-driven review workflow.</p>
+</blockquote>
+<h4 id="interface-layout">Interface Layout<a class="headerlink" href="#interface-layout" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>3×3 Grid</strong>: Shows 9 images at a time with their propagated masks overlaid</li>
+<li><strong>Image info</strong>: Each thumbnail shows:</li>
+<li>Original image + mask overlay</li>
+<li><strong>Confidence badge</strong> (Good/Medium/Low based on similarity score)</li>
+<li>Image filename</li>
+<li><strong>Navigation controls</strong>: Previous/Next buttons to browse through batches</li>
+<li><strong>Keyboard shortcuts</strong>: Fast review without using the mouse</li>
+</ul>
+<h4 id="batch-review-workflow">Batch Review Workflow<a class="headerlink" href="#batch-review-workflow" title="Permanent link">&para;</a></h4>
+<p><strong>1. Review Propagated Masks</strong>
+- The batch review interface opens automatically after propagation
+- Review each image in the 3×3 grid
+- Look for:
+  - ✅ <strong>Correct alignment</strong>: Mask covers the crack accurately
+  - ⚠️ <strong>Partial alignment</strong>: Mask is close but needs adjustment
+  - ❌ <strong>Poor alignment</strong>: Mask is in the wrong location or shape</p>
+<p><strong>2. Accept, Reject, or Edit</strong></p>
+<p>For each image, you have three options:</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Keyboard</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Accept</strong></td>
+<td><code>A</code></td>
+<td>Keep the mask as-is (good quality)</td>
+</tr>
+<tr>
+<td><strong>Reject</strong></td>
+<td><code>R</code></td>
+<td>Delete the mask (poor quality)</td>
+</tr>
+<tr>
+<td><strong>Edit</strong></td>
+<td><code>E</code></td>
+<td>Open mask editor for manual refinement</td>
+</tr>
+</tbody>
+</table>
+<p><strong>3. Navigate Through Images</strong></p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Keyboard</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Next image</strong></td>
+<td><code>Right Arrow</code></td>
+<td>Move to next image in grid</td>
+</tr>
+<tr>
+<td><strong>Previous image</strong></td>
+<td><code>Left Arrow</code></td>
+<td>Move to previous image in grid</td>
+</tr>
+<tr>
+<td><strong>Next batch</strong></td>
+<td>Click "Next" button</td>
+<td>Load next 9 images</td>
+</tr>
+<tr>
+<td><strong>Previous batch</strong></td>
+<td>Click "Previous" button</td>
+<td>Load previous 9 images</td>
+</tr>
+</tbody>
+</table>
+<p><strong>4. Complete Review</strong>
+- When you've reviewed all images, click <strong>Close</strong>
+- Accepted masks are saved in the <code>masks/</code> directory
+- Rejected masks are deleted
+- Edited masks are saved after you close the mask editor</p>
+<h4 id="confidence-badges">Confidence Badges<a class="headerlink" href="#confidence-badges" title="Permanent link">&para;</a></h4>
+<p>Each image shows a <strong>confidence badge</strong> to help prioritize review:</p>
+<ul>
+<li><strong>🟢 Good</strong> (&gt;0.7 similarity): High confidence, likely correct</li>
+<li><strong>🟡 Medium</strong> (0.5-0.7 similarity): Moderate confidence, review carefully</li>
+<li><strong>🔴 Low</strong> (&lt;0.5 similarity): Low confidence, likely needs editing or rejection</li>
+</ul>
+<p><strong>Tip</strong>: Focus your attention on Medium and Low confidence images—Good ones usually need minimal review.</p>
+<h4 id="efficiency-tips">Efficiency Tips<a class="headerlink" href="#efficiency-tips" title="Permanent link">&para;</a></h4>
+<p><strong>For fast review:</strong>
+1. <strong>Start with Good badges</strong>: Quickly accept high-confidence images with <code>A</code>
+2. <strong>Reject obvious failures</strong>: Use <code>R</code> for clearly misaligned masks
+3. <strong>Edit Medium badges</strong>: Press <code>E</code> on medium-confidence images to refine
+4. <strong>Use keyboard shortcuts</strong>: Much faster than clicking buttons
+5. <strong>Batch process</strong>: Review in batches of 9 to maintain context</p>
+<p><strong>For quality:</strong>
+- Don't skip images—every mask affects training quality
+- When in doubt, choose Edit over Accept
+- Reject rather than accept poor masks (bad data hurts training)
+- Aim for 80%+ acceptance rate (if lower, adjust propagation threshold)</p>
+<h3 id="active-learning-coming-soon">Active Learning (Coming Soon)<a class="headerlink" href="#active-learning-coming-soon" title="Permanent link">&para;</a></h3>
+<p><strong>Active learning</strong> will help prioritize which images to annotate next by identifying:
+- Images with high model uncertainty (where the model is least confident)
+- Representative samples that maximize training efficiency
+- Edge cases that improve model robustness</p>
+<p>This feature is currently implemented but not yet integrated into the main GUI workflow. Stay tuned for updates!</p>
+<h3 id="uncertainty-viewer-coming-soon">Uncertainty Viewer (Coming Soon)<a class="headerlink" href="#uncertainty-viewer-coming-soon" title="Permanent link">&para;</a></h3>
+<p>The <strong>Uncertainty Viewer</strong> provides visual heatmaps showing where the model is most uncertain in its predictions. This helps:
+- Identify difficult regions requiring more training data
+- Prioritize annotation efforts on ambiguous areas
+- Validate model confidence visually</p>
+<p>This feature is available for testing but not yet in the main workflow.</p>
+<hr />
+<h2 id="using-mask-editor-in-raw-folder">Using Mask Editor in Raw Folder<a class="headerlink" href="#using-mask-editor-in-raw-folder" title="Permanent link">&para;</a></h2>
+<p>The mask editor is <strong>enabled for all data splits</strong>, including the <code>raw/</code> folder. This is intentional and supports important workflows:</p>
+<h3 id="valid-use-cases-for-raw-folder-masks">Valid Use Cases for Raw Folder Masks<a class="headerlink" href="#valid-use-cases-for-raw-folder-masks" title="Permanent link">&para;</a></h3>
+<p><strong>1. Active Learning Workflow</strong>
+- Run detection on raw images to identify cracks
+- Review detections and manually refine masks in the editor
+- Move validated images to train/val splits for retraining</p>
+<p><strong>2. Inference Result Refinement</strong>
+- Export detection results from raw folder
+- Manually correct false positives/negatives
+- Use corrected masks for reporting or further analysis</p>
+<p><strong>3. Pre-Annotation for Future Training</strong>
+- Annotate images in raw folder as you review them
+- Later move batches of annotated images to train split
+- Maintains separation between "to be annotated" and "ready for training"</p>
+<p><strong>4. Quality Control</strong>
+- Manually verify automated detections before committing to training data
+- Ensures only high-quality masks enter the training pipeline</p>
+<h3 id="moving-images-between-splits">Moving Images Between Splits<a class="headerlink" href="#moving-images-between-splits" title="Permanent link">&para;</a></h3>
+<p>After annotating images in the <code>raw/</code> folder, you may want to move them to training splits:</p>
+<p><strong>Using the CLI:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Move annotated images from raw to train split</span>
+crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span class="w"> </span>./my-project<span class="w"> </span>--source<span class="w"> </span>raw<span class="w"> </span>--target<span class="w"> </span>train<span class="w"> </span>--pattern<span class="w"> </span><span class="s2">&quot;crack_*.jpg&quot;</span>
+</code></pre></div></p>
+<p><strong>Using the GUI:</strong>
+1. Open the project in the GUI
+2. Navigate to <code>images/raw/</code> in the browser
+3. Select annotated images (hold Ctrl/Cmd to multi-select)
+4. Right-click → <strong>Move to Split</strong> → Choose <code>train</code>, <code>val</code>, or <code>test</code>
+5. Confirm the move operation</p>
+<p><strong>Note</strong>: When moving images, their corresponding masks are automatically moved as well.</p>
 <hr />
 <h2 id="model-training">Model Training<a class="headerlink" href="#model-training" title="Permanent link">&para;</a></h2>
 <h3 id="starting-training">Starting Training<a class="headerlink" href="#starting-training" title="Permanent link">&para;</a></h3>

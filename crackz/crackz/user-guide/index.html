@@ -682,6 +682,57 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#621-creating-masks-manually" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2.1 Creating Masks Manually
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2.1 Creating Masks Manually">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-start-creating-your-first-mask" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start: Creating Your First Mask
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mask-editor-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mask Editor Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-practices-for-manual-annotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices for Manual Annotation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-many-masks-do-you-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Many Masks Do You Need?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#63-train-a-model" class="md-nav__link">
     <span class="md-ellipsis">
       6.3 Train a Model
@@ -728,18 +779,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#active-learning-workflow" class="md-nav__link">
+  <a href="#active-learning-workflow-cli" class="md-nav__link">
     <span class="md-ellipsis">
-      Active Learning Workflow
+      Active Learning Workflow (CLI)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#mask-propagation-workflow" class="md-nav__link">
+  <a href="#mask-propagation-workflow-cli" class="md-nav__link">
     <span class="md-ellipsis">
-      Mask Propagation Workflow
+      Mask Propagation Workflow (CLI)
     </span>
   </a>
   
@@ -2293,6 +2344,57 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#621-creating-masks-manually" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2.1 Creating Masks Manually
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2.1 Creating Masks Manually">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-start-creating-your-first-mask" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start: Creating Your First Mask
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mask-editor-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mask Editor Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-practices-for-manual-annotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices for Manual Annotation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-many-masks-do-you-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Many Masks Do You Need?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#63-train-a-model" class="md-nav__link">
     <span class="md-ellipsis">
       6.3 Train a Model
@@ -2339,18 +2441,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#active-learning-workflow" class="md-nav__link">
+  <a href="#active-learning-workflow-cli" class="md-nav__link">
     <span class="md-ellipsis">
-      Active Learning Workflow
+      Active Learning Workflow (CLI)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#mask-propagation-workflow" class="md-nav__link">
+  <a href="#mask-propagation-workflow-cli" class="md-nav__link">
     <span class="md-ellipsis">
-      Mask Propagation Workflow
+      Mask Propagation Workflow (CLI)
     </span>
   </a>
   
@@ -3290,6 +3392,100 @@ crackz<span class="w"> </span>import-images<span class="w"> </span>--project<spa
 - Resizing with aspect ratio preservation
 - Zero-padding to target size
 - Normalization (mean/std from ImageNet)</p>
+<h3 id="621-creating-masks-manually">6.2.1 Creating Masks Manually<a class="headerlink" href="#621-creating-masks-manually" title="Permanent link">&para;</a></h3>
+<p>If you don't have pre-labeled masks, you can create them using the <strong>Crackz mask editor</strong> in the GUI:</p>
+<h4 id="quick-start-creating-your-first-mask">Quick Start: Creating Your First Mask<a class="headerlink" href="#quick-start-creating-your-first-mask" title="Permanent link">&para;</a></h4>
+<p><strong>1. Open the GUI and Your Project</strong>
+<div class="highlight"><pre><span></span><code>crackz-gui
+</code></pre></div>
+Then open your project via <strong>File → Open Project</strong>.</p>
+<p><strong>2. Navigate to Images</strong>
+- In the project browser tree, expand <code>images/train/</code> (or any split)
+- You'll see your imported images in the thumbnail view</p>
+<p><strong>3. Open Mask Editor</strong>
+Choose one of three methods:
+- <strong>Right-click</strong> an image → <strong>🎨 Edit Mask</strong>
+- <strong>Click the 🎨 badge</strong> below the image thumbnail
+- <strong>Click the image</strong> to preview, then click <strong>🎨 Edit Mask</strong> button</p>
+<p><strong>4. Paint Your Mask</strong>
+- Click <strong>🖌️ Brush</strong> tool (or press <code>B</code>)
+- Adjust <strong>Brush Size</strong> slider (start with 30-50px for large cracks)
+- Paint over crack areas—watch the <strong>green circle cursor</strong> show your brush size
+- Use <strong>🧹 Eraser</strong> (or press <code>E</code>) to fix mistakes
+- Use <strong>↶ Undo</strong> (Ctrl+Z) if needed—you have 20 undo levels</p>
+<p><strong>5. Save and Continue</strong>
+- Click <strong>💾 Save Mask</strong> when done
+- The mask is automatically saved to <code>masks/train/</code> with the same filename
+- Repeat for more images</p>
+<p><strong>Typical annotation time:</strong> 30 seconds to 3 minutes per image, depending on crack complexity.</p>
+<h4 id="mask-editor-features">Mask Editor Features<a class="headerlink" href="#mask-editor-features" title="Permanent link">&para;</a></h4>
+<p>The mask editor is a <strong>professional-grade annotation tool</strong> with:</p>
+<ul>
+<li><strong>Two-row toolbar</strong>: All tools visible without crowding</li>
+<li><strong>Visual brush cursor</strong>: Green circle shows brush size, red for eraser</li>
+<li><strong>Undo/Redo</strong>: 20 levels of history for safe editing</li>
+<li><strong>Clear button</strong>: Reset the entire mask with one click (with confirmation)</li>
+<li><strong>Opacity adjustment</strong>: See through the mask to verify alignment</li>
+<li><strong>Keyboard shortcuts</strong>: <code>B</code> for brush, <code>E</code> for eraser, <code>Ctrl+Z</code> to undo</li>
+</ul>
+<p><strong>For detailed UI reference, see the <a href="../gui/#using-the-mask-editor">GUI Guide: Mask Editor section</a>.</strong></p>
+<h4 id="best-practices-for-manual-annotation">Best Practices for Manual Annotation<a class="headerlink" href="#best-practices-for-manual-annotation" title="Permanent link">&para;</a></h4>
+<p><strong>Quality Guidelines:</strong>
+- ✅ <strong>Cover cracks fully</strong>: Paint the entire crack width, not just the centerline
+- ✅ <strong>Include fine details</strong>: Don't skip hairline cracks—they help training
+- ✅ <strong>Consistent labeling</strong>: Use the same criteria across all images (e.g., always include crack shadows)
+- ✅ <strong>Check at low opacity</strong>: Lower opacity to 0.2-0.3 to verify you didn't miss anything
+- ❌ <strong>Don't over-paint</strong>: Only paint actual cracks, not stains or texture variations
+- ❌ <strong>Don't rush</strong>: Quality &gt; quantity—a few good masks beat many poor ones</p>
+<p><strong>Efficiency Tips:</strong>
+- <strong>Start with large brush</strong> (50-100px) for quick coverage of wide cracks
+- <strong>Switch to small brush</strong> (5-20px) for fine details and edges
+- <strong>Use keyboard shortcuts</strong> (<code>B</code>, <code>E</code>, <code>Ctrl+Z</code>) instead of clicking buttons
+- <strong>Save frequently</strong>: Don't lose work—save after each image
+- <strong>Take breaks</strong>: Annotation fatigue reduces quality after ~30 minutes</p>
+<p><strong>Annotation Order:</strong>
+1. <strong>Annotate diverse examples first</strong>: Cover different crack types, locations, and lighting conditions
+2. <strong>Aim for 30-50 images minimum</strong> before first training run
+3. <strong>Then use semi-automated workflows</strong>: See <a href="#67-phase-2-semi-automated-mask-creation">Phase 2B: Semi-Automated Mask Creation</a></p>
+<h4 id="how-many-masks-do-you-need">How Many Masks Do You Need?<a class="headerlink" href="#how-many-masks-do-you-need" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Dataset Size</th>
+<th>Use Case</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>10-30 masks</strong></td>
+<td>Proof-of-concept</td>
+<td>Sufficient for initial testing, not production</td>
+</tr>
+<tr>
+<td><strong>50-100 masks</strong></td>
+<td>Small project</td>
+<td>Good starting point for custom training</td>
+</tr>
+<tr>
+<td><strong>100-500 masks</strong></td>
+<td>Standard project</td>
+<td>Recommended for reliable production model</td>
+</tr>
+<tr>
+<td><strong>500-2000 masks</strong></td>
+<td>Large project</td>
+<td>Ideal for high-accuracy, generalized model</td>
+</tr>
+<tr>
+<td><strong>2000+ masks</strong></td>
+<td>Research/enterprise</td>
+<td>Maximizes robustness and edge case handling</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: With <strong>mask propagation</strong> (Phase 2B), you can manually annotate ~50 images and semi-automatically create 100-500+ masks, dramatically reducing effort.</p>
+<p><strong>Next Step</strong>: After creating masks, proceed to <a href="#63-train-a-model">6.3 Train a Model</a>.</p>
 <h3 id="63-train-a-model">6.3 Train a Model<a class="headerlink" href="#63-train-a-model" title="Permanent link">&para;</a></h3>
 <p><strong>Basic Training:</strong>
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my-project
@@ -3456,8 +3652,10 @@ rm<span class="w"> </span>my-project/checkpoints/epoch*.ckpt
 <span class="c1"># (keep best-*.ckpt)</span>
 </code></pre></div></p>
 <h3 id="67-phase-2-semi-automated-mask-creation">6.7 Phase 2: Semi-Automated Mask Creation<a class="headerlink" href="#67-phase-2-semi-automated-mask-creation" title="Permanent link">&para;</a></h3>
-<p>Phase 2 introduces AI-assisted workflows to accelerate annotation and reduce manual labeling effort.</p>
-<h4 id="active-learning-workflow">Active Learning Workflow<a class="headerlink" href="#active-learning-workflow" title="Permanent link">&para;</a></h4>
+<p>Phase 2 introduces AI-assisted workflows to accelerate annotation and reduce manual labeling effort by <strong>50-80%</strong>. These features are available in the <strong>GUI</strong> and (partially) via <strong>CLI</strong>.</p>
+<p><strong>📘 For comprehensive GUI workflow documentation, see <a href="../gui/#phase-2b-semi-automated-mask-creation">GUI Guide: Phase 2B Semi-Automated Workflows</a>.</strong></p>
+<p>This section covers CLI-based workflows for automation and scripting.</p>
+<h4 id="active-learning-workflow-cli">Active Learning Workflow (CLI)<a class="headerlink" href="#active-learning-workflow-cli" title="Permanent link">&para;</a></h4>
 <p>Use uncertainty-based prioritization to maximize annotation efficiency:</p>
 <p><strong>Step 1: Train initial model on small labeled dataset</strong>
 <div class="highlight"><pre><span></span><code><span class="c1"># Train on 50-100 manually labeled images</span>
@@ -3493,7 +3691,9 @@ crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"
 </code></pre></div></p>
 <p><strong>Step 5: Repeat cycle</strong>
 Continue active learning iterations until desired accuracy.</p>
-<h4 id="mask-propagation-workflow">Mask Propagation Workflow<a class="headerlink" href="#mask-propagation-workflow" title="Permanent link">&para;</a></h4>
+<h4 id="mask-propagation-workflow-cli">Mask Propagation Workflow (CLI)<a class="headerlink" href="#mask-propagation-workflow-cli" title="Permanent link">&para;</a></h4>
+<p><strong>For GUI-based mask propagation with visual similarity tuning, see <a href="../gui/#mask-propagation-workflow">GUI Guide: Mask Propagation Workflow</a>.</strong></p>
+<p>This section covers CLI-based propagation for automation and batch processing.</p>
 <p>Copy masks across similar images using feature matching:</p>
 <p><strong>Step 1: Manually annotate reference image</strong>
 Create high-quality mask for one representative image (e.g., <code>wall_section_01.jpg</code>).</p>

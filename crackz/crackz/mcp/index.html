@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#overview" class="md-skip">
+        <a href="#quick-facts" class="md-skip">
           Skip to content
         </a>
       
@@ -1026,11 +1026,44 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#quick-facts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Facts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       Overview
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#who-uses-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Who Uses MCP?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ai-assistant-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      AI Assistant Comparison
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1171,9 +1204,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mcp-servers" class="md-nav__link">
+  <a href="#mcp-servers-4-total" class="md-nav__link">
     <span class="md-ellipsis">
-      MCP Servers
+      MCP Servers (4 Total)
     </span>
   </a>
   
@@ -1647,11 +1680,44 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#quick-facts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Facts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       Overview
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#who-uses-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Who Uses MCP?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ai-assistant-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      AI Assistant Comparison
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1792,9 +1858,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mcp-servers" class="md-nav__link">
+  <a href="#mcp-servers-4-total" class="md-nav__link">
     <span class="md-ellipsis">
-      MCP Servers
+      MCP Servers (4 Total)
     </span>
   </a>
   
@@ -2012,15 +2078,53 @@
 
 <h1 id="mcp-model-context-protocol-integration">MCP (Model Context Protocol) Integration<a class="headerlink" href="#mcp-model-context-protocol-integration" title="Permanent link">&para;</a></h1>
 <p>Crackz includes built-in support for the Model Context Protocol (MCP), which enables AI assistants to interact with development tools and services in a standardized way using <strong>code execution</strong> for maximum efficiency.</p>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>MCP provides a unified interface for AI assistants to:</p>
+<h2 id="quick-facts">Quick Facts<a class="headerlink" href="#quick-facts" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Execute Python code in a secure environment</li>
-<li>Access the filesystem with progressive disclosure</li>
-<li>Manage packages with the uv package manager</li>
-<li>Interact with GitHub repositories</li>
+<li><strong>MCP Servers Configured</strong>: 4 (filesystem, github, python, uv)</li>
+<li><strong>Who Uses MCP</strong>: Developers only (Claude Desktop, Cline, other MCP-compatible tools)</li>
+<li><strong>Who Doesn't Use MCP</strong>: End users (GUI chat), GitHub Copilot (uses IDE context instead)</li>
+<li><strong>Purpose</strong>: Enable AI development assistants to efficiently interact with files, GitHub, Python, and package management</li>
 </ul>
+<blockquote>
+<p><strong>Note</strong>: This documentation is for developers setting up MCP tools. End users of the Crackz GUI do not need MCP configuration.</p>
+</blockquote>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>MCP provides a unified interface for AI assistants to interact with development tools. Crackz is configured with <strong>4 MCP servers</strong>:</p>
+<ol>
+<li><strong>filesystem</strong> - File operations with progressive disclosure</li>
+<li><strong>github</strong> - GitHub API operations (issues, PRs, releases, workflows)</li>
+<li><strong>python</strong> - Code execution environment for composing MCP operations</li>
+<li><strong>uv</strong> - Package manager operations</li>
+</ol>
 <p>The configuration follows Anthropic's best practices for <a href="https://www.anthropic.com/engineering/code-execution-with-mcp">code execution with MCP</a>, using code to compose MCP operations efficiently and minimize token consumption.</p>
+<h3 id="who-uses-mcp">Who Uses MCP?<a class="headerlink" href="#who-uses-mcp" title="Permanent link">&para;</a></h3>
+<p><strong>Development Agents (✅ Uses MCP):</strong>
+- Claude Desktop
+- Cline (VS Code extension)
+- Other MCP-compatible AI development tools</p>
+<p><strong>GitHub Copilot (❌ No MCP):</strong>
+- Uses IDE context and workspace files directly
+- Configured via <code>.github/copilot-instructions.md</code>
+- No MCP servers needed</p>
+<p><strong>End-User GUI Chat (❌ No MCP):</strong>
+- Built into Crackz GUI for harbor inspectors
+- Intentionally kept simple without developer tools
+- No filesystem, GitHub, or code execution access</p>
+<h3 id="ai-assistant-comparison">AI Assistant Comparison<a class="headerlink" href="#ai-assistant-comparison" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────┬──────────────────────┬─────────────────────┐
+│ Development Agents          │ GitHub Copilot       │ End-User GUI        │
+├─────────────────────────────┼──────────────────────┼─────────────────────┤
+│ ✅ 4 MCP Servers            │ ❌ No MCP            │ ❌ No MCP           │
+│   • filesystem              │                      │                     │
+│   • github                  │ IDE context          │ Simple API          │
+│   • python                  │ Workspace files      │ Project info only   │
+│   • uv                      │                      │                     │
+├─────────────────────────────┼──────────────────────┼─────────────────────┤
+│ Tools: Claude Desktop,      │ Tools: VS Code,      │ Tools: Crackz GUI   │
+│        Cline                │        IDE           │        Chat Panel   │
+└─────────────────────────────┴──────────────────────┴─────────────────────┘
+</code></pre></div>
+<p><strong>Key Takeaway</strong>: Only 1 of the 3 AI assistant contexts uses MCP servers. MCP is exclusively for developers using tools like Claude Desktop or Cline, not for GitHub Copilot or end-user chat.</p>
 <h2 id="key-concepts">Key Concepts<a class="headerlink" href="#key-concepts" title="Permanent link">&para;</a></h2>
 <h3 id="code-execution-with-mcp">Code Execution with MCP<a class="headerlink" href="#code-execution-with-mcp" title="Permanent link">&para;</a></h3>
 <p>Instead of making direct tool calls that pass all data through the model's context window, AI assistants write Python code to:</p>
@@ -2132,8 +2236,8 @@ Add export functionality
 </code></pre></div>
 <h2 id="configuration-structure">Configuration Structure<a class="headerlink" href="#configuration-structure" title="Permanent link">&para;</a></h2>
 <p>The MCP configuration is a JSON file (<code>.mcp/config.json</code>) with servers, metadata, and patterns sections:</p>
-<h3 id="mcp-servers">MCP Servers<a class="headerlink" href="#mcp-servers" title="Permanent link">&para;</a></h3>
-<p>Defines the services available to AI assistants:</p>
+<h3 id="mcp-servers-4-total">MCP Servers (4 Total)<a class="headerlink" href="#mcp-servers-4-total" title="Permanent link">&para;</a></h3>
+<p>Crackz is configured with <strong>4 MCP servers</strong> available to AI development assistants:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;filesystem&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>

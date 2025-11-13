@@ -3028,6 +3028,7 @@ crackz<span class="w"> </span>import-images<span class="w"> </span><span class="
 crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my-first-project<span class="w"> </span>--epochs<span class="w"> </span><span class="m">1</span><span class="w"> </span>--batch-size<span class="w"> </span><span class="m">2</span>
 </code></pre></div></p>
 <h3 id="step-5-view-results">Step 5: View Results<a class="headerlink" href="#step-5-view-results" title="Permanent link">&para;</a></h3>
+<p><strong>Command Line:</strong>
 <div class="highlight"><pre><span></span><code><span class="c1"># Check detection outputs</span>
 ls<span class="w"> </span>my-first-project/detections/
 
@@ -3037,7 +3038,23 @@ cat<span class="w"> </span>my-first-project/artifacts/metrics.json
 <span class="c1"># Open annotated images</span>
 open<span class="w"> </span>my-first-project/detections/*.png<span class="w">  </span><span class="c1"># macOS</span>
 xdg-open<span class="w"> </span>my-first-project/detections/*.png<span class="w">  </span><span class="c1"># Linux</span>
-</code></pre></div>
+</code></pre></div></p>
+<p><strong>Interactive Dashboard:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Launch Streamlit dashboard for advanced analysis</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-first-project
+</code></pre></div></p>
+<p><strong>GUI Integration:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Open project in GUI and launch dashboard</span>
+crackz-gui
+<span class="c1"># Then: Tools → Launch Dashboard</span>
+</code></pre></div></p>
+<p>The <strong>interactive dashboard</strong> provides advanced visualization features:
+- <strong>Detection result gallery</strong> with filtering and sorting
+- <strong>Training metrics visualization</strong> with loss curves and performance charts
+- <strong>GPS mapping</strong> for geotagged images showing crack locations
+- <strong>Parameter tuning</strong> interface for threshold adjustment
+- <strong>Export capabilities</strong> for reports and analysis</p>
+<p>For detailed dashboard features, see the <a href="../dashboard/">Dashboard Guide</a>.</p>
 <hr />
 <h2 id="5-core-concepts">5. Core Concepts<a class="headerlink" href="#5-core-concepts" title="Permanent link">&para;</a></h2>
 <h3 id="51-project-layout">5.1 Project Layout<a class="headerlink" href="#51-project-layout" title="Permanent link">&para;</a></h3>

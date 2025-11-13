@@ -547,9 +547,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#launch-the-dashboard" class="md-nav__link">
+  <a href="#launch-from-cli" class="md-nav__link">
     <span class="md-ellipsis">
-      Launch the Dashboard
+      Launch from CLI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launch-from-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      Launch from GUI
     </span>
   </a>
   
@@ -1774,9 +1783,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#launch-the-dashboard" class="md-nav__link">
+  <a href="#launch-from-cli" class="md-nav__link">
     <span class="md-ellipsis">
-      Launch the Dashboard
+      Launch from CLI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launch-from-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      Launch from GUI
     </span>
   </a>
   
@@ -2129,14 +2147,29 @@
 <li><strong>Export capabilities</strong> for results and metrics</li>
 </ul>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
-<h3 id="launch-the-dashboard">Launch the Dashboard<a class="headerlink" href="#launch-the-dashboard" title="Permanent link">&para;</a></h3>
+<h3 id="launch-from-cli">Launch from CLI<a class="headerlink" href="#launch-from-cli" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Launch with a specific project</span>
 crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project
 
 <span class="c1"># Launch with custom port</span>
 crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--port<span class="w"> </span><span class="m">8502</span>
 </code></pre></div>
-<p>The dashboard will automatically open in your default web browser at <code>http://localhost:8501</code>.</p>
+<h3 id="launch-from-gui">Launch from GUI<a class="headerlink" href="#launch-from-gui" title="Permanent link">&para;</a></h3>
+<p>The GUI provides the most convenient way to launch the dashboard:</p>
+<ol>
+<li>Open your project in the Crackz GUI (<code>crackz-gui</code>)</li>
+<li>Click <strong>Tools → Launch Dashboard</strong> from the menu bar</li>
+<li>Configure launch options in the dialog:</li>
+<li><strong>Automatic port selection</strong> (recommended) or custom port</li>
+<li><strong>Project validation</strong> ensures compatibility</li>
+<li>Click <strong>Start Dashboard</strong> to launch</li>
+</ol>
+<p><strong>GUI Integration Benefits:</strong>
+- <strong>Automatic project context</strong>: Uses currently open project
+- <strong>Real-time status tracking</strong>: Visual indicators show server status
+- <strong>Error handling</strong>: User-friendly error messages and solutions
+- <strong>Simplified workflow</strong>: No CLI commands to remember</p>
+<p>The dashboard will automatically open in your default web browser at the specified port.</p>
 <h3 id="alternative-launch-methods">Alternative Launch Methods<a class="headerlink" href="#alternative-launch-methods" title="Permanent link">&para;</a></h3>
 <p>You can also launch the dashboard directly with Streamlit:</p>
 <div class="highlight"><pre><span></span><code>streamlit<span class="w"> </span>run<span class="w"> </span>src/crackz/dashboard/app.py<span class="w"> </span>--<span class="w"> </span>--project<span class="w"> </span>my-project

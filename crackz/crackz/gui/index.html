@@ -1126,6 +1126,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dashboard
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dashboard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#launching-the-streamlit-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Launching the Streamlit Dashboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dashboard-integration-benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dashboard Integration Benefits
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#keyboard-shortcuts" class="md-nav__link">
     <span class="md-ellipsis">
       Keyboard Shortcuts
@@ -2802,6 +2835,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dashboard
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dashboard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#launching-the-streamlit-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Launching the Streamlit Dashboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dashboard-integration-benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dashboard Integration Benefits
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#keyboard-shortcuts" class="md-nav__link">
     <span class="md-ellipsis">
       Keyboard Shortcuts
@@ -3561,7 +3627,7 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 <h3 id="viewing-geotagged-images-on-a-map">Viewing Geotagged Images on a Map<a class="headerlink" href="#viewing-geotagged-images-on-a-map" title="Permanent link">&para;</a></h3>
 <p>For projects with geotagged images, the Map Viewer provides an interactive geographic visualization:</p>
 <ol>
-<li>Click the 🗺️ <strong>Map</strong> button in the toolbar or <strong>View → Map View</strong></li>
+<li>Click the 🗺️ <strong>Map</strong> button in the toolbar or <strong>Tools → View Images on Map</strong></li>
 <li>Select the data split (raw, train, val, test) to visualize</li>
 <li>Click <strong>"Open in Browser"</strong> to view the interactive map</li>
 </ol>
@@ -3575,6 +3641,44 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 - <strong>Large dataset support</strong>: Efficiently handles projects with many geotagged images</p>
 <p><strong>Note</strong>: The map viewer automatically extracts GPS coordinates from image EXIF data. Images without geotags will not appear on the map.</p>
 <p>For more details on the map viewer feature, see the <a href="../map-viewer/">Map Viewer Guide</a>.</p>
+<hr />
+<h2 id="dashboard">Dashboard<a class="headerlink" href="#dashboard" title="Permanent link">&para;</a></h2>
+<h3 id="launching-the-streamlit-dashboard">Launching the Streamlit Dashboard<a class="headerlink" href="#launching-the-streamlit-dashboard" title="Permanent link">&para;</a></h3>
+<p>The GUI provides a convenient way to launch the interactive Streamlit dashboard for advanced data analysis and visualization:</p>
+<ol>
+<li>Click <strong>Tools → Launch Dashboard</strong> from the menu bar</li>
+<li>A dialog appears with dashboard launch options:</li>
+<li><strong>Automatic port selection</strong>: The GUI finds an available port automatically</li>
+<li><strong>Custom port</strong>: Specify a port if needed (default: 8501)</li>
+<li><strong>Project validation</strong>: Ensures the current project is suitable for dashboard analysis</li>
+<li>Click <strong>Start Dashboard</strong> to launch the server</li>
+<li>The dashboard opens automatically in your default web browser</li>
+</ol>
+<blockquote>
+<p><strong>Note</strong>: Screenshot placeholder pending. The dashboard dialog provides an intuitive interface for configuring launch options and starting the Streamlit server.</p>
+</blockquote>
+<p><strong>Dashboard Features Available from GUI:</strong>
+- <strong>Real-time server status</strong>: Visual indicators show when the dashboard is running
+- <strong>Global state tracking</strong>: Dashboard status is tracked across the entire GUI application
+- <strong>Automatic cleanup</strong>: Server stops gracefully when GUI is closed
+- <strong>Error handling</strong>: Clear error messages if the dashboard fails to start
+- <strong>Port conflict resolution</strong>: Automatically finds alternative ports if the default is busy</p>
+<h3 id="dashboard-integration-benefits">Dashboard Integration Benefits<a class="headerlink" href="#dashboard-integration-benefits" title="Permanent link">&para;</a></h3>
+<p>Launching the dashboard through the GUI provides several advantages over the CLI:</p>
+<ul>
+<li><strong>Project context</strong>: Automatically uses the currently open project</li>
+<li><strong>State synchronization</strong>: GUI knows when dashboard is running and can coordinate operations</li>
+<li><strong>Simplified workflow</strong>: No need to remember CLI commands or manage terminal windows</li>
+<li><strong>Visual feedback</strong>: Progress indicators and status updates in the GUI</li>
+<li><strong>Error handling</strong>: User-friendly error messages with suggested solutions</li>
+</ul>
+<p>The dashboard provides advanced features for:
+- Interactive detection result analysis
+- Training metrics visualization
+- GPS mapping of geotagged images
+- Parameter tuning with real-time feedback
+- Export capabilities for reports and visualizations</p>
+<p>For complete dashboard documentation, see the <a href="../dashboard/">Dashboard Guide</a>.</p>
 <hr />
 <h2 id="keyboard-shortcuts">Keyboard Shortcuts<a class="headerlink" href="#keyboard-shortcuts" title="Permanent link">&para;</a></h2>
 <table>
@@ -3616,6 +3720,10 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 <tr>
 <td><strong>Cmd/Ctrl+Q</strong></td>
 <td>Quit Application</td>
+</tr>
+<tr>
+<td><strong>Cmd/Ctrl+D</strong></td>
+<td>Launch Dashboard</td>
 </tr>
 <tr>
 <td><strong><code>§</code></strong> or <strong><code>~</code></strong></td>

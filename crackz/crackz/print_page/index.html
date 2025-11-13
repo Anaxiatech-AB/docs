@@ -1345,6 +1345,7 @@ crackz<span class="w"> </span>import-images<span class="w"> </span><span class="
 crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>my-first-project<span class="w"> </span>--epochs<span class="w"> </span><span class="m">1</span><span class="w"> </span>--batch-size<span class="w"> </span><span class="m">2</span>
 </code></pre></div></p>
 <h3 id="step-5-view-results">Step 5: View Results<a class="headerlink" href="#step-5-view-results" title="Permanent link">&para;</a></h3>
+<p><strong>Command Line:</strong>
 <div class="highlight"><pre><span></span><code><span class="c1"># Check detection outputs</span>
 ls<span class="w"> </span>my-first-project/detections/
 
@@ -1354,7 +1355,23 @@ cat<span class="w"> </span>my-first-project/artifacts/metrics.json
 <span class="c1"># Open annotated images</span>
 open<span class="w"> </span>my-first-project/detections/*.png<span class="w">  </span><span class="c1"># macOS</span>
 xdg-open<span class="w"> </span>my-first-project/detections/*.png<span class="w">  </span><span class="c1"># Linux</span>
-</code></pre></div>
+</code></pre></div></p>
+<p><strong>Interactive Dashboard:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Launch Streamlit dashboard for advanced analysis</span>
+crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-first-project
+</code></pre></div></p>
+<p><strong>GUI Integration:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Open project in GUI and launch dashboard</span>
+crackz-gui
+<span class="c1"># Then: Tools → Launch Dashboard</span>
+</code></pre></div></p>
+<p>The <strong>interactive dashboard</strong> provides advanced visualization features:
+- <strong>Detection result gallery</strong> with filtering and sorting
+- <strong>Training metrics visualization</strong> with loss curves and performance charts
+- <strong>GPS mapping</strong> for geotagged images showing crack locations
+- <strong>Parameter tuning</strong> interface for threshold adjustment
+- <strong>Export capabilities</strong> for reports and analysis</p>
+<p>For detailed dashboard features, see the <a href="../dashboard/">Dashboard Guide</a>.</p>
 <hr />
 <h2 id="5-core-concepts">5. Core Concepts<a class="headerlink" href="#5-core-concepts" title="Permanent link">&para;</a></h2>
 <h3 id="51-project-layout">5.1 Project Layout<a class="headerlink" href="#51-project-layout" title="Permanent link">&para;</a></h3>
@@ -4007,7 +4024,7 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 <h3 id="viewing-geotagged-images-on-a-map">Viewing Geotagged Images on a Map<a class="headerlink" href="#viewing-geotagged-images-on-a-map" title="Permanent link">&para;</a></h3>
 <p>For projects with geotagged images, the Map Viewer provides an interactive geographic visualization:</p>
 <ol>
-<li>Click the 🗺️ <strong>Map</strong> button in the toolbar or <strong>View → Map View</strong></li>
+<li>Click the 🗺️ <strong>Map</strong> button in the toolbar or <strong>Tools → View Images on Map</strong></li>
 <li>Select the data split (raw, train, val, test) to visualize</li>
 <li>Click <strong>"Open in Browser"</strong> to view the interactive map</li>
 </ol>
@@ -4021,6 +4038,44 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 - <strong>Large dataset support</strong>: Efficiently handles projects with many geotagged images</p>
 <p><strong>Note</strong>: The map viewer automatically extracts GPS coordinates from image EXIF data. Images without geotags will not appear on the map.</p>
 <p>For more details on the map viewer feature, see the <a href="../map-viewer/">Map Viewer Guide</a>.</p>
+<hr />
+<h2 id="dashboard">Dashboard<a class="headerlink" href="#dashboard" title="Permanent link">&para;</a></h2>
+<h3 id="launching-the-streamlit-dashboard">Launching the Streamlit Dashboard<a class="headerlink" href="#launching-the-streamlit-dashboard" title="Permanent link">&para;</a></h3>
+<p>The GUI provides a convenient way to launch the interactive Streamlit dashboard for advanced data analysis and visualization:</p>
+<ol>
+<li>Click <strong>Tools → Launch Dashboard</strong> from the menu bar</li>
+<li>A dialog appears with dashboard launch options:</li>
+<li><strong>Automatic port selection</strong>: The GUI finds an available port automatically</li>
+<li><strong>Custom port</strong>: Specify a port if needed (default: 8501)</li>
+<li><strong>Project validation</strong>: Ensures the current project is suitable for dashboard analysis</li>
+<li>Click <strong>Start Dashboard</strong> to launch the server</li>
+<li>The dashboard opens automatically in your default web browser</li>
+</ol>
+<blockquote>
+<p><strong>Note</strong>: Screenshot placeholder pending. The dashboard dialog provides an intuitive interface for configuring launch options and starting the Streamlit server.</p>
+</blockquote>
+<p><strong>Dashboard Features Available from GUI:</strong>
+- <strong>Real-time server status</strong>: Visual indicators show when the dashboard is running
+- <strong>Global state tracking</strong>: Dashboard status is tracked across the entire GUI application
+- <strong>Automatic cleanup</strong>: Server stops gracefully when GUI is closed
+- <strong>Error handling</strong>: Clear error messages if the dashboard fails to start
+- <strong>Port conflict resolution</strong>: Automatically finds alternative ports if the default is busy</p>
+<h3 id="dashboard-integration-benefits">Dashboard Integration Benefits<a class="headerlink" href="#dashboard-integration-benefits" title="Permanent link">&para;</a></h3>
+<p>Launching the dashboard through the GUI provides several advantages over the CLI:</p>
+<ul>
+<li><strong>Project context</strong>: Automatically uses the currently open project</li>
+<li><strong>State synchronization</strong>: GUI knows when dashboard is running and can coordinate operations</li>
+<li><strong>Simplified workflow</strong>: No need to remember CLI commands or manage terminal windows</li>
+<li><strong>Visual feedback</strong>: Progress indicators and status updates in the GUI</li>
+<li><strong>Error handling</strong>: User-friendly error messages with suggested solutions</li>
+</ul>
+<p>The dashboard provides advanced features for:
+- Interactive detection result analysis
+- Training metrics visualization
+- GPS mapping of geotagged images
+- Parameter tuning with real-time feedback
+- Export capabilities for reports and visualizations</p>
+<p>For complete dashboard documentation, see the <a href="../dashboard/">Dashboard Guide</a>.</p>
 <hr />
 <h2 id="keyboard-shortcuts">Keyboard Shortcuts<a class="headerlink" href="#keyboard-shortcuts" title="Permanent link">&para;</a></h2>
 <table>
@@ -4062,6 +4117,10 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 <tr>
 <td><strong>Cmd/Ctrl+Q</strong></td>
 <td>Quit Application</td>
+</tr>
+<tr>
+<td><strong>Cmd/Ctrl+D</strong></td>
+<td>Launch Dashboard</td>
 </tr>
 <tr>
 <td><strong><code>§</code></strong> or <strong><code>~</code></strong></td>
@@ -4187,14 +4246,29 @@ crackz-gui
 <li><strong>Export capabilities</strong> for results and metrics</li>
 </ul>
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
-<h3 id="launch-the-dashboard">Launch the Dashboard<a class="headerlink" href="#launch-the-dashboard" title="Permanent link">&para;</a></h3>
+<h3 id="launch-from-cli">Launch from CLI<a class="headerlink" href="#launch-from-cli" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Launch with a specific project</span>
 crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project
 
 <span class="c1"># Launch with custom port</span>
 crackz<span class="w"> </span>dashboard<span class="w"> </span>--project<span class="w"> </span>my-project<span class="w"> </span>--port<span class="w"> </span><span class="m">8502</span>
 </code></pre></div>
-<p>The dashboard will automatically open in your default web browser at <code>http://localhost:8501</code>.</p>
+<h3 id="launch-from-gui">Launch from GUI<a class="headerlink" href="#launch-from-gui" title="Permanent link">&para;</a></h3>
+<p>The GUI provides the most convenient way to launch the dashboard:</p>
+<ol>
+<li>Open your project in the Crackz GUI (<code>crackz-gui</code>)</li>
+<li>Click <strong>Tools → Launch Dashboard</strong> from the menu bar</li>
+<li>Configure launch options in the dialog:</li>
+<li><strong>Automatic port selection</strong> (recommended) or custom port</li>
+<li><strong>Project validation</strong> ensures compatibility</li>
+<li>Click <strong>Start Dashboard</strong> to launch</li>
+</ol>
+<p><strong>GUI Integration Benefits:</strong>
+- <strong>Automatic project context</strong>: Uses currently open project
+- <strong>Real-time status tracking</strong>: Visual indicators show server status
+- <strong>Error handling</strong>: User-friendly error messages and solutions
+- <strong>Simplified workflow</strong>: No CLI commands to remember</p>
+<p>The dashboard will automatically open in your default web browser at the specified port.</p>
 <h3 id="alternative-launch-methods">Alternative Launch Methods<a class="headerlink" href="#alternative-launch-methods" title="Permanent link">&para;</a></h3>
 <p>You can also launch the dashboard directly with Streamlit:</p>
 <div class="highlight"><pre><span></span><code>streamlit<span class="w"> </span>run<span class="w"> </span>src/crackz/dashboard/app.py<span class="w"> </span>--<span class="w"> </span>--project<span class="w"> </span>my-project
@@ -9895,6 +9969,7 @@ Last updated: 2025-11-06</p>
 <h2 id="recently-completed">✅ Recently Completed<a class="headerlink" href="#recently-completed" title="Permanent link">&para;</a></h2>
 <h3 id="november-2025">November 2025<a class="headerlink" href="#november-2025" title="Permanent link">&para;</a></h3>
 <ul>
+<li>[x] ✅ Dashboard launch capability with modal dialog in GUI (<a href="https://github.com/Anaxiatech-AB/crackz/pull/333">#333</a>)</li>
 <li>[x] ✅ Word document report generator with CLI and GUI support</li>
 <li>[x] ✅ Optimize GitHub Pages deployment (60-70% faster builds)</li>
 <li>[x] ✅ Add support for Python 3.13</li>

@@ -16,7 +16,7 @@
         <link rel="prev" href="../api/">
       
       
-        <link rel="next" href="../mcp/">
+        <link rel="next" href="../evaluation/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -1134,6 +1134,30 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#evaluate" class="md-nav__link">
+    <span class="md-ellipsis">
+      evaluate
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="evaluate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      run
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#export-config" class="md-nav__link">
     <span class="md-ellipsis">
       export-config
@@ -1330,7 +1354,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#run_2" class="md-nav__link">
+  <a href="#run_3" class="md-nav__link">
     <span class="md-ellipsis">
       run
     </span>
@@ -1647,6 +1671,29 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Model Evaluation
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -2051,6 +2098,30 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#evaluate" class="md-nav__link">
+    <span class="md-ellipsis">
+      evaluate
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="evaluate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      run
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#export-config" class="md-nav__link">
     <span class="md-ellipsis">
       export-config
@@ -2247,7 +2318,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#run_2" class="md-nav__link">
+  <a href="#run_3" class="md-nav__link">
     <span class="md-ellipsis">
       run
     </span>
@@ -2724,6 +2795,29 @@ and properly handles exceptions encountered during execution.</p>
   -b, --batch-size INTEGER RANGE  Override training batch size (default: from
                                   project config)  \[x&gt;=1]
 </code></pre></div>
+<h2 id="evaluate">evaluate<a class="headerlink" href="#evaluate" title="Permanent link">&para;</a></h2>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> evaluate [OPTIONS] COMMAND [ARGS]...
+</code></pre></div>
+<h3 id="run_2">run<a class="headerlink" href="#run_2" title="Permanent link">&para;</a></h3>
+<p>Evaluate trained model on test dataset.</p>
+<p>Examples:
+    crackz evaluate run --project my_harbor
+    crackz evaluate run --project my_harbor --metrics accuracy,iou
+    crackz evaluate run --project my_harbor --out results.json</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> evaluate run [OPTIONS]
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  -p, --project DIRECTORY  Project path (overrides config file). Eg --project
+                           ./my_project
+  --metrics TEXT           Comma-separated metrics to calculate
+                           (accuracy,precision,recall,f1,iou)
+  --threshold FLOAT RANGE  Classification threshold for converting
+                           probabilities to binary (0.0-1.0)  \[default: 0.5;
+                           0.0&lt;=x&lt;=1.0]
+  -o, --out PATH           Output file or directory path
+</code></pre></div>
 <h2 id="export-config">export-config<a class="headerlink" href="#export-config" title="Permanent link">&para;</a></h2>
 <p>Export a unified ProjectConfig YAML derived from an existing project or config file.</p>
 <p>Usage:</p>
@@ -3061,7 +3155,7 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
   -n, --top-n INTEGER RANGE    Show only top N most similar images  \[x&gt;=1]
   -o, --out PATH               Output file or directory path
 </code></pre></div>
-<h3 id="run_2">run<a class="headerlink" href="#run_2" title="Permanent link">&para;</a></h3>
+<h3 id="run_3">run<a class="headerlink" href="#run_3" title="Permanent link">&para;</a></h3>
 <p>Propagate mask from reference image to similar images.</p>
 <p>Finds similar images using feature matching and transforms the reference
 mask to match each target image using homography.</p>

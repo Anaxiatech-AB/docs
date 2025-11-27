@@ -100,7 +100,7 @@ table th { background:#f1f5f9; color:#111827; }
   <p class='company'>© 2025 Anaxiatech AB</p>
 </section>
 <hr class='page-sep'/>
-<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#getting-started'>Getting Started</a></li><li><a href='#installation'>Installation</a></li><li><a href='#user-guide'>User Guide</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#gui'>GUI</a></li><li><a href='#dashboard'>Dashboard</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#configuration'>Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-vm-cuda'>Azure VM with CUDA</a></li><li><a href='#azure-comparison'>VM vs Batch Comparison</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#01-scope'>Project Scope</a></li><li><a href='#02-decisions'>Architecture Decisions</a></li><li><a href='#03-tasks'>Current Tasks</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#architecture-guidelines'>Architecture Guidelines</a></li><li><a href='#api'>API Reference</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access Management</a></li><li><a href='#pdf'>Printable PDF</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
+<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#getting-started'>Getting Started</a></li><li><a href='#installation'>Installation</a></li><li><a href='#user-guide'>User Guide</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#gui'>GUI</a></li><li><a href='#dashboard'>Dashboard</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#configuration'>Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-vm-cuda'>Azure VM with CUDA</a></li><li><a href='#azure-comparison'>VM vs Batch Comparison</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#01-scope'>Project Scope</a></li><li><a href='#02-decisions'>Architecture Decisions</a></li><li><a href='#03-tasks'>Current Tasks</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#architecture-guidelines'>Architecture Guidelines</a></li><li><a href='#api'>API Reference</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#evaluation'>Model Evaluation</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access Management</a></li><li><a href='#pdf'>Printable PDF</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
 <h1>Home</h1>
 <h1 id="crackz">Crackz<a class="headerlink" href="#crackz" title="Permanent link">&para;</a></h1>
 <p>
@@ -26919,9 +26919,7 @@ to simplify the implementation of the CLI.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/cli/crackz_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
 <span class="normal">62</span>
 <span class="normal">63</span>
 <span class="normal">64</span>
@@ -26938,7 +26936,9 @@ to simplify the implementation of the CLI.</p>
 <span class="normal">75</span>
 <span class="normal">76</span>
 <span class="normal">77</span>
-<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">invoke_without_command</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">invoke_without_command</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">main_callback</span><span class="p">(</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">version</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span>  <span class="c1"># noqa: ARG001</span>
@@ -26982,16 +26982,16 @@ to simplify the implementation of the CLI.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/crackz/cli/crackz_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">83</span>
 <span class="normal">84</span>
 <span class="normal">85</span>
 <span class="normal">86</span>
 <span class="normal">87</span>
 <span class="normal">88</span>
 <span class="normal">89</span>
-<span class="normal">90</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute the main application entry point.&quot;&quot;&quot;</span>
     <span class="c1"># Critical: Add freeze_support for Windows multiprocessing in PyInstaller builds</span>
     <span class="c1"># This prevents multiple windows from spawning when using DataLoader with num_workers &gt; 0</span>
@@ -28108,7 +28108,7 @@ Random seed for reproducible splits (default: None for random).</p>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Should be unreachable due to the check above; keeps type-checkers happy</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Either --project or --cfg must be specified.&quot;</span>
-            <span class="k">raise</span> <span class="n">typer</span><span class="o">.</span><span class="n">BadParameter</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>  <span class="c1"># noqa: TRY301</span>
+            <span class="k">raise</span> <span class="n">typer</span><span class="o">.</span><span class="n">BadParameter</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
         <span class="n">project</span> <span class="o">=</span> <span class="n">offer_migration_if_legacy</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
 
@@ -28775,6 +28775,29 @@ and properly handles exceptions encountered during execution.</p>
   -b, --batch-size INTEGER RANGE  Override training batch size (default: from
                                   project config)  \[x&gt;=1]
 </code></pre></div>
+<h2 id="evaluate">evaluate<a class="headerlink" href="#evaluate" title="Permanent link">&para;</a></h2>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> evaluate [OPTIONS] COMMAND [ARGS]...
+</code></pre></div>
+<h3 id="run_2">run<a class="headerlink" href="#run_2" title="Permanent link">&para;</a></h3>
+<p>Evaluate trained model on test dataset.</p>
+<p>Examples:
+    crackz evaluate run --project my_harbor
+    crackz evaluate run --project my_harbor --metrics accuracy,iou
+    crackz evaluate run --project my_harbor --out results.json</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> evaluate run [OPTIONS]
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  -p, --project DIRECTORY  Project path (overrides config file). Eg --project
+                           ./my_project
+  --metrics TEXT           Comma-separated metrics to calculate
+                           (accuracy,precision,recall,f1,iou)
+  --threshold FLOAT RANGE  Classification threshold for converting
+                           probabilities to binary (0.0-1.0)  \[default: 0.5;
+                           0.0&lt;=x&lt;=1.0]
+  -o, --out PATH           Output file or directory path
+</code></pre></div>
 <h2 id="export-config">export-config<a class="headerlink" href="#export-config" title="Permanent link">&para;</a></h2>
 <p>Export a unified ProjectConfig YAML derived from an existing project or config file.</p>
 <p>Usage:</p>
@@ -29112,7 +29135,7 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
   -n, --top-n INTEGER RANGE    Show only top N most similar images  \[x&gt;=1]
   -o, --out PATH               Output file or directory path
 </code></pre></div>
-<h3 id="run_2">run<a class="headerlink" href="#run_2" title="Permanent link">&para;</a></h3>
+<h3 id="run_3">run<a class="headerlink" href="#run_3" title="Permanent link">&para;</a></h3>
 <p>Propagate mask from reference image to similar images.</p>
 <p>Finds similar images using feature matching and transforms the reference
 mask to match each target image using homography.</p>
@@ -29527,6 +29550,245 @@ crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">expo
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>
+</section>
+<hr class='page-sep' />
+<section class='print-section' id='evaluation' data-source='evaluation.md'>
+<h1>Model Evaluation</h1>
+<h1 id="model-evaluation">Model Evaluation<a class="headerlink" href="#model-evaluation" title="Permanent link">&para;</a></h1>
+<p>Automated evaluation system to measure crack detection model performance with quantitative metrics.</p>
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<h3 id="cli-evaluation">CLI Evaluation<a class="headerlink" href="#cli-evaluation" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run evaluation on test dataset</span>
+crackz<span class="w"> </span>evaluate<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my_harbor
+
+<span class="c1"># Specific metrics</span>
+crackz<span class="w"> </span>evaluate<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my_harbor<span class="w"> </span>--metrics<span class="w"> </span>accuracy,iou
+
+<span class="c1"># Export results</span>
+crackz<span class="w"> </span>evaluate<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my_harbor<span class="w"> </span>--output<span class="w"> </span>results.json
+crackz<span class="w"> </span>evaluate<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my_harbor<span class="w"> </span>--output<span class="w"> </span>results.csv
+</code></pre></div>
+<h3 id="python-api">Python API<a class="headerlink" href="#python-api" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.ai.evaluation</span><span class="w"> </span><span class="kn">import</span> <span class="n">evaluate_model</span><span class="p">,</span> <span class="n">export_json</span>
+
+<span class="c1"># Run evaluation</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">evaluate_model</span><span class="p">(</span>
+    <span class="n">project_path</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;my_harbor&quot;</span><span class="p">),</span>
+    <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="s2">&quot;precision&quot;</span><span class="p">,</span> <span class="s2">&quot;recall&quot;</span><span class="p">,</span> <span class="s2">&quot;iou&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Display results</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+<span class="c1"># Export to JSON</span>
+<span class="n">export_json</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;evaluation_results.json&quot;</span><span class="p">))</span>
+</code></pre></div>
+<h2 id="metrics">Metrics<a class="headerlink" href="#metrics" title="Permanent link">&para;</a></h2>
+<h3 id="accuracy">Accuracy<a class="headerlink" href="#accuracy" title="Permanent link">&para;</a></h3>
+<p>Overall correctness of crack predictions.</p>
+<div class="highlight"><pre><span></span><code>Accuracy = (TP + TN) / (TP + TN + FP + FN)
+</code></pre></div>
+<h3 id="precision">Precision<a class="headerlink" href="#precision" title="Permanent link">&para;</a></h3>
+<p>Positive predictive value - measures false positive rate.</p>
+<div class="highlight"><pre><span></span><code>Precision = TP / (TP + FP)
+</code></pre></div>
+<p>Critical for avoiding unnecessary repairs.</p>
+<h3 id="recall">Recall<a class="headerlink" href="#recall" title="Permanent link">&para;</a></h3>
+<p>Sensitivity - measures detection rate.</p>
+<div class="highlight"><pre><span></span><code>Recall = TP / (TP + FN)
+</code></pre></div>
+<p>Critical for safety - must catch all cracks.</p>
+<h3 id="f1-score">F1 Score<a class="headerlink" href="#f1-score" title="Permanent link">&para;</a></h3>
+<p>Harmonic mean of precision and recall.</p>
+<div class="highlight"><pre><span></span><code>F1 = 2 * (Precision * Recall) / (Precision + Recall)
+</code></pre></div>
+<p>Balanced metric considering both false positives and false negatives.</p>
+<h3 id="iou-intersection-over-union">IoU (Intersection over Union)<a class="headerlink" href="#iou-intersection-over-union" title="Permanent link">&para;</a></h3>
+<p>Segmentation quality metric.</p>
+<div class="highlight"><pre><span></span><code>IoU = Area of Overlap / Area of Union
+</code></pre></div>
+<p>Measures how well the predicted mask matches the ground truth.</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<h3 id="threshold">Threshold<a class="headerlink" href="#threshold" title="Permanent link">&para;</a></h3>
+<p>The classification threshold converts model probability outputs to binary predictions:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Default threshold (0.5)</span>
+crackz<span class="w"> </span>evaluate<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my_harbor
+
+<span class="c1"># Custom threshold</span>
+crackz<span class="w"> </span>evaluate<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my_harbor<span class="w"> </span>--threshold<span class="w"> </span><span class="m">0</span>.7
+</code></pre></div>
+<p>Higher threshold = fewer false positives, more false negatives.
+Lower threshold = more false positives, fewer false negatives.</p>
+<h3 id="metrics-selection">Metrics Selection<a class="headerlink" href="#metrics-selection" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># All metrics (default)</span>
+crackz<span class="w"> </span>evaluate<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my_harbor
+
+<span class="c1"># Specific metrics</span>
+crackz<span class="w"> </span>evaluate<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my_harbor<span class="w"> </span>--metrics<span class="w"> </span>accuracy,precision,recall
+crackz<span class="w"> </span>evaluate<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my_harbor<span class="w"> </span>--metrics<span class="w"> </span>iou<span class="w">  </span><span class="c1"># Only IoU</span>
+</code></pre></div>
+<p>Available metrics: <code>accuracy</code>, <code>precision</code>, <code>recall</code>, <code>f1</code>, <code>iou</code></p>
+<h2 id="output-formats">Output Formats<a class="headerlink" href="#output-formats" title="Permanent link">&para;</a></h2>
+<h3 id="console-output">Console Output<a class="headerlink" href="#console-output" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Evaluation Results (500 images)
+==================================================
+Accuracy:     92.3%
+Precision:    89.1%
+Recall:       94.8%
+F1 Score:     91.9%
+Mean IoU:     0.847
+Threshold:    0.5
+</code></pre></div>
+<h3 id="json-export">JSON Export<a class="headerlink" href="#json-export" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;num_images&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;threshold&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;metrics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.923</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.891</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.948</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;f1_score&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.919</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;iou&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.847</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="csv-export">CSV Export<a class="headerlink" href="#csv-export" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Metric,Value
+Num Images,500
+Threshold,0.5
+Accuracy,0.9230
+Precision,0.8910
+Recall,0.9480
+F1 Score,0.9190
+IoU,0.8470
+</code></pre></div>
+<h2 id="test-dataset">Test Dataset<a class="headerlink" href="#test-dataset" title="Permanent link">&para;</a></h2>
+<p>Evaluation requires a test dataset with ground truth masks:</p>
+<div class="highlight"><pre><span></span><code>project/
+├── images/
+│   └── test/          # Test images
+│       ├── img1.png
+│       ├── img2.png
+│       └── ...
+└── masks/
+    └── test/          # Ground truth masks
+        ├── img1.png
+        ├── img2.png
+        └── ...
+</code></pre></div>
+<p>Image and mask filenames must match (sorted order).</p>
+<h2 id="python-api-reference">Python API Reference<a class="headerlink" href="#python-api-reference" title="Permanent link">&para;</a></h2>
+<h3 id="evaluate_model">evaluate_model()<a class="headerlink" href="#evaluate_model" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">evaluate_model</span><span class="p">(</span>
+    <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">test_images</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">test_masks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">metrics</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EvaluationResults</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluate crack detection model on test dataset.&quot;&quot;&quot;</span>
+</code></pre></div>
+<p><strong>Parameters:</strong>
+- <code>project_path</code>: Path to Crackz project
+- <code>test_images</code>: Optional list of test image paths (default: uses project test split)
+- <code>test_masks</code>: Optional list of ground truth mask paths (default: uses project test split)
+- <code>metrics</code>: List of metrics to calculate (default: all metrics)
+- <code>threshold</code>: Classification threshold (default: 0.5)</p>
+<p><strong>Returns:</strong>
+- <code>EvaluationResults</code> object with calculated metrics</p>
+<h3 id="evaluationresults">EvaluationResults<a class="headerlink" href="#evaluationresults" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">EvaluationResults</span><span class="p">:</span>
+    <span class="n">accuracy</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">precision</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">recall</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">f1_score</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">iou</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">num_images</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span>
+</code></pre></div>
+<h3 id="export-functions">Export Functions<a class="headerlink" href="#export-functions" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Export to JSON</span>
+<span class="n">export_json</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;results.json&quot;</span><span class="p">))</span>
+
+<span class="c1"># Export to CSV</span>
+<span class="n">export_csv</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;results.csv&quot;</span><span class="p">))</span>
+</code></pre></div>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="no-test-images-found">No test images found<a class="headerlink" href="#no-test-images-found" title="Permanent link">&para;</a></h3>
+<p><strong>Error:</strong>
+<div class="highlight"><pre><span></span><code>ValueError: No test images found
+</code></pre></div></p>
+<p><strong>Solution:</strong>
+Ensure your project has test images in <code>&lt;project&gt;/images/test/</code>:</p>
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>&lt;project&gt;/images/test/
+</code></pre></div>
+<h3 id="imagemask-count-mismatch">Image/mask count mismatch<a class="headerlink" href="#imagemask-count-mismatch" title="Permanent link">&para;</a></h3>
+<p><strong>Error:</strong>
+<div class="highlight"><pre><span></span><code>ValueError: Image/mask count mismatch: 100 vs 98
+</code></pre></div></p>
+<p><strong>Solution:</strong>
+Ensure every test image has a corresponding mask with the same filename:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check counts</span>
+ls<span class="w"> </span>&lt;project&gt;/images/test/<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+ls<span class="w"> </span>&lt;project&gt;/masks/test/<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+
+<span class="c1"># Find missing masks</span>
+diff<span class="w"> </span>&lt;<span class="o">(</span>ls<span class="w"> </span>&lt;project&gt;/images/test/<span class="o">)</span><span class="w"> </span>&lt;<span class="o">(</span>ls<span class="w"> </span>&lt;project&gt;/masks/test/<span class="o">)</span>
+</code></pre></div>
+<h3 id="no-trained-model">No trained model<a class="headerlink" href="#no-trained-model" title="Permanent link">&para;</a></h3>
+<p><strong>Error:</strong>
+<div class="highlight"><pre><span></span><code>FileNotFoundError: No trained model checkpoint found
+</code></pre></div></p>
+<p><strong>Solution:</strong>
+Train a model first:</p>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"> </span>--project<span class="w"> </span>&lt;project&gt;
+</code></pre></div>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="1-representative-test-dataset">1. Representative Test Dataset<a class="headerlink" href="#1-representative-test-dataset" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Use images from different locations/conditions</li>
+<li>Include various crack types and severities</li>
+<li>Minimum 100 images for reliable metrics</li>
+<li>Never include test images in training data</li>
+</ul>
+<h3 id="2-ground-truth-quality">2. Ground Truth Quality<a class="headerlink" href="#2-ground-truth-quality" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Accurate mask annotations are critical</li>
+<li>Use consistent labeling guidelines</li>
+<li>Review masks for errors before evaluation</li>
+<li>Consider inter-annotator agreement</li>
+</ul>
+<h3 id="3-metric-interpretation">3. Metric Interpretation<a class="headerlink" href="#3-metric-interpretation" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>High recall</strong> (&gt;95%): Critical for safety - catching all cracks</li>
+<li><strong>High precision</strong> (&gt;90%): Reduces unnecessary inspections</li>
+<li><strong>High F1</strong> (&gt;92%): Balanced performance</li>
+<li><strong>High IoU</strong> (&gt;0.80): Accurate crack segmentation</li>
+</ul>
+<h3 id="4-threshold-selection">4. Threshold Selection<a class="headerlink" href="#4-threshold-selection" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Default 0.5 is reasonable starting point</li>
+<li>Increase for fewer false alarms (higher precision)</li>
+<li>Decrease to catch more cracks (higher recall)</li>
+<li>Use ROC curves for optimal threshold selection</li>
+</ul>
+<h2 id="future-enhancements">Future Enhancements<a class="headerlink" href="#future-enhancements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Confusion matrix visualization</li>
+<li>ROC curves and optimal threshold selection</li>
+<li>Per-image results export</li>
+<li>Model comparison functionality</li>
+<li>Confidence interval calculation</li>
+<li>Cross-validation support</li>
+</ul>
+<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../training-config/">Training Configuration</a></li>
+<li><a href="../cli/#detection">Detection Guide</a></li>
+<li><a href="../api/">API Reference</a></li>
+</ul>
 </section>
 <hr class='page-sep' />
 <section class='print-section' id='mcp' data-source='mcp.md'>

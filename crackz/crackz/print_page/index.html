@@ -100,7 +100,7 @@ table th { background:#f1f5f9; color:#111827; }
   <p class='company'>© 2025 Anaxiatech AB</p>
 </section>
 <hr class='page-sep'/>
-<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#getting-started'>Getting Started</a></li><li><a href='#installation'>Installation</a></li><li><a href='#user-guide'>User Guide</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#gui'>GUI</a></li><li><a href='#dashboard'>Dashboard</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#configuration'>Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-vm-cuda'>Azure VM with CUDA</a></li><li><a href='#azure-comparison'>VM vs Batch Comparison</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#01-scope'>Project Scope</a></li><li><a href='#02-decisions'>Architecture Decisions</a></li><li><a href='#03-tasks'>Current Tasks</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#architecture-guidelines'>Architecture Guidelines</a></li><li><a href='#api'>API Reference</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#evaluation'>Model Evaluation</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access Management</a></li><li><a href='#pdf'>Printable PDF</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
+<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#getting-started'>Getting Started</a></li><li><a href='#installation'>Installation</a></li><li><a href='#user-guide'>User Guide</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#gui'>GUI</a></li><li><a href='#dashboard'>Dashboard</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#configuration'>Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-vm-cuda'>Azure VM with CUDA</a></li><li><a href='#azure-comparison'>VM vs Batch Comparison</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#01-scope'>Project Scope</a></li><li><a href='#02-decisions'>Architecture Decisions</a></li><li><a href='#03-tasks'>Current Tasks</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#architecture-guidelines'>Architecture Guidelines</a></li><li><a href='#api'>API Reference</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#evaluation'>Model Evaluation</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#tracing'>Tracing & Observability</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access Management</a></li><li><a href='#pdf'>Printable PDF</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
 <h1>Home</h1>
 <h1 id="crackz">Crackz<a class="headerlink" href="#crackz" title="Permanent link">&para;</a></h1>
 <p>
@@ -30195,6 +30195,211 @@ from crackz.log import logger</p>
 <li><a href="../cli/">CLI Reference</a></li>
 <li><a href="../contributing/">Contributing Guide</a></li>
 <li><a href="../api/">API Reference</a></li>
+</ul>
+</section>
+<hr class='page-sep' />
+<section class='print-section' id='tracing' data-source='tracing.md'>
+<h1>Tracing & Observability</h1>
+<h1 id="tracing-with-opentelemetry">Tracing with OpenTelemetry<a class="headerlink" href="#tracing-with-opentelemetry" title="Permanent link">&para;</a></h1>
+<p>Crackz supports distributed tracing for AI operations using OpenTelemetry. This enables monitoring, debugging, and performance analysis of AI model calls and workflows.</p>
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<h3 id="1-install-tracing-dependencies">1. Install Tracing Dependencies<a class="headerlink" href="#1-install-tracing-dependencies" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </span>tracing
+</code></pre></div>
+<p>This installs:
+- <code>opentelemetry-instrumentation-anthropic</code> - Instruments Anthropic SDK
+- <code>opentelemetry-sdk</code> - OpenTelemetry core SDK
+- <code>opentelemetry-exporter-otlp-proto-http</code> - OTLP HTTP exporter</p>
+<h3 id="2-start-ai-toolkit-trace-collector">2. Start AI Toolkit Trace Collector<a class="headerlink" href="#2-start-ai-toolkit-trace-collector" title="Permanent link">&para;</a></h3>
+<p>In VS Code, run command palette (<code>Ctrl+Shift+P</code> / <code>Cmd+Shift+P</code>):</p>
+<div class="highlight"><pre><span></span><code>AI Toolkit: Open Tracing
+</code></pre></div>
+<p>Or use command ID: <code>ai-mlstudio.tracing.open</code></p>
+<p>This starts the local trace collector and opens the trace viewer.</p>
+<h3 id="3-enable-tracing">3. Enable Tracing<a class="headerlink" href="#3-enable-tracing" title="Permanent link">&para;</a></h3>
+<p><strong>Option A: Environment Variable</strong> (Recommended)</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CRACKZ_TRACING_ENABLED</span><span class="o">=</span><span class="m">1</span>
+crackz-gui<span class="w">  </span><span class="c1"># Tracing auto-enabled</span>
+</code></pre></div>
+<p><strong>Option B: Programmatic</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.tracing</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup_tracing</span>
+
+<span class="c1"># Initialize with default AI Toolkit endpoint</span>
+<span class="n">setup_tracing</span><span class="p">()</span>
+
+<span class="c1"># Or custom endpoint</span>
+<span class="n">setup_tracing</span><span class="p">(</span>
+    <span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;http://custom-collector:4318/v1/traces&quot;</span><span class="p">,</span>
+    <span class="n">service_name</span><span class="o">=</span><span class="s2">&quot;crackz-production&quot;</span>
+<span class="p">)</span>
+</code></pre></div>
+<h3 id="4-view-traces">4. View Traces<a class="headerlink" href="#4-view-traces" title="Permanent link">&para;</a></h3>
+<p>Traces appear automatically in the AI Toolkit trace viewer. Each AI operation creates spans showing:
+- Request/response payloads
+- Latency and timing
+- Token usage
+- Errors and exceptions</p>
+<h2 id="what-gets-traced">What Gets Traced<a class="headerlink" href="#what-gets-traced" title="Permanent link">&para;</a></h2>
+<p>When tracing is enabled, the following operations are automatically instrumented:</p>
+<h3 id="anthropic-api-calls-ai-chat">Anthropic API Calls (AI Chat)<a class="headerlink" href="#anthropic-api-calls-ai-chat" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Message creation requests</li>
+<li>Streaming responses</li>
+<li>Token counts</li>
+<li>Model selection</li>
+<li>Error conditions</li>
+</ul>
+<p><strong>Example trace:</strong>
+<div class="highlight"><pre><span></span><code>crackz
+└── anthropic.messages.create
+    ├── model: claude-sonnet-4-5-20250929
+    ├── input_tokens: 1245
+    ├── output_tokens: 382
+    └── duration: 2.3s
+</code></pre></div></p>
+<h3 id="future-pytorch-lightning-training">Future: PyTorch Lightning Training<a class="headerlink" href="#future-pytorch-lightning-training" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Training epochs</li>
+<li>Validation loops</li>
+<li>Checkpoint saves</li>
+<li>Data loading</li>
+</ul>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CRACKZ_TRACING_ENABLED</code></td>
+<td><code>0</code></td>
+<td>Enable/disable tracing (<code>1</code>/<code>0</code>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="endpoints">Endpoints<a class="headerlink" href="#endpoints" title="Permanent link">&para;</a></h3>
+<p><strong>AI Toolkit (Default)</strong>:
+- HTTP: <code>http://localhost:4318/v1/traces</code>
+- gRPC: <code>http://localhost:4317</code> (not used by default)</p>
+<p><strong>Custom Collector</strong>:
+<div class="highlight"><pre><span></span><code><span class="n">setup_tracing</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;http://your-collector:4318/v1/traces&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<h2 id="usage-examples">Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">&para;</a></h2>
+<h3 id="cli-with-tracing">CLI with Tracing<a class="headerlink" href="#cli-with-tracing" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Enable tracing for all CLI operations</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CRACKZ_TRACING_ENABLED</span><span class="o">=</span><span class="m">1</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my_project
+
+<span class="c1"># Disable for specific run</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CRACKZ_TRACING_ENABLED</span><span class="o">=</span><span class="m">0</span>
+crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my_project
+</code></pre></div>
+<h3 id="gui-with-tracing">GUI with Tracing<a class="headerlink" href="#gui-with-tracing" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># In main.py or startup script</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.tracing</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup_tracing</span>
+
+<span class="c1"># Enable before starting GUI</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;CRACKZ_TRACING_ENABLED&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
+    <span class="n">setup_tracing</span><span class="p">()</span>
+
+<span class="c1"># Run GUI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.gui</span><span class="w"> </span><span class="kn">import</span> <span class="n">main</span>
+<span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="programmatic-api">Programmatic API<a class="headerlink" href="#programmatic-api" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.tracing</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup_tracing</span><span class="p">,</span> <span class="n">shutdown_tracing</span>
+
+<span class="c1"># Initialize tracing</span>
+<span class="n">setup_tracing</span><span class="p">(</span><span class="n">service_name</span><span class="o">=</span><span class="s2">&quot;crackz-batch-processor&quot;</span><span class="p">)</span>
+
+<span class="c1"># Your AI operations (automatically traced)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.gui.services.ai_chat</span><span class="w"> </span><span class="kn">import</span> <span class="n">AIChatService</span>
+<span class="n">chat</span> <span class="o">=</span> <span class="n">AIChatService</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">chat</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="s2">&quot;Analyze this crack detection result&quot;</span><span class="p">)</span>
+
+<span class="c1"># Clean shutdown (flushes pending spans)</span>
+<span class="n">shutdown_tracing</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="tracing-dependencies-not-installed">"Tracing dependencies not installed"<a class="headerlink" href="#tracing-dependencies-not-installed" title="Permanent link">&para;</a></h3>
+<p><strong>Solution</strong>:
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </span>tracing
+</code></pre></div></p>
+<h3 id="connection-refused-to-localhost4318">"Connection refused to localhost:4318"<a class="headerlink" href="#connection-refused-to-localhost4318" title="Permanent link">&para;</a></h3>
+<p><strong>Cause</strong>: AI Toolkit trace collector not running</p>
+<p><strong>Solution</strong>: Open trace viewer in VS Code:
+<div class="highlight"><pre><span></span><code>Ctrl+Shift+P → AI Toolkit: Open Tracing
+</code></pre></div></p>
+<h3 id="no-traces-appearing">No traces appearing<a class="headerlink" href="#no-traces-appearing" title="Permanent link">&para;</a></h3>
+<p><strong>Checklist</strong>:
+1. ✅ Tracing dependencies installed (<code>uv sync --extra tracing</code>)
+2. ✅ AI Toolkit trace collector running
+3. ✅ <code>CRACKZ_TRACING_ENABLED=1</code> set
+4. ✅ Application restarted after enabling
+5. ✅ Check logs for "OpenTelemetry tracing initialized" message</p>
+<h3 id="spans-missing-or-incomplete">Spans missing or incomplete<a class="headerlink" href="#spans-missing-or-incomplete" title="Permanent link">&para;</a></h3>
+<p><strong>Cause</strong>: Application crashed or didn't shut down cleanly</p>
+<p><strong>Solution</strong>: Call <code>shutdown_tracing()</code> before exit:
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">atexit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.tracing</span><span class="w"> </span><span class="kn">import</span> <span class="n">shutdown_tracing</span>
+
+<span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">shutdown_tracing</span><span class="p">)</span>
+</code></pre></div></p>
+<h2 id="performance-impact">Performance Impact<a class="headerlink" href="#performance-impact" title="Permanent link">&para;</a></h2>
+<p>Tracing has minimal overhead:
+- <strong>Span creation</strong>: ~0.1ms per operation
+- <strong>Memory</strong>: ~2MB for span buffering
+- <strong>Network</strong>: Async batch export (default 5s intervals)</p>
+<p><strong>Recommendation</strong>: Enable in development/staging, optional in production.</p>
+<h2 id="integration-with-ai-toolkit">Integration with AI Toolkit<a class="headerlink" href="#integration-with-ai-toolkit" title="Permanent link">&para;</a></h2>
+<p>AI Toolkit provides:
+- <strong>Local trace collector</strong> - No external dependencies
+- <strong>Visual trace viewer</strong> - Interactive span timeline
+- <strong>Filtering and search</strong> - Find specific operations
+- <strong>Export capabilities</strong> - Save traces for analysis</p>
+<p><strong>Workflow</strong>:
+1. Write code with AI operations
+2. Enable tracing (<code>CRACKZ_TRACING_ENABLED=1</code>)
+3. Run application
+4. View traces in AI Toolkit panel
+5. Analyze performance and behavior</p>
+<h2 id="advanced-configuration">Advanced Configuration<a class="headerlink" href="#advanced-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="custom-span-attributes">Custom Span Attributes<a class="headerlink" href="#custom-span-attributes" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry</span><span class="w"> </span><span class="kn">import</span> <span class="n">trace</span>
+
+<span class="n">tracer</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">get_tracer</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">tracer</span><span class="o">.</span><span class="n">start_as_current_span</span><span class="p">(</span><span class="s2">&quot;custom-operation&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">span</span><span class="p">:</span>
+    <span class="n">span</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s2">&quot;project.name&quot;</span><span class="p">,</span> <span class="s2">&quot;harbor_alpha&quot;</span><span class="p">)</span>
+    <span class="n">span</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s2">&quot;image.count&quot;</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
+    <span class="c1"># Your code here</span>
+</code></pre></div>
+<h3 id="sampling">Sampling<a class="headerlink" href="#sampling" title="Permanent link">&para;</a></h3>
+<p>By default, all spans are exported. For high-volume scenarios:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry.sdk.trace.sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">TraceIdRatioBased</span>
+
+<span class="c1"># Sample 10% of traces</span>
+<span class="n">sampler</span> <span class="o">=</span> <span class="n">TraceIdRatioBased</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="c1"># Pass to setup_tracing (requires custom implementation)</span>
+</code></pre></div>
+<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://opentelemetry.io/docs/instrumentation/python/">OpenTelemetry Python Docs</a></li>
+<li><a href="https://github.com/traceloop/openllmetry">Anthropic Instrumentation</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-ai-toolkit.vscode-ai-toolkit">AI Toolkit Documentation</a></li>
+<li><a href="../ai-chat/">Crackz AI Chat Guide</a></li>
+</ul>
+<h2 id="support">Support<a class="headerlink" href="#support" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Tracing issues</strong>: Check AI Toolkit trace viewer logs</li>
+<li><strong>Crackz issues</strong>: <a href="https://github.com/Anaxiatech-AB/crackz/issues">GitHub Issues</a></li>
+<li><strong>OpenTelemetry issues</strong>: <a href="https://github.com/open-telemetry/opentelemetry-python">OpenTelemetry GitHub</a></li>
 </ul>
 </section>
 <hr class='page-sep' />

@@ -1017,6 +1017,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#evaluation-reporting-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluation &amp; Reporting Flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#async-callback-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Async Callback Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#data-flow-operational" class="md-nav__link">
     <span class="md-ellipsis">
       Data Flow (Operational)
@@ -1572,6 +1590,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#evaluation-reporting-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluation &amp; Reporting Flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#async-callback-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Async Callback Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#data-flow-operational" class="md-nav__link">
     <span class="md-ellipsis">
       Data Flow (Operational)
@@ -1798,6 +1834,17 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
   Component(metrics, "Metrics &amp; Checkpoints", "Lightning + JSON", "Save val/test metrics &amp; best.ckpt/last.ckpt")
   Component(perf, "Performance Utilities", "Seeding", "Seed + trainer overrides")
   Component(logging, "Logging", "loguru", "Structured log sink &amp; setup")
+  Component(evaluation, "Evaluation Framework", "Metrics", "IoU, precision, recall, F1, accuracy")
+  Component(reporter, "Report Generator", "python-docx", "Branded Word reports")
+  Component(viz, "Visualization", "Matplotlib", "Detection overlays (3-panel)")
+  Component(pipeline_orch, "Pipeline Orchestrator", "Workflow", "Train→detect + cancellation")
+  Component(device_mgmt, "Device Management", "Abstraction", "CPU/GPU/MPS selection")
+  Component(severity, "Severity Classifier", "Categorization", "3-tier crack severity")
+  Component(suggester, "Mask Suggester", "Semi-automation", "Model-assisted annotation")
+  Component(perf_est, "Performance Estimator", "RuntimeTracker", "Time estimates")
+  Component(async_cb, "Async Callbacks", "Janus", "Sync/async bridging")
+  Component(tracing_mod, "Tracing", "OpenTelemetry", "AI API observability")
+  Component(ai_chat_svc, "AI Chat", "Anthropic", "User assistance")
   Rel(importer, project, "Uses path layout")
   Rel(dataset, project, "Resolves split directories")
   Rel(train, dataset, "Consumes (train/val/test) loaders")
@@ -1807,7 +1854,44 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
   Rel(project, config, "Initializes from effective settings")
   Rel(train, perf, "Reads overrides / seed")
   Rel(detect, perf, "Sets seed (optional)")
-  Rel(dataset, logging, "Reports warnings (missing masks / size mismatch)")</code></pre>
+  Rel(dataset, logging, "Reports warnings (missing masks / size mismatch)")
+  Rel(detect, evaluation, "Evaluates performance")
+  Rel(evaluation, metrics, "Calculates metrics")
+  Rel(detect, viz, "Visualizes results")
+  Rel(detect, reporter, "Generates reports")
+  Rel(train, pipeline_orch, "Orchestrated by")
+  Rel(detect, pipeline_orch, "Orchestrated by")
+  Rel(train, device_mgmt, "Selects device")
+  Rel(detect, device_mgmt, "Selects device")
+  Rel(detect, severity, "Categorizes cracks")
+  Rel(suggester, detect, "Uses model")
+  Rel(train, perf_est, "Tracks runtime")
+  Rel(detect, perf_est, "Tracks runtime")
+  Rel(train, async_cb, "Reports progress")
+  Rel(detect, async_cb, "Reports progress")
+  Rel(ai_chat_svc, tracing_mod, "Optionally traced")</code></pre>
+<hr />
+<h2 id="evaluation-reporting-flow">Evaluation &amp; Reporting Flow<a class="headerlink" href="#evaluation-reporting-flow" title="Permanent link">&para;</a></h2>
+<p>Detection results flow through evaluation and reporting pipelines:</p>
+<pre class="mermaid"><code>flowchart LR
+  A["Test Dataset"] --&gt; B["Evaluator"]
+  B --&gt; C["Metrics Calculator"]
+  C --&gt; D["Evaluation Results"]
+  D --&gt; E["JSON/CSV Reporter"]
+  D --&gt; F["Report Generator"]
+  F --&gt; G["Branded Word Document"]
+  I["Detection Results"] --&gt; J["Visualization"]
+  J --&gt; K["Detection Overlays"]
+  I --&gt; F</code></pre>
+<h2 id="async-callback-architecture">Async Callback Architecture<a class="headerlink" href="#async-callback-architecture" title="Permanent link">&para;</a></h2>
+<p>Training/detection progress flows from sync threads to async GUI:</p>
+<pre class="mermaid"><code>flowchart TB
+  A["Training Thread (sync)"] --&gt; B["CallbackDispatcher.sync_q"]
+  B --&gt; C["Janus Queue"]
+  C --&gt; D["CallbackDispatcher.async_q"]
+  D --&gt; E["GUI Event Loop (async)"]
+  E --&gt; F["UI Update"]</code></pre>
+<p><strong>Key Features</strong>: Thread-safe sync/async bridging, backpressure handling (drops oldest on full queue), non-blocking updates.</p>
 <hr />
 <h2 id="data-flow-operational">Data Flow (Operational)<a class="headerlink" href="#data-flow-operational" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart LR
@@ -1960,6 +2044,61 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
 <td>GUI state &amp; browsing</td>
 <td><code>crackz.gui.*</code></td>
 <td>Project tree, previews, recent projects</td>
+</tr>
+<tr>
+<td>Evaluation &amp; metrics</td>
+<td><code>crackz.ai.evaluation</code></td>
+<td>IoU, precision, recall, F1, accuracy</td>
+</tr>
+<tr>
+<td>Report generation</td>
+<td><code>crackz.report.generator</code></td>
+<td>Branded Word documents</td>
+</tr>
+<tr>
+<td>Visualization</td>
+<td><code>crackz.ai.visualization</code></td>
+<td>Matplotlib 3-panel overlays</td>
+</tr>
+<tr>
+<td>Pipeline orchestration</td>
+<td><code>crackz.ai.pipeline</code></td>
+<td>Train→detect workflows</td>
+</tr>
+<tr>
+<td>Cancellation</td>
+<td><code>crackz.ai.pipeline.cancellation</code></td>
+<td>Thread-safe cancellation tokens</td>
+</tr>
+<tr>
+<td>Severity classification</td>
+<td><code>crackz.ai.detection.severity</code></td>
+<td>3-tier categorization</td>
+</tr>
+<tr>
+<td>Mask suggestion</td>
+<td><code>crackz.ai.mask_suggester</code></td>
+<td>Model-assisted annotation</td>
+</tr>
+<tr>
+<td>Performance estimation</td>
+<td><code>crackz.ai.performance.runtime_estimation</code></td>
+<td>Runtime tracking</td>
+</tr>
+<tr>
+<td>Async callbacks</td>
+<td><code>crackz.ai.core.async_callbacks</code></td>
+<td>Janus sync/async bridge</td>
+</tr>
+<tr>
+<td>Tracing</td>
+<td><code>crackz.tracing</code></td>
+<td>Optional OpenTelemetry</td>
+</tr>
+<tr>
+<td>AI chat service</td>
+<td><code>crackz.gui.services.ai_chat</code></td>
+<td>Claude API integration</td>
 </tr>
 </tbody>
 </table>

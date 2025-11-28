@@ -1184,6 +1184,51 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#6-asyncconcurrent-operations-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Async/Concurrent Operations Pattern
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-observability-monitoring-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Observability &amp; Monitoring Pattern
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-result-aggregation-export-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Result Aggregation &amp; Export Pattern
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-device-abstraction-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Device Abstraction Pattern
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-severity-classification-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Severity Classification Pattern
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2172,6 +2217,51 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#6-asyncconcurrent-operations-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Async/Concurrent Operations Pattern
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-observability-monitoring-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Observability &amp; Monitoring Pattern
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-result-aggregation-export-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Result Aggregation &amp; Export Pattern
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-device-abstraction-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Device Abstraction Pattern
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-severity-classification-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Severity Classification Pattern
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2887,6 +2977,178 @@ Examples:
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if project exists.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">path</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_project.yaml&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
 </code></pre></div></p>
+<h3 id="6-asyncconcurrent-operations-pattern">6. Async/Concurrent Operations Pattern<a class="headerlink" href="#6-asyncconcurrent-operations-pattern" title="Permanent link">&para;</a></h3>
+<p><strong>Where</strong>: <code>src/crackz/ai/core/async_callbacks.py</code></p>
+<p><strong>Problem</strong>: PyTorch Lightning training runs in synchronous threads, but GUI updates must be async to remain responsive. Direct async calls from sync code cause <code>RuntimeError: no running event loop</code>.</p>
+<p><strong>Solution</strong>: Use janus queue to bridge sync and async worlds. Janus provides both <code>sync_q</code> (thread-safe) and <code>async_q</code> (async-safe) interfaces to the same queue.</p>
+<p><strong>Implementation</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.ai.core.async_callbacks</span><span class="w"> </span><span class="kn">import</span> <span class="n">CallbackDispatcher</span>
+
+<span class="c1"># In training setup (main thread)</span>
+<span class="n">dispatcher</span> <span class="o">=</span> <span class="n">CallbackDispatcher</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># In PyTorch Lightning callback (training thread)</span>
+<span class="n">sync_reporter</span> <span class="o">=</span> <span class="n">dispatcher</span><span class="o">.</span><span class="n">create_sync_progress_reporter</span><span class="p">()</span>
+<span class="n">sync_reporter</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;Training epoch 5/10&quot;</span><span class="p">)</span>  <span class="c1"># Thread-safe put</span>
+
+<span class="c1"># In GUI (async event loop)</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">progress</span><span class="p">,</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">dispatcher</span><span class="o">.</span><span class="n">iter_progress</span><span class="p">():</span>
+    <span class="n">update_progress_bar</span><span class="p">(</span><span class="n">progress</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>  <span class="c1"># Async get</span>
+</code></pre></div>
+<p><strong>Key Features</strong>:
+- <strong>Thread-safe</strong>: sync_q uses thread locks
+- <strong>Async-safe</strong>: async_q uses asyncio primitives
+- <strong>Backpressure handling</strong>: Drops oldest item when queue full
+- <strong>Non-blocking</strong>: GUI never blocks on training updates</p>
+<p><strong>When to Use</strong>: Any time you need to communicate between sync operations (AI training, file I/O) and async GUI updates.</p>
+<p><strong>Benefits</strong>:
+- Decouples AI operations from UI
+- Prevents GUI freezing during long operations
+- Handles burst updates gracefully
+- Type-safe with protocols (<code>AsyncProgressReporter</code>, <code>AsyncMetricsReporter</code>)</p>
+<h3 id="7-observability-monitoring-pattern">7. Observability &amp; Monitoring Pattern<a class="headerlink" href="#7-observability-monitoring-pattern" title="Permanent link">&para;</a></h3>
+<p><strong>Where</strong>: <code>src/crackz/tracing/</code></p>
+<p><strong>Problem</strong>: Production deployments need visibility into AI Chat API calls (latency, errors, token usage), but adding observability shouldn't break the app if dependencies are missing.</p>
+<p><strong>Solution</strong>: Optional OpenTelemetry integration with graceful degradation. Tracing is installed via <code>--extra tracing</code> and enabled via environment variable.</p>
+<p><strong>Implementation</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># In src/crackz/tracing/setup.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.tracing</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup_tracing</span><span class="p">,</span> <span class="n">is_tracing_enabled</span>
+
+<span class="c1"># Automatic instrumentation on setup</span>
+<span class="k">if</span> <span class="n">is_tracing_enabled</span><span class="p">():</span>
+    <span class="n">setup_tracing</span><span class="p">()</span>  <span class="c1"># Instruments Anthropic client automatically</span>
+
+<span class="c1"># The instrumentation happens automatically via AnthropicInstrumentor</span>
+<span class="c1"># No manual client instrumentation needed</span>
+</code></pre></div>
+<p><strong>Configuration</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Install tracing dependencies</span>
+uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </span>tracing
+
+<span class="c1"># Enable at runtime</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CRACKZ_TRACING_ENABLED</span><span class="o">=</span><span class="m">1</span>
+</code></pre></div></p>
+<p><strong>When to Use</strong>: Production deployments needing observability, performance debugging, SLA monitoring.</p>
+<p><strong>Benefits</strong>:
+- Optional dependency (no bloat for basic usage)
+- Graceful degradation (works without tracing installed)
+- Standard OpenTelemetry format (compatible with Jaeger, Zipkin, etc.)
+- Minimal performance overhead</p>
+<h3 id="8-result-aggregation-export-pattern">8. Result Aggregation &amp; Export Pattern<a class="headerlink" href="#8-result-aggregation-export-pattern" title="Permanent link">&para;</a></h3>
+<p><strong>Where</strong>: <code>src/crackz/ai/evaluation/reporter.py</code>, <code>src/crackz/report/generator.py</code></p>
+<p><strong>Problem</strong>: Detection results need to be exported in multiple formats (JSON for APIs, CSV for analysis, DOCX for reports), but each format has different requirements.</p>
+<p><strong>Solution</strong>: Separate aggregation (collect results) from export (format results). Use adapter pattern for format-specific exporters.</p>
+<p><strong>Implementation</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.ai.evaluation.reporter</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_json</span><span class="p">,</span> <span class="n">export_csv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.report.generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">ReportGenerator</span>
+
+<span class="c1"># Aggregation (format-agnostic)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;accuracy&quot;</span><span class="p">:</span> <span class="mf">0.95</span><span class="p">,</span>
+    <span class="s2">&quot;precision&quot;</span><span class="p">:</span> <span class="mf">0.92</span><span class="p">,</span>
+    <span class="s2">&quot;recall&quot;</span><span class="p">:</span> <span class="mf">0.89</span><span class="p">,</span>
+    <span class="s2">&quot;f1_score&quot;</span><span class="p">:</span> <span class="mf">0.90</span><span class="p">,</span>
+    <span class="s2">&quot;iou&quot;</span><span class="p">:</span> <span class="mf">0.85</span>
+<span class="p">}</span>
+
+<span class="c1"># Export to JSON (lightweight)</span>
+<span class="n">export_json</span><span class="p">(</span>
+    <span class="n">results</span><span class="p">,</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="n">project_path</span> <span class="o">/</span> <span class="s2">&quot;evaluation_results.json&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Export to CSV (analysis-friendly)</span>
+<span class="n">export_csv</span><span class="p">(</span>
+    <span class="n">results</span><span class="p">,</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="n">project_path</span> <span class="o">/</span> <span class="s2">&quot;evaluation_results.csv&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Export to DOCX (rich formatting)</span>
+<span class="n">generator</span> <span class="o">=</span> <span class="n">ReportGenerator</span><span class="p">(</span>
+    <span class="n">project_path</span><span class="o">=</span><span class="n">project_path</span><span class="p">,</span>
+    <span class="n">template_path</span><span class="o">=</span><span class="n">template_path</span>
+<span class="p">)</span>
+<span class="n">generator</span><span class="o">.</span><span class="n">generate_report</span><span class="p">(</span>
+    <span class="n">detection_results</span><span class="o">=</span><span class="n">results</span><span class="p">,</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="n">project_path</span> <span class="o">/</span> <span class="s2">&quot;report.docx&quot;</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><strong>When to Use</strong>: Any system exporting data in multiple formats (reports, APIs, integrations).</p>
+<p><strong>Benefits</strong>:
+- Single aggregation logic, multiple exporters
+- Easy to add new formats (extend reporter)
+- Format-specific optimization (JSON compact, DOCX rich)
+- Testable (mock exporters)</p>
+<h3 id="9-device-abstraction-pattern">9. Device Abstraction Pattern<a class="headerlink" href="#9-device-abstraction-pattern" title="Permanent link">&para;</a></h3>
+<p><strong>Where</strong>: <code>src/crackz/ai/device/device.py</code></p>
+<p><strong>Problem</strong>: PyTorch supports multiple accelerators (CUDA, MPS, XLA, CPU) but detection logic differs per platform. Hard-coding <code>torch.device("cuda")</code> breaks on Mac/TPU.</p>
+<p><strong>Solution</strong>: Enum-based device abstraction with auto-detection and priority-based selection (CUDA &gt; MPS &gt; CPU).</p>
+<p><strong>Implementation</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.ai.device.device</span><span class="w"> </span><span class="kn">import</span> <span class="n">AIDevice</span>
+
+<span class="c1"># Auto-select best available device</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">AIDevice</span><span class="o">.</span><span class="n">default</span><span class="p">()</span>  <span class="c1"># Returns CUDA if available, else MPS, else CPU</span>
+
+<span class="c1"># Check availability</span>
+<span class="n">available</span> <span class="o">=</span> <span class="n">AIDevice</span><span class="o">.</span><span class="n">available_devices</span><span class="p">()</span>  <span class="c1"># [AIDevice.CPU, AIDevice.CUDA]</span>
+
+<span class="c1"># Test device works</span>
+<span class="n">success</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">details</span> <span class="o">=</span> <span class="n">AIDevice</span><span class="o">.</span><span class="n">test_device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">success</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CUDA available: </span><span class="si">{</span><span class="n">details</span><span class="p">[</span><span class="s1">&#39;device_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Use in model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">SegmentationModel</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>  <span class="c1"># device.value is &quot;cuda&quot;, &quot;mps&quot;, &quot;cpu&quot;, etc.</span>
+</code></pre></div>
+<p><strong>Supported Devices</strong>:
+- <strong>CPU</strong>: Always available
+- <strong>CUDA</strong>: NVIDIA GPUs (Linux, Windows)
+- <strong>MPS</strong>: Apple Silicon (M1/M2/M3 Macs)
+- <strong>XLA</strong>: TPUs (optional torch_xla dependency)</p>
+<p><strong>When to Use</strong>: Any PyTorch application targeting multiple platforms.</p>
+<p><strong>Benefits</strong>:
+- Platform-independent code
+- Auto-detection prevents manual configuration
+- Testable (mock torch.cuda.is_available())
+- Extensible (add new accelerators via enum)</p>
+<h3 id="10-severity-classification-pattern">10. Severity Classification Pattern<a class="headerlink" href="#10-severity-classification-pattern" title="Permanent link">&para;</a></h3>
+<p><strong>Where</strong>: <code>src/crackz/ai/detection/severity.py</code></p>
+<p><strong>Problem</strong>: Detection confidence alone doesn't convey risk to users. A 3% crack area might be critical for harbor walls but negligible for a test image.</p>
+<p><strong>Solution</strong>: Threshold-based categorization with configurable thresholds. Single source of truth function prevents inconsistent categorization.</p>
+<p><strong>Implementation</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.ai.detection.severity</span><span class="w"> </span><span class="kn">import</span> <span class="n">categorize_crack_severity</span>
+
+<span class="c1"># Default thresholds: 5% (high), 2% (medium)</span>
+<span class="n">severity</span> <span class="o">=</span> <span class="n">categorize_crack_severity</span><span class="p">(</span><span class="n">confidence</span><span class="o">=</span><span class="mf">0.08</span><span class="p">)</span>  <span class="c1"># &quot;Crack Detected&quot;</span>
+<span class="n">severity</span> <span class="o">=</span> <span class="n">categorize_crack_severity</span><span class="p">(</span><span class="n">confidence</span><span class="o">=</span><span class="mf">0.03</span><span class="p">)</span>  <span class="c1"># &quot;Suspected Crack&quot;</span>
+<span class="n">severity</span> <span class="o">=</span> <span class="n">categorize_crack_severity</span><span class="p">(</span><span class="n">confidence</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>  <span class="c1"># &quot;No Crack&quot;</span>
+
+<span class="c1"># Custom thresholds via config</span>
+<span class="n">severity</span> <span class="o">=</span> <span class="n">categorize_crack_severity</span><span class="p">(</span>
+    <span class="n">confidence</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span>
+    <span class="n">high_threshold</span><span class="o">=</span><span class="mf">0.06</span><span class="p">,</span>    <span class="c1"># Raise &quot;Crack Detected&quot; threshold</span>
+    <span class="n">medium_threshold</span><span class="o">=</span><span class="mf">0.03</span>    <span class="c1"># Raise &quot;Suspected&quot; threshold</span>
+<span class="p">)</span>  <span class="c1"># &quot;Suspected Crack&quot; (was &quot;Crack Detected&quot; with defaults)</span>
+
+<span class="c1"># Override with has_crack flag (confidence + area thresholds met)</span>
+<span class="n">severity</span> <span class="o">=</span> <span class="n">categorize_crack_severity</span><span class="p">(</span><span class="n">confidence</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">has_crack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># &quot;Crack Detected&quot; (flag indicates combined criteria met)</span>
+</code></pre></div>
+<p><strong>Configuration</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># project.yaml</span>
+<span class="nt">ai</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">detection</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">high_confidence_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05</span><span class="w">   </span><span class="c1"># 5% crack area</span>
+<span class="w">    </span><span class="nt">medium_confidence_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.02</span><span class="w">  </span><span class="c1"># 2% crack area</span>
+<span class="w">    </span><span class="nt">min_confidence</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.005</span><span class="w">             </span><span class="c1"># 0.5% minimum to save</span>
+</code></pre></div></p>
+<p><strong>When to Use</strong>: Any classification system needing human-readable risk categories.</p>
+<p><strong>Benefits</strong>:
+- Single source of truth (one function, no duplication)
+- Configurable thresholds (domain-specific tuning)
+- Clear semantics ("Crack Detected" vs "Suspected Crack")
+- Type-safe (returns literal strings, not magic numbers)</p>
 <hr />
 <h2 id="code-organization-patterns">Code Organization Patterns<a class="headerlink" href="#code-organization-patterns" title="Permanent link">&para;</a></h2>
 <h3 id="1-centralized-options-pattern-cli">1. Centralized Options Pattern (CLI)<a class="headerlink" href="#1-centralized-options-pattern-cli" title="Permanent link">&para;</a></h3>

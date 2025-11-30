@@ -920,9 +920,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#adr-001-use-uv-instead-of-pip-or-poetry" class="md-nav__link">
+  <a href="#adr-001-use-uv-for-dependency-management-hatchling-for-builds" class="md-nav__link">
     <span class="md-ellipsis">
-      ADR-001: Use uv Instead of pip or poetry
+      ADR-001: Use uv for Dependency Management + hatchling for Builds
     </span>
   </a>
   
@@ -1560,9 +1560,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#adr-001-use-uv-instead-of-pip-or-poetry" class="md-nav__link">
+  <a href="#adr-001-use-uv-for-dependency-management-hatchling-for-builds" class="md-nav__link">
     <span class="md-ellipsis">
-      ADR-001: Use uv Instead of pip or poetry
+      ADR-001: Use uv for Dependency Management + hatchling for Builds
     </span>
   </a>
   
@@ -1761,18 +1761,27 @@
 - <strong>Consequences</strong>: Trade-offs and implications
 - <strong>Status</strong>: Active | Deprecated | Superseded</p>
 <hr />
-<h2 id="adr-001-use-uv-instead-of-pip-or-poetry">ADR-001: Use <code>uv</code> Instead of <code>pip</code> or <code>poetry</code><a class="headerlink" href="#adr-001-use-uv-instead-of-pip-or-poetry" title="Permanent link">&para;</a></h2>
-<p><strong>Context</strong>: Python package management is slow with pip and complex with poetry. Development teams need fast, reliable dependency installation.</p>
-<p><strong>Decision</strong>: Use <code>uv</code> (Astral's package manager) exclusively for all package operations.</p>
+<h2 id="adr-001-use-uv-for-dependency-management-hatchling-for-builds">ADR-001: Use <code>uv</code> for Dependency Management + <code>hatchling</code> for Builds<a class="headerlink" href="#adr-001-use-uv-for-dependency-management-hatchling-for-builds" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Python package management is slow with pip and complex with poetry. Additionally, setuptools as a build backend is aging and lacks modern features.</p>
+<p><strong>Decision</strong>: Use a hybrid approach:
+- <strong>uv</strong> (Astral's package manager) for dependency management, lockfiles, and task execution
+- <strong>hatchling</strong> (PyPA-official build backend) for building wheels and sdists</p>
 <p><strong>Consequences</strong>:
-- ✅ 10-100x faster installs compared to pip
-- ✅ Automatic virtual environment management
-- ✅ Built-in lockfile support (uv.lock)
-- ✅ Drop-in pip replacement
-- ⚠️ Relatively new tool (requires team adoption)
-- ⚠️ Some edge cases with complex C extensions</p>
-<p><strong>Status</strong>: Active</p>
-<p><strong>Related</strong>: <code>.github/workflows/</code>, <code>pyproject.toml</code>, all documentation</p>
+- ✅ 10-100x faster installs compared to pip (via uv)
+- ✅ Automatic virtual environment management (via uv)
+- ✅ Built-in lockfile support via uv.lock (deterministic builds)
+- ✅ Modern PEP 517-compliant build backend (hatchling)
+- ✅ Better build defaults (uses .gitignore for sdist)
+- ✅ Preserves custom PyTorch index routing (uv feature)
+- ✅ Compatible with python-semantic-release for versioning
+- ⚠️ Two tools instead of one (but clear separation of concerns)
+- ⚠️ Relatively new toolchain (requires team adoption)</p>
+<p><strong>Status</strong>: Active (Updated 2025-11-30)</p>
+<p><strong>Related</strong>: <code>.github/workflows/</code>, <code>pyproject.toml</code>, <code>Dockerfile*</code>, all documentation</p>
+<p><strong>Migration Notes</strong>:
+- Migrated from setuptools to hatchling in v0.67.0
+- All existing uv configuration preserved (PyTorch routing unchanged)
+- Semantic versioning still managed by python-semantic-release</p>
 <hr />
 <h2 id="adr-002-pytorch-lightning-for-ml-pipeline">ADR-002: PyTorch Lightning for ML Pipeline<a class="headerlink" href="#adr-002-pytorch-lightning-for-ml-pipeline" title="Permanent link">&para;</a></h2>
 <p><strong>Context</strong>: Raw PyTorch requires significant boilerplate for training loops, checkpointing, and distributed training.</p>

@@ -1174,6 +1174,54 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="AI Chat Assistant">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chat-history-prompt-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chat History &amp; Prompt Templates
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chat History &amp; Prompt Templates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chat-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chat History
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prompt Templates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Storage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2952,6 +3000,54 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="AI Chat Assistant">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chat-history-prompt-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chat History &amp; Prompt Templates
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chat History &amp; Prompt Templates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chat-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chat History
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prompt-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prompt Templates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Storage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3815,6 +3911,73 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 - Guidance on using Crackz features
 - Contextual advice based on your current project state</p>
 <p><strong>See the full <a href="../ai-chat/">AI Chat Assistant Guide</a> for detailed documentation.</strong></p>
+<h3 id="chat-history-prompt-templates">Chat History &amp; Prompt Templates<a class="headerlink" href="#chat-history-prompt-templates" title="Permanent link">&para;</a></h3>
+<p>The chat assistant includes powerful features to help you maintain context and reuse effective prompts across sessions:</p>
+<h4 id="chat-history">Chat History<a class="headerlink" href="#chat-history" title="Permanent link">&para;</a></h4>
+<p>All conversations with the AI assistant are automatically saved to a local SQLite database, allowing you to:</p>
+<ul>
+<li><strong>Review past conversations</strong>: Access previous discussions to recall advice and recommendations</li>
+<li><strong>Resume interrupted sessions</strong>: Continue where you left off if you close the chat window</li>
+<li><strong>Learn from history</strong>: Reference successful parameter tuning discussions from previous projects</li>
+<li><strong>Maintain context</strong>: Keep track of the assistant's suggestions over time</li>
+</ul>
+<p><strong>Accessing Chat History:</strong>
+1. Open the chat assistant (<code>§</code>, <code>~</code>, or <code>Cmd/Ctrl+/</code>)
+2. Click the <strong>📜 History</strong> button in the top-right corner
+3. Browse conversations by session:
+   - Sessions are listed with timestamps and message counts
+   - Preview shows the first message of each conversation
+   - Double-click a session to load its full conversation
+4. Click <strong>Load Session</strong> to restore a previous conversation into the chat window</p>
+<blockquote>
+<p><strong>Note</strong>: Screenshot placeholder pending - <code>assets/gui/chat_history_panel.png</code></p>
+</blockquote>
+<p><strong>Chat History Features:</strong>
+- <strong>Persistent storage</strong>: Conversations survive application restarts
+- <strong>Fast search</strong>: Find specific discussions by content or date
+- <strong>Session metadata</strong>: View message counts, timestamps, and conversation previews
+- <strong>One-click restore</strong>: Load any previous session with a single click
+- <strong>Privacy</strong>: All history stored locally on your machine</p>
+<h4 id="prompt-templates">Prompt Templates<a class="headerlink" href="#prompt-templates" title="Permanent link">&para;</a></h4>
+<p>Prompt templates help you quickly access common questions and workflows without retyping:</p>
+<p><strong>Built-in Templates:</strong>
+- <strong>Optimize Training</strong>: Get recommendations for training hyperparameter tuning
+- <strong>Detection Setup</strong>: Configure detection parameters for optimal results
+- <strong>Data Preparation</strong>: Guidance on dataset organization and split ratios
+- <strong>Model Selection</strong>: Advice on choosing the right architecture and encoder
+- <strong>Troubleshooting</strong>: Help diagnosing common issues and errors</p>
+<p><strong>Using Prompt Templates:</strong>
+1. Open the chat assistant
+2. Click the <strong>📋 Templates</strong> button in the top-right corner
+3. Browse available templates by category
+4. Click a template to insert its prompt into the chat input
+5. Optionally edit the prompt before sending</p>
+<blockquote>
+<p><strong>Note</strong>: Screenshot placeholder pending - <code>assets/gui/chat_prompt_templates_panel.png</code></p>
+</blockquote>
+<p><strong>Custom Templates (Coming Soon):</strong>
+In future updates, you'll be able to:
+- Create your own reusable prompt templates
+- Organize templates into custom categories
+- Share templates with team members
+- Import community-created template collections</p>
+<h4 id="database-storage">Database Storage<a class="headerlink" href="#database-storage" title="Permanent link">&para;</a></h4>
+<p>All chat history and templates are stored in a SQLite database:</p>
+<p><strong>Location:</strong> <code>~/.crackz/chat_history.db</code> (user home directory)</p>
+<p><strong>Database Schema:</strong>
+- <strong>Sessions table</strong>: Conversation metadata (timestamps, message counts)
+- <strong>Messages table</strong>: Individual message content (user/assistant, timestamps)
+- <strong>Templates table</strong>: Reusable prompt templates with categories</p>
+<p><strong>Privacy &amp; Security:</strong>
+- All data stored locally on your machine
+- No cloud synchronization or external access
+- Database secured with standard file permissions
+- Easy to delete or export for backup</p>
+<p><strong>Database Management:</strong>
+- Automatic schema migrations when updates are released
+- Efficient indexing for fast search and retrieval
+- Automatic cleanup of old sessions (configurable retention period)
+- Export functionality for backing up important conversations</p>
 <hr />
 <h2 id="performance-tips">Performance Tips<a class="headerlink" href="#performance-tips" title="Permanent link">&para;</a></h2>
 <h3 id="gpu-acceleration">GPU Acceleration<a class="headerlink" href="#gpu-acceleration" title="Permanent link">&para;</a></h3>

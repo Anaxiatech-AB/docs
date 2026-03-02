@@ -16,8 +16,11 @@
         <link rel="next" href="getting-started/">
       
       
+        
+      
+      
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -25,10 +28,10 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.2a3383ac.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -57,7 +60,6 @@
     
       
 
-    
     
     
   
@@ -11910,7 +11912,7 @@ configuration from a YAML file.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -11936,6 +11938,7 @@ configuration from a YAML file.</p>
               Bases: <code><span title="pydantic_settings.BaseSettings">BaseSettings</span></code></p>
 
 
+
         <p>Configuration for a ai crackz project.</p>
 
 
@@ -11945,7 +11948,7 @@ configuration from a YAML file.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/config/crackz_settings.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">20</span>
 <span class="normal">21</span>
@@ -12035,7 +12038,7 @@ configuration from a YAML file.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -12075,7 +12078,7 @@ If the file does not exist, FileNotFoundError is raised.
 :rtype: CrackzSettings</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/config/crackz_settings.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">33</span>
 <span class="normal">34</span>
@@ -12180,7 +12183,7 @@ configuration files or invalid configuration content.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -12206,6 +12209,7 @@ configuration files or invalid configuration content.</p>
               Bases: <code><span title="crackz.exceptions.CrackzError">CrackzError</span></code></p>
 
 
+
         <p>Base class for all config-related exceptions.</p>
 
 
@@ -12215,7 +12219,7 @@ configuration files or invalid configuration content.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/config/exceptions.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
 <span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ConfigError</span><span class="p">(</span><span class="n">CrackzError</span><span class="p">):</span>
@@ -12243,6 +12247,7 @@ configuration files or invalid configuration content.</p>
               Bases: <code><a class="autorefs autorefs-internal" title="ConfigError (crackz.config.exceptions.ConfigError)" href="#crackz.config.exceptions.ConfigError">ConfigError</a></code></p>
 
 
+
         <p>Raised when a required config file/path cannot be found.</p>
 
 
@@ -12252,7 +12257,7 @@ configuration files or invalid configuration content.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/config/exceptions.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">17</span>
 <span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ConfigFileNotFoundError</span><span class="p">(</span><span class="n">ConfigError</span><span class="p">):</span>
@@ -12280,6 +12285,7 @@ configuration files or invalid configuration content.</p>
               Bases: <code><a class="autorefs autorefs-internal" title="ConfigError (crackz.config.exceptions.ConfigError)" href="#crackz.config.exceptions.ConfigError">ConfigError</a></code></p>
 
 
+
         <p>Raised when configuration content is invalid.</p>
 
 
@@ -12289,7 +12295,7 @@ configuration files or invalid configuration content.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/config/exceptions.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">21</span>
 <span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">InvalidConfigError</span><span class="p">(</span><span class="n">ConfigError</span><span class="p">):</span>
@@ -12336,7 +12342,7 @@ random seeds, mixed precision flags, registry URIs, feature toggles).</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -12362,6 +12368,7 @@ random seeds, mixed precision flags, registry URIs, feature toggles).</p>
               Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
 
 
+
         <p>Serializable project configuration wrapper (minimal).</p>
 
 
@@ -12371,7 +12378,7 @@ random seeds, mixed precision flags, registry URIs, feature toggles).</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/config/project_config.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">35</span>
 <span class="normal">36</span>
@@ -12495,7 +12502,7 @@ random seeds, mixed precision flags, registry URIs, feature toggles).</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -12526,7 +12533,7 @@ random seeds, mixed precision flags, registry URIs, feature toggles).</p>
         <p>Load the configuration from the given path.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/config/project_config.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">49</span>
 <span class="normal">50</span>
@@ -12559,7 +12566,7 @@ random seeds, mixed precision flags, registry URIs, feature toggles).</p>
         <p>Save the configuration to the given path.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/config/project_config.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">55</span>
 <span class="normal">56</span>
@@ -12592,7 +12599,7 @@ random seeds, mixed precision flags, registry URIs, feature toggles).</p>
         <p>Construct a <code>Project</code> from this <code>ProjectConfig</code>.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/config/project_config.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
 <span class="normal">62</span>
@@ -12653,7 +12660,7 @@ random seeds, mixed precision flags, registry URIs, feature toggles).</p>
         <p>Construct a <code>ProjectConfig</code> from a <code>Project</code>.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/config/project_config.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">79</span>
 <span class="normal">80</span>
@@ -12736,7 +12743,7 @@ project configurations follow a fixed structure to ensure consistency during usa
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -12762,6 +12769,7 @@ project configurations follow a fixed structure to ensure consistency during usa
               Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
 
 
+
         <p>Represents a project model with configuration for storing project details.</p>
 <p>The Project class encapsulates the essential attributes and configurations of
 a project. This includes details such as the project's name, description,
@@ -12776,7 +12784,7 @@ BaseModel-compatible configuration that ensures model extensibility.
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/project/project.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 64</span>
 <span class="normal"> 65</span>
@@ -13750,7 +13758,7 @@ BaseModel-compatible configuration that ensures model extensibility.
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -14603,7 +14611,7 @@ If the given value does not map to a valid type, the function defaults to the
          image type, or <code>None</code> if no mapping exists.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">315</span>
 <span class="normal">316</span>
@@ -14661,7 +14669,7 @@ If the given value does not map to a valid type, the function defaults to the
          image type, or <code>None</code> if no mapping exists.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">330</span>
 <span class="normal">331</span>
@@ -14719,7 +14727,7 @@ encountered during the saving process.</p>
 :return: None</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">345</span>
 <span class="normal">346</span>
@@ -14815,7 +14823,7 @@ encountered during the saving process.</p>
 </ul>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">376</span>
 <span class="normal">377</span>
@@ -14909,7 +14917,7 @@ encountered during the saving process.</p>
 </ul>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">402</span>
 <span class="normal">403</span>
@@ -15014,7 +15022,7 @@ exist, it optionally allows overwriting them based on the <code>force</code> par
 :return: None</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">442</span>
 <span class="normal">443</span>
@@ -15087,7 +15095,7 @@ Images and masks are always preserved. The best model checkpoint is preserved by
 :return: Number of items removed</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">514</span>
 <span class="normal">515</span>
@@ -15195,7 +15203,7 @@ Images and masks are always preserved. The best model checkpoint is preserved by
 directory structure, and saving the corresponding Project object. It ensures.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">550</span>
 <span class="normal">551</span>
@@ -15260,7 +15268,7 @@ proper storage of project-related information including paths and metadata.</p>
 :rtype: Project</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">568</span>
 <span class="normal">569</span>
@@ -15383,7 +15391,7 @@ proper storage of project-related information including paths and metadata.</p>
         <p>See <code>Project.save_project</code>.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">620</span>
 <span class="normal">621</span>
@@ -15479,7 +15487,7 @@ read, or parsed, the function logs an error.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">625</span>
 <span class="normal">626</span>
@@ -15581,7 +15589,7 @@ or parsed, an appropriate exception is raised.</p>
     loading the project configuration.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">662</span>
 <span class="normal">663</span>
@@ -15682,7 +15690,7 @@ provided.</p>
 :rtype: Project</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/project/project.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">696</span>
 <span class="normal">697</span>
@@ -15771,7 +15779,7 @@ provided.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -15794,7 +15802,8 @@ provided.</p>
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><span title="str">str</span></code>, <code><span title="enum.Enum">Enum</span></code></p>
+              Bases: <code><span title="enum.StrEnum">StrEnum</span></code></p>
+
 
 
         <p>Represents different types of image datasets.</p>
@@ -15864,7 +15873,7 @@ errors due to arbitrary strings.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/project/types.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">26</span>
 <span class="normal">27</span>
@@ -15885,7 +15894,7 @@ errors due to arbitrary strings.</p>
 <span class="normal">42</span>
 <span class="normal">43</span>
 <span class="normal">44</span>
-<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ImagesType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ImagesType</span><span class="p">(</span><span class="n">StrEnum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents different types of image datasets.</span>
 
@@ -15910,7 +15919,7 @@ errors due to arbitrary strings.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -15961,7 +15970,7 @@ or file import errors.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -15987,6 +15996,7 @@ or file import errors.</p>
               Bases: <code><span title="crackz.exceptions.CrackzError">CrackzError</span></code></p>
 
 
+
         <p>Base class for all project-related exceptions.</p>
 
 
@@ -15996,7 +16006,7 @@ or file import errors.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/project/exceptions.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
 <span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ProjectError</span><span class="p">(</span><span class="n">CrackzError</span><span class="p">):</span>
@@ -16024,6 +16034,7 @@ or file import errors.</p>
               Bases: <code><a class="autorefs autorefs-internal" title="ProjectError (crackz.project.exceptions.ProjectError)" href="#crackz.project.exceptions.ProjectError">ProjectError</a></code></p>
 
 
+
         <p>Raised when a project path/name exists.</p>
 
 
@@ -16033,7 +16044,7 @@ or file import errors.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/project/exceptions.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">16</span>
 <span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ProjectExistsError</span><span class="p">(</span><span class="n">ProjectError</span><span class="p">):</span>
@@ -16061,6 +16072,7 @@ or file import errors.</p>
               Bases: <code><a class="autorefs autorefs-internal" title="ProjectError (crackz.project.exceptions.ProjectError)" href="#crackz.project.exceptions.ProjectError">ProjectError</a></code></p>
 
 
+
         <p>Raised when a project path/name is missing or invalid.</p>
 
 
@@ -16070,7 +16082,7 @@ or file import errors.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/project/exceptions.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">20</span>
 <span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ProjectNotFoundError</span><span class="p">(</span><span class="n">ProjectError</span><span class="p">):</span>
@@ -16098,6 +16110,7 @@ or file import errors.</p>
               Bases: <code><a class="autorefs autorefs-internal" title="ProjectError (crackz.project.exceptions.ProjectError)" href="#crackz.project.exceptions.ProjectError">ProjectError</a></code></p>
 
 
+
         <p>Raised for invalid or inconsistent project config.</p>
 
 
@@ -16107,7 +16120,7 @@ or file import errors.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/project/exceptions.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">24</span>
 <span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ProjectConfigError</span><span class="p">(</span><span class="n">ProjectError</span><span class="p">):</span>
@@ -16135,6 +16148,7 @@ or file import errors.</p>
               Bases: <code><a class="autorefs autorefs-internal" title="ProjectError (crackz.project.exceptions.ProjectError)" href="#crackz.project.exceptions.ProjectError">ProjectError</a></code></p>
 
 
+
         <p>Raised when an image cannot be imported.</p>
 
 
@@ -16144,7 +16158,7 @@ or file import errors.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/project/exceptions.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">28</span>
 <span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ImageImportError</span><span class="p">(</span><span class="n">ProjectError</span><span class="p">):</span>
@@ -16172,6 +16186,7 @@ or file import errors.</p>
               Bases: <code><a class="autorefs autorefs-internal" title="ProjectError (crackz.project.exceptions.ProjectError)" href="#crackz.project.exceptions.ProjectError">ProjectError</a></code></p>
 
 
+
         <p>Raised when an image cannot be opened.</p>
 
 
@@ -16181,7 +16196,7 @@ or file import errors.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/project/exceptions.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">32</span>
 <span class="normal">33</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ImageFileError</span><span class="p">(</span><span class="n">ProjectError</span><span class="p">):</span>
@@ -16234,7 +16249,7 @@ refactored into specialized modules:
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -16260,6 +16275,7 @@ refactored into specialized modules:
               Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
 
 
+
         <p>Typed representation of one detection result entry.</p>
 <p>This is a Pydantic BaseModel to provide runtime validation,
 type coercion, and consistent data handling throughout the application.</p>
@@ -16271,7 +16287,7 @@ type coercion, and consistent data handling throughout the application.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/detection/results.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
 <span class="normal">38</span>
@@ -16319,7 +16335,7 @@ type coercion, and consistent data handling throughout the application.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -16411,7 +16427,7 @@ with the existing API while leveraging the new CrackzTensorBoardLogger class.</p
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/tensorboard.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 90</span>
 <span class="normal"> 91</span>
@@ -16574,7 +16590,7 @@ real-time GUI updates.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/training_runner.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 34</span>
 <span class="normal"> 35</span>
@@ -17227,7 +17243,7 @@ Allows GUI to update in real-time without file polling.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/detection/detection_runner.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">271</span>
 <span class="normal">272</span>
@@ -17567,7 +17583,7 @@ Categories are simplified for user clarity: detected vs suspected cracks.</p>
 </code></pre></div>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/detection/severity.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
 <span class="normal">31</span>
@@ -17686,7 +17702,7 @@ Categories are simplified for user clarity: detected vs suspected cracks.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -17710,6 +17726,7 @@ Categories are simplified for user clarity: detected vs suspected cracks.</p>
     <div class="doc doc-contents ">
 
 
+
         <p>Convert image to RGB.</p>
 
 
@@ -17719,7 +17736,7 @@ Categories are simplified for user clarity: detected vs suspected cracks.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/data/dataset.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">27</span>
 <span class="normal">28</span>
@@ -17743,7 +17760,7 @@ Categories are simplified for user clarity: detected vs suspected cracks.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -17770,7 +17787,7 @@ Categories are simplified for user clarity: detected vs suspected cracks.</p>
         <p>Apply the transformation.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/data/dataset.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">33</span>
 <span class="normal">34</span>
@@ -17807,6 +17824,7 @@ Categories are simplified for user clarity: detected vs suspected cracks.</p>
               Bases: <code><span title="torch.utils.data.Dataset">Dataset</span>[<span title="crackz.ai.core.ai_types.Sample">Sample</span>]</code></p>
 
 
+
         <p>Dataset for crack images with optional masks.</p>
 
 
@@ -17816,7 +17834,7 @@ Categories are simplified for user clarity: detected vs suspected cracks.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/data/dataset.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 95</span>
 <span class="normal"> 96</span>
@@ -18070,7 +18088,7 @@ Categories are simplified for user clarity: detected vs suspected cracks.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -18185,7 +18203,7 @@ ensuring consistent error handling and proper file handle management.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/data/dataset.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">38</span>
 <span class="normal">39</span>
@@ -18344,7 +18362,7 @@ ensuring consistent error handling and proper file handle management.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/data/dataset.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">63</span>
 <span class="normal">64</span>
@@ -18574,7 +18592,7 @@ ensuring consistent error handling and proper file handle management.</p>
 Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
 </details>
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/data/dataset.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">221</span>
 <span class="normal">222</span>
@@ -18801,7 +18819,7 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/data/dataset.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">263</span>
 <span class="normal">264</span>
@@ -18884,7 +18902,7 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -18913,7 +18931,7 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
 (CrackzSample with dummy masks). Detection samples have dummy zero masks that are ignored.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/data/dataloader.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">18</span>
 <span class="normal">19</span>
@@ -18968,7 +18986,7 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
         <p>Make a dataloader for crackz (handles both training and detection datasets).</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/data/dataloader.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">35</span>
 <span class="normal">36</span>
@@ -19183,7 +19201,7 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/data/dataloader.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 62</span>
 <span class="normal"> 63</span>
@@ -19304,7 +19322,7 @@ and Focal losses for enhanced performance in handling imbalanced datasets.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -19330,6 +19348,7 @@ and Focal losses for enhanced performance in handling imbalanced datasets.</p>
 
 
     <div class="doc doc-contents ">
+
 
 
         <p>Configuration container for <code>CrackzModel</code>.</p>
@@ -19421,7 +19440,7 @@ and Focal losses for enhanced performance in handling imbalanced datasets.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/model/segmentation/model.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">38</span>
 <span class="normal">39</span>
@@ -19505,7 +19524,7 @@ and Focal losses for enhanced performance in handling imbalanced datasets.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -19536,7 +19555,7 @@ and Focal losses for enhanced performance in handling imbalanced datasets.</p>
         <p>Create a <code>CrackzConfig</code> from a <code>Project</code> instance.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/segmentation/model.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">63</span>
 <span class="normal">64</span>
@@ -19595,6 +19614,7 @@ and Focal losses for enhanced performance in handling imbalanced datasets.</p>
               Bases: <code><span title="torch.nn.Module">Module</span></code></p>
 
 
+
         <p>Combination of Dice Loss and Focal Loss for binary segmentation.</p>
 
 
@@ -19604,7 +19624,7 @@ and Focal losses for enhanced performance in handling imbalanced datasets.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/model/segmentation/model.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 79</span>
 <span class="normal"> 80</span>
@@ -19688,7 +19708,7 @@ and Focal losses for enhanced performance in handling imbalanced datasets.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -19722,7 +19742,7 @@ contributions and handling class imbalances effectively.</p>
 :return: Combined loss value as a tensor.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/segmentation/model.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 89</span>
 <span class="normal"> 90</span>
@@ -19811,6 +19831,7 @@ contributions and handling class imbalances effectively.</p>
               Bases: <code><span title="pytorch_lightning.LightningModule">LightningModule</span></code></p>
 
 
+
         <p>PyTorch Lightning module for crack segmentation.</p>
 
 
@@ -19820,7 +19841,7 @@ contributions and handling class imbalances effectively.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/model/segmentation/model.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">120</span>
 <span class="normal">121</span>
@@ -20134,7 +20155,7 @@ contributions and handling class imbalances effectively.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -20161,7 +20182,7 @@ contributions and handling class imbalances effectively.</p>
         <p>Perform a training step.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/segmentation/model.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">201</span>
 <span class="normal">202</span>
@@ -20190,7 +20211,7 @@ contributions and handling class imbalances effectively.</p>
         <p>Validate a step.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/segmentation/model.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">205</span>
 <span class="normal">206</span>
@@ -20219,7 +20240,7 @@ contributions and handling class imbalances effectively.</p>
         <p>Perform a test step.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/segmentation/model.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">209</span>
 <span class="normal">210</span>
@@ -20248,7 +20269,7 @@ contributions and handling class imbalances effectively.</p>
         <p>Reset training metrics at epoch end.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/segmentation/model.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">213</span>
 <span class="normal">214</span>
@@ -20279,7 +20300,7 @@ contributions and handling class imbalances effectively.</p>
         <p>Reset validation metrics at epoch end.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/segmentation/model.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">218</span>
 <span class="normal">219</span>
@@ -20310,7 +20331,7 @@ contributions and handling class imbalances effectively.</p>
         <p>Reset test metrics at epoch end.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/segmentation/model.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">223</span>
 <span class="normal">224</span>
@@ -20341,7 +20362,7 @@ contributions and handling class imbalances effectively.</p>
         <p>Configure the AdamW optimizer.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/segmentation/model.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">228</span>
 <span class="normal">229</span>
@@ -20370,7 +20391,7 @@ contributions and handling class imbalances effectively.</p>
         <p>Get the loss function based on the configuration.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/segmentation/model.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">232</span>
 <span class="normal">233</span>
@@ -20433,7 +20454,7 @@ epochs with many batches.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -20459,6 +20480,7 @@ epochs with many batches.</p>
               Bases: <code><span title="pytorch_lightning.Callback">Callback</span></code></p>
 
 
+
         <p>Collects and persists scalar metrics; optionally forwards them to an external reporter.</p>
 
 
@@ -20468,7 +20490,7 @@ epochs with many batches.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 47</span>
 <span class="normal"> 48</span>
@@ -20874,7 +20896,7 @@ epochs with many batches.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -20901,7 +20923,7 @@ epochs with many batches.</p>
         <p>Store total epochs when training starts.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
 <span class="normal">62</span>
@@ -20934,7 +20956,7 @@ epochs with many batches.</p>
 The main metrics history is preserved and only updated at epoch end.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 65</span>
 <span class="normal"> 66</span>
@@ -21029,7 +21051,7 @@ The main metrics history is preserved and only updated at epoch end.</p>
         <p>Capture training metrics at the end of each training epoch.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">102</span>
 <span class="normal">103</span>
@@ -21058,7 +21080,7 @@ The main metrics history is preserved and only updated at epoch end.</p>
         <p>Capture validation metrics at the end of validation.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">106</span>
 <span class="normal">107</span>
@@ -21087,7 +21109,7 @@ The main metrics history is preserved and only updated at epoch end.</p>
         <p>Capture test metrics at the end of testing.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">110</span>
 <span class="normal">111</span>
@@ -21120,7 +21142,7 @@ The main metrics history is preserved and only updated at epoch end.</p>
         <p>Final save at the end of training.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">116</span>
 <span class="normal">117</span>
@@ -21157,6 +21179,7 @@ The main metrics history is preserved and only updated at epoch end.</p>
               Bases: <code><span title="pytorch_lightning.Callback">Callback</span></code></p>
 
 
+
         <p>Reports training/testing progress via an optional external reporter.</p>
 <p>This callback tracks progress at both the epoch and batch level to provide
 accurate time remaining estimates. Progress updates are reported:
@@ -21175,7 +21198,7 @@ especially important for GUI displays.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">250</span>
 <span class="normal">251</span>
@@ -21397,7 +21420,7 @@ especially important for GUI displays.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -21424,7 +21447,7 @@ especially important for GUI displays.</p>
         <p>Report progress via the reporter or log it.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">277</span>
 <span class="normal">278</span>
@@ -21467,7 +21490,7 @@ especially important for GUI displays.</p>
         <p>Calculate total batches for progress tracking.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">289</span>
 <span class="normal">290</span>
@@ -21502,7 +21525,7 @@ especially important for GUI displays.</p>
         <p>Report progress at the start of each training epoch.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">296</span>
 <span class="normal">297</span>
@@ -21543,7 +21566,7 @@ especially important for GUI displays.</p>
         <p>Report progress after each training batch for more accurate time estimates.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">305</span>
 <span class="normal">306</span>
@@ -21638,7 +21661,7 @@ especially important for GUI displays.</p>
         <p>Report progress at the end of each training epoch.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">342</span>
 <span class="normal">343</span>
@@ -21677,7 +21700,7 @@ especially important for GUI displays.</p>
         <p>Report progress at the end of training.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">351</span>
 <span class="normal">352</span>
@@ -21706,7 +21729,7 @@ especially important for GUI displays.</p>
         <p>Report progress at the end of testing.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">355</span>
 <span class="normal">356</span>
@@ -21743,6 +21766,7 @@ especially important for GUI displays.</p>
               Bases: <code><span title="pytorch_lightning.Callback">Callback</span></code></p>
 
 
+
         <p>Logs sample input / prediction / mask triplets to TensorBoard after validation epochs.</p>
 <p>This callback is added only when a TensorBoard logger is active. It keeps a small, fixed
 set of samples (to avoid touching the dataloaders again) and performs a forward pass
@@ -21756,7 +21780,7 @@ standard ImageNet statistics (same as dataset defaults) before logging.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">360</span>
 <span class="normal">361</span>
@@ -21906,7 +21930,7 @@ standard ImageNet statistics (same as dataset defaults) before logging.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -21935,7 +21959,7 @@ standard ImageNet statistics (same as dataset defaults) before logging.</p>
 Skips silently if no samples or logger are available.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">386</span>
 <span class="normal">387</span>
@@ -22059,7 +22083,7 @@ Skips silently if no samples or logger are available.</p>
         <p>Wrap a UI callback to conform to the reporter interface.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">38</span>
 <span class="normal">39</span>
@@ -22237,7 +22261,7 @@ Skips silently if no samples or logger are available.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/callbacks.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">434</span>
 <span class="normal">435</span>
@@ -22374,7 +22398,7 @@ Skips silently if no samples or logger are available.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -22455,7 +22479,7 @@ Skips silently if no samples or logger are available.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
 <span class="normal">26</span>
@@ -22586,7 +22610,7 @@ Skips silently if no samples or logger are available.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">54</span>
 <span class="normal">55</span>
@@ -22700,7 +22724,7 @@ Skips silently if no samples or logger are available.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 73</span>
 <span class="normal"> 74</span>
@@ -22883,7 +22907,7 @@ Can be specified with or without the '.ckpt' extension.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">110</span>
 <span class="normal">111</span>
@@ -23064,7 +23088,7 @@ and the last checkpoint into the project's checkpoints directory.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">163</span>
 <span class="normal">164</span>
@@ -23232,7 +23256,7 @@ and the last checkpoint into the project's checkpoints directory.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">200</span>
 <span class="normal">201</span>
@@ -23381,7 +23405,7 @@ graphical output of detection results and metrics.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -23408,7 +23432,7 @@ graphical output of detection results and metrics.</p>
         <p>Plot original image, predicted mask overlay, and predicted mask side by side.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/visualization/visualization.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">48</span>
 <span class="normal">49</span>
@@ -23503,7 +23527,7 @@ graphical output of detection results and metrics.</p>
         <p>Save a Matplotlib figure to disk and close it safely.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/visualization/visualization.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">86</span>
 <span class="normal">87</span>
@@ -23552,7 +23576,7 @@ graphical output of detection results and metrics.</p>
         <p>Save metrics to a JSON file in the project's artifacts directory.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/visualization/visualization.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">101</span>
 <span class="normal">102</span>
@@ -23595,7 +23619,7 @@ graphical output of detection results and metrics.</p>
         <p>Save metrics to a JSON file in the project's artifacts directory.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/visualization/visualization.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">113</span>
 <span class="normal">114</span>
@@ -23630,7 +23654,7 @@ graphical output of detection results and metrics.</p>
         <p>Show an image on a matplotlib axis.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/visualization/visualization.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">34</span>
 <span class="normal">35</span>
@@ -23677,7 +23701,7 @@ graphical output of detection results and metrics.</p>
         <p>Convert a CHW tensor [0,1] to HWC numpy image for plotting.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/visualization/visualization.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
 <span class="normal">30</span>
@@ -23720,7 +23744,7 @@ and device-specific operations.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -23746,6 +23770,7 @@ and device-specific operations.</p>
               Bases: <code><span title="enum.Enum">Enum</span></code></p>
 
 
+
         <p>Available AI devices.</p>
 
 
@@ -23755,7 +23780,7 @@ and device-specific operations.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/device/device.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 10</span>
 <span class="normal"> 11</span>
@@ -24035,7 +24060,7 @@ and device-specific operations.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -24066,7 +24091,7 @@ and device-specific operations.</p>
         <p>Return a list of available devices on this system.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/device/device.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">18</span>
 <span class="normal">19</span>
@@ -24133,7 +24158,7 @@ and device-specific operations.</p>
         <p>Return best available device, preferring GPU &gt; MPS &gt; CPU.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/device/device.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">39</span>
 <span class="normal">40</span>
@@ -24264,7 +24289,7 @@ and device-specific operations.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/device/device.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 47</span>
 <span class="normal"> 48</span>
@@ -24497,7 +24522,7 @@ and device-specific operations.</p>
 <p>Returns a string suitable for PyTorch Lightning's accelerator argument.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/device/utils.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">19</span>
 <span class="normal">20</span>
@@ -24590,7 +24615,7 @@ and device-specific operations.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/device/utils.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
 <span class="normal">30</span>
@@ -24678,7 +24703,7 @@ from crackz.ai.core import CrackzBatch, ProgressReporter</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -24760,7 +24785,7 @@ the data loading process.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -24786,6 +24811,7 @@ the data loading process.</p>
               Bases: <code><span title="crackz.exceptions.CrackzError">CrackzError</span></code></p>
 
 
+
         <p>Base class for Detection-related exceptions.</p>
 
 
@@ -24795,7 +24821,7 @@ the data loading process.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/exceptions.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">19</span>
 <span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DetectionError</span><span class="p">(</span><span class="n">CrackzError</span><span class="p">):</span>
@@ -24823,6 +24849,7 @@ the data loading process.</p>
               Bases: <code><span title="crackz.exceptions.CrackzError">CrackzError</span></code></p>
 
 
+
         <p>Base class for AI-related exceptions.</p>
 
 
@@ -24832,7 +24859,7 @@ the data loading process.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/exceptions.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">23</span>
 <span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AIPipelineError</span><span class="p">(</span><span class="n">CrackzError</span><span class="p">):</span>
@@ -24860,6 +24887,7 @@ the data loading process.</p>
               Bases: <code><a class="autorefs autorefs-internal" title="AIPipelineError (crackz.ai.exceptions.AIPipelineError)" href="#crackz.ai.exceptions.AIPipelineError">AIPipelineError</a></code></p>
 
 
+
         <p>Raised when a specified AI model cannot be found.</p>
 
 
@@ -24869,7 +24897,7 @@ the data loading process.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/exceptions.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">27</span>
 <span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ModelNotFoundError</span><span class="p">(</span><span class="n">AIPipelineError</span><span class="p">):</span>
@@ -24897,6 +24925,7 @@ the data loading process.</p>
               Bases: <code><a class="autorefs autorefs-internal" title="AIPipelineError (crackz.ai.exceptions.AIPipelineError)" href="#crackz.ai.exceptions.AIPipelineError">AIPipelineError</a></code></p>
 
 
+
         <p>Raised when there is an error loading data for AI processing.</p>
 
 
@@ -24906,7 +24935,7 @@ the data loading process.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/exceptions.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">31</span>
 <span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DataLoadingError</span><span class="p">(</span><span class="n">AIPipelineError</span><span class="p">):</span>
@@ -24934,6 +24963,7 @@ the data loading process.</p>
               Bases: <code><a class="autorefs autorefs-internal" title="AIPipelineError (crackz.ai.exceptions.AIPipelineError)" href="#crackz.ai.exceptions.AIPipelineError">AIPipelineError</a></code></p>
 
 
+
         <p>Raised when there is an error loading images.</p>
 
 
@@ -24943,7 +24973,7 @@ the data loading process.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/exceptions.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">35</span>
 <span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ImageLoadingError</span><span class="p">(</span><span class="n">AIPipelineError</span><span class="p">):</span>
@@ -25003,7 +25033,7 @@ results = load_detection_results(project)</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -25029,6 +25059,7 @@ results = load_detection_results(project)</p>
               Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
 
 
+
         <p>Typed representation of one detection result entry.</p>
 <p>This is a Pydantic BaseModel to provide runtime validation,
 type coercion, and consistent data handling throughout the application.</p>
@@ -25040,7 +25071,7 @@ type coercion, and consistent data handling throughout the application.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/detection/results.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
 <span class="normal">38</span>
@@ -25088,7 +25119,7 @@ type coercion, and consistent data handling throughout the application.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -25130,7 +25161,7 @@ strict: bool
     If False, skip invalid rows (logging a warning).</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/detection/results.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 83</span>
 <span class="normal"> 84</span>
@@ -25214,7 +25245,7 @@ strict: bool
 <p>Only yields IoU values that are not None (i.e., when ground truth was available).</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/detection/results.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">115</span>
 <span class="normal">116</span>
@@ -25268,7 +25299,7 @@ extensible later (precision, recall, F1, confusion metrics, etc.).</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -25295,7 +25326,7 @@ extensible later (precision, recall, F1, confusion metrics, etc.).</p>
         <p>Return mean IoU over all results (0 if empty).</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/detection/eval.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">24</span>
 <span class="normal">25</span>
@@ -25327,7 +25358,7 @@ extensible later (precision, recall, F1, confusion metrics, etc.).</p>
 <p>Currently: count + mean_iou. Extend with median, std, percentiles later.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/detection/eval.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
 <span class="normal">31</span>
@@ -25380,7 +25411,7 @@ extensible later (precision, recall, F1, confusion metrics, etc.).</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -25461,7 +25492,7 @@ extensible later (precision, recall, F1, confusion metrics, etc.).</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
 <span class="normal">26</span>
@@ -25592,7 +25623,7 @@ extensible later (precision, recall, F1, confusion metrics, etc.).</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">54</span>
 <span class="normal">55</span>
@@ -25706,7 +25737,7 @@ extensible later (precision, recall, F1, confusion metrics, etc.).</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 73</span>
 <span class="normal"> 74</span>
@@ -25889,7 +25920,7 @@ Can be specified with or without the '.ckpt' extension.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">110</span>
 <span class="normal">111</span>
@@ -26070,7 +26101,7 @@ and the last checkpoint into the project's checkpoints directory.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">163</span>
 <span class="normal">164</span>
@@ -26238,7 +26269,7 @@ and the last checkpoint into the project's checkpoints directory.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">200</span>
 <span class="normal">201</span>
@@ -26387,7 +26418,7 @@ support, and pipeline management.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -26411,6 +26442,7 @@ support, and pipeline management.</p>
     <div class="doc doc-contents ">
 
 
+
         <p>Thread-safe cancellation token for AI workflows.</p>
 <p>This class allows callers to request cancellation of long-running operations
 and workers to check if cancellation has been requested.</p>
@@ -26422,7 +26454,7 @@ and workers to check if cancellation has been requested.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/pipeline/cancellation.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 8</span>
 <span class="normal"> 9</span>
@@ -26496,7 +26528,7 @@ and workers to check if cancellation has been requested.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -26523,7 +26555,7 @@ and workers to check if cancellation has been requested.</p>
         <p>Initialize a new cancellation token.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/pipeline/cancellation.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">15</span>
 <span class="normal">16</span>
@@ -26552,7 +26584,7 @@ and workers to check if cancellation has been requested.</p>
         <p>Request cancellation of the operation.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/pipeline/cancellation.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">19</span>
 <span class="normal">20</span>
@@ -26604,7 +26636,7 @@ and workers to check if cancellation has been requested.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/pipeline/cancellation.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">23</span>
 <span class="normal">24</span>
@@ -26664,7 +26696,7 @@ and workers to check if cancellation has been requested.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/pipeline/cancellation.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">31</span>
 <span class="normal">32</span>
@@ -26734,7 +26766,7 @@ while keeping plain text file logs for production parsing.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -26760,6 +26792,7 @@ while keeping plain text file logs for production parsing.</p>
               Bases: <code><span title="logging.Handler">Handler</span></code></p>
 
 
+
         <p>Redirect standard logging records to loguru.</p>
 
 
@@ -26769,7 +26802,7 @@ while keeping plain text file logs for production parsing.</p>
 
 
 
-              <details class="quote">
+              <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/log/crackz_logger.py</code></summary>
                 <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">36</span>
 <span class="normal">37</span>
@@ -26807,7 +26840,7 @@ while keeping plain text file logs for production parsing.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -26834,7 +26867,7 @@ while keeping plain text file logs for production parsing.</p>
         <p>Emit a record.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/log/crackz_logger.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">39</span>
 <span class="normal">40</span>
@@ -26920,7 +26953,7 @@ Rich formatting in other parts of the application.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/log/crackz_logger.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">54</span>
 <span class="normal">55</span>
@@ -27078,7 +27111,7 @@ File logging uses plain structured format for production parsing.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/log/crackz_logger.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 79</span>
 <span class="normal"> 80</span>
@@ -27268,7 +27301,7 @@ File logging uses plain structured format for production parsing.</p>
 <p>Unlike loguru sinks, this uses the stdlib <code>logging</code> system directly.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/log/crackz_logger.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">164</span>
 <span class="normal">165</span>
@@ -27351,7 +27384,7 @@ to simplify the implementation of the CLI.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -27392,7 +27425,7 @@ to simplify the implementation of the CLI.</p>
 <p>Configures logging once per invocation.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/cli/crackz_cli.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
 <span class="normal">62</span>
@@ -27455,7 +27488,7 @@ to simplify the implementation of the CLI.</p>
         <p>Execute the main application entry point.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/cli/crackz_cli.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">83</span>
 <span class="normal">84</span>
@@ -27514,7 +27547,7 @@ logs, etc.) are resolved consistently.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -27550,7 +27583,7 @@ logs, etc.) are resolved consistently.</p>
         <p>Initialize a new Crackz project directory and save its config.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/cli/project_cli.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 61</span>
 <span class="normal"> 62</span>
@@ -27681,7 +27714,7 @@ logs, etc.) are resolved consistently.</p>
         <p>Export a unified ProjectConfig YAML derived from an existing project or config file.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/cli/project_cli.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">115</span>
 <span class="normal">116</span>
@@ -27751,7 +27784,7 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
 - detections/*.png to detections/visualizations/</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/cli/project_cli.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">220</span>
 <span class="normal">221</span>
@@ -27900,7 +27933,7 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
 Images and masks are always preserved. The best model checkpoint is preserved by default.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/cli/project_cli.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">322</span>
 <span class="normal">323</span>
@@ -28009,7 +28042,7 @@ process. Errors during the process are logged and handled properly.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -28348,7 +28381,7 @@ Random seed for reproducible splits (default: None for random).</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/cli/image_import_cli.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">120</span>
 <span class="normal">121</span>
@@ -28666,7 +28699,7 @@ leveraging the typer CLI framework for seamless command-line interaction.</p>
 
 
 
-  <div class="doc doc-children">
+<div class="doc doc-children">
 
 
 
@@ -28697,7 +28730,7 @@ leveraging the typer CLI framework for seamless command-line interaction.</p>
         <p>Run the detection process based on the given configuration or project path.</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/cli/detection_cli.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">45</span>
 <span class="normal">46</span>
@@ -28864,7 +28897,7 @@ is provided.</p>
     </table>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/cli/detection_cli.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">58</span>
 <span class="normal">59</span>
@@ -28953,7 +28986,7 @@ is provided.</p>
         <p>Prune older checkpoints keeping only the newest/best N (heuristic).</p>
 
 
-            <details class="quote">
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/cli/detection_cli.py</code></summary>
               <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 91</span>
 <span class="normal"> 92</span>
@@ -29147,12 +29180,12 @@ Images with higher uncertainty benefit most from annotation.</p>
 <div class="highlight"><pre><span></span><code>  -p, --project DIRECTORY         Project path (overrides config file). Eg
                                   --project ./my_project
   -m, --method [entropy|max_probability|variance|mean_confidence]
-                                  Uncertainty calculation method  \[default:
+                                  Uncertainty calculation method  [default:
                                   entropy]
   -n, --top-n INTEGER RANGE       Return only top N most uncertain images
-                                  (default: all)  \[x&gt;=1]
+                                  (default: all)  [x&gt;=1]
   -s, --split TEXT                Image split to process (raw/train/val/test)
-                                  \[default: raw]
+                                  [default: raw]
   -o, --out PATH                  Output file or directory path
 </code></pre></div>
 <h2 id="clean">clean<a class="headerlink" href="#clean" title="Permanent link">&para;</a></h2>
@@ -29169,7 +29202,7 @@ Images and masks are always preserved. The best model checkpoint is preserved by
   --logs-only                     Only clean log files, preserve artifacts
   --keep-best-model / --no-keep-best-model
                                   Keep the best model checkpoint when cleaning
-                                  (default: keep)  \[default: keep-best-model]
+                                  (default: keep)  [default: keep-best-model]
 </code></pre></div>
 <h2 id="dashboard">dashboard<a class="headerlink" href="#dashboard" title="Permanent link">&para;</a></h2>
 <p>Launch the Streamlit dashboard</p>
@@ -29178,7 +29211,7 @@ Images and masks are always preserved. The best model checkpoint is preserved by
 </code></pre></div>
 <p>Options:</p>
 <div class="highlight"><pre><span></span><code>  -p, --project TEXT  Project name or path to load initially
-  --port INTEGER      Port number for the Streamlit server  \[default: 8501]
+  --port INTEGER      Port number for the Streamlit server  [default: 8501]
 </code></pre></div>
 <h3 id="launch">launch<a class="headerlink" href="#launch" title="Permanent link">&para;</a></h3>
 <p>Launch the Streamlit dashboard.</p>
@@ -29190,7 +29223,7 @@ Images and masks are always preserved. The best model checkpoint is preserved by
 </code></pre></div>
 <p>Options:</p>
 <div class="highlight"><pre><span></span><code>  -p, --project TEXT  Project name or path to load initially
-  --port INTEGER      Port number for the Streamlit server  \[default: 8501]
+  --port INTEGER      Port number for the Streamlit server  [default: 8501]
 </code></pre></div>
 <h2 id="detect">detect<a class="headerlink" href="#detect" title="Permanent link">&para;</a></h2>
 <p>Usage:</p>
@@ -29202,7 +29235,7 @@ Images and masks are always preserved. The best model checkpoint is preserved by
 <div class="highlight"><pre><span></span><code> detect prune-checkpoints [OPTIONS]
 </code></pre></div>
 <p>Options:</p>
-<div class="highlight"><pre><span></span><code>  -k, --keep INTEGER RANGE  Number of checkpoints to keep  \[default: 3; x&gt;=1]
+<div class="highlight"><pre><span></span><code>  -k, --keep INTEGER RANGE  Number of checkpoints to keep  [default: 3; x&gt;=1]
   -c, --cfg FILE            Path to YAML pipeline config. Or use --project to
                             specify the project path.
   -p, --project DIRECTORY   Project path (overrides config file). Eg --project
@@ -29246,9 +29279,9 @@ and properly handles exceptions encountered during execution.</p>
   -p, --project DIRECTORY         Project path (overrides config file). Eg
                                   --project ./my_project
   -e, --epochs INTEGER RANGE      Override number of training epochs (default:
-                                  from project config)  \[x&gt;=1]
+                                  from project config)  [x&gt;=1]
   -b, --batch-size INTEGER RANGE  Override training batch size (default: from
-                                  project config)  \[x&gt;=1]
+                                  project config)  [x&gt;=1]
 </code></pre></div>
 <h2 id="evaluate">evaluate<a class="headerlink" href="#evaluate" title="Permanent link">&para;</a></h2>
 <p>Usage:</p>
@@ -29269,7 +29302,7 @@ and properly handles exceptions encountered during execution.</p>
   --metrics TEXT           Comma-separated metrics to calculate
                            (accuracy,precision,recall,f1,iou)
   --threshold FLOAT RANGE  Classification threshold for converting
-                           probabilities to binary (0.0-1.0)  \[default: 0.5;
+                           probabilities to binary (0.0-1.0)  [default: 0.5;
                            0.0&lt;=x&lt;=1.0]
   -o, --out PATH           Output file or directory path
 </code></pre></div>
@@ -29284,7 +29317,7 @@ and properly handles exceptions encountered during execution.</p>
   -p, --project DIRECTORY  Project path (overrides config file). Eg --project
                            ./my_project
   -o, --out PATH           Output file path for unified ProjectConfig YAML
-                           \[default: project_config_export.yaml]
+                           [default: project_config_export.yaml]
 </code></pre></div>
 <h2 id="geo">geo<a class="headerlink" href="#geo" title="Permanent link">&para;</a></h2>
 <p>Usage:</p>
@@ -29312,9 +29345,9 @@ are shown in red, while regular images are shown in blue.</p>
   -p, --project DIRECTORY  Project path (overrides config file). Eg --project
                            ./my_project
   -o, --output PATH        Output file path for the generated map or GeoJSON.
-                           \[required]
+                           [required]
   -s, --split TEXT         Data split to use (raw, train, val, test). Defaults
-                           to &#39;raw&#39;.  \[default: raw]
+                           to &#39;raw&#39;.  [default: raw]
 </code></pre></div>
 <h3 id="export-geojson">export-geojson<a class="headerlink" href="#export-geojson" title="Permanent link">&para;</a></h3>
 <p>Export detection results to GeoJSON format for GIS analysis.</p>
@@ -29338,9 +29371,9 @@ standard GIS software like QGIS, ArcGIS, and web mapping libraries.</p>
   -p, --project DIRECTORY  Project path (overrides config file). Eg --project
                            ./my_project
   -o, --output PATH        Output file path for the generated map or GeoJSON.
-                           \[required]
+                           [required]
   -s, --split TEXT         Data split to use (raw, train, val, test). Defaults
-                           to &#39;raw&#39;.  \[default: raw]
+                           to &#39;raw&#39;.  [default: raw]
 </code></pre></div>
 <h2 id="import-images">import-images<a class="headerlink" href="#import-images" title="Permanent link">&para;</a></h2>
 <p>Import images into the specified project with optional configurations.</p>
@@ -29392,20 +29425,20 @@ the import process. Errors during import are logged and appropriately handled.</
   -p, --project DIRECTORY         Project path (overrides config file). Eg
                                   --project ./my_project
   -s, --src DIRECTORY             Path to images to import (defaults to &quot;.&quot;)
-                                  \[required]
+                                  [required]
   -ms, --masks_src DIRECTORY      Path to image masks to import (defaults to
                                   &quot;./masks&quot;)
   -t, --type [raw|train|test|val]
                                   Type of images to import [raw, val, train,
                                   test]. Defaults to &quot;raw&quot;. Eg --type raw
-                                  \[default: raw]
+                                  [default: raw]
   -z, --size &lt;INTEGER INTEGER&gt;...
                                   Images size for imported images (defaults to
-                                  &quot;512 512&quot;). Eg --size 512 512  \[default:
+                                  &quot;512 512&quot;). Eg --size 512 512  [default:
                                   512, 512]
   -q, --quality INTEGER           JPEG/PNG quality for imported images
                                   (defaults to &quot;90&quot;). Eg --quality 90
-                                  \[default: 90]
+                                  [default: 90]
   -f, --overwrite                 Overwrite existing images in the project
                                   (defaults to False). Eg. --overwrite
   --split                         Automatically split images into
@@ -29413,13 +29446,13 @@ the import process. Errors during import are logged and appropriately handled.</
                                   Eg. --split
   --train-ratio FLOAT             Ratio of images for training set when using
                                   --split (default: 0.7). Eg. --train-ratio
-                                  0.8  \[default: 0.7]
+                                  0.8  [default: 0.7]
   --val-ratio FLOAT               Ratio of images for validation set when
                                   using --split (default: 0.15). Eg. --val-
-                                  ratio 0.15  \[default: 0.15]
+                                  ratio 0.15  [default: 0.15]
   --test-ratio FLOAT              Ratio of images for test set when using
                                   --split (default: 0.15). Eg. --test-ratio
-                                  0.15  \[default: 0.15]
+                                  0.15  [default: 0.15]
   --random-seed INTEGER           Random seed for reproducible splits when
                                   using --split. If not specified, split is
                                   random. Eg. --random-seed 42
@@ -29430,7 +29463,7 @@ the import process. Errors during import are logged and appropriately handled.</
 <div class="highlight"><pre><span></span><code> init [OPTIONS]
 </code></pre></div>
 <p>Options:</p>
-<div class="highlight"><pre><span></span><code>  -n, --name TEXT                 Project name  \[required]
+<div class="highlight"><pre><span></span><code>  -n, --name TEXT                 Project name  [required]
   -p, --image-path DIRECTORY      Images directory (defaults to
                                   &quot;&lt;project&gt;/images&quot;)
   -mp, --image-mask-path DIRECTORY
@@ -29472,7 +29505,7 @@ the import process. Errors during import are logged and appropriately handled.</
 <div class="highlight"><pre><span></span><code>  -p, --project DIRECTORY        Project path (overrides config file). Eg
                                  --project ./my_project
   -t, --threshold INTEGER RANGE  Threshold for binary conversion (0-255). Uses
-                                 project config if -1 (default).  \[default:
+                                 project config if -1 (default).  [default:
                                  -1; -1&lt;=x&lt;=255]
 </code></pre></div>
 <h3 id="edit">edit<a class="headerlink" href="#edit" title="Permanent link">&para;</a></h3>
@@ -29492,7 +29525,7 @@ the import process. Errors during import are logged and appropriately handled.</
 </code></pre></div>
 <p>Options:</p>
 <div class="highlight"><pre><span></span><code>  IMAGE_PATH               Path to the image file to create/edit mask for
-                           \[required]
+                           [required]
   -m, --mask PATH          Path to save mask. If not provided, derives from
                            image path in masks directory.
   -p, --project DIRECTORY  Project path (overrides config file). Eg --project
@@ -29510,7 +29543,7 @@ permissions, and metadata suitable for the Crackz project.</p>
 <div class="highlight"><pre><span></span><code> mcp init [OPTIONS]
 </code></pre></div>
 <p>Options:</p>
-<div class="highlight"><pre><span></span><code>  -o, --output PATH  Output path for MCP config file  \[default:
+<div class="highlight"><pre><span></span><code>  -o, --output PATH  Output path for MCP config file  [default:
                      .mcp/config.json]
   -f, --force        Force overwrite if file/directory already exists
 </code></pre></div>
@@ -29521,7 +29554,7 @@ permissions, and metadata suitable for the Crackz project.</p>
 <div class="highlight"><pre><span></span><code> mcp show [OPTIONS]
 </code></pre></div>
 <p>Options:</p>
-<div class="highlight"><pre><span></span><code>  -c, --config PATH  Path to MCP config file  \[default: .mcp/config.json]
+<div class="highlight"><pre><span></span><code>  -c, --config PATH  Path to MCP config file  [default: .mcp/config.json]
 </code></pre></div>
 <h3 id="validate">validate<a class="headerlink" href="#validate" title="Permanent link">&para;</a></h3>
 <p>Validate MCP configuration file.</p>
@@ -29531,7 +29564,7 @@ the expected schema.</p>
 <div class="highlight"><pre><span></span><code> mcp validate [OPTIONS]
 </code></pre></div>
 <p>Options:</p>
-<div class="highlight"><pre><span></span><code>  -c, --config PATH  Path to MCP config file  \[default: .mcp/config.json]
+<div class="highlight"><pre><span></span><code>  -c, --config PATH  Path to MCP config file  [default: .mcp/config.json]
 </code></pre></div>
 <h2 id="migrate">migrate<a class="headerlink" href="#migrate" title="Permanent link">&para;</a></h2>
 <p>Migrate a project configuration to the current schema version.</p>
@@ -29555,8 +29588,8 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
                                   overwrite
   --migrate-files / --no-migrate-files
                                   Also migrate artifacts directory structure
-                                  (checkpoints to models, etc.)  \[default:
-                                  no-migrate-files]
+                                  (checkpoints to models, etc.)  [default: no-
+                                  migrate-files]
 </code></pre></div>
 <h2 id="model">model<a class="headerlink" href="#model" title="Permanent link">&para;</a></h2>
 <p>Usage:</p>
@@ -29583,9 +29616,9 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
 <p>Options:</p>
 <div class="highlight"><pre><span></span><code>  -p, --project DIRECTORY  Project path (overrides config file). Eg --project
                            ./my_project
-  -m, --model PATH         Path to model package file to import  \[required]
+  -m, --model PATH         Path to model package file to import  [required]
   --force / --no-force     Overwrite existing checkpoint if it exists
-                           \[default: no-force]
+                           [default: no-force]
 </code></pre></div>
 <h2 id="propagate-masks">propagate-masks<a class="headerlink" href="#propagate-masks" title="Permanent link">&para;</a></h2>
 <p>Mask propagation commands</p>
@@ -29602,12 +29635,12 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
 <div class="highlight"><pre><span></span><code> propagate-masks find-similar [OPTIONS]
 </code></pre></div>
 <p>Options:</p>
-<div class="highlight"><pre><span></span><code>  -r, --reference FILE         Reference image path  \[required]
+<div class="highlight"><pre><span></span><code>  -r, --reference FILE         Reference image path  [required]
   -d, --search-dir DIRECTORY   Directory to search for similar images
-                               \[required]
-  -t, --threshold FLOAT RANGE  Minimum similarity score (0-1)  \[default: 0.8;
+                               [required]
+  -t, --threshold FLOAT RANGE  Minimum similarity score (0-1)  [default: 0.8;
                                0.0&lt;=x&lt;=1.0]
-  -n, --top-n INTEGER RANGE    Show only top N most similar images  \[x&gt;=1]
+  -n, --top-n INTEGER RANGE    Show only top N most similar images  [x&gt;=1]
   -o, --out PATH               Output file or directory path
 </code></pre></div>
 <h3 id="run_3">run<a class="headerlink" href="#run_3" title="Permanent link">&para;</a></h3>
@@ -29624,17 +29657,17 @@ mask to match each target image using homography.</p>
 <p>Options:</p>
 <div class="highlight"><pre><span></span><code>  -p, --project DIRECTORY      Project path (overrides config file). Eg
                                --project ./my_project
-  -r, --reference FILE         Reference image path  \[required]
-  -m, --mask FILE              Reference mask path  \[required]
+  -r, --reference FILE         Reference image path  [required]
+  -m, --mask FILE              Reference mask path  [required]
   -s, --split TEXT             Target image split to propagate to
-                               (raw/train/val/test)  \[default: raw]
+                               (raw/train/val/test)  [default: raw]
   -o, --out PATH               Output file or directory path
-  -t, --threshold FLOAT RANGE  Minimum similarity score (0-1)  \[default: 0.8;
+  -t, --threshold FLOAT RANGE  Minimum similarity score (0-1)  [default: 0.8;
                                0.0&lt;=x&lt;=1.0]
-  --min-matches INTEGER RANGE  Minimum feature matches required  \[default:
-                               10; x&gt;=1]
+  --min-matches INTEGER RANGE  Minimum feature matches required  [default: 10;
+                               x&gt;=1]
   --sift / --orb               Use SIFT (True) or ORB (False) features
-                               \[default: sift]
+                               [default: sift]
   -f, --force                  Force overwrite if file/directory already
                                exists
 </code></pre></div>

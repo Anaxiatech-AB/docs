@@ -31428,11 +31428,11 @@ pre-commit<span class="w"> </span>install<span class="w"> </span>--hook-type<spa
 <p><strong>Testing the validator manually:</strong>
 <div class="highlight"><pre><span></span><code><span class="c1"># Test with a valid message</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;feat(gui): add export panel&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>temp_msg.txt
-python<span class="w"> </span>scripts/validate_commit_msg.py<span class="w"> </span>temp_msg.txt
+cz<span class="w"> </span>check<span class="w"> </span>--commit-msg-file<span class="w"> </span>temp_msg.txt
 
 <span class="c1"># Test with an invalid message</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Fix bug&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>temp_msg.txt
-python<span class="w"> </span>scripts/validate_commit_msg.py<span class="w"> </span>temp_msg.txt
+cz<span class="w"> </span>check<span class="w"> </span>--commit-msg-file<span class="w"> </span>temp_msg.txt
 </code></pre></div></p>
 <p><strong>Bypassing the hook</strong> (not recommended):
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>commit<span class="w"> </span>--no-verify<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;your message&quot;</span>
@@ -31460,9 +31460,10 @@ PDF export (uses <code>scripts/export_pdf.py</code>):
 <hr />
 <h2 id="release-process-overview">Release Process (Overview)<a class="headerlink" href="#release-process-overview" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Commits merged to <code>main</code> trigger semantic-release (version bump + changelog + GitHub release).</li>
-<li>Docker images built for full / slim / gpu variants in a separate workflow after successful release.</li>
-<li>PyPI upload currently disabled (<code>upload_to_pypi = false</code>).</li>
+<li>Commits merged to <code>main</code> trigger <a href="https://commitizen-tools.github.io/commitizen/">commitizen</a> (<code>cz bump</code>), which determines the next version from conventional commits, updates <code>pyproject.toml</code>, generates/updates <code>CHANGELOG.md</code>, creates a git tag, and pushes everything back to <code>main</code>.</li>
+<li>A draft GitHub release is then created automatically with all built artifacts attached.</li>
+<li>Docker images are built for full / slim / gpu variants in a separate workflow after a successful release.</li>
+<li>PyPI upload is currently disabled.</li>
 </ul>
 <hr />
 <h2 id="reporting-bugs">Reporting Bugs<a class="headerlink" href="#reporting-bugs" title="Permanent link">&para;</a></h2>
@@ -31577,10 +31578,10 @@ Use for early validation without bumping stable semantic version.</p>
 <h3 id="release-flow">Release Flow<a class="headerlink" href="#release-flow" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Merge feature/fix branches into <code>main</code> (squash).</li>
-<li>CI runs tests + semantic-release:</li>
-<li>Determines next version from commit history.</li>
+<li>CI runs tests + commitizen (<code>cz bump</code>):</li>
+<li>Determines next version from conventional commit history.</li>
 <li>Builds wheel, sdist, and documentation PDF.</li>
-<li>Updates CHANGELOG, tags <code>vX.Y.Z</code>, creates draft GitHub Release with artifacts.</li>
+<li>Updates <code>CHANGELOG.md</code>, commits, tags <code>vX.Y.Z</code>, creates draft GitHub Release with artifacts.</li>
 <li>Draft release is automatically published (made public).</li>
 <li>Docker images (full + slim + gpu) built &amp; pushed with tags: <code>:X.Y.Z</code> and <code>:latest</code>.</li>
 <li>Docs site + PDF published to GitHub Pages via docs workflow (separate pipeline).</li>
@@ -31595,7 +31596,7 @@ Use for early validation without bumping stable semantic version.</p>
 <ol>
 <li>Branch: <code>hotfix/&lt;next-patch&gt;-&lt;short-desc&gt;</code> from <code>main</code>.</li>
 <li>Implement fix; PR with <code>fix:</code> commit message.</li>
-<li>Merge → semantic-release issues patch version.</li>
+<li>Merge → <code>cz bump</code> issues patch version.</li>
 </ol>
 <h3 id="schema-stability-pre-commit-hooks">Schema Stability &amp; Pre-Commit Hooks<a class="headerlink" href="#schema-stability-pre-commit-hooks" title="Permanent link">&para;</a></h3>
 <p>Crackz persists project configuration (YAML) using Pydantic models. To avoid accidental

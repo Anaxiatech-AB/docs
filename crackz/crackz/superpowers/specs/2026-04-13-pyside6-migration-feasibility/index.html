@@ -1,0 +1,2492 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI image analysis of cracks in harbors">
+      
+      
+        <meta name="author" content="Theresia Sofia Snow">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Feasibility Study: CustomTkinter → PySide6 Migration - Crackz</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/print.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-executive-summary" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Crackz" class="md-header__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Crackz
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Feasibility Study: CustomTkinter → PySide6 Migration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Crackz" class="md-nav__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Crackz
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    End User Documentation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    End User Documentation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cli-cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Cookbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GUI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ai-chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Chat Assistant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../data-splits-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Splits & Import
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../map-viewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Map Viewer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reporting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Report Generation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_12" id="__nav_4_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure Deployments
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Azure Deployments
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure-batch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure Batch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure-vm-cuda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure VM with CUDA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VM vs Batch Comparison
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../advanced-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../completion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shell Completion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Documentation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer Documentation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Scope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-decisions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Decisions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Current Tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../architecture-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../evaluation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tracing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tracing & Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../async-callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Async Callbacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pr-review-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PR Review Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../distribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Additional Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Additional Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../customer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customer Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../customer-access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customer Access Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pdf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Printable PDF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-executive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Executive Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-current-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Current State
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-motivation-qt-solution-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Motivation → Qt Solution Mapping
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Motivation → Qt Solution Mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3a-look-feel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3a. Look &amp; Feel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3b-missing-widgets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3b. Missing Widgets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3c-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3c. Performance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3d-packaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3d. Packaging
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-recommended-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Recommended Stack
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-what-we-lose-risks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. What We Lose / Risks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. What We Lose / Risks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#highest-risk-component-asyncio-qt-event-loop-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Highest-Risk Component: asyncio ↔ Qt event loop bridge
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-effort-breakdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Effort Breakdown
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Effort Breakdown">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-0-ramp-prototype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 0 — Ramp &amp; Prototype
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-foundation-shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1 — Foundation &amp; Shell
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-standard-panels-dialogs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2 — Standard Panels &amp; Dialogs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-image-heavy-views-qgraphicsview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3 — Image-Heavy Views (QGraphicsView)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-integration-testing-polish" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4 — Integration, Testing &amp; Polish
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grand-total" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grand Total
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-platform-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Platform Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-migration-sequence-if-approved" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Migration Sequence (if approved)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-critical-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Critical Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-verdict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Verdict
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="feasibility-study-customtkinter-pyside6-migration">Feasibility Study: CustomTkinter → PySide6 Migration<a class="headerlink" href="#feasibility-study-customtkinter-pyside6-migration" title="Permanent link">&para;</a></h1>
+<p><strong>Date:</strong> 2026-04-13
+<strong>Status:</strong> Draft — awaiting approval
+<strong>Scope:</strong> Full GUI layer rewrite. Business logic untouched.
+<strong>Platforms:</strong> Windows, macOS, Linux</p>
+<hr />
+<h2 id="1-executive-summary">1. Executive Summary<a class="headerlink" href="#1-executive-summary" title="Permanent link">&para;</a></h2>
+<p>The crackz desktop GUI is built on CustomTkinter (~22K lines, 99 files, 32 screens). Four concrete pain points drive this study: poor look &amp; feel, missing widget capabilities, canvas rendering performance, and packaging friction with PyInstaller/Nuitka.</p>
+<p><strong>Recommendation: Proceed.</strong> All four pain points have direct PySide6 solutions. The business logic layer is cleanly separated, making this a GUI-layer-only rewrite with no risk to the AI pipeline. Honest effort estimate is <strong>740–1,055 engineering hours</strong> (4–7 months solo; 2.5–4 months with two developers).</p>
+<p><strong>Stack:</strong> PySide6 (LGPL, official Qt binding) + QWidget paradigm + QGraphicsView for image-heavy views.</p>
+<hr />
+<h2 id="2-current-state">2. Current State<a class="headerlink" href="#2-current-state" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GUI source files</td>
+<td>99 Python files</td>
+</tr>
+<tr>
+<td>Total GUI lines</td>
+<td>~22,000</td>
+</tr>
+<tr>
+<td>Distinct screens / dialogs</td>
+<td>32</td>
+</tr>
+<tr>
+<td>CTk widget usages</td>
+<td>1,049</td>
+</tr>
+<tr>
+<td>Largest single file</td>
+<td><code>mask_editor.py</code> — 800 lines</td>
+</tr>
+<tr>
+<td>Mixed non-CTk widgets</td>
+<td><code>ttk.Treeview</code>, <code>tk.Menu</code>, <code>matplotlib.FigureCanvasTkAgg</code></td>
+</tr>
+<tr>
+<td>Threading model</td>
+<td>asyncio loop in daemon thread + worker threads, <code>tk.after()</code> for GUI updates</td>
+</tr>
+<tr>
+<td>External GUI libs</td>
+<td>PIL/Pillow, matplotlib, watchdog, diskcache</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>services/</code> layer in <code>src/crackz/gui/services/</code> provides a clean interface between GUI and business logic. No GUI code exists in <code>src/crackz/ai/</code> or <code>src/crackz/config/</code>. This separation is the key enabler for migration.</p>
+<hr />
+<h2 id="3-motivation-qt-solution-mapping">3. Motivation → Qt Solution Mapping<a class="headerlink" href="#3-motivation-qt-solution-mapping" title="Permanent link">&para;</a></h2>
+<h3 id="3a-look-feel">3a. Look &amp; Feel<a class="headerlink" href="#3a-look-feel" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Qt <strong>Fusion</strong> style + QSS dark stylesheet → professional, consistent cross-platform appearance</li>
+<li><code>QPalette</code> honours OS-level dark/light mode toggle automatically</li>
+<li>Frame-rate independent rendering — no more Tkinter resize flicker</li>
+<li>Per-platform native rendering: Windows Fusion/Win32, macOS Cocoa, Linux X11/Wayland</li>
+</ul>
+<h3 id="3b-missing-widgets">3b. Missing Widgets<a class="headerlink" href="#3b-missing-widgets" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Pain (current)</th>
+<th>Solution (PySide6)</th>
+<th>Key gain</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ttk.Treeview</code> — no checkboxes, no drag-drop</td>
+<td><code>QTreeView</code> + custom model</td>
+<td>Checkboxes, drag-drop, inline edit, virtual scroll</td>
+</tr>
+<tr>
+<td><code>CTkScrollableFrame</code> gallery — renders all items</td>
+<td><code>QListView</code> / <code>QTableView</code> with <code>QAbstractItemModel</code></td>
+<td>Virtual rendering — only visible rows paint</td>
+</tr>
+<tr>
+<td><code>CTkCanvas</code> mask editor — full bitmap repaint</td>
+<td><code>QGraphicsView</code> / <code>QGraphicsScene</code></td>
+<td>GPU compositing, arbitrary zoom, scene graph</td>
+</tr>
+<tr>
+<td><code>CTkTextbox</code> — no rich text</td>
+<td><code>QTextEdit</code></td>
+<td>Rich text, syntax highlight, find/replace</td>
+</tr>
+<tr>
+<td><code>CTkTabview</code></td>
+<td><code>QTabWidget</code></td>
+<td>Detachable tabs, overflow menu</td>
+</tr>
+<tr>
+<td><code>tk.Menu</code> — no icons/shortcuts</td>
+<td><code>QMenuBar</code> + <code>QAction</code></td>
+<td>Icons, keyboard shortcuts, checkable items</td>
+</tr>
+<tr>
+<td>No docking</td>
+<td><code>QDockWidget</code></td>
+<td>Detachable chat window, detachable browser pane</td>
+</tr>
+<tr>
+<td>No resizable panes</td>
+<td><code>QSplitter</code></td>
+<td>Drag-to-resize browser ↔ content area</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3c-performance">3c. Performance<a class="headerlink" href="#3c-performance" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>QGraphicsView</code> uses OpenGL for compositing — mask editor stroke repaint becomes a scene graph dirty-region update, not a full bitmap redraw</li>
+<li><code>QListView</code> virtual rendering makes a 10,000-image gallery cost the same as a 10-image one</li>
+<li><code>QPixmap</code> / <code>QImageReader</code> — hardware-accelerated, automatic EXIF orientation, no PIL-to-ImageTk conversion needed for display</li>
+<li>Qt layout engine is C++-native; widget geometry is faster than Tkinter's Python-side manager</li>
+</ul>
+<h3 id="3d-packaging">3d. Packaging<a class="headerlink" href="#3d-packaging" title="Permanent link">&para;</a></h3>
+<ul>
+<li>PySide6 ships official PyInstaller hooks in the package itself (<code>__pyinstaller/</code>)</li>
+<li><code>pyside6-deploy</code> wrapper tool for PyInstaller/Nuitka specifically</li>
+<li>Qt plugin discovery (platform, imageformat) is well-understood by packaging tools — no manual <code>--add-binary</code> flags</li>
+<li>arm64 macOS fully supported via official PySide6 wheels</li>
+</ul>
+<hr />
+<h2 id="4-recommended-stack">4. Recommended Stack<a class="headerlink" href="#4-recommended-stack" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Choice</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Qt binding</td>
+<td><strong>PySide6</strong></td>
+<td>LGPL 3.0 — commercial distribution free. Official Qt Company.</td>
+</tr>
+<tr>
+<td>UI paradigm</td>
+<td><strong>QWidget</strong></td>
+<td>Direct 1:1 migration path from CTk. Full Python. Solves all 4 pain points.</td>
+</tr>
+<tr>
+<td>Image views</td>
+<td><strong>QGraphicsView / QGraphicsScene</strong></td>
+<td>GPU-composited. Replaces CTkCanvas in mask editor, gallery, batch review, uncertainty viewer.</td>
+</tr>
+<tr>
+<td>Charts</td>
+<td><strong><code>matplotlib.FigureCanvasQTAgg</code></strong></td>
+<td>Drop-in swap of the Tkinter backend. 1-line change per embed.</td>
+</tr>
+<tr>
+<td>Styling</td>
+<td><strong>QSS</strong></td>
+<td>CSS-like, dark theme, brand colours, per-widget overrides.</td>
+</tr>
+<tr>
+<td>File watcher</td>
+<td><strong>watchdog</strong> (keep)</td>
+<td>Just swap <code>tk.after()</code> callbacks → <code>QTimer.singleShot()</code> or Qt signals.</td>
+</tr>
+<tr>
+<td>Packaging</td>
+<td><strong>PyInstaller + PySide6 hooks</strong></td>
+<td>Better than CTk; <code>pyside6-deploy</code> as optional wrapper.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>QML is not recommended.</strong> It doubles the effort (800–1,000h vs 740–1,055h full range), requires learning a new language, and the Python↔QML bridge adds state management complexity. QWidget alone solves all four pain points at lower cost. QML can be revisited for specific views (e.g. detection gallery) after the QWidget migration is stable.</p>
+<hr />
+<h2 id="5-what-we-lose-risks">5. What We Lose / Risks<a class="headerlink" href="#5-what-we-lose-risks" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Impact</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CTk built-in dark theme</td>
+<td>Low</td>
+<td>QSS replacement is more powerful; write once, reuse everywhere</td>
+</tr>
+<tr>
+<td><code>CTkImage</code> auto-DPI scaling</td>
+<td>Low</td>
+<td>Qt handles HiDPI natively via <code>devicePixelRatio</code>; remove CTkImage wrappers</td>
+</tr>
+<tr>
+<td><code>StringVar</code> / <code>BooleanVar</code> reactive bindings</td>
+<td>Medium</td>
+<td>Systematic: each <code>StringVar.trace()</code> → Qt signal</td>
+</tr>
+<tr>
+<td><code>tk.after()</code> thread-safety pattern</td>
+<td>Medium</td>
+<td>Qt signals emitted from non-GUI threads auto-queue to GUI thread</td>
+</tr>
+<tr>
+<td><code>diskcache</code> storing <code>CTkImage</code> objects</td>
+<td>Low</td>
+<td>Swap cache value type to <code>QPixmap</code>; same LRU logic</td>
+</tr>
+<tr>
+<td>Existing GUI tests</td>
+<td>Medium</td>
+<td>Review test suite; most unit tests cover business logic, not widgets</td>
+</tr>
+<tr>
+<td>Developer Qt ramp-up</td>
+<td>Medium</td>
+<td>QWidget API is well-documented; ~1–2 weeks to productive speed</td>
+</tr>
+</tbody>
+</table>
+<h3 id="highest-risk-component-asyncio-qt-event-loop-bridge">Highest-Risk Component: asyncio ↔ Qt event loop bridge<a class="headerlink" href="#highest-risk-component-asyncio-qt-event-loop-bridge" title="Permanent link">&para;</a></h3>
+<p><code>src/crackz/gui/async_helpers.py</code> currently runs <code>asyncio.new_event_loop()</code> in a daemon thread and uses <code>tk.after()</code> to post GUI updates. The Qt equivalent:</p>
+<div class="highlight"><pre><span></span><code>asyncio.new_event_loop() in QThread
+    → CallbackDispatcher (unchanged — lives in business logic layer)
+    → Emit Qt signals from worker thread → auto-queued to GUI thread
+    → Slot on widget handles update
+</code></pre></div>
+<p>PySide6 signals emitted from non-GUI threads are automatically queued — this is the precise equivalent of <code>tk.after(0, callback)</code>. The <code>create_threadsafe_gui_callback()</code> helper becomes a signal emit. This is well-documented PySide6 territory. Estimated at 40–60h; it's the single most careful rewrite.</p>
+<hr />
+<h2 id="6-effort-breakdown">6. Effort Breakdown<a class="headerlink" href="#6-effort-breakdown" title="Permanent link">&para;</a></h2>
+<p>All figures are engineering hours. Assumes one developer familiar with Python, new to Qt (1–2 week ramp included in Phase 0).</p>
+<h3 id="phase-0-ramp-prototype">Phase 0 — Ramp &amp; Prototype<a class="headerlink" href="#phase-0-ramp-prototype" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Hours</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PySide6 learning + spike (main window, dark QSS, one panel)</td>
+<td>20–30</td>
+</tr>
+<tr>
+<td>QSS dark stylesheet + brand colours</td>
+<td>15–20</td>
+</tr>
+<tr>
+<td>Async/threading bridge rewrite (<code>async_helpers.py</code>)</td>
+<td>40–60</td>
+</tr>
+<tr>
+<td>Packaging pipeline (PyInstaller, Win + Mac + Linux)</td>
+<td>20–30</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>95–140h</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-1-foundation-shell">Phase 1 — Foundation &amp; Shell<a class="headerlink" href="#phase-1-foundation-shell" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Hours</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>crackz_app.py</code> → <code>QMainWindow</code> + <code>QSplitter</code></td>
+<td>20–30</td>
+</tr>
+<tr>
+<td><code>menus.py</code> → <code>QMenuBar</code> / <code>QAction</code></td>
+<td>10–15</td>
+</tr>
+<tr>
+<td><code>BrowserTree</code> → <code>QTreeView</code> + <code>QFileSystemModel</code></td>
+<td>30–40</td>
+</tr>
+<tr>
+<td><code>StatusBar</code> + <code>ProgressFooter</code> → <code>QStatusBar</code> + <code>QProgressBar</code></td>
+<td>10–15</td>
+</tr>
+<tr>
+<td><code>AppState</code> / <code>AppSettings</code> — swap <code>CTkImage</code> → <code>QPixmap</code></td>
+<td>10–15</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>80–115h</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-2-standard-panels-dialogs">Phase 2 — Standard Panels &amp; Dialogs<a class="headerlink" href="#phase-2-standard-panels-dialogs" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Source files</th>
+<th>Hours</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Views: Welcome, ProjectSummary, Settings</td>
+<td>3</td>
+<td>20–30</td>
+</tr>
+<tr>
+<td>Views: ApplicationSettings, ProjectSettings</td>
+<td>2</td>
+<td>20–25</td>
+</tr>
+<tr>
+<td>File preview views (text, JSON, image, directory)</td>
+<td>4</td>
+<td>25–35</td>
+</tr>
+<tr>
+<td>Dialogs: About, Deletion, Settings, ModelSelector</td>
+<td>4</td>
+<td>20–25</td>
+</tr>
+<tr>
+<td>ImportSplitDialog (wizard, 5 files)</td>
+<td>5</td>
+<td>25–35</td>
+</tr>
+<tr>
+<td>ChatWindow + ChatHistoryPanel + PromptTemplates</td>
+<td>3</td>
+<td>35–50</td>
+</tr>
+<tr>
+<td>ProjectManager + BrowserToolbar + ContextMenu</td>
+<td>3</td>
+<td>20–30</td>
+</tr>
+<tr>
+<td>ActiveLearningPanel (435 lines)</td>
+<td>1</td>
+<td>25–35</td>
+</tr>
+<tr>
+<td>DashboardDialog — subprocess management (596 lines)</td>
+<td>1</td>
+<td>20–30</td>
+</tr>
+<tr>
+<td>MaskPropagationDialog (585 lines)</td>
+<td>1</td>
+<td>25–35</td>
+</tr>
+<tr>
+<td>ModelPackage import/export (421 lines)</td>
+<td>1</td>
+<td>20–25</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>255–355h</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-3-image-heavy-views-qgraphicsview">Phase 3 — Image-Heavy Views (QGraphicsView)<a class="headerlink" href="#phase-3-image-heavy-views-qgraphicsview" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Current size</th>
+<th>Hours</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mask_editor.py</code> → <code>QGraphicsView</code> scene + tools</td>
+<td>800 lines</td>
+<td>50–70</td>
+</tr>
+<tr>
+<td><code>detection_run_view.py</code> + <code>detection_gallery.py</code></td>
+<td>943 lines</td>
+<td>40–55</td>
+</tr>
+<tr>
+<td><code>batch_review.py</code></td>
+<td>561 lines</td>
+<td>30–40</td>
+</tr>
+<tr>
+<td><code>uncertainty_viewer.py</code></td>
+<td>364 lines</td>
+<td>20–30</td>
+</tr>
+<tr>
+<td><code>training_run_view.py</code> + <code>training_charts.py</code></td>
+<td>832 lines</td>
+<td>30–40</td>
+</tr>
+<tr>
+<td><code>map_viewer.py</code></td>
+<td>551 lines</td>
+<td>25–35</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>195–270h</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="phase-4-integration-testing-polish">Phase 4 — Integration, Testing &amp; Polish<a class="headerlink" href="#phase-4-integration-testing-polish" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Hours</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>End-to-end manual testing (32 screens × 3 platforms)</td>
+<td>40–60</td>
+</tr>
+<tr>
+<td>Bug fixing pass</td>
+<td>30–50</td>
+</tr>
+<tr>
+<td>HiDPI / scaling verification (Win 125/150%, Retina Mac)</td>
+<td>15–20</td>
+</tr>
+<tr>
+<td>Packaging validation (Win + Mac + Linux)</td>
+<td>20–30</td>
+</tr>
+<tr>
+<td>CI pipeline updates (Linux headless Qt tests via Xvfb)</td>
+<td>10–15</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>115–175h</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="grand-total">Grand Total<a class="headerlink" href="#grand-total" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Low</th>
+<th>High</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Phase 0 — Ramp &amp; Prototype</td>
+<td>95h</td>
+<td>140h</td>
+</tr>
+<tr>
+<td>Phase 1 — Foundation &amp; Shell</td>
+<td>80h</td>
+<td>115h</td>
+</tr>
+<tr>
+<td>Phase 2 — Standard Panels</td>
+<td>255h</td>
+<td>355h</td>
+</tr>
+<tr>
+<td>Phase 3 — Image-Heavy Views</td>
+<td>195h</td>
+<td>270h</td>
+</tr>
+<tr>
+<td>Phase 4 — Testing &amp; Polish</td>
+<td>115h</td>
+<td>175h</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>740h</strong></td>
+<td><strong>1,055h</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Solo developer at 6 productive hours/day: <strong>~4–7 months</strong> calendar.
+Two developers parallelising Phase 2 + Phase 3: <strong>~2.5–4 months</strong> calendar.</p>
+</blockquote>
+<hr />
+<h2 id="7-platform-notes">7. Platform Notes<a class="headerlink" href="#7-platform-notes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Qt Backend</th>
+<th>Packaging</th>
+<th>Extra overhead</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows</td>
+<td>Win32 / Direct2D</td>
+<td>PyInstaller + PySide6 hooks</td>
+<td>Baseline</td>
+</tr>
+<tr>
+<td>macOS</td>
+<td>Cocoa</td>
+<td>PyInstaller + codesign + notarize</td>
+<td>~20–30h (Apple Developer account required)</td>
+</tr>
+<tr>
+<td>Linux</td>
+<td>X11 + Wayland</td>
+<td>AppImage or flatpak</td>
+<td>~15–20h (<code>xcb</code> platform plugin + OpenGL in bundle)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-migration-sequence-if-approved">8. Migration Sequence (if approved)<a class="headerlink" href="#8-migration-sequence-if-approved" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Phase 0 spike</strong> — 2-week timebox. Build main window shell + dark QSS + one real panel (e.g. <code>ProjectSummaryView</code>). Validates approach and calibrates effort before committing to full migration.</li>
+<li><strong>Phase 1</strong> — Foundation shell. All other panels render inside it.</li>
+<li><strong>Phase 2</strong> — Standard panels, in rough order: simple dialogs first, then views, then complex multi-file panels.</li>
+<li><strong>Phase 3</strong> — Image-heavy views. <code>QGraphicsView</code> pattern established in spike.</li>
+<li><strong>Phase 4</strong> — Polish, platform testing, packaging.</li>
+</ol>
+<p>Work on a <code>feat/pyside6-migration</code> long-lived branch. Keep <code>main</code> shipping CTk throughout the migration. Merge only when Phase 4 passes.</p>
+<hr />
+<h2 id="9-critical-files">9. Critical Files<a class="headerlink" href="#9-critical-files" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Why critical</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/crackz/gui/async_helpers.py</code></td>
+<td>Highest-risk: asyncio ↔ GUI bridge</td>
+</tr>
+<tr>
+<td><code>src/crackz/gui/crackz_app.py</code></td>
+<td>Main window — Phase 1 starting point</td>
+</tr>
+<tr>
+<td><code>src/crackz/gui/components/mask_editor.py</code></td>
+<td>Largest component (800 lines); QGraphicsView target</td>
+</tr>
+<tr>
+<td><code>src/crackz/gui/views/results/detection_run_view.py</code></td>
+<td>743 lines; live gallery + threading</td>
+</tr>
+<tr>
+<td><code>src/crackz/gui/views/results/training_run_view.py</code></td>
+<td>712 lines; live charts + threading</td>
+</tr>
+<tr>
+<td><code>src/crackz/gui/gui_state.py</code></td>
+<td>Thumbnail cache: CTkImage → QPixmap swap</td>
+</tr>
+<tr>
+<td><code>src/crackz/gui/services/ai_chat.py</code></td>
+<td>Async service; threading bridge</td>
+</tr>
+<tr>
+<td><code>src/crackz/gui/components/import_split_dialog/</code></td>
+<td>5-file wizard; good Phase 2 complexity benchmark</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-verdict">10. Verdict<a class="headerlink" href="#10-verdict" title="Permanent link">&para;</a></h2>
+<p><strong>Go — with a 2-week Phase 0 spike as gate.</strong></p>
+<p>The business logic is cleanly separated, the Qt solutions are direct, and all four pain points are addressed by QWidget alone. The effort is proportionate to a commercial product with a multi-year lifespan.</p>
+<p>The spike (Phase 0) is not optional — it validates effort assumptions and produces the QSS stylesheet and async bridge pattern that all other phases depend on. Approve Phase 0; re-evaluate full scope after the spike.</p>
+<p><strong>If deferred:</strong> The two highest-value targeted fixes are (a) replacing the mask editor canvas with <code>QGraphicsView</code> in isolation — this is the biggest performance win — and (b) switching packaging to <code>pyside6-deploy</code> even before full migration. Both are possible as standalone tasks without committing to a full rewrite.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Anaxiatech-AB/crackz" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.52.0"}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

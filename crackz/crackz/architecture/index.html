@@ -2015,7 +2015,7 @@
 <h2 id="high-level-overview">High-Level Overview<a class="headerlink" href="#high-level-overview" title="Permanent link">&para;</a></h2>
 <p>Crackz consists of two user-facing entry points sharing a common core library:
 - <strong>CLI</strong> (Typer) – primary automation interface (import images, train, detect, export config)
-- <strong>GUI</strong> (CustomTkinter) – exploratory desktop interface (project browsing, import, training &amp; detection triggers, previews)</p>
+- <strong>GUI</strong> (PySide6) – exploratory desktop interface (project browsing, import, training &amp; detection triggers, previews)</p>
 <p>Core subsystems:
 - <strong>Project / Configuration</strong>: Pydantic models; YAML + env + defaults merged via <code>pydantic-settings</code>
 - <strong>Image Import &amp; Layout</strong>: Normalizes images into split directories (<code>raw/ train/ val/ test/</code>) and masks
@@ -2104,7 +2104,7 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
   Person(user, "User")
   System_Boundary(crackz, "Crackz Local System") {
     Container(cli, "CLI", "Typer", "Command parsing &amp; dispatch")
-    Container(gui, "GUI", "CustomTkinter", "Desktop inspection &amp; invocation")
+    Container(gui, "GUI", "PySide6 (Qt 6)", "Desktop inspection &amp; invocation")
     Container(core, "Core Library", "Python Packages", "project, ai, config, logging")
     Container(fs, "Local Filesystem", "images/ + artifacts/", "Images, masks, checkpoints, metrics")
   }
@@ -2258,7 +2258,7 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
 <h2 id="deployment-local-optional-docker">Deployment (Local + Optional Docker)<a class="headerlink" href="#deployment-local-optional-docker" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart LR
   User([User]) --&gt; CLI["CLI (Typer)"]
-  User --&gt; GUI["GUI (CustomTkinter)"]
+  User --&gt; GUI["GUI (PySide6)"]
   CLI --&gt; CORE["Core Library"]
   GUI --&gt; CORE
   CORE --&gt; FS["Filesystem&lt;br/&gt;images / artifacts/models / artifacts/runtime"]
@@ -2461,7 +2461,7 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
 <li><strong>DL Framework</strong>: PyTorch, PyTorch Lightning, segmentation-models-pytorch, torchmetrics, torchvision</li>
 <li><strong>Data &amp; Imaging</strong>: Pillow, (optionally HF datasets in the future)</li>
 <li><strong>CLI</strong>: Typer</li>
-<li><strong>GUI</strong>: CustomTkinter</li>
+<li><strong>GUI</strong>: PySide6 (Qt 6)</li>
 <li><strong>Config</strong>: pydantic, pydantic-settings</li>
 <li><strong>Logging</strong>: loguru</li>
 <li><strong>Progress / TUI</strong>: rich</li>

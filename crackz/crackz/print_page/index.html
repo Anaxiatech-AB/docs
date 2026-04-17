@@ -2801,7 +2801,7 @@ Mask:   /tmp/masks/photo.png  ← Auto-derived
 </ol>
 <p><strong>Requirements:</strong>
 - Display server (X11, Wayland, or macOS GUI)
-- GUI dependencies (<code>customtkinter</code> package)
+- GUI dependencies (<code>pyside6</code> package)
 - Mouse or trackpad for drawing</p>
 <p><strong>Use Cases:</strong>
 - Quick mask creation without full GUI
@@ -3427,7 +3427,7 @@ uv<span class="w"> </span>run<span class="w"> </span>crackz<span class="w"> </sp
 <section class='print-section' id='gui' data-source='gui.md'>
 <h1>GUI</h1>
 <h1 id="gui-guide">GUI Guide<a class="headerlink" href="#gui-guide" title="Permanent link">&para;</a></h1>
-<p>The Crackz GUI (<code>crackz-gui</code>) is a modern desktop application built with CustomTkinter, providing a visual interface for project management, image import, model training, and crack detection. It features dark mode by default and real-time updates during long-running operations.</p>
+<p>The Crackz GUI (<code>crackz-gui</code>) is a modern desktop application built with PySide6 (Qt 6), providing a visual interface for project management, image import, model training, and crack detection. It features dark mode via Catppuccin Mocha theming and real-time updates during long-running operations.</p>
 <h2 id="installation-launch">Installation &amp; Launch<a class="headerlink" href="#installation-launch" title="Permanent link">&para;</a></h2>
 <h3 id="launch-the-gui">Launch the GUI<a class="headerlink" href="#launch-the-gui" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># After installing Crackz</span>
@@ -3444,6 +3444,11 @@ crackz-gui
 - Create a new project (Cmd/Ctrl+N)
 - Open an existing project (Cmd/Ctrl+O)
 - Access recent projects from the list</p>
+<blockquote>
+<p><strong>Tip:</strong> Refresh the main PySide6 screenshots for this page with:</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>scripts/capture_qt_screenshots.py<span class="w"> </span>--project<span class="w"> </span>oslo_project
+</code></pre></div>
+</blockquote>
 <p><img alt="Welcome Screen" src="../assets/gui/welcome_screen.png" /></p>
 <hr />
 <h2 id="project-management">Project Management<a class="headerlink" href="#project-management" title="Permanent link">&para;</a></h2>
@@ -3461,6 +3466,8 @@ crackz-gui
 <li>Select the folder and click <strong>Open</strong></li>
 </ol>
 <p>Recent projects appear in the welcome screen and <strong>File → Recent Projects</strong> menu for quick access.</p>
+<p>After opening a project, Crackz shows a summary dashboard with the active model, training setup, detection settings, and data paths.</p>
+<p><img alt="Project Summary" src="../assets/gui/project_summary_view.png" /></p>
 <h3 id="automatic-migration-support">Automatic Migration Support<a class="headerlink" href="#automatic-migration-support" title="Permanent link">&para;</a></h3>
 <p>When opening a project with an outdated configuration or file structure, the GUI automatically detects migration needs and provides user-friendly dialogs:</p>
 <h4 id="schema-migration">Schema Migration<a class="headerlink" href="#schema-migration" title="Permanent link">&para;</a></h4>
@@ -4246,7 +4253,7 @@ In future updates, you'll be able to:
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="gui-wont-launch">GUI Won't Launch<a class="headerlink" href="#gui-wont-launch" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Check installation</span>
-python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import customtkinter; print(&#39;CustomTkinter OK&#39;)&quot;</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from PySide6.QtWidgets import QApplication; print(&#39;PySide6 OK&#39;)&quot;</span>
 
 <span class="c1"># Launch with debug output</span>
 crackz-gui<span class="w"> </span>--debug
@@ -9479,7 +9486,7 @@ This will:
 <h3 id="user-interfaces">User Interfaces<a class="headerlink" href="#user-interfaces" title="Permanent link">&para;</a></h3>
 <ul>
 <li>✅ <strong>CLI</strong> (Typer): Primary interface for automation and CI/CD</li>
-<li>✅ <strong>GUI</strong> (CustomTkinter): Desktop app for visual project management</li>
+<li>✅ <strong>GUI</strong> (PySide6): Desktop app for visual project management</li>
 <li>✅ <strong>Docker</strong>: Three variants (full, slim, GPU) for enterprise deployment</li>
 </ul>
 <h3 id="deployment-operations">Deployment &amp; Operations<a class="headerlink" href="#deployment-operations" title="Permanent link">&para;</a></h3>
@@ -9881,6 +9888,20 @@ This will:
 <p><strong>Status</strong>: Active</p>
 <p><strong>Related</strong>: <code>crackz geo</code> commands, <code>src/crackz/geo/</code></p>
 <hr />
+<h2 id="adr-019-pyside6-migration-replacing-customtkinter">ADR-019: PySide6 Migration (Replacing CustomTkinter)<a class="headerlink" href="#adr-019-pyside6-migration-replacing-customtkinter" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: CustomTkinter limitations became blockers for production use — limited widget set, no thread-safe state management, no native enabled/disabled widget support, customer requests for Qt (#127). A feasibility study confirmed PySide6 was viable under GPL-3.0 licensing.</p>
+<p><strong>Decision</strong>: Migrate GUI framework from CustomTkinter to PySide6 (Qt 6). Adopt reactive state management via <code>QtAppState</code> (QObject with signals) and Qt's thread-safe signal/slot mechanism via <code>async_bridge.py</code>.</p>
+<p><strong>Consequences</strong>:
+- ✅ Rich widget ecosystem (tree views, dock widgets, toolbars)
+- ✅ Native enabled/disabled widget support (<code>setEnabled()</code>)
+- ✅ Thread-safe signal/slot pattern — no manual locking for GUI state
+- ✅ Professional dark mode via Catppuccin Mocha QSS theming
+- ✅ Better packaging support (Qt deploy tools)
+- ⚠️ Larger dependency footprint (~50MB vs ~1MB)
+- ⚠️ Required full GUI rewrite (all views, dialogs, panels)</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>src/crackz/gui/qt/</code>, <code>docs/superpowers/specs/2026-04-13-pyside6-migration-feasibility.md</code>, supersedes ADR-004</p>
+<hr />
 <h2 id="summary-of-current-technology-stack">Summary of Current Technology Stack<a class="headerlink" href="#summary-of-current-technology-stack" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -9908,8 +9929,8 @@ This will:
 </tr>
 <tr>
 <td>GUI Framework</td>
-<td>CustomTkinter</td>
-<td>Active (Qt migration considered)</td>
+<td>PySide6 (Qt 6)</td>
+<td>Active (replaced CustomTkinter, see ADR-019)</td>
 </tr>
 <tr>
 <td>Configuration</td>
@@ -10278,7 +10299,7 @@ Last updated: 2025-11-06</p>
 <h2 id="high-level-overview">High-Level Overview<a class="headerlink" href="#high-level-overview" title="Permanent link">&para;</a></h2>
 <p>Crackz consists of two user-facing entry points sharing a common core library:
 - <strong>CLI</strong> (Typer) – primary automation interface (import images, train, detect, export config)
-- <strong>GUI</strong> (CustomTkinter) – exploratory desktop interface (project browsing, import, training &amp; detection triggers, previews)</p>
+- <strong>GUI</strong> (PySide6) – exploratory desktop interface (project browsing, import, training &amp; detection triggers, previews)</p>
 <p>Core subsystems:
 - <strong>Project / Configuration</strong>: Pydantic models; YAML + env + defaults merged via <code>pydantic-settings</code>
 - <strong>Image Import &amp; Layout</strong>: Normalizes images into split directories (<code>raw/ train/ val/ test/</code>) and masks
@@ -10367,7 +10388,7 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
   Person(user, "User")
   System_Boundary(crackz, "Crackz Local System") {
     Container(cli, "CLI", "Typer", "Command parsing &amp; dispatch")
-    Container(gui, "GUI", "CustomTkinter", "Desktop inspection &amp; invocation")
+    Container(gui, "GUI", "PySide6 (Qt 6)", "Desktop inspection &amp; invocation")
     Container(core, "Core Library", "Python Packages", "project, ai, config, logging")
     Container(fs, "Local Filesystem", "images/ + artifacts/", "Images, masks, checkpoints, metrics")
   }
@@ -10521,7 +10542,7 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
 <h2 id="deployment-local-optional-docker">Deployment (Local + Optional Docker)<a class="headerlink" href="#deployment-local-optional-docker" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart LR
   User([User]) --&gt; CLI["CLI (Typer)"]
-  User --&gt; GUI["GUI (CustomTkinter)"]
+  User --&gt; GUI["GUI (PySide6)"]
   CLI --&gt; CORE["Core Library"]
   GUI --&gt; CORE
   CORE --&gt; FS["Filesystem&lt;br/&gt;images / artifacts/models / artifacts/runtime"]
@@ -10724,7 +10745,7 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
 <li><strong>DL Framework</strong>: PyTorch, PyTorch Lightning, segmentation-models-pytorch, torchmetrics, torchvision</li>
 <li><strong>Data &amp; Imaging</strong>: Pillow, (optionally HF datasets in the future)</li>
 <li><strong>CLI</strong>: Typer</li>
-<li><strong>GUI</strong>: CustomTkinter</li>
+<li><strong>GUI</strong>: PySide6 (Qt 6)</li>
 <li><strong>Config</strong>: pydantic, pydantic-settings</li>
 <li><strong>Logging</strong>: loguru</li>
 <li><strong>Progress / TUI</strong>: rich</li>
@@ -22481,8 +22502,7 @@ Skips silently if no samples or logger are available.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
-<span class="normal">26</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">26</span>
 <span class="normal">27</span>
 <span class="normal">28</span>
 <span class="normal">29</span>
@@ -22507,7 +22527,8 @@ Skips silently if no samples or logger are available.</p>
 <span class="normal">48</span>
 <span class="normal">49</span>
 <span class="normal">50</span>
-<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_available_checkpoints</span><span class="p">(</span><span class="n">checkpoints_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
+<span class="normal">51</span>
+<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_available_checkpoints</span><span class="p">(</span><span class="n">checkpoints_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get all available checkpoint files in the directory.</span>
 
@@ -22612,8 +22633,7 @@ Skips silently if no samples or logger are available.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">54</span>
-<span class="normal">55</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">55</span>
 <span class="normal">56</span>
 <span class="normal">57</span>
 <span class="normal">58</span>
@@ -22628,7 +22648,8 @@ Skips silently if no samples or logger are available.</p>
 <span class="normal">67</span>
 <span class="normal">68</span>
 <span class="normal">69</span>
-<span class="normal">70</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">has_trained_model</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="normal">70</span>
+<span class="normal">71</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">has_trained_model</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Check if the project has any trained model checkpoints.</span>
 
@@ -22726,8 +22747,7 @@ Skips silently if no samples or logger are available.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 73</span>
-<span class="normal"> 74</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 74</span>
 <span class="normal"> 75</span>
 <span class="normal"> 76</span>
 <span class="normal"> 77</span>
@@ -22760,7 +22780,8 @@ Skips silently if no samples or logger are available.</p>
 <span class="normal">104</span>
 <span class="normal">105</span>
 <span class="normal">106</span>
-<span class="normal">107</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">select_checkpoint</span><span class="p">(</span><span class="n">checkpoints_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">107</span>
+<span class="normal">108</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">select_checkpoint</span><span class="p">(</span><span class="n">checkpoints_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Select the best available checkpoint file in order of preference:</span>
 <span class="sd">    1) best.ckpt</span>
@@ -22909,25 +22930,7 @@ Can be specified with or without the '.ckpt' extension.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">110</span>
-<span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span>
-<span class="normal">128</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">128</span>
 <span class="normal">129</span>
 <span class="normal">130</span>
 <span class="normal">131</span>
@@ -22959,7 +22962,23 @@ Can be specified with or without the '.ckpt' extension.</p>
 <span class="normal">157</span>
 <span class="normal">158</span>
 <span class="normal">159</span>
-<span class="normal">160</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_model_from_checkpoint</span><span class="p">(</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_model_from_checkpoint</span><span class="p">(</span>
     <span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span> <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">checkpoint_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CrackzModel</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a CrackzModel from the project&#39;s checkpoint directory.</span>
@@ -22992,8 +23011,7 @@ Can be specified with or without the '.ckpt' extension.</p>
             <span class="p">)</span>
             <span class="k">raise</span> <span class="n">ModelNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Checkpoint not found: </span><span class="si">{</span><span class="n">checkpoint_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="n">loader</span> <span class="o">=</span> <span class="n">CrackzModel</span><span class="o">.</span><span class="n">load_from_checkpoint</span>
-        <span class="n">model</span> <span class="o">=</span> <span class="n">loader</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">_load_trusted_checkpoint</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;✅ Model loaded from checkpoint </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">checkpoint_path</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">model</span>
 
@@ -23006,8 +23024,7 @@ Can be specified with or without the '.ckpt' extension.</p>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">CrackzModel</span><span class="p">(</span><span class="n">CrackzConfig</span><span class="o">.</span><span class="n">from_project</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">lr</span><span class="p">))</span>
 
-    <span class="n">loader</span> <span class="o">=</span> <span class="n">CrackzModel</span><span class="o">.</span><span class="n">load_from_checkpoint</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">loader</span><span class="p">(</span><span class="n">selected_ckpt</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">_load_trusted_checkpoint</span><span class="p">(</span><span class="n">selected_ckpt</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;✅ Model loaded from checkpoint </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">selected_ckpt</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">model</span>
 </code></pre></div></td></tr></table></div>
@@ -23090,23 +23107,7 @@ and the last checkpoint into the project's checkpoints directory.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">163</span>
-<span class="normal">164</span>
-<span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span>
-<span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
-<span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span>
-<span class="normal">176</span>
-<span class="normal">177</span>
-<span class="normal">178</span>
-<span class="normal">179</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">179</span>
 <span class="normal">180</span>
 <span class="normal">181</span>
 <span class="normal">182</span>
@@ -23124,7 +23125,23 @@ and the last checkpoint into the project's checkpoints directory.</p>
 <span class="normal">194</span>
 <span class="normal">195</span>
 <span class="normal">196</span>
-<span class="normal">197</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_checkpoint_callback</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelCheckpoint</span><span class="p">:</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_checkpoint_callback</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelCheckpoint</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a ModelCheckpoint callback configured to save the best model (by val_iou)</span>
 <span class="sd">    and the last checkpoint into the project&#39;s checkpoints directory.</span>
@@ -23258,23 +23275,7 @@ and the last checkpoint into the project's checkpoints directory.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">200</span>
-<span class="normal">201</span>
-<span class="normal">202</span>
-<span class="normal">203</span>
-<span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span>
-<span class="normal">207</span>
-<span class="normal">208</span>
-<span class="normal">209</span>
-<span class="normal">210</span>
-<span class="normal">211</span>
-<span class="normal">212</span>
-<span class="normal">213</span>
-<span class="normal">214</span>
-<span class="normal">215</span>
-<span class="normal">216</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">216</span>
 <span class="normal">217</span>
 <span class="normal">218</span>
 <span class="normal">219</span>
@@ -23313,7 +23314,23 @@ and the last checkpoint into the project's checkpoints directory.</p>
 <span class="normal">252</span>
 <span class="normal">253</span>
 <span class="normal">254</span>
-<span class="normal">255</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">prune_checkpoints</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span> <span class="n">keep</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">prune_checkpoints</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span> <span class="n">keep</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prune older checkpoints, keeping only the top N based on a scoring heuristic.</span>
 
 <span class="sd">    Scoring heuristic:</span>
@@ -25494,8 +25511,7 @@ extensible later (precision, recall, F1, confusion metrics, etc.).</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
-<span class="normal">26</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">26</span>
 <span class="normal">27</span>
 <span class="normal">28</span>
 <span class="normal">29</span>
@@ -25520,7 +25536,8 @@ extensible later (precision, recall, F1, confusion metrics, etc.).</p>
 <span class="normal">48</span>
 <span class="normal">49</span>
 <span class="normal">50</span>
-<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_available_checkpoints</span><span class="p">(</span><span class="n">checkpoints_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
+<span class="normal">51</span>
+<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_available_checkpoints</span><span class="p">(</span><span class="n">checkpoints_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get all available checkpoint files in the directory.</span>
 
@@ -25625,8 +25642,7 @@ extensible later (precision, recall, F1, confusion metrics, etc.).</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">54</span>
-<span class="normal">55</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">55</span>
 <span class="normal">56</span>
 <span class="normal">57</span>
 <span class="normal">58</span>
@@ -25641,7 +25657,8 @@ extensible later (precision, recall, F1, confusion metrics, etc.).</p>
 <span class="normal">67</span>
 <span class="normal">68</span>
 <span class="normal">69</span>
-<span class="normal">70</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">has_trained_model</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="normal">70</span>
+<span class="normal">71</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">has_trained_model</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Check if the project has any trained model checkpoints.</span>
 
@@ -25739,8 +25756,7 @@ extensible later (precision, recall, F1, confusion metrics, etc.).</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 73</span>
-<span class="normal"> 74</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 74</span>
 <span class="normal"> 75</span>
 <span class="normal"> 76</span>
 <span class="normal"> 77</span>
@@ -25773,7 +25789,8 @@ extensible later (precision, recall, F1, confusion metrics, etc.).</p>
 <span class="normal">104</span>
 <span class="normal">105</span>
 <span class="normal">106</span>
-<span class="normal">107</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">select_checkpoint</span><span class="p">(</span><span class="n">checkpoints_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">107</span>
+<span class="normal">108</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">select_checkpoint</span><span class="p">(</span><span class="n">checkpoints_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Select the best available checkpoint file in order of preference:</span>
 <span class="sd">    1) best.ckpt</span>
@@ -25922,25 +25939,7 @@ Can be specified with or without the '.ckpt' extension.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">110</span>
-<span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span>
-<span class="normal">128</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">128</span>
 <span class="normal">129</span>
 <span class="normal">130</span>
 <span class="normal">131</span>
@@ -25972,7 +25971,23 @@ Can be specified with or without the '.ckpt' extension.</p>
 <span class="normal">157</span>
 <span class="normal">158</span>
 <span class="normal">159</span>
-<span class="normal">160</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_model_from_checkpoint</span><span class="p">(</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_model_from_checkpoint</span><span class="p">(</span>
     <span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span> <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">checkpoint_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CrackzModel</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a CrackzModel from the project&#39;s checkpoint directory.</span>
@@ -26005,8 +26020,7 @@ Can be specified with or without the '.ckpt' extension.</p>
             <span class="p">)</span>
             <span class="k">raise</span> <span class="n">ModelNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Checkpoint not found: </span><span class="si">{</span><span class="n">checkpoint_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="n">loader</span> <span class="o">=</span> <span class="n">CrackzModel</span><span class="o">.</span><span class="n">load_from_checkpoint</span>
-        <span class="n">model</span> <span class="o">=</span> <span class="n">loader</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">_load_trusted_checkpoint</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;✅ Model loaded from checkpoint </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">checkpoint_path</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">model</span>
 
@@ -26019,8 +26033,7 @@ Can be specified with or without the '.ckpt' extension.</p>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">CrackzModel</span><span class="p">(</span><span class="n">CrackzConfig</span><span class="o">.</span><span class="n">from_project</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">lr</span><span class="p">))</span>
 
-    <span class="n">loader</span> <span class="o">=</span> <span class="n">CrackzModel</span><span class="o">.</span><span class="n">load_from_checkpoint</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">loader</span><span class="p">(</span><span class="n">selected_ckpt</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">_load_trusted_checkpoint</span><span class="p">(</span><span class="n">selected_ckpt</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;✅ Model loaded from checkpoint </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">selected_ckpt</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">model</span>
 </code></pre></div></td></tr></table></div>
@@ -26103,23 +26116,7 @@ and the last checkpoint into the project's checkpoints directory.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">163</span>
-<span class="normal">164</span>
-<span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span>
-<span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
-<span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span>
-<span class="normal">176</span>
-<span class="normal">177</span>
-<span class="normal">178</span>
-<span class="normal">179</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">179</span>
 <span class="normal">180</span>
 <span class="normal">181</span>
 <span class="normal">182</span>
@@ -26137,7 +26134,23 @@ and the last checkpoint into the project's checkpoints directory.</p>
 <span class="normal">194</span>
 <span class="normal">195</span>
 <span class="normal">196</span>
-<span class="normal">197</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_checkpoint_callback</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelCheckpoint</span><span class="p">:</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_checkpoint_callback</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelCheckpoint</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a ModelCheckpoint callback configured to save the best model (by val_iou)</span>
 <span class="sd">    and the last checkpoint into the project&#39;s checkpoints directory.</span>
@@ -26271,23 +26284,7 @@ and the last checkpoint into the project's checkpoints directory.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">200</span>
-<span class="normal">201</span>
-<span class="normal">202</span>
-<span class="normal">203</span>
-<span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span>
-<span class="normal">207</span>
-<span class="normal">208</span>
-<span class="normal">209</span>
-<span class="normal">210</span>
-<span class="normal">211</span>
-<span class="normal">212</span>
-<span class="normal">213</span>
-<span class="normal">214</span>
-<span class="normal">215</span>
-<span class="normal">216</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">216</span>
 <span class="normal">217</span>
 <span class="normal">218</span>
 <span class="normal">219</span>
@@ -26326,7 +26323,23 @@ and the last checkpoint into the project's checkpoints directory.</p>
 <span class="normal">252</span>
 <span class="normal">253</span>
 <span class="normal">254</span>
-<span class="normal">255</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">prune_checkpoints</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span> <span class="n">keep</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">prune_checkpoints</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span> <span class="n">keep</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prune older checkpoints, keeping only the top N based on a scoring heuristic.</span>
 
 <span class="sd">    Scoring heuristic:</span>
@@ -30505,7 +30518,7 @@ Add export functionality
 <span class="w">    </span><span class="nt">&quot;package_manager&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uv&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;framework&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pytorch-lightning&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;cli&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;typer&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;gui&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;customtkinter&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;gui&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pyside6&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;testing&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pytest&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;ci&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;github-actions&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;release&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;semantic-release&quot;</span><span class="p">,</span>
@@ -30986,29 +30999,27 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 <span class="c1"># Cleanup</span>
 <span class="n">stop_gui_callback_consumers</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">,</span> <span class="n">loop</span><span class="p">)</span>
 </code></pre></div>
-<h2 id="gui-thread-safety-warning">⚠️ GUI Thread Safety Warning<a class="headerlink" href="#gui-thread-safety-warning" title="Permanent link">&para;</a></h2>
-<p><strong>CRITICAL</strong>: CustomTkinter/tkinter is NOT thread-safe! When using async callbacks with GUI applications, you MUST use the thread-safe wrappers:</p>
-<h3 id="wrong-direct-gui-update">❌ WRONG - Direct GUI Update<a class="headerlink" href="#wrong-direct-gui-update" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_progress</span><span class="p">(</span><span class="n">progress</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">progress</span><span class="p">)</span>  <span class="c1"># ⚠️ Called from async thread - UNSAFE!</span>
-</code></pre></div>
-<p>This will cause crashes, freezes, or unpredictable behavior because the callback is invoked from the async event loop thread, not the GUI main thread.</p>
-<h3 id="correct-thread-safe-update">✅ CORRECT - Thread-Safe Update<a class="headerlink" href="#correct-thread-safe-update" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Option 1: Manual thread-safe wrapper</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">on_progress</span><span class="p">(</span><span class="n">progress</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">after</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">progress</span><span class="p">))</span>
+<h2 id="i-gui-thread-safety-with-pyside6">ℹ️ GUI Thread Safety with PySide6<a class="headerlink" href="#i-gui-thread-safety-with-pyside6" title="Permanent link">&para;</a></h2>
+<p>PySide6's signal/slot mechanism is inherently thread-safe — signals emitted from any thread are automatically queued and delivered on the GUI thread. Use <code>TaskSignals</code> from <code>async_bridge.py</code> for background work:</p>
+<h3 id="correct-qt-signals-thread-safe">✅ CORRECT - Qt Signals (Thread-Safe)<a class="headerlink" href="#correct-qt-signals-thread-safe" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.gui.qt.async_bridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">TaskSignals</span><span class="p">,</span> <span class="n">run_in_background</span>
 
-<span class="c1"># Option 2: Use provided helper (recommended)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.gui.async_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">start_gui_callback_consumers</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_do_work</span><span class="p">(</span><span class="n">signals</span><span class="p">:</span> <span class="n">TaskSignals</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">signals</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>   <span class="c1"># Safe from any thread</span>
+    <span class="n">signals</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s2">&quot;Processing...&quot;</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">expensive_operation</span><span class="p">()</span>
+    <span class="n">signals</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="n">signals</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
 
-<span class="n">loop</span><span class="p">,</span> <span class="n">tasks</span> <span class="o">=</span> <span class="n">start_gui_callback_consumers</span><span class="p">(</span>
-    <span class="n">dispatcher</span><span class="p">,</span>
-    <span class="n">progress_callback</span><span class="o">=</span><span class="n">update_progress</span><span class="p">,</span>
-    <span class="n">metrics_callback</span><span class="o">=</span><span class="n">update_metrics</span><span class="p">,</span>
-    <span class="n">root_widget</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span>  <span class="c1"># ✅ Enables automatic thread-safe wrapping</span>
-<span class="p">)</span>
+<span class="n">signals</span> <span class="o">=</span> <span class="n">run_in_background</span><span class="p">(</span><span class="n">_do_work</span><span class="p">)</span>
+<span class="n">signals</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_progress</span><span class="p">)</span>
+<span class="n">signals</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_complete</span><span class="p">)</span>
+<span class="n">signals</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_error</span><span class="p">)</span>
 </code></pre></div>
-<p>When you provide <code>root_widget</code>, the helper automatically wraps your callbacks using tkinter's thread-safe <code>after()</code> method.</p>
+<p>No manual <code>threading.Lock</code> or <code>after()</code> wrappers are needed — Qt handles cross-thread dispatch automatically.</p>
+<blockquote>
+<p>For the PySide6 GUI, prefer the Qt-native helpers in <code>crackz.gui.qt.async_bridge</code>.</p>
+</blockquote>
 <h2 id="usage-patterns">Usage Patterns<a class="headerlink" href="#usage-patterns" title="Permanent link">&para;</a></h2>
 <h3 id="pattern-1-synchronous-backward-compatible">Pattern 1: Synchronous (Backward Compatible)<a class="headerlink" href="#pattern-1-synchronous-backward-compatible" title="Permanent link">&para;</a></h3>
 <p>Existing code continues to work without changes:</p>
@@ -31046,20 +31057,20 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 <h3 id="pattern-3-full-async-with-thread-safety-gui-recommended">Pattern 3: Full Async with Thread Safety (GUI - Recommended)<a class="headerlink" href="#pattern-3-full-async-with-thread-safety-gui-recommended" title="Permanent link">&para;</a></h3>
 <p>Complete async pattern for GUI applications with automatic thread safety:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.ai.core.async_callbacks</span><span class="w"> </span><span class="kn">import</span> <span class="n">CallbackDispatcher</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.gui.async_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.gui.qt.async_bridge</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">start_gui_callback_consumers</span><span class="p">,</span>
     <span class="n">stop_gui_callback_consumers</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">dispatcher</span> <span class="o">=</span> <span class="n">CallbackDispatcher</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 
-<span class="c1"># Start async consumers with thread-safe GUI updates</span>
-<span class="n">loop</span><span class="p">,</span> <span class="n">tasks</span> <span class="o">=</span> <span class="n">start_gui_callback_consumers</span><span class="p">(</span>
+<span class="c1"># Start async consumers with Qt-thread-safe GUI updates</span>
+<span class="n">loop</span><span class="p">,</span> <span class="n">tasks</span><span class="p">,</span> <span class="n">emitters</span> <span class="o">=</span> <span class="n">start_gui_callback_consumers</span><span class="p">(</span>
     <span class="n">dispatcher</span><span class="p">,</span>
     <span class="n">progress_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">update_progress_bar</span><span class="p">,</span>
     <span class="n">metrics_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">update_metrics_display</span><span class="p">,</span>
-    <span class="n">root_widget</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span>  <span class="c1"># ✅ Enables thread-safe wrapping!</span>
 <span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">_qt_emitters</span> <span class="o">=</span> <span class="n">emitters</span>  <span class="c1"># Keep signal emitters alive</span>
 
 <span class="c1"># Create reporters</span>
 <span class="n">progress_reporter</span> <span class="o">=</span> <span class="n">dispatcher</span><span class="o">.</span><span class="n">create_sync_progress_reporter</span><span class="p">()</span>
@@ -31120,8 +31131,8 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 <p>The async callback infrastructure is thread-safe by design:</p>
 <ul>
 <li><strong>Janus queues</strong>: Provides thread-safe <code>sync_q</code> for puts, async-safe <code>async_q</code> for gets</li>
-<li><strong>Event loop</strong>: Runs in dedicated thread with proper synchronization via <code>threading.Event</code></li>
-<li><strong>GUI callbacks</strong>: Wrapped using tkinter's thread-safe <code>after()</code> method when using helpers</li>
+<li><strong>Event loop</strong>: Runs in a dedicated thread with proper synchronization via <code>threading.Event</code></li>
+<li><strong>GUI callbacks</strong>: Routed through Qt signals so delivery is queued onto the GUI thread automatically</li>
 <li><strong>No busy waits</strong>: Proper event-based synchronization eliminates race conditions</li>
 </ul>
 <p><strong>Thread Flow:</strong>
@@ -31131,7 +31142,7 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
      │  (thread-safe)             │                       │
      │                            ├─ async_q.get()        │
      │                            │                       │
-     │                            ├─ root.after(0, cb) ──&gt;│
+     │                            ├─ Qt signal emit ─────&gt;│
      │                            │                       │─ Update UI
 </code></pre></div></p>
 <p>This architecture ensures:
@@ -31332,22 +31343,17 @@ uv<span class="w"> </span>run<span class="w"> </span>crackz-gui
 </li>
 <li>
 <p><strong>Component Initialization Testing</strong> – Verify components can be created:
-   <div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skipif</span><span class="p">(</span><span class="ow">not</span> <span class="n">_TKINTER_AVAILABLE</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CI&quot;</span><span class="p">),</span> 
-                    <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Requires Tkinter&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">test_component</span><span class="p">():</span>
-    <span class="n">root</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTk</span><span class="p">()</span>
-    <span class="n">root</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">component</span> <span class="o">=</span> <span class="n">MyComponent</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">component</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="k">finally</span><span class="p">:</span>
-        <span class="n">root</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+   <div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skipif</span><span class="p">(</span><span class="ow">not</span> <span class="n">_has_display</span><span class="p">()</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CI&quot;</span><span class="p">),</span>
+                    <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Requires display&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_component</span><span class="p">(</span><span class="n">qapp</span><span class="p">):</span>
+    <span class="n">component</span> <span class="o">=</span> <span class="n">MyComponent</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">component</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 </code></pre></div></p>
 </li>
 <li>
 <p><strong>Regression Testing</strong> – Prevent known issues from reoccurring:
    <div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test_no_unsupported_parameters</span><span class="p">():</span>
-    <span class="c1"># Ensure we don&#39;t use unsupported CustomTkinter parameters</span>
+    <span class="c1"># Ensure widget initialization works without errors</span>
     <span class="n">browser</span><span class="o">.</span><span class="n">toggle_toolbar_buttons</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Should not raise</span>
 </code></pre></div></p>
 </li>
@@ -31748,7 +31754,7 @@ On commit, hooks will:
 <div class="highlight"><pre><span></span><code><span class="c1"># Success messages</span>
 <span class="n">typer</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="s2">&quot;✅ Operation completed successfully&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="n">typer</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">GREEN</span><span class="p">)</span>
 
-<span class="c1"># Error messages  </span>
+<span class="c1"># Error messages</span>
 <span class="n">typer</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="s2">&quot;❌ Operation failed&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="n">typer</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">RED</span><span class="p">)</span>
 
 <span class="c1"># Warning messages</span>
@@ -31786,7 +31792,7 @@ On commit, hooks will:
 <div class="highlight"><pre><span></span><code><span class="c1"># Only for options not reused elsewhere</span>
 <span class="n">LOCAL_OPTION</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span>
     <span class="kc">None</span><span class="p">,</span>
-    <span class="s2">&quot;--local-flag&quot;</span><span class="p">,</span> 
+    <span class="s2">&quot;--local-flag&quot;</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Module-specific option not reused elsewhere&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>

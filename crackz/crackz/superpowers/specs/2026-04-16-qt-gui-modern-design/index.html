@@ -1,0 +1,2296 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI image analysis of cracks in harbors">
+      
+      
+        <meta name="author" content="Theresia Sofia Snow">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Qt GUI Modern Design Spec - Crackz</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/print.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#context" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Crackz" class="md-header__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Crackz
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Qt GUI Modern Design Spec
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Crackz" class="md-nav__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Crackz
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    End User Documentation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    End User Documentation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cli-cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Cookbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GUI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ai-chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Chat Assistant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../training-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../data-splits-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Splits & Import
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../map-viewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Map Viewer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reporting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Report Generation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_12" id="__nav_4_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure Deployments
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Azure Deployments
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure-batch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure Batch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure-vm-cuda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure VM with CUDA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VM vs Batch Comparison
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../advanced-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../completion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shell Completion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Documentation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer Documentation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Scope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-decisions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Decisions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Current Tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../architecture-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../evaluation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tracing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tracing & Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../async-callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Async Callbacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pr-review-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PR Review Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../distribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Additional Resources
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Additional Resources
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../customer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customer Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../customer-access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customer Access Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pdf/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Printable PDF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-decisions-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Decisions Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-design-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Design System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Design System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-color-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Color Tokens
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-typography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Typography
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-spacing-radius" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Spacing &amp; Radius
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-qss-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 QSS Approach
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-shell-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Shell Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-activity-bar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Activity Bar
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Activity Bar">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sections-top-to-bottom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sections (top to bottom)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-side-panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Side Panel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Side Panel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-explorer-panel-phase-0-reference-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Explorer Panel (Phase 0 reference implementation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-remaining-panels-follow-explorer-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Remaining Panels (follow Explorer pattern)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-main-content-area" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Main Content Area
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Main Content Area">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-image-viewer-default-view-when-a-results-folder-is-selected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Image Viewer (default view when a results folder is selected)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 Image Viewer (default view when a results folder is selected)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gallery-detail-mode-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gallery + Detail mode (default)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compare mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-welcome-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Welcome view
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-other-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Other views
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ai-chat-drawer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. AI Chat Drawer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-status-bar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Status Bar
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-implementation-sequence-phase-0-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Implementation Sequence (Phase 0 scope)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-out-of-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Out of Scope
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="qt-gui-modern-design-spec">Qt GUI Modern Design Spec<a class="headerlink" href="#qt-gui-modern-design-spec" title="Permanent link">&para;</a></h1>
+<p><strong>Date:</strong> 2026-04-16<br />
+<strong>Branch:</strong> <code>feat/pyside6-migration</code><br />
+<strong>Status:</strong> Approved for implementation</p>
+<hr />
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<p>The current Crackz GUI is built on CustomTkinter, which has four known pain points: poor native look and feel, missing widgets (no virtual list rendering, no GPU-composited image views), threading complexity, and fragile PyInstaller packaging. The <code>feat/pyside6-migration</code> branch is migrating to PySide6/Qt.</p>
+<p>This spec defines the <strong>visual design and UX structure</strong> for that migration — the palette, layout, component primitives, and interaction patterns that all panels should follow. It is not a full panel-by-panel implementation spec; that comes from the writing-plans output. The goal here is to establish the design language so that the Phase 0 shell + Explorer panel can be built to the right standard, and every subsequent panel has a clear template to follow.</p>
+<hr />
+<h2 id="design-decisions-summary">Design Decisions Summary<a class="headerlink" href="#design-decisions-summary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Choice</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Color palette</td>
+<td>Catppuccin Mocha</td>
+<td>Well-maintained OSS palette, dark + accessible, strong accent contrast</td>
+</tr>
+<tr>
+<td>Primary accent</td>
+<td>Mauve <code>#cba6f7</code></td>
+<td>Distinctive, not blue (avoids confusion with links/info)</td>
+</tr>
+<tr>
+<td>Layout</td>
+<td>Activity bar + side panel + main content</td>
+<td>Scales with feature growth; VS Code muscle memory</td>
+</tr>
+<tr>
+<td>Image viewer default</td>
+<td>Gallery strip + detail</td>
+<td>Triage is the primary workflow</td>
+</tr>
+<tr>
+<td>AI chat</td>
+<td>Slide-in right drawer</td>
+<td>Assistive tool, used alongside other panels, not instead</td>
+</tr>
+<tr>
+<td>Widget toolkit</td>
+<td>PySide6 QWidget (not QML)</td>
+<td>Per feasibility spec — solves all four pain points at lower cost</td>
+</tr>
+<tr>
+<td>Styling</td>
+<td>QSS stylesheet</td>
+<td>CSS-like, centralized, easily themed</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="1-design-system">1. Design System<a class="headerlink" href="#1-design-system" title="Permanent link">&para;</a></h2>
+<h3 id="11-color-tokens">1.1 Color Tokens<a class="headerlink" href="#11-color-tokens" title="Permanent link">&para;</a></h3>
+<p>All colors defined once in <code>src/crackz/gui/style/theme.py</code> as string constants, referenced throughout QSS. No hardcoded hex values in component files.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># src/crackz/gui/style/theme.py</span>
+
+<span class="c1"># Backgrounds (darkest → lightest)</span>
+<span class="n">BASE</span>    <span class="o">=</span> <span class="s2">&quot;#11111b&quot;</span>   <span class="c1"># image viewer bg, deepest chrome</span>
+<span class="n">MANTLE</span>  <span class="o">=</span> <span class="s2">&quot;#1e1e2e&quot;</span>   <span class="c1"># main content area</span>
+<span class="n">CRUST</span>   <span class="o">=</span> <span class="s2">&quot;#181825&quot;</span>   <span class="c1"># activity bar, side panel, title bar, status bar</span>
+
+<span class="c1"># Surfaces (interactive elements)</span>
+<span class="n">SURFACE0</span> <span class="o">=</span> <span class="s2">&quot;#313244&quot;</span>  <span class="c1"># cards, inputs, tree selection, toolbar buttons</span>
+<span class="n">SURFACE1</span> <span class="o">=</span> <span class="s2">&quot;#45475a&quot;</span>  <span class="c1"># borders, dividers, hover states</span>
+<span class="n">SURFACE2</span> <span class="o">=</span> <span class="s2">&quot;#585b70&quot;</span>  <span class="c1"># disabled state</span>
+
+<span class="c1"># Text</span>
+<span class="n">TEXT</span>      <span class="o">=</span> <span class="s2">&quot;#cdd6f4&quot;</span>  <span class="c1"># primary labels, file names</span>
+<span class="n">SUBTEXT1</span>  <span class="o">=</span> <span class="s2">&quot;#a6adc8&quot;</span>  <span class="c1"># secondary info, metadata</span>
+<span class="n">OVERLAY0</span>  <span class="o">=</span> <span class="s2">&quot;#6c7086&quot;</span>  <span class="c1"># hints, keyboard shortcuts, placeholder</span>
+<span class="n">OVERLAY1</span>  <span class="o">=</span> <span class="s2">&quot;#7f849c&quot;</span>  <span class="c1"># very muted (timestamps, dimensions)</span>
+
+<span class="c1"># Accents</span>
+<span class="n">MAUVE</span>  <span class="o">=</span> <span class="s2">&quot;#cba6f7&quot;</span>   <span class="c1"># primary CTA, active activity bar item, section labels</span>
+<span class="n">BLUE</span>   <span class="o">=</span> <span class="s2">&quot;#89b4fa&quot;</span>   <span class="c1"># links, info, compare mode accent</span>
+<span class="n">GREEN</span>  <span class="o">=</span> <span class="s2">&quot;#a6e3a1&quot;</span>   <span class="c1"># success, clean/no-crack badge, status dot</span>
+<span class="n">RED</span>    <span class="o">=</span> <span class="s2">&quot;#f38ba8&quot;</span>   <span class="c1"># high severity badge, error states</span>
+<span class="n">PEACH</span>  <span class="o">=</span> <span class="s2">&quot;#fab387&quot;</span>   <span class="c1"># medium severity badge</span>
+<span class="n">YELLOW</span> <span class="o">=</span> <span class="s2">&quot;#f9e2af&quot;</span>   <span class="c1"># warnings</span>
+
+<span class="c1"># Semantic aliases (use these in components, not raw colors)</span>
+<span class="n">SEVERITY_HIGH</span>   <span class="o">=</span> <span class="n">RED</span>
+<span class="n">SEVERITY_MEDIUM</span> <span class="o">=</span> <span class="n">PEACH</span>
+<span class="n">SEVERITY_CLEAN</span>  <span class="o">=</span> <span class="n">GREEN</span>
+<span class="n">SEVERITY_NONE</span>   <span class="o">=</span> <span class="n">SURFACE0</span>   <span class="c1"># unprocessed</span>
+
+<span class="n">PRIMARY</span>      <span class="o">=</span> <span class="n">MAUVE</span>
+<span class="n">BORDER</span>       <span class="o">=</span> <span class="n">SURFACE1</span>
+<span class="n">BG_PANEL</span>     <span class="o">=</span> <span class="n">CRUST</span>
+<span class="n">BG_CONTENT</span>   <span class="o">=</span> <span class="n">MANTLE</span>
+<span class="n">BG_DEEP</span>      <span class="o">=</span> <span class="n">BASE</span>
+</code></pre></div>
+<h3 id="12-typography">1.2 Typography<a class="headerlink" href="#12-typography" title="Permanent link">&para;</a></h3>
+<p>All text uses the system UI font (<code>-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif</code>). No custom font downloads.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Size</th>
+<th>Weight</th>
+<th>Color</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Panel title</td>
+<td>14px</td>
+<td>600</td>
+<td>TEXT</td>
+<td>Main heading per panel</td>
+</tr>
+<tr>
+<td>Section label</td>
+<td>11px</td>
+<td>600</td>
+<td>MAUVE</td>
+<td>Uppercase, +1px letter-spacing</td>
+</tr>
+<tr>
+<td>Body</td>
+<td>12px</td>
+<td>400</td>
+<td>TEXT</td>
+<td>File names, descriptions</td>
+</tr>
+<tr>
+<td>Secondary</td>
+<td>10px</td>
+<td>400</td>
+<td>SUBTEXT1</td>
+<td>Metadata, dimensions, timestamps</td>
+</tr>
+<tr>
+<td>Hint</td>
+<td>10px</td>
+<td>400</td>
+<td>OVERLAY0</td>
+<td>Keyboard shortcuts, placeholder text</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-spacing-radius">1.3 Spacing &amp; Radius<a class="headerlink" href="#13-spacing-radius" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Base unit:</strong> 4px</li>
+<li><strong>Component padding:</strong> 6–8px inner, 12px panel gutter</li>
+<li><strong>Border radius:</strong> 5–6px for cards and buttons; 4px for badges; 8px for large panels</li>
+<li><strong>Dividers:</strong> 1px solid SURFACE1</li>
+</ul>
+<h3 id="14-qss-approach">1.4 QSS Approach<a class="headerlink" href="#14-qss-approach" title="Permanent link">&para;</a></h3>
+<p>One master stylesheet at <code>src/crackz/gui/style/crackz.qss</code>, loaded once at startup:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># src/crackz/gui/app.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">string</span><span class="w"> </span><span class="kn">import</span> <span class="n">Template</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;style&quot;</span> <span class="o">/</span> <span class="s2">&quot;crackz.qss&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="n">Template</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="o">**</span><span class="n">theme</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">))</span>
+</code></pre></div>
+<p>Color tokens are injected via <code>string.Template</code> so QSS uses <code>$MAUVE</code>, <code>$CRUST</code>, etc. (not <code>{...}</code> — that conflicts with QSS selector syntax). No runtime style overrides on individual widgets except for dynamic severity badge colors.</p>
+<hr />
+<h2 id="2-shell-structure">2. Shell Structure<a class="headerlink" href="#2-shell-structure" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
+│ Title bar (CRUST) — traffic lights · &quot;Crackz — project&quot;    │
+│ Menu bar: File  View  Tools  Help                           │
+├────┬──────────────┬────────────────────────────────────────┤
+│    │              │                                        │
+│ A  │  Side Panel  │  Main Content                         │
+│ c  │  (220px)     │                                        │
+│ t  │  Context-    │  Changes per active activity           │
+│ i  │  sensitive   │  (image viewer, train dashboard, etc.) │
+│ v  │  per icon    │                                        │
+│ i  │              │                          ┌──────────┐  │
+│ t  │              │   (AI drawer slides      │ AI Chat  │  │
+│ y  │              │    in from right edge     │ Drawer   │  │
+│    │              │    on ~ keypress)         └──────────┘  │
+│ B  │              │                                        │
+│ a  │              │                                        │
+│ r  │              │                                        │
+│    │              │                                        │
+│(44)│              │                                        │
+├────┴──────────────┴────────────────────────────────────────┤
+│ Status bar (CRUST) — ● project · summary counts · version  │
+└─────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<p><strong>Key measurements:</strong>
+- Activity bar: 44px wide, <code>QWidget</code> with vertical <code>QVBoxLayout</code>
+- Side panel: 220px default, resizable via <code>QSplitter</code>, min 160px
+- Status bar: 24px tall, custom <code>QStatusBar</code> subclass
+- AI chat drawer: 280px, slides in/out with <code>QPropertyAnimation</code> on width</p>
+<hr />
+<h2 id="3-activity-bar">3. Activity Bar<a class="headerlink" href="#3-activity-bar" title="Permanent link">&para;</a></h2>
+<p>A narrow 44px-wide <code>QWidget</code> pinned to the left edge. Contains icon buttons that switch the active side panel.</p>
+<h3 id="sections-top-to-bottom">Sections (top to bottom)<a class="headerlink" href="#sections-top-to-bottom" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Icon</th>
+<th>Label</th>
+<th>Side panel content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📁</td>
+<td>Explorer</td>
+<td>Project file tree</td>
+</tr>
+<tr>
+<td>🔍</td>
+<td>Detect</td>
+<td>Detection run controls + results list</td>
+</tr>
+<tr>
+<td>⚡</td>
+<td>Train</td>
+<td>Training config + live metrics</td>
+</tr>
+<tr>
+<td>🎯</td>
+<td>Active Learning</td>
+<td>Entropy/uncertainty annotation queue</td>
+</tr>
+<tr>
+<td>—</td>
+<td><em>(spacer)</em></td>
+<td>—</td>
+</tr>
+<tr>
+<td>⚙️</td>
+<td>Settings</td>
+<td>App + project settings</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Active state:</strong> Left border 2px MAUVE + MAUVE/13% background tint on the icon tile.<br />
+<strong>Hover state:</strong> SURFACE0 background, no border.<br />
+<strong>Tooltip:</strong> Show label text on hover (Qt default tooltip, styled via QSS).</p>
+<p>Icons: Use <code>QIcon</code> loaded from SVG files in <code>src/crackz/gui/assets/icons/</code>. Single-color SVGs recolored via QSS <code>color</code> property (Qt 6.2+).</p>
+<hr />
+<h2 id="4-side-panel">4. Side Panel<a class="headerlink" href="#4-side-panel" title="Permanent link">&para;</a></h2>
+<p>A <code>QStackedWidget</code> behind the activity bar. Each activity has its own panel widget pushed onto the stack. Switching activity bar icon calls <code>stack.setCurrentIndex(n)</code>.</p>
+<h3 id="41-explorer-panel-phase-0-reference-implementation">4.1 Explorer Panel (Phase 0 reference implementation)<a class="headerlink" href="#41-explorer-panel-phase-0-reference-implementation" title="Permanent link">&para;</a></h3>
+<p>The first panel to build — establishes the pattern for all others.</p>
+<p><strong>Structure:</strong>
+<div class="highlight"><pre><span></span><code>┌──────────────────────────────┐
+│ EXPLORER          [+] [📂]   │  ← Panel header: section label + toolbar actions
+├──────────────────────────────┤
+│ ▼ harbor-2024                │  ← QTreeView, custom CrackzTreeModel
+│   ▶ images/         [3]●     │     Badge = unprocessed count
+│   ▶ masks/                   │
+│   ▶ results/                 │
+│     project.yaml             │
+├──────────────────────────────┤
+│ ● harbor-2024                │  ← Project badge (bottom, always visible)
+└──────────────────────────────┘
+</code></pre></div></p>
+<p><strong>Implementation notes:</strong>
+- <code>QTreeView</code> with <code>QFileSystemModel</code> subclass (<code>CrackzFileModel</code>) for file system representation
+- Context menu via <code>customContextMenuRequested</code> signal → <code>QMenu</code>
+- File selection emits signal → main content area updates
+- Project badge: custom <code>QLabel</code> widget at bottom of panel, shows active project name + green dot</p>
+<h3 id="42-remaining-panels-follow-explorer-pattern">4.2 Remaining Panels (follow Explorer pattern)<a class="headerlink" href="#42-remaining-panels-follow-explorer-pattern" title="Permanent link">&para;</a></h3>
+<p>Each panel uses the same header structure (section label + optional toolbar actions) and CRUST background. Detailed design per panel is out of scope for this spec — panels are built once the shell + Explorer pattern is validated.</p>
+<p><strong>Detect panel:</strong> Split into "Run" (controls: model selector, confidence threshold, run button) and "Results" (list of processed images with severity badges).</p>
+<p><strong>Train panel:</strong> Two sub-sections — Config (epochs, batch size, model architecture) and Live Metrics (embedded <code>matplotlib</code> canvas via <code>FigureCanvasQTAgg</code>, loss + IoU curves updating in real time).</p>
+<p><strong>Active Learning panel:</strong> Ranked list of unprocessed images ordered by uncertainty score, with annotation controls.</p>
+<p><strong>Settings panel:</strong> Tab widget — App settings (theme light/dark toggle, API keys via keyring) and Project settings (split ratios, model config, log paths).</p>
+<hr />
+<h2 id="5-main-content-area">5. Main Content Area<a class="headerlink" href="#5-main-content-area" title="Permanent link">&para;</a></h2>
+<h3 id="51-image-viewer-default-view-when-a-results-folder-is-selected">5.1 Image Viewer (default view when a results folder is selected)<a class="headerlink" href="#51-image-viewer-default-view-when-a-results-folder-is-selected" title="Permanent link">&para;</a></h3>
+<p>Three modes, switched via toolbar toggle group. Gallery+Detail is the default.</p>
+<p><strong>Toolbar (always visible):</strong>
+<div class="highlight"><pre><span></span><code>[breadcrumb path]  |  [Gallery] [Single] [Compare]  |  [count summary]  [Export Report]
+</code></pre></div></p>
+<h4 id="gallery-detail-mode-default">Gallery + Detail mode (default)<a class="headerlink" href="#gallery-detail-mode-default" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>┌──────────────────────────────────────────────────────────────┐
+│ [thumb H] [thumb M] [thumb ✓] [thumb —] [thumb H] … +19     │  ← Thumbnail strip, 64×52px tiles
+├───────────────────────────────────────────┬──────────────────┤
+│                                           │ INSPECTOR        │
+│   [large image, zoom/pan]                 │ File: img_001    │
+│   crack overlay rendered on QGraphicsView │ Severity: ● High │
+│                                           │ Confidence: 82%  │
+│                                           │ 4032 × 3024 px   │
+│                                           │                  │
+│                                           │ [Run Detection]  │
+│                                           │ [Edit Mask]      │
+└───────────────────────────────────────────┴──────────────────┘
+</code></pre></div>
+<p>Thumbnail tiles: color-coded bottom-right badge (H=red, M=peach, ✓=green, —=gray).<br />
+Selected tile: 2px MAUVE border.<br />
+<code>QGraphicsView</code> handles zoom (scroll wheel), pan (drag), overlay toggle (<code>O</code> key).</p>
+<h4 id="single-mode">Single mode<a class="headerlink" href="#single-mode" title="Permanent link">&para;</a></h4>
+<p>Full-width <code>QGraphicsView</code> + Inspector panel. No thumbnail strip. For deep crack inspection.</p>
+<h4 id="compare-mode">Compare mode<a class="headerlink" href="#compare-mode" title="Permanent link">&para;</a></h4>
+<p><code>QSplitter</code> with two <code>QGraphicsView</code> instances (Original | Detected), zoom/pan synchronized via shared <code>QTransform</code>. For client reporting and annotation validation.</p>
+<h3 id="52-welcome-view">5.2 Welcome view<a class="headerlink" href="#52-welcome-view" title="Permanent link">&para;</a></h3>
+<p>Shown when no project is loaded. Centered card with "New Project" and "Open Project" buttons (primary + secondary style). Recent projects list below.</p>
+<h3 id="53-other-views">5.3 Other views<a class="headerlink" href="#53-other-views" title="Permanent link">&para;</a></h3>
+<p>Directory summary, file previews (JSON, text), device recommendation — follow the same content area pattern. Not redesigned in this phase beyond inheriting the new QSS.</p>
+<hr />
+<h2 id="6-ai-chat-drawer">6. AI Chat Drawer<a class="headerlink" href="#6-ai-chat-drawer" title="Permanent link">&para;</a></h2>
+<p>A <code>QWidget</code> docked to the right edge of the main content area. Hidden by default; shown/hidden by <code>~</code> key or <code>Cmd+/</code>.</p>
+<p><strong>Animation:</strong> <code>QPropertyAnimation</code> on <code>maximumWidth</code> (0 → 280px), 150ms ease-in-out. Feels like a panel sliding in, not a popup.</p>
+<p><strong>Structure:</strong>
+<div class="highlight"><pre><span></span><code>┌──────────────────────────────┐
+│ AI ASSISTANT      ~ to close │
+├──────────────────────────────┤
+│                              │
+│  [user message bubble]       │
+│        [assistant bubble]    │
+│  [user message bubble]       │
+│                              │
+├──────────────────────────────┤
+│ [Ask about this image…]  [↵] │
+└──────────────────────────────┘
+</code></pre></div></p>
+<ul>
+<li>User bubbles: SURFACE0 background, right-aligned</li>
+<li>Assistant bubbles: MAUVE/13% tint, left-aligned</li>
+<li>Input: <code>QLineEdit</code> styled as SURFACE0, send on Enter</li>
+<li>History: <code>QScrollArea</code> with auto-scroll to bottom on new message</li>
+<li>Context: current file path injected into system prompt automatically</li>
+</ul>
+<p><strong>Backend:</strong> No changes to <code>services/ai_chat.py</code> — the drawer is a new Qt widget wrapping the existing <code>AIChatService</code>.</p>
+<hr />
+<h2 id="7-status-bar">7. Status Bar<a class="headerlink" href="#7-status-bar" title="Permanent link">&para;</a></h2>
+<p>Custom <code>QStatusBar</code> subclass. Always 24px tall, CRUST background, 1px SURFACE1 top border.</p>
+<p><strong>Left:</strong> Green dot + project name (updates on project load/close)<br />
+<strong>Center:</strong> Summary counts — <code>N images · N critical · N medium</code> (updates after detection runs)<br />
+<strong>Right:</strong> App version string</p>
+<hr />
+<h2 id="8-implementation-sequence-phase-0-scope">8. Implementation Sequence (Phase 0 scope)<a class="headerlink" href="#8-implementation-sequence-phase-0-scope" title="Permanent link">&para;</a></h2>
+<p>This spec covers the design language. The Phase 0 implementation delivers:</p>
+<ol>
+<li><strong>QSS + theme.py</strong> — All tokens, master stylesheet, verified across all widgets</li>
+<li><strong>App shell</strong> — Main window, title bar, menu bar, activity bar, QSplitter layout, status bar</li>
+<li><strong>Explorer panel</strong> — File tree, context menu, project badge, new/open project actions</li>
+<li><strong>Image viewer</strong> — Gallery+Detail mode with QGraphicsView, overlay toggle, Inspector panel</li>
+<li><strong>AI chat drawer</strong> — Slide-in animation, chat UI wrapping existing AIChatService</li>
+<li><strong>Welcome view</strong> — No-project state</li>
+</ol>
+<p>Remaining panels (Detect, Train, Active Learning, Settings) are Phase 1, built against the validated shell.</p>
+<hr />
+<h2 id="9-out-of-scope">9. Out of Scope<a class="headerlink" href="#9-out-of-scope" title="Permanent link">&para;</a></h2>
+<ul>
+<li>QML / Qt Quick (ruled out in feasibility spec)</li>
+<li>Light mode (dark only for Phase 0; light mode support via alternate QSS in later phase)</li>
+<li>Custom window chrome / frameless window (use native title bar)</li>
+<li>New AI features or detection algorithms (visual design only)</li>
+<li>Mobile / tablet form factors</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Anaxiatech-AB/crackz" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.52.0"}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

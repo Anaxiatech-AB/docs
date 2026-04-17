@@ -2926,22 +2926,17 @@ uv<span class="w"> </span>run<span class="w"> </span>crackz-gui
 </li>
 <li>
 <p><strong>Component Initialization Testing</strong> – Verify components can be created:
-   <div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skipif</span><span class="p">(</span><span class="ow">not</span> <span class="n">_TKINTER_AVAILABLE</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CI&quot;</span><span class="p">),</span> 
-                    <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Requires Tkinter&quot;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">test_component</span><span class="p">():</span>
-    <span class="n">root</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTk</span><span class="p">()</span>
-    <span class="n">root</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">component</span> <span class="o">=</span> <span class="n">MyComponent</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="n">component</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="k">finally</span><span class="p">:</span>
-        <span class="n">root</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+   <div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skipif</span><span class="p">(</span><span class="ow">not</span> <span class="n">_has_display</span><span class="p">()</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CI&quot;</span><span class="p">),</span>
+                    <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;Requires display&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_component</span><span class="p">(</span><span class="n">qapp</span><span class="p">):</span>
+    <span class="n">component</span> <span class="o">=</span> <span class="n">MyComponent</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">component</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 </code></pre></div></p>
 </li>
 <li>
 <p><strong>Regression Testing</strong> – Prevent known issues from reoccurring:
    <div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test_no_unsupported_parameters</span><span class="p">():</span>
-    <span class="c1"># Ensure we don&#39;t use unsupported CustomTkinter parameters</span>
+    <span class="c1"># Ensure widget initialization works without errors</span>
     <span class="n">browser</span><span class="o">.</span><span class="n">toggle_toolbar_buttons</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Should not raise</span>
 </code></pre></div></p>
 </li>
@@ -3342,7 +3337,7 @@ On commit, hooks will:
 <div class="highlight"><pre><span></span><code><span class="c1"># Success messages</span>
 <span class="n">typer</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="s2">&quot;✅ Operation completed successfully&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="n">typer</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">GREEN</span><span class="p">)</span>
 
-<span class="c1"># Error messages  </span>
+<span class="c1"># Error messages</span>
 <span class="n">typer</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span><span class="s2">&quot;❌ Operation failed&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="n">typer</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">RED</span><span class="p">)</span>
 
 <span class="c1"># Warning messages</span>
@@ -3380,7 +3375,7 @@ On commit, hooks will:
 <div class="highlight"><pre><span></span><code><span class="c1"># Only for options not reused elsewhere</span>
 <span class="n">LOCAL_OPTION</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span>
     <span class="kc">None</span><span class="p">,</span>
-    <span class="s2">&quot;--local-flag&quot;</span><span class="p">,</span> 
+    <span class="s2">&quot;--local-flag&quot;</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Module-specific option not reused elsewhere&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>

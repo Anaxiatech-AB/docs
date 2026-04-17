@@ -1368,33 +1368,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gui-thread-safety-warning" class="md-nav__link">
+  <a href="#i-gui-thread-safety-with-pyside6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ⚠️ GUI Thread Safety Warning
+        ℹ️ GUI Thread Safety with PySide6
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="⚠️ GUI Thread Safety Warning">
+    <nav class="md-nav" aria-label="ℹ️ GUI Thread Safety with PySide6">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#wrong-direct-gui-update" class="md-nav__link">
+  <a href="#correct-qt-signals-thread-safe" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ❌ WRONG - Direct GUI Update
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#correct-thread-safe-update" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ✅ CORRECT - Thread-Safe Update
+        ✅ CORRECT - Qt Signals (Thread-Safe)
       
     </span>
   </a>
@@ -1976,33 +1965,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gui-thread-safety-warning" class="md-nav__link">
+  <a href="#i-gui-thread-safety-with-pyside6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ⚠️ GUI Thread Safety Warning
+        ℹ️ GUI Thread Safety with PySide6
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="⚠️ GUI Thread Safety Warning">
+    <nav class="md-nav" aria-label="ℹ️ GUI Thread Safety with PySide6">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#wrong-direct-gui-update" class="md-nav__link">
+  <a href="#correct-qt-signals-thread-safe" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ❌ WRONG - Direct GUI Update
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#correct-thread-safe-update" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ✅ CORRECT - Thread-Safe Update
+        ✅ CORRECT - Qt Signals (Thread-Safe)
       
     </span>
   </a>
@@ -2318,29 +2296,27 @@
 <span class="c1"># Cleanup</span>
 <span class="n">stop_gui_callback_consumers</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">,</span> <span class="n">loop</span><span class="p">)</span>
 </code></pre></div>
-<h2 id="gui-thread-safety-warning">⚠️ GUI Thread Safety Warning<a class="headerlink" href="#gui-thread-safety-warning" title="Permanent link">&para;</a></h2>
-<p><strong>CRITICAL</strong>: CustomTkinter/tkinter is NOT thread-safe! When using async callbacks with GUI applications, you MUST use the thread-safe wrappers:</p>
-<h3 id="wrong-direct-gui-update">❌ WRONG - Direct GUI Update<a class="headerlink" href="#wrong-direct-gui-update" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_progress</span><span class="p">(</span><span class="n">progress</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">progress</span><span class="p">)</span>  <span class="c1"># ⚠️ Called from async thread - UNSAFE!</span>
-</code></pre></div>
-<p>This will cause crashes, freezes, or unpredictable behavior because the callback is invoked from the async event loop thread, not the GUI main thread.</p>
-<h3 id="correct-thread-safe-update">✅ CORRECT - Thread-Safe Update<a class="headerlink" href="#correct-thread-safe-update" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Option 1: Manual thread-safe wrapper</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">on_progress</span><span class="p">(</span><span class="n">progress</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">after</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">progress</span><span class="p">))</span>
+<h2 id="i-gui-thread-safety-with-pyside6">ℹ️ GUI Thread Safety with PySide6<a class="headerlink" href="#i-gui-thread-safety-with-pyside6" title="Permanent link">&para;</a></h2>
+<p>PySide6's signal/slot mechanism is inherently thread-safe — signals emitted from any thread are automatically queued and delivered on the GUI thread. Use <code>TaskSignals</code> from <code>async_bridge.py</code> for background work:</p>
+<h3 id="correct-qt-signals-thread-safe">✅ CORRECT - Qt Signals (Thread-Safe)<a class="headerlink" href="#correct-qt-signals-thread-safe" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.gui.qt.async_bridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">TaskSignals</span><span class="p">,</span> <span class="n">run_in_background</span>
 
-<span class="c1"># Option 2: Use provided helper (recommended)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.gui.async_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">start_gui_callback_consumers</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_do_work</span><span class="p">(</span><span class="n">signals</span><span class="p">:</span> <span class="n">TaskSignals</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">signals</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>   <span class="c1"># Safe from any thread</span>
+    <span class="n">signals</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s2">&quot;Processing...&quot;</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">expensive_operation</span><span class="p">()</span>
+    <span class="n">signals</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="n">signals</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
 
-<span class="n">loop</span><span class="p">,</span> <span class="n">tasks</span> <span class="o">=</span> <span class="n">start_gui_callback_consumers</span><span class="p">(</span>
-    <span class="n">dispatcher</span><span class="p">,</span>
-    <span class="n">progress_callback</span><span class="o">=</span><span class="n">update_progress</span><span class="p">,</span>
-    <span class="n">metrics_callback</span><span class="o">=</span><span class="n">update_metrics</span><span class="p">,</span>
-    <span class="n">root_widget</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span>  <span class="c1"># ✅ Enables automatic thread-safe wrapping</span>
-<span class="p">)</span>
+<span class="n">signals</span> <span class="o">=</span> <span class="n">run_in_background</span><span class="p">(</span><span class="n">_do_work</span><span class="p">)</span>
+<span class="n">signals</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_progress</span><span class="p">)</span>
+<span class="n">signals</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_complete</span><span class="p">)</span>
+<span class="n">signals</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_error</span><span class="p">)</span>
 </code></pre></div>
-<p>When you provide <code>root_widget</code>, the helper automatically wraps your callbacks using tkinter's thread-safe <code>after()</code> method.</p>
+<p>No manual <code>threading.Lock</code> or <code>after()</code> wrappers are needed — Qt handles cross-thread dispatch automatically.</p>
+<blockquote>
+<p>For the PySide6 GUI, prefer the Qt-native helpers in <code>crackz.gui.qt.async_bridge</code>.</p>
+</blockquote>
 <h2 id="usage-patterns">Usage Patterns<a class="headerlink" href="#usage-patterns" title="Permanent link">&para;</a></h2>
 <h3 id="pattern-1-synchronous-backward-compatible">Pattern 1: Synchronous (Backward Compatible)<a class="headerlink" href="#pattern-1-synchronous-backward-compatible" title="Permanent link">&para;</a></h3>
 <p>Existing code continues to work without changes:</p>
@@ -2378,20 +2354,20 @@
 <h3 id="pattern-3-full-async-with-thread-safety-gui-recommended">Pattern 3: Full Async with Thread Safety (GUI - Recommended)<a class="headerlink" href="#pattern-3-full-async-with-thread-safety-gui-recommended" title="Permanent link">&para;</a></h3>
 <p>Complete async pattern for GUI applications with automatic thread safety:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.ai.core.async_callbacks</span><span class="w"> </span><span class="kn">import</span> <span class="n">CallbackDispatcher</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.gui.async_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.gui.qt.async_bridge</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">start_gui_callback_consumers</span><span class="p">,</span>
     <span class="n">stop_gui_callback_consumers</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">dispatcher</span> <span class="o">=</span> <span class="n">CallbackDispatcher</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 
-<span class="c1"># Start async consumers with thread-safe GUI updates</span>
-<span class="n">loop</span><span class="p">,</span> <span class="n">tasks</span> <span class="o">=</span> <span class="n">start_gui_callback_consumers</span><span class="p">(</span>
+<span class="c1"># Start async consumers with Qt-thread-safe GUI updates</span>
+<span class="n">loop</span><span class="p">,</span> <span class="n">tasks</span><span class="p">,</span> <span class="n">emitters</span> <span class="o">=</span> <span class="n">start_gui_callback_consumers</span><span class="p">(</span>
     <span class="n">dispatcher</span><span class="p">,</span>
     <span class="n">progress_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">update_progress_bar</span><span class="p">,</span>
     <span class="n">metrics_callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">update_metrics_display</span><span class="p">,</span>
-    <span class="n">root_widget</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span>  <span class="c1"># ✅ Enables thread-safe wrapping!</span>
 <span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">_qt_emitters</span> <span class="o">=</span> <span class="n">emitters</span>  <span class="c1"># Keep signal emitters alive</span>
 
 <span class="c1"># Create reporters</span>
 <span class="n">progress_reporter</span> <span class="o">=</span> <span class="n">dispatcher</span><span class="o">.</span><span class="n">create_sync_progress_reporter</span><span class="p">()</span>
@@ -2452,8 +2428,8 @@
 <p>The async callback infrastructure is thread-safe by design:</p>
 <ul>
 <li><strong>Janus queues</strong>: Provides thread-safe <code>sync_q</code> for puts, async-safe <code>async_q</code> for gets</li>
-<li><strong>Event loop</strong>: Runs in dedicated thread with proper synchronization via <code>threading.Event</code></li>
-<li><strong>GUI callbacks</strong>: Wrapped using tkinter's thread-safe <code>after()</code> method when using helpers</li>
+<li><strong>Event loop</strong>: Runs in a dedicated thread with proper synchronization via <code>threading.Event</code></li>
+<li><strong>GUI callbacks</strong>: Routed through Qt signals so delivery is queued onto the GUI thread automatically</li>
 <li><strong>No busy waits</strong>: Proper event-based synchronization eliminates race conditions</li>
 </ul>
 <p><strong>Thread Flow:</strong>
@@ -2463,7 +2439,7 @@
      │  (thread-safe)             │                       │
      │                            ├─ async_q.get()        │
      │                            │                       │
-     │                            ├─ root.after(0, cb) ──&gt;│
+     │                            ├─ Qt signal emit ─────&gt;│
      │                            │                       │─ Update UI
 </code></pre></div></p>
 <p>This architecture ensures:

@@ -3768,7 +3768,7 @@
 
 
 <h1 id="gui-guide">GUI Guide<a class="headerlink" href="#gui-guide" title="Permanent link">&para;</a></h1>
-<p>The Crackz GUI (<code>crackz-gui</code>) is a modern desktop application built with CustomTkinter, providing a visual interface for project management, image import, model training, and crack detection. It features dark mode by default and real-time updates during long-running operations.</p>
+<p>The Crackz GUI (<code>crackz-gui</code>) is a modern desktop application built with PySide6 (Qt 6), providing a visual interface for project management, image import, model training, and crack detection. It features dark mode via Catppuccin Mocha theming and real-time updates during long-running operations.</p>
 <h2 id="installation-launch">Installation &amp; Launch<a class="headerlink" href="#installation-launch" title="Permanent link">&para;</a></h2>
 <h3 id="launch-the-gui">Launch the GUI<a class="headerlink" href="#launch-the-gui" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># After installing Crackz</span>
@@ -3785,6 +3785,11 @@ crackz-gui
 - Create a new project (Cmd/Ctrl+N)
 - Open an existing project (Cmd/Ctrl+O)
 - Access recent projects from the list</p>
+<blockquote>
+<p><strong>Tip:</strong> Refresh the main PySide6 screenshots for this page with:</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>scripts/capture_qt_screenshots.py<span class="w"> </span>--project<span class="w"> </span>oslo_project
+</code></pre></div>
+</blockquote>
 <p><img alt="Welcome Screen" src="../assets/gui/welcome_screen.png" /></p>
 <hr />
 <h2 id="project-management">Project Management<a class="headerlink" href="#project-management" title="Permanent link">&para;</a></h2>
@@ -3802,6 +3807,8 @@ crackz-gui
 <li>Select the folder and click <strong>Open</strong></li>
 </ol>
 <p>Recent projects appear in the welcome screen and <strong>File → Recent Projects</strong> menu for quick access.</p>
+<p>After opening a project, Crackz shows a summary dashboard with the active model, training setup, detection settings, and data paths.</p>
+<p><img alt="Project Summary" src="../assets/gui/project_summary_view.png" /></p>
 <h3 id="automatic-migration-support">Automatic Migration Support<a class="headerlink" href="#automatic-migration-support" title="Permanent link">&para;</a></h3>
 <p>When opening a project with an outdated configuration or file structure, the GUI automatically detects migration needs and provides user-friendly dialogs:</p>
 <h4 id="schema-migration">Schema Migration<a class="headerlink" href="#schema-migration" title="Permanent link">&para;</a></h4>
@@ -4587,7 +4594,7 @@ In future updates, you'll be able to:
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="gui-wont-launch">GUI Won't Launch<a class="headerlink" href="#gui-wont-launch" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Check installation</span>
-python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import customtkinter; print(&#39;CustomTkinter OK&#39;)&quot;</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from PySide6.QtWidgets import QApplication; print(&#39;PySide6 OK&#39;)&quot;</span>
 
 <span class="c1"># Launch with debug output</span>
 crackz-gui<span class="w"> </span>--debug

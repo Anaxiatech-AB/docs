@@ -1264,6 +1264,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#adr-019-pyside6-migration-replacing-customtkinter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-019: PySide6 Migration (Replacing CustomTkinter)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#summary-of-current-technology-stack" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2033,6 +2044,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#adr-019-pyside6-migration-replacing-customtkinter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-019: PySide6 Migration (Replacing CustomTkinter)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#summary-of-current-technology-stack" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2316,6 +2338,20 @@
 <p><strong>Status</strong>: Active</p>
 <p><strong>Related</strong>: <code>crackz geo</code> commands, <code>src/crackz/geo/</code></p>
 <hr />
+<h2 id="adr-019-pyside6-migration-replacing-customtkinter">ADR-019: PySide6 Migration (Replacing CustomTkinter)<a class="headerlink" href="#adr-019-pyside6-migration-replacing-customtkinter" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: CustomTkinter limitations became blockers for production use — limited widget set, no thread-safe state management, no native enabled/disabled widget support, customer requests for Qt (#127). A feasibility study confirmed PySide6 was viable under GPL-3.0 licensing.</p>
+<p><strong>Decision</strong>: Migrate GUI framework from CustomTkinter to PySide6 (Qt 6). Adopt reactive state management via <code>QtAppState</code> (QObject with signals) and Qt's thread-safe signal/slot mechanism via <code>async_bridge.py</code>.</p>
+<p><strong>Consequences</strong>:
+- ✅ Rich widget ecosystem (tree views, dock widgets, toolbars)
+- ✅ Native enabled/disabled widget support (<code>setEnabled()</code>)
+- ✅ Thread-safe signal/slot pattern — no manual locking for GUI state
+- ✅ Professional dark mode via Catppuccin Mocha QSS theming
+- ✅ Better packaging support (Qt deploy tools)
+- ⚠️ Larger dependency footprint (~50MB vs ~1MB)
+- ⚠️ Required full GUI rewrite (all views, dialogs, panels)</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>src/crackz/gui/qt/</code>, <code>docs/superpowers/specs/2026-04-13-pyside6-migration-feasibility.md</code>, supersedes ADR-004</p>
+<hr />
 <h2 id="summary-of-current-technology-stack">Summary of Current Technology Stack<a class="headerlink" href="#summary-of-current-technology-stack" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2343,8 +2379,8 @@
 </tr>
 <tr>
 <td>GUI Framework</td>
-<td>CustomTkinter</td>
-<td>Active (Qt migration considered)</td>
+<td>PySide6 (Qt 6)</td>
+<td>Active (replaced CustomTkinter, see ADR-019)</td>
 </tr>
 <tr>
 <td>Configuration</td>

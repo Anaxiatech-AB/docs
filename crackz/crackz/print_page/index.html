@@ -16613,8 +16613,7 @@ real-time GUI updates.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/training/training_runner.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 34</span>
-<span class="normal"> 35</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 35</span>
 <span class="normal"> 36</span>
 <span class="normal"> 37</span>
 <span class="normal"> 38</span>
@@ -16847,7 +16846,21 @@ real-time GUI updates.</p>
 <span class="normal">265</span>
 <span class="normal">266</span>
 <span class="normal">267</span>
-<span class="normal">268</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span>  <span class="c1"># noqa: C901, PLR0915, PLR0912</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span>  <span class="c1"># noqa: C901, PLR0915, PLR0912</span>
     <span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span>
     <span class="n">progress_reporter</span><span class="p">:</span> <span class="n">ProgressReporter</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">cancellation_token</span><span class="p">:</span> <span class="n">CancellationToken</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -16881,8 +16894,21 @@ real-time GUI updates.</p>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Training seed set to </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">seed</span><span class="p">)</span>
 
     <span class="c1"># --- dataset setup ---</span>
+    <span class="n">aug_transform</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">build_training_transforms</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">input_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">augmentation</span>
+        <span class="k">else</span> <span class="kc">None</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">aug_transform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;Underwater augmentation pipeline enabled (input_size=</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="p">,</span>
+            <span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">input_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="p">)</span>
     <span class="n">train_ds</span> <span class="o">=</span> <span class="n">CrackzDataset</span><span class="p">(</span>
-        <span class="n">image_dir</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">train_path</span><span class="p">,</span> <span class="n">image_mask_dir</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">train_mask_path</span><span class="p">,</span> <span class="n">require_masks</span><span class="o">=</span><span class="kc">True</span>
+        <span class="n">image_dir</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">train_path</span><span class="p">,</span>
+        <span class="n">image_mask_dir</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">train_mask_path</span><span class="p">,</span>
+        <span class="n">aug_transform</span><span class="o">=</span><span class="n">aug_transform</span><span class="p">,</span>
+        <span class="n">require_masks</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">val_ds</span> <span class="o">=</span> <span class="n">CrackzDataset</span><span class="p">(</span>
         <span class="n">image_dir</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">val_path</span><span class="p">,</span> <span class="n">image_mask_dir</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">val_mask_path</span><span class="p">,</span> <span class="n">require_masks</span><span class="o">=</span><span class="kc">True</span>
@@ -17759,15 +17785,15 @@ Categories are simplified for user clarity: detected vs suspected cracks.</p>
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/data/dataset.py</code></summary>
-                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
+                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
 <span class="normal">30</span>
 <span class="normal">31</span>
 <span class="normal">32</span>
 <span class="normal">33</span>
 <span class="normal">34</span>
-<span class="normal">35</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ToRGB</span><span class="p">:</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ToRGB</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert image to RGB.&quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">im</span><span class="p">:</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">Image</span><span class="p">:</span>  <span class="c1"># noqa: D102</span>
@@ -17810,9 +17836,9 @@ Categories are simplified for user clarity: detected vs suspected cracks.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/data/dataset.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">im</span><span class="p">:</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">Image</span><span class="p">:</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">im</span><span class="p">:</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">Image</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Apply the transformation.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -17857,9 +17883,7 @@ Categories are simplified for user clarity: detected vs suspected cracks.</p>
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/data/dataset.py</code></summary>
-                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 95</span>
-<span class="normal"> 96</span>
-<span class="normal"> 97</span>
+                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 97</span>
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
 <span class="normal">100</span>
@@ -17980,7 +18004,24 @@ Categories are simplified for user clarity: detected vs suspected cracks.</p>
 <span class="normal">215</span>
 <span class="normal">216</span>
 <span class="normal">217</span>
-<span class="normal">218</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CrackzDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">[</span><span class="n">Sample</span><span class="p">]):</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CrackzDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">[</span><span class="n">Sample</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Dataset for crack images with optional masks.&quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
@@ -17990,6 +18031,7 @@ Categories are simplified for user clarity: detected vs suspected cracks.</p>
         <span class="n">transform</span><span class="p">:</span> <span class="n">ImageTransform</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">mask_transform</span><span class="p">:</span> <span class="n">MaskTransform</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">normalization_config</span><span class="p">:</span> <span class="n">NormalizationConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">aug_transform</span><span class="p">:</span> <span class="n">A</span><span class="o">.</span><span class="n">Compose</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">require_masks</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -18059,6 +18101,7 @@ Categories are simplified for user clarity: detected vs suspected cracks.</p>
             <span class="p">]</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mask_transform</span> <span class="o">=</span> <span class="n">mask_transform</span> <span class="ow">or</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">()])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aug_transform</span> <span class="o">=</span> <span class="n">aug_transform</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">)</span>
@@ -18066,41 +18109,54 @@ Categories are simplified for user clarity: detected vs suspected cracks.</p>
     <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sample</span><span class="p">:</span>
         <span class="n">img_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
 
-        <span class="c1"># Use CrackzImage for consistent image loading and error handling</span>
+        <span class="c1"># Load raw image (PIL)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">img</span> <span class="o">=</span> <span class="n">load_image_with_crackz_image</span><span class="p">(</span><span class="n">img_path</span><span class="p">)</span>
-            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">ImageLoadingError</span><span class="p">:</span>
-            <span class="c1"># Re-raise ImageLoadingError as-is for proper error handling</span>
             <span class="k">raise</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="c1"># Wrap unexpected errors in ImageLoadingError</span>
             <span class="k">raise</span> <span class="n">ImageLoadingError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to process image </span><span class="si">{</span><span class="n">img_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
-
-        <span class="n">_</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
 
         <span class="c1"># Look for PNG mask only</span>
         <span class="n">mask_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_mask_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">img_path</span><span class="o">.</span><span class="n">stem</span><span class="si">}</span><span class="s2">.png&quot;</span>
 
+        <span class="n">mask_img</span><span class="p">:</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">Image</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">mask_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="c1"># Use CrackzImage for mask loading as well for consistency</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">mask_crackz_img</span> <span class="o">=</span> <span class="n">CrackzImage</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">mask_path</span><span class="p">)</span>
                 <span class="n">mask_img</span> <span class="o">=</span> <span class="n">mask_crackz_img</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;L&quot;</span><span class="p">)</span>
-                <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask_transform</span><span class="p">(</span><span class="n">mask_img</span><span class="p">)</span>
-                <span class="c1"># Binarize mask: any non-zero value becomes 1</span>
-                <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
             <span class="k">except</span> <span class="p">(</span><span class="n">ImageFileError</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">ImageLoadingError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to load mask </span><span class="si">{</span><span class="n">mask_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">require_masks</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ImageLoadingError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Mask required but not found for </span><span class="si">{</span><span class="n">img_path</span><span class="o">.</span><span class="n">stem</span><span class="si">}</span><span class="s2">.png. &quot;</span>
+                <span class="s2">&quot;This should not happen - check dataset initialization.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Apply albumentations augmentation on numpy arrays (image + mask jointly)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">aug_transform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">mask_img</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">img_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;RGB&quot;</span><span class="p">))</span>
+            <span class="n">mask_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask_img</span><span class="p">)</span>
+            <span class="n">augmented</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aug_transform</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">img_np</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask_np</span><span class="p">)</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span> <span class="k">as</span> <span class="n">_PILImage</span>  <span class="c1"># local import to avoid circular</span>
+
+            <span class="n">img</span> <span class="o">=</span> <span class="n">_PILImage</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">augmented</span><span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">])</span>
+            <span class="n">mask_img</span> <span class="o">=</span> <span class="n">_PILImage</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">augmented</span><span class="p">[</span><span class="s2">&quot;mask&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Apply torchvision transform to image</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ImageLoadingError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to process image </span><span class="si">{</span><span class="n">img_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+
+        <span class="k">if</span> <span class="n">mask_img</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask_transform</span><span class="p">(</span><span class="n">mask_img</span><span class="p">)</span>
+            <span class="c1"># Binarize mask: any non-zero value becomes 1</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># If masks are required, this should never happen due to filtering in __init__</span>
-            <span class="c1"># If masks are not required (detection mode), use dummy mask</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">require_masks</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">ImageLoadingError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Mask required but not found for </span><span class="si">{</span><span class="n">img_path</span><span class="o">.</span><span class="n">stem</span><span class="si">}</span><span class="s2">.png. &quot;</span>
-                    <span class="s2">&quot;This should not happen - check dataset initialization.&quot;</span>
-                <span class="p">)</span>
-            <span class="c1"># Don&#39;t log in detection mode - dummy masks are expected</span>
+            <span class="c1"># Detection mode — dummy mask</span>
             <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">CrackzSample</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">img_path</span><span class="p">))</span>
@@ -18226,9 +18282,7 @@ ensuring consistent error handling and proper file handle management.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/data/dataset.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">40</span>
 <span class="normal">41</span>
 <span class="normal">42</span>
 <span class="normal">43</span>
@@ -18248,7 +18302,9 @@ ensuring consistent error handling and proper file handle management.</p>
 <span class="normal">57</span>
 <span class="normal">58</span>
 <span class="normal">59</span>
-<span class="normal">60</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_image_with_crackz_image</span><span class="p">(</span><span class="n">image_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">Image</span><span class="p">:</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_image_with_crackz_image</span><span class="p">(</span><span class="n">image_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">Image</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load an image using CrackzImage for consistent error handling and file management.</span>
 
 <span class="sd">    This function provides a standardized way to load images across the AI pipeline,</span>
@@ -18385,9 +18441,7 @@ ensuring consistent error handling and proper file handle management.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/data/dataset.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">65</span>
 <span class="normal">66</span>
 <span class="normal">67</span>
 <span class="normal">68</span>
@@ -18414,7 +18468,9 @@ ensuring consistent error handling and proper file handle management.</p>
 <span class="normal">89</span>
 <span class="normal">90</span>
 <span class="normal">91</span>
-<span class="normal">92</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">CrackzDetectionDataset</span><span class="p">(</span>  <span class="c1"># noqa: N802</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">CrackzDetectionDataset</span><span class="p">(</span>  <span class="c1"># noqa: N802</span>
     <span class="n">image_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">transform</span><span class="p">:</span> <span class="n">ImageTransform</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">normalization_config</span><span class="p">:</span> <span class="n">NormalizationConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -18615,24 +18671,7 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/data/dataset.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">221</span>
-<span class="normal">222</span>
-<span class="normal">223</span>
-<span class="normal">224</span>
-<span class="normal">225</span>
-<span class="normal">226</span>
-<span class="normal">227</span>
-<span class="normal">228</span>
-<span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span>
-<span class="normal">236</span>
-<span class="normal">237</span>
-<span class="normal">238</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">238</span>
 <span class="normal">239</span>
 <span class="normal">240</span>
 <span class="normal">241</span>
@@ -18654,7 +18693,24 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
 <span class="normal">257</span>
 <span class="normal">258</span>
 <span class="normal">259</span>
-<span class="normal">260</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_training_datasets</span><span class="p">(</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_training_datasets</span><span class="p">(</span>
     <span class="n">train_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
     <span class="n">train_mask_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
     <span class="n">val_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
@@ -18842,30 +18898,30 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/data/dataset.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">263</span>
-<span class="normal">264</span>
-<span class="normal">265</span>
-<span class="normal">266</span>
-<span class="normal">267</span>
-<span class="normal">268</span>
-<span class="normal">269</span>
-<span class="normal">270</span>
-<span class="normal">271</span>
-<span class="normal">272</span>
-<span class="normal">273</span>
-<span class="normal">274</span>
-<span class="normal">275</span>
-<span class="normal">276</span>
-<span class="normal">277</span>
-<span class="normal">278</span>
-<span class="normal">279</span>
-<span class="normal">280</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">280</span>
 <span class="normal">281</span>
 <span class="normal">282</span>
 <span class="normal">283</span>
 <span class="normal">284</span>
 <span class="normal">285</span>
-<span class="normal">286</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_dataset</span><span class="p">(</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_dataset</span><span class="p">(</span>
     <span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span>
     <span class="n">transforms</span><span class="p">:</span> <span class="n">ImageTransform</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">mask_transforms</span><span class="p">:</span> <span class="n">MaskTransform</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># noqa: ARG001</span>
@@ -19397,24 +19453,14 @@ and Focal losses for enhanced performance in handling imbalanced datasets.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code><span title="crackz.ai.model.segmentation.model.CrackzConfig.encoder">encoder</span></code></td>
+            <td><code><span title="crackz.ai.model.segmentation.model.CrackzConfig.backbone">backbone</span></code></td>
             <td>
                   <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Encoder backbone name passed to <code>smp.Unet</code>.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td><code><span title="crackz.ai.model.segmentation.model.CrackzConfig.encoder_weights">encoder_weights</span></code></td>
-            <td>
-                  <code><span title="str">str</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Pretrained weights identifier or <code>None</code> to disable.</p>
+                <p>Model backbone identifier. "segformer-b0" through "segformer-b5" use
+HuggingFace SegFormer; anything else is treated as an SMP encoder name.</p>
               </div>
             </td>
           </tr>
@@ -19430,7 +19476,7 @@ and Focal losses for enhanced performance in handling imbalanced datasets.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code><span title="crackz.ai.model.segmentation.model.CrackzConfig.classes">classes</span></code></td>
+            <td><code><span title="crackz.ai.model.segmentation.model.CrackzConfig.num_classes">num_classes</span></code></td>
             <td>
                   <code><span title="int">int</span></code>
             </td>
@@ -19463,8 +19509,7 @@ and Focal losses for enhanced performance in handling imbalanced datasets.</p>
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/crackz/ai/model/segmentation/model.py</code></summary>
-                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">38</span>
-<span class="normal">39</span>
+                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">39</span>
 <span class="normal">40</span>
 <span class="normal">41</span>
 <span class="normal">42</span>
@@ -19508,16 +19553,16 @@ and Focal losses for enhanced performance in handling imbalanced datasets.</p>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        lr: Learning rate for the AdamW optimizer.</span>
-<span class="sd">        encoder: Encoder backbone name passed to `smp.Unet`.</span>
-<span class="sd">        encoder_weights: Pretrained weights identifier or `None` to disable.</span>
+<span class="sd">        backbone: Model backbone identifier. &quot;segformer-b0&quot; through &quot;segformer-b5&quot; use</span>
+<span class="sd">            HuggingFace SegFormer; anything else is treated as an SMP encoder name.</span>
 <span class="sd">        in_channels: Number of channels in the input images.</span>
-<span class="sd">        classes: Number of output segmentation classes (1 for binary).</span>
+<span class="sd">        num_classes: Number of output segmentation classes (1 for binary).</span>
 <span class="sd">        threshold: Probability threshold for converting logits to binary masks and IoU metric.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-3</span>
-    <span class="n">encoder</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;resnet34&quot;</span>
-    <span class="n">encoder_weights</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;imagenet&quot;</span>
+    <span class="n">backbone</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;segformer-b2&quot;</span>
+    <span class="n">encoder_weights</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s2">&quot;imagenet&quot;</span>  <span class="c1"># SMP only; None disables pretrained weights</span>
     <span class="n">in_channels</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">num_classes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span>
@@ -19531,8 +19576,7 @@ and Focal losses for enhanced performance in handling imbalanced datasets.</p>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a `CrackzConfig` from a `Project` instance.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">CrackzConfig</span><span class="p">(</span>
             <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
-            <span class="n">encoder</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">encoder</span><span class="p">,</span>
-            <span class="n">encoder_weights</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">encoder_weights</span><span class="p">,</span>
+            <span class="n">backbone</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">backbone</span><span class="p">,</span>
             <span class="n">in_channels</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">in_channels</span><span class="p">,</span>
             <span class="n">num_classes</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">num_classes</span><span class="p">,</span>  <span class="c1"># binary segmentation</span>
             <span class="n">threshold</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">threshold</span><span class="p">,</span>
@@ -19578,8 +19622,7 @@ and Focal losses for enhanced performance in handling imbalanced datasets.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/ai/model/segmentation/model.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">63</span>
-<span class="normal">64</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">64</span>
 <span class="normal">65</span>
 <span class="normal">66</span>
 <span class="normal">67</span>
@@ -19596,8 +19639,7 @@ and Focal losses for enhanced performance in handling imbalanced datasets.</p>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a `CrackzConfig` from a `Project` instance.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">CrackzConfig</span><span class="p">(</span>
         <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
-        <span class="n">encoder</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">encoder</span><span class="p">,</span>
-        <span class="n">encoder_weights</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">encoder_weights</span><span class="p">,</span>
+        <span class="n">backbone</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">backbone</span><span class="p">,</span>
         <span class="n">in_channels</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">in_channels</span><span class="p">,</span>
         <span class="n">num_classes</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">num_classes</span><span class="p">,</span>  <span class="c1"># binary segmentation</span>
         <span class="n">threshold</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">threshold</span><span class="p">,</span>
@@ -20025,11 +20067,11 @@ contributions and handling class imbalances effectively.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">save_hyperparameters</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">lr</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">smp</span><span class="o">.</span><span class="n">Unet</span><span class="p">(</span>
-            <span class="n">encoder_name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">encoder</span><span class="p">,</span>
-            <span class="n">encoder_weights</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">encoder_weights</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">(</span>
+            <span class="n">backbone</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">backbone</span><span class="p">,</span>
             <span class="n">in_channels</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">in_channels</span><span class="p">,</span>
-            <span class="n">classes</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">num_classes</span><span class="p">,</span>
+            <span class="n">num_classes</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">num_classes</span><span class="p">,</span>
+            <span class="n">encoder_weights</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">encoder_weights</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">criterion</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">],</span> <span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_loss_function</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
@@ -28082,6 +28124,7 @@ process. Errors during the process are logged and handled properly.</p>
     <span class="n">image_type</span><span class="o">=</span><span class="n">TYPE_OPTION</span><span class="p">,</span>
     <span class="n">image_size</span><span class="o">=</span><span class="n">SIZE_OPTION</span><span class="p">,</span>
     <span class="n">quality</span><span class="o">=</span><span class="n">QUALITY_OPTION</span><span class="p">,</span>
+    <span class="n">target_size</span><span class="o">=</span><span class="n">TARGET_SIZE_OPTION</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">overwrite</span><span class="o">=</span><span class="n">OVERWRITE_OPTION</span><span class="p">,</span>
     <span class="n">split</span><span class="o">=</span><span class="n">SPLIT_OPTION</span><span class="p">,</span>
@@ -28230,6 +28273,25 @@ Compression quality level for the images.</p>
             </td>
             <td>
                   <code><span title="crackz.cli.image_import_cli.QUALITY_OPTION">QUALITY_OPTION</span></code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>target_size</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>int | None
+Square resolution (NxN) to resize images to during import (64-4096).
+When explicitly provided, it overrides the legacy image_size option and is
+persisted in project config so training and detection use the same resolution.</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="crackz.cli.options.TARGET_SIZE_OPTION">TARGET_SIZE_OPTION</span></code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -28396,8 +28458,7 @@ Random seed for reproducible splits (default: None for random).</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/cli/image_import_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">120</span>
-<span class="normal">121</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">121</span>
 <span class="normal">122</span>
 <span class="normal">123</span>
 <span class="normal">124</span>
@@ -28536,7 +28597,67 @@ Random seed for reproducible splits (default: None for random).</p>
 <span class="normal">257</span>
 <span class="normal">258</span>
 <span class="normal">259</span>
-<span class="normal">260</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">import_images</span><span class="p">(</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">import_images</span><span class="p">(</span>  <span class="c1"># noqa: C901, PLR0912, PLR0915</span>
     <span class="n">cfg</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">CFG_OPTION</span><span class="p">,</span>
     <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span>
     <span class="n">source_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">SOURCE_PATH_OPTION</span><span class="p">,</span>
@@ -28544,6 +28665,7 @@ Random seed for reproducible splits (default: None for random).</p>
     <span class="n">image_type</span><span class="p">:</span> <span class="n">ImagesType</span> <span class="o">=</span> <span class="n">TYPE_OPTION</span><span class="p">,</span>
     <span class="n">image_size</span><span class="p">:</span> <span class="n">SizeType</span> <span class="o">=</span> <span class="n">SIZE_OPTION</span><span class="p">,</span>
     <span class="n">quality</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">QUALITY_OPTION</span><span class="p">,</span>
+    <span class="n">target_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">TARGET_SIZE_OPTION</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">OVERWRITE_OPTION</span><span class="p">,</span>
     <span class="n">split</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">SPLIT_OPTION</span><span class="p">,</span>
@@ -28576,6 +28698,10 @@ Random seed for reproducible splits (default: None for random).</p>
 <span class="sd">            Tuple specifying the width and height to resize the images.</span>
 <span class="sd">        quality: int</span>
 <span class="sd">            Compression quality level for the images.</span>
+<span class="sd">        target_size: int | None</span>
+<span class="sd">            Square resolution (NxN) to resize images to during import (64-4096).</span>
+<span class="sd">            When explicitly provided, it overrides the legacy image_size option and is</span>
+<span class="sd">            persisted in project config so training and detection use the same resolution.</span>
 <span class="sd">        overwrite: bool</span>
 <span class="sd">            Flag indicating whether to overwrite existing images if present.</span>
 <span class="sd">        split: bool</span>
@@ -28633,6 +28759,60 @@ Random seed for reproducible splits (default: None for random).</p>
 
         <span class="n">project</span> <span class="o">=</span> <span class="n">offer_migration_if_legacy</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
 
+        <span class="c1"># Resolve effective image size:</span>
+        <span class="c1"># 1) explicit --target-size takes precedence</span>
+        <span class="c1"># 2) otherwise explicit legacy --size is honored</span>
+        <span class="c1"># 3) otherwise fall back to the stored project target_size (default 1024)</span>
+        <span class="n">ctx</span> <span class="o">=</span> <span class="n">click</span><span class="o">.</span><span class="n">get_current_context</span><span class="p">()</span>
+        <span class="n">target_size_src</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">get_parameter_source</span><span class="p">(</span><span class="s2">&quot;target_size&quot;</span><span class="p">)</span>
+        <span class="n">image_size_src</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">get_parameter_source</span><span class="p">(</span><span class="s2">&quot;image_size&quot;</span><span class="p">)</span>
+        <span class="n">target_size_explicit</span> <span class="o">=</span> <span class="n">target_size_src</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">target_size_src</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;DEFAULT&quot;</span>
+        <span class="n">image_size_explicit</span> <span class="o">=</span> <span class="n">image_size_src</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">image_size_src</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;DEFAULT&quot;</span>
+
+        <span class="n">persisted_target_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">target_size_explicit</span> <span class="ow">and</span> <span class="n">target_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">persisted_target_size</span> <span class="o">=</span> <span class="n">target_size</span>
+            <span class="n">effective_size</span><span class="p">:</span> <span class="n">SizeType</span> <span class="o">=</span> <span class="p">(</span><span class="n">persisted_target_size</span><span class="p">,</span> <span class="n">persisted_target_size</span><span class="p">)</span>
+            <span class="n">project</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">target_size</span> <span class="o">=</span> <span class="n">persisted_target_size</span>
+        <span class="k">elif</span> <span class="n">image_size_explicit</span><span class="p">:</span>
+            <span class="n">effective_size</span> <span class="o">=</span> <span class="n">image_size</span>
+            <span class="k">if</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">persisted_target_size</span> <span class="o">=</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">project</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">target_size</span> <span class="o">=</span> <span class="n">persisted_target_size</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">stored_target_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;target_size&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">1024</span><span class="p">)</span>
+            <span class="n">persisted_target_size</span> <span class="o">=</span> <span class="n">stored_target_size</span>
+            <span class="n">effective_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">stored_target_size</span><span class="p">,</span> <span class="n">stored_target_size</span><span class="p">)</span>
+
+        <span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">input_size</span> <span class="o">=</span> <span class="n">effective_size</span>
+        <span class="n">project</span><span class="o">.</span><span class="n">save_project</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">persisted_target_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;Set target_size=</span><span class="si">{}</span><span class="s2"> and input_size=</span><span class="si">{}</span><span class="s2"> in project config&quot;</span><span class="p">,</span>
+                <span class="n">persisted_target_size</span><span class="p">,</span>
+                <span class="n">effective_size</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">typer</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Target size set to </span><span class="si">{</span><span class="n">persisted_target_size</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">persisted_target_size</span><span class="si">}</span><span class="s2"> &quot;</span>
+                    <span class="s2">&quot;-- saved to project config&quot;</span>
+                <span class="p">),</span>
+                <span class="n">fg</span><span class="o">=</span><span class="n">typer</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">CYAN</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;Set input_size=</span><span class="si">{}</span><span class="s2"> in project config (project target_size unchanged)&quot;</span><span class="p">,</span>
+                <span class="n">effective_size</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">typer</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span>
+                <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Input size set to </span><span class="si">{</span><span class="n">effective_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">effective_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> &quot;</span>
+                    <span class="s2">&quot;-- project target_size unchanged&quot;</span>
+                <span class="p">),</span>
+                <span class="n">fg</span><span class="o">=</span><span class="n">typer</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">CYAN</span><span class="p">,</span>
+            <span class="p">)</span>
+
         <span class="c1"># Determine total items for progress display (simple image filter)</span>
         <span class="n">exts</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;.jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;.jpeg&quot;</span><span class="p">,</span> <span class="s2">&quot;.png&quot;</span><span class="p">,</span> <span class="s2">&quot;.bmp&quot;</span><span class="p">,</span> <span class="s2">&quot;.tif&quot;</span><span class="p">,</span> <span class="s2">&quot;.tiff&quot;</span><span class="p">}</span>
         <span class="n">total_images</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
@@ -28657,7 +28837,7 @@ Random seed for reproducible splits (default: None for random).</p>
 
         <span class="k">with</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="n">total</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;files&quot;</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span> <span class="k">as</span> <span class="n">pbar</span><span class="p">:</span>
 
-            <span class="k">def</span><span class="w"> </span><span class="nf">do_progress</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">def</span><span class="w"> </span><span class="nf">do_progress</span><span class="p">(</span><span class="n">_fraction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">_message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
                     <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
@@ -28665,7 +28845,7 @@ Random seed for reproducible splits (default: None for random).</p>
                 <span class="n">source_path</span><span class="o">=</span><span class="n">source_path</span><span class="p">,</span>
                 <span class="n">masks_source_path</span><span class="o">=</span><span class="n">masks_source_path</span><span class="p">,</span>
                 <span class="n">image_type</span><span class="o">=</span><span class="n">image_type</span><span class="p">,</span>
-                <span class="n">size</span><span class="o">=</span><span class="n">image_size</span><span class="p">,</span>
+                <span class="n">size</span><span class="o">=</span><span class="n">effective_size</span><span class="p">,</span>
                 <span class="n">quality</span><span class="o">=</span><span class="n">quality</span><span class="p">,</span>
                 <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">,</span>
                 <span class="n">progress_cb</span><span class="o">=</span><span class="n">do_progress</span><span class="p">,</span>
@@ -29410,6 +29590,10 @@ the import process. Errors during import are logged and appropriately handled.</
         Tuple specifying the width and height to resize the images.
     quality: int
         Compression quality level for the images.
+    target_size: int | None
+        Square resolution (NxN) to resize images to during import (64-4096).
+        When explicitly provided, it overrides the legacy image_size option and is
+        persisted in project config so training and detection use the same resolution.
     overwrite: bool
         Flag indicating whether to overwrite existing images if present.
     split: bool
@@ -29452,6 +29636,9 @@ the import process. Errors during import are logged and appropriately handled.</
   -q, --quality INTEGER           JPEG/PNG quality for imported images
                                   (defaults to &quot;90&quot;). Eg --quality 90
                                   [default: 90]
+  --target-size INTEGER RANGE     Square target image size for import (resized
+                                  to NxN). When omitted, uses the project&#39;s
+                                  stored target_size or 1024.  [64&lt;=x&lt;=4096]
   -f, --overwrite                 Overwrite existing images in the project
                                   (defaults to False). Eg. --overwrite
   --split                         Automatically split images into
@@ -29617,8 +29804,9 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
 <p>Options:</p>
 <div class="highlight"><pre><span></span><code>  -p, --project DIRECTORY  Project path (overrides config file). Eg --project
                            ./my_project
-  -c, --checkpoint TEXT    Checkpoint name to export (e.g., &#39;best&#39;, &#39;last&#39;)
-  -o, --out PATH           Output file path for exported model package
+  -c, --checkpoint TEXT    Specific checkpoint to export (best/last/final).
+                           Auto-selects if not specified.
+  -o, --out PATH           Output file or directory path
 </code></pre></div>
 <h3 id="import">import<a class="headerlink" href="#import" title="Permanent link">&para;</a></h3>
 <p>Import a pre-trained model package into a project.</p>
@@ -29629,9 +29817,52 @@ with safe defaults (e.g. ai.training.tensorboard) and stamping schema_version.</
 <p>Options:</p>
 <div class="highlight"><pre><span></span><code>  -p, --project DIRECTORY  Project path (overrides config file). Eg --project
                            ./my_project
-  -m, --model PATH         Path to model package file to import  [required]
-  --force / --no-force     Overwrite existing checkpoint if it exists
-                           [default: no-force]
+  -m, --model FILE         Path to the model package (.zip file) to import
+                           [required]
+  -f, --force              Force overwrite if file/directory already exists
+</code></pre></div>
+<h3 id="list">list<a class="headerlink" href="#list" title="Permanent link">&para;</a></h3>
+<p>List all named checkpoints in the project.</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> model list [OPTIONS]
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  -p, --project DIRECTORY  Project path (overrides config file). Eg --project
+                           ./my_project
+</code></pre></div>
+<h3 id="set-default">set-default<a class="headerlink" href="#set-default" title="Permanent link">&para;</a></h3>
+<p>Set the default checkpoint used by detect run.</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> model set-default [OPTIONS]
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  -p, --project DIRECTORY  Project path (overrides config file). Eg --project
+                           ./my_project
+  -s, --slot TEXT          Named checkpoint slot (e.g., &#39;best&#39;, &#39;harbor_v1&#39;,
+                           &#39;baseline&#39;).
+</code></pre></div>
+<h3 id="slot-export">slot-export<a class="headerlink" href="#slot-export" title="Permanent link">&para;</a></h3>
+<p>Export a named checkpoint slot as a portable zip package.</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> model slot-export [OPTIONS]
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  -p, --project DIRECTORY  Project path (overrides config file). Eg --project
+                           ./my_project
+  -s, --slot TEXT          Named checkpoint slot (e.g., &#39;best&#39;, &#39;harbor_v1&#39;,
+                           &#39;baseline&#39;).
+  -o, --out PATH           Output file or directory path
+</code></pre></div>
+<h3 id="slot-import">slot-import<a class="headerlink" href="#slot-import" title="Permanent link">&para;</a></h3>
+<p>Import a model checkpoint from a zip file or URL.</p>
+<p>Usage:</p>
+<div class="highlight"><pre><span></span><code> model slot-import [OPTIONS] SOURCE
+</code></pre></div>
+<p>Options:</p>
+<div class="highlight"><pre><span></span><code>  SOURCE                   Path or URL to a model zip package.  [required]
+  -p, --project DIRECTORY  Project path (overrides config file). Eg --project
+                           ./my_project
+  -n, --name TEXT          Name for the imported checkpoint slot.  [required]
 </code></pre></div>
 <h2 id="propagate-masks">propagate-masks<a class="headerlink" href="#propagate-masks" title="Permanent link">&para;</a></h2>
 <p>Mask propagation commands</p>

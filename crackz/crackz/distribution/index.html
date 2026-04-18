@@ -2308,12 +2308,16 @@ pip<span class="w"> </span>install<span class="w"> </span>crackz.whl
 <span class="w">          </span><span class="nt">files</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dist/*</span>
 </code></pre></div></p>
 <p><strong>Note:</strong> The actual implementation publishes packages in the <code>publish-release.yml</code> workflow after the release is made public. The Release workflow creates a draft release, which is then automatically published.</p>
-<p><strong>PyInstaller Executables:</strong> PyInstaller builds are now optional and manual to reduce CI costs. To build executables for a release:
+<p><strong>PyInstaller Executables:</strong> PyInstaller builds are now optional and manual to reduce CI costs. The CI workflow builds only the supported Qt GUI executable (<code>crackz-gui</code>), not the CLI. With immutable GitHub releases enabled, published releases cannot be modified later, so this workflow behaves as follows:
+1. If the target release is still mutable, the workflow uploads the binaries to that release.
+2. If the target release is already immutable/published, the workflow skips release upload and keeps the binaries as workflow artifacts only.
+3. Workflow artifacts are retained for 30 days, so use a longer-lived distribution channel if customers need binaries beyond that window.</p>
+<p>To build executables for a release:
 1. Go to the GitHub Actions tab
 2. Select "PyInstaller Build" workflow
 3. Click "Run workflow" and enter the version tag (e.g., <code>v0.35.0</code> or <code>latest</code>)
 4. Select whether to build all platforms or Windows only
-5. Binaries will be added to the existing published release</p>
+5. If the release is immutable, download the binaries from the workflow run artifacts within 30 days or publish them through a separate distribution channel</p>
 <p>To publish to a private package index, configure these repository secrets:
 - <code>PRIVATE_INDEX_URL</code> - Your private PyPI index URL (e.g., <code>https://pypi.company.com/simple/</code>)
 - <code>PRIVATE_INDEX_USER</code> - Username for authentication (optional, defaults to <code>__token__</code>)

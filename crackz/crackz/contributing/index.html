@@ -16,7 +16,7 @@
         <link rel="prev" href="../async-callbacks/">
       
       
-        <link rel="next" href="../pr-review-workflow/">
+        <link rel="next" href="../release-flow/">
       
       
         
@@ -1937,6 +1937,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../release-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../pr-review-workflow/" class="md-nav__link">
         
   
@@ -3050,9 +3078,10 @@ PDF export (uses <code>scripts/export_pdf.py</code>):
 <h2 id="release-process-overview">Release Process (Overview)<a class="headerlink" href="#release-process-overview" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Commits merged to <code>main</code> trigger <a href="https://commitizen-tools.github.io/commitizen/">commitizen</a> (<code>cz bump</code>), which determines the next version from conventional commits, updates <code>pyproject.toml</code>, generates/updates <code>CHANGELOG.md</code>, creates a git tag, and pushes everything back to <code>main</code>.</li>
-<li>A draft GitHub release is then created automatically with all built artifacts attached.</li>
+<li>The release workflow then creates a draft GitHub release, uploads built artifacts, and publishes that draft in the same pipeline.</li>
 <li>Docker images are built for full / slim / gpu variants in a separate workflow after a successful release.</li>
 <li>PyPI upload is currently disabled.</li>
+<li>Full current behavior: see <a href="../release-flow/">Release Flow</a>.</li>
 </ul>
 <hr />
 <h2 id="reporting-bugs">Reporting Bugs<a class="headerlink" href="#reporting-bugs" title="Permanent link">&para;</a></h2>
@@ -3169,9 +3198,9 @@ Use for early validation without bumping stable semantic version.</p>
 <li>Merge feature/fix branches into <code>main</code> (squash).</li>
 <li>CI runs tests + commitizen (<code>cz bump</code>):</li>
 <li>Determines next version from conventional commit history.</li>
-<li>Builds wheel, sdist, and documentation PDF.</li>
-<li>Updates <code>CHANGELOG.md</code>, commits, tags <code>vX.Y.Z</code>, creates draft GitHub Release with artifacts.</li>
-<li>Draft release is automatically published (made public).</li>
+<li>Updates <code>CHANGELOG.md</code>, commits, tags <code>vX.Y.Z</code>, and pushes the release commit back to <code>main</code>.</li>
+<li>Artifact jobs build wheels, sdist, checksums, and optionally the documentation PDF.</li>
+<li>The workflow creates a draft GitHub release, uploads artifacts, and publishes it.</li>
 <li>Docker images (full + slim + gpu) built &amp; pushed with tags: <code>:X.Y.Z</code> and <code>:latest</code>.</li>
 <li>Docs site + PDF published to GitHub Pages via docs workflow (separate pipeline).</li>
 <li><strong>Optional</strong>: PyInstaller executables can be built manually and added to published releases:</li>
@@ -3181,6 +3210,7 @@ Use for early validation without bumping stable semantic version.</p>
 <li>Select platforms (Windows only by default, or all platforms)</li>
 <li>Binaries are added to the existing GitHub release</li>
 </ol>
+<p>For the exact current-state sequence and triggers, see <a href="../release-flow/">Release Flow</a>.</p>
 <h3 id="hotfix-flow">Hotfix Flow<a class="headerlink" href="#hotfix-flow" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Branch: <code>hotfix/&lt;next-patch&gt;-&lt;short-desc&gt;</code> from <code>main</code>.</li>

@@ -1984,6 +1984,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#crackz.ai.detection.categorize_crack_severity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        categorize_crack_severity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#crackz.ai.detection.create_tensorboard_logger" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2017,10 +2028,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#crackz.ai.detection.categorize_crack_severity" class="md-nav__link">
+  <a href="#crackz.ai.detection.__getattr__" class="md-nav__link">
     <span class="md-ellipsis">
       
-        categorize_crack_severity
+        __getattr__
       
     </span>
   </a>
@@ -4758,6 +4769,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#crackz.ai.detection.categorize_crack_severity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        categorize_crack_severity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#crackz.ai.detection.create_tensorboard_logger" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4791,10 +4813,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#crackz.ai.detection.categorize_crack_severity" class="md-nav__link">
+  <a href="#crackz.ai.detection.__getattr__" class="md-nav__link">
     <span class="md-ellipsis">
       
-        categorize_crack_severity
+        __getattr__
       
     </span>
   </a>
@@ -10741,18 +10763,10 @@ or file import errors.</p>
 <a id="crackz.ai.detection"></a>
     <div class="doc doc-contents first">
 
-        <p>AI detection module for crack detection using deep learning models.</p>
-<p>This module provides crack detection functionality for harbor infrastructure analysis
-along with integration of PyTorch Lightning for model training and testing.</p>
-<p>Functions:
-- detect: Detect anomalies using a pre-trained model on the provided project dataset.
-- train: Train a crack detection model using datasets of a specified project.</p>
-<p>Note: This module is a compatibility layer. The actual implementations have been
-refactored into specialized modules:
-- detection_runner: Detection logic
-- training_runner: Training logic
-- severity: Crack severity categorization
-- training_setup: Training dataset validation</p>
+        <p>AI detection compatibility exports with lazy loading.</p>
+<p>This package intentionally avoids importing the full training/runtime stack at
+module import time so that lightweight paths such as report generation and CLI
+startup do not eagerly pull in PyTorch Lightning and segmentation models.</p>
 
 
 
@@ -10868,6 +10882,240 @@ type coercion, and consistent data handling throughout the application.</p>
 
 </div>
 
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="crackz.ai.detection.categorize_crack_severity" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">categorize_crack_severity</span>
+
+
+<a href="#crackz.ai.detection.categorize_crack_severity" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">categorize_crack_severity</span><span class="p">(</span>
+    <span class="n">confidence</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">high_threshold</span><span class="o">=</span><span class="n">DEFAULT_HIGH_CONFIDENCE</span><span class="p">,</span>
+    <span class="n">medium_threshold</span><span class="o">=</span><span class="n">DEFAULT_MEDIUM_CONFIDENCE</span><span class="p">,</span>
+    <span class="n">has_crack</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Categorize crack detection severity based on crack area percentage.</p>
+<p>This is the single source of truth for crack categorization across the application.
+Categories are simplified for user clarity: detected vs suspected cracks.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>confidence</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Crack area percentage as decimal (0.0 to 1.0)
+       Represents mean probability over whole image.
+       Typical values: 0.005-0.08 (0.5%-8% crack coverage)</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>high_threshold</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Threshold for "Crack Detected" category (default 0.05 = 5%)</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="crackz.ai.detection.severity.DEFAULT_HIGH_CONFIDENCE">DEFAULT_HIGH_CONFIDENCE</span></code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>medium_threshold</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Threshold for "Suspected Crack" category (default 0.02 = 2%)</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="crackz.ai.detection.severity.DEFAULT_MEDIUM_CONFIDENCE">DEFAULT_MEDIUM_CONFIDENCE</span></code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>has_crack</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Boolean flag indicating if crack was detected (confidence + area thresholds met)</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Severity category (one of three simplified categories):
+- "Crack Detected" (crack_area &gt;= high_threshold OR has_crack=True)
+- "Suspected Crack" (medium_threshold &lt;= crack_area &lt; high_threshold)
+- "No Crack" (crack_area &lt; medium_threshold)</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <div class="codehilite"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">categorize_crack_severity</span><span class="p">(</span><span class="mf">0.08</span><span class="p">)</span>  <span class="c1"># 8% crack area</span>
+<span class="go">&#39;Crack Detected&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">categorize_crack_severity</span><span class="p">(</span><span class="mf">0.03</span><span class="p">)</span>  <span class="c1"># 3% crack area</span>
+<span class="go">&#39;Suspected Crack&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">categorize_crack_severity</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>  <span class="c1"># 1% crack area</span>
+<span class="go">&#39;No Crack&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">categorize_crack_severity</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">has_crack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">&#39;Crack Detected&#39;  # has_crack flag indicates both confidence and area thresholds met</span>
+</code></pre></div>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/crackz/ai/detection/severity.py</code></summary>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">categorize_crack_severity</span><span class="p">(</span>
+    <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">high_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">DEFAULT_HIGH_CONFIDENCE</span><span class="p">,</span>
+    <span class="n">medium_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">DEFAULT_MEDIUM_CONFIDENCE</span><span class="p">,</span>
+    <span class="n">has_crack</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Categorize crack detection severity based on crack area percentage.</span>
+
+<span class="sd">    This is the single source of truth for crack categorization across the application.</span>
+<span class="sd">    Categories are simplified for user clarity: detected vs suspected cracks.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        confidence: Crack area percentage as decimal (0.0 to 1.0)</span>
+<span class="sd">                   Represents mean probability over whole image.</span>
+<span class="sd">                   Typical values: 0.005-0.08 (0.5%-8% crack coverage)</span>
+<span class="sd">        high_threshold: Threshold for &quot;Crack Detected&quot; category (default 0.05 = 5%)</span>
+<span class="sd">        medium_threshold: Threshold for &quot;Suspected Crack&quot; category (default 0.02 = 2%)</span>
+<span class="sd">        has_crack: Boolean flag indicating if crack was detected (confidence + area thresholds met)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Severity category (one of three simplified categories):</span>
+<span class="sd">            - &quot;Crack Detected&quot; (crack_area &gt;= high_threshold OR has_crack=True)</span>
+<span class="sd">            - &quot;Suspected Crack&quot; (medium_threshold &lt;= crack_area &lt; high_threshold)</span>
+<span class="sd">            - &quot;No Crack&quot; (crack_area &lt; medium_threshold)</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; categorize_crack_severity(0.08)  # 8% crack area</span>
+<span class="sd">        &#39;Crack Detected&#39;</span>
+<span class="sd">        &gt;&gt;&gt; categorize_crack_severity(0.03)  # 3% crack area</span>
+<span class="sd">        &#39;Suspected Crack&#39;</span>
+<span class="sd">        &gt;&gt;&gt; categorize_crack_severity(0.01)  # 1% crack area</span>
+<span class="sd">        &#39;No Crack&#39;</span>
+<span class="sd">        &gt;&gt;&gt; categorize_crack_severity(0.01, has_crack=True)</span>
+<span class="sd">        &#39;Crack Detected&#39;  # has_crack flag indicates both confidence and area thresholds met</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Prioritize has_crack flag (indicates confidence + area thresholds met)</span>
+    <span class="k">if</span> <span class="n">has_crack</span> <span class="ow">or</span> <span class="n">confidence</span> <span class="o">&gt;=</span> <span class="n">high_threshold</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Crack Detected&quot;</span>
+    <span class="k">if</span> <span class="n">confidence</span> <span class="o">&gt;=</span> <span class="n">medium_threshold</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Suspected Crack&quot;</span>
+    <span class="k">return</span> <span class="s2">&quot;No Crack&quot;</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
 
 <div class="doc doc-object doc-function">
 
@@ -12067,231 +12315,42 @@ Allows GUI to update in real-time without file polling.</p>
 <div class="doc doc-object doc-function">
 
 
-<h2 id="crackz.ai.detection.categorize_crack_severity" class="doc doc-heading">
-            <span class="doc doc-object-name doc-function-name">categorize_crack_severity</span>
+<h2 id="crackz.ai.detection.__getattr__" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">__getattr__</span>
 
 
-<a href="#crackz.ai.detection.categorize_crack_severity" class="headerlink" title="Permanent link">&para;</a></h2>
-<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">categorize_crack_severity</span><span class="p">(</span>
-    <span class="n">confidence</span><span class="p">,</span>
-    <span class="o">*</span><span class="p">,</span>
-    <span class="n">high_threshold</span><span class="o">=</span><span class="n">DEFAULT_HIGH_CONFIDENCE</span><span class="p">,</span>
-    <span class="n">medium_threshold</span><span class="o">=</span><span class="n">DEFAULT_MEDIUM_CONFIDENCE</span><span class="p">,</span>
-    <span class="n">has_crack</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span>
+<a href="#crackz.ai.detection.__getattr__" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">__getattr__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Categorize crack detection severity based on crack area percentage.</p>
-<p>This is the single source of truth for crack categorization across the application.
-Categories are simplified for user clarity: detected vs suspected cracks.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>confidence</code>
-            </td>
-            <td>
-                  <code><span title="float">float</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Crack area percentage as decimal (0.0 to 1.0)
-       Represents mean probability over whole image.
-       Typical values: 0.005-0.08 (0.5%-8% crack coverage)</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>high_threshold</code>
-            </td>
-            <td>
-                  <code><span title="float">float</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Threshold for "Crack Detected" category (default 0.05 = 5%)</p>
-              </div>
-            </td>
-            <td>
-                  <code><span title="crackz.ai.detection.severity.DEFAULT_HIGH_CONFIDENCE">DEFAULT_HIGH_CONFIDENCE</span></code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>medium_threshold</code>
-            </td>
-            <td>
-                  <code><span title="float">float</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Threshold for "Suspected Crack" category (default 0.02 = 2%)</p>
-              </div>
-            </td>
-            <td>
-                  <code><span title="crackz.ai.detection.severity.DEFAULT_MEDIUM_CONFIDENCE">DEFAULT_MEDIUM_CONFIDENCE</span></code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>has_crack</code>
-            </td>
-            <td>
-                  <code><span title="bool">bool</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Boolean flag indicating if crack was detected (confidence + area thresholds met)</p>
-              </div>
-            </td>
-            <td>
-                  <code>False</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="str">str</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Severity category (one of three simplified categories):
-- "Crack Detected" (crack_area &gt;= high_threshold OR has_crack=True)
-- "Suspected Crack" (medium_threshold &lt;= crack_area &lt; high_threshold)
-- "No Crack" (crack_area &lt; medium_threshold)</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-<p><span class="doc-section-title">Examples:</span></p>
-    <div class="codehilite"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">categorize_crack_severity</span><span class="p">(</span><span class="mf">0.08</span><span class="p">)</span>  <span class="c1"># 8% crack area</span>
-<span class="go">&#39;Crack Detected&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">categorize_crack_severity</span><span class="p">(</span><span class="mf">0.03</span><span class="p">)</span>  <span class="c1"># 3% crack area</span>
-<span class="go">&#39;Suspected Crack&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">categorize_crack_severity</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>  <span class="c1"># 1% crack area</span>
-<span class="go">&#39;No Crack&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">categorize_crack_severity</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">has_crack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="go">&#39;Crack Detected&#39;  # has_crack flag indicates both confidence and area thresholds met</span>
-</code></pre></div>
+        <p>Load detection exports only when they are first accessed.</p>
 
 
             <details class="mkdocstrings-source">
-              <summary>Source code in <code>src/crackz/ai/detection/severity.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
+              <summary>Source code in <code>src/crackz/ai/detection/__init__.py</code></summary>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">65</span>
 <span class="normal">66</span>
 <span class="normal">67</span>
 <span class="normal">68</span>
 <span class="normal">69</span>
 <span class="normal">70</span>
-<span class="normal">71</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">categorize_crack_severity</span><span class="p">(</span>
-    <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="o">*</span><span class="p">,</span>
-    <span class="n">high_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">DEFAULT_HIGH_CONFIDENCE</span><span class="p">,</span>
-    <span class="n">medium_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">DEFAULT_MEDIUM_CONFIDENCE</span><span class="p">,</span>
-    <span class="n">has_crack</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Categorize crack detection severity based on crack area percentage.</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>  <span class="c1"># noqa: ANN401</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load detection exports only when they are first accessed.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">module_name</span><span class="p">,</span> <span class="n">attr_name</span> <span class="o">=</span> <span class="n">_EXPORT_MAP</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;module </span><span class="si">{</span><span class="vm">__name__</span><span class="si">!r}</span><span class="s2"> has no attribute </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
 
-<span class="sd">    This is the single source of truth for crack categorization across the application.</span>
-<span class="sd">    Categories are simplified for user clarity: detected vs suspected cracks.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        confidence: Crack area percentage as decimal (0.0 to 1.0)</span>
-<span class="sd">                   Represents mean probability over whole image.</span>
-<span class="sd">                   Typical values: 0.005-0.08 (0.5%-8% crack coverage)</span>
-<span class="sd">        high_threshold: Threshold for &quot;Crack Detected&quot; category (default 0.05 = 5%)</span>
-<span class="sd">        medium_threshold: Threshold for &quot;Suspected Crack&quot; category (default 0.02 = 2%)</span>
-<span class="sd">        has_crack: Boolean flag indicating if crack was detected (confidence + area thresholds met)</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        Severity category (one of three simplified categories):</span>
-<span class="sd">            - &quot;Crack Detected&quot; (crack_area &gt;= high_threshold OR has_crack=True)</span>
-<span class="sd">            - &quot;Suspected Crack&quot; (medium_threshold &lt;= crack_area &lt; high_threshold)</span>
-<span class="sd">            - &quot;No Crack&quot; (crack_area &lt; medium_threshold)</span>
-
-<span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; categorize_crack_severity(0.08)  # 8% crack area</span>
-<span class="sd">        &#39;Crack Detected&#39;</span>
-<span class="sd">        &gt;&gt;&gt; categorize_crack_severity(0.03)  # 3% crack area</span>
-<span class="sd">        &#39;Suspected Crack&#39;</span>
-<span class="sd">        &gt;&gt;&gt; categorize_crack_severity(0.01)  # 1% crack area</span>
-<span class="sd">        &#39;No Crack&#39;</span>
-<span class="sd">        &gt;&gt;&gt; categorize_crack_severity(0.01, has_crack=True)</span>
-<span class="sd">        &#39;Crack Detected&#39;  # has_crack flag indicates both confidence and area thresholds met</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Prioritize has_crack flag (indicates confidence + area thresholds met)</span>
-    <span class="k">if</span> <span class="n">has_crack</span> <span class="ow">or</span> <span class="n">confidence</span> <span class="o">&gt;=</span> <span class="n">high_threshold</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">&quot;Crack Detected&quot;</span>
-    <span class="k">if</span> <span class="n">confidence</span> <span class="o">&gt;=</span> <span class="n">medium_threshold</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">&quot;Suspected Crack&quot;</span>
-    <span class="k">return</span> <span class="s2">&quot;No Crack&quot;</span>
+    <span class="n">module</span> <span class="o">=</span> <span class="n">import_module</span><span class="p">(</span><span class="n">module_name</span><span class="p">,</span> <span class="vm">__name__</span> <span class="k">if</span> <span class="n">module_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">attr_name</span><span class="p">)</span>
+    <span class="nb">globals</span><span class="p">()[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="k">return</span> <span class="n">value</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -23569,17 +23628,17 @@ leveraging the typer CLI framework for seamless command-line interaction.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/cli/detection_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">45</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
 <span class="normal">46</span>
 <span class="normal">47</span>
 <span class="normal">48</span>
 <span class="normal">49</span>
 <span class="normal">50</span>
 <span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@detect_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;run&quot;</span><span class="p">)</span>
+<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@detect_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;run&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">run_detection</span><span class="p">(</span>
     <span class="n">cfg</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">CFG_OPTION</span><span class="p">,</span>
     <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span>
@@ -23736,7 +23795,10 @@ is provided.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/cli/detection_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">58</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
 <span class="normal">59</span>
 <span class="normal">60</span>
 <span class="normal">61</span>
@@ -23763,10 +23825,7 @@ is provided.</p>
 <span class="normal">82</span>
 <span class="normal">83</span>
 <span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span>
-<span class="normal">87</span>
-<span class="normal">88</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@detect_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+<span class="normal">85</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@detect_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">detection_train</span><span class="p">(</span>
     <span class="n">cfg</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">CFG_OPTION</span><span class="p">,</span>
     <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span>
@@ -23825,7 +23884,10 @@ is provided.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/crackz/cli/detection_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 91</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
 <span class="normal"> 92</span>
 <span class="normal"> 93</span>
 <span class="normal"> 94</span>
@@ -23846,10 +23908,7 @@ is provided.</p>
 <span class="normal">109</span>
 <span class="normal">110</span>
 <span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@detect_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;prune-checkpoints&quot;</span><span class="p">)</span>
+<span class="normal">112</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@detect_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;prune-checkpoints&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">prune_checkpoints_cmd</span><span class="p">(</span>
     <span class="n">keep</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">KEEP_CHECKPOINTS_OPTION</span><span class="p">,</span>
     <span class="n">cfg</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">CFG_OPTION</span><span class="p">,</span>

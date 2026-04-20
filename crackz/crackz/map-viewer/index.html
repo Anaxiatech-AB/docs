@@ -1364,7 +1364,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02-decisions/" class="md-nav__link">
+      <a href="../internal/adr/02-decisions/" class="md-nav__link">
         
   
   
@@ -2327,7 +2327,7 @@
 <p>Maps are displayed in your default web browser for the best user experience.</p>
 <h3 id="technical-implementation">Technical Implementation<a class="headerlink" href="#technical-implementation" title="Permanent link">&para;</a></h3>
 <ul>
-<li>File: <code>src/crackz/gui/components/map_viewer.py</code></li>
+<li>File: <code>gui/src/crackz_gui/components/map_viewer.py</code></li>
 <li>Generates Leaflet.js HTML map with geotagged image markers</li>
 <li>Saves HTML to a temporary file</li>
 <li>Opens the map in your default web browser using <code>webbrowser.open()</code></li>
@@ -2344,13 +2344,13 @@
 </ol>
 <h3 id="from-code">From Code<a class="headerlink" href="#from-code" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.gui.components.map_viewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">MapViewerWindow</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crackz_gui.qt.views.map_viewer_view</span><span class="w"> </span><span class="kn">import</span> <span class="n">MapViewerDialog</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">crackz.project.project</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_project</span>
 
 <span class="c1"># Load a project</span>
 <span class="n">project</span> <span class="o">=</span> <span class="n">load_project</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;path/to/project&quot;</span><span class="p">))</span>
 
-<span class="c1"># Note: MapViewerWindow requires a parent GUI app instance and is typically</span>
+<span class="c1"># Note: MapViewerDialog requires a parent GUI app instance and is typically</span>
 <span class="c1"># used within the Crackz GUI application. For command-line access to GPS data, use:</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">crackz.project.geoposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_project_geopositions</span>
 
@@ -2431,9 +2431,9 @@
 - Export map as static image</p>
 <h2 id="related-files">Related Files<a class="headerlink" href="#related-files" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>src/crackz/gui/components/map_viewer.py</code> - Main map viewer implementation</li>
-<li><code>src/crackz/gui/components/browser/toolbar.py</code> - Toolbar with map button</li>
-<li><code>src/crackz/project/geoposition.py</code> - GPS extraction utilities</li>
+<li><code>gui/src/crackz_gui/components/map_viewer.py</code> - Main map viewer implementation</li>
+<li><code>gui/src/crackz_gui/components/browser/toolbar.py</code> - Toolbar with map button</li>
+<li><code>core/src/crackz/project/geoposition.py</code> - GPS extraction utilities</li>
 <li><code>scripts/add_test_gps_data.py</code> - Add GPS data to test images</li>
 </ul>
 

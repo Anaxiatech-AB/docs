@@ -13,7 +13,7 @@
       
       
       
-        <link rel="prev" href="../02-decisions/">
+        <link rel="prev" href="../internal/adr/02-decisions/">
       
       
         <link rel="next" href="../architecture/">
@@ -997,7 +997,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02-decisions/" class="md-nav__link">
+      <a href="../internal/adr/02-decisions/" class="md-nav__link">
         
   
   
@@ -1110,6 +1110,17 @@
     <span class="md-ellipsis">
       
         Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workspace-split" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workspace Split
       
     </span>
   </a>
@@ -2049,6 +2060,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#workspace-split" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workspace Split
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2443,6 +2465,13 @@ Last updated: 2025-11-06</p>
 <li>[x] Create docs/03-tasks.md (this file)</li>
 <li>[ ] Add dev docs section explaining the setup</li>
 <li>[ ] Update README.md to reference new structure</li>
+</ul>
+<h3 id="workspace-split">Workspace Split<a class="headerlink" href="#workspace-split" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] 🟡 Continue the CLI/GUI package split</li>
+<li>Internal plan: tracked in private superpowers planning docs (excluded from published docs build)</li>
+<li>Current boundary: <code>crackz.app</code> is the core orchestration layer; <code>crackz-core</code> owns the <code>crackz</code> CLI executable, <code>crackz-gui</code> owns the <code>crackz-gui</code> GUI executablee, <code>crackz-gui</code> owns the <code>crackz-gui</code> GUI executable</li>
+<li>Next required step: extract <code>crackz.app.active_learning</code> before moving more CLI modules</li>
 </ul>
 <hr />
 <h2 id="backlog-prioritized">📋 Backlog (Prioritized)<a class="headerlink" href="#backlog-prioritized" title="Permanent link">&para;</a></h2>

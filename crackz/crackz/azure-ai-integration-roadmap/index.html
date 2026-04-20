@@ -991,7 +991,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02-decisions/" class="md-nav__link">
+      <a href="../internal/adr/02-decisions/" class="md-nav__link">
         
   
   
@@ -2522,10 +2522,10 @@
 <h3 id="phase-1-foundation-4-weeks-q2-2025">Phase 1: Foundation (4 weeks) - Q2 2025<a class="headerlink" href="#phase-1-foundation-4-weeks-q2-2025" title="Permanent link">&para;</a></h3>
 <p><strong>Goal</strong>: Establish Azure connectivity and authentication</p>
 <p><strong>Tasks</strong>:
-- [ ] Create <code>src/crackz/cloud/</code> module
+- [ ] Create <code>core/src/crackz/cloud/</code> module
 - [ ] Add Azure SDK dependencies (<code>azure-ai-ml</code>, <code>azure-identity</code>, <code>azure-storage-blob</code>)
 - [ ] Implement authentication (Azure AD + service principal)
-- [ ] Add <code>AzureConfig</code> to <code>src/crackz/config/</code>
+- [ ] Add <code>AzureConfig</code> to <code>core/src/crackz/config/</code>
 - [ ] Create cost estimation utility
 - [ ] Write ADR-019: Optional Azure AI Integration</p>
 <p><strong>Deliverables</strong>:
@@ -2898,7 +2898,7 @@ az<span class="w"> </span>login
 <hr />
 <h2 id="technical-design">Technical Design<a class="headerlink" href="#technical-design" title="Permanent link">&para;</a></h2>
 <h3 id="module-structure">Module Structure<a class="headerlink" href="#module-structure" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>src/crackz/cloud/
+<div class="highlight"><pre><span></span><code>core/src/crackz/cloud/
 ├── __init__.py
 ├── auth.py                    # Azure authentication (AD, service principal)
 ├── cost_estimator.py          # Cost estimation before API calls

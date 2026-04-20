@@ -997,7 +997,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02-decisions/" class="md-nav__link">
+      <a href="../internal/adr/02-decisions/" class="md-nav__link">
         
   
   
@@ -1378,6 +1378,17 @@
   
     <nav class="md-nav" aria-label="Tests">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-data-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Data Convention
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#gui-testing" class="md-nav__link">
@@ -1768,10 +1779,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-use-centralized-options-from-srccrackzclioptionspy" class="md-nav__link">
+  <a href="#1-use-centralized-options-from-coresrccrackzclioptionspy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Use centralized options from src/crackz/cli/options.py
+        1. Use centralized options from core/src/crackz/cli/options.py
       
     </span>
   </a>
@@ -2264,6 +2275,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#test-data-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Data Convention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gui-testing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2652,10 +2674,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-use-centralized-options-from-srccrackzclioptionspy" class="md-nav__link">
+  <a href="#1-use-centralized-options-from-coresrccrackzclioptionspy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Use centralized options from src/crackz/cli/options.py
+        1. Use centralized options from core/src/crackz/cli/options.py
       
     </span>
   </a>
@@ -2897,9 +2919,15 @@ uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span
 <hr />
 <h2 id="tests">Tests<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Unit tests: <code>tests/unit</code></li>
+<li>Unit tests: <code>tests/unit</code> (shared/global), <code>core/tests/unit</code>, <code>gui/tests/unit</code></li>
 <li>Integration tests: <code>tests/integration</code> (marked with <code>@pytest.mark.integration</code>)</li>
-<li>Benchmark tests: <code>tests/unit/crackz/cli/test_cli_benchmark.py</code> (marked with <code>@pytest.mark.benchmark</code>)</li>
+<li>Benchmark tests: <code>backend/backend/tests/unit/crackz/cli/test_cli_benchmark.py</code> (marked with <code>@pytest.mark.benchmark</code>)</li>
+</ul>
+<h3 id="test-data-convention">Test Data Convention<a class="headerlink" href="#test-data-convention" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Keep shared canonical test data in <code>tests/test_data</code>.</li>
+<li>Keep module-local test data in module test roots only when it is private to one module and not reused.</li>
+<li>Avoid duplicating the same data across <code>core/tests</code> and <code>gui/tests</code>.</li>
 </ul>
 <p>Run fast unit suite (CI default):
 <div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>tests
@@ -2949,7 +2977,7 @@ uv<span class="w"> </span>run<span class="w"> </span>crackz-gui
 <p><strong>Smoke Mode Testing</strong> – Quick verification that GUI starts without errors:
    <div class="highlight"><pre><span></span><code><span class="n">env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">env</span><span class="p">[</span><span class="s2">&quot;CRACKZ_GUI_SMOKE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
-<span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;src/crackz/gui/crackz_gui.py&quot;</span><span class="p">],</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;gui/src/crackz_gui/crackz_gui.py&quot;</span><span class="p">],</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
 </code></pre></div></p>
 </li>
 <li>
@@ -3393,7 +3421,7 @@ On commit, hooks will:
 </ul>
 <h3 id="cli-option-management">CLI Option Management<a class="headerlink" href="#cli-option-management" title="Permanent link">&para;</a></h3>
 <p><strong>Follow the centralized option pattern</strong>:</p>
-<h4 id="1-use-centralized-options-from-srccrackzclioptionspy">1. Use centralized options from <code>src/crackz/cli/options.py</code><a class="headerlink" href="#1-use-centralized-options-from-srccrackzclioptionspy" title="Permanent link">&para;</a></h4>
+<h4 id="1-use-centralized-options-from-coresrccrackzclioptionspy">1. Use centralized options from <code>core/src/crackz/cli/options.py</code><a class="headerlink" href="#1-use-centralized-options-from-coresrccrackzclioptionspy" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.cli.options</span><span class="w"> </span><span class="kn">import</span> <span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span> <span class="n">FORCE_OPTION</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">command_function</span><span class="p">(</span>

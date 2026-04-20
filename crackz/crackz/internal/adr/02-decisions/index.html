@@ -13,6 +13,10 @@
       
       
       
+        <link rel="prev" href="../../../01-scope/">
+      
+      
+        <link rel="next" href="../../../03-tasks/">
       
       
         
@@ -23,7 +27,7 @@
     
     
       
-        <title>Qt GUI Modern Design Spec - Crackz</title>
+        <title>Architecture Decisions - Crackz</title>
       
     
     
@@ -78,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#context" class="md-skip">
+        <a href="#format" class="md-skip">
           Skip to content
         </a>
       
@@ -118,7 +122,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Qt GUI Modern Design Spec
+              Architecture Decisions
             
           </span>
         </div>
@@ -908,8 +912,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -920,11 +926,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
@@ -945,7 +951,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -988,10 +994,35 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../02-decisions/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Decisions
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1007,6 +1038,257 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-001-use-uv-for-dependency-management-hatchling-for-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-001: Use uv for Dependency Management + hatchling for Builds
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-002-pytorch-lightning-for-ml-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-002: PyTorch Lightning for ML Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-003-typer-for-cli-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-003: Typer for CLI Framework
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-004-customtkinter-for-gui-not-qt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-004: CustomTkinter for GUI (Not Qt)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-005-pydantic-v2-for-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-005: Pydantic v2 for Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-006-hybrid-logging-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-006: Hybrid Logging Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-007-centralized-cli-options-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-007: Centralized CLI Options Pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-008-conventional-commits-for-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-008: Conventional Commits for Versioning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-009-three-docker-variants-full-slim-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-009: Three Docker Variants (Full, Slim, GPU)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-010-uv-sync-in-docker-not-wheel-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-010: uv sync in Docker (Not Wheel Builds)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-011-ruff-for-linting-and-formatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-011: Ruff for Linting and Formatting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-012-75-minimum-test-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-012: 75% Minimum Test Coverage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-013-performance-regression-tests-with-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-013: Performance Regression Tests with Benchmarks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-014-project-schema-versioning-with-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-014: Project Schema Versioning with Migrations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-015-typersecho-for-user-messages-logger-for-technical-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-015: typer.secho() for User Messages, logger for Technical Info
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-016-github-actions-for-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-016: GitHub Actions for CI/CD
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-017-mcp-model-context-protocol-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-017: MCP (Model Context Protocol) Integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-018-gpsexif-support-with-geojson-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-018: GPS/EXIF Support with GeoJSON Export
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-019-pyside6-migration-replacing-customtkinter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-019: PySide6 Migration (Replacing CustomTkinter)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-current-technology-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary of Current Technology Stack
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1581,10 +1863,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#context" class="md-nav__link">
+  <a href="#format" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Context
+        Format
       
     </span>
   </a>
@@ -1592,10 +1874,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#design-decisions-summary" class="md-nav__link">
+  <a href="#adr-001-use-uv-for-dependency-management-hatchling-for-builds" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Design Decisions Summary
+        ADR-001: Use uv for Dependency Management + hatchling for Builds
       
     </span>
   </a>
@@ -1603,71 +1885,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1-design-system" class="md-nav__link">
+  <a href="#adr-002-pytorch-lightning-for-ml-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Design System
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="1. Design System">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#11-color-tokens" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1.1 Color Tokens
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#12-typography" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1.2 Typography
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#13-spacing-radius" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1.3 Spacing &amp; Radius
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#14-qss-approach" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1.4 QSS Approach
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-shell-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Shell Structure
+        ADR-002: PyTorch Lightning for ML Pipeline
       
     </span>
   </a>
@@ -1675,166 +1896,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-activity-bar" class="md-nav__link">
+  <a href="#adr-003-typer-for-cli-framework" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Activity Bar
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="3. Activity Bar">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#sections-top-to-bottom" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Sections (top to bottom)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-side-panel" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Side Panel
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Side Panel">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#41-explorer-panel-phase-0-reference-implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.1 Explorer Panel (Phase 0 reference implementation)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#42-remaining-panels-follow-explorer-pattern" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4.2 Remaining Panels (follow Explorer pattern)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-main-content-area" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Main Content Area
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="5. Main Content Area">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#51-image-viewer-default-view-when-a-results-folder-is-selected" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.1 Image Viewer (default view when a results folder is selected)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="5.1 Image Viewer (default view when a results folder is selected)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#gallery-detail-mode-default" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Gallery + Detail mode (default)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#single-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Single mode
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#compare-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Compare mode
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#52-welcome-view" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.2 Welcome view
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#53-other-views" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5.3 Other views
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-ai-chat-drawer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. AI Chat Drawer
+        ADR-003: Typer for CLI Framework
       
     </span>
   </a>
@@ -1842,10 +1907,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-status-bar" class="md-nav__link">
+  <a href="#adr-004-customtkinter-for-gui-not-qt" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. Status Bar
+        ADR-004: CustomTkinter for GUI (Not Qt)
       
     </span>
   </a>
@@ -1853,10 +1918,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#8-implementation-sequence-phase-0-scope" class="md-nav__link">
+  <a href="#adr-005-pydantic-v2-for-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8. Implementation Sequence (Phase 0 scope)
+        ADR-005: Pydantic v2 for Configuration
       
     </span>
   </a>
@@ -1864,10 +1929,164 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#9-out-of-scope" class="md-nav__link">
+  <a href="#adr-006-hybrid-logging-architecture" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9. Out of Scope
+        ADR-006: Hybrid Logging Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-007-centralized-cli-options-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-007: Centralized CLI Options Pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-008-conventional-commits-for-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-008: Conventional Commits for Versioning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-009-three-docker-variants-full-slim-gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-009: Three Docker Variants (Full, Slim, GPU)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-010-uv-sync-in-docker-not-wheel-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-010: uv sync in Docker (Not Wheel Builds)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-011-ruff-for-linting-and-formatting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-011: Ruff for Linting and Formatting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-012-75-minimum-test-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-012: 75% Minimum Test Coverage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-013-performance-regression-tests-with-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-013: Performance Regression Tests with Benchmarks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-014-project-schema-versioning-with-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-014: Project Schema Versioning with Migrations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-015-typersecho-for-user-messages-logger-for-technical-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-015: typer.secho() for User Messages, logger for Technical Info
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-016-github-actions-for-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-016: GitHub Actions for CI/CD
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-017-mcp-model-context-protocol-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-017: MCP (Model Context Protocol) Integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-018-gpsexif-support-with-geojson-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-018: GPS/EXIF Support with GeoJSON Export
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adr-019-pyside6-migration-replacing-customtkinter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-019: PySide6 Migration (Replacing CustomTkinter)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-current-technology-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary of Current Technology Stack
       
     </span>
   </a>
@@ -1894,361 +2113,364 @@
   
 
 
-<h1 id="qt-gui-modern-design-spec">Qt GUI Modern Design Spec<a class="headerlink" href="#qt-gui-modern-design-spec" title="Permanent link">&para;</a></h1>
-<p><strong>Date:</strong> 2026-04-16<br />
-<strong>Branch:</strong> <code>feat/pyside6-migration</code><br />
-<strong>Status:</strong> Approved for implementation</p>
+<h1 id="architecture-decisions">Architecture Decisions<a class="headerlink" href="#architecture-decisions" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Key technical decisions and their rationale</strong> (ADR-style)</p>
+</blockquote>
+<p>This document records important architecture decisions made during Crackz development. Each decision includes context, the decision itself, and consequences.</p>
+<h2 id="format">Format<a class="headerlink" href="#format" title="Permanent link">&para;</a></h2>
+<p>Each decision follows this structure:
+- <strong>Context</strong>: Why we needed to make a decision
+- <strong>Decision</strong>: What we chose
+- <strong>Consequences</strong>: Trade-offs and implications
+- <strong>Status</strong>: Active | Deprecated | Superseded</p>
 <hr />
-<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
-<p>The current Crackz GUI is built on CustomTkinter, which has four known pain points: poor native look and feel, missing widgets (no virtual list rendering, no GPU-composited image views), threading complexity, and fragile PyInstaller packaging. The <code>feat/pyside6-migration</code> branch is migrating to PySide6/Qt.</p>
-<p>This spec defines the <strong>visual design and UX structure</strong> for that migration — the palette, layout, component primitives, and interaction patterns that all panels should follow. It is not a full panel-by-panel implementation spec; that comes from the writing-plans output. The goal here is to establish the design language so that the Phase 0 shell + Explorer panel can be built to the right standard, and every subsequent panel has a clear template to follow.</p>
+<h2 id="adr-001-use-uv-for-dependency-management-hatchling-for-builds">ADR-001: Use <code>uv</code> for Dependency Management + <code>hatchling</code> for Builds<a class="headerlink" href="#adr-001-use-uv-for-dependency-management-hatchling-for-builds" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Python package management is slow with pip and complex with poetry. Additionally, setuptools as a build backend is aging and lacks modern features.</p>
+<p><strong>Decision</strong>: Use a hybrid approach:
+- <strong>uv</strong> (Astral's package manager) for dependency management, lockfiles, and task execution
+- <strong>hatchling</strong> (PyPA-official build backend) for building wheels and sdists</p>
+<p><strong>Consequences</strong>:
+- ✅ 10-100x faster installs compared to pip (via uv)
+- ✅ Automatic virtual environment management (via uv)
+- ✅ Built-in lockfile support via uv.lock (deterministic builds)
+- ✅ Modern PEP 517-compliant build backend (hatchling)
+- ✅ Better build defaults (uses .gitignore for sdist)
+- ✅ Preserves custom PyTorch index routing (uv feature)
+- ✅ Compatible with python-semantic-release for versioning
+- ⚠️ Two tools instead of one (but clear separation of concerns)
+- ⚠️ Relatively new toolchain (requires team adoption)</p>
+<p><strong>Status</strong>: Active (Updated 2025-11-30)</p>
+<p><strong>Related</strong>: <code>.github/workflows/</code>, <code>pyproject.toml</code>, <code>Dockerfile*</code>, all documentation</p>
+<p><strong>Migration Notes</strong>:
+- Migrated from setuptools to hatchling in v0.67.0
+- All existing uv configuration preserved (PyTorch routing unchanged)
+- Semantic versioning still managed by python-semantic-release</p>
 <hr />
-<h2 id="design-decisions-summary">Design Decisions Summary<a class="headerlink" href="#design-decisions-summary" title="Permanent link">&para;</a></h2>
+<h2 id="adr-002-pytorch-lightning-for-ml-pipeline">ADR-002: PyTorch Lightning for ML Pipeline<a class="headerlink" href="#adr-002-pytorch-lightning-for-ml-pipeline" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Raw PyTorch requires significant boilerplate for training loops, checkpointing, and distributed training.</p>
+<p><strong>Decision</strong>: Use PyTorch Lightning as the ML framework layer.</p>
+<p><strong>Consequences</strong>:
+- ✅ Production-ready training with minimal boilerplate
+- ✅ Built-in checkpointing, logging, and callbacks
+- ✅ Easy GPU/multi-GPU scaling
+- ✅ TensorBoard integration out of the box
+- ⚠️ Additional abstraction layer to learn
+- ⚠️ Opinionated structure (less flexibility)</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>core/src/crackz/ai/training.py</code>, <code>core/src/crackz/ai/models.py</code></p>
+<hr />
+<h2 id="adr-003-typer-for-cli-framework">ADR-003: Typer for CLI Framework<a class="headerlink" href="#adr-003-typer-for-cli-framework" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Need type-safe CLI with good DX, auto-generated help, and modern Python features.</p>
+<p><strong>Decision</strong>: Use Typer instead of Click or argparse.</p>
+<p><strong>Consequences</strong>:
+- ✅ Type hints drive CLI interface (DRY principle)
+- ✅ Excellent auto-generated help text
+- ✅ Easy to test and maintain
+- ✅ Built on Click (mature foundation)
+- ⚠️ Less flexible than raw Click for complex UIs
+- ⚠️ Learning curve for developers used to argparse</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>core/src/crackz/cli/</code>, all CLI commands</p>
+<hr />
+<h2 id="adr-004-customtkinter-for-gui-not-qt">ADR-004: CustomTkinter for GUI (Not Qt)<a class="headerlink" href="#adr-004-customtkinter-for-gui-not-qt" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Need lightweight desktop GUI. Qt requires commercial licensing for proprietary software; Tkinter is too basic.</p>
+<p><strong>Decision</strong>: Use CustomTkinter (modern Tkinter wrapper) instead of Qt or Kivy.</p>
+<p><strong>Consequences</strong>:
+- ✅ No licensing costs (compatible with GPL-3.0)
+- ✅ Modern dark mode support
+- ✅ Lightweight (~1MB vs Qt's ~50MB)
+- ✅ Easy to package with PyInstaller
+- ⚠️ Less feature-rich than Qt
+- ⚠️ Limited third-party widgets
+- ⚠️ Known issue: some customers want Qt migration (#127)</p>
+<p><strong>Status</strong>: Active (Qt migration under consideration)</p>
+<p><strong>Related</strong>: <code>gui/src/crackz_gui/</code>, issue #127</p>
+<hr />
+<h2 id="adr-005-pydantic-v2-for-configuration">ADR-005: Pydantic v2 for Configuration<a class="headerlink" href="#adr-005-pydantic-v2-for-configuration" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Need type-safe config validation with YAML serialization. Manual validation is error-prone.</p>
+<p><strong>Decision</strong>: Use Pydantic v2 models for all configuration with YAML backend.</p>
+<p><strong>Consequences</strong>:
+- ✅ Type-safe validation at load time
+- ✅ Auto-generated JSON schemas
+- ✅ Excellent error messages for invalid configs
+- ✅ Easy to extend and version (schema_version field)
+- ⚠️ YAML library dependency (pyyaml)
+- ⚠️ Learning curve for Pydantic's API</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>core/src/crackz/config/</code>, project YAML files</p>
+<hr />
+<h2 id="adr-006-hybrid-logging-architecture">ADR-006: Hybrid Logging Architecture<a class="headerlink" href="#adr-006-hybrid-logging-architecture" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Need system-wide logs for debugging AND per-project logs for customer audit trails.</p>
+<p><strong>Decision</strong>: Implement hybrid logging with:
+- Central log sink (pre-project operations, global context)
+- Per-project log sink (project-specific operations)</p>
+<p><strong>Consequences</strong>:
+- ✅ Complete audit trail per project
+- ✅ System-wide logging for debugging
+- ✅ Flexible central log location (env var, flag, or temp)
+- ⚠️ Slightly more complex logging setup
+- ⚠️ Two log locations to manage</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>core/src/crackz/log/</code>, <code>CRACKZ_LOG_DIR</code> env var</p>
+<hr />
+<h2 id="adr-007-centralized-cli-options-pattern">ADR-007: Centralized CLI Options Pattern<a class="headerlink" href="#adr-007-centralized-cli-options-pattern" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: CLI option definitions were duplicated across modules (e.g., multiple <code>FORCE_OPTION</code> definitions).</p>
+<p><strong>Decision</strong>: Centralize all reusable CLI options in <code>core/src/crackz/cli/options.py</code>.</p>
+<p><strong>Consequences</strong>:
+- ✅ Single source of truth for option definitions
+- ✅ Consistent help text and behavior
+- ✅ Easy to update globally
+- ⚠️ Requires discipline to import (not re-define)
+- ⚠️ One-time refactoring effort to consolidate</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>core/src/crackz/cli/options.py</code>, all CLI commands</p>
+<hr />
+<h2 id="adr-008-conventional-commits-for-versioning">ADR-008: Conventional Commits for Versioning<a class="headerlink" href="#adr-008-conventional-commits-for-versioning" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Manual versioning and changelog generation is error-prone and time-consuming.</p>
+<p><strong>Decision</strong>: Use conventional commits (<code>feat:</code>, <code>fix:</code>, etc.) with semantic-release for automated versioning.</p>
+<p><strong>Consequences</strong>:
+- ✅ Automatic version bumps (major, minor, patch)
+- ✅ Auto-generated changelog from commits
+- ✅ Clear commit history for code review
+- ⚠️ Team must follow commit conventions
+- ⚠️ Bad commit messages affect release notes</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>.releaserc.yml</code>, GitHub Actions workflows</p>
+<hr />
+<h2 id="adr-009-three-docker-variants-full-slim-gpu">ADR-009: Three Docker Variants (Full, Slim, GPU)<a class="headerlink" href="#adr-009-three-docker-variants-full-slim-gpu" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Different deployment scenarios need different image sizes and capabilities.</p>
+<p><strong>Decision</strong>: Provide three Dockerfiles:
+- <strong>Dockerfile</strong>: Balanced full-featured image
+- <strong>Dockerfile.slim</strong>: Minimal runtime (no dev tools)
+- <strong>Dockerfile.gpu</strong>: CUDA runtime for GPU workloads</p>
+<p><strong>Consequences</strong>:
+- ✅ Optimized images for each use case
+- ✅ Faster pulls for slim (smaller size)
+- ✅ GPU support without bloating CPU images
+- ⚠️ Three Dockerfiles to maintain
+- ⚠️ Need clear documentation on which to use</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>Dockerfile</code>, <code>Dockerfile.slim</code>, <code>Dockerfile.gpu</code>, <code>Makefile</code></p>
+<hr />
+<h2 id="adr-010-uv-sync-in-docker-not-wheel-builds">ADR-010: <code>uv sync</code> in Docker (Not Wheel Builds)<a class="headerlink" href="#adr-010-uv-sync-in-docker-not-wheel-builds" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Building wheels in Docker is slow and complex. <code>uv sync</code> is faster and simpler.</p>
+<p><strong>Decision</strong>: Use <code>uv sync</code> directly in Docker images instead of pre-built wheels.</p>
+<p><strong>Consequences</strong>:
+- ✅ Faster Docker builds (uv's speed)
+- ✅ Simpler Dockerfile (no multi-stage wheel building)
+- ✅ Consistent with local development workflow
+- ⚠️ Requires uv installed in base image
+- ⚠️ Build cache depends on pyproject.toml + uv.lock</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: All Dockerfiles</p>
+<hr />
+<h2 id="adr-011-ruff-for-linting-and-formatting">ADR-011: Ruff for Linting and Formatting<a class="headerlink" href="#adr-011-ruff-for-linting-and-formatting" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Traditional Python linting (flake8, black, isort) requires multiple tools and is slow.</p>
+<p><strong>Decision</strong>: Use Ruff for both linting and formatting (replaces black, isort, flake8, etc.).</p>
+<p><strong>Consequences</strong>:
+- ✅ 10-100x faster than traditional tools
+- ✅ Single tool for linting + formatting
+- ✅ Compatible with existing configs (black, isort rules)
+- ✅ Excellent VS Code integration
+- ⚠️ Newer tool (less mature than black)
+- ⚠️ Some edge cases in AST-based fixes</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>pyproject.toml</code> (Ruff config), pre-commit hooks</p>
+<hr />
+<h2 id="adr-012-75-minimum-test-coverage">ADR-012: 75% Minimum Test Coverage<a class="headerlink" href="#adr-012-75-minimum-test-coverage" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Need quality gates without over-constraining development. 100% is unrealistic; &lt;70% is too low.</p>
+<p><strong>Decision</strong>: Enforce 75% minimum test coverage in CI (target 85%).</p>
+<p><strong>Consequences</strong>:
+- ✅ Catches most untested code paths
+- ✅ Realistic target for teams
+- ✅ Enforced automatically in CI
+- ⚠️ Can be gamed with trivial tests
+- ⚠️ Doesn't measure test quality</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>pyproject.toml</code> (pytest-cov config), CI workflows</p>
+<hr />
+<h2 id="adr-013-performance-regression-tests-with-benchmarks">ADR-013: Performance Regression Tests with Benchmarks<a class="headerlink" href="#adr-013-performance-regression-tests-with-benchmarks" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Performance regressions are hard to catch without automated measurement.</p>
+<p><strong>Decision</strong>: Use pytest-benchmark with automated regression detection (&gt;20% mean, &gt;30% max).</p>
+<p><strong>Consequences</strong>:
+- ✅ Catches performance regressions before merge
+- ✅ Historical performance tracking
+- ✅ Baseline updates after intentional changes
+- ⚠️ Benchmark stability depends on CI environment
+- ⚠️ Requires baseline management</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>tests/unit/benchmarks/</code>, <code>.benchmarks/</code> (gitignored)</p>
+<hr />
+<h2 id="adr-014-project-schema-versioning-with-migrations">ADR-014: Project Schema Versioning with Migrations<a class="headerlink" href="#adr-014-project-schema-versioning-with-migrations" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Project YAML format evolves over time. Breaking old projects is unacceptable for customers.</p>
+<p><strong>Decision</strong>: Add <code>schema_version</code> field to project configs with migration system.</p>
+<p><strong>Consequences</strong>:
+- ✅ Backward compatibility for customer projects
+- ✅ Explicit migration path for breaking changes
+- ✅ Safe upgrades (creates .bak files)
+- ⚠️ Migration code must be maintained
+- ⚠️ Testing migrations requires old project fixtures</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>crackz migrate</code>, <code>core/src/crackz/config/</code>, <code>schema_version</code> field</p>
+<hr />
+<h2 id="adr-015-typersecho-for-user-messages-logger-for-technical-info">ADR-015: <code>typer.secho()</code> for User Messages, <code>logger</code> for Technical Info<a class="headerlink" href="#adr-015-typersecho-for-user-messages-logger-for-technical-info" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Mixed output methods (print, echo, console.print) created inconsistent UX.</p>
+<p><strong>Decision</strong>: Standardize on:
+- <code>typer.secho()</code> with colors for end-user messages
+- <code>logger</code> for technical/operational information
+- NEVER use <code>print()</code>, <code>typer.echo()</code>, or <code>console.print()</code></p>
+<p><strong>Consequences</strong>:
+- ✅ Consistent user experience across all CLI commands
+- ✅ Clear separation: user messages vs operational logs
+- ✅ Better testability (can capture typer output)
+- ⚠️ Requires team discipline to follow conventions
+- ⚠️ One-time refactoring effort to standardize existing code</p>
+<p><strong>Status</strong>: Active (strictly enforced)</p>
+<p><strong>Related</strong>: All CLI commands, <code>CONTRIBUTING.md</code>, <code>DEVELOPMENT_STANDARDS.md</code></p>
+<hr />
+<h2 id="adr-016-github-actions-for-cicd">ADR-016: GitHub Actions for CI/CD<a class="headerlink" href="#adr-016-github-actions-for-cicd" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Need reliable, cloud-based CI/CD with good GitHub integration.</p>
+<p><strong>Decision</strong>: Use GitHub Actions exclusively (no Travis, CircleCI, etc.).</p>
+<p><strong>Consequences</strong>:
+- ✅ Native GitHub integration (PRs, issues, releases)
+- ✅ Free for public repos, generous for private
+- ✅ Good ecosystem of third-party actions
+- ✅ Matrix builds for multi-platform testing
+- ⚠️ Vendor lock-in to GitHub
+- ⚠️ YAML workflow syntax (learning curve)</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>.github/workflows/</code></p>
+<hr />
+<h2 id="adr-017-mcp-model-context-protocol-integration">ADR-017: MCP (Model Context Protocol) Integration<a class="headerlink" href="#adr-017-mcp-model-context-protocol-integration" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: AI assistants (Claude, Copilot) need standardized access to development tools.</p>
+<p><strong>Decision</strong>: Implement MCP integration with <code>crackz mcp init</code> command.</p>
+<p><strong>Consequences</strong>:
+- ✅ Standardized AI assistant integration
+- ✅ Fine-grained permission control
+- ✅ Future-proof for AI-powered development
+- ⚠️ Relatively new protocol (evolving spec)
+- ⚠️ Limited ecosystem currently</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>core/src/crackz/cli/mcp_cli.py</code>, <code>.mcp/config.json</code></p>
+<hr />
+<h2 id="adr-018-gpsexif-support-with-geojson-export">ADR-018: GPS/EXIF Support with GeoJSON Export<a class="headerlink" href="#adr-018-gpsexif-support-with-geojson-export" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Harbor inspections often have GPS-tagged photos. Customers need location-based reports.</p>
+<p><strong>Decision</strong>: Add GPS extraction from EXIF, interactive maps (Folium), and GeoJSON export.</p>
+<p><strong>Consequences</strong>:
+- ✅ Location-aware detection results
+- ✅ Interactive HTML maps for visual reporting
+- ✅ GeoJSON export for GIS integration
+- ⚠️ Not all images have GPS data (graceful fallback)
+- ⚠️ Privacy considerations (GPS data in exports)</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>crackz geo</code> commands, <code>core/src/crackz/geo/</code></p>
+<hr />
+<h2 id="adr-019-pyside6-migration-replacing-customtkinter">ADR-019: PySide6 Migration (Replacing CustomTkinter)<a class="headerlink" href="#adr-019-pyside6-migration-replacing-customtkinter" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: CustomTkinter limitations became blockers for production use — limited widget set, no thread-safe state management, no native enabled/disabled widget support, customer requests for Qt (#127). A feasibility study confirmed PySide6 was viable under GPL-3.0 licensing.</p>
+<p><strong>Decision</strong>: Migrate GUI framework from CustomTkinter to PySide6 (Qt 6). Adopt reactive state management via <code>QtAppState</code> (QObject with signals) and Qt's thread-safe signal/slot mechanism via <code>async_bridge.py</code>.</p>
+<p><strong>Consequences</strong>:
+- ✅ Rich widget ecosystem (tree views, dock widgets, toolbars)
+- ✅ Native enabled/disabled widget support (<code>setEnabled()</code>)
+- ✅ Thread-safe signal/slot pattern — no manual locking for GUI state
+- ✅ Professional dark mode via Catppuccin Mocha QSS theming
+- ✅ Better packaging support (Qt deploy tools)
+- ⚠️ Larger dependency footprint (~50MB vs ~1MB)
+- ⚠️ Required full GUI rewrite (all views, dialogs, panels)</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>gui/src/crackz_gui/qt/</code>, <code>docs/superpowers/specs/2026-04-13-pyside6-migration-feasibility.md</code>, supersedes ADR-004</p>
+<hr />
+<h2 id="summary-of-current-technology-stack">Summary of Current Technology Stack<a class="headerlink" href="#summary-of-current-technology-stack" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Decision</th>
-<th>Choice</th>
-<th>Rationale</th>
+<th>Decision Area</th>
+<th>Chosen Technology</th>
+<th>Status</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Color palette</td>
-<td>Catppuccin Mocha</td>
-<td>Well-maintained OSS palette, dark + accessible, strong accent contrast</td>
+<td>Package Manager</td>
+<td><code>uv</code></td>
+<td>Active</td>
 </tr>
 <tr>
-<td>Primary accent</td>
-<td>Mauve <code>#cba6f7</code></td>
-<td>Distinctive, not blue (avoids confusion with links/info)</td>
+<td>ML Framework</td>
+<td>PyTorch Lightning</td>
+<td>Active</td>
 </tr>
 <tr>
-<td>Layout</td>
-<td>Activity bar + side panel + main content</td>
-<td>Scales with feature growth; VS Code muscle memory</td>
+<td>CLI Framework</td>
+<td>Typer</td>
+<td>Active</td>
 </tr>
 <tr>
-<td>Image viewer default</td>
-<td>Gallery strip + detail</td>
-<td>Triage is the primary workflow</td>
+<td>GUI Framework</td>
+<td>PySide6 (Qt 6)</td>
+<td>Active (replaced CustomTkinter, see ADR-019)</td>
 </tr>
 <tr>
-<td>AI chat</td>
-<td>Slide-in right drawer</td>
-<td>Assistive tool, used alongside other panels, not instead</td>
+<td>Configuration</td>
+<td>Pydantic v2 + YAML</td>
+<td>Active</td>
 </tr>
 <tr>
-<td>Widget toolkit</td>
-<td>PySide6 QWidget (not QML)</td>
-<td>Per feasibility spec — solves all four pain points at lower cost</td>
+<td>Logging</td>
+<td>Loguru (hybrid)</td>
+<td>Active</td>
 </tr>
 <tr>
-<td>Styling</td>
-<td>QSS stylesheet</td>
-<td>CSS-like, centralized, easily themed</td>
+<td>Linting/Formatting</td>
+<td>Ruff</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Type Checking</td>
+<td>mypy</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Testing</td>
+<td>pytest + pytest-cov + pytest-benchmark</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>CI/CD</td>
+<td>GitHub Actions</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Versioning</td>
+<td>semantic-release + conventional commits</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Docker Strategy</td>
+<td>Three variants (full, slim, GPU)</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Migration Strategy</td>
+<td>Schema versioning + crackz migrate</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Output Standards</td>
+<td>typer.secho + logger</td>
+<td>Active (enforced)</td>
 </tr>
 </tbody>
 </table>
 <hr />
-<h2 id="1-design-system">1. Design System<a class="headerlink" href="#1-design-system" title="Permanent link">&para;</a></h2>
-<h3 id="11-color-tokens">1.1 Color Tokens<a class="headerlink" href="#11-color-tokens" title="Permanent link">&para;</a></h3>
-<p>All colors defined once in <code>src/crackz/gui/style/theme.py</code> as string constants, referenced throughout QSS. No hardcoded hex values in component files.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># src/crackz/gui/style/theme.py</span>
-
-<span class="c1"># Backgrounds (darkest → lightest)</span>
-<span class="n">BASE</span>    <span class="o">=</span> <span class="s2">&quot;#11111b&quot;</span>   <span class="c1"># image viewer bg, deepest chrome</span>
-<span class="n">MANTLE</span>  <span class="o">=</span> <span class="s2">&quot;#1e1e2e&quot;</span>   <span class="c1"># main content area</span>
-<span class="n">CRUST</span>   <span class="o">=</span> <span class="s2">&quot;#181825&quot;</span>   <span class="c1"># activity bar, side panel, title bar, status bar</span>
-
-<span class="c1"># Surfaces (interactive elements)</span>
-<span class="n">SURFACE0</span> <span class="o">=</span> <span class="s2">&quot;#313244&quot;</span>  <span class="c1"># cards, inputs, tree selection, toolbar buttons</span>
-<span class="n">SURFACE1</span> <span class="o">=</span> <span class="s2">&quot;#45475a&quot;</span>  <span class="c1"># borders, dividers, hover states</span>
-<span class="n">SURFACE2</span> <span class="o">=</span> <span class="s2">&quot;#585b70&quot;</span>  <span class="c1"># disabled state</span>
-
-<span class="c1"># Text</span>
-<span class="n">TEXT</span>      <span class="o">=</span> <span class="s2">&quot;#cdd6f4&quot;</span>  <span class="c1"># primary labels, file names</span>
-<span class="n">SUBTEXT1</span>  <span class="o">=</span> <span class="s2">&quot;#a6adc8&quot;</span>  <span class="c1"># secondary info, metadata</span>
-<span class="n">OVERLAY0</span>  <span class="o">=</span> <span class="s2">&quot;#6c7086&quot;</span>  <span class="c1"># hints, keyboard shortcuts, placeholder</span>
-<span class="n">OVERLAY1</span>  <span class="o">=</span> <span class="s2">&quot;#7f849c&quot;</span>  <span class="c1"># very muted (timestamps, dimensions)</span>
-
-<span class="c1"># Accents</span>
-<span class="n">MAUVE</span>  <span class="o">=</span> <span class="s2">&quot;#cba6f7&quot;</span>   <span class="c1"># primary CTA, active activity bar item, section labels</span>
-<span class="n">BLUE</span>   <span class="o">=</span> <span class="s2">&quot;#89b4fa&quot;</span>   <span class="c1"># links, info, compare mode accent</span>
-<span class="n">GREEN</span>  <span class="o">=</span> <span class="s2">&quot;#a6e3a1&quot;</span>   <span class="c1"># success, clean/no-crack badge, status dot</span>
-<span class="n">RED</span>    <span class="o">=</span> <span class="s2">&quot;#f38ba8&quot;</span>   <span class="c1"># high severity badge, error states</span>
-<span class="n">PEACH</span>  <span class="o">=</span> <span class="s2">&quot;#fab387&quot;</span>   <span class="c1"># medium severity badge</span>
-<span class="n">YELLOW</span> <span class="o">=</span> <span class="s2">&quot;#f9e2af&quot;</span>   <span class="c1"># warnings</span>
-
-<span class="c1"># Semantic aliases (use these in components, not raw colors)</span>
-<span class="n">SEVERITY_HIGH</span>   <span class="o">=</span> <span class="n">RED</span>
-<span class="n">SEVERITY_MEDIUM</span> <span class="o">=</span> <span class="n">PEACH</span>
-<span class="n">SEVERITY_CLEAN</span>  <span class="o">=</span> <span class="n">GREEN</span>
-<span class="n">SEVERITY_NONE</span>   <span class="o">=</span> <span class="n">SURFACE0</span>   <span class="c1"># unprocessed</span>
-
-<span class="n">PRIMARY</span>      <span class="o">=</span> <span class="n">MAUVE</span>
-<span class="n">BORDER</span>       <span class="o">=</span> <span class="n">SURFACE1</span>
-<span class="n">BG_PANEL</span>     <span class="o">=</span> <span class="n">CRUST</span>
-<span class="n">BG_CONTENT</span>   <span class="o">=</span> <span class="n">MANTLE</span>
-<span class="n">BG_DEEP</span>      <span class="o">=</span> <span class="n">BASE</span>
-</code></pre></div>
-<h3 id="12-typography">1.2 Typography<a class="headerlink" href="#12-typography" title="Permanent link">&para;</a></h3>
-<p>All text uses the system UI font (<code>-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif</code>). No custom font downloads.</p>
-<table>
-<thead>
-<tr>
-<th>Role</th>
-<th>Size</th>
-<th>Weight</th>
-<th>Color</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Panel title</td>
-<td>14px</td>
-<td>600</td>
-<td>TEXT</td>
-<td>Main heading per panel</td>
-</tr>
-<tr>
-<td>Section label</td>
-<td>11px</td>
-<td>600</td>
-<td>MAUVE</td>
-<td>Uppercase, +1px letter-spacing</td>
-</tr>
-<tr>
-<td>Body</td>
-<td>12px</td>
-<td>400</td>
-<td>TEXT</td>
-<td>File names, descriptions</td>
-</tr>
-<tr>
-<td>Secondary</td>
-<td>10px</td>
-<td>400</td>
-<td>SUBTEXT1</td>
-<td>Metadata, dimensions, timestamps</td>
-</tr>
-<tr>
-<td>Hint</td>
-<td>10px</td>
-<td>400</td>
-<td>OVERLAY0</td>
-<td>Keyboard shortcuts, placeholder text</td>
-</tr>
-</tbody>
-</table>
-<h3 id="13-spacing-radius">1.3 Spacing &amp; Radius<a class="headerlink" href="#13-spacing-radius" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>Base unit:</strong> 4px</li>
-<li><strong>Component padding:</strong> 6–8px inner, 12px panel gutter</li>
-<li><strong>Border radius:</strong> 5–6px for cards and buttons; 4px for badges; 8px for large panels</li>
-<li><strong>Dividers:</strong> 1px solid SURFACE1</li>
-</ul>
-<h3 id="14-qss-approach">1.4 QSS Approach<a class="headerlink" href="#14-qss-approach" title="Permanent link">&para;</a></h3>
-<p>One master stylesheet at <code>src/crackz/gui/style/crackz.qss</code>, loaded once at startup:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># src/crackz/gui/app.py</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">string</span><span class="w"> </span><span class="kn">import</span> <span class="n">Template</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;style&quot;</span> <span class="o">/</span> <span class="s2">&quot;crackz.qss&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="n">Template</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="o">**</span><span class="n">theme</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">))</span>
-</code></pre></div>
-<p>Color tokens are injected via <code>string.Template</code> so QSS uses <code>$MAUVE</code>, <code>$CRUST</code>, etc. (not <code>{...}</code> — that conflicts with QSS selector syntax). No runtime style overrides on individual widgets except for dynamic severity badge colors.</p>
-<hr />
-<h2 id="2-shell-structure">2. Shell Structure<a class="headerlink" href="#2-shell-structure" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────┐
-│ Title bar (CRUST) — traffic lights · &quot;Crackz — project&quot;    │
-│ Menu bar: File  View  Tools  Help                           │
-├────┬──────────────┬────────────────────────────────────────┤
-│    │              │                                        │
-│ A  │  Side Panel  │  Main Content                         │
-│ c  │  (220px)     │                                        │
-│ t  │  Context-    │  Changes per active activity           │
-│ i  │  sensitive   │  (image viewer, train dashboard, etc.) │
-│ v  │  per icon    │                                        │
-│ i  │              │                          ┌──────────┐  │
-│ t  │              │   (AI drawer slides      │ AI Chat  │  │
-│ y  │              │    in from right edge     │ Drawer   │  │
-│    │              │    on ~ keypress)         └──────────┘  │
-│ B  │              │                                        │
-│ a  │              │                                        │
-│ r  │              │                                        │
-│    │              │                                        │
-│(44)│              │                                        │
-├────┴──────────────┴────────────────────────────────────────┤
-│ Status bar (CRUST) — ● project · summary counts · version  │
-└─────────────────────────────────────────────────────────────┘
-</code></pre></div>
-<p><strong>Key measurements:</strong>
-- Activity bar: 44px wide, <code>QWidget</code> with vertical <code>QVBoxLayout</code>
-- Side panel: 220px default, resizable via <code>QSplitter</code>, min 160px
-- Status bar: 24px tall, custom <code>QStatusBar</code> subclass
-- AI chat drawer: 280px, slides in/out with <code>QPropertyAnimation</code> on width</p>
-<hr />
-<h2 id="3-activity-bar">3. Activity Bar<a class="headerlink" href="#3-activity-bar" title="Permanent link">&para;</a></h2>
-<p>A narrow 44px-wide <code>QWidget</code> pinned to the left edge. Contains icon buttons that switch the active side panel.</p>
-<h3 id="sections-top-to-bottom">Sections (top to bottom)<a class="headerlink" href="#sections-top-to-bottom" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Icon</th>
-<th>Label</th>
-<th>Side panel content</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>📁</td>
-<td>Explorer</td>
-<td>Project file tree</td>
-</tr>
-<tr>
-<td>🔍</td>
-<td>Detect</td>
-<td>Detection run controls + results list</td>
-</tr>
-<tr>
-<td>⚡</td>
-<td>Train</td>
-<td>Training config + live metrics</td>
-</tr>
-<tr>
-<td>🎯</td>
-<td>Active Learning</td>
-<td>Entropy/uncertainty annotation queue</td>
-</tr>
-<tr>
-<td>—</td>
-<td><em>(spacer)</em></td>
-<td>—</td>
-</tr>
-<tr>
-<td>⚙️</td>
-<td>Settings</td>
-<td>App + project settings</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Active state:</strong> Left border 2px MAUVE + MAUVE/13% background tint on the icon tile.<br />
-<strong>Hover state:</strong> SURFACE0 background, no border.<br />
-<strong>Tooltip:</strong> Show label text on hover (Qt default tooltip, styled via QSS).</p>
-<p>Icons: Use <code>QIcon</code> loaded from SVG files in <code>src/crackz/gui/assets/icons/</code>. Single-color SVGs recolored via QSS <code>color</code> property (Qt 6.2+).</p>
-<hr />
-<h2 id="4-side-panel">4. Side Panel<a class="headerlink" href="#4-side-panel" title="Permanent link">&para;</a></h2>
-<p>A <code>QStackedWidget</code> behind the activity bar. Each activity has its own panel widget pushed onto the stack. Switching activity bar icon calls <code>stack.setCurrentIndex(n)</code>.</p>
-<h3 id="41-explorer-panel-phase-0-reference-implementation">4.1 Explorer Panel (Phase 0 reference implementation)<a class="headerlink" href="#41-explorer-panel-phase-0-reference-implementation" title="Permanent link">&para;</a></h3>
-<p>The first panel to build — establishes the pattern for all others.</p>
-<p><strong>Structure:</strong>
-<div class="highlight"><pre><span></span><code>┌──────────────────────────────┐
-│ EXPLORER          [+] [📂]   │  ← Panel header: section label + toolbar actions
-├──────────────────────────────┤
-│ ▼ harbor-2024                │  ← QTreeView, custom CrackzTreeModel
-│   ▶ images/         [3]●     │     Badge = unprocessed count
-│   ▶ masks/                   │
-│   ▶ results/                 │
-│     project.yaml             │
-├──────────────────────────────┤
-│ ● harbor-2024                │  ← Project badge (bottom, always visible)
-└──────────────────────────────┘
-</code></pre></div></p>
-<p><strong>Implementation notes:</strong>
-- <code>QTreeView</code> with <code>QFileSystemModel</code> subclass (<code>CrackzFileModel</code>) for file system representation
-- Context menu via <code>customContextMenuRequested</code> signal → <code>QMenu</code>
-- File selection emits signal → main content area updates
-- Project badge: custom <code>QLabel</code> widget at bottom of panel, shows active project name + green dot</p>
-<h3 id="42-remaining-panels-follow-explorer-pattern">4.2 Remaining Panels (follow Explorer pattern)<a class="headerlink" href="#42-remaining-panels-follow-explorer-pattern" title="Permanent link">&para;</a></h3>
-<p>Each panel uses the same header structure (section label + optional toolbar actions) and CRUST background. Detailed design per panel is out of scope for this spec — panels are built once the shell + Explorer pattern is validated.</p>
-<p><strong>Detect panel:</strong> Split into "Run" (controls: model selector, confidence threshold, run button) and "Results" (list of processed images with severity badges).</p>
-<p><strong>Train panel:</strong> Two sub-sections — Config (epochs, batch size, model architecture) and Live Metrics (embedded <code>matplotlib</code> canvas via <code>FigureCanvasQTAgg</code>, loss + IoU curves updating in real time).</p>
-<p><strong>Active Learning panel:</strong> Ranked list of unprocessed images ordered by uncertainty score, with annotation controls.</p>
-<p><strong>Settings panel:</strong> Tab widget — App settings (theme light/dark toggle, API keys via keyring) and Project settings (split ratios, model config, log paths).</p>
-<hr />
-<h2 id="5-main-content-area">5. Main Content Area<a class="headerlink" href="#5-main-content-area" title="Permanent link">&para;</a></h2>
-<h3 id="51-image-viewer-default-view-when-a-results-folder-is-selected">5.1 Image Viewer (default view when a results folder is selected)<a class="headerlink" href="#51-image-viewer-default-view-when-a-results-folder-is-selected" title="Permanent link">&para;</a></h3>
-<p>Three modes, switched via toolbar toggle group. Gallery+Detail is the default.</p>
-<p><strong>Toolbar (always visible):</strong>
-<div class="highlight"><pre><span></span><code>[breadcrumb path]  |  [Gallery] [Single] [Compare]  |  [count summary]  [Export Report]
-</code></pre></div></p>
-<h4 id="gallery-detail-mode-default">Gallery + Detail mode (default)<a class="headerlink" href="#gallery-detail-mode-default" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>┌──────────────────────────────────────────────────────────────┐
-│ [thumb H] [thumb M] [thumb ✓] [thumb —] [thumb H] … +19     │  ← Thumbnail strip, 64×52px tiles
-├───────────────────────────────────────────┬──────────────────┤
-│                                           │ INSPECTOR        │
-│   [large image, zoom/pan]                 │ File: img_001    │
-│   crack overlay rendered on QGraphicsView │ Severity: ● High │
-│                                           │ Confidence: 82%  │
-│                                           │ 4032 × 3024 px   │
-│                                           │                  │
-│                                           │ [Run Detection]  │
-│                                           │ [Edit Mask]      │
-└───────────────────────────────────────────┴──────────────────┘
-</code></pre></div>
-<p>Thumbnail tiles: color-coded bottom-right badge (H=red, M=peach, ✓=green, —=gray).<br />
-Selected tile: 2px MAUVE border.<br />
-<code>QGraphicsView</code> handles zoom (scroll wheel), pan (drag), overlay toggle (<code>O</code> key).</p>
-<h4 id="single-mode">Single mode<a class="headerlink" href="#single-mode" title="Permanent link">&para;</a></h4>
-<p>Full-width <code>QGraphicsView</code> + Inspector panel. No thumbnail strip. For deep crack inspection.</p>
-<h4 id="compare-mode">Compare mode<a class="headerlink" href="#compare-mode" title="Permanent link">&para;</a></h4>
-<p><code>QSplitter</code> with two <code>QGraphicsView</code> instances (Original | Detected), zoom/pan synchronized via shared <code>QTransform</code>. For client reporting and annotation validation.</p>
-<h3 id="52-welcome-view">5.2 Welcome view<a class="headerlink" href="#52-welcome-view" title="Permanent link">&para;</a></h3>
-<p>Shown when no project is loaded. Centered card with "New Project" and "Open Project" buttons (primary + secondary style). Recent projects list below.</p>
-<h3 id="53-other-views">5.3 Other views<a class="headerlink" href="#53-other-views" title="Permanent link">&para;</a></h3>
-<p>Directory summary, file previews (JSON, text), device recommendation — follow the same content area pattern. Not redesigned in this phase beyond inheriting the new QSS.</p>
-<hr />
-<h2 id="6-ai-chat-drawer">6. AI Chat Drawer<a class="headerlink" href="#6-ai-chat-drawer" title="Permanent link">&para;</a></h2>
-<p>A <code>QWidget</code> docked to the right edge of the main content area. Hidden by default; shown/hidden by <code>~</code> key or <code>Cmd+/</code>.</p>
-<p><strong>Animation:</strong> <code>QPropertyAnimation</code> on <code>maximumWidth</code> (0 → 280px), 150ms ease-in-out. Feels like a panel sliding in, not a popup.</p>
-<p><strong>Structure:</strong>
-<div class="highlight"><pre><span></span><code>┌──────────────────────────────┐
-│ AI ASSISTANT      ~ to close │
-├──────────────────────────────┤
-│                              │
-│  [user message bubble]       │
-│        [assistant bubble]    │
-│  [user message bubble]       │
-│                              │
-├──────────────────────────────┤
-│ [Ask about this image…]  [↵] │
-└──────────────────────────────┘
-</code></pre></div></p>
-<ul>
-<li>User bubbles: SURFACE0 background, right-aligned</li>
-<li>Assistant bubbles: MAUVE/13% tint, left-aligned</li>
-<li>Input: <code>QLineEdit</code> styled as SURFACE0, send on Enter</li>
-<li>History: <code>QScrollArea</code> with auto-scroll to bottom on new message</li>
-<li>Context: current file path injected into system prompt automatically</li>
-</ul>
-<p><strong>Backend:</strong> No changes to <code>services/ai_chat.py</code> — the drawer is a new Qt widget wrapping the existing <code>AIChatService</code>.</p>
-<hr />
-<h2 id="7-status-bar">7. Status Bar<a class="headerlink" href="#7-status-bar" title="Permanent link">&para;</a></h2>
-<p>Custom <code>QStatusBar</code> subclass. Always 24px tall, CRUST background, 1px SURFACE1 top border.</p>
-<p><strong>Left:</strong> Green dot + project name (updates on project load/close)<br />
-<strong>Center:</strong> Summary counts — <code>N images · N critical · N medium</code> (updates after detection runs)<br />
-<strong>Right:</strong> App version string</p>
-<hr />
-<h2 id="8-implementation-sequence-phase-0-scope">8. Implementation Sequence (Phase 0 scope)<a class="headerlink" href="#8-implementation-sequence-phase-0-scope" title="Permanent link">&para;</a></h2>
-<p>This spec covers the design language. The Phase 0 implementation delivers:</p>
-<ol>
-<li><strong>QSS + theme.py</strong> — All tokens, master stylesheet, verified across all widgets</li>
-<li><strong>App shell</strong> — Main window, title bar, menu bar, activity bar, QSplitter layout, status bar</li>
-<li><strong>Explorer panel</strong> — File tree, context menu, project badge, new/open project actions</li>
-<li><strong>Image viewer</strong> — Gallery+Detail mode with QGraphicsView, overlay toggle, Inspector panel</li>
-<li><strong>AI chat drawer</strong> — Slide-in animation, chat UI wrapping existing AIChatService</li>
-<li><strong>Welcome view</strong> — No-project state</li>
-</ol>
-<p>Remaining panels (Detect, Train, Active Learning, Settings) are Phase 1, built against the validated shell.</p>
-<hr />
-<h2 id="9-out-of-scope">9. Out of Scope<a class="headerlink" href="#9-out-of-scope" title="Permanent link">&para;</a></h2>
-<ul>
-<li>QML / Qt Quick (ruled out in feasibility spec)</li>
-<li>Light mode (dark only for Phase 0; light mode support via alternate QSS in later phase)</li>
-<li>Custom window chrome / frameless window (use native title bar)</li>
-<li>New AI features or detection algorithms (visual design only)</li>
-<li>Mobile / tablet form factors</li>
-</ul>
+<p><strong>Last Updated</strong>: 2025-11-06
+<strong>Maintained By</strong>: Theresia Lundgren (theresia.lundgren@anaxiatech.se)</p>
+<p><strong>How to Propose New ADRs</strong>:
+1. Create issue describing the decision needed
+2. Research alternatives with pros/cons
+3. Discuss with team/community
+4. Add ADR to this document via PR
+5. Update related documentation</p>
 
 
 

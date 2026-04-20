@@ -991,7 +991,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02-decisions/" class="md-nav__link">
+      <a href="../internal/adr/02-decisions/" class="md-nav__link">
         
   
   
@@ -1955,7 +1955,7 @@
 <h3 id="core-infrastructure">Core Infrastructure<a class="headerlink" href="#core-infrastructure" title="Permanent link">&para;</a></h3>
 <h4 id="1-new-files-created">1. New Files Created<a class="headerlink" href="#1-new-files-created" title="Permanent link">&para;</a></h4>
 <ul>
-<li><strong><code>src/crackz/gui/services/openrouter_client.py</code></strong> (126 lines)</li>
+<li><strong><code>gui/src/crackz_gui/services/openrouter_client.py</code></strong> (126 lines)</li>
 <li>OpenRouterClient wrapper using OpenAI-compatible API</li>
 <li>Error handling for rate limits, auth errors</li>
 <li>Extra headers for OpenRouter (HTTP-Referer, X-Title)</li>
@@ -1963,19 +1963,19 @@
 <h4 id="2-files-modified">2. Files Modified<a class="headerlink" href="#2-files-modified" title="Permanent link">&para;</a></h4>
 <p><strong><code>pyproject.toml</code></strong>
 - Added dependency: <code>openai&gt;=1.0.0</code></p>
-<p><strong><code>src/crackz/gui/state/app_settings.py</code></strong>
+<p><strong><code>gui/src/crackz_gui/state/app_settings.py</code></strong>
 - Added fields:
   - <code>ai_chat_provider: str = "anthropic"</code> (default for backward compatibility)
   - <code>ai_chat_openrouter_key: str | None = None</code>
   - <code>ai_chat_fallback_provider: str | None = None</code> (future use)</p>
-<p><strong><code>src/crackz/gui/services/ai_chat.py</code></strong> (Major refactor: 302 lines → 420 lines)
+<p><strong><code>gui/src/crackz_gui/services/ai_chat.py</code></strong> (Major refactor: 302 lines → 420 lines)
 - Added <code>AIProvider</code> enum (ANTHROPIC, OPENROUTER)
 - Split client handling: <code>_anthropic_client</code>, <code>_openrouter_client</code>
 - Provider-agnostic dispatch: <code>_call_ai_api()</code> → <code>_call_anthropic_api()</code> or <code>_call_openrouter_api()</code>
 - Model name mapping: <code>_map_model_name()</code> for OpenRouter format
 - Updated constructor: added <code>provider</code>, <code>openrouter_key</code> parameters
 - Updated <code>is_configured</code> to check provider-specific requirements</p>
-<p><strong><code>src/crackz/gui/components/chat_settings_dialog.py</code></strong> (Extensive UI rebuild: 242 lines → 404 lines)
+<p><strong><code>gui/src/crackz_gui/components/chat_settings_dialog.py</code></strong> (Extensive UI rebuild: 242 lines → 404 lines)
 - Provider dropdown with dynamic info labels
 - Conditional API key frames (show only active provider)
 - Expanded model catalog:
@@ -1984,7 +1984,7 @@
 - API key validation: <code>sk-ant-</code> for Anthropic, <code>sk-or-</code> for OpenRouter
 - Dynamic model options based on provider
 - Direct service property updates on save</p>
-<p><strong><code>src/crackz/gui/crackz_app.py</code></strong>
+<p><strong><code>gui/src/crackz_gui/crackz_app.py</code></strong>
 - Updated <code>AIChatService</code> initialization to pass:
   - <code>provider=self.app_settings.ai_chat_provider</code>
   - <code>openrouter_key=self.app_settings.ai_chat_openrouter_key</code></p>

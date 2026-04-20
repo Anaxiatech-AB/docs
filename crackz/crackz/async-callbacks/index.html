@@ -997,7 +997,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02-decisions/" class="md-nav__link">
+      <a href="../internal/adr/02-decisions/" class="md-nav__link">
         
   
   
@@ -1569,10 +1569,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#gui-helpers-crackzguiasync_helpers" class="md-nav__link">
+  <a href="#gui-helpers-crackz_guiqtasync_bridge" class="md-nav__link">
     <span class="md-ellipsis">
       
-        GUI Helpers (crackz.gui.async_helpers)
+        GUI Helpers (crackz_gui.qt.async_bridge)
       
     </span>
   </a>
@@ -2194,10 +2194,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#gui-helpers-crackzguiasync_helpers" class="md-nav__link">
+  <a href="#gui-helpers-crackz_guiqtasync_bridge" class="md-nav__link">
     <span class="md-ellipsis">
       
-        GUI Helpers (crackz.gui.async_helpers)
+        GUI Helpers (crackz_gui.qt.async_bridge)
       
     </span>
   </a>
@@ -2307,7 +2307,7 @@
 </code></pre></div>
 <h3 id="3-gui-async-helpers">3. GUI Async Helpers<a class="headerlink" href="#3-gui-async-helpers" title="Permanent link">&para;</a></h3>
 <p>High-level utilities for GUI integration:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.gui.async_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz_gui.qt.async_bridge</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">start_gui_callback_consumers</span><span class="p">,</span>
     <span class="n">stop_gui_callback_consumers</span><span class="p">,</span>
 <span class="p">)</span>
@@ -2327,7 +2327,7 @@
 <h2 id="i-gui-thread-safety-with-pyside6">ℹ️ GUI Thread Safety with PySide6<a class="headerlink" href="#i-gui-thread-safety-with-pyside6" title="Permanent link">&para;</a></h2>
 <p>PySide6's signal/slot mechanism is inherently thread-safe — signals emitted from any thread are automatically queued and delivered on the GUI thread. Use <code>TaskSignals</code> from <code>async_bridge.py</code> for background work:</p>
 <h3 id="correct-qt-signals-thread-safe">✅ CORRECT - Qt Signals (Thread-Safe)<a class="headerlink" href="#correct-qt-signals-thread-safe" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.gui.qt.async_bridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">TaskSignals</span><span class="p">,</span> <span class="n">run_in_background</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz_gui.qt.async_bridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">TaskSignals</span><span class="p">,</span> <span class="n">run_in_background</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_do_work</span><span class="p">(</span><span class="n">signals</span><span class="p">:</span> <span class="n">TaskSignals</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">signals</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>   <span class="c1"># Safe from any thread</span>
@@ -2343,7 +2343,7 @@
 </code></pre></div>
 <p>No manual <code>threading.Lock</code> or <code>after()</code> wrappers are needed — Qt handles cross-thread dispatch automatically.</p>
 <blockquote>
-<p>For the PySide6 GUI, prefer the Qt-native helpers in <code>crackz.gui.qt.async_bridge</code>.</p>
+<p>For the PySide6 GUI, prefer the Qt-native helpers in <code>crackz_gui.qt.async_bridge</code>.</p>
 </blockquote>
 <h2 id="usage-patterns">Usage Patterns<a class="headerlink" href="#usage-patterns" title="Permanent link">&para;</a></h2>
 <h3 id="pattern-1-synchronous-backward-compatible">Pattern 1: Synchronous (Backward Compatible)<a class="headerlink" href="#pattern-1-synchronous-backward-compatible" title="Permanent link">&para;</a></h3>
@@ -2382,7 +2382,7 @@
 <h3 id="pattern-3-full-async-with-thread-safety-gui-recommended">Pattern 3: Full Async with Thread Safety (GUI - Recommended)<a class="headerlink" href="#pattern-3-full-async-with-thread-safety-gui-recommended" title="Permanent link">&para;</a></h3>
 <p>Complete async pattern for GUI applications with automatic thread safety:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.ai.core.async_callbacks</span><span class="w"> </span><span class="kn">import</span> <span class="n">CallbackDispatcher</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.gui.qt.async_bridge</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crackz_gui.qt.async_bridge</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">start_gui_callback_consumers</span><span class="p">,</span>
     <span class="n">stop_gui_callback_consumers</span><span class="p">,</span>
 <span class="p">)</span>
@@ -2488,7 +2488,7 @@
 <h3 id="for-new-code">For New Code<a class="headerlink" href="#for-new-code" title="Permanent link">&para;</a></h3>
 <p>Use the async pattern from the start:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.ai.core.async_callbacks</span><span class="w"> </span><span class="kn">import</span> <span class="n">CallbackDispatcher</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">crackz.gui.async_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">start_gui_callback_consumers</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">crackz_gui.qt.async_bridge</span><span class="w"> </span><span class="kn">import</span> <span class="n">start_gui_callback_consumers</span>
 
 <span class="n">dispatcher</span> <span class="o">=</span> <span class="n">CallbackDispatcher</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">loop</span><span class="p">,</span> <span class="n">tasks</span> <span class="o">=</span> <span class="n">start_gui_callback_consumers</span><span class="p">(</span>
@@ -2515,7 +2515,7 @@
 <li><code>create_async_progress_consumer()</code> - Create progress consumer function</li>
 <li><code>create_async_metrics_consumer()</code> - Create metrics consumer function</li>
 </ul>
-<h3 id="gui-helpers-crackzguiasync_helpers">GUI Helpers (<code>crackz.gui.async_helpers</code>)<a class="headerlink" href="#gui-helpers-crackzguiasync_helpers" title="Permanent link">&para;</a></h3>
+<h3 id="gui-helpers-crackz_guiqtasync_bridge">GUI Helpers (<code>crackz_gui.qt.async_bridge</code>)<a class="headerlink" href="#gui-helpers-crackz_guiqtasync_bridge" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>AsyncEventLoop</code> - Event loop manager with proper synchronization</li>
 <li><code>create_threadsafe_gui_callback()</code> - Wrap callback for thread-safe GUI updates</li>

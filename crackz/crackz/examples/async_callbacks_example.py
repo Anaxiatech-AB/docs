@@ -178,7 +178,7 @@ def example_async_with_gui_helpers(project: Project) -> None:
     """
     from crackz.ai.core.async_callbacks import CallbackDispatcher
     from crackz.ai.training import train
-    from crackz.gui.async_helpers import (
+    from crackz_gui.async_helpers import (
         start_gui_callback_consumers,
         stop_gui_callback_consumers,
     )

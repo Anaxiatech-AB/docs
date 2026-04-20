@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#high-level-overview" class="md-skip">
+        <a href="#workspace-layout" class="md-skip">
           Skip to content
         </a>
       
@@ -997,7 +997,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02-decisions/" class="md-nav__link">
+      <a href="../internal/adr/02-decisions/" class="md-nav__link">
         
   
   
@@ -1109,6 +1109,17 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#workspace-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workspace Layout
+      
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#high-level-overview" class="md-nav__link">
@@ -1825,6 +1836,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#workspace-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workspace Layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#high-level-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2039,6 +2061,26 @@
 
 <h1 id="system-architecture">System Architecture<a class="headerlink" href="#system-architecture" title="Permanent link">&para;</a></h1>
 <p>This document describes the current (implemented) architecture of Crackz, focusing on the <strong>actual code paths</strong> in this repository. Previous diagrams referenced future or hypothetical services (artifact stores, model servers, remote registries) that are not yet part of the codebase; those have been removed or clearly marked as future work.</p>
+<hr />
+<h2 id="workspace-layout">Workspace Layout<a class="headerlink" href="#workspace-layout" title="Permanent link">&para;</a></h2>
+<p>Crackz uses a <strong>uv workspace</strong> with two member packages:</p>
+<div class="highlight"><pre><span></span><code>crackz/                          # Workspace root
+├── pyproject.toml               # Workspace config, dev deps, tool settings (no [project])
+├── core/                        # crackz-core package
+│   ├── pyproject.toml           # Package metadata and dependencies
+│   ├── src/crackz/              # Core library (AI, CLI, config, logging, project)
+│   └── tests/                   # Core unit + integration tests
+├── gui/                         # crackz-gui package (depends on crackz-core)
+│   ├── pyproject.toml           # Package metadata, dependency on crackz-core
+│   ├── src/crackz_gui/          # PySide6 Qt GUI application
+│   └── tests/                   # GUI unit + integration tests
+└── tests/                       # Root-level tests (cross-package, legacy)
+</code></pre></div>
+<p><strong>Key points:</strong>
+- <code>core/</code> owns all domain logic, CLI, config, and AI pipeline
+- <code>gui/</code> owns the desktop application and depends on <code>core/</code>
+- Both are installed together via <code>uv sync --dev</code> from the workspace root
+- Import paths: <code>from crackz.ai import ...</code> (core), <code>from crackz_gui.qt import ...</code> (GUI)</p>
 <hr />
 <h2 id="high-level-overview">High-Level Overview<a class="headerlink" href="#high-level-overview" title="Permanent link">&para;</a></h2>
 <p>Crackz consists of two user-facing entry points sharing a common core library:
@@ -2372,7 +2414,7 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
 </tr>
 <tr>
 <td>GUI state &amp; browsing</td>
-<td><code>crackz.gui.*</code></td>
+<td><code>crackz_gui.*</code></td>
 <td>Project tree, previews, recent projects</td>
 </tr>
 <tr>
@@ -2427,7 +2469,7 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
 </tr>
 <tr>
 <td>AI chat service</td>
-<td><code>crackz.gui.services.ai_chat</code></td>
+<td><code>crackz_gui.services.ai_chat</code></td>
 <td>Claude API integration</td>
 </tr>
 </tbody>
@@ -2485,7 +2527,7 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
 <hr />
 <h2 id="technology-stack">Technology Stack<a class="headerlink" href="#technology-stack" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Language</strong>: Python 3.11+</li>
+<li><strong>Language</strong>: Python 3.13+</li>
 <li><strong>DL Framework</strong>: PyTorch, PyTorch Lightning, segmentation-models-pytorch, torchmetrics, torchvision</li>
 <li><strong>Data &amp; Imaging</strong>: Pillow, (optionally HF datasets in the future)</li>
 <li><strong>CLI</strong>: Typer</li>
@@ -2493,8 +2535,9 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
 <li><strong>Config</strong>: pydantic, pydantic-settings</li>
 <li><strong>Logging</strong>: loguru</li>
 <li><strong>Progress / TUI</strong>: rich</li>
-<li><strong>Packaging / Build</strong>: uv, PyInstaller (GUI binary optional)</li>
+<li><strong>Packaging / Build</strong>: uv (workspace mode), hatchling, PyInstaller (GUI binary optional)</li>
 <li><strong>Testing</strong>: pytest (+ coverage, html, benchmarks markers)</li>
+<li><strong>Project Layout</strong>: uv workspace with <code>core/</code> and <code>gui/</code> members</li>
 </ul>
 <hr />
 <p><em>Last updated: synchronized with repository implementation on commit timeline of current editing session.</em></p>

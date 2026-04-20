@@ -997,7 +997,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../02-decisions/" class="md-nav__link">
+      <a href="../internal/adr/02-decisions/" class="md-nav__link">
         
   
   
@@ -3186,7 +3186,7 @@
 <h1 id="architecture-guidelines">Architecture Guidelines<a class="headerlink" href="#architecture-guidelines" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p><strong>Developer-focused architecture patterns and principles for Crackz</strong></p>
-<p>This document complements <a href="../architecture/">architecture.md</a> (system architecture) and <a href="../02-decisions/">02-decisions.md</a> (ADR decisions) with practical guidelines for developers.</p>
+<p>This document complements <a href="../architecture/">architecture.md</a> (system architecture) and <a href="../internal/adr/02-decisions/">internal/adr/02-decisions.md</a> (ADR decisions) with practical guidelines for developers.</p>
 </blockquote>
 <p><strong>Last Updated</strong>: 2025-11-13</p>
 <hr />
@@ -3230,12 +3230,12 @@
 <p><strong>Why</strong>: Reduces coupling, improves testability, enables independent changes.</p>
 <p><strong>Examples</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># ✅ GOOD: Clear separation</span>
-<span class="c1"># src/crackz/cli/detection_cli.py - CLI commands only</span>
-<span class="c1"># src/crackz/ai/detection.py - Detection logic only</span>
-<span class="c1"># src/crackz/project/structure.py - Project layout only</span>
+<span class="c1"># core/src/crackz/cli/detection_cli.py - CLI commands only</span>
+<span class="c1"># core/src/crackz/ai/detection.py - Detection logic only</span>
+<span class="c1"># core/src/crackz/project/structure.py - Project layout only</span>
 
 <span class="c1"># ❌ BAD: Mixed concerns</span>
-<span class="c1"># src/crackz/everything.py - CLI, detection, project management all in one file</span>
+<span class="c1"># core/src/crackz/everything.py - CLI, detection, project management all in one file</span>
 </code></pre></div></p>
 <p><strong>In Practice</strong>:
 - CLI modules handle user interaction and input validation
@@ -3330,47 +3330,54 @@
 <hr />
 <h2 id="module-organization">Module Organization<a class="headerlink" href="#module-organization" title="Permanent link">&para;</a></h2>
 <h3 id="directory-structure-philosophy">Directory Structure Philosophy<a class="headerlink" href="#directory-structure-philosophy" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>src/crackz/
-├── ai/              # AI/ML pipeline (domain logic)
-│   ├── data.py      # Dataset, data loading
-│   ├── models.py    # Model definitions
-│   ├── training.py  # Training pipeline
-│   └── detection.py # Inference pipeline
-├── cli/             # CLI interface (entry points)
-│   ├── options.py   # Shared CLI options
-│   ├── exceptions.py # CLI error handling
+<div class="highlight"><pre><span></span><code>core/src/crackz/          # Core library (crackz-core package)
+├── ai/                   # AI/ML pipeline (domain logic)
+│   ├── data.py           # Dataset, data loading
+│   ├── models.py         # Model definitions
+│   ├── training.py       # Training pipeline
+│   └── detection.py      # Inference pipeline
+├── cli/                  # CLI interface (entry points)
+│   ├── options.py        # Shared CLI options
+│   ├── exceptions.py     # CLI error handling
 │   ├── project_cli.py
 │   └── detection_cli.py
-├── config/          # Configuration (domain models)
-│   ├── project.py   # ProjectConfig
-│   ├── ai.py        # AIConfig
-│   └── logging.py   # LogConfig
-├── gui/             # GUI interface (entry points)
-│   ├── app.py       # Main application
-│   ├── panels/      # UI panels
-│   └── dialogs/     # UI dialogs
-├── log/             # Logging (infrastructure)
-│   └── setup.py     # Loguru configuration
-└── project/         # Project management (domain logic)
-    └── structure.py # Directory layout
+├── config/               # Configuration (domain models)
+│   ├── project.py        # ProjectConfig
+│   ├── ai.py             # AIConfig
+│   └── logging.py        # LogConfig
+├── log/                  # Logging (infrastructure)
+│   └── setup.py          # Loguru configuration
+└── project/              # Project management (domain logic)
+    └── structure.py      # Directory layout
+
+gui/src/crackz_gui/       # GUI package (crackz-gui, depends on crackz-core)
+├── qt/                   # PySide6 Qt application
+│   ├── app_state.py      # QtAppState (reactive state)
+│   └── async_bridge.py   # TaskSignals, run_in_background
+├── services/             # External service integrations
+├── state/                # State management
+└── util/                 # GUI utilities
 </code></pre></div>
 <h3 id="module-boundaries">Module Boundaries<a class="headerlink" href="#module-boundaries" title="Permanent link">&para;</a></h3>
 <p><strong>Rule</strong>: Modules should have <strong>low coupling</strong> and <strong>high cohesion</strong>.</p>
 <h4 id="allowed-dependencies">✅ Allowed Dependencies<a class="headerlink" href="#allowed-dependencies" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>CLI  ────→  Business Logic  ────→  Domain Models  ────→  Infrastructure
-GUI  ────→     (ai/, project/)      (config/)            (log/)
+<div class="highlight"><pre><span></span><code>CLI (core)  ──→  Business Logic  ──→  Domain Models  ──→  Infrastructure
+GUI (gui)   ──→  (ai/, project/)     (config/)           (log/)
 
 Examples:
-- cli/detection_cli.py → ai/detection.py → config/ai.py → log/setup.py ✅
-- gui/panels/train.py → ai/training.py → config/project.py ✅
+- core: cli/detection_cli.py → ai/detection.py → config/ai.py → log/setup.py ✅
+- gui:  crackz_gui/qt/panels/train.py → crackz.ai.training → crackz.config ✅
+- gui:  crackz-gui depends on crackz-core (declared in gui/pyproject.toml) ✅
 </code></pre></div>
 <h4 id="forbidden-dependencies">❌ Forbidden Dependencies<a class="headerlink" href="#forbidden-dependencies" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code>Domain ──X→ GUI/CLI     # Domain shouldn&#39;t know about UI
 Infrastructure ──X→ Domain  # Infrastructure shouldn&#39;t depend on business logic
+GUI ──X→ CLI            # GUI shouldn&#39;t import CLI modules
 
 Examples:
 - ai/detection.py → cli/options.py ❌  # Domain shouldn&#39;t import from CLI
 - log/setup.py → config/project.py ❌  # Infrastructure shouldn&#39;t import domain
+- crackz_gui → crackz.cli ❌  # GUI should use core APIs, not CLI
 </code></pre></div>
 <p><strong>How to Fix Violations</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># ❌ BAD: Domain imports from CLI</span>
@@ -3387,7 +3394,7 @@ Examples:
 <hr />
 <h2 id="design-patterns">Design Patterns<a class="headerlink" href="#design-patterns" title="Permanent link">&para;</a></h2>
 <h3 id="1-factory-pattern-model-creation">1. Factory Pattern (Model Creation)<a class="headerlink" href="#1-factory-pattern-model-creation" title="Permanent link">&para;</a></h3>
-<p><strong>Where</strong>: <code>src/crackz/ai/models.py</code></p>
+<p><strong>Where</strong>: <code>core/src/crackz/ai/models.py</code></p>
 <p><strong>Why</strong>: Centralize model instantiation logic, support multiple model types.</p>
 <p><strong>Example</strong>:
 <div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_segmentation_model</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">ModelConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
@@ -3406,7 +3413,7 @@ Examples:
 - Easy to add new model types
 - Testable with config variations</p>
 <h3 id="2-strategy-pattern-detection-backends">2. Strategy Pattern (Detection Backends)<a class="headerlink" href="#2-strategy-pattern-detection-backends" title="Permanent link">&para;</a></h3>
-<p><strong>Where</strong>: <code>src/crackz/ai/detection.py</code></p>
+<p><strong>Where</strong>: <code>core/src/crackz/ai/detection.py</code></p>
 <p><strong>Why</strong>: Support different detection strategies (single image, batch, distributed).</p>
 <p><strong>Example</strong>:
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DetectionStrategy</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
@@ -3426,7 +3433,7 @@ Examples:
         <span class="k">return</span> <span class="n">results</span>
 </code></pre></div></p>
 <h3 id="3-builder-pattern-configuration-assembly">3. Builder Pattern (Configuration Assembly)<a class="headerlink" href="#3-builder-pattern-configuration-assembly" title="Permanent link">&para;</a></h3>
-<p><strong>Where</strong>: <code>src/crackz/config/project.py</code></p>
+<p><strong>Where</strong>: <code>core/src/crackz/config/project.py</code></p>
 <p><strong>Why</strong>: Complex configuration with defaults, overrides, validation.</p>
 <p><strong>Example</strong>:
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ProjectConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
@@ -3444,7 +3451,7 @@ Examples:
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># Validation + defaults applied</span>
 </code></pre></div></p>
 <h3 id="4-command-pattern-cli-commands">4. Command Pattern (CLI Commands)<a class="headerlink" href="#4-command-pattern-cli-commands" title="Permanent link">&para;</a></h3>
-<p><strong>Where</strong>: <code>src/crackz/cli/*.py</code></p>
+<p><strong>Where</strong>: <code>core/src/crackz/cli/*.py</code></p>
 <p><strong>Why</strong>: Encapsulate operations as objects, enable undo/logging/queuing.</p>
 <p><strong>Example</strong>:
 <div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
@@ -3469,7 +3476,7 @@ Examples:
         <span class="n">cli_failure</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s2">&quot;Training&quot;</span><span class="p">)</span>
 </code></pre></div></p>
 <h3 id="5-repository-pattern-project-access">5. Repository Pattern (Project Access)<a class="headerlink" href="#5-repository-pattern-project-access" title="Permanent link">&para;</a></h3>
-<p><strong>Where</strong>: <code>src/crackz/project/structure.py</code></p>
+<p><strong>Where</strong>: <code>core/src/crackz/project/structure.py</code></p>
 <p><strong>Why</strong>: Abstract filesystem access, enable testing with in-memory projects.</p>
 <p><strong>Example</strong>:
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ProjectRepository</span><span class="p">:</span>
@@ -3488,7 +3495,7 @@ Examples:
         <span class="k">return</span> <span class="p">(</span><span class="n">path</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_project.yaml&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
 </code></pre></div></p>
 <h3 id="6-asyncconcurrent-operations-pattern">6. Async/Concurrent Operations Pattern<a class="headerlink" href="#6-asyncconcurrent-operations-pattern" title="Permanent link">&para;</a></h3>
-<p><strong>Where</strong>: <code>src/crackz/ai/core/async_callbacks.py</code></p>
+<p><strong>Where</strong>: <code>core/src/crackz/ai/core/async_callbacks.py</code></p>
 <p><strong>Problem</strong>: PyTorch Lightning training runs in synchronous threads, but GUI updates must be async to remain responsive. Direct async calls from sync code cause <code>RuntimeError: no running event loop</code>.</p>
 <p><strong>Solution</strong>: Use janus queue to bridge sync and async worlds. Janus provides both <code>sync_q</code> (thread-safe) and <code>async_q</code> (async-safe) interfaces to the same queue.</p>
 <p><strong>Implementation</strong>:</p>
@@ -3517,11 +3524,11 @@ Examples:
 - Handles burst updates gracefully
 - Type-safe with protocols (<code>AsyncProgressReporter</code>, <code>AsyncMetricsReporter</code>)</p>
 <h3 id="7-observability-monitoring-pattern">7. Observability &amp; Monitoring Pattern<a class="headerlink" href="#7-observability-monitoring-pattern" title="Permanent link">&para;</a></h3>
-<p><strong>Where</strong>: <code>src/crackz/tracing/</code></p>
+<p><strong>Where</strong>: <code>core/src/crackz/tracing/</code></p>
 <p><strong>Problem</strong>: Production deployments need visibility into AI Chat API calls (latency, errors, token usage), but adding observability shouldn't break the app if dependencies are missing.</p>
 <p><strong>Solution</strong>: Optional OpenTelemetry integration with graceful degradation. Tracing is installed via <code>--extra tracing</code> and enabled via environment variable.</p>
 <p><strong>Implementation</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># In src/crackz/tracing/setup.py</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># In core/src/crackz/tracing/setup.py</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">crackz.tracing</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup_tracing</span><span class="p">,</span> <span class="n">is_tracing_enabled</span>
 
 <span class="c1"># Automatic instrumentation on setup</span>
@@ -3545,7 +3552,7 @@ uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </
 - Standard OpenTelemetry format (compatible with Jaeger, Zipkin, etc.)
 - Minimal performance overhead</p>
 <h3 id="8-result-aggregation-export-pattern">8. Result Aggregation &amp; Export Pattern<a class="headerlink" href="#8-result-aggregation-export-pattern" title="Permanent link">&para;</a></h3>
-<p><strong>Where</strong>: <code>src/crackz/ai/evaluation/reporter.py</code>, <code>src/crackz/report/generator.py</code></p>
+<p><strong>Where</strong>: <code>core/src/crackz/ai/evaluation/reporter.py</code>, <code>core/src/crackz/report/generator.py</code></p>
 <p><strong>Problem</strong>: Detection results need to be exported in multiple formats (JSON for APIs, CSV for analysis, DOCX for reports), but each format has different requirements.</p>
 <p><strong>Solution</strong>: Separate aggregation (collect results) from export (format results). Use adapter pattern for format-specific exporters.</p>
 <p><strong>Implementation</strong>:</p>
@@ -3590,7 +3597,7 @@ uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </
 - Format-specific optimization (JSON compact, DOCX rich)
 - Testable (mock exporters)</p>
 <h3 id="9-device-abstraction-pattern">9. Device Abstraction Pattern<a class="headerlink" href="#9-device-abstraction-pattern" title="Permanent link">&para;</a></h3>
-<p><strong>Where</strong>: <code>src/crackz/ai/device/device.py</code></p>
+<p><strong>Where</strong>: <code>core/src/crackz/ai/device/device.py</code></p>
 <p><strong>Problem</strong>: PyTorch supports multiple accelerators (CUDA, MPS, XLA, CPU) but detection logic differs per platform. Hard-coding <code>torch.device("cuda")</code> breaks on Mac/TPU.</p>
 <p><strong>Solution</strong>: Enum-based device abstraction with auto-detection and priority-based selection (CUDA &gt; MPS &gt; CPU).</p>
 <p><strong>Implementation</strong>:</p>
@@ -3623,7 +3630,7 @@ uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </
 - Testable (mock torch.cuda.is_available())
 - Extensible (add new accelerators via enum)</p>
 <h3 id="10-severity-classification-pattern">10. Severity Classification Pattern<a class="headerlink" href="#10-severity-classification-pattern" title="Permanent link">&para;</a></h3>
-<p><strong>Where</strong>: <code>src/crackz/ai/detection/severity.py</code></p>
+<p><strong>Where</strong>: <code>core/src/crackz/ai/detection/severity.py</code></p>
 <p><strong>Problem</strong>: Detection confidence alone doesn't convey risk to users. A 3% crack area might be critical for harbor walls but negligible for a test image.</p>
 <p><strong>Solution</strong>: Threshold-based categorization with configurable thresholds. Single source of truth function prevents inconsistent categorization.</p>
 <p><strong>Implementation</strong>:</p>
@@ -3665,7 +3672,7 @@ uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </
 <p><strong>Problem</strong>: CLI options duplicated across commands.</p>
 <p><strong>Solution</strong>: Define options once, import everywhere.</p>
 <p><strong>Implementation</strong>:
-<div class="highlight"><pre><span></span><code><span class="c1"># src/crackz/cli/options.py</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># core/src/crackz/cli/options.py</span>
 <span class="n">PROJECT_PATH_OPTION</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span>
     <span class="kc">None</span><span class="p">,</span>
     <span class="s2">&quot;--project&quot;</span><span class="p">,</span>
@@ -3678,7 +3685,7 @@ uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Force operation without confirmation&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># src/crackz/cli/some_command.py</span>
+<span class="c1"># core/src/crackz/cli/some_command.py</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">crackz.cli.options</span><span class="w"> </span><span class="kn">import</span> <span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span> <span class="n">FORCE_OPTION</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">my_command</span><span class="p">(</span>
@@ -3950,7 +3957,7 @@ uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </
                    Tests: 80% (570 tests)
 </code></pre></div>
 <h3 id="test-structure">Test Structure<a class="headerlink" href="#test-structure" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>tests/
+<div class="highlight"><pre><span></span><code>core/tests/
 ├── unit/                    # Fast, isolated, no I/O
 │   └── crackz/
 │       ├── ai/
@@ -3968,6 +3975,10 @@ uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </
     │   └── test_training_pipeline.py # Full training
     └── docs/
         └── test_docs_build.py      # Documentation build
+
+gui/tests/
+├── unit/                    # GUI unit tests
+└── integration/             # GUI integration tests
 </code></pre></div>
 <h3 id="test-patterns">Test Patterns<a class="headerlink" href="#test-patterns" title="Permanent link">&para;</a></h3>
 <h4 id="unit-test-pattern">Unit Test Pattern<a class="headerlink" href="#unit-test-pattern" title="Permanent link">&para;</a></h4>
@@ -4010,7 +4021,7 @@ uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </
     <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">mean</span> <span class="o">&lt;</span> <span class="mf">5.0</span>
 </code></pre></div>
 <h3 id="test-fixtures">Test Fixtures<a class="headerlink" href="#test-fixtures" title="Permanent link">&para;</a></h3>
-<p><strong>Location</strong>: <code>tests/conftest.py</code> for shared fixtures</p>
+<p><strong>Location</strong>: <code>core/tests/conftest.py</code> for shared fixtures</p>
 <p><strong>Pattern</strong>:
 <div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">tiny_model</span><span class="p">():</span>
@@ -4145,7 +4156,7 @@ uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </
 <h2 id="extending-the-architecture">Extending the Architecture<a class="headerlink" href="#extending-the-architecture" title="Permanent link">&para;</a></h2>
 <h3 id="adding-a-new-cli-command">Adding a New CLI Command<a class="headerlink" href="#adding-a-new-cli-command" title="Permanent link">&para;</a></h3>
 <ol>
-<li><strong>Create command module</strong>: <code>src/crackz/cli/my_command.py</code></li>
+<li><strong>Create command module</strong>: <code>core/src/crackz/cli/my_command.py</code></li>
 <li><strong>Follow the command pattern</strong>:
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -4169,13 +4180,13 @@ uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="n">cli_failure</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s2">&quot;Operation name&quot;</span><span class="p">)</span>
 </code></pre></div></li>
-<li><strong>Register in main CLI</strong>: <code>src/crackz/cli/main.py</code></li>
-<li><strong>Add tests</strong>: <code>tests/unit/crackz/cli/test_my_command.py</code></li>
+<li><strong>Register in main CLI</strong>: <code>core/src/crackz/cli/main.py</code></li>
+<li><strong>Add tests</strong>: <code>core/tests/unit/crackz/cli/test_my_command.py</code></li>
 <li><strong>Update docs</strong>: Add to CLI reference</li>
 </ol>
 <h3 id="adding-a-new-configuration-section">Adding a New Configuration Section<a class="headerlink" href="#adding-a-new-configuration-section" title="Permanent link">&para;</a></h3>
 <ol>
-<li><strong>Create Pydantic model</strong>: <code>src/crackz/config/my_feature.py</code>
+<li><strong>Create Pydantic model</strong>: <code>core/src/crackz/config/my_feature.py</code>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">MyFeatureConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
@@ -4191,18 +4202,18 @@ uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Feature option&quot;</span><span class="p">,</span>
     <span class="p">)</span>
 </code></pre></div></li>
-<li><strong>Add to ProjectConfig</strong>: <code>src/crackz/config/project.py</code>
+<li><strong>Add to ProjectConfig</strong>: <code>core/src/crackz/config/project.py</code>
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ProjectConfig</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="c1"># ... existing fields ...</span>
     <span class="n">my_feature</span><span class="p">:</span> <span class="n">MyFeatureConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">MyFeatureConfig</span><span class="p">)</span>
 </code></pre></div></li>
-<li><strong>Add migration if breaking</strong>: <code>src/crackz/project/migrations.py</code></li>
+<li><strong>Add migration if breaking</strong>: <code>core/src/crackz/project/migrations.py</code></li>
 <li><strong>Update schema version</strong> if needed</li>
 <li><strong>Add tests</strong>: Config validation, serialization, migration</li>
 </ol>
 <h3 id="adding-a-new-ai-model-type">Adding a New AI Model Type<a class="headerlink" href="#adding-a-new-ai-model-type" title="Permanent link">&para;</a></h3>
 <ol>
-<li><strong>Create model module</strong>: <code>src/crackz/ai/models/my_model.py</code></li>
+<li><strong>Create model module</strong>: <code>core/src/crackz/ai/models/my_model.py</code></li>
 <li><strong>Implement model interface</strong>:
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MyCustomModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">ModelConfig</span><span class="p">):</span>
@@ -4219,7 +4230,7 @@ uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </
         <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
             <span class="k">return</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </code></pre></div></li>
-<li><strong>Register in factory</strong>: <code>src/crackz/ai/models/__init__.py</code>
+<li><strong>Register in factory</strong>: <code>core/src/crackz/ai/models/__init__.py</code>
 <div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_model</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">ModelConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;segmentation&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">create_segmentation_model</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
@@ -4228,12 +4239,12 @@ uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown model type: </span><span class="si">{</span><span class="n">config</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div></li>
-<li><strong>Add configuration</strong>: <code>src/crackz/config/ai.py</code></li>
+<li><strong>Add configuration</strong>: <code>core/src/crackz/config/ai.py</code></li>
 <li><strong>Add tests</strong>: Model creation, forward pass, prediction</li>
 </ol>
 <h3 id="adding-a-new-detection-strategy">Adding a New Detection Strategy<a class="headerlink" href="#adding-a-new-detection-strategy" title="Permanent link">&para;</a></h3>
 <ol>
-<li><strong>Create strategy module</strong>: <code>src/crackz/ai/detection/my_strategy.py</code></li>
+<li><strong>Create strategy module</strong>: <code>core/src/crackz/ai/detection/my_strategy.py</code></li>
 <li><strong>Implement protocol</strong>:
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MyDetectionStrategy</span><span class="p">:</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">DetectionConfig</span><span class="p">):</span>
@@ -4248,8 +4259,8 @@ uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </
             <span class="n">results</span><span class="p">[</span><span class="n">image_path</span><span class="p">]</span> <span class="o">=</span> <span class="n">mask</span>
         <span class="k">return</span> <span class="n">results</span>
 </code></pre></div></li>
-<li><strong>Register strategy</strong>: <code>src/crackz/ai/detection/__init__.py</code></li>
-<li><strong>Add configuration option</strong>: <code>src/crackz/config/ai.py</code></li>
+<li><strong>Register strategy</strong>: <code>core/src/crackz/ai/detection/__init__.py</code></li>
+<li><strong>Add configuration option</strong>: <code>core/src/crackz/config/ai.py</code></li>
 <li><strong>Add tests</strong>: Strategy execution, result format</li>
 </ol>
 <hr />
@@ -4257,7 +4268,7 @@ uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </
 <h3 id="related-documentation">Related Documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h3>
 <ul>
 <li><a href="../architecture/">architecture.md</a> - System architecture overview</li>
-<li><a href="../02-decisions/">02-decisions.md</a> - Architecture Decision Records (ADRs)</li>
+<li><a href="../internal/adr/02-decisions/">internal/adr/02-decisions.md</a> - Architecture Decision Records (ADRs)</li>
 <li><a href="../contributing/">contributing.md</a> - Contribution guidelines and development standards</li>
 <li><a href="../01-scope/">01-scope.md</a> - Project scope, goals, and constraints</li>
 </ul>

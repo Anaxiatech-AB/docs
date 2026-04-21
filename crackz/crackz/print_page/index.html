@@ -98,7 +98,7 @@ table th { background:#f1f5f9; color:#111827; }
   
   <h1>Crackz Documentation</h1>
   <h2>AI Image Analysis</h2>
-  <p class='version'>Version: n/a</p>
+  <p class='version'>Version: 0.69.0</p>
   <p class='company'>© 2026 Anaxiatech AB</p>
 </section>
 <hr class='page-sep'/>
@@ -9960,6 +9960,142 @@ Last updated: 2025-11-06</p>
 - <code>gui/</code> owns the desktop application and depends on <code>core/</code>
 - Both are installed together via <code>uv sync --dev</code> from the workspace root
 - Import paths: <code>from crackz.ai import ...</code> (core), <code>from crackz_gui.qt import ...</code> (GUI)</p>
+<hr />
+<h2 id="module-layer-architecture">Module Layer Architecture<a class="headerlink" href="#module-layer-architecture" title="Permanent link">&para;</a></h2>
+<p>Crackz follows a strict <strong>four-layer architecture</strong> where dependencies only flow downward.
+Upper layers may depend on lower layers — never the reverse.</p>
+<div class="highlight"><pre><span></span><code>┌──────────────────────────────────────────────────────────┐
+│  Layer 4 – Presentation / Entry Points                   │
+│  crackz.cli · crackz_gui · crackz.dashboard              │
+├──────────────────────────────────────────────────────────┤
+│  Layer 3 – Application Façade                            │
+│  crackz.app                                              │
+├──────────────────────────────────────────────────────────┤
+│  Layer 2 – Domain / Business Logic                       │
+│  crackz.ai · crackz.project · crackz.report              │
+├──────────────────────────────────────────────────────────┤
+│  Layer 1 – Infrastructure / Support                      │
+│  crackz.config · crackz.log · crackz.tracing · crackz.util │
+└──────────────────────────────────────────────────────────┘
+</code></pre></div>
+<pre class="mermaid"><code>graph TD
+  subgraph L4["Layer 4 – Presentation"]
+    CLI["crackz.cli"]
+    GUI["crackz_gui"]
+    DASH["crackz.dashboard"]
+  end
+  subgraph L3["Layer 3 – Application Façade"]
+    APP["crackz.app"]
+  end
+  subgraph L2["Layer 2 – Domain"]
+    AI["crackz.ai"]
+    PROJECT["crackz.project"]
+    REPORT["crackz.report"]
+  end
+  subgraph L1["Layer 1 – Infrastructure"]
+    CONFIG["crackz.config"]
+    LOG["crackz.log"]
+    TRACING["crackz.tracing"]
+    UTIL["crackz.util"]
+  end
+
+  CLI --&gt; APP
+  GUI --&gt; APP
+  DASH --&gt; APP
+  APP --&gt; AI
+  APP --&gt; PROJECT
+  APP --&gt; REPORT
+  AI --&gt; CONFIG
+  AI --&gt; LOG
+  AI --&gt; UTIL
+  PROJECT --&gt; CONFIG
+  PROJECT --&gt; LOG
+  PROJECT --&gt; UTIL
+  REPORT --&gt; CONFIG
+  REPORT --&gt; LOG
+  CONFIG --&gt; LOG
+  CONFIG --&gt; UTIL</code></pre>
+<h3 id="layer-rules">Layer Rules<a class="headerlink" href="#layer-rules" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Module</th>
+<th>May import from</th>
+<th>May NOT import from</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4 – Presentation</td>
+<td><code>crackz.cli</code></td>
+<td>L3, L2, L1, <code>crackz_gui</code>, <code>crackz.dashboard</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>4 – Presentation</td>
+<td><code>crackz_gui</code></td>
+<td>L3, L2, L1, <code>crackz.dashboard</code></td>
+<td><code>crackz.cli</code></td>
+</tr>
+<tr>
+<td>4 – Presentation</td>
+<td><code>crackz.dashboard</code></td>
+<td>L3, L2, L1</td>
+<td><code>crackz.cli</code>, <code>crackz_gui</code></td>
+</tr>
+<tr>
+<td>3 – Façade</td>
+<td><code>crackz.app</code></td>
+<td>L2, L1</td>
+<td>L4</td>
+</tr>
+<tr>
+<td>2 – Domain</td>
+<td><code>crackz.ai</code></td>
+<td>L1</td>
+<td>L3, L4</td>
+</tr>
+<tr>
+<td>2 – Domain</td>
+<td><code>crackz.project</code></td>
+<td>L1</td>
+<td>L3, L4</td>
+</tr>
+<tr>
+<td>2 – Domain</td>
+<td><code>crackz.report</code></td>
+<td>L1</td>
+<td>L3, L4</td>
+</tr>
+<tr>
+<td>1 – Infrastructure</td>
+<td><code>crackz.config</code></td>
+<td><code>crackz.project</code>, <code>crackz.log</code>, <code>crackz.util</code></td>
+<td><code>crackz.ai</code>, <code>crackz.report</code>, L3, L4</td>
+</tr>
+<tr>
+<td>1 – Infrastructure</td>
+<td><code>crackz.log</code></td>
+<td>—</td>
+<td>everything else</td>
+</tr>
+<tr>
+<td>1 – Infrastructure</td>
+<td><code>crackz.tracing</code></td>
+<td><code>crackz.log</code></td>
+<td>L2, L3, L4</td>
+</tr>
+<tr>
+<td>1 – Infrastructure</td>
+<td><code>crackz.util</code></td>
+<td><code>crackz.log</code></td>
+<td>everything else</td>
+</tr>
+</tbody>
+</table>
+<p>These rules are enforced automatically by <strong>import-linter</strong> (<code>.importlinter</code>) and
+<code>scripts/check_architecture.py</code>, both run as part of <code>uv run task pre_commit</code> and CI.</p>
 <hr />
 <h2 id="high-level-overview">High-Level Overview<a class="headerlink" href="#high-level-overview" title="Permanent link">&para;</a></h2>
 <p>Crackz consists of two user-facing entry points sharing a common core library:

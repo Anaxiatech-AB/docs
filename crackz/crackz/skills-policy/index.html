@@ -23,7 +23,7 @@
     
     
       
-        <title>Agent Playbook - Crackz</title>
+        <title>Skills Policy - Crackz</title>
       
     
     
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Agent Playbook
+              Skills Policy
             
           </span>
         </div>
@@ -1592,10 +1592,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quick-start" class="md-nav__link">
+  <a href="#repo-level-skills" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Start
+        Repo-Level Skills
       
     </span>
   </a>
@@ -1603,10 +1603,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-standards" class="md-nav__link">
+  <a href="#user-level-skills" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Project Standards
+        User-Level Skills
       
     </span>
   </a>
@@ -1614,10 +1614,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#git-workflow-default" class="md-nav__link">
+  <a href="#design-rules" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Git Workflow Default
+        Design Rules
       
     </span>
   </a>
@@ -1625,10 +1625,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#worktrees" class="md-nav__link">
+  <a href="#update-rules" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Worktrees
+        Update Rules
       
     </span>
   </a>
@@ -1636,115 +1636,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#protected-files" class="md-nav__link">
+  <a href="#default-recommendation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Protected Files
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#validation-ladder" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Validation Ladder
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#push-readiness" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Push Readiness
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#role-map" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Role Map
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#repo-vs-user-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Repo Vs User Level
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#effective-setup-by-agent" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Effective Setup By Agent
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Effective Setup By Agent">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#codex" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Codex
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#github-copilot" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GitHub Copilot
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#claude-code" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Claude Code
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#default-operating-style" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Default Operating Style
+        Default Recommendation
       
     </span>
   </a>
@@ -1771,131 +1666,66 @@
   
 
 
-<h1 id="agent-playbook">Agent Playbook<a class="headerlink" href="#agent-playbook" title="Permanent link">&para;</a></h1>
-<p>Shared repo-level guidance for Codex, GitHub Copilot, and Claude Code in Crackz.</p>
+<h1 id="skills-policy">Skills Policy<a class="headerlink" href="#skills-policy" title="Permanent link">&para;</a></h1>
+<p>This file defines how Crackz should use agent skills.</p>
 <h2 id="goal">Goal<a class="headerlink" href="#goal" title="Permanent link">&para;</a></h2>
-<p>Keep project guidance in the repository and keep user-level configuration personal.
-Use this file as the source of truth for project-specific agent behavior.</p>
-<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
-<p>Read in this order unless the task is extremely narrow:</p>
+<p>Keep repo skills sparse, project-specific, and high-signal.
+Do not use the repository as a dumping ground for generic skills that are equally useful in unrelated codebases.</p>
+<h2 id="repo-level-skills">Repo-Level Skills<a class="headerlink" href="#repo-level-skills" title="Permanent link">&para;</a></h2>
+<p>A skill belongs in <code>.agents/skills</code> only if at least one of these is true:</p>
+<ul>
+<li>it encodes Crackz-specific workflows or conventions</li>
+<li>it reflects a recurring role in this repository</li>
+<li>it reduces repeated reading of Crackz-specific docs or architecture</li>
+<li>it improves consistency across Codex, Copilot, and Claude for this repository</li>
+</ul>
+<p>Current preferred Crackz repo skills:</p>
+<ul>
+<li><code>crackz</code></li>
+<li><code>crackz-developer</code></li>
+<li><code>crackz-reviewer</code></li>
+<li><code>crackz-docs-writer</code></li>
+<li><code>crackz-docker-specialist</code></li>
+<li><code>crackz-pytorch-expert</code></li>
+</ul>
+<h2 id="user-level-skills">User-Level Skills<a class="headerlink" href="#user-level-skills" title="Permanent link">&para;</a></h2>
+<p>Keep these outside the repository:</p>
+<ul>
+<li>generic Python skills</li>
+<li>generic DevOps or Git skills</li>
+<li>personal workflow helpers</li>
+<li>plugin-provided skills</li>
+<li>auth, permissions, or machine-specific behavior</li>
+</ul>
+<p>These belong in user scope such as <code>~/.copilot/skills</code>, <code>~/.codex/skills</code>, or tool-specific plugin systems.</p>
+<h2 id="design-rules">Design Rules<a class="headerlink" href="#design-rules" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Prefer a few strong skills over many narrow ones.</li>
+<li>Default to one repository-wide entry skill plus a small number of role skills.</li>
+<li>Keep <code>SKILL.md</code> concise and point to shared docs instead of duplicating large guidance blocks.</li>
+<li>Reuse <code>docs/agent-playbook.md</code> as the main shared reference.</li>
+<li>If a skill would make sense in many repos, it probably should not live in Crackz.</li>
+</ul>
+<h2 id="update-rules">Update Rules<a class="headerlink" href="#update-rules" title="Permanent link">&para;</a></h2>
+<p>When adding a repo skill:</p>
 <ol>
-<li><code>CONTEXT.md</code></li>
-<li><code>PLAYBOOK.md</code></li>
-<li>This file</li>
-<li>Relevant focused docs:</li>
-<li><code>docs/architecture-guidelines.md</code></li>
-<li><code>docs/02-decisions.md</code></li>
-<li><code>docs/03-tasks.md</code></li>
-<li><code>PRODUCT_ROADMAP.md</code></li>
+<li>Confirm the behavior is Crackz-specific.</li>
+<li>Keep the description explicit enough to trigger only for matching tasks.</li>
+<li>Keep the body short and point to the playbook or focused docs.</li>
+<li>Avoid overlapping heavily with another Crackz skill unless one is intentionally broader.</li>
 </ol>
-<h2 id="project-standards">Project Standards<a class="headerlink" href="#project-standards" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Use Python 3.13 conventions already present in the repo.</li>
-<li>Use <code>uv</code> for package management and execution. Do not use <code>pip</code> or <code>conda</code>.</li>
-<li>Use <code>uv run task ...</code> for standard workflows where a task exists.</li>
-<li>Use <code>typer.secho()</code> for end-user CLI output and <code>logger</code> from <code>crackz.log</code> for technical output.</li>
-<li>Reuse centralized CLI options from <code>core/src/crackz/cli/options.py</code>.</li>
-<li>Use <code>pathlib.Path</code> and keep code/tests platform-agnostic.</li>
-<li>Prefer minimal, focused changes over broad refactors.</li>
-<li>Add or update tests when behavior changes.</li>
-</ul>
-<h2 id="git-workflow-default">Git Workflow Default<a class="headerlink" href="#git-workflow-default" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Default to working on a branch and opening a pull request.</li>
-<li>Do not commit directly to <code>main</code> unless the user explicitly instructs you to do so.</li>
-<li>When addressing PR feedback or follow-up fixes, continue working on the same branch associated with that PR unless the user explicitly asks to use a different branch.</li>
-<li>Treat direct pushes to <code>main</code> as an exception that requires explicit user instruction.</li>
-</ul>
-<h2 id="worktrees">Worktrees<a class="headerlink" href="#worktrees" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Prefer a separate git worktree when it helps keep unrelated local changes untouched.</li>
-<li>Use a worktree for parallel branch work, PR follow-up fixes, or review tasks that should not disturb the current working tree.</li>
-<li>Do not create a worktree by default; use one when it clearly reduces risk, context switching, or branch confusion.</li>
-<li>If using a worktree, keep ownership clear: one branch per worktree, and do not mix unrelated tasks in the same worktree.</li>
-</ul>
-<h2 id="protected-files">Protected Files<a class="headerlink" href="#protected-files" title="Permanent link">&para;</a></h2>
-<p>Treat these as protected unless the task explicitly requires changing them:</p>
-<ul>
-<li><code>.env</code></li>
-<li><code>uv.lock</code></li>
-<li><code>.pre-commit-config*</code></li>
-</ul>
-<h2 id="validation-ladder">Validation Ladder<a class="headerlink" href="#validation-ladder" title="Permanent link">&para;</a></h2>
-<p>Run the smallest relevant checks first.</p>
+<p>When removing a repo skill:</p>
 <ol>
-<li>Targeted lint/format for touched Python files:</li>
-<li><code>uv run ruff check --fix &lt;path&gt;</code></li>
-<li><code>uv run ruff format &lt;path&gt;</code></li>
-<li>Targeted type check when signatures or public APIs changed:</li>
-<li><code>uv run mypy &lt;path&gt;</code></li>
-<li>Targeted tests for changed behavior:</li>
-<li><code>uv run pytest &lt;test&gt;</code></li>
-<li>Broader tasks only when warranted:</li>
-<li><code>uv run task tests</code></li>
-<li><code>uv run task integration</code></li>
-<li><code>uv run task build_docs</code></li>
+<li>Prefer removing generic skills before removing Crackz-specific ones.</li>
+<li>Verify the behavior still exists through user-level or plugin-level skills if it is still needed.</li>
 </ol>
-<h2 id="push-readiness">Push Readiness<a class="headerlink" href="#push-readiness" title="Permanent link">&para;</a></h2>
+<h2 id="default-recommendation">Default Recommendation<a class="headerlink" href="#default-recommendation" title="Permanent link">&para;</a></h2>
+<p>For Crackz, prefer:</p>
 <ul>
-<li>Before pushing, run the smallest relevant validation for the change using the Validation Ladder.</li>
-<li>This typically includes targeted Ruff checks and formatting, targeted mypy when signatures or public APIs changed, and the appropriate unit tests for affected behavior.</li>
-<li>Do not push changes that have not been validated at an appropriate scope unless the user explicitly instructs you to do so.</li>
+<li>one broad entry skill: <code>crackz</code></li>
+<li>a handful of role skills for implementation, review, docs, Docker, and ML</li>
 </ul>
-<h2 id="role-map">Role Map<a class="headerlink" href="#role-map" title="Permanent link">&para;</a></h2>
-<p>Use the Crackz-specific repo skills in <code>.agents/skills</code> when the task clearly matches:</p>
-<ul>
-<li><code>crackz</code>: default entry skill for general Crackz repository work</li>
-<li><code>crackz-developer</code>: general implementation, bug fixes, and small refactors</li>
-<li><code>crackz-reviewer</code>: focused review for bugs, regressions, and missing tests</li>
-<li><code>crackz-docs-writer</code>: docs and docstring work</li>
-<li><code>crackz-docker-specialist</code>: Dockerfiles, image variants, registry/CI container work</li>
-<li><code>crackz-pytorch-expert</code>: training, inference, metrics, and model pipeline work</li>
-</ul>
-<h2 id="repo-vs-user-level">Repo Vs User Level<a class="headerlink" href="#repo-vs-user-level" title="Permanent link">&para;</a></h2>
-<p>Keep these in the repository:</p>
-<ul>
-<li>Project conventions and coding rules</li>
-<li>Crackz-specific workflows</li>
-<li>Role-specific skills tied to this codebase</li>
-<li>Shared references and architecture context</li>
-</ul>
-<p>Keep these at user level:</p>
-<ul>
-<li>Personal trust settings</li>
-<li>Local permissions and command allowlists</li>
-<li>Personal plugins/connectors</li>
-<li>Generic cross-repo skills you want everywhere</li>
-<li>Secrets, tokens, auth state, machine-specific paths</li>
-</ul>
-<h2 id="effective-setup-by-agent">Effective Setup By Agent<a class="headerlink" href="#effective-setup-by-agent" title="Permanent link">&para;</a></h2>
-<h3 id="codex">Codex<a class="headerlink" href="#codex" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Reads <code>AGENTS.md</code></li>
-<li>Uses repo skills from <code>.agents/skills</code></li>
-<li>May also use personal skills from <code>~/.codex/skills</code></li>
-</ul>
-<h3 id="github-copilot">GitHub Copilot<a class="headerlink" href="#github-copilot" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Reads <code>.github/copilot-instructions.md</code></li>
-<li>Uses repo skills from <code>.agents/skills</code></li>
-<li>Uses personal skills from <code>~/.copilot/skills</code></li>
-</ul>
-<h3 id="claude-code">Claude Code<a class="headerlink" href="#claude-code" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Reads <code>CLAUDE.md</code></li>
-<li>Uses Claude-specific repo config in <code>.claude/</code></li>
-<li>May also use user settings in <code>~/.claude/</code></li>
-</ul>
-<p>Claude supports extra repo-local hooks and agent definitions. Those are useful, but they are not portable. For Codex and Copilot, prefer expressing the same behavior in repo docs and repo skills.</p>
-<h2 id="default-operating-style">Default Operating Style<a class="headerlink" href="#default-operating-style" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Read only the files needed for the task plus nearby interfaces.</li>
-<li>Avoid full-repo scans unless the task actually requires them.</li>
-<li>Do not change unrelated files.</li>
-<li>Prefer direct execution over long planning for small tasks.</li>
-<li>For larger tasks, make a short plan and then execute.</li>
-<li>Summaries should be concise and include changed files, why they changed, and what was verified.</li>
-</ul>
+<p>Avoid maintaining a large in-repo taxonomy of generic engineering skills.</p>
 
 
 

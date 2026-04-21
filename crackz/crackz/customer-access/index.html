@@ -3211,7 +3211,7 @@ pip<span class="w"> </span>install<span class="w"> </span>crackz-*.whl
 </code></pre></div></p>
 <p><strong>Step 2: Authenticate Docker</strong>
 <div class="highlight"><pre><span></span><code><span class="c1"># Customer runs this once</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">CR_PAT</span><span class="o">=</span>ghp_xxxxxxxxxxxxxxxxxxxx<span class="w">  </span><span class="c1"># Their PAT</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CR_PAT</span><span class="o">=</span>ghp_xxxxxxxxxxxxxxxxxxxx<span class="w">  </span><span class="c1"># Their PAT # gitleaks:allow</span>
 <span class="nb">echo</span><span class="w"> </span><span class="nv">$CR_PAT</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>docker<span class="w"> </span>login<span class="w"> </span>ghcr.io<span class="w"> </span>-u<span class="w"> </span>GITHUB_USERNAME<span class="w"> </span>--password-stdin
 
 <span class="c1"># Now they can pull</span>
@@ -3265,7 +3265,7 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 
 <span class="nt">PRIVATE_INDEX_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://pkgs.dev.azure.com/YOUR-ORG/_packaging/crackz-packages/pypi/upload</span>
 <span class="nt">PRIVATE_INDEX_USER</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">azure</span>
-<span class="nt">PRIVATE_INDEX_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;Azure-PAT-with-Packaging-Write-scope&gt;</span>
+<span class="nt">PRIVATE_INDEX_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;Azure-PAT-with-Packaging-Write-scope&gt;</span><span class="w"> </span><span class="c1"># gitleaks:allow</span>
 </code></pre></div></p>
 <p>Now the <code>publish-release.yml</code> workflow will automatically publish to Azure Artifacts!</p>
 <h4 id="customer-setup-azure-artifacts">Customer Setup (Azure Artifacts)<a class="headerlink" href="#customer-setup-azure-artifacts" title="Permanent link">&para;</a></h4>
@@ -3313,7 +3313,7 @@ devpi-server<span class="w"> </span>--start<span class="w"> </span>--host<span c
 
 <span class="c1"># Create user for yourself</span>
 devpi<span class="w"> </span>use<span class="w"> </span>http://localhost:3141
-devpi<span class="w"> </span>user<span class="w"> </span>-c<span class="w"> </span>admin<span class="w"> </span><span class="nv">password</span><span class="o">=</span>SECRET
+devpi<span class="w"> </span>user<span class="w"> </span>-c<span class="w"> </span>admin<span class="w"> </span><span class="nv">password</span><span class="o">=</span>SECRET<span class="w"> </span><span class="c1"># gitleaks:allow</span>
 
 <span class="c1"># Create index</span>
 devpi<span class="w"> </span>index<span class="w"> </span>-c<span class="w"> </span>crackz<span class="w"> </span><span class="nv">bases</span><span class="o">=</span>root/pypi
@@ -3325,7 +3325,7 @@ pip<span class="w"> </span>install<span class="w"> </span>devpi-client
 
 <span class="c1"># Login</span>
 devpi<span class="w"> </span>use<span class="w"> </span>http://YOUR-SERVER:3141
-devpi<span class="w"> </span>login<span class="w"> </span>admin<span class="w"> </span>--password<span class="o">=</span>SECRET
+devpi<span class="w"> </span>login<span class="w"> </span>admin<span class="w"> </span>--password<span class="o">=</span>SECRET<span class="w"> </span><span class="c1"># gitleaks:allow</span>
 devpi<span class="w"> </span>use<span class="w"> </span>admin/crackz
 
 <span class="c1"># Upload wheel</span>

@@ -2267,7 +2267,7 @@ pip<span class="w"> </span>install<span class="w"> </span>crackz-0.30.2-py3-none
 </code></pre></div></p>
 <p><strong>Method 2: Using GitHub API with token (for private repos)</strong>
 <div class="highlight"><pre><span></span><code><span class="c1"># Set GitHub token</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">GITHUB_TOKEN</span><span class="o">=</span><span class="s2">&quot;ghp_xxxxxxxxxxxx&quot;</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">GITHUB_TOKEN</span><span class="o">=</span><span class="s2">&quot;ghp_xxxxxxxxxxxx&quot;</span><span class="w"> </span><span class="c1"># gitleaks:allow</span>
 
 <span class="c1"># Download using gh CLI</span>
 gh<span class="w"> </span>release<span class="w"> </span>download<span class="w"> </span>v0.30.2<span class="w"> </span>--pattern<span class="w"> </span><span class="s1">&#39;*.whl&#39;</span><span class="w"> </span>--repo<span class="w"> </span>OWNER/REPO

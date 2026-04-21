@@ -1658,6 +1658,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#push-readiness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Push Readiness
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#role-map" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1824,6 +1835,12 @@ Use this file as the source of truth for project-specific agent behavior.</p>
 <li><code>uv run task integration</code></li>
 <li><code>uv run task build_docs</code></li>
 </ol>
+<h2 id="push-readiness">Push Readiness<a class="headerlink" href="#push-readiness" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Before pushing, run the smallest relevant validation for the change using the Validation Ladder.</li>
+<li>This typically includes targeted Ruff checks and formatting, targeted mypy when signatures or public APIs changed, and the appropriate unit tests for affected behavior.</li>
+<li>Do not push changes that have not been validated at an appropriate scope unless the user explicitly instructs you to do so.</li>
+</ul>
 <h2 id="role-map">Role Map<a class="headerlink" href="#role-map" title="Permanent link">&para;</a></h2>
 <p>Use the Crackz-specific repo skills in <code>.agents/skills</code> when the task clearly matches:</p>
 <ul>

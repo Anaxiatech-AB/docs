@@ -1614,6 +1614,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#git-workflow-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Git Workflow Default
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worktrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Worktrees
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#protected-files" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1765,6 +1787,20 @@ Use this file as the source of truth for project-specific agent behavior.</p>
 <li>Use <code>pathlib.Path</code> and keep code/tests platform-agnostic.</li>
 <li>Prefer minimal, focused changes over broad refactors.</li>
 <li>Add or update tests when behavior changes.</li>
+</ul>
+<h2 id="git-workflow-default">Git Workflow Default<a class="headerlink" href="#git-workflow-default" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Default to working on a branch and opening a pull request.</li>
+<li>Do not commit directly to <code>main</code> unless the user explicitly instructs you to do so.</li>
+<li>When addressing PR feedback or follow-up fixes, continue working on the same branch associated with that PR unless the user explicitly asks to use a different branch.</li>
+<li>Treat direct pushes to <code>main</code> as an exception that requires explicit user instruction.</li>
+</ul>
+<h2 id="worktrees">Worktrees<a class="headerlink" href="#worktrees" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Prefer a separate git worktree when it helps keep unrelated local changes untouched.</li>
+<li>Use a worktree for parallel branch work, PR follow-up fixes, or review tasks that should not disturb the current working tree.</li>
+<li>Do not create a worktree by default; use one when it clearly reduces risk, context switching, or branch confusion.</li>
+<li>If using a worktree, keep ownership clear: one branch per worktree, and do not mix unrelated tasks in the same worktree.</li>
 </ul>
 <h2 id="protected-files">Protected Files<a class="headerlink" href="#protected-files" title="Permanent link">&para;</a></h2>
 <p>Treat these as protected unless the task explicitly requires changing them:</p>

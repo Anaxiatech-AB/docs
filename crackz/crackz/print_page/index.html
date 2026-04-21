@@ -9671,7 +9671,23 @@ Last updated: 2025-11-06</p>
 <h2 id="backlog-prioritized">📋 Backlog (Prioritized)<a class="headerlink" href="#backlog-prioritized" title="Permanent link">&para;</a></h2>
 <h3 id="high-priority">High Priority 🔴<a class="headerlink" href="#high-priority" title="Permanent link">&para;</a></h3>
 <ul>
-<li>[ ] 🔴 <strong>Investigate push update solution</strong> (<a href="https://github.com/Anaxiatech-AB/crackz/issues/282">#282</a>)</li>
+<li>[ ] 🔴 <strong>User-defined multi-category defect segmentation</strong></li>
+<li>Context: Current project flow is still binary crack/no-crack; customers need category-aware segmentation for different defect or issue types in survey photos</li>
+<li>Acceptance:<ul>
+<li>Project annotation schema is persisted, editable, and migrated for existing crack-only projects</li>
+<li>Indexed mask load/save/validation works against the project category schema</li>
+<li>Multiclass training and evaluation persist category-aware metrics and checkpoint metadata</li>
+<li>Detection outputs category-aware result JSON and summaries</li>
+<li>GUI supports category editing, category-aware mask labeling, and category-aware result/gallery views</li>
+</ul>
+</li>
+<li>Plan: <code>docs/superpowers/plans/2026-04-21-multiclass-defect-segmentation.md</code></li>
+<li>
+<p>Estimated effort: Multi-phase feature</p>
+</li>
+<li>
+<p>[ ] 🔴 <strong>Investigate push update solution</strong> (<a href="https://github.com/Anaxiatech-AB/crackz/issues/282">#282</a>)</p>
+</li>
 <li>Context: Need continuous model improvement workflow</li>
 <li>Acceptance: Define push update mechanism for model improvements</li>
 <li>

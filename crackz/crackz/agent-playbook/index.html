@@ -1798,6 +1798,10 @@ Use this file as the source of truth for project-specific agent behavior.</p>
 <li>Use <code>pathlib.Path</code> and keep code/tests platform-agnostic.</li>
 <li>Prefer minimal, focused changes over broad refactors.</li>
 <li>Add or update tests when behavior changes.</li>
+<li><strong>Lazy imports in the GUI</strong>: heavy libraries (PIL, numpy, diskcache, torch) must be
+  imported inside the function or method that first needs them, never at module level in
+  GUI entry-point modules (<code>app.py</code>, <code>app_state.py</code>, views, panels). This keeps startup
+  fast. Use <code>TYPE_CHECKING</code> blocks for type annotations that reference these types.</li>
 </ul>
 <h2 id="git-workflow-default">Git Workflow Default<a class="headerlink" href="#git-workflow-default" title="Permanent link">&para;</a></h2>
 <ul>

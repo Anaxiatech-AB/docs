@@ -24869,7 +24869,12 @@ Random seed for reproducible splits (default: None for random).</p>
 <span class="normal">304</span>
 <span class="normal">305</span>
 <span class="normal">306</span>
-<span class="normal">307</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">import_images</span><span class="p">(</span>  <span class="c1"># noqa: C901, PLR0915</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">import_images</span><span class="p">(</span>  <span class="c1"># noqa: C901, PLR0915</span>
     <span class="n">cfg</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">CFG_OPTION</span><span class="p">,</span>
     <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span>
     <span class="n">source_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">SOURCE_PATH_OPTION</span><span class="p">,</span>
@@ -24983,7 +24988,12 @@ Random seed for reproducible splits (default: None for random).</p>
                 <span class="n">persisted_target_size</span> <span class="o">=</span> <span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="n">project</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">target_size</span> <span class="o">=</span> <span class="n">persisted_target_size</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">stored_target_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;target_size&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">1024</span><span class="p">)</span>
+            <span class="c1"># Use model input_size as primary source of truth; fall back to data.target_size then 1024</span>
+            <span class="n">model_size</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;input_size&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">model_size</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">model_size</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">model_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">model_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">stored_target_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">model_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">stored_target_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;target_size&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">1024</span><span class="p">)</span>
             <span class="n">persisted_target_size</span> <span class="o">=</span> <span class="n">stored_target_size</span>
             <span class="n">effective_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">stored_target_size</span><span class="p">,</span> <span class="n">stored_target_size</span><span class="p">)</span>
 

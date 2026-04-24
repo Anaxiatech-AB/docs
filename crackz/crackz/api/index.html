@@ -11996,7 +11996,35 @@ Restores model weights, optimizer state, and epoch counter.</p>
 <span class="normal">343</span>
 <span class="normal">344</span>
 <span class="normal">345</span>
-<span class="normal">346</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span>  <span class="c1"># noqa: C901, PLR0915, PLR0912</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span>
+<span class="normal">349</span>
+<span class="normal">350</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span>
+<span class="normal">373</span>
+<span class="normal">374</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span>  <span class="c1"># noqa: C901, PLR0915, PLR0912</span>
     <span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span>
     <span class="n">progress_reporter</span><span class="p">:</span> <span class="n">ProgressReporter</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">cancellation_token</span><span class="p">:</span> <span class="n">CancellationToken</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -12043,16 +12071,25 @@ Restores model weights, optimizer state, and epoch counter.</p>
             <span class="s2">&quot;Underwater augmentation pipeline enabled (input_size=</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="p">,</span>
             <span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">input_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
         <span class="p">)</span>
+    <span class="n">input_size</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">input_size</span><span class="p">)</span>
     <span class="n">train_ds</span> <span class="o">=</span> <span class="n">CrackzDataset</span><span class="p">(</span>
         <span class="n">image_dir</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">train_path</span><span class="p">,</span>
         <span class="n">image_mask_dir</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">train_mask_path</span><span class="p">,</span>
         <span class="n">aug_transform</span><span class="o">=</span><span class="n">aug_transform</span><span class="p">,</span>
+        <span class="n">input_size</span><span class="o">=</span><span class="n">input_size</span><span class="p">,</span>
         <span class="n">require_masks</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">val_ds</span> <span class="o">=</span> <span class="n">CrackzDataset</span><span class="p">(</span>
-        <span class="n">image_dir</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">val_path</span><span class="p">,</span> <span class="n">image_mask_dir</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">val_mask_path</span><span class="p">,</span> <span class="n">require_masks</span><span class="o">=</span><span class="kc">True</span>
+        <span class="n">image_dir</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">val_path</span><span class="p">,</span>
+        <span class="n">image_mask_dir</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">val_mask_path</span><span class="p">,</span>
+        <span class="n">input_size</span><span class="o">=</span><span class="n">input_size</span><span class="p">,</span>
+        <span class="n">require_masks</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">test_ds</span> <span class="o">=</span> <span class="n">CrackzDataset</span><span class="p">(</span><span class="n">image_dir</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">test_path</span><span class="p">,</span> <span class="n">image_mask_dir</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">test_mask_path</span><span class="p">)</span>
+    <span class="n">test_ds</span> <span class="o">=</span> <span class="n">CrackzDataset</span><span class="p">(</span>
+        <span class="n">image_dir</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">test_path</span><span class="p">,</span>
+        <span class="n">image_mask_dir</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">test_mask_path</span><span class="p">,</span>
+        <span class="n">input_size</span><span class="o">=</span><span class="n">input_size</span><span class="p">,</span>
+    <span class="p">)</span>
 
     <span class="c1"># Collect warnings about empty datasets</span>
     <span class="n">training_warnings</span> <span class="o">=</span> <span class="p">[]</span>
@@ -12218,9 +12255,8 @@ Restores model weights, optimizer state, and epoch counter.</p>
         <span class="o">**</span><span class="n">trainer_overrides_from_config</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">training</span><span class="p">),</span>
     <span class="p">)</span>
 
-    <span class="n">model</span> <span class="o">=</span> <span class="n">CrackzModel</span><span class="p">(</span>
-        <span class="n">config</span><span class="o">=</span><span class="n">CrackzConfig</span><span class="o">.</span><span class="n">from_project</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">learning_rate</span><span class="p">)</span>
-    <span class="p">)</span>
+    <span class="n">crackz_cfg</span> <span class="o">=</span> <span class="n">CrackzConfig</span><span class="o">.</span><span class="n">from_project</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">learning_rate</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="n">ckpt_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Resuming training from checkpoint: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ckpt_path</span><span class="p">)</span>
         <span class="c1"># PyTorch 2.6+ defaults weights_only=True; checkpoints saved with older versions</span>
@@ -12232,6 +12268,26 @@ Restores model weights, optimizer state, and epoch counter.</p>
         <span class="n">torch</span><span class="o">.</span><span class="n">serialization</span><span class="o">.</span><span class="n">add_safe_globals</span><span class="p">(</span>
             <span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">PurePosixPath</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">PureWindowsPath</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">PosixPath</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">WindowsPath</span><span class="p">]</span>
         <span class="p">)</span>
+
+        <span class="c1"># Ensure the model architecture matches the checkpoint to be resumed.</span>
+        <span class="c1"># If the checkpoint was trained with a different backbone, override the</span>
+        <span class="c1"># config so Lightning can load the state_dict without shape mismatches.</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">crackz.ai.model.checkpoints</span><span class="w"> </span><span class="kn">import</span> <span class="n">peek_checkpoint_backbone</span>
+
+        <span class="n">ckpt_backbone</span> <span class="o">=</span> <span class="n">peek_checkpoint_backbone</span><span class="p">(</span><span class="n">ckpt_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ckpt_backbone</span> <span class="ow">and</span> <span class="n">ckpt_backbone</span> <span class="o">!=</span> <span class="n">crackz_cfg</span><span class="o">.</span><span class="n">backbone</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;Resume checkpoint &#39;</span><span class="si">{}</span><span class="s2">&#39; was trained with backbone &#39;</span><span class="si">{}</span><span class="s2">&#39;; &quot;</span>
+                <span class="s2">&quot;project is configured for &#39;</span><span class="si">{}</span><span class="s2">&#39;. &quot;</span>
+                <span class="s2">&quot;Using checkpoint backbone &#39;</span><span class="si">{}</span><span class="s2">&#39; for this training run.&quot;</span><span class="p">,</span>
+                <span class="n">ckpt_path</span><span class="p">,</span>
+                <span class="n">ckpt_backbone</span><span class="p">,</span>
+                <span class="n">crackz_cfg</span><span class="o">.</span><span class="n">backbone</span><span class="p">,</span>
+                <span class="n">ckpt_backbone</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">crackz_cfg</span><span class="o">.</span><span class="n">backbone</span> <span class="o">=</span> <span class="n">ckpt_backbone</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">CrackzModel</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">crackz_cfg</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
             <span class="n">model</span><span class="p">,</span>
@@ -13077,7 +13133,11 @@ and the checkpoint backbone differs from the project backbone.</p>
 <span class="normal">232</span>
 <span class="normal">233</span>
 <span class="normal">234</span>
-<span class="normal">235</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CrackzDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">[</span><span class="n">Sample</span><span class="p">]):</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CrackzDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">[</span><span class="n">Sample</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Dataset for crack images with optional masks.&quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
@@ -13088,6 +13148,7 @@ and the checkpoint backbone differs from the project backbone.</p>
         <span class="n">mask_transform</span><span class="p">:</span> <span class="n">MaskTransform</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">normalization_config</span><span class="p">:</span> <span class="n">NormalizationConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">aug_transform</span><span class="p">:</span> <span class="n">A</span><span class="o">.</span><span class="n">Compose</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">input_size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">require_masks</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -13152,11 +13213,14 @@ and the checkpoint backbone differs from the project backbone.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">transform</span> <span class="ow">or</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">(</span>
             <span class="p">[</span>
                 <span class="n">ToRGB</span><span class="p">(),</span>
+                <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="n">input_size</span><span class="p">),</span>
                 <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
                 <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="n">std</span><span class="p">),</span>
             <span class="p">]</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mask_transform</span> <span class="o">=</span> <span class="n">mask_transform</span> <span class="ow">or</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">()])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_transform</span> <span class="o">=</span> <span class="n">mask_transform</span> <span class="ow">or</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">transforms</span><span class="o">.</span><span class="n">InterpolationMode</span><span class="o">.</span><span class="n">NEAREST</span><span class="p">),</span> <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">()]</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">aug_transform</span> <span class="o">=</span> <span class="n">aug_transform</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -13727,11 +13791,7 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/data/dataset.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">238</span>
-<span class="normal">239</span>
-<span class="normal">240</span>
-<span class="normal">241</span>
-<span class="normal">242</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">242</span>
 <span class="normal">243</span>
 <span class="normal">244</span>
 <span class="normal">245</span>
@@ -13766,7 +13826,11 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
 <span class="normal">274</span>
 <span class="normal">275</span>
 <span class="normal">276</span>
-<span class="normal">277</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_training_datasets</span><span class="p">(</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_training_datasets</span><span class="p">(</span>
     <span class="n">train_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
     <span class="n">train_mask_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
     <span class="n">val_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
@@ -13954,11 +14018,7 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/data/dataset.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">280</span>
-<span class="normal">281</span>
-<span class="normal">282</span>
-<span class="normal">283</span>
-<span class="normal">284</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">284</span>
 <span class="normal">285</span>
 <span class="normal">286</span>
 <span class="normal">287</span>
@@ -13977,7 +14037,11 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
 <span class="normal">300</span>
 <span class="normal">301</span>
 <span class="normal">302</span>
-<span class="normal">303</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_dataset</span><span class="p">(</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_dataset</span><span class="p">(</span>
     <span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span>
     <span class="n">transforms</span><span class="p">:</span> <span class="n">ImageTransform</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">mask_transforms</span><span class="p">:</span> <span class="n">MaskTransform</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># noqa: ARG001</span>
@@ -14619,7 +14683,7 @@ HuggingFace SegFormer; anything else is treated as an SMP encoder name.</p>
     <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-3</span>
     <span class="n">backbone</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;segformer-b2&quot;</span>
     <span class="n">encoder_weights</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s2">&quot;imagenet&quot;</span>  <span class="c1"># SMP only; None disables pretrained weights</span>
-    <span class="n">in_channels</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">in_channels</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>
     <span class="n">num_classes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span>
     <span class="c1"># loss configuration</span>
@@ -18037,7 +18101,9 @@ Skips silently if no samples or logger are available.</p>
 <span class="normal">149</span>
 <span class="normal">150</span>
 <span class="normal">151</span>
-<span class="normal">152</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">peek_checkpoint_backbone</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">peek_checkpoint_backbone</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Read the backbone name stored in a checkpoint without loading the full model.</span>
 
 <span class="sd">    Returns None if the backbone cannot be determined (legacy/corrupt checkpoint).</span>
@@ -18052,10 +18118,12 @@ Skips silently if no samples or logger are available.</p>
         <span class="k">if</span> <span class="n">config</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
-        <span class="c1"># CrackzConfig is a dataclass; Lightning may store it as-is or as a dict</span>
+        <span class="c1"># CrackzConfig is a dataclass; Lightning may store it as-is or as a dict.</span>
+        <span class="c1"># Fall back to legacy &quot;encoder&quot; field for checkpoints saved before the</span>
+        <span class="c1"># encoder-&gt;backbone rename (v4-&gt;v5 project migration).</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;backbone&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;backbone&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;backbone&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoder&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;backbone&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;encoder&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">finally</span><span class="p">:</span>
@@ -18085,9 +18153,7 @@ Skips silently if no samples or logger are available.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">210</span>
-<span class="normal">211</span>
-<span class="normal">212</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">212</span>
 <span class="normal">213</span>
 <span class="normal">214</span>
 <span class="normal">215</span>
@@ -18099,7 +18165,9 @@ Skips silently if no samples or logger are available.</p>
 <span class="normal">221</span>
 <span class="normal">222</span>
 <span class="normal">223</span>
-<span class="normal">224</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_checkpoint_compatibility</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_checkpoint_compatibility</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return (checkpoint_backbone, project_backbone) if they mismatch, else None.</span>
 
 <span class="sd">    Returns None when there is no trained model or when backbones match.</span>
@@ -18275,9 +18343,7 @@ backbone and <em>on_incompatible</em> is <code>"raise"</code>.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">227</span>
-<span class="normal">228</span>
-<span class="normal">229</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">229</span>
 <span class="normal">230</span>
 <span class="normal">231</span>
 <span class="normal">232</span>
@@ -18345,7 +18411,9 @@ backbone and <em>on_incompatible</em> is <code>"raise"</code>.</p>
 <span class="normal">294</span>
 <span class="normal">295</span>
 <span class="normal">296</span>
-<span class="normal">297</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_model_from_checkpoint</span><span class="p">(</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_model_from_checkpoint</span><span class="p">(</span>
     <span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span>
     <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">checkpoint_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -18496,9 +18564,7 @@ and the last checkpoint into the project's checkpoints directory.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">300</span>
-<span class="normal">301</span>
-<span class="normal">302</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">302</span>
 <span class="normal">303</span>
 <span class="normal">304</span>
 <span class="normal">305</span>
@@ -18532,7 +18598,9 @@ and the last checkpoint into the project's checkpoints directory.</p>
 <span class="normal">333</span>
 <span class="normal">334</span>
 <span class="normal">335</span>
-<span class="normal">336</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_checkpoint_callback</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelCheckpoint</span><span class="p">:</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_checkpoint_callback</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelCheckpoint</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a ModelCheckpoint callback configured to save the best model (by val_iou)</span>
 <span class="sd">    and the last checkpoint into the project&#39;s checkpoints directory.</span>
@@ -18668,9 +18736,7 @@ and the last checkpoint into the project's checkpoints directory.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">339</span>
-<span class="normal">340</span>
-<span class="normal">341</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">341</span>
 <span class="normal">342</span>
 <span class="normal">343</span>
 <span class="normal">344</span>
@@ -18723,7 +18789,9 @@ and the last checkpoint into the project's checkpoints directory.</p>
 <span class="normal">391</span>
 <span class="normal">392</span>
 <span class="normal">393</span>
-<span class="normal">394</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">prune_checkpoints</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span> <span class="n">keep</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">prune_checkpoints</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span> <span class="n">keep</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prune older checkpoints, keeping only the top N based on a scoring heuristic.</span>
 
 <span class="sd">    Scoring heuristic:</span>
@@ -21354,7 +21422,9 @@ extensible later (precision, recall, F1, confusion metrics, etc.).</p>
 <span class="normal">149</span>
 <span class="normal">150</span>
 <span class="normal">151</span>
-<span class="normal">152</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">peek_checkpoint_backbone</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">peek_checkpoint_backbone</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Read the backbone name stored in a checkpoint without loading the full model.</span>
 
 <span class="sd">    Returns None if the backbone cannot be determined (legacy/corrupt checkpoint).</span>
@@ -21369,10 +21439,12 @@ extensible later (precision, recall, F1, confusion metrics, etc.).</p>
         <span class="k">if</span> <span class="n">config</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
-        <span class="c1"># CrackzConfig is a dataclass; Lightning may store it as-is or as a dict</span>
+        <span class="c1"># CrackzConfig is a dataclass; Lightning may store it as-is or as a dict.</span>
+        <span class="c1"># Fall back to legacy &quot;encoder&quot; field for checkpoints saved before the</span>
+        <span class="c1"># encoder-&gt;backbone rename (v4-&gt;v5 project migration).</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;backbone&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;backbone&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;backbone&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoder&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;backbone&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;encoder&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">finally</span><span class="p">:</span>
@@ -21402,9 +21474,7 @@ extensible later (precision, recall, F1, confusion metrics, etc.).</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">210</span>
-<span class="normal">211</span>
-<span class="normal">212</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">212</span>
 <span class="normal">213</span>
 <span class="normal">214</span>
 <span class="normal">215</span>
@@ -21416,7 +21486,9 @@ extensible later (precision, recall, F1, confusion metrics, etc.).</p>
 <span class="normal">221</span>
 <span class="normal">222</span>
 <span class="normal">223</span>
-<span class="normal">224</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_checkpoint_compatibility</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_checkpoint_compatibility</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return (checkpoint_backbone, project_backbone) if they mismatch, else None.</span>
 
 <span class="sd">    Returns None when there is no trained model or when backbones match.</span>
@@ -21592,9 +21664,7 @@ backbone and <em>on_incompatible</em> is <code>"raise"</code>.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">227</span>
-<span class="normal">228</span>
-<span class="normal">229</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">229</span>
 <span class="normal">230</span>
 <span class="normal">231</span>
 <span class="normal">232</span>
@@ -21662,7 +21732,9 @@ backbone and <em>on_incompatible</em> is <code>"raise"</code>.</p>
 <span class="normal">294</span>
 <span class="normal">295</span>
 <span class="normal">296</span>
-<span class="normal">297</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_model_from_checkpoint</span><span class="p">(</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_model_from_checkpoint</span><span class="p">(</span>
     <span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span>
     <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">checkpoint_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -21813,9 +21885,7 @@ and the last checkpoint into the project's checkpoints directory.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">300</span>
-<span class="normal">301</span>
-<span class="normal">302</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">302</span>
 <span class="normal">303</span>
 <span class="normal">304</span>
 <span class="normal">305</span>
@@ -21849,7 +21919,9 @@ and the last checkpoint into the project's checkpoints directory.</p>
 <span class="normal">333</span>
 <span class="normal">334</span>
 <span class="normal">335</span>
-<span class="normal">336</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_checkpoint_callback</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelCheckpoint</span><span class="p">:</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_checkpoint_callback</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelCheckpoint</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a ModelCheckpoint callback configured to save the best model (by val_iou)</span>
 <span class="sd">    and the last checkpoint into the project&#39;s checkpoints directory.</span>
@@ -21985,9 +22057,7 @@ and the last checkpoint into the project's checkpoints directory.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">339</span>
-<span class="normal">340</span>
-<span class="normal">341</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">341</span>
 <span class="normal">342</span>
 <span class="normal">343</span>
 <span class="normal">344</span>
@@ -22040,7 +22110,9 @@ and the last checkpoint into the project's checkpoints directory.</p>
 <span class="normal">391</span>
 <span class="normal">392</span>
 <span class="normal">393</span>
-<span class="normal">394</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">prune_checkpoints</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span> <span class="n">keep</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">prune_checkpoints</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span> <span class="n">keep</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prune older checkpoints, keeping only the top N based on a scoring heuristic.</span>
 
 <span class="sd">    Scoring heuristic:</span>

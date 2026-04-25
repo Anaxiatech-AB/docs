@@ -11558,6 +11558,7 @@ with the existing API while leveraging the new CrackzTensorBoardLogger class.</p
     <span class="n">cancellation_token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">metrics_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">ckpt_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">backbone_override</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
 
@@ -11653,6 +11654,24 @@ real-time GUI updates.</p>
               <div class="doc-md-description">
                 <p>Optional path to a checkpoint to resume training from.
 Restores model weights, optimizer state, and epoch counter.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>backbone_override</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional backbone name to use for this run instead of
+<code>project.ai.model.backbone</code>. Ignored when <code>ckpt_path</code> is given
+(a resumed checkpoint's backbone always wins).</p>
               </div>
             </td>
             <td>
@@ -12036,12 +12055,24 @@ Restores model weights, optimizer state, and epoch counter.</p>
 <span class="normal">384</span>
 <span class="normal">385</span>
 <span class="normal">386</span>
-<span class="normal">387</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span>  <span class="c1"># noqa: C901, PLR0915, PLR0912</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span>
+<span class="normal">393</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span>
+<span class="normal">397</span>
+<span class="normal">398</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span>  <span class="c1"># noqa: C901, PLR0915, PLR0912</span>
     <span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span>
     <span class="n">progress_reporter</span><span class="p">:</span> <span class="n">ProgressReporter</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">cancellation_token</span><span class="p">:</span> <span class="n">CancellationToken</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">metrics_callback</span><span class="p">:</span> <span class="n">MetricsReporter</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">ckpt_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">backbone_override</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Trains a model for crack detection using the provided project data.</span>
 
@@ -12053,6 +12084,9 @@ Restores model weights, optimizer state, and epoch counter.</p>
 <span class="sd">            real-time GUI updates.</span>
 <span class="sd">        ckpt_path: Optional path to a checkpoint to resume training from.</span>
 <span class="sd">            Restores model weights, optimizer state, and epoch counter.</span>
+<span class="sd">        backbone_override: Optional backbone name to use for this run instead of</span>
+<span class="sd">            ``project.ai.model.backbone``. Ignored when ``ckpt_path`` is given</span>
+<span class="sd">            (a resumed checkpoint&#39;s backbone always wins).</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        CancellationError: If cancellation is requested during training.</span>
@@ -12083,7 +12117,7 @@ Restores model weights, optimizer state, and epoch counter.</p>
             <span class="s2">&quot;Underwater augmentation pipeline enabled (input_size=</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="p">,</span>
             <span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">input_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
         <span class="p">)</span>
-    <span class="n">input_size</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">input_size</span><span class="p">)</span>
+    <span class="n">input_size</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">input_size</span>
     <span class="n">train_ds</span> <span class="o">=</span> <span class="n">CrackzDataset</span><span class="p">(</span>
         <span class="n">image_dir</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">train_path</span><span class="p">,</span>
         <span class="n">image_mask_dir</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">train_mask_path</span><span class="p">,</span>
@@ -12269,6 +12303,14 @@ Restores model weights, optimizer state, and epoch counter.</p>
 
     <span class="n">crackz_cfg</span> <span class="o">=</span> <span class="n">CrackzConfig</span><span class="o">.</span><span class="n">from_project</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">learning_rate</span><span class="p">)</span>
 
+    <span class="k">if</span> <span class="n">ckpt_path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">backbone_override</span> <span class="ow">and</span> <span class="n">backbone_override</span> <span class="o">!=</span> <span class="n">crackz_cfg</span><span class="o">.</span><span class="n">backbone</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;Using per-run backbone override &#39;</span><span class="si">{}</span><span class="s2">&#39; (project default is &#39;</span><span class="si">{}</span><span class="s2">&#39;).&quot;</span><span class="p">,</span>
+            <span class="n">backbone_override</span><span class="p">,</span>
+            <span class="n">crackz_cfg</span><span class="o">.</span><span class="n">backbone</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">crackz_cfg</span><span class="o">.</span><span class="n">backbone</span> <span class="o">=</span> <span class="n">backbone_override</span>
+
     <span class="k">if</span> <span class="n">ckpt_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Resuming training from checkpoint: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ckpt_path</span><span class="p">)</span>
         <span class="c1"># PyTorch 2.6+ defaults weights_only=True in torch.load (and Lightning&#39;s internal</span>
@@ -12362,7 +12404,6 @@ Restores model weights, optimizer state, and epoch counter.</p>
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">ckpt_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">crackz_cfg</span> <span class="o">=</span> <span class="n">CrackzConfig</span><span class="o">.</span><span class="n">from_project</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">project</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">training</span><span class="o">.</span><span class="n">learning_rate</span><span class="p">)</span>
             <span class="n">created_at</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">tz</span><span class="o">=</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>  <span class="c1"># noqa: UP017</span>
             <span class="n">record</span> <span class="o">=</span> <span class="n">ModelRecord</span><span class="p">(</span>
                 <span class="n">name</span><span class="o">=</span><span class="n">ModelRegistry</span><span class="o">.</span><span class="n">default_name</span><span class="p">(</span><span class="n">crackz_cfg</span><span class="o">.</span><span class="n">backbone</span><span class="p">,</span> <span class="n">created_at</span><span class="p">),</span>

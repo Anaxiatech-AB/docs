@@ -1288,6 +1288,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#model-selection-mental-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Selection — Mental Model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#deployment-local-optional-docker" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2041,6 +2052,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#model-selection-mental-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Selection — Mental Model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#deployment-local-optional-docker" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2516,6 +2538,53 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
   YAML[Project YAML] --&gt; Merge
   Env[Environment] --&gt; Merge
   Merge --&gt; Effective[Effective Settings]</code></pre>
+<hr />
+<h2 id="model-selection-mental-model">Model Selection — Mental Model<a class="headerlink" href="#model-selection-mental-model" title="Permanent link">&para;</a></h2>
+<p>Crackz separates <em>project defaults</em> (Settings) from the <em>catalog of trained
+models</em> (Model Manager). Each concept has exactly one home:</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Role</th>
+<th>Where it lives</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Project default backbone</strong></td>
+<td>Suggested backbone for new training runs</td>
+<td><code>ai.model.backbone</code> in <code>project.yaml</code>, editable in <strong>Settings → AI · Model</strong></td>
+</tr>
+<tr>
+<td><strong>Active Crackz model</strong></td>
+<td>Trained model used by detection when the user doesn't pick another</td>
+<td><code>ai.model.active_checkpoint</code>, set via <strong>Model Manager → Set as Default</strong></td>
+</tr>
+<tr>
+<td><strong>Crackz model catalog</strong></td>
+<td>All trained checkpoints + metadata (backbone, num_classes, loss, created_at, notes)</td>
+<td><code>ModelRegistry</code> SQLite (<code>registry.db</code> under the project), browsed in <strong>Model Manager</strong></td>
+</tr>
+<tr>
+<td><strong>Per-run backbone choice</strong></td>
+<td>Backbone used for a specific training run (defaults to project default)</td>
+<td>Chosen in the <em>Start Training</em> dialog; not set in Settings</td>
+</tr>
+<tr>
+<td><strong>Per-run model choice</strong></td>
+<td>Crackz model used for a specific detection run (defaults to active model)</td>
+<td>Chosen in the <em>Model Selector</em> dialog (filtered by current project backbone by default)</td>
+</tr>
+</tbody>
+</table>
+<p>Detection fast-path: if <code>active_checkpoint</code> is set and its backbone matches
+<code>ai.model.backbone</code>, <strong>Run Detection</strong> runs immediately. <strong>Run Detection…
+(pick model)</strong> always opens the selector for ad-hoc overrides.</p>
+<p>Training fast-path: the <em>Start Training</em> dialog pre-selects the project
+default backbone; checking <em>Save as new project default</em> persists the
+choice to <code>project.yaml</code>. When resuming from a checkpoint, the
+checkpoint's backbone wins (an architecture mismatch warning is shown).</p>
 <hr />
 <h2 id="deployment-local-optional-docker">Deployment (Local + Optional Docker)<a class="headerlink" href="#deployment-local-optional-docker" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart LR

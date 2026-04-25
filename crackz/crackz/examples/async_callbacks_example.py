@@ -9,6 +9,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+import typer
+
 if TYPE_CHECKING:
     from crackz import Project
 
@@ -26,11 +28,11 @@ def example_sync_callbacks(project: Project) -> None:
     # Traditional sync callbacks - still supported
     def progress_callback(progress: float, message: str | None = None) -> None:
         """Synchronous progress callback."""
-        print(f"Progress: {progress:.2%} - {message}")
+        typer.secho(f"Progress: {progress:.2%} - {message}")
 
     def metrics_callback(metrics: dict[str, float]) -> None:
         """Synchronous metrics callback."""
-        print(f"Metrics: {metrics}")
+        typer.secho(f"Metrics: {metrics}")
 
     # Works exactly as before - no changes needed
     train(
@@ -102,12 +104,12 @@ def example_async_consumers_in_gui(project: Project) -> None:
     # Define GUI update callbacks (these run in main thread)
     def update_progress_ui(progress: float, message: str | None = None) -> None:
         """Update progress bar in GUI."""
-        print(f"[GUI] Progress: {progress:.2%} - {message}")
+        typer.secho(f"[GUI] Progress: {progress:.2%} - {message}")
         # In real GUI: progress_bar.set_value(progress)
 
     def update_metrics_ui(metrics: dict[str, float]) -> None:
         """Update metrics display in GUI."""
-        print(f"[GUI] Metrics: {metrics}")
+        typer.secho(f"[GUI] Metrics: {metrics}")
         # In real GUI: metrics_panel.update(metrics)
 
     # Create async consumers
@@ -176,12 +178,13 @@ def example_async_with_gui_helpers(project: Project) -> None:
     Args:
         project: Project configuration
     """
-    from crackz.ai.core.async_callbacks import CallbackDispatcher
-    from crackz.ai.training import train
     from crackz_gui.async_helpers import (
         start_gui_callback_consumers,
         stop_gui_callback_consumers,
     )
+
+    from crackz.ai.core.async_callbacks import CallbackDispatcher
+    from crackz.ai.training import train
 
     # Create dispatcher
     dispatcher = CallbackDispatcher(maxsize=100)
@@ -189,11 +192,11 @@ def example_async_with_gui_helpers(project: Project) -> None:
     # Define GUI update callbacks
     def update_progress_ui(progress: float, message: str | None = None) -> None:
         """Update progress bar in GUI."""
-        print(f"[GUI] Progress: {progress:.2%} - {message}")
+        typer.secho(f"[GUI] Progress: {progress:.2%} - {message}")
 
     def update_metrics_ui(metrics: dict[str, float]) -> None:
         """Update metrics display in GUI."""
-        print(f"[GUI] Metrics: {metrics}")
+        typer.secho(f"[GUI] Metrics: {metrics}")
 
     # Start async consumers (manages event loop for you)
     loop, _tasks = start_gui_callback_consumers(dispatcher, update_progress_ui, update_metrics_ui)
@@ -228,12 +231,12 @@ def example_benefits_of_async_pattern() -> None:
     - Async callback: Training puts in queue (~0.1ms) and continues
     - For 1000 callbacks/epoch: ~4 seconds saved with async pattern
     """
-    print("Async callback benefits:")
-    print("1. Non-blocking: UI updates don't slow down training")
-    print("2. Backpressure: Queue handles burst updates gracefully")
-    print("3. Decoupling: Training and UI run independently")
-    print("4. Thread-safe: Queue-based communication")
-    print("5. Backward compatible: Sync callbacks still work")
+    typer.secho("Async callback benefits:")
+    typer.secho("1. Non-blocking: UI updates don't slow down training")
+    typer.secho("2. Backpressure: Queue handles burst updates gracefully")
+    typer.secho("3. Decoupling: Training and UI run independently")
+    typer.secho("4. Thread-safe: Queue-based communication")
+    typer.secho("5. Backward compatible: Sync callbacks still work")
 
 
 if __name__ == "__main__":

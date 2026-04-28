@@ -1384,10 +1384,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#6-asyncconcurrent-operations-pattern" class="md-nav__link">
+  <a href="#6-persistence-boundary-pattern" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. Async/Concurrent Operations Pattern
+        6. Persistence Boundary Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-asyncconcurrent-operations-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Async/Concurrent Operations Pattern
       
     </span>
   </a>
@@ -2643,10 +2654,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#6-asyncconcurrent-operations-pattern" class="md-nav__link">
+  <a href="#6-persistence-boundary-pattern" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. Async/Concurrent Operations Pattern
+        6. Persistence Boundary Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-asyncconcurrent-operations-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Async/Concurrent Operations Pattern
       
     </span>
   </a>
@@ -3494,7 +3516,40 @@ Examples:
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if project exists.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">path</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_project.yaml&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
 </code></pre></div></p>
-<h3 id="6-asyncconcurrent-operations-pattern">6. Async/Concurrent Operations Pattern<a class="headerlink" href="#6-asyncconcurrent-operations-pattern" title="Permanent link">&para;</a></h3>
+<h3 id="6-persistence-boundary-pattern">6. Persistence Boundary Pattern<a class="headerlink" href="#6-persistence-boundary-pattern" title="Permanent link">&para;</a></h3>
+<p><strong>Where</strong>:
+- User-level project index: <code>gui/src/crackz_gui/data/projects_db.py</code>
+- Project-level operational DB: <code>core/src/crackz/ai/model/registry.py</code></p>
+<p><strong>Why</strong>: Keep user-specific GUI state separate from project-owned inspection history.</p>
+<p><strong>Rules</strong>:
+- Store the all-projects list in the platform user config directory as <code>crackz.db</code>.
+- Store project-level metadata in <code>&lt;project&gt;/artifacts/project.db</code>.
+- Treat <code>&lt;project&gt;/artifacts/project.db</code> as authoritative for model records, detection run summaries, and training epoch metrics.
+- Treat the user-level <code>crackz.db</code> as an index and cache: paths, pins, notes, tags, and welcome-screen aggregate values.
+- Do not write model, detection, or training history into the user-level DB.
+- Do not read artifact-level <code>crackz.db</code> in steady state; migrate it into <code>artifacts/project.db</code>.</p>
+<p><strong>Implementation sketch</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># User-level DB: known projects + cached aggregate stats.</span>
+<span class="n">projects_db</span> <span class="o">=</span> <span class="n">ProjectsDB</span><span class="p">()</span>
+<span class="n">projects_db</span><span class="o">.</span><span class="n">upsert_project</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">root</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="n">projects_db</span><span class="o">.</span><span class="n">update_project_stats</span><span class="p">(</span>
+    <span class="nb">str</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">root</span><span class="p">),</span>
+    <span class="n">image_count</span><span class="o">=</span><span class="n">summary</span><span class="o">.</span><span class="n">image_count</span><span class="p">,</span>
+    <span class="n">defect_count</span><span class="o">=</span><span class="n">summary</span><span class="o">.</span><span class="n">defect_count</span><span class="p">,</span>
+    <span class="n">model_count</span><span class="o">=</span><span class="n">summary</span><span class="o">.</span><span class="n">model_count</span><span class="p">,</span>
+    <span class="n">best_val_iou</span><span class="o">=</span><span class="n">summary</span><span class="o">.</span><span class="n">best_val_iou</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Project-level DB: authoritative project operation history.</span>
+<span class="n">registry</span> <span class="o">=</span> <span class="n">ModelRegistry</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">registry_db_path</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="n">project</span><span class="p">)</span>
+<span class="n">registry</span><span class="o">.</span><span class="n">record_detection_run</span><span class="p">(</span><span class="n">detection_run</span><span class="p">)</span>
+<span class="n">registry</span><span class="o">.</span><span class="n">upsert_training_epoch</span><span class="p">(</span><span class="n">training_epoch</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Testing expectations</strong>:
+- User DB tests should use a temporary <code>ProjectsDB(db_path=...)</code>.
+- Project DB tests should use a temporary project root and assert <code>registry_db_path</code> resolves to <code>artifacts/project.db</code>.
+- Migration tests should verify artifact-level <code>crackz.db</code> is moved into <code>project.db</code> and removed.</p>
+<h3 id="7-asyncconcurrent-operations-pattern">7. Async/Concurrent Operations Pattern<a class="headerlink" href="#7-asyncconcurrent-operations-pattern" title="Permanent link">&para;</a></h3>
 <p><strong>Where</strong>: <code>core/src/crackz/ai/core/async_callbacks.py</code></p>
 <p><strong>Problem</strong>: PyTorch Lightning training runs in synchronous threads, but GUI updates must be async to remain responsive. Direct async calls from sync code cause <code>RuntimeError: no running event loop</code>.</p>
 <p><strong>Solution</strong>: Use janus queue to bridge sync and async worlds. Janus provides both <code>sync_q</code> (thread-safe) and <code>async_q</code> (async-safe) interfaces to the same queue.</p>

@@ -1162,6 +1162,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#local-persistence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Persistence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#open-architecture-model-flexibility" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1926,6 +1937,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#local-persistence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Persistence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#open-architecture-model-flexibility" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2307,8 +2329,41 @@ Upper layers may depend on lower layers — never the reverse.</p>
 - <strong>Training &amp; Detection Pipelines</strong>: PyTorch + PyTorch Lightning orchestration (training, validation, testing, inference)
 - <strong>Performance Utilities</strong>: Global seed, Trainer override extraction
 - <strong>Logging</strong>: Centralized through <code>loguru</code> with structured formatting
-- <strong>Artifacts &amp; Outputs</strong>: Filesystem only (<code>artifacts/models/</code>, <code>artifacts/runtime/</code>, metrics JSON, detection PNGs)</p>
+- <strong>Artifacts &amp; Outputs</strong>: Project filesystem (<code>artifacts/models/</code>, <code>artifacts/runtime/</code>, metrics JSON, detection PNGs) plus project-local SQLite metadata</p>
 <p>No network services, model servers, remote registries, or cloud object storage are currently part of runtime behavior.</p>
+<h3 id="local-persistence">Local Persistence<a class="headerlink" href="#local-persistence" title="Permanent link">&para;</a></h3>
+<p>Crackz uses two SQLite scopes:</p>
+<table>
+<thead>
+<tr>
+<th>Scope</th>
+<th>Location</th>
+<th>Owner</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>User-level project index</strong></td>
+<td>Platform user config directory, <code>crackz.db</code></td>
+<td>GUI data layer (<code>crackz_gui.data.projects_db</code>)</td>
+<td>All projects known to the current OS user, project pins/notes/tags, and cached cross-project stats for the welcome screen</td>
+</tr>
+<tr>
+<td><strong>Project-level operational DB</strong></td>
+<td><code>&lt;project&gt;/artifacts/project.db</code></td>
+<td>Core model registry (<code>crackz.ai.model.registry</code>)</td>
+<td>One owning project row plus model records, detection run summaries, and training epoch metrics for that project</td>
+</tr>
+</tbody>
+</table>
+<p>The user-level DB is a convenience index and aggregate cache. It does not own training,
+detection, or model history. Project-level stats are authoritative in each project's
+<code>artifacts/project.db</code>; the welcome screen syncs those values into the user-level
+<code>crackz.db</code> so cross-project counts can be rendered quickly.</p>
+<p>Legacy project artifact databases named <code>&lt;project&gt;/artifacts/crackz.db</code> are migrated by
+moving their data to <code>&lt;project&gt;/artifacts/project.db</code>. Artifact-level <code>crackz.db</code> is not
+a supported steady-state location.</p>
 <h3 id="open-architecture-model-flexibility">Open Architecture &amp; Model Flexibility<a class="headerlink" href="#open-architecture-model-flexibility" title="Permanent link">&para;</a></h3>
 <p>Crackz is built with an <strong>open architecture</strong> that supports multiple model types and use cases:</p>
 <p><strong>Default Configuration: Segmentation</strong>
@@ -2391,12 +2446,16 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
     Container(gui, "GUI", "PySide6 (Qt 6)", "Desktop inspection &amp; invocation")
     Container(core, "Core Library", "Python Packages", "project, ai, config, logging")
     Container(fs, "Local Filesystem", "images/ + artifacts/", "Images, masks, checkpoints, metrics")
+    ContainerDb(udb, "User DB", "SQLite", "Known projects + welcome aggregates")
+    ContainerDb(pdb, "Project DB", "SQLite", "Per-project models, detections, training runs")
   }
   Rel(user, cli, "Runs commands")
   Rel(user, gui, "Interacts (point &amp; click)")
   Rel(cli, core, "Invokes APIs")
   Rel(gui, core, "Invokes APIs")
-  Rel(core, fs, "read/write images, masks, checkpoints, metrics")</code></pre>
+  Rel(core, fs, "read/write images, masks, checkpoints, metrics")
+  Rel(gui, udb, "read/write project index")
+  Rel(core, pdb, "read/write project metadata")</code></pre>
 <hr />
 <h2 id="c4-context-local-execution">C4 Context (Local Execution)<a class="headerlink" href="#c4-context-local-execution" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>C4Context
@@ -2564,7 +2623,7 @@ models</em> (Model Manager). Each concept has exactly one home:</p>
 <tr>
 <td><strong>Crackz model catalog</strong></td>
 <td>All trained checkpoints + metadata (backbone, num_classes, loss, created_at, notes)</td>
-<td><code>ModelRegistry</code> SQLite (<code>registry.db</code> under the project), browsed in <strong>Model Manager</strong></td>
+<td>Project SQLite DB at <code>artifacts/project.db</code>, browsed in <strong>Model Manager</strong></td>
 </tr>
 <tr>
 <td><strong>Per-run backbone choice</strong></td>

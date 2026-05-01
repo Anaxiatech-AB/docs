@@ -1275,6 +1275,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#adr-020-binary-vs-multiclass-as-distinct-task-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-020: Binary vs Multiclass as Distinct Task Modes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#summary-of-current-technology-stack" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2083,6 +2094,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#adr-020-binary-vs-multiclass-as-distinct-task-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-020: Binary vs Multiclass as Distinct Task Modes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#summary-of-current-technology-stack" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2380,6 +2402,68 @@
 <p><strong>Status</strong>: Active</p>
 <p><strong>Related</strong>: <code>gui/src/crackz_gui/qt/</code>, <code>docs/superpowers/specs/2026-04-13-pyside6-migration-feasibility.md</code>, supersedes ADR-004</p>
 <hr />
+<h2 id="adr-020-binary-vs-multiclass-as-distinct-task-modes">ADR-020: Binary vs Multiclass as Distinct Task Modes<a class="headerlink" href="#adr-020-binary-vs-multiclass-as-distinct-task-modes" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: For segmentation, projects with a single foreground category (crack vs. no-crack) and projects with multiple categories need different training and inference behaviour. The choice was: collapse both into one path (multiclass with N foreground classes, where N may be 1) or keep binary as a distinct task mode with its own head, loss, and mask-handling rules.</p>
+<p>Crack-like defects are typically &lt;1% of pixels. That class imbalance shapes what the model needs:
+- A tunable decision threshold (post-training precision/recall trade-off without retraining).
+- A loss that focuses on hard examples (focal loss).</p>
+<p>Argmax over a 2-class softmax provides neither.</p>
+<p><strong>Decision</strong>: Keep binary and multiclass as <strong>distinct task modes</strong>, encoded via the <code>TaskStrategy</code> pattern in <code>core/src/crackz/ai/model/segmentation/tasks.py</code>. Auto-derive the mode from <code>annotation.num_categories</code> (1 → binary, &gt;1 → multiclass), with explicit <code>ai.model.task_mode</code> override when needed. Persist <code>task_mode</code> and <code>category_keys</code> as checkpoint taxonomy metadata so checkpoints can be filtered for project compatibility (<code>is_taxonomy_compatible</code>).</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Binary (<code>num_categories == 1</code>)</th>
+<th>Multiclass (<code>num_categories &gt; 1</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Output</td>
+<td>1 channel, sigmoid</td>
+<td>N+1 channels (incl. background)</td>
+</tr>
+<tr>
+<td>Decision</td>
+<td>tunable <code>threshold</code></td>
+<td>argmax</td>
+</tr>
+<tr>
+<td>Loss</td>
+<td>Dice + <strong>Focal</strong></td>
+<td>Dice + <strong>CE</strong></td>
+</tr>
+<tr>
+<td>Metrics</td>
+<td><code>BinaryJaccardIndex</code>, <code>BinaryAccuracy</code></td>
+<td><code>MulticlassJaccardIndex</code> w/ <code>ignore_index=0</code>, per-class IoU/Acc</td>
+</tr>
+<tr>
+<td>Mask tensor</td>
+<td><code>mask &gt; 0</code> → float32</td>
+<td>indexed → int64</td>
+</tr>
+<tr>
+<td>Schema validation</td>
+<td>soft INFO warning for unusual uint8 values</td>
+<td>strict via <code>validate_mask_label_ids</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Consequences</strong>:
+- ✅ Threshold tuning available where it matters most (rare-foreground binary).
+- ✅ Focal loss directly addresses extreme class imbalance for binary; CE works fine when softmax balances multiple foreground classes.
+- ✅ Strategy pattern keeps <code>CrackzModel</code> free of per-mode <code>if</code> branches; adding a future mode (e.g. instance segmentation) is localised.
+- ✅ One-category projects can reuse multi-segment masks (e.g. GarayMC, values 2–254) — non-zero pixels collapse to foreground.
+- ⚠️ Two checkpoint-compat dimensions to track (<code>task_mode</code> + <code>category_keys</code>); paid for by <code>taxonomy.py</code> and a checkpoint-filter UI.
+- ⚠️ Binary-path masks are not schema-rejected (commit <code>bfca877b</code>, April 2026). This enables the GarayMC use case while preserving a breadcrumb for accidentally mismatched masks: Crackz logs once per dataset at INFO when binary-path mask values fall outside <code>{0, 1, 255}</code>.
+- ⚠️ Legacy checkpoints (<code>task_mode=None</code>, pre-schema-v6) are treated as binary by <code>is_taxonomy_compatible</code>. They appear compatible with any binary project but may still fail at load time; <code>ensure_taxonomy_compatible</code> warns rather than rejects.</p>
+<p><strong>Alternatives considered</strong>:
+- <em>Always multiclass, with N=1 foreground.</em> Rejected: loses sigmoid + threshold; loses focal loss; argmax over 2-class softmax provides no operating-point control after training. Net regression for the rare-defect domain that motivates this project.
+- <em>Always binary, derived per category.</em> Would require N independent models for multi-defect projects, duplicating training cost and losing the joint background discrimination that softmax+CE provides.</p>
+<p><strong>Status</strong>: Active</p>
+<p><strong>Related</strong>: <code>core/src/crackz/ai/model/segmentation/tasks.py</code>, <code>core/src/crackz/ai/model/segmentation/model.py</code>, <code>core/src/crackz/ai/model/taxonomy.py</code>, <code>core/src/crackz/ai/data/dataset.py</code>, PR #522</p>
+<hr />
 <h2 id="summary-of-current-technology-stack">Summary of Current Technology Stack<a class="headerlink" href="#summary-of-current-technology-stack" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2460,10 +2544,15 @@
 <td>typer.secho + logger</td>
 <td>Active (enforced)</td>
 </tr>
+<tr>
+<td>Segmentation Task Modes</td>
+<td>Distinct binary + multiclass via TaskStrategy</td>
+<td>Active (see ADR-020)</td>
+</tr>
 </tbody>
 </table>
 <hr />
-<p><strong>Last Updated</strong>: 2025-11-06
+<p><strong>Last Updated</strong>: 2026-04-30
 <strong>Maintained By</strong>: Theresia Lundgren (theresia.lundgren@anaxiatech.se)</p>
 <p><strong>How to Propose New ADRs</strong>:
 1. Create issue describing the decision needed

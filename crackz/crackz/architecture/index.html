@@ -1181,6 +1181,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Open Architecture &amp; Model Flexibility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#segmentation-task-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Segmentation Task Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1956,6 +1973,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Open Architecture &amp; Model Flexibility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#segmentation-task-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Segmentation Task Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2366,6 +2400,58 @@ moving their data to <code>&lt;project&gt;/artifacts/project.db</code>. Artifact
 a supported steady-state location.</p>
 <h3 id="open-architecture-model-flexibility">Open Architecture &amp; Model Flexibility<a class="headerlink" href="#open-architecture-model-flexibility" title="Permanent link">&para;</a></h3>
 <p>Crackz is built with an <strong>open architecture</strong> that supports multiple model types and use cases:</p>
+<h4 id="segmentation-task-modes">Segmentation Task Modes<a class="headerlink" href="#segmentation-task-modes" title="Permanent link">&para;</a></h4>
+<p>Crackz treats binary segmentation and multiclass semantic segmentation as separate
+task modes, even when a project has only one foreground category.</p>
+<table>
+<thead>
+<tr>
+<th>Task mode</th>
+<th style="text-align: right;">Model output</th>
+<th>Prediction activation</th>
+<th>Training target</th>
+<th>Primary use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>binary</code></td>
+<td style="text-align: right;">1 foreground channel</td>
+<td>Sigmoid + configurable threshold</td>
+<td>Float mask where any non-zero pixel is foreground</td>
+<td>Sparse crack or defect-vs-background detection</td>
+</tr>
+<tr>
+<td><code>multiclass</code></td>
+<td style="text-align: right;">Background + one class per category</td>
+<td>Softmax + argmax</td>
+<td>Integer indexed mask ids matching the annotation schema</td>
+<td>Projects where the defect category of each pixel matters</td>
+</tr>
+</tbody>
+</table>
+<p>This is an intentional architecture decision, not just a <code>num_classes</code> detail.
+Binary crack detection is usually extremely sparse, so the one-channel sigmoid path,
+threshold tuning, and Dice/Focal loss remain better suited than forcing a
+background-plus-one foreground softmax model. Multiclass mode is used when category
+identity is part of the output contract.</p>
+<p>Mask ingestion follows the same boundary:</p>
+<ul>
+<li>Binary projects threshold masks to black/white semantics. Imported or loaded masks
+  may contain <code>0</code>, <code>1</code>, <code>255</code>, or other grayscale foreground values; all non-zero
+  pixels collapse to the single foreground class for training. When a dataset uses
+  values outside the legacy <code>{0, 1, 255}</code> set, Crackz logs one INFO-level breadcrumb
+  per dataset so accidental multiclass-mask reuse is visible without blocking
+  legitimate grayscale foreground masks.</li>
+<li>Multiclass projects preserve indexed label ids and validate them against the
+  project annotation schema. These masks must not be converted to black/white,
+  because the pixel value is the category id.</li>
+</ul>
+<p>When a project has multiple annotation categories but <code>ai.model.task_mode</code> is set to
+<code>binary</code>, all foreground categories intentionally collapse into one defect-vs-none
+model. When <code>task_mode</code> is omitted, Crackz derives the mode from the annotation
+schema: one foreground category resolves to <code>binary</code>, multiple categories resolve to
+<code>multiclass</code>.</p>
 <p><strong>Default Configuration: Segmentation</strong>
 - Binary segmentation (pixel-level classification): crack/no-crack, deviation/no-deviation
 - Uses U-Net architecture with configurable encoder backbones (ResNet, EfficientNet, MobileNet, etc.)

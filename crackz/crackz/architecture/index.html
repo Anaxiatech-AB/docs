@@ -2488,40 +2488,48 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
 <p>Configure via <code>project.yaml</code>:
 <div class="highlight"><pre><span></span><code><span class="nt">ai</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">model</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resnet34</span><span class="w">        </span><span class="c1"># or efficientnet-b0, mobilenet_v2, etc.</span>
-<span class="w">    </span><span class="nt">encoder_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">imagenet</span><span class="w"> </span><span class="c1"># or None for random initialization</span>
+<span class="w">    </span><span class="nt">backbone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">segformer-b2</span><span class="w">   </span><span class="c1"># or segformer-b0/b4, efficientnet-b3, resnet34, etc.</span>
+<span class="nt">annotation</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">categories</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">crack</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Crack</span>
+<span class="w">      </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#ef4444&quot;</span>
 </code></pre></div></p>
 <h3 id="common-use-cases-model-examples">Common Use Cases &amp; Model Examples<a class="headerlink" href="#common-use-cases-model-examples" title="Permanent link">&para;</a></h3>
-<p><strong>1. Harbor Infrastructure Inspection (Segmentation)</strong>
+<p><strong>1. Harbor Infrastructure Inspection (Binary Segmentation)</strong>
 - <strong>Task</strong>: Detect and map cracks in concrete harbor walls
-- <strong>Model</strong>: U-Net with ResNet34 encoder
-- <strong>Input</strong>: 512×512 grayscale or RGB images
+- <strong>Model</strong>: SegFormer-B2 (default) or U-Net with EfficientNet-B3
+- <strong>Annotation</strong>: Single <code>crack</code> category → binary task mode
+- <strong>Input</strong>: 1024×1024 RGB images
 - <strong>Output</strong>: Binary segmentation mask highlighting crack pixels
-- <strong>Workflow</strong>: Train on labeled harbor images → Deploy for automated inspection</p>
-<p><strong>2. Bridge Surface Analysis (Multi-Class Segmentation)</strong>
+- <strong>Workflow</strong>: <code>crackz init --name harbor --annotation-template crack-only</code> → train → detect</p>
+<p><strong>2. Harbor Comprehensive Survey (Multi-Class Segmentation)</strong>
+- <strong>Task</strong>: Identify multiple defect types (cracks, spalling, corrosion, joint damage)
+- <strong>Model</strong>: SegFormer-B2 with 5 output channels (background + 4 categories)
+- <strong>Annotation</strong>: <code>crack</code>, <code>spall</code>, <code>corrosion</code>, <code>joint_damage</code> categories → multiclass task mode
+- <strong>Input</strong>: 1024×1024 RGB images
+- <strong>Output</strong>: Indexed mask (0=background, 1=crack, 2=spall, 3=corrosion, 4=joint_damage)
+- <strong>Workflow</strong>: <code>crackz init --name harbor --annotation-template harbor-defects</code> → train → detect</p>
+<p><strong>3. Bridge Surface Analysis (Multi-Class Segmentation)</strong>
 - <strong>Task</strong>: Identify different defect types (cracks, spalling, corrosion)
-- <strong>Model</strong>: U-Net with EfficientNet-B0 encoder, num_classes=3
+- <strong>Model</strong>: SegFormer-B4 (higher accuracy GPU option)
+- <strong>Annotation</strong>: 3 categories → multiclass task mode, 4 model output classes
 - <strong>Input</strong>: High-resolution bridge deck photos
-- <strong>Output</strong>: Multi-class mask (class 1=crack, class 2=spalling, class 3=corrosion)
-- <strong>Workflow</strong>: Acquire pre-trained multi-defect model → Run detections on new structures</p>
-<p><strong>3. Quick Assessment (Classification)</strong>
-- <strong>Task</strong>: Rapid triage - does this image contain any cracks?
-- <strong>Model</strong>: Custom CNN classifier (future extension)
-- <strong>Input</strong>: Full-resolution photos
-- <strong>Output</strong>: Binary label (crack/no-crack) with confidence score
-- <strong>Workflow</strong>: Train lightweight classifier → Process thousands of images for filtering</p>
+- <strong>Output</strong>: Multi-class indexed mask per category
+- <strong>Workflow</strong>: Collect labeled dataset → configure harbor-defects template → train on GPU</p>
 <p><strong>4. Deviation Detection (Binary Segmentation)</strong>
 - <strong>Task</strong>: Identify surface irregularities or deviations from standard
-- <strong>Model</strong>: U-Net with MobileNetV2 (for edge deployment)
+- <strong>Model</strong>: SegFormer-B0 or U-Net with MobileNetV2 (for edge deployment)
 - <strong>Input</strong>: Normalized surface scans
-- <strong>Output</strong>: Deviation mask
-- <strong>Workflow</strong>: Train on deviation examples → Deploy on mobile devices</p>
+- <strong>Output</strong>: Binary deviation mask
+- <strong>Workflow</strong>: Train on deviation examples → Deploy on mobile/edge devices</p>
 <p><strong>5. Custom Domain Application</strong>
 - <strong>Task</strong>: Adapt to specific industry (e.g., aerospace panel inspection)
-- <strong>Model</strong>: Fine-tune from ImageNet pre-trained encoder
+- <strong>Model</strong>: Start from SegFormer-B2 with a custom annotation schema
 - <strong>Input</strong>: Domain-specific imagery (composite materials, metal surfaces)
-- <strong>Output</strong>: Custom defect masks
-- <strong>Workflow</strong>: Collect small labeled dataset → Transfer learning → Production deployment</p>
+- <strong>Output</strong>: Custom category masks
+- <strong>Workflow</strong>: Define custom categories via <code>annotation.categories</code> → collect labeled data → train</p>
 <hr />
 <h2 id="c4-level-1-container-view">C4 Level 1 (Container View)<a class="headerlink" href="#c4-level-1-container-view" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>C4Container

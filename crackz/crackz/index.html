@@ -2077,12 +2077,13 @@
 <li><strong>Extensible design</strong> – Modular AI pipeline built on PyTorch Lightning</li>
 </ul>
 <h2 id="model-capabilities">Model Capabilities<a class="headerlink" href="#model-capabilities" title="Permanent link">&para;</a></h2>
-<p>Crackz uses deep learning segmentation models to identify cracks at the pixel level:</p>
+<p>Crackz uses deep learning segmentation models to identify defects at the pixel level:</p>
 <ul>
-<li><strong>Binary segmentation</strong>: Detect crack/no-crack with precise pixel masks</li>
-<li><strong>Multi-class segmentation</strong>: Identify multiple defect types (cracks, corrosion, spalling)</li>
-<li><strong>Flexible encoders</strong>: Choose from 20+ backbones (ResNet, EfficientNet, MobileNet, etc.)</li>
-<li><strong>Transfer learning</strong>: Leverage pre-trained ImageNet weights for better accuracy</li>
+<li><strong>Binary segmentation</strong>: Detect crack/no-crack with precise pixel masks (default for single-category projects)</li>
+<li><strong>Multi-class segmentation</strong>: Identify and distinguish multiple defect types (cracks, corrosion, spalling) using the project annotation schema</li>
+<li><strong>Flexible backbones</strong>: SegFormer-B2 by default; choose from SegFormer (B0–B5) or 20+ U-Net encoders (ResNet, EfficientNet, MobileNet, etc.)</li>
+<li><strong>Transfer learning</strong>: Leverage pre-trained ImageNet weights for better accuracy with less data</li>
+<li><strong>Taxonomy-aware models</strong>: Checkpoints record the annotation schema they were trained on; incompatible models are flagged automatically</li>
 </ul>
 <h3 id="two-deployment-paths">Two Deployment Paths<a class="headerlink" href="#two-deployment-paths" title="Permanent link">&para;</a></h3>
 <p><strong>1. Use Pre-Trained Models</strong> (Fastest)

@@ -691,6 +691,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#categories-tab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Categories Tab
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -873,6 +884,34 @@
     <span class="md-ellipsis">
       
         Binary Mask Conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask-gallery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mask Gallery
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mask Gallery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generating-missing-masks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generating Missing Masks
       
     </span>
   </a>
@@ -2926,6 +2965,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#categories-tab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Categories Tab
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3108,6 +3158,34 @@
     <span class="md-ellipsis">
       
         Binary Mask Conversion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mask-gallery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mask Gallery
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mask Gallery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generating-missing-masks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generating Missing Masks
       
     </span>
   </a>
@@ -3868,10 +3946,17 @@ crackz-gui
 <h3 id="creating-a-new-project">Creating a New Project<a class="headerlink" href="#creating-a-new-project" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Click <strong>File → New Project</strong> (Cmd/Ctrl+N) or use the welcome screen</li>
-<li>Select a base folder where the project will be created</li>
-<li>Enter a project name</li>
-<li>The GUI creates the standard project structure automatically</li>
+<li>Enter a project name and choose a base folder</li>
+<li>(Optional) Select an <strong>annotation template</strong> to pre-configure defect categories:</li>
+<li><strong>Crack Only</strong> – Single binary crack category (default for simple projects)</li>
+<li><strong>Harbor Defects</strong> – Crack, Spall, Corrosion, Joint Damage (multi-class harbor inspection)</li>
+<li><strong>Survey General</strong> – Crack, Spall, Corrosion, Water Intrusion, Biological Growth</li>
+<li>Click <strong>Create</strong> — the GUI creates the standard project structure automatically</li>
 </ol>
+<blockquote>
+<p><strong>Custom categories</strong>: After creation, open <strong>Project → Settings → Categories</strong> to edit
+the annotation schema, rename categories, or add new ones before importing masks.</p>
+</blockquote>
 <h3 id="opening-a-project">Opening a Project<a class="headerlink" href="#opening-a-project" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Click <strong>File → Open Project</strong> (Cmd/Ctrl+O)</li>
@@ -3929,6 +4014,32 @@ crackz-gui
 <h4 id="logging-tab">Logging Tab<a class="headerlink" href="#logging-tab" title="Permanent link">&para;</a></h4>
 <p>Configure logging behavior (verbosity, log rotation, paths).</p>
 <p><img alt="Project Settings - Logging" src="../assets/gui/project_settings_logging.png" /></p>
+<h4 id="categories-tab">Categories Tab<a class="headerlink" href="#categories-tab" title="Permanent link">&para;</a></h4>
+<p>Define and manage the <strong>project annotation schema</strong> — the set of defect categories used
+for mask editing, training, and detection results.</p>
+<p><strong>What you can do:</strong>
+- <strong>Add categories</strong>: Click <strong>Add Category</strong> to append a new row. Enter a slug-like key
+  (e.g. <code>crack</code>, <code>spall</code>), a display name, and a hex color for overlays.
+- <strong>Remove categories</strong>: Click <strong>Remove</strong> on any row. At least one foreground category
+  is required.
+- <strong>Edit color</strong>: Type a <code>#RRGGBB</code> hex color for each category — this controls the overlay
+  chip in the mask editor and detection galleries.
+- <strong>Reorder categories</strong>: Move rows up/down; Crackz re-assigns contiguous ids automatically.</p>
+<p>The annotation note at the bottom shows the derived task mode and number of model output
+classes:</p>
+<ul>
+<li><strong>1 category</strong> → <code>binary</code> task mode, 1 model output channel (sigmoid)</li>
+<li><strong>2+ categories</strong> → <code>multiclass</code> task mode, <code>1 + N</code> output channels (softmax)</li>
+</ul>
+<p><strong>Compatibility warning:</strong> Changing categories after training will invalidate existing
+checkpoints. Crackz will warn you and block the save if incompatible checkpoints exist.
+When existing masks are present, Crackz offers to <strong>remap mask label IDs</strong> automatically
+so your annotation data stays consistent with the new schema.</p>
+<blockquote>
+<p><strong>Tip:</strong> Use the <a href="#creating-a-new-project">New Project dialog</a> to choose from built-in
+annotation templates (Crack Only, Harbor Defects, Survey General) when starting a fresh
+project — this avoids having to configure categories manually.</p>
+</blockquote>
 <hr />
 <h2 id="image-import">Image Import<a class="headerlink" href="#image-import" title="Permanent link">&para;</a></h2>
 <h3 id="import-images-menu">Import Images Menu<a class="headerlink" href="#import-images-menu" title="Permanent link">&para;</a></h3>
@@ -3964,7 +4075,15 @@ crackz-gui
 <hr />
 <h2 id="creating-and-editing-masks">Creating and Editing Masks<a class="headerlink" href="#creating-and-editing-masks" title="Permanent link">&para;</a></h2>
 <h3 id="mask-editor-overview">Mask Editor Overview<a class="headerlink" href="#mask-editor-overview" title="Permanent link">&para;</a></h3>
-<p>The interactive mask editor allows you to create and edit crack masks for training data. Masks are binary images where white pixels (255) indicate cracks and black pixels (0) indicate background.</p>
+<p>The interactive mask editor allows you to create and edit defect masks for training data.</p>
+<ul>
+<li><strong>Binary projects</strong> (one category): Masks are black/white images where white pixels
+  (value 255) indicate the defect and black pixels (0) indicate background.</li>
+<li><strong>Multi-class projects</strong> (two or more categories): Masks use indexed color encoding —
+  pixel value 0 is background; values 1, 2, 3… match the category IDs from your
+  annotation schema. The toolbar shows a <strong>category selector</strong> (color-coded chips) so
+  you can switch the active label before painting.</li>
+</ul>
 <h3 id="opening-the-mask-editor">Opening the Mask Editor<a class="headerlink" href="#opening-the-mask-editor" title="Permanent link">&para;</a></h3>
 <p>There are three ways to open the mask editor:</p>
 <p><strong>1. Context Menu (Browser Tree)</strong>
@@ -4102,15 +4221,36 @@ crackz-gui
 │       └── crack_001.jpg        # Original image
 └── masks/
     └── train/
-        └── crack_001.png        # Binary mask (auto-created)
+        └── crack_001.png        # Indexed mask (auto-created)
 </code></pre></div>
-<p><strong>Mask Properties:</strong>
+<p><strong>Mask Properties (multi-class projects):</strong>
 - <strong>Format</strong>: PNG (8-bit grayscale)
-- <strong>Values</strong>: Only 0 (background) or 255 (crack)
+- <strong>Values</strong>: 0 = background, 1 = first category, 2 = second category, …
 - <strong>Size</strong>: Same dimensions as source image
 - <strong>Naming</strong>: Same filename as image (with .png extension)</p>
+<p><strong>Mask Properties (binary / crack-only projects):</strong>
+- <strong>Values</strong>: 0 = background / no crack, 255 = crack foreground</p>
 <h3 id="binary-mask-conversion">Binary Mask Conversion<a class="headerlink" href="#binary-mask-conversion" title="Permanent link">&para;</a></h3>
 <p>If you have existing masks with grayscale values, use the <strong>Masks → Convert</strong> command to convert them to binary format required for training.</p>
+<hr />
+<h2 id="mask-gallery">Mask Gallery<a class="headerlink" href="#mask-gallery" title="Permanent link">&para;</a></h2>
+<p>The <strong>Mask Gallery</strong> provides a project-wide overview of all annotation masks, organized by
+data split. Access it from the sidebar (mask icon) or via <strong>Data → View Masks</strong>.</p>
+<p><strong>Features:</strong>
+- Grid view of all masks across <code>train/</code>, <code>val/</code>, <code>test/</code>, and <code>raw/</code> splits
+- Color-coded category chips showing which defect categories are present in each mask
+- <strong>Missing mask indicators</strong> — images without a mask are shown with a placeholder badge
+- Click any thumbnail to open the mask in the editor</p>
+<h3 id="generating-missing-masks">Generating Missing Masks<a class="headerlink" href="#generating-missing-masks" title="Permanent link">&para;</a></h3>
+<p>When images exist but masks are absent, the Mask Gallery surfaces a
+<strong>"Generate Missing Masks"</strong> flow:
+1. Open the Mask Gallery
+2. Click <strong>Generate Missing Masks</strong> (shown when any split has unannotated images)
+3. Choose the split and image size settings
+4. The missing mask files are created as empty (all-background) templates
+5. Open each generated mask in the editor to annotate it</p>
+<p>This flow is designed to help you bootstrap annotation from scratch without manually
+creating blank mask files.</p>
 <hr />
 <h2 id="phase-2b-semi-automated-mask-creation">Phase 2B: Semi-Automated Mask Creation<a class="headerlink" href="#phase-2b-semi-automated-mask-creation" title="Permanent link">&para;</a></h2>
 <p>The Phase 2B feature set introduces powerful <strong>semi-automated workflows</strong> to accelerate mask annotation. Instead of manually annotating every image, you can:</p>
@@ -4359,7 +4499,8 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 <p><img alt="Training Results" src="../assets/gui/training_results.png" /></p>
 <p><strong>Available Information:</strong>
 - Training/validation loss curves
-- Metrics over epochs (accuracy, IoU, F1-score)
+- Metrics over epochs (accuracy, IoU, F1-score; per-class IoU shown for multiclass projects)
+- Task mode header: <strong>Binary Segmentation</strong> or <strong>Multiclass Segmentation</strong>
 - Best checkpoint location
 - Final model performance statistics
 - Training time and hardware information</p>
@@ -4370,6 +4511,7 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 <li>Ensure you have images in the <code>raw</code> split or use a custom checkpoint</li>
 <li>Click <strong>Detect → Run Detection</strong> or press <strong>Ctrl+R</strong></li>
 <li>Optional: Select a specific model checkpoint (or use latest)</li>
+<li>The model selector greys out checkpoints whose taxonomy does not match the project's current annotation schema</li>
 <li>Detection begins with real-time updates</li>
 </ol>
 <h3 id="detection-run-view">Detection Run View<a class="headerlink" href="#detection-run-view" title="Permanent link">&para;</a></h3>
@@ -4392,6 +4534,8 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 <p><strong>Available Information:</strong>
 - Grid gallery of all processed images
 - Color-coded markers (red = crack detected, green = no crack)
+- <strong>Category findings panel</strong> (multiclass projects): per-category severity breakdown
+  (e.g. how many images contain Crack, Spall, Corrosion)
 - Click any image to view detailed overlay
 - Export options for results</p>
 <h3 id="detailed-image-view">Detailed Image View<a class="headerlink" href="#detailed-image-view" title="Permanent link">&para;</a></h3>
@@ -4408,16 +4552,20 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 <p>The Model Manager provides a comprehensive overview of all trained models registered to your project. Access it by clicking the <strong>Models</strong> icon (sixth item) in the sidebar.</p>
 <p><img alt="Model Manager View" src="../assets/gui/model_manager_view.png" /></p>
 <p><strong>Features:</strong>
-- List of all registered model checkpoints with metadata (backbone, encoder, input size)
+- List of all registered model checkpoints with metadata (backbone, task mode, categories, input size)
+- <strong>Taxonomy compatibility</strong>: Models whose annotation schema does not match the current project's categories are greyed out and cannot be selected for detection
 - Default model indicator — the model used for the next detection run
 - Per-model notes for documenting experiments
 - Set any checkpoint as the default with one click
 - Rename or delete model records
 - Import unregistered checkpoints found in the models directory</p>
+<p><strong>Taxonomy columns:</strong>
+- <strong>Task Mode</strong>: <code>Binary Segmentation</code> or <code>Multiclass Segmentation</code>
+- <strong>Categories</strong>: Comma-separated list of category keys the model was trained on</p>
 <p><strong>Workflow:</strong>
 1. Open a project with at least one trained model
 2. Click the <strong>Models</strong> sidebar button
-3. Select a model from the list to view its details
+3. Select a model from the list to view its details (including task mode and categories)
 4. Click <strong>Set as Default</strong> to use it for detection
 5. Use the notes field to record training observations</p>
 <h3 id="exporting-models">Exporting Models<a class="headerlink" href="#exporting-models" title="Permanent link">&para;</a></h3>

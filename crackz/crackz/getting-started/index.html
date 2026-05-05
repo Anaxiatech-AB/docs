@@ -2312,8 +2312,11 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 </code></pre></div></p>
 <p><strong>Need more options?</strong> See the <a href="../installation/">Installation Guide</a> for detailed instructions, GPU setup, and standalone executables.</p>
 <h3 id="2-create-your-first-project">2. Create Your First Project<a class="headerlink" href="#2-create-your-first-project" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Create a new project</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a new project (binary crack detection — default)</span>
 crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>my-first-project
+
+<span class="c1"># Or start with a multi-class harbor defects schema:</span>
+crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>harbor-project<span class="w"> </span>--annotation-template<span class="w"> </span>harbor-defects
 
 <span class="c1"># This creates a structured directory:</span>
 <span class="c1"># my-first-project/</span>
@@ -2325,6 +2328,7 @@ crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w">
 <p><strong>Using the GUI:</strong>
 <div class="highlight"><pre><span></span><code>crackz-gui
 <span class="c1"># Then: File → New Project (Ctrl/Cmd+N)</span>
+<span class="c1"># Select an annotation template in the wizard (Crack Only, Harbor Defects, Survey General)</span>
 </code></pre></div></p>
 <h3 id="3-import-your-images">3. Import Your Images<a class="headerlink" href="#3-import-your-images" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Import images for crack detection</span>
@@ -2340,8 +2344,8 @@ crackz<span class="w"> </span>import-images<span class="w"> </span><span class="
 crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-first-project
 </code></pre></div>
 <p><strong>Results will appear in:</strong>
-- <code>my-first-project/artifacts/detections/</code> - Annotated images with highlighted cracks
-- <code>my-first-project/artifacts/detections/metrics.json</code> - Detection statistics</p>
+- <code>my-first-project/artifacts/runtime/detections/</code> - Annotated images with highlighted cracks
+- <code>my-first-project/artifacts/runtime/detections/detection_results.json</code> - Detection statistics</p>
 <h3 id="5-view-your-results">5. View Your Results<a class="headerlink" href="#5-view-your-results" title="Permanent link">&para;</a></h3>
 <p>Open the annotated images to see detected cracks highlighted in color. The metrics JSON file contains:
 - Number of cracks detected
@@ -2355,7 +2359,7 @@ crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w">
 
 <span class="c1"># 2. Get pre-trained model checkpoint</span>
 <span class="c1">#    (Contact your Crackz provider or use a partner model)</span>
-<span class="c1">#    Place it in: harbor-inspection/artifacts/training/checkpoints/best.ckpt</span>
+<span class="c1">#    Place it in: harbor-inspection/artifacts/models/best.ckpt</span>
 
 <span class="c1"># 3. Import images</span>
 crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>harbor-inspection<span class="w"> </span>--src<span class="w"> </span>./photos<span class="w"> </span>--type<span class="w"> </span>raw<span class="w"> </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
@@ -2405,10 +2409,10 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 │   ├── val/         # Validation masks
 │   └── test/        # Test masks
 ├── artifacts/
-│   ├── training/    # Model checkpoints and training metrics
-│   └── detections/  # Detection results (images + JSON)
+│   ├── models/      # Model checkpoints (best.ckpt, last.ckpt)
+│   └── runtime/     # Detection results (images + JSON), training metrics
 ├── logs/            # Project-specific logs
-└── project.yaml     # Configuration file
+└── my-first-project_project.yaml  # Configuration file (schema v6)
 </code></pre></div>
 <h2 id="common-next-steps">Common Next Steps<a class="headerlink" href="#common-next-steps" title="Permanent link">&para;</a></h2>
 <h3 id="adjust-detection-sensitivity">Adjust Detection Sensitivity<a class="headerlink" href="#adjust-detection-sensitivity" title="Permanent link">&para;</a></h3>

@@ -134,12 +134,13 @@ table th { background:#f1f5f9; color:#111827; }
 <li><strong>Extensible design</strong> – Modular AI pipeline built on PyTorch Lightning</li>
 </ul>
 <h2 id="model-capabilities">Model Capabilities<a class="headerlink" href="#model-capabilities" title="Permanent link">&para;</a></h2>
-<p>Crackz uses deep learning segmentation models to identify cracks at the pixel level:</p>
+<p>Crackz uses deep learning segmentation models to identify defects at the pixel level:</p>
 <ul>
-<li><strong>Binary segmentation</strong>: Detect crack/no-crack with precise pixel masks</li>
-<li><strong>Multi-class segmentation</strong>: Identify multiple defect types (cracks, corrosion, spalling)</li>
-<li><strong>Flexible encoders</strong>: Choose from 20+ backbones (ResNet, EfficientNet, MobileNet, etc.)</li>
-<li><strong>Transfer learning</strong>: Leverage pre-trained ImageNet weights for better accuracy</li>
+<li><strong>Binary segmentation</strong>: Detect crack/no-crack with precise pixel masks (default for single-category projects)</li>
+<li><strong>Multi-class segmentation</strong>: Identify and distinguish multiple defect types (cracks, corrosion, spalling) using the project annotation schema</li>
+<li><strong>Flexible backbones</strong>: SegFormer-B2 by default; choose from SegFormer (B0–B5) or 20+ U-Net encoders (ResNet, EfficientNet, MobileNet, etc.)</li>
+<li><strong>Transfer learning</strong>: Leverage pre-trained ImageNet weights for better accuracy with less data</li>
+<li><strong>Taxonomy-aware models</strong>: Checkpoints record the annotation schema they were trained on; incompatible models are flagged automatically</li>
 </ul>
 <h3 id="two-deployment-paths">Two Deployment Paths<a class="headerlink" href="#two-deployment-paths" title="Permanent link">&para;</a></h3>
 <p><strong>1. Use Pre-Trained Models</strong> (Fastest)
@@ -317,8 +318,11 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 </code></pre></div></p>
 <p><strong>Need more options?</strong> See the <a href="../installation/">Installation Guide</a> for detailed instructions, GPU setup, and standalone executables.</p>
 <h3 id="2-create-your-first-project">2. Create Your First Project<a class="headerlink" href="#2-create-your-first-project" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Create a new project</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a new project (binary crack detection — default)</span>
 crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>my-first-project
+
+<span class="c1"># Or start with a multi-class harbor defects schema:</span>
+crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>harbor-project<span class="w"> </span>--annotation-template<span class="w"> </span>harbor-defects
 
 <span class="c1"># This creates a structured directory:</span>
 <span class="c1"># my-first-project/</span>
@@ -330,6 +334,7 @@ crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w">
 <p><strong>Using the GUI:</strong>
 <div class="highlight"><pre><span></span><code>crackz-gui
 <span class="c1"># Then: File → New Project (Ctrl/Cmd+N)</span>
+<span class="c1"># Select an annotation template in the wizard (Crack Only, Harbor Defects, Survey General)</span>
 </code></pre></div></p>
 <h3 id="3-import-your-images">3. Import Your Images<a class="headerlink" href="#3-import-your-images" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Import images for crack detection</span>
@@ -345,8 +350,8 @@ crackz<span class="w"> </span>import-images<span class="w"> </span><span class="
 crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>my-first-project
 </code></pre></div>
 <p><strong>Results will appear in:</strong>
-- <code>my-first-project/artifacts/detections/</code> - Annotated images with highlighted cracks
-- <code>my-first-project/artifacts/detections/metrics.json</code> - Detection statistics</p>
+- <code>my-first-project/artifacts/runtime/detections/</code> - Annotated images with highlighted cracks
+- <code>my-first-project/artifacts/runtime/detections/detection_results.json</code> - Detection statistics</p>
 <h3 id="5-view-your-results">5. View Your Results<a class="headerlink" href="#5-view-your-results" title="Permanent link">&para;</a></h3>
 <p>Open the annotated images to see detected cracks highlighted in color. The metrics JSON file contains:
 - Number of cracks detected
@@ -360,7 +365,7 @@ crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w">
 
 <span class="c1"># 2. Get pre-trained model checkpoint</span>
 <span class="c1">#    (Contact your Crackz provider or use a partner model)</span>
-<span class="c1">#    Place it in: harbor-inspection/artifacts/training/checkpoints/best.ckpt</span>
+<span class="c1">#    Place it in: harbor-inspection/artifacts/models/best.ckpt</span>
 
 <span class="c1"># 3. Import images</span>
 crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>harbor-inspection<span class="w"> </span>--src<span class="w"> </span>./photos<span class="w"> </span>--type<span class="w"> </span>raw<span class="w"> </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
@@ -410,10 +415,10 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 │   ├── val/         # Validation masks
 │   └── test/        # Test masks
 ├── artifacts/
-│   ├── training/    # Model checkpoints and training metrics
-│   └── detections/  # Detection results (images + JSON)
+│   ├── models/      # Model checkpoints (best.ckpt, last.ckpt)
+│   └── runtime/     # Detection results (images + JSON), training metrics
 ├── logs/            # Project-specific logs
-└── project.yaml     # Configuration file
+└── my-first-project_project.yaml  # Configuration file (schema v6)
 </code></pre></div>
 <h2 id="common-next-steps">Common Next Steps<a class="headerlink" href="#common-next-steps" title="Permanent link">&para;</a></h2>
 <h3 id="adjust-detection-sensitivity">Adjust Detection Sensitivity<a class="headerlink" href="#adjust-detection-sensitivity" title="Permanent link">&para;</a></h3>
@@ -3455,10 +3460,17 @@ crackz-gui
 <h3 id="creating-a-new-project">Creating a New Project<a class="headerlink" href="#creating-a-new-project" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Click <strong>File → New Project</strong> (Cmd/Ctrl+N) or use the welcome screen</li>
-<li>Select a base folder where the project will be created</li>
-<li>Enter a project name</li>
-<li>The GUI creates the standard project structure automatically</li>
+<li>Enter a project name and choose a base folder</li>
+<li>(Optional) Select an <strong>annotation template</strong> to pre-configure defect categories:</li>
+<li><strong>Crack Only</strong> – Single binary crack category (default for simple projects)</li>
+<li><strong>Harbor Defects</strong> – Crack, Spall, Corrosion, Joint Damage (multi-class harbor inspection)</li>
+<li><strong>Survey General</strong> – Crack, Spall, Corrosion, Water Intrusion, Biological Growth</li>
+<li>Click <strong>Create</strong> — the GUI creates the standard project structure automatically</li>
 </ol>
+<blockquote>
+<p><strong>Custom categories</strong>: After creation, open <strong>Project → Settings → Categories</strong> to edit
+the annotation schema, rename categories, or add new ones before importing masks.</p>
+</blockquote>
 <h3 id="opening-a-project">Opening a Project<a class="headerlink" href="#opening-a-project" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Click <strong>File → Open Project</strong> (Cmd/Ctrl+O)</li>
@@ -3516,6 +3528,32 @@ crackz-gui
 <h4 id="logging-tab">Logging Tab<a class="headerlink" href="#logging-tab" title="Permanent link">&para;</a></h4>
 <p>Configure logging behavior (verbosity, log rotation, paths).</p>
 <p><img alt="Project Settings - Logging" src="../assets/gui/project_settings_logging.png" /></p>
+<h4 id="categories-tab">Categories Tab<a class="headerlink" href="#categories-tab" title="Permanent link">&para;</a></h4>
+<p>Define and manage the <strong>project annotation schema</strong> — the set of defect categories used
+for mask editing, training, and detection results.</p>
+<p><strong>What you can do:</strong>
+- <strong>Add categories</strong>: Click <strong>Add Category</strong> to append a new row. Enter a slug-like key
+  (e.g. <code>crack</code>, <code>spall</code>), a display name, and a hex color for overlays.
+- <strong>Remove categories</strong>: Click <strong>Remove</strong> on any row. At least one foreground category
+  is required.
+- <strong>Edit color</strong>: Type a <code>#RRGGBB</code> hex color for each category — this controls the overlay
+  chip in the mask editor and detection galleries.
+- <strong>Reorder categories</strong>: Move rows up/down; Crackz re-assigns contiguous ids automatically.</p>
+<p>The annotation note at the bottom shows the derived task mode and number of model output
+classes:</p>
+<ul>
+<li><strong>1 category</strong> → <code>binary</code> task mode, 1 model output channel (sigmoid)</li>
+<li><strong>2+ categories</strong> → <code>multiclass</code> task mode, <code>1 + N</code> output channels (softmax)</li>
+</ul>
+<p><strong>Compatibility warning:</strong> Changing categories after training will invalidate existing
+checkpoints. Crackz will warn you and block the save if incompatible checkpoints exist.
+When existing masks are present, Crackz offers to <strong>remap mask label IDs</strong> automatically
+so your annotation data stays consistent with the new schema.</p>
+<blockquote>
+<p><strong>Tip:</strong> Use the <a href="#creating-a-new-project">New Project dialog</a> to choose from built-in
+annotation templates (Crack Only, Harbor Defects, Survey General) when starting a fresh
+project — this avoids having to configure categories manually.</p>
+</blockquote>
 <hr />
 <h2 id="image-import">Image Import<a class="headerlink" href="#image-import" title="Permanent link">&para;</a></h2>
 <h3 id="import-images-menu">Import Images Menu<a class="headerlink" href="#import-images-menu" title="Permanent link">&para;</a></h3>
@@ -3551,7 +3589,15 @@ crackz-gui
 <hr />
 <h2 id="creating-and-editing-masks">Creating and Editing Masks<a class="headerlink" href="#creating-and-editing-masks" title="Permanent link">&para;</a></h2>
 <h3 id="mask-editor-overview">Mask Editor Overview<a class="headerlink" href="#mask-editor-overview" title="Permanent link">&para;</a></h3>
-<p>The interactive mask editor allows you to create and edit crack masks for training data. Masks are binary images where white pixels (255) indicate cracks and black pixels (0) indicate background.</p>
+<p>The interactive mask editor allows you to create and edit defect masks for training data.</p>
+<ul>
+<li><strong>Binary projects</strong> (one category): Masks are black/white images where white pixels
+  (value 255) indicate the defect and black pixels (0) indicate background.</li>
+<li><strong>Multi-class projects</strong> (two or more categories): Masks use indexed color encoding —
+  pixel value 0 is background; values 1, 2, 3… match the category IDs from your
+  annotation schema. The toolbar shows a <strong>category selector</strong> (color-coded chips) so
+  you can switch the active label before painting.</li>
+</ul>
 <h3 id="opening-the-mask-editor">Opening the Mask Editor<a class="headerlink" href="#opening-the-mask-editor" title="Permanent link">&para;</a></h3>
 <p>There are three ways to open the mask editor:</p>
 <p><strong>1. Context Menu (Browser Tree)</strong>
@@ -3689,15 +3735,36 @@ crackz-gui
 │       └── crack_001.jpg        # Original image
 └── masks/
     └── train/
-        └── crack_001.png        # Binary mask (auto-created)
+        └── crack_001.png        # Indexed mask (auto-created)
 </code></pre></div>
-<p><strong>Mask Properties:</strong>
+<p><strong>Mask Properties (multi-class projects):</strong>
 - <strong>Format</strong>: PNG (8-bit grayscale)
-- <strong>Values</strong>: Only 0 (background) or 255 (crack)
+- <strong>Values</strong>: 0 = background, 1 = first category, 2 = second category, …
 - <strong>Size</strong>: Same dimensions as source image
 - <strong>Naming</strong>: Same filename as image (with .png extension)</p>
+<p><strong>Mask Properties (binary / crack-only projects):</strong>
+- <strong>Values</strong>: 0 = background / no crack, 255 = crack foreground</p>
 <h3 id="binary-mask-conversion">Binary Mask Conversion<a class="headerlink" href="#binary-mask-conversion" title="Permanent link">&para;</a></h3>
 <p>If you have existing masks with grayscale values, use the <strong>Masks → Convert</strong> command to convert them to binary format required for training.</p>
+<hr />
+<h2 id="mask-gallery">Mask Gallery<a class="headerlink" href="#mask-gallery" title="Permanent link">&para;</a></h2>
+<p>The <strong>Mask Gallery</strong> provides a project-wide overview of all annotation masks, organized by
+data split. Access it from the sidebar (mask icon) or via <strong>Data → View Masks</strong>.</p>
+<p><strong>Features:</strong>
+- Grid view of all masks across <code>train/</code>, <code>val/</code>, <code>test/</code>, and <code>raw/</code> splits
+- Color-coded category chips showing which defect categories are present in each mask
+- <strong>Missing mask indicators</strong> — images without a mask are shown with a placeholder badge
+- Click any thumbnail to open the mask in the editor</p>
+<h3 id="generating-missing-masks">Generating Missing Masks<a class="headerlink" href="#generating-missing-masks" title="Permanent link">&para;</a></h3>
+<p>When images exist but masks are absent, the Mask Gallery surfaces a
+<strong>"Generate Missing Masks"</strong> flow:
+1. Open the Mask Gallery
+2. Click <strong>Generate Missing Masks</strong> (shown when any split has unannotated images)
+3. Choose the split and image size settings
+4. The missing mask files are created as empty (all-background) templates
+5. Open each generated mask in the editor to annotate it</p>
+<p>This flow is designed to help you bootstrap annotation from scratch without manually
+creating blank mask files.</p>
 <hr />
 <h2 id="phase-2b-semi-automated-mask-creation">Phase 2B: Semi-Automated Mask Creation<a class="headerlink" href="#phase-2b-semi-automated-mask-creation" title="Permanent link">&para;</a></h2>
 <p>The Phase 2B feature set introduces powerful <strong>semi-automated workflows</strong> to accelerate mask annotation. Instead of manually annotating every image, you can:</p>
@@ -3946,7 +4013,8 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 <p><img alt="Training Results" src="../assets/gui/training_results.png" /></p>
 <p><strong>Available Information:</strong>
 - Training/validation loss curves
-- Metrics over epochs (accuracy, IoU, F1-score)
+- Metrics over epochs (accuracy, IoU, F1-score; per-class IoU shown for multiclass projects)
+- Task mode header: <strong>Binary Segmentation</strong> or <strong>Multiclass Segmentation</strong>
 - Best checkpoint location
 - Final model performance statistics
 - Training time and hardware information</p>
@@ -3957,6 +4025,7 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 <li>Ensure you have images in the <code>raw</code> split or use a custom checkpoint</li>
 <li>Click <strong>Detect → Run Detection</strong> or press <strong>Ctrl+R</strong></li>
 <li>Optional: Select a specific model checkpoint (or use latest)</li>
+<li>The model selector greys out checkpoints whose taxonomy does not match the project's current annotation schema</li>
 <li>Detection begins with real-time updates</li>
 </ol>
 <h3 id="detection-run-view">Detection Run View<a class="headerlink" href="#detection-run-view" title="Permanent link">&para;</a></h3>
@@ -3979,6 +4048,8 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 <p><strong>Available Information:</strong>
 - Grid gallery of all processed images
 - Color-coded markers (red = crack detected, green = no crack)
+- <strong>Category findings panel</strong> (multiclass projects): per-category severity breakdown
+  (e.g. how many images contain Crack, Spall, Corrosion)
 - Click any image to view detailed overlay
 - Export options for results</p>
 <h3 id="detailed-image-view">Detailed Image View<a class="headerlink" href="#detailed-image-view" title="Permanent link">&para;</a></h3>
@@ -3995,16 +4066,20 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 <p>The Model Manager provides a comprehensive overview of all trained models registered to your project. Access it by clicking the <strong>Models</strong> icon (sixth item) in the sidebar.</p>
 <p><img alt="Model Manager View" src="../assets/gui/model_manager_view.png" /></p>
 <p><strong>Features:</strong>
-- List of all registered model checkpoints with metadata (backbone, encoder, input size)
+- List of all registered model checkpoints with metadata (backbone, task mode, categories, input size)
+- <strong>Taxonomy compatibility</strong>: Models whose annotation schema does not match the current project's categories are greyed out and cannot be selected for detection
 - Default model indicator — the model used for the next detection run
 - Per-model notes for documenting experiments
 - Set any checkpoint as the default with one click
 - Rename or delete model records
 - Import unregistered checkpoints found in the models directory</p>
+<p><strong>Taxonomy columns:</strong>
+- <strong>Task Mode</strong>: <code>Binary Segmentation</code> or <code>Multiclass Segmentation</code>
+- <strong>Categories</strong>: Comma-separated list of category keys the model was trained on</p>
 <p><strong>Workflow:</strong>
 1. Open a project with at least one trained model
 2. Click the <strong>Models</strong> sidebar button
-3. Select a model from the list to view its details
+3. Select a model from the list to view its details (including task mode and categories)
 4. Click <strong>Set as Default</strong> to use it for detection
 5. Use the notes field to record training observations</p>
 <h3 id="exporting-models">Exporting Models<a class="headerlink" href="#exporting-models" title="Permanent link">&para;</a></h3>
@@ -5267,11 +5342,22 @@ Or in GUI:
 <h2 id="project-yaml-structure">Project YAML Structure<a class="headerlink" href="#project-yaml-structure" title="Permanent link">&para;</a></h2>
 <p>A project created with <code>crackz init --name demo-project</code> saves a file named:
 <code>demo-project/_project.yaml</code> (pattern: <code>&lt;name&gt;_project.yaml</code>).</p>
-<p>Example (abridged):
-<div class="highlight"><pre><span></span><code><span class="nt">project</span><span class="p">:</span>
+<p>Example (abridged, schema v6):
+<div class="highlight"><pre><span></span><code><span class="nt">schema_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
+<span class="nt">project</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">demo-project</span>
 <span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Demo project</span>
 <span class="w">  </span><span class="nt">created</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2025-01-01T12:00:00+00:00</span>
+<span class="nt">annotation</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">background</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Background</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#000000&quot;</span>
+<span class="w">  </span><span class="nt">categories</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">crack</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Crack</span>
+<span class="w">      </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#ef4444&quot;</span>
 <span class="nt">paths</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">project_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">demo-project</span>
 <span class="w">  </span><span class="nt">image_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">demo-project/images</span>
@@ -5282,12 +5368,11 @@ Or in GUI:
 <span class="w">  </span><span class="nt">log_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logs</span>
 <span class="nt">ai</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">model</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resnet34</span>
-<span class="w">    </span><span class="nt">encoder_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">imagenet</span>
+<span class="w">    </span><span class="nt">backbone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">segformer-b2</span>
+<span class="w">    </span><span class="nt">active_checkpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">best</span>
 <span class="w">    </span><span class="nt">device</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cpu</span>
 <span class="w">    </span><span class="nt">in_channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
-<span class="w">    </span><span class="nt">num_classes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-<span class="w">    </span><span class="nt">input_size</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">512</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">input_size</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1024</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1024</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
 <span class="w">    </span><span class="nt">loss_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">combo</span>
 <span class="w">    </span><span class="nt">dice_weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
@@ -5298,16 +5383,22 @@ Or in GUI:
 <span class="w">    </span><span class="nt">epochs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
 <span class="w">    </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
 <span class="w">    </span><span class="nt">shuffle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">augmentation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">detection</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
-<span class="w">    </span><span class="nt">learning_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.001</span>
 <span class="w">    </span><span class="nt">batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
-<span class="w">    </span><span class="nt">shuffle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">    </span><span class="nt">output_dir_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">detections</span>
 <span class="nt">data</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">mask_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
-<span class="nt">schema_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">image_quality</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">90</span>
+<span class="w">  </span><span class="nt">target_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1024</span>
 </code></pre></div></p>
+<blockquote>
+<p><strong>Schema migrations</strong>: Projects created with older versions are automatically migrated
+when opened. Run <code>crackz migrate --project &lt;path&gt;</code> to migrate without opening the GUI.
+A timestamped backup is created before any migration. See the
+<a href="../migration/">Migration Guide</a> for details.</p>
+</blockquote>
 <h2 id="unified-projectconfig-scaffold">Unified ProjectConfig (Scaffold)<a class="headerlink" href="#unified-projectconfig-scaffold" title="Permanent link">&para;</a></h2>
 <p>For programmatic work you can use the unified wrapper <code>ProjectConfig</code>:
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
@@ -5369,14 +5460,19 @@ You can also serialize a live <code>Project</code> back to a config:
 </thead>
 <tbody>
 <tr>
-<td>encoder</td>
-<td>resnet34</td>
-<td>Backbone architecture (see encoder options below)</td>
+<td>backbone</td>
+<td>segformer-b2</td>
+<td>Model backbone architecture (see backbone options below)</td>
 </tr>
 <tr>
-<td>encoder_weights</td>
-<td>imagenet</td>
-<td>Pretrained weights name (imagenet, ssl, swsl, or None)</td>
+<td>active_checkpoint</td>
+<td>best</td>
+<td>Checkpoint used for detection ("best", "last", or filename)</td>
+</tr>
+<tr>
+<td>task_mode</td>
+<td>null</td>
+<td>Explicit task override: <code>binary</code> or <code>multiclass</code>. Null auto-derives from annotation schema</td>
 </tr>
 <tr>
 <td>device</td>
@@ -5391,17 +5487,17 @@ You can also serialize a live <code>Project</code> back to a config:
 <tr>
 <td>num_classes</td>
 <td>1</td>
-<td>Number of output classes (1 for binary, 2+ for multi-class)</td>
+<td><strong>Derived</strong> at runtime from annotation schema — do not set manually</td>
 </tr>
 <tr>
 <td>input_size</td>
-<td>(512,512)</td>
+<td>(1024,1024)</td>
 <td>WxH expected by model/transforms</td>
 </tr>
 <tr>
 <td>threshold</td>
 <td>0.5</td>
-<td>Applied to sigmoid output during detection</td>
+<td>Applied to sigmoid output (binary) or confidence threshold (multiclass)</td>
 </tr>
 <tr>
 <td>normalization.mean</td>
@@ -5430,12 +5526,84 @@ You can also serialize a live <code>Project</code> back to a config:
 </tr>
 </tbody>
 </table>
-<p><strong>Supported Encoders</strong></p>
-<p>Crackz uses <code>segmentation-models-pytorch</code> and supports any encoder from that library. <strong>EfficientNet models are highly recommended for crack detection</strong> due to compound scaling and superior feature extraction for fine-grained patterns:</p>
+<blockquote>
+<p><strong>Note on <code>num_classes</code></strong>: As of schema v6, <code>num_classes</code> is derived automatically from the
+project annotation schema (1 category → binary mode with 1 output channel; 2+ categories →
+multiclass mode with <code>1 + num_categories</code> output channels). Do not set this field manually.</p>
+<p><strong>Note on <code>backbone</code></strong>: The <code>encoder</code> / <code>encoder_weights</code> fields from schema ≤ v4 are
+superseded by <code>backbone</code>. Projects are auto-migrated. Supported values include any
+<code>segmentation-models-pytorch</code> encoder <strong>plus</strong> SegFormer variants (<code>segformer-b0</code> through
+<code>segformer-b5</code>). See backbone options below.</p>
+</blockquote>
+<p><strong>Supported Backbones</strong></p>
+<p>Crackz supports two model families as the backbone:</p>
+<h4 id="segformer-recommended">SegFormer (Recommended)<a class="headerlink" href="#segformer-recommended" title="Permanent link">&para;</a></h4>
+<p>SegFormer is the <strong>default</strong> model family for new projects. It uses a hierarchical
+Transformer encoder with a lightweight MLP decoder, giving strong accuracy without
+the large memory footprint of heavier transformer models.</p>
 <table>
 <thead>
 <tr>
-<th>Encoder</th>
+<th>Backbone</th>
+<th>Parameters</th>
+<th>Speed</th>
+<th>Accuracy</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>segformer-b0</code></td>
+<td>3.7M</td>
+<td>Very Fast</td>
+<td>Good</td>
+<td>Edge deployment, real-time</td>
+</tr>
+<tr>
+<td><code>segformer-b1</code></td>
+<td>13.7M</td>
+<td>Fast</td>
+<td>Very Good</td>
+<td>Balanced — lighter GPU</td>
+</tr>
+<tr>
+<td><strong><code>segformer-b2</code></strong></td>
+<td><strong>25.4M</strong></td>
+<td><strong>Medium</strong></td>
+<td><strong>Excellent</strong></td>
+<td><strong>⭐ Default — best value</strong></td>
+</tr>
+<tr>
+<td><code>segformer-b3</code></td>
+<td>45.2M</td>
+<td>Slow</td>
+<td>Excellent</td>
+<td>Large datasets, GPU recommended</td>
+</tr>
+<tr>
+<td><code>segformer-b4</code></td>
+<td>64.1M</td>
+<td>Slower</td>
+<td>Superior</td>
+<td>High accuracy, ample GPU budget</td>
+</tr>
+<tr>
+<td><code>segformer-b5</code></td>
+<td>84.7M</td>
+<td>Slow</td>
+<td>Best</td>
+<td>Maximum accuracy benchmark</td>
+</tr>
+</tbody>
+</table>
+<h4 id="u-net-with-smp-encoders">U-Net with SMP Encoders<a class="headerlink" href="#u-net-with-smp-encoders" title="Permanent link">&para;</a></h4>
+<p>The classic U-Net decoder with any <code>segmentation-models-pytorch</code> encoder. Useful for
+binary crack-only projects, smaller datasets, or environments where SegFormer weights
+cannot be downloaded.</p>
+<table>
+<thead>
+<tr>
+<th>Backbone (encoder only)</th>
 <th>Parameters</th>
 <th>Speed</th>
 <th>Accuracy</th>
@@ -5476,7 +5644,7 @@ You can also serialize a live <code>Project</code> back to a config:
 <td>21M</td>
 <td>Medium</td>
 <td>Very Good</td>
-<td>Default - balanced performance</td>
+<td>Balanced performance</td>
 </tr>
 <tr>
 <td><code>resnet50</code></td>
@@ -5486,71 +5654,76 @@ You can also serialize a live <code>Project</code> back to a config:
 <td>Large datasets, maximum accuracy</td>
 </tr>
 <tr>
-<td><code>resnet101</code></td>
-<td>42M</td>
-<td>Very Slow</td>
-<td>Excellent</td>
-<td>Research, very large datasets</td>
-</tr>
-<tr>
-<td><code>densenet121</code></td>
-<td>7M</td>
-<td>Medium</td>
-<td>Very Good</td>
-<td>Dense connections, good gradients</td>
-</tr>
-<tr>
 <td><code>mobilenet_v2</code></td>
 <td>2M</td>
 <td>Very Fast</td>
 <td>Fair</td>
 <td>Edge deployment, real-time</td>
 </tr>
-<tr>
-<td><code>vgg16</code></td>
-<td>14M</td>
-<td>Slow</td>
-<td>Good</td>
-<td>Classic architecture</td>
-</tr>
 </tbody>
 </table>
-<p><strong>Encoder Weights Options</strong>
+<p><strong>Encoder Weights Options</strong> (U-Net only)
 - <code>imagenet</code>: ImageNet-1K pretrained (recommended for transfer learning)
 - <code>ssl</code>: Self-supervised learning weights
 - <code>swsl</code>: Semi-weakly supervised learning weights
 - <code>None</code> or <code>null</code>: Random initialization (train from scratch)</p>
 <p><strong>Model Type Examples</strong></p>
-<p><em>Binary Segmentation (Default)</em>
+<p><em>Binary Segmentation — SegFormer (Default)</em>
 <div class="highlight"><pre><span></span><code><span class="nt">ai</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">model</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resnet34</span>
-<span class="w">    </span><span class="nt">num_classes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">          </span><span class="c1"># Single output channel</span>
-<span class="w">    </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w">          </span><span class="c1"># Probability threshold for crack/no-crack</span>
+<span class="w">    </span><span class="nt">backbone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">segformer-b2</span><span class="w">   </span><span class="c1"># Default SegFormer model</span>
+<span class="w">    </span><span class="nt">input_size</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1024</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1024</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="nt">annotation</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">categories</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">crack</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Crack</span>
+<span class="w">      </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#ef4444&quot;</span>
 </code></pre></div></p>
-<p><em>Multi-Class Segmentation</em>
+<p><em>Multi-Class Segmentation — Harbor Defects</em>
+<div class="highlight"><pre><span></span><code><span class="nt">annotation</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">categories</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">crack</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Crack</span>
+<span class="w">      </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#ef4444&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spall</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Spall</span>
+<span class="w">      </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#f59e0b&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">corrosion</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Corrosion</span>
+<span class="w">      </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#3b82f6&quot;</span>
+<span class="nt">ai</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">backbone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">segformer-b2</span>
+<span class="w">    </span><span class="c1"># num_classes is derived automatically: 1 + 3 categories = 4 output channels</span>
+</code></pre></div></p>
+<p><em>Binary Segmentation — U-Net with EfficientNet (legacy or fallback)</em>
 <div class="highlight"><pre><span></span><code><span class="nt">ai</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">model</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">efficientnet-b0</span>
-<span class="w">    </span><span class="nt">num_classes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">          </span><span class="c1"># E.g., background=0, crack=1, corrosion=2, spalling=3</span>
-<span class="w">    </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span><span class="w">          </span><span class="c1"># Applied per-class</span>
+<span class="w">    </span><span class="nt">backbone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">efficientnet-b3</span><span class="w">   </span><span class="c1"># U-Net decoder, EfficientNet-B3 encoder</span>
+<span class="w">    </span><span class="nt">input_size</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">512</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
 </code></pre></div></p>
 <p><em>Grayscale Input</em>
 <div class="highlight"><pre><span></span><code><span class="nt">ai</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">model</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mobilenet_v2</span>
+<span class="w">    </span><span class="nt">backbone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">segformer-b2</span>
 <span class="w">    </span><span class="nt">in_channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w">          </span><span class="c1"># Grayscale images</span>
 <span class="w">    </span><span class="nt">normalization</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">mean</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.5</span><span class="p p-Indicator">]</span>
 <span class="w">      </span><span class="nt">std</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.5</span><span class="p p-Indicator">]</span>
 </code></pre></div></p>
-<p><em>Training from Scratch (No Pretrained Weights)</em>
+<p><em>Force binary task mode with multiple annotation categories</em>
 <div class="highlight"><pre><span></span><code><span class="nt">ai</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">model</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resnet34</span>
-<span class="w">    </span><span class="nt">encoder_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w">   </span><span class="c1"># Random initialization</span>
+<span class="w">    </span><span class="nt">backbone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">segformer-b2</span>
+<span class="w">    </span><span class="nt">task_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span><span class="w">       </span><span class="c1"># All categories collapse into one defect-vs-background class</span>
 </code></pre></div></p>
-<p>See <a href="../architecture/">Architecture</a> for use case examples and <a href="../user-guide/#56-model-selection-configuration">User Guide</a> for encoder selection guidance.</p>
+<p>See <a href="../architecture/">Architecture</a> for use case examples and <a href="../user-guide/#56-model-selection-configuration">User Guide</a> for backbone selection guidance.</p>
 <h3 id="trainingconfig-fields">TrainingConfig Fields<a class="headerlink" href="#trainingconfig-fields" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -5827,6 +6000,16 @@ silent change without guide coverage.</p>
 <td>50</td>
 <td>Threshold for converting masks to binary format during import</td>
 </tr>
+<tr>
+<td>image_quality</td>
+<td>90</td>
+<td>JPEG quality for saving/resizing images during import (1-100)</td>
+</tr>
+<tr>
+<td>target_size</td>
+<td>1024</td>
+<td>Image resize dimension (NxN pixels) applied during import (64-4096)</td>
+</tr>
 </tbody>
 </table>
 <h4 id="mask-threshold-behavior">Mask Threshold Behavior<a class="headerlink" href="#mask-threshold-behavior" title="Permanent link">&para;</a></h4>
@@ -5882,6 +6065,140 @@ silent change without guide coverage.</p>
 - <code>project.import_images()</code> (programmatic import)
 - The <code>scripts/import_masks.py</code> utility script</p>
 <p><strong>Migration Note:</strong> Projects created before schema version 2 will not have this field. Running <code>crackz migrate</code> will add <code>mask_threshold: 50</code> to use the recommended default.</p>
+<h2 id="annotation-schema">Annotation Schema<a class="headerlink" href="#annotation-schema" title="Permanent link">&para;</a></h2>
+<p>The <code>annotation</code> section (added in schema v6) defines the <strong>project-owned label schema</strong> —
+the set of defect categories used by the mask editor, training pipeline, detection results,
+and model registry.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">annotation</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">background</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Background</span>
+<span class="w">    </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#000000&quot;</span>
+<span class="w">  </span><span class="nt">categories</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">crack</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Crack</span>
+<span class="w">      </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#ef4444&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spall</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Spall</span>
+<span class="w">      </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#f59e0b&quot;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">corrosion</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Corrosion</span>
+<span class="w">      </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#3b82f6&quot;</span>
+</code></pre></div>
+<h3 id="annotationbackground-fields">AnnotationBackground Fields<a class="headerlink" href="#annotationbackground-fields" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Default</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>0</td>
+<td>Always 0; non-configurable</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Background</td>
+<td>Human-readable name</td>
+</tr>
+<tr>
+<td>color</td>
+<td>#000000</td>
+<td>Hex color for overlays</td>
+</tr>
+</tbody>
+</table>
+<h3 id="annotationcategory-fields">AnnotationCategory Fields<a class="headerlink" href="#annotationcategory-fields" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Required</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>yes</td>
+<td>Stable integer, must be contiguous <code>1..N</code></td>
+</tr>
+<tr>
+<td>key</td>
+<td>yes</td>
+<td>Lowercase slug (e.g. <code>crack</code>, <code>spall</code>). Used in JSON, CLI, and model metadata</td>
+</tr>
+<tr>
+<td>name</td>
+<td>yes</td>
+<td>Human-readable display name (e.g. <code>Crack</code>, <code>Spall</code>)</td>
+</tr>
+<tr>
+<td>color</td>
+<td>yes</td>
+<td>Hex color <code>#RRGGBB</code> for mask overlays and gallery chips</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rules">Rules<a class="headerlink" href="#rules" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Background is always id 0</strong> and is reserved; you cannot add it as a foreground category.</li>
+<li><strong>Category ids must be contiguous</strong> (<code>1, 2, 3, …N</code>). Gaps are not permitted.</li>
+<li><strong>Category keys must be unique</strong> within a project.</li>
+<li><strong>Single category → binary task mode</strong>: a project with one foreground category uses the
+  one-channel sigmoid path. The model output classes will be <code>1</code>.</li>
+<li><strong>Multiple categories → multiclass task mode</strong>: a project with N &gt; 1 foreground categories
+  uses the softmax path. The model output classes will be <code>1 + N</code> (background + N foregrounds).</li>
+<li><strong><code>task_mode: binary</code> override</strong>: set this in <code>ai.model</code> to collapse all foreground
+  categories into a single defect-vs-background class even when multiple categories exist.</li>
+</ul>
+<h3 id="annotation-templates">Annotation Templates<a class="headerlink" href="#annotation-templates" title="Permanent link">&para;</a></h3>
+<p>New projects can start from a built-in template via the GUI New Project dialog or the CLI:</p>
+<table>
+<thead>
+<tr>
+<th>Template</th>
+<th>Categories</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>crack-only</code></td>
+<td>Crack</td>
+<td>Binary crack detection (default)</td>
+</tr>
+<tr>
+<td><code>harbor-defects</code></td>
+<td>Crack, Spall, Corrosion, Joint Damage</td>
+<td>Harbor infrastructure inspection</td>
+</tr>
+<tr>
+<td><code>survey-general</code></td>
+<td>Crack, Spall, Corrosion, Water Intrusion, Biological Growth</td>
+<td>Broad surface condition survey</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="c1"># CLI: initialize a project with a harbor-defects annotation template</span>
+crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>harbor-project<span class="w"> </span>--annotation-template<span class="w"> </span>harbor-defects
+</code></pre></div>
+<h3 id="schema-compatibility">Schema Compatibility<a class="headerlink" href="#schema-compatibility" title="Permanent link">&para;</a></h3>
+<p>Checkpoints are <strong>taxonomy-aware</strong>: the model head size is derived from the annotation schema
+at training time and stored in the checkpoint metadata. If you change your annotation
+categories after training, existing checkpoints will be flagged as incompatible in the
+<strong>Model Manager</strong> and cannot be used for detection until replaced.</p>
+<p>When editing categories in Project Settings, Crackz will:
+1. <strong>Warn</strong> if existing checkpoints would be invalidated.
+2. <strong>Offer to remap</strong> existing mask label IDs if masks already exist for the project.
+3. <strong>Block</strong> saves that would make checkpoint and mask data inconsistent.</p>
 <h2 id="advanced-training-fields">Advanced Training Fields<a class="headerlink" href="#advanced-training-fields" title="Permanent link">&para;</a></h2>
 <p>Additional optional performance &amp; reproducibility keys:
 | Field | Location | Purpose |
@@ -10307,40 +10624,48 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
 <p>Configure via <code>project.yaml</code>:
 <div class="highlight"><pre><span></span><code><span class="nt">ai</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">model</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">encoder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">resnet34</span><span class="w">        </span><span class="c1"># or efficientnet-b0, mobilenet_v2, etc.</span>
-<span class="w">    </span><span class="nt">encoder_weights</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">imagenet</span><span class="w"> </span><span class="c1"># or None for random initialization</span>
+<span class="w">    </span><span class="nt">backbone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">segformer-b2</span><span class="w">   </span><span class="c1"># or segformer-b0/b4, efficientnet-b3, resnet34, etc.</span>
+<span class="nt">annotation</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">categories</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">crack</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Crack</span>
+<span class="w">      </span><span class="nt">color</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#ef4444&quot;</span>
 </code></pre></div></p>
 <h3 id="common-use-cases-model-examples">Common Use Cases &amp; Model Examples<a class="headerlink" href="#common-use-cases-model-examples" title="Permanent link">&para;</a></h3>
-<p><strong>1. Harbor Infrastructure Inspection (Segmentation)</strong>
+<p><strong>1. Harbor Infrastructure Inspection (Binary Segmentation)</strong>
 - <strong>Task</strong>: Detect and map cracks in concrete harbor walls
-- <strong>Model</strong>: U-Net with ResNet34 encoder
-- <strong>Input</strong>: 512×512 grayscale or RGB images
+- <strong>Model</strong>: SegFormer-B2 (default) or U-Net with EfficientNet-B3
+- <strong>Annotation</strong>: Single <code>crack</code> category → binary task mode
+- <strong>Input</strong>: 1024×1024 RGB images
 - <strong>Output</strong>: Binary segmentation mask highlighting crack pixels
-- <strong>Workflow</strong>: Train on labeled harbor images → Deploy for automated inspection</p>
-<p><strong>2. Bridge Surface Analysis (Multi-Class Segmentation)</strong>
+- <strong>Workflow</strong>: <code>crackz init --name harbor --annotation-template crack-only</code> → train → detect</p>
+<p><strong>2. Harbor Comprehensive Survey (Multi-Class Segmentation)</strong>
+- <strong>Task</strong>: Identify multiple defect types (cracks, spalling, corrosion, joint damage)
+- <strong>Model</strong>: SegFormer-B2 with 5 output channels (background + 4 categories)
+- <strong>Annotation</strong>: <code>crack</code>, <code>spall</code>, <code>corrosion</code>, <code>joint_damage</code> categories → multiclass task mode
+- <strong>Input</strong>: 1024×1024 RGB images
+- <strong>Output</strong>: Indexed mask (0=background, 1=crack, 2=spall, 3=corrosion, 4=joint_damage)
+- <strong>Workflow</strong>: <code>crackz init --name harbor --annotation-template harbor-defects</code> → train → detect</p>
+<p><strong>3. Bridge Surface Analysis (Multi-Class Segmentation)</strong>
 - <strong>Task</strong>: Identify different defect types (cracks, spalling, corrosion)
-- <strong>Model</strong>: U-Net with EfficientNet-B0 encoder, num_classes=3
+- <strong>Model</strong>: SegFormer-B4 (higher accuracy GPU option)
+- <strong>Annotation</strong>: 3 categories → multiclass task mode, 4 model output classes
 - <strong>Input</strong>: High-resolution bridge deck photos
-- <strong>Output</strong>: Multi-class mask (class 1=crack, class 2=spalling, class 3=corrosion)
-- <strong>Workflow</strong>: Acquire pre-trained multi-defect model → Run detections on new structures</p>
-<p><strong>3. Quick Assessment (Classification)</strong>
-- <strong>Task</strong>: Rapid triage - does this image contain any cracks?
-- <strong>Model</strong>: Custom CNN classifier (future extension)
-- <strong>Input</strong>: Full-resolution photos
-- <strong>Output</strong>: Binary label (crack/no-crack) with confidence score
-- <strong>Workflow</strong>: Train lightweight classifier → Process thousands of images for filtering</p>
+- <strong>Output</strong>: Multi-class indexed mask per category
+- <strong>Workflow</strong>: Collect labeled dataset → configure harbor-defects template → train on GPU</p>
 <p><strong>4. Deviation Detection (Binary Segmentation)</strong>
 - <strong>Task</strong>: Identify surface irregularities or deviations from standard
-- <strong>Model</strong>: U-Net with MobileNetV2 (for edge deployment)
+- <strong>Model</strong>: SegFormer-B0 or U-Net with MobileNetV2 (for edge deployment)
 - <strong>Input</strong>: Normalized surface scans
-- <strong>Output</strong>: Deviation mask
-- <strong>Workflow</strong>: Train on deviation examples → Deploy on mobile devices</p>
+- <strong>Output</strong>: Binary deviation mask
+- <strong>Workflow</strong>: Train on deviation examples → Deploy on mobile/edge devices</p>
 <p><strong>5. Custom Domain Application</strong>
 - <strong>Task</strong>: Adapt to specific industry (e.g., aerospace panel inspection)
-- <strong>Model</strong>: Fine-tune from ImageNet pre-trained encoder
+- <strong>Model</strong>: Start from SegFormer-B2 with a custom annotation schema
 - <strong>Input</strong>: Domain-specific imagery (composite materials, metal surfaces)
-- <strong>Output</strong>: Custom defect masks
-- <strong>Workflow</strong>: Collect small labeled dataset → Transfer learning → Production deployment</p>
+- <strong>Output</strong>: Custom category masks
+- <strong>Workflow</strong>: Define custom categories via <code>annotation.categories</code> → collect labeled data → train</p>
 <hr />
 <h2 id="c4-level-1-container-view">C4 Level 1 (Container View)<a class="headerlink" href="#c4-level-1-container-view" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>C4Container

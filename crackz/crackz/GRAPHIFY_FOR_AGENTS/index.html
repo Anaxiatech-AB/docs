@@ -23,7 +23,7 @@
     
     
       
-        <title>CI Runner Configuration - Crackz</title>
+        <title>Graphify for Agents - Crackz</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#how-it-works" class="md-skip">
+        <a href="#quick-start-for-agents" class="md-skip">
           Skip to content
         </a>
       
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CI Runner Configuration
+              Graphify for Agents
             
           </span>
         </div>
@@ -1581,10 +1581,160 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#quick-start-for-agents" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        Quick Start for Agents
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Start for Agents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-query-the-graph-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Query the Graph Directly
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-use-query-shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Use Query Shortcuts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-mcp-server-structured-tool-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MCP Server (Structured Tool Calls)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-insights-for-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture Insights for Agents
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Architecture Insights for Agents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#god-nodes-most-connected-abstractions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        God Nodes (Most Connected Abstractions)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#surprising-connections-refactoring-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Surprising Connections (Refactoring Targets)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#communities-tight-coupling-zones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Communities (Tight Coupling Zones)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-graph-data-in-code-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Graph Data in Code Decisions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using Graph Data in Code Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-where-should-new-feature-go" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Where Should New Feature Go?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-is-this-coupling-a-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Is This Coupling a Problem?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-can-i-refactor-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Can I Refactor This?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcp-integration-for-claude-desktop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP Integration for Claude Desktop
       
     </span>
   </a>
@@ -1592,10 +1742,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#switch-to-self-hosted-radiogaga" class="md-nav__link">
+  <a href="#keeping-graph-current" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Switch to self-hosted (radiogaga)
+        Keeping Graph Current
       
     </span>
   </a>
@@ -1603,10 +1753,82 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#switch-to-github-hosted-ubuntu-latest" class="md-nav__link">
+  <a href="#common-agent-queries" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Switch to GitHub-hosted (ubuntu-latest)
+        Common Agent Queries
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Agent Queries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understand-the-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Understand the architecture"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-should-this-go" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Where should this go?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is-this-coupled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Is this coupled?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#whats-a-good-design-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "What's a good design pattern?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-i-refactor-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Can I refactor this?"
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-tips-for-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Tips for Agents
       
     </span>
   </a>
@@ -1614,10 +1836,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#manually-trigger-unit-tests-on-a-branch" class="md-nav__link">
+  <a href="#references" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Manually trigger unit tests on a branch
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
       
     </span>
   </a>
@@ -1644,53 +1877,252 @@
   
 
 
-<h1 id="ci-runner-configuration">CI Runner Configuration<a class="headerlink" href="#ci-runner-configuration" title="Permanent link">&para;</a></h1>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>Automatic CI checks now run directly on GitHub-hosted runners:</p>
-<ul>
-<li><code>build.yml</code></li>
-<li><code>docs.yml</code></li>
-<li><code>integration-tests.yml</code></li>
-<li><code>secrets-scan.yml</code></li>
-<li><code>unit-tests.yml</code></li>
-</ul>
-<p>Selected workflows still use a repo variable to control self-hosted routing:</p>
-<div class="highlight"><pre><span></span><code>CRACKZ_SELF_HOSTED_RUNNER_LABELS = [&quot;self-hosted&quot;,&quot;radiogaga&quot;]
+<h1 id="graphify-for-agents">Graphify for Agents<a class="headerlink" href="#graphify-for-agents" title="Permanent link">&para;</a></h1>
+<p>This document explains how agents (Claude, other AI models) can use the Crackz knowledge graph to understand architecture and make better decisions.</p>
+<h2 id="quick-start-for-agents">Quick Start for Agents<a class="headerlink" href="#quick-start-for-agents" title="Permanent link">&para;</a></h2>
+<h3 id="1-query-the-graph-directly">1. Query the Graph Directly<a class="headerlink" href="#1-query-the-graph-directly" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Agent: &quot;Understand what ModelRegistry does&quot;</span>
+graphify<span class="w"> </span>explain<span class="w"> </span><span class="s2">&quot;ModelRegistry&quot;</span>
+
+<span class="c1"># Agent: &quot;How does training work?&quot;</span>
+graphify<span class="w"> </span>query<span class="w"> </span><span class="s2">&quot;trace the training pipeline&quot;</span>
+
+<span class="c1"># Agent: &quot;Should mask editing be in GUI or CLI?&quot;</span>
+graphify<span class="w"> </span>path<span class="w"> </span><span class="s2">&quot;masks_cli&quot;</span><span class="w"> </span><span class="s2">&quot;MaskEditorDialog&quot;</span>
 </code></pre></div>
+<h3 id="2-use-query-shortcuts">2. Use Query Shortcuts<a class="headerlink" href="#2-use-query-shortcuts" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run common queries without MCP</span>
+./scripts/graphify-queries.sh<span class="w"> </span>god-nodes
+./scripts/graphify-queries.sh<span class="w"> </span>architecture
+./scripts/graphify-queries.sh<span class="w"> </span>cli-gui-boundary
+./scripts/graphify-queries.sh<span class="w"> </span>training-pipeline
+./scripts/graphify-queries.sh<span class="w"> </span>surprising
+
+<span class="c1"># See all available queries</span>
+./scripts/graphify-queries.sh<span class="w"> </span>list
+</code></pre></div>
+<h3 id="3-mcp-server-structured-tool-calls">3. MCP Server (Structured Tool Calls)<a class="headerlink" href="#3-mcp-server-structured-tool-calls" title="Permanent link">&para;</a></h3>
+<p>Start the server:
+<div class="highlight"><pre><span></span><code>./scripts/mcp-server.sh<span class="w"> </span>start
+</code></pre></div></p>
+<p>Agents can then call these tools programmatically:</p>
+<div class="highlight"><pre><span></span><code>Tool: query_graph
+Input: &quot;What does the Project class do?&quot;
+Output: [subgraph with explanation]
+
+Tool: get_node
+Input: &quot;ModelRegistry&quot;
+Output: {id, label, connections, file location}
+
+Tool: shortest_path
+Input: {source: &quot;MainWindow&quot;, target: &quot;AIChatService&quot;}
+Output: [edge chain showing path]
+
+Tool: god_nodes
+Output: [top 10 highest-connectivity nodes]
+
+Tool: get_community
+Input: 0
+Output: [all 54 nodes in community 0]
+</code></pre></div>
+<h2 id="architecture-insights-for-agents">Architecture Insights for Agents<a class="headerlink" href="#architecture-insights-for-agents" title="Permanent link">&para;</a></h2>
+<h3 id="god-nodes-most-connected-abstractions">God Nodes (Most Connected Abstractions)<a class="headerlink" href="#god-nodes-most-connected-abstractions" title="Permanent link">&para;</a></h3>
+<p><strong>ModelRegistry</strong> (79 edges)
+- Controls all model lifecycle (creation, loading, checkpointing)
+- Central bottleneck—all model work flows through here
+- <strong>Agent tip:</strong> Before adding model features, check if ModelRegistry should handle it</p>
+<p><strong>QtAppState</strong> (63 edges)
+- GUI state management
+- Used by all views for reactive updates
+- <strong>Agent tip:</strong> For GUI features, mutations go through QtAppState</p>
+<p><strong>MainWindow</strong> (62 edges)
+- Top-level container, orchestrates all panels
+- <strong>Agent tip:</strong> New tabs/panels registered here</p>
+<p><strong>AIChatService</strong> (57 edges)
+- LLM integration (chat, embedding, inference)
+- <strong>Agent tip:</strong> For AI features, implement here or call AIChatService</p>
+<p><strong>Project</strong> (46 edges) ⚠️ Chokepoint
+- Configuration hub—spans 23 communities
+- <strong>Agent tip:</strong> High coupling risk—consider splitting</p>
+<h3 id="surprising-connections-refactoring-targets">Surprising Connections (Refactoring Targets)<a class="headerlink" href="#surprising-connections-refactoring-targets" title="Permanent link">&para;</a></h3>
+<p><strong>CLI→GUI Violation</strong>
+- <code>masks_cli.py</code> imports <code>MaskEditorDialog</code> from GUI
+- Violates layer separation (CLI shouldn't know about GUI)
+- <strong>Agent recommendation:</strong> Abstract through a service layer</p>
+<p><strong>Test→Core Tight Coupling</strong>
+- Tests import internal functions, not just public APIs
+- Makes refactoring risky
+- <strong>Agent recommendation:</strong> Enforce test→public API only</p>
+<p><strong>Project Spans 23 Communities</strong>
+- Indicates over-responsibilities
+- <strong>Agent recommendation:</strong> Split into ProjectConfig, ProjectMetadata, ProjectImport</p>
+<h3 id="communities-tight-coupling-zones">Communities (Tight Coupling Zones)<a class="headerlink" href="#communities-tight-coupling-zones" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>Variable set?</th>
-<th>Runner used</th>
+<th>Community</th>
+<th>Purpose</th>
+<th>Nodes</th>
+<th>Cohesion</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Yes</td>
-<td><code>radiogaga</code> (self-hosted) for variable-driven workflows</td>
+<td>0</td>
+<td>Annotation config</td>
+<td>54</td>
+<td>0.04</td>
 </tr>
 <tr>
-<td>No (deleted)</td>
-<td><code>ubuntu-latest</code> fallback for variable-driven workflows</td>
+<td>1</td>
+<td>Database layer</td>
+<td>33</td>
+<td>0.04</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Training pipeline</td>
+<td>25</td>
+<td>0.04</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
 </tr>
 </tbody>
 </table>
-<h2 id="switch-to-self-hosted-radiogaga">Switch to self-hosted (radiogaga)<a class="headerlink" href="#switch-to-self-hosted-radiogaga" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>api<span class="w"> </span>--method<span class="w"> </span>POST<span class="w"> </span>repos/Anaxiatech-AB/crackz/actions/variables<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-f<span class="w"> </span><span class="nv">name</span><span class="o">=</span>CRACKZ_SELF_HOSTED_RUNNER_LABELS<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-f<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="s1">&#39;[&quot;self-hosted&quot;,&quot;radiogaga&quot;]&#39;</span>
+<p><strong>Agent tip:</strong> Code in the same community is tightly coupled. Avoid creating dependencies between communities.</p>
+<h2 id="using-graph-data-in-code-decisions">Using Graph Data in Code Decisions<a class="headerlink" href="#using-graph-data-in-code-decisions" title="Permanent link">&para;</a></h2>
+<h3 id="example-1-where-should-new-feature-go">Example 1: Where Should New Feature Go?<a class="headerlink" href="#example-1-where-should-new-feature-go" title="Permanent link">&para;</a></h3>
+<p><strong>Agent question:</strong> "I need to add a new model type. Where in the codebase?"</p>
+<p><strong>Graph exploration:</strong>
+<div class="highlight"><pre><span></span><code>graphify<span class="w"> </span>explain<span class="w"> </span><span class="s2">&quot;ModelRegistry&quot;</span>
+graphify<span class="w"> </span>query<span class="w"> </span><span class="s2">&quot;what creates models?&quot;</span>
+graphify<span class="w"> </span>path<span class="w"> </span><span class="s2">&quot;MainWindow&quot;</span><span class="w"> </span><span class="s2">&quot;ModelRegistry&quot;</span>
+</code></pre></div></p>
+<p><strong>Output:</strong> ModelRegistry is the central hub for all models. New types should register there.</p>
+<h3 id="example-2-is-this-coupling-a-problem">Example 2: Is This Coupling a Problem?<a class="headerlink" href="#example-2-is-this-coupling-a-problem" title="Permanent link">&para;</a></h3>
+<p><strong>Agent question:</strong> "Should CLI call GUI? They're in different layers."</p>
+<p><strong>Graph exploration:</strong>
+<div class="highlight"><pre><span></span><code>graphify<span class="w"> </span>path<span class="w"> </span><span class="s2">&quot;masks_cli&quot;</span><span class="w"> </span><span class="s2">&quot;MaskEditorDialog&quot;</span>
+graphify<span class="w"> </span>query<span class="w"> </span><span class="s2">&quot;what other CLI-&gt;GUI calls exist?&quot;</span>
+</code></pre></div></p>
+<p><strong>Output:</strong> This is a known surprise connection—indicates missing abstraction layer.</p>
+<h3 id="example-3-can-i-refactor-this">Example 3: Can I Refactor This?<a class="headerlink" href="#example-3-can-i-refactor-this" title="Permanent link">&para;</a></h3>
+<p><strong>Agent question:</strong> "Project is coupled to everything. Can I safely split it?"</p>
+<p><strong>Graph exploration:</strong>
+<div class="highlight"><pre><span></span><code>graphify<span class="w"> </span>explain<span class="w"> </span><span class="s2">&quot;Project&quot;</span>
+graphify<span class="w"> </span>query<span class="w"> </span><span class="s2">&quot;what depends on Project?&quot;</span>
+graphify<span class="w"> </span>get_community<span class="w"> </span><span class="m">38</span><span class="w">  </span><span class="c1"># Project&#39;s community</span>
+</code></pre></div></p>
+<p><strong>Output:</strong> Project has 46 edges across 23 communities. Safe refactoring: extract ProjectConfig (used for initialization), ProjectMetadata (runtime info), ProjectImport (data loading).</p>
+<h2 id="mcp-integration-for-claude-desktop">MCP Integration for Claude Desktop<a class="headerlink" href="#mcp-integration-for-claude-desktop" title="Permanent link">&para;</a></h2>
+<p>If using Claude Desktop, add to <code>~/.config/Claude/claude_desktop_config.json</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;graphify&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python3&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;-m&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;graphify.serve&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;/absolute/path/to/graphify-out/graph.json&quot;</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
-<p>Requires radiogaga to be registered at org level:
-https://github.com/organizations/Anaxiatech-AB/settings/actions/runners</p>
-<h2 id="switch-to-github-hosted-ubuntu-latest">Switch to GitHub-hosted (ubuntu-latest)<a class="headerlink" href="#switch-to-github-hosted-ubuntu-latest" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>api<span class="w"> </span>--method<span class="w"> </span>DELETE<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>repos/Anaxiatech-AB/crackz/actions/variables/CRACKZ_SELF_HOSTED_RUNNER_LABELS
+<p>Then Claude can query the graph while coding:
+<div class="highlight"><pre><span></span><code>[Claude is now connected to Graphify tools]
+Claude: &quot;Before I add this feature, let me query the graph...&quot;
+[Claude automatically calls query_graph, shortest_path, etc.]
+</code></pre></div></p>
+<h2 id="keeping-graph-current">Keeping Graph Current<a class="headerlink" href="#keeping-graph-current" title="Permanent link">&para;</a></h2>
+<p><strong>Auto-update on commits:</strong>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add new model type&quot;</span>
+<span class="c1"># Post-commit hook runs automatically</span>
+<span class="c1"># Graph updated with new code</span>
+</code></pre></div></p>
+<p><strong>Manual update after big refactor:</strong>
+<div class="highlight"><pre><span></span><code>./scripts/graphify-queries.sh<span class="w"> </span>surprising<span class="w">  </span><span class="c1"># See new surprises</span>
+graphify<span class="w"> </span>.<span class="w"> </span>--update<span class="w">                        </span><span class="c1"># Re-extract changed files</span>
+./scripts/mcp-server.sh<span class="w"> </span>restart<span class="w">            </span><span class="c1"># Restart for agents</span>
+</code></pre></div></p>
+<h2 id="common-agent-queries">Common Agent Queries<a class="headerlink" href="#common-agent-queries" title="Permanent link">&para;</a></h2>
+<h3 id="understand-the-architecture">"Understand the architecture"<a class="headerlink" href="#understand-the-architecture" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code>./scripts/graphify-queries.sh<span class="w"> </span>all
 </code></pre></div>
-<p>Requires sufficient Actions budget:
-https://github.com/organizations/Anaxiatech-AB/billing/summary</p>
-<h2 id="manually-trigger-unit-tests-on-a-branch">Manually trigger unit tests on a branch<a class="headerlink" href="#manually-trigger-unit-tests-on-a-branch" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>workflow<span class="w"> </span>run<span class="w"> </span>unit-tests.yml<span class="w"> </span>--ref<span class="w"> </span>&lt;branch-name&gt;
+Output: God nodes, main components, surprising connections</p>
+<h3 id="where-should-this-go">"Where should this go?"<a class="headerlink" href="#where-should-this-go" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code>graphify<span class="w"> </span>explain<span class="w"> </span><span class="s2">&quot;TargetModule&quot;</span>
+graphify<span class="w"> </span>path<span class="w"> </span><span class="s2">&quot;CurrentLocation&quot;</span><span class="w"> </span><span class="s2">&quot;TargetModule&quot;</span>
 </code></pre></div>
+Output: Community membership, distance, dependencies</p>
+<h3 id="is-this-coupled">"Is this coupled?"<a class="headerlink" href="#is-this-coupled" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code>graphify<span class="w"> </span>query<span class="w"> </span><span class="s2">&quot;what connects X to Y?&quot;</span>
+</code></pre></div>
+Output: All paths, edge confidence, source files</p>
+<h3 id="whats-a-good-design-pattern">"What's a good design pattern?"<a class="headerlink" href="#whats-a-good-design-pattern" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code>graphify<span class="w"> </span>query<span class="w"> </span><span class="s2">&quot;how do other modules do X?&quot;</span>
+</code></pre></div>
+Output: Similar code patterns from other communities</p>
+<h3 id="can-i-refactor-this">"Can I refactor this?"<a class="headerlink" href="#can-i-refactor-this" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code>graphify<span class="w"> </span>explain<span class="w"> </span><span class="s2">&quot;ClassToRefactor&quot;</span>
+graphify<span class="w"> </span>query<span class="w"> </span><span class="s2">&quot;what depends on ClassToRefactor?&quot;</span>
+</code></pre></div>
+Output: All dependents, refactoring risk assessment</p>
+<h2 id="performance-tips-for-agents">Performance Tips for Agents<a class="headerlink" href="#performance-tips-for-agents" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Start with god nodes</strong>
+   <div class="highlight"><pre><span></span><code>graphify<span class="w"> </span>explain<span class="w"> </span><span class="s2">&quot;ModelRegistry&quot;</span><span class="w">  </span><span class="c1"># Fast, high-value overview</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Use path queries for specific flows</strong>
+   <div class="highlight"><pre><span></span><code>graphify<span class="w"> </span>path<span class="w"> </span><span class="s2">&quot;A&quot;</span><span class="w"> </span><span class="s2">&quot;B&quot;</span><span class="w">  </span><span class="c1"># Direct, focused answer</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Query before implementing</strong></p>
+</li>
+<li>Ask graph: "Does this pattern exist elsewhere?"</li>
+<li>
+<p>Copy similar implementation, avoid inventing new patterns</p>
+</li>
+<li>
+<p><strong>Check surprising connections before refactoring</strong>
+   <div class="highlight"><pre><span></span><code>./scripts/graphify-queries.sh<span class="w"> </span>surprising
+</code></pre></div></p>
+</li>
+<li>
+<p>Unexpected edges often indicate hidden requirements</p>
+</li>
+<li>
+<p><strong>Use communities to scope changes</strong>
+   <div class="highlight"><pre><span></span><code>graphify<span class="w"> </span>get_community<span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="c1"># See all tight-coupled code</span>
+</code></pre></div></p>
+</li>
+<li>Changes within a community have less cross-community impact</li>
+</ol>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/safishamsi/graphify">Graphify Documentation</a></li>
+<li><a href="../architecture/graph/">Crackz Architecture Guide</a></li>
+<li><code>graphify-out/GRAPH_REPORT.md</code> — generated local audit report</li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<p><strong>MCP server not starting?</strong>
+<div class="highlight"><pre><span></span><code>./scripts/mcp-server.sh<span class="w"> </span>status
+tail<span class="w"> </span>-20<span class="w"> </span>/tmp/graphify-mcp.log
+</code></pre></div></p>
+<p><strong>Graph out of date?</strong>
+<div class="highlight"><pre><span></span><code>graphify<span class="w"> </span>.<span class="w"> </span>--update
+./scripts/mcp-server.sh<span class="w"> </span>restart
+</code></pre></div></p>
+<p><strong>Query returns empty?</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify node exists</span>
+graphify<span class="w"> </span>query<span class="w"> </span><span class="s2">&quot;what modules exist?&quot;</span>
+<span class="c1"># Try exact node name</span>
+graphify<span class="w"> </span>explain<span class="w"> </span><span class="s2">&quot;ModelRegistry&quot;</span>
+</code></pre></div></p>
 
 
 

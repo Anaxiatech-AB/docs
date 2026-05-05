@@ -23,7 +23,7 @@
     
     
       
-        <title>CI Runner Configuration - Crackz</title>
+        <title>Graphify Setup for Crackz - Crackz</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#how-it-works" class="md-skip">
+        <a href="#whats-included" class="md-skip">
           Skip to content
         </a>
       
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CI Runner Configuration
+              Graphify Setup for Crackz
             
           </span>
         </div>
@@ -1581,10 +1581,110 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#whats-included" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Included
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What&#39;s Included">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-knowledge-graph-graphify-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Knowledge Graph (graphify-out/)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-post-commit-hook-githookspost-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Post-Commit Hook (.git/hooks/post-commit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-mkdocs-integration-docsarchitecturegraphmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. MkDocs Integration (docs/architecture/graph.md)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Start
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-the-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open the Graph
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#query-from-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query from CLI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-in-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        View in Docs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#how-it-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How it works
+        How It Works
       
     </span>
   </a>
@@ -1592,10 +1692,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#switch-to-self-hosted-radiogaga" class="md-nav__link">
+  <a href="#customization" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Switch to self-hosted (radiogaga)
+        Customization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Customization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rebuild-on-demand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rebuild on Demand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-commit-hook-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Post-Commit Hook Control
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semantic-enrichment-requires-llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semantic Enrichment (requires LLM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-insights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Insights
       
     </span>
   </a>
@@ -1603,10 +1753,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#switch-to-github-hosted-ubuntu-latest" class="md-nav__link">
+  <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Switch to GitHub-hosted (ubuntu-latest)
+        Troubleshooting
       
     </span>
   </a>
@@ -1614,10 +1764,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#manually-trigger-unit-tests-on-a-branch" class="md-nav__link">
+  <a href="#references" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Manually trigger unit tests on a branch
+        References
       
     </span>
   </a>
@@ -1644,53 +1794,151 @@
   
 
 
-<h1 id="ci-runner-configuration">CI Runner Configuration<a class="headerlink" href="#ci-runner-configuration" title="Permanent link">&para;</a></h1>
-<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<p>Automatic CI checks now run directly on GitHub-hosted runners:</p>
+<h1 id="graphify-setup-for-crackz">Graphify Setup for Crackz<a class="headerlink" href="#graphify-setup-for-crackz" title="Permanent link">&para;</a></h1>
+<p>This directory contains infrastructure for the Crackz automated knowledge graph—built from code structure analysis.</p>
+<h2 id="whats-included">What's Included<a class="headerlink" href="#whats-included" title="Permanent link">&para;</a></h2>
+<h3 id="1-knowledge-graph-graphify-out">1. <strong>Knowledge Graph</strong> (<code>graphify-out/</code>)<a class="headerlink" href="#1-knowledge-graph-graphify-out" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>build.yml</code></li>
-<li><code>docs.yml</code></li>
-<li><code>integration-tests.yml</code></li>
-<li><code>secrets-scan.yml</code></li>
-<li><code>unit-tests.yml</code></li>
+<li><code>graph.json</code> — the core graph (6,555 nodes, 10,806 edges)</li>
+<li><code>GRAPH_REPORT.md</code> — audit report with god nodes, surprises, suggested questions</li>
+<li><code>obsidian/</code> — Obsidian vault export for local PKM + visualization</li>
 </ul>
-<p>Selected workflows still use a repo variable to control self-hosted routing:</p>
-<div class="highlight"><pre><span></span><code>CRACKZ_SELF_HOSTED_RUNNER_LABELS = [&quot;self-hosted&quot;,&quot;radiogaga&quot;]
+<h3 id="2-post-commit-hook-githookspost-commit">2. <strong>Post-Commit Hook</strong> (<code>.git/hooks/post-commit</code>)<a class="headerlink" href="#2-post-commit-hook-githookspost-commit" title="Permanent link">&para;</a></h3>
+<p>Auto-rebuilds the graph on every code commit. Detects changed code files and re-runs AST extraction (fast, free).</p>
+<h3 id="3-mkdocs-integration-docsarchitecturegraphmd">3. <strong>MkDocs Integration</strong> (<code>docs/architecture/graph.md</code>)<a class="headerlink" href="#3-mkdocs-integration-docsarchitecturegraphmd" title="Permanent link">&para;</a></h3>
+<p>Embedded in the developer documentation site. References the graph for architecture insight.</p>
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<h3 id="open-the-graph">Open the Graph<a class="headerlink" href="#open-the-graph" title="Permanent link">&para;</a></h3>
+<p><strong>Option A: Obsidian (Recommended for exploration)</strong>
+<div class="highlight"><pre><span></span><code>open<span class="w"> </span>graphify-out/obsidian
+<span class="c1"># Then: Open as Vault in Obsidian.app</span>
+<span class="c1"># Features: Graph view, canvas, full-text search, backlinks</span>
+</code></pre></div></p>
+<p><strong>Option B: GraphML (Gephi, yEd)</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Export if needed:</span>
+graphify<span class="w"> </span>graphify-out<span class="w"> </span>--graphml
+open<span class="w"> </span>graphify-out/graph.graphml
+</code></pre></div></p>
+<h3 id="query-from-cli">Query from CLI<a class="headerlink" href="#query-from-cli" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># What does ModelRegistry do?</span>
+graphify<span class="w"> </span>explain<span class="w"> </span><span class="s2">&quot;ModelRegistry&quot;</span>
+
+<span class="c1"># Find shortest path</span>
+graphify<span class="w"> </span>path<span class="w"> </span><span class="s2">&quot;MainWindow&quot;</span><span class="w"> </span><span class="s2">&quot;AIChatService&quot;</span>
+
+<span class="c1"># Find connections to a concept</span>
+graphify<span class="w"> </span>query<span class="w"> </span><span class="s2">&quot;what imports do Project and Train share?&quot;</span>
 </code></pre></div>
-<table>
-<thead>
-<tr>
-<th>Variable set?</th>
-<th>Runner used</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Yes</td>
-<td><code>radiogaga</code> (self-hosted) for variable-driven workflows</td>
-</tr>
-<tr>
-<td>No (deleted)</td>
-<td><code>ubuntu-latest</code> fallback for variable-driven workflows</td>
-</tr>
-</tbody>
-</table>
-<h2 id="switch-to-self-hosted-radiogaga">Switch to self-hosted (radiogaga)<a class="headerlink" href="#switch-to-self-hosted-radiogaga" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>api<span class="w"> </span>--method<span class="w"> </span>POST<span class="w"> </span>repos/Anaxiatech-AB/crackz/actions/variables<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-f<span class="w"> </span><span class="nv">name</span><span class="o">=</span>CRACKZ_SELF_HOSTED_RUNNER_LABELS<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-f<span class="w"> </span><span class="nv">value</span><span class="o">=</span><span class="s1">&#39;[&quot;self-hosted&quot;,&quot;radiogaga&quot;]&#39;</span>
+<h3 id="view-in-docs">View in Docs<a class="headerlink" href="#view-in-docs" title="Permanent link">&para;</a></h3>
+<p>Open http://localhost:8000/architecture/graph.html (after <code>mkdocs serve</code>)</p>
+<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>AST Extraction</strong> (runs on commit)</li>
+<li>Parses Python/TypeScript/Go/etc code</li>
+<li>Extracts: imports, calls, class hierarchies, type annotations</li>
+<li>
+<p>Results: <code>graph.json</code> (fully deterministic, no LLM needed)</p>
+</li>
+<li>
+<p><strong>Clustering</strong> (runs on commit)</p>
+</li>
+<li>Detects communities (tightly connected code regions)</li>
+<li>Scores cohesion per community</li>
+<li>
+<p>Results: community assignments in <code>graph.json</code></p>
+</li>
+<li>
+<p><strong>Analysis</strong> (runs on commit)</p>
+</li>
+<li>Finds god nodes (highest connectivity)</li>
+<li>Finds surprising connections (cross-community edges)</li>
+<li>
+<p>Suggests architectural questions</p>
+</li>
+<li>
+<p><strong>Visualization</strong></p>
+</li>
+<li>Obsidian canvas + graph view</li>
+<li>HTML (too large for browser, use Obsidian or Gephi)</li>
+<li>GraphML (for Gephi, yEd)</li>
+</ol>
+<h2 id="customization">Customization<a class="headerlink" href="#customization" title="Permanent link">&para;</a></h2>
+<h3 id="rebuild-on-demand">Rebuild on Demand<a class="headerlink" href="#rebuild-on-demand" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Full rebuild (all code files)</span>
+graphify<span class="w"> </span>.
+
+<span class="c1"># Incremental update (only changed files)</span>
+graphify<span class="w"> </span>.<span class="w"> </span>--update
+
+<span class="c1"># Re-cluster only (if you changed community labels)</span>
+graphify<span class="w"> </span>.<span class="w"> </span>--cluster-only
 </code></pre></div>
-<p>Requires radiogaga to be registered at org level:
-https://github.com/organizations/Anaxiatech-AB/settings/actions/runners</p>
-<h2 id="switch-to-github-hosted-ubuntu-latest">Switch to GitHub-hosted (ubuntu-latest)<a class="headerlink" href="#switch-to-github-hosted-ubuntu-latest" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>api<span class="w"> </span>--method<span class="w"> </span>DELETE<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>repos/Anaxiatech-AB/crackz/actions/variables/CRACKZ_SELF_HOSTED_RUNNER_LABELS
+<h3 id="post-commit-hook-control">Post-Commit Hook Control<a class="headerlink" href="#post-commit-hook-control" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Disable</span>
+rm<span class="w"> </span>.git/hooks/pre-push
+
+<span class="c1"># Re-enable</span>
+<span class="c1"># Hook will be reinstalled on next setup</span>
+
+<span class="c1"># Manual rebuild after big refactor</span>
+graphify<span class="w"> </span>.<span class="w"> </span>--update
 </code></pre></div>
-<p>Requires sufficient Actions budget:
-https://github.com/organizations/Anaxiatech-AB/billing/summary</p>
-<h2 id="manually-trigger-unit-tests-on-a-branch">Manually trigger unit tests on a branch<a class="headerlink" href="#manually-trigger-unit-tests-on-a-branch" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>workflow<span class="w"> </span>run<span class="w"> </span>unit-tests.yml<span class="w"> </span>--ref<span class="w"> </span>&lt;branch-name&gt;
+<h3 id="semantic-enrichment-requires-llm">Semantic Enrichment (requires LLM)<a class="headerlink" href="#semantic-enrichment-requires-llm" title="Permanent link">&para;</a></h3>
+<p>The current setup uses <strong>AST-only</strong> mode (free, no API calls). To add semantic analysis (cross-file patterns, design rationale):</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># With Claude API</span>
+<span class="nv">OPENAI_API_KEY</span><span class="o">=</span>sk-...<span class="w"> </span>graphify<span class="w"> </span>.<span class="w"> </span>--mode<span class="w"> </span>deep
+
+<span class="c1"># With local Ollama (experimental)</span>
+<span class="nv">OLLAMA_BASE_URL</span><span class="o">=</span>http://localhost:11434<span class="w"> </span>graphify<span class="w"> </span>.<span class="w"> </span>--mode<span class="w"> </span>deep
 </code></pre></div>
+<p>This adds confidence about inferred relationships and design insights, but costs tokens.</p>
+<h2 id="key-insights">Key Insights<a class="headerlink" href="#key-insights" title="Permanent link">&para;</a></h2>
+<p><strong>God Nodes</strong> (architectural chokepoints):
+- <code>ModelRegistry</code> (79 edges) — all models flow through here
+- <code>QtAppState</code> (63 edges) — GUI state center
+- <code>Project</code> (46 edges) — configuration hub, spans 23 communities
+- <code>MainWindow</code> (62 edges) — top-level container
+- <code>train()</code> (various edges) — training orchestration</p>
+<p><strong>Surprising Connections</strong> (refactoring opportunities):
+- CLI layer (<code>_do_edit_mask</code>) calls GUI layer (<code>MaskEditorDialog</code>)
+- Tests reach deep into core config, not just public APIs
+- Training reaches into metrics cleanup</p>
+<p><strong>Risk Areas</strong>:
+- <code>Project</code> is highly coupled (spans 23 communities)
+- Test-core coupling is tight (tests call internal functions)
+- CLI-GUI boundary is blurry (both direction calls)</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<p><strong>Graph is empty</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check if code files were detected</span>
+graphify<span class="w"> </span>.<span class="w"> </span>--no-semantic<span class="w">  </span><span class="c1"># Dry run</span>
+<span class="c1"># Check graphify-out/GRAPH_REPORT.md for errors</span>
+</code></pre></div></p>
+<p><strong>Post-commit hook not running</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ensure it&#39;s executable</span>
+chmod<span class="w"> </span>+x<span class="w"> </span>.git/hooks/post-commit
+
+<span class="c1"># Test manually</span>
+.git/hooks/post-commit
+
+<span class="c1"># Check git config</span>
+git<span class="w"> </span>config<span class="w"> </span>--get-all<span class="w"> </span>hooks.postcommit
+</code></pre></div></p>
+<p><strong>Obsidian vault is huge (6500 notes)</strong>
+- Don't worry, this is normal for a large codebase
+- Use search + backlinks instead of browsing
+- Enable graph clustering visualization (Obsidian.app → Graph view → settings)</p>
+<p><strong>Want to exclude certain directories</strong>
+Edit <code>.graphifyignore</code> in repo root (same format as <code>.gitignore</code>), then rebuild:
+<div class="highlight"><pre><span></span><code>graphify<span class="w"> </span>.<span class="w"> </span>--update
+</code></pre></div></p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/safishamsi/graphify">Graphify Documentation</a></li>
+<li><a href="../architecture/">Crackz Architecture Guide</a></li>
+<li><a href="../internal/adr/02-decisions/">Architecture Decisions</a></li>
+</ul>
+<hr />
+<p><strong>Questions?</strong> See the <a href="../architecture/graph/">Knowledge Graph docs</a> or run <code>graphify --help</code>.</p>
 
 
 

@@ -3872,12 +3872,20 @@ crackz-gui
 - When in doubt, choose Edit over Accept
 - Reject rather than accept poor masks (bad data hurts training)
 - Aim for 80%+ acceptance rate (if lower, adjust propagation threshold)</p>
-<h3 id="active-learning-coming-soon">Active Learning (Coming Soon)<a class="headerlink" href="#active-learning-coming-soon" title="Permanent link">&para;</a></h3>
-<p><strong>Active learning</strong> will help prioritize which images to annotate next by identifying:
+<h3 id="active-learning">Active Learning<a class="headerlink" href="#active-learning" title="Permanent link">&para;</a></h3>
+<p><strong>Active learning</strong> prioritizes which images to annotate next by identifying:
 - Images with high model uncertainty (where the model is least confident)
 - Representative samples that maximize training efficiency
 - Edge cases that improve model robustness</p>
-<p>This feature is currently implemented but not yet integrated into the main GUI workflow. Stay tuned for updates!</p>
+<p><img alt="Active Learning View" src="../assets/gui/active_learning_view.png" /></p>
+<p><strong>How to use:</strong>
+1. Open a project that has been trained at least once
+2. Navigate to the <strong>Active Learning</strong> view via the sidebar
+3. Select an <strong>Uncertainty Method</strong> (entropy, max_probability, variance, or mean_confidence)
+4. Choose the <strong>Image Split</strong> to prioritize (raw, train, val, or test)
+5. Adjust <strong>Top N Images</strong> using the slider (10–100)
+6. Click <strong>Calculate Priorities</strong> to rank images by uncertainty score
+7. Annotate the top-ranked images first for maximum training efficiency</p>
 <h3 id="uncertainty-viewer-coming-soon">Uncertainty Viewer (Coming Soon)<a class="headerlink" href="#uncertainty-viewer-coming-soon" title="Permanent link">&para;</a></h3>
 <p>The <strong>Uncertainty Viewer</strong> provides visual heatmaps showing where the model is most uncertain in its predictions. This helps:
 - Identify difficult regions requiring more training data
@@ -3983,6 +3991,22 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 - Image-specific statistics (crack area, coverage percentage)</p>
 <hr />
 <h2 id="model-management">Model Management<a class="headerlink" href="#model-management" title="Permanent link">&para;</a></h2>
+<h3 id="model-manager">Model Manager<a class="headerlink" href="#model-manager" title="Permanent link">&para;</a></h3>
+<p>The Model Manager provides a comprehensive overview of all trained models registered to your project. Access it by clicking the <strong>Models</strong> icon (sixth item) in the sidebar.</p>
+<p><img alt="Model Manager View" src="../assets/gui/model_manager_view.png" /></p>
+<p><strong>Features:</strong>
+- List of all registered model checkpoints with metadata (backbone, encoder, input size)
+- Default model indicator — the model used for the next detection run
+- Per-model notes for documenting experiments
+- Set any checkpoint as the default with one click
+- Rename or delete model records
+- Import unregistered checkpoints found in the models directory</p>
+<p><strong>Workflow:</strong>
+1. Open a project with at least one trained model
+2. Click the <strong>Models</strong> sidebar button
+3. Select a model from the list to view its details
+4. Click <strong>Set as Default</strong> to use it for detection
+5. Use the notes field to record training observations</p>
 <h3 id="exporting-models">Exporting Models<a class="headerlink" href="#exporting-models" title="Permanent link">&para;</a></h3>
 <p>Share trained models or deploy to other systems:</p>
 <ol>
@@ -4063,9 +4087,7 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 <li>Click <strong>Start Dashboard</strong> to launch the server</li>
 <li>The dashboard opens automatically in your default web browser</li>
 </ol>
-<blockquote>
-<p><strong>Note</strong>: Screenshot placeholder pending. The dashboard dialog provides an intuitive interface for configuring launch options and starting the Streamlit server.</p>
-</blockquote>
+<p><img alt="Dashboard Launch Dialog" src="../assets/gui/dashboard_dialog.png" /></p>
 <p><strong>Dashboard Features Available from GUI:</strong>
 - <strong>Real-time server status</strong>: Visual indicators show when the dashboard is running
 - <strong>Global state tracking</strong>: Dashboard status is tracked across the entire GUI application
@@ -4088,6 +4110,42 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 - Parameter tuning with real-time feedback
 - Export capabilities for reports and visualizations</p>
 <p>For complete dashboard documentation, see the <a href="../dashboard/">Dashboard Guide</a>.</p>
+<hr />
+<h2 id="application-settings">Application Settings<a class="headerlink" href="#application-settings" title="Permanent link">&para;</a></h2>
+<p>Access application-wide preferences via <strong>Settings → Application Settings</strong> (<code>Cmd/Ctrl+,</code>).</p>
+<p><img alt="Application Settings" src="../assets/gui/application_settings_view.png" /></p>
+<p><strong>Settings groups:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Display name</strong></td>
+<td>Your name shown in the title bar (leave blank to use system username)</td>
+</tr>
+<tr>
+<td><strong>Theme</strong></td>
+<td><code>dark</code>, <code>light</code>, or <code>system</code> — Catppuccin Mocha is used for dark mode</td>
+</tr>
+<tr>
+<td><strong>Log level</strong></td>
+<td>Controls verbosity: DEBUG, INFO, WARNING, ERROR</td>
+</tr>
+<tr>
+<td><strong>Open last project on start</strong></td>
+<td>Automatically reopen the most recently used project</td>
+</tr>
+<tr>
+<td><strong>Remember last project</strong></td>
+<td>Persist the last project path across restarts</td>
+</tr>
+</tbody>
+</table>
+<p>Changes take effect immediately after clicking <strong>Save</strong>.</p>
 <hr />
 <h2 id="keyboard-shortcuts">Keyboard Shortcuts<a class="headerlink" href="#keyboard-shortcuts" title="Permanent link">&para;</a></h2>
 <table>

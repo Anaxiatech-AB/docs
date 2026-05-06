@@ -553,45 +553,43 @@ crackz<span class="w"> </span>import-images<span class="w"> </span>--project<spa
 <li>(Optional) NVIDIA GPU + matching CUDA drivers for accelerated training/detection</li>
 <li>Disk space: ~2–3 GB (Torch + model weights + cache)</li>
 </ul>
-<h2 id="2-standard-cpu-install-recommended-default">2. Standard CPU Install (recommended default)<a class="headerlink" href="#2-standard-cpu-install-recommended-default" title="Permanent link">&para;</a></h2>
-<h3 id="quick-install-direct-from-github-releases-easiest">Quick Install: Direct from GitHub Releases (Easiest)<a class="headerlink" href="#quick-install-direct-from-github-releases-easiest" title="Permanent link">&para;</a></h3>
+<h2 id="2-standard-gui-install-recommended-default">2. Standard GUI Install (recommended default)<a class="headerlink" href="#2-standard-gui-install-recommended-default" title="Permanent link">&para;</a></h2>
+<h3 id="quick-install-standalone-binary">Quick Install: Standalone Binary<a class="headerlink" href="#quick-install-standalone-binary" title="Permanent link">&para;</a></h3>
 <p><strong>Prerequisites:</strong>
-- GitHub account with repository access (contact theresia.sofia.snow@gmail.com for customer onboarding)
-- GitHub CLI authenticated: <code>gh auth login</code>
-- Python 3.11+ installed</p>
-<p><strong>Step 1: Install UV package manager (if not already installed)</strong></p>
-<p><strong>macOS/Linux:</strong>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+- macOS or Linux
+- <code>curl</code> and <code>tar</code>
+- Access to the Crackz binary repository on radiogaga</p>
+<p>Install the latest <code>crackz-gui</code> binary:
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://radiogaga/repository/crackz-binaries/latest/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
 </code></pre></div></p>
+<p>Install a pinned version:
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://radiogaga/repository/crackz-binaries/latest/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">CRACKZ_VERSION</span><span class="o">=</span><span class="m">0</span>.80.0<span class="w"> </span>bash
+</code></pre></div></p>
+<p>Install somewhere other than <code>/usr/local/bin</code>:
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://radiogaga/repository/crackz-binaries/latest/install.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span><span class="nv">CRACKZ_INSTALL_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.local/bin&quot;</span><span class="w"> </span>bash
+</code></pre></div></p>
+<p>Force the private GitHub Releases fallback:
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://radiogaga/repository/crackz-binaries/latest/install.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span><span class="nv">CRACKZ_SOURCE</span><span class="o">=</span>github<span class="w"> </span><span class="nv">GITHUB_TOKEN</span><span class="o">=</span>...<span class="w"> </span>bash
+</code></pre></div></p>
+<p>The installer downloads <code>crackz-gui-&lt;platform&gt;.tar.gz</code>, verifies its <code>.sha256</code> checksum when available, and installs the <code>crackz-gui</code> executable. It does not require Python or <code>uv</code>.</p>
+<p><strong>Private GitHub Releases fallback:</strong> The script tries radiogaga Nexus first by default. If Nexus is unavailable, it can use the GitHub CLI when already authenticated with <code>gh auth login</code>, or <code>GITHUB_TOKEN</code> for API-based download.</p>
 <p><strong>Windows (PowerShell):</strong>
-<div class="highlight"><pre><span></span><code><span class="nb">irm </span><span class="n">https</span><span class="p">://</span><span class="n">astral</span><span class="p">.</span><span class="n">sh</span><span class="p">/</span><span class="n">uv</span><span class="p">/</span><span class="n">install</span><span class="p">.</span><span class="n">ps1</span> <span class="p">|</span> <span class="nb">iex</span>
+<div class="highlight"><pre><span></span><code><span class="nb">irm </span><span class="n">https</span><span class="p">://</span><span class="n">crackzreleases</span><span class="p">.</span><span class="n">blob</span><span class="p">.</span><span class="n">core</span><span class="p">.</span><span class="n">windows</span><span class="p">.</span><span class="n">net</span><span class="p">/</span><span class="n">public</span><span class="p">/</span><span class="n">latest</span><span class="p">/</span><span class="n">install</span><span class="p">.</span><span class="n">ps1</span> <span class="p">|</span> <span class="nb">iex</span>
 </code></pre></div></p>
-<p><strong>Step 2: Download and install Crackz</strong></p>
-<p><strong>Using GitHub CLI (recommended):</strong>
-<div class="highlight"><pre><span></span><code><span class="c1"># Login to GitHub</span>
-gh<span class="w"> </span>auth<span class="w"> </span>login
-
-<span class="c1"># Download the latest wheel</span>
-gh<span class="w"> </span>release<span class="w"> </span>download<span class="w"> </span>--repo<span class="w"> </span>anaxiatech/crackz<span class="w"> </span>--pattern<span class="w"> </span><span class="s1">&#39;*.whl&#39;</span>
-
-<span class="c1"># Install with uv</span>
-uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>crackz-*.whl
-
-<span class="c1"># Verify installation</span>
-crackz<span class="w"> </span>--version
-</code></pre></div></p>
-<p><strong>Alternative: Manual download from GitHub web interface:</strong>
-1. Navigate to: https://github.com/Anaxiatech-AB/crackz/releases
-2. Download the latest <code>crackz-VERSION-py3-none-any.whl</code> file
-3. Install it:
-   <div class="highlight"><pre><span></span><code>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>crackz-VERSION-py3-none-any.whl
-</code></pre></div></p>
-<p><strong>What gets installed:</strong>
-- Crackz CLI (<code>crackz</code>)
-- Crackz GUI (<code>crackz-gui</code>)
-- All required dependencies (PyTorch, Lightning, etc.)
-- Isolated virtual environment (managed by uv)</p>
-<p><strong>Note:</strong> For a private repository, you must authenticate with GitHub CLI or download wheels manually from the GitHub web interface while logged in.</p>
+<h3 id="wheel-install-private-github-releases">Wheel Install: Private GitHub Releases<a class="headerlink" href="#wheel-install-private-github-releases" title="Permanent link">&para;</a></h3>
+<p>Use this when you need the Python package install instead of the standalone GUI binary.</p>
+<p><strong>Prerequisites:</strong>
+- GitHub account with repository access
+- GitHub CLI authenticated: <code>gh auth login</code>
+- Python 3.11+ and <code>uv</code></p>
+<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>auth<span class="w"> </span>login
+gh<span class="w"> </span>release<span class="w"> </span>download<span class="w"> </span>--repo<span class="w"> </span>Anaxiatech-AB/crackz<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pattern<span class="w"> </span><span class="s1">&#39;crackz-*.whl&#39;</span><span class="w"> </span>--pattern<span class="w"> </span><span class="s1">&#39;crackz_gui-*.whl&#39;</span>
+uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>crackz-*.whl<span class="w"> </span>crackz_gui-*.whl
+crackz-gui
+</code></pre></div>
 <hr />
 <h3 id="advanced-installation-methods">Advanced Installation Methods<a class="headerlink" href="#advanced-installation-methods" title="Permanent link">&para;</a></h3>
 <p>For developers or users who need more control over the installation:</p>

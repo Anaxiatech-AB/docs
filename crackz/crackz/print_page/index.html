@@ -102,7 +102,7 @@ table th { background:#f1f5f9; color:#111827; }
   <p class='company'>© 2026 Anaxiatech AB</p>
 </section>
 <hr class='page-sep'/>
-<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#getting-started'>Getting Started</a></li><li><a href='#installation'>Installation</a></li><li><a href='#user-guide'>User Guide</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#gui'>GUI</a></li><li><a href='#dashboard'>Dashboard</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#configuration'>Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-vm-cuda'>Azure VM with CUDA</a></li><li><a href='#azure-comparison'>VM vs Batch Comparison</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#01-scope'>Project Scope</a></li><li><a href='#03-tasks'>Current Tasks</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#architecture-guidelines'>Architecture Guidelines</a></li><li><a href='#api'>API Reference</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#evaluation'>Model Evaluation</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#tracing'>Tracing & Observability</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#release-flow'>Release Flow</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access Management</a></li><li><a href='#pdf'>Printable PDF</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
+<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#getting-started'>Getting Started</a></li><li><a href='#installation'>Installation</a></li><li><a href='#user-guide'>User Guide</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#gui'>GUI</a></li><li><a href='#dashboard'>Dashboard</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#configuration'>Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#tiling'>Image Tiling</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-vm-cuda'>Azure VM with CUDA</a></li><li><a href='#azure-comparison'>VM vs Batch Comparison</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#01-scope'>Project Scope</a></li><li><a href='#03-tasks'>Current Tasks</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#architecture-guidelines'>Architecture Guidelines</a></li><li><a href='#api'>API Reference</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#evaluation'>Model Evaluation</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#tracing'>Tracing & Observability</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#release-flow'>Release Flow</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access Management</a></li><li><a href='#pdf'>Printable PDF</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
 <h1>Home</h1>
 <h1 id="crackz">Crackz<a class="headerlink" href="#crackz" title="Permanent link">&para;</a></h1>
 <p>
@@ -7156,6 +7156,374 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 <li><a href="../training-config/">Training Configuration</a> - Advanced training settings</li>
 <li><a href="../configuration/">Configuration Guide</a> - Project configuration details</li>
 </ul>
+</section>
+<hr class='page-sep' />
+<section class='print-section' id='tiling' data-source='tiling.md'>
+<h1>Image Tiling</h1>
+<h1 id="image-tiling">Image Tiling<a class="headerlink" href="#image-tiling" title="Permanent link">&para;</a></h1>
+<p>Crackz can slice large photogrammetry photos, aerial mosaics, or any high-resolution image into fixed-size tiles ready for model training and inference. Tiling is available via the GUI (<strong>Project → Tile Images…</strong>) and the CLI (<code>crackz tile-image</code>).</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Large images are too memory-intensive to pass directly to a segmentation model. Tiling breaks them into uniform square patches that match the model's expected input size. Key capabilities:</p>
+<ul>
+<li><strong>Single image or batch</strong> — tile one file or an entire directory</li>
+<li><strong>Overlap</strong> — extend tiles by N pixels on each edge to reduce boundary artifacts</li>
+<li><strong>Co-register masks</strong> — tile binary annotation masks in sync with images (lossless PNG output)</li>
+<li><strong>Project import</strong> — send tiles straight into a project; model input size is updated automatically</li>
+<li><strong>Auto-split</strong> — randomly distribute tiles into train / val / test sets in one step</li>
+</ul>
+<blockquote>
+<p><strong>Tip:</strong> Refresh the tiling screenshots for this page with:</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>scripts/capture_qt_screenshots.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--scenes<span class="w"> </span>tile-images-dialog,tile-images-dialog-masks,tile-images-dialog-import
+</code></pre></div>
+</blockquote>
+<hr />
+<h2 id="gui-usage">GUI Usage<a class="headerlink" href="#gui-usage" title="Permanent link">&para;</a></h2>
+<p>Open <strong>Project → Tile Images…</strong> from the menu bar.</p>
+<p><img alt="Tile Images dialog" src="../assets/gui/tile_images_dialog.png" /></p>
+<h3 id="source">Source<a class="headerlink" href="#source" title="Permanent link">&para;</a></h3>
+<p>Click <strong>File…</strong> to select a single image, or <strong>Folder…</strong> to select a directory of images. After selection the dialog shows:</p>
+<ul>
+<li><strong>Single image</strong> — the pixel dimensions (<code>2048 × 2048 px</code>)</li>
+<li><strong>Directory</strong> — the number of images found</li>
+</ul>
+<h3 id="output-directory">Output Directory<a class="headerlink" href="#output-directory" title="Permanent link">&para;</a></h3>
+<p>Click <strong>Browse…</strong> to choose where tile files will be written. The GUI picker only accepts existing directories, so create the destination folder first if needed.</p>
+<h3 id="tile-settings">Tile Settings<a class="headerlink" href="#tile-settings" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Default</th>
+<th>Range</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Size</strong></td>
+<td>512 px</td>
+<td>16 – 2048 px</td>
+<td>Edge length of each square tile</td>
+</tr>
+<tr>
+<td><strong>Overlap</strong></td>
+<td>0 px</td>
+<td>0 – (size − 1) px</td>
+<td>Pixels shared between adjacent tiles</td>
+</tr>
+<tr>
+<td><strong>Quality</strong></td>
+<td>90</td>
+<td>1 – 100</td>
+<td>JPEG quality for image tiles</td>
+</tr>
+</tbody>
+</table>
+<p>Once a single image is loaded, a live estimate appears below the sliders:</p>
+<div class="highlight"><pre><span></span><code>≈ 16 tiles · 4 × 4 grid · 512 × 512 px each
+</code></pre></div>
+<blockquote>
+<p><strong>Overlap and tile count:</strong> With <code>size = 512</code> and <code>overlap = 64</code>, adjacent tiles share a 64-pixel border. This increases the tile count but ensures the model sees context at tile edges.</p>
+</blockquote>
+<h3 id="co-tile-masks">Co-tile Masks<a class="headerlink" href="#co-tile-masks" title="Permanent link">&para;</a></h3>
+<p>Check <strong>Co-tile masks</strong> to expand the mask section.</p>
+<p><img alt="Tile Images dialog with masks expanded" src="../assets/gui/tile_images_dialog_masks.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Masks source</strong></td>
+<td>PNG or JPEG mask file (or directory) matching the source images exactly</td>
+</tr>
+<tr>
+<td><strong>Masks output</strong></td>
+<td>Directory for the output mask tiles</td>
+</tr>
+</tbody>
+</table>
+<p>Mask tiles are saved as lossless PNG regardless of source format to preserve binary pixel values.</p>
+<h3 id="import-into-project">Import into Project<a class="headerlink" href="#import-into-project" title="Permanent link">&para;</a></h3>
+<p>Check <strong>Import into project</strong> to import tiles directly after tiling completes. A project must be open.</p>
+<p><img alt="Tile Images dialog with import expanded" src="../assets/gui/tile_images_dialog_import.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Default</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Image type</strong></td>
+<td>Raw</td>
+<td>Category to import tiles as: Raw, Train, Val, or Test</td>
+</tr>
+<tr>
+<td><strong>Auto-split</strong></td>
+<td>off</td>
+<td>Randomly distribute tiles across train / val / test</td>
+</tr>
+</tbody>
+</table>
+<p>When <strong>Auto-split</strong> is on, the Image type selector is disabled and three ratio fields appear:</p>
+<table>
+<thead>
+<tr>
+<th>Ratio</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Train</td>
+<td>70 %</td>
+</tr>
+<tr>
+<td>Val</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Test</td>
+<td>15 %</td>
+</tr>
+</tbody>
+</table>
+<p>Ratios must sum to 100 %. An optional <strong>Random seed</strong> makes the split reproducible.</p>
+<p>After a successful import the model input size is automatically set to the tile dimensions in the project configuration.</p>
+<h3 id="running">Running<a class="headerlink" href="#running" title="Permanent link">&para;</a></h3>
+<p>Click <strong>Tile Images</strong> to start. A progress bar appears while tiling runs in the background. Keep the dialog open until the operation completes; closing is disabled while tiling is running.</p>
+<p>When tiling completes without import enabled, the progress bar shows the tile count summary and the <strong>Tile Images</strong> button re-enables so you can adjust settings and run again.</p>
+<hr />
+<h2 id="cli-usage">CLI Usage<a class="headerlink" href="#cli-usage" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>tile-image<span class="w"> </span>--src<span class="w"> </span>&lt;source&gt;<span class="w"> </span>--out<span class="w"> </span>&lt;output&gt;<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</code></pre></div>
+<h3 id="basic-examples">Basic examples<a class="headerlink" href="#basic-examples" title="Permanent link">&para;</a></h3>
+<p><strong>Tile a single image into 512 × 512 tiles:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>tile-image<span class="w"> </span>--src<span class="w"> </span>mosaic.jpg<span class="w"> </span>--out<span class="w"> </span>tiles/
+</code></pre></div></p>
+<p><strong>Tile a directory with 256 × 256 tiles and 32 px overlap:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>tile-image<span class="w"> </span>--src<span class="w"> </span>raw_images/<span class="w"> </span>--out<span class="w"> </span>tiles/<span class="w"> </span>--tile-size<span class="w"> </span><span class="m">256</span><span class="w"> </span>--overlap<span class="w"> </span><span class="m">32</span>
+</code></pre></div></p>
+<p><strong>Tile images and their masks together:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>tile-image<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>raw_images/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>tiles/images/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--masks-src<span class="w"> </span>annotations/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--masks-out<span class="w"> </span>tiles/masks/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--tile-size<span class="w"> </span><span class="m">512</span>
+</code></pre></div></p>
+<p><strong>Tile and import directly into a project:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>tile-image<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>mosaic.jpg<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>tiles/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>~/projects/harbor_survey<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="w"> </span>raw
+</code></pre></div></p>
+<p><strong>Tile and auto-split into train / val / test:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>tile-image<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>raw_images/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>tiles/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--masks-src<span class="w"> </span>annotations/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--masks-out<span class="w"> </span>tiles/masks/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>~/projects/harbor_survey<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--split<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--train-ratio<span class="w"> </span><span class="m">0</span>.7<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--val-ratio<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--test-ratio<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--random-seed<span class="w"> </span><span class="m">42</span>
+</code></pre></div></p>
+<h3 id="all-options">All options<a class="headerlink" href="#all-options" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Short</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--src</code></td>
+<td><code>-s</code></td>
+<td>required</td>
+<td>Source image file or directory</td>
+</tr>
+<tr>
+<td><code>--out</code></td>
+<td><code>-o</code></td>
+<td>required</td>
+<td>Output directory for image tiles</td>
+</tr>
+<tr>
+<td><code>--masks-src</code></td>
+<td><code>-ms</code></td>
+<td>—</td>
+<td>Mask file or directory (optional)</td>
+</tr>
+<tr>
+<td><code>--masks-out</code></td>
+<td><code>-mo</code></td>
+<td>—</td>
+<td>Output directory for mask tiles</td>
+</tr>
+<tr>
+<td><code>--tile-size</code></td>
+<td><code>-z</code></td>
+<td><code>512</code></td>
+<td>Square tile edge length in pixels</td>
+</tr>
+<tr>
+<td><code>--overlap</code></td>
+<td></td>
+<td><code>0</code></td>
+<td>Pixel overlap between adjacent tiles</td>
+</tr>
+<tr>
+<td><code>--quality</code></td>
+<td><code>-q</code></td>
+<td><code>90</code></td>
+<td>JPEG quality for image tiles (1–100)</td>
+</tr>
+<tr>
+<td><code>--project</code></td>
+<td><code>-p</code></td>
+<td>—</td>
+<td>Project directory for auto-import</td>
+</tr>
+<tr>
+<td><code>--cfg</code></td>
+<td><code>-c</code></td>
+<td>—</td>
+<td>YAML config file (alternative to <code>--project</code>)</td>
+</tr>
+<tr>
+<td><code>--type</code></td>
+<td><code>-t</code></td>
+<td><code>raw</code></td>
+<td>Image type when importing: <code>raw</code>, <code>train</code>, <code>val</code>, <code>test</code></td>
+</tr>
+<tr>
+<td><code>--split</code></td>
+<td></td>
+<td>false</td>
+<td>Auto-split tiles into train / val / test</td>
+</tr>
+<tr>
+<td><code>--train-ratio</code></td>
+<td></td>
+<td><code>0.7</code></td>
+<td>Training set fraction (requires <code>--split</code>)</td>
+</tr>
+<tr>
+<td><code>--val-ratio</code></td>
+<td></td>
+<td><code>0.15</code></td>
+<td>Validation set fraction (requires <code>--split</code>)</td>
+</tr>
+<tr>
+<td><code>--test-ratio</code></td>
+<td></td>
+<td><code>0.15</code></td>
+<td>Test set fraction (requires <code>--split</code>)</td>
+</tr>
+<tr>
+<td><code>--random-seed</code></td>
+<td></td>
+<td>—</td>
+<td>Integer seed for reproducible splits</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="tile-naming">Tile Naming<a class="headerlink" href="#tile-naming" title="Permanent link">&para;</a></h2>
+<p>Output files follow the pattern <code>{stem}_{row:04d}_{col:04d}.{ext}</code> in row-major order (top-left origin).</p>
+<p><strong>Example:</strong> A 2048 × 2048 image <code>mosaic.jpg</code> tiled at 1024 × 1024 (no overlap):</p>
+<div class="highlight"><pre><span></span><code>mosaic_0000_0000.jpg   mosaic_0000_0001.jpg
+mosaic_0001_0000.jpg   mosaic_0001_0001.jpg
+</code></pre></div>
+<p>Mask tiles follow the same naming with <code>.png</code> extension:</p>
+<div class="highlight"><pre><span></span><code>mosaic_0000_0000.png   mosaic_0000_0001.png
+mosaic_0001_0000.png   mosaic_0001_0001.png
+</code></pre></div>
+<p>Edge tiles that fall outside the image boundary are zero-padded to the full tile size.</p>
+<hr />
+<h2 id="tile-count-formula">Tile Count Formula<a class="headerlink" href="#tile-count-formula" title="Permanent link">&para;</a></h2>
+<p>The exact number of tiles for a given image and settings:</p>
+<div class="highlight"><pre><span></span><code>step = max(tile_size - overlap, 1)
+cols = max(ceil((width  - overlap) / step), 1)
+rows = max(ceil((height - overlap) / step), 1)
+n_tiles = cols × rows
+</code></pre></div>
+<p><strong>Example</strong> — 4096 × 4096 image, tile size 512, overlap 64:</p>
+<div class="highlight"><pre><span></span><code>step = 512 - 64 = 448
+cols = ceil((4096 - 64) / 448) = ceil(9.0) = 9
+rows = 9
+n_tiles = 81
+</code></pre></div>
+<hr />
+<h2 id="supported-formats">Supported Formats<a class="headerlink" href="#supported-formats" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.jpg</code>, <code>.jpeg</code>, <code>.png</code>, <code>.tif</code>, <code>.tiff</code>, <code>.bmp</code>, <code>.webp</code></td>
+<td>Image tiles: <code>.jpg</code> (JPEG, quality-controlled)</td>
+</tr>
+<tr>
+<td>Mask: <code>.png</code>, <code>.jpg</code>, <code>.jpeg</code>, <code>.tif</code>, <code>.tiff</code></td>
+<td>Mask tiles: <code>.png</code> (lossless)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="python-api">Python API<a class="headerlink" href="#python-api" title="Permanent link">&para;</a></h2>
+<p>The tiling functions are in <code>crackz.project.tiling</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.project.tiling</span><span class="w"> </span><span class="kn">import</span> <span class="n">tile_image</span><span class="p">,</span> <span class="n">tile_image_with_mask</span><span class="p">,</span> <span class="n">tile_image_dir</span>
+
+<span class="c1"># Tile a single image</span>
+<span class="n">tiles</span> <span class="o">=</span> <span class="n">tile_image</span><span class="p">(</span>
+    <span class="n">source</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;mosaic.jpg&quot;</span><span class="p">),</span>
+    <span class="n">dest_dir</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;tiles/&quot;</span><span class="p">),</span>
+    <span class="n">tile_size</span><span class="o">=</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
+    <span class="n">overlap</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">quality</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Tile image + mask together</span>
+<span class="n">img_tiles</span><span class="p">,</span> <span class="n">msk_tiles</span> <span class="o">=</span> <span class="n">tile_image_with_mask</span><span class="p">(</span>
+    <span class="n">source</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;mosaic.jpg&quot;</span><span class="p">),</span>
+    <span class="n">mask</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;mask.png&quot;</span><span class="p">),</span>
+    <span class="n">dest_dir</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;tiles/images/&quot;</span><span class="p">),</span>
+    <span class="n">mask_dest_dir</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;tiles/masks/&quot;</span><span class="p">),</span>
+    <span class="n">tile_size</span><span class="o">=</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
+    <span class="n">overlap</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">quality</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Batch-tile a directory</span>
+<span class="n">img_tiles</span><span class="p">,</span> <span class="n">msk_tiles</span> <span class="o">=</span> <span class="n">tile_image_dir</span><span class="p">(</span>
+    <span class="n">source_dir</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;raw_images/&quot;</span><span class="p">),</span>
+    <span class="n">dest_dir</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;tiles/images/&quot;</span><span class="p">),</span>
+    <span class="n">tile_size</span><span class="o">=</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
+    <span class="n">overlap</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">quality</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+    <span class="n">mask_source_dir</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;annotations/&quot;</span><span class="p">),</span>  <span class="c1"># optional</span>
+    <span class="n">mask_dest_dir</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;tiles/masks/&quot;</span><span class="p">),</span>    <span class="c1"># optional</span>
+<span class="p">)</span>
+</code></pre></div>
 </section>
 <hr class='page-sep' />
 <section class='print-section' id='map-viewer' data-source='map-viewer.md'>

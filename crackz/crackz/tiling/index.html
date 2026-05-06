@@ -13,6 +13,10 @@
       
       
       
+        <link rel="prev" href="../data-splits-guide/">
+      
+      
+        <link rel="next" href="../map-viewer/">
       
       
         
@@ -23,7 +27,7 @@
     
     
       
-        <title>Graphify Setup for Crackz - Crackz</title>
+        <title>Image Tiling - Crackz</title>
       
     
     
@@ -78,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#whats-included" class="md-skip">
+        <a href="#overview" class="md-skip">
           Skip to content
         </a>
       
@@ -118,7 +122,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Graphify Setup for Crackz
+              Image Tiling
             
           </span>
         </div>
@@ -316,8 +320,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -328,11 +334,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
@@ -353,7 +359,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -592,10 +598,35 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../tiling/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Image Tiling
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -611,6 +642,203 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gui-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GUI Usage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GUI Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Directory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tile-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tile Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#co-tile-masks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co-tile Masks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import-into-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Import into Project
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI Usage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CLI Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#all-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        All options
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tile-naming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tile Naming
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tile-count-formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tile Count Formula
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported Formats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python API
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1609,22 +1837,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#whats-included" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What's Included
+        Overview
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="What&#39;s Included">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gui-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GUI Usage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GUI Usage">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-knowledge-graph-graphify-out" class="md-nav__link">
+  <a href="#source" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Knowledge Graph (graphify-out/)
+        Source
       
     </span>
   </a>
@@ -1632,10 +1871,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-post-commit-hook-githookspost-commit" class="md-nav__link">
+  <a href="#output-directory" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Post-Commit Hook (.git/hooks/post-commit)
+        Output Directory
       
     </span>
   </a>
@@ -1643,10 +1882,43 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-mkdocs-integration-docsarchitecturegraphmd" class="md-nav__link">
+  <a href="#tile-settings" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. MkDocs Integration (docs/architecture/graph.md)
+        Tile Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#co-tile-masks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co-tile Masks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import-into-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Import into Project
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running
       
     </span>
   </a>
@@ -1659,22 +1931,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quick-start" class="md-nav__link">
+  <a href="#cli-usage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Start
+        CLI Usage
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Quick Start">
+    <nav class="md-nav" aria-label="CLI Usage">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#open-the-graph" class="md-nav__link">
+  <a href="#basic-examples" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Open the Graph
+        Basic examples
       
     </span>
   </a>
@@ -1682,21 +1954,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#query-from-cli" class="md-nav__link">
+  <a href="#all-options" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Query from CLI
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#view-in-docs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        View in Docs
+        All options
       
     </span>
   </a>
@@ -1709,10 +1970,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#tile-naming" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How It Works
+        Tile Naming
       
     </span>
   </a>
@@ -1720,60 +1981,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#customization" class="md-nav__link">
+  <a href="#tile-count-formula" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Customization
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Customization">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#rebuild-on-demand" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Rebuild on Demand
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#post-commit-hook-control" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Post-Commit Hook Control
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#semantic-enrichment-requires-llm" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Semantic Enrichment (requires LLM)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#key-insights" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Key Insights
+        Tile Count Formula
       
     </span>
   </a>
@@ -1781,10 +1992,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
+  <a href="#supported-formats" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Troubleshooting
+        Supported Formats
       
     </span>
   </a>
@@ -1792,10 +2003,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
+  <a href="#python-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        References
+        Python API
       
     </span>
   </a>
@@ -1822,151 +2033,370 @@
   
 
 
-<h1 id="graphify-setup-for-crackz">Graphify Setup for Crackz<a class="headerlink" href="#graphify-setup-for-crackz" title="Permanent link">&para;</a></h1>
-<p>This directory contains infrastructure for the Crackz automated knowledge graph—built from code structure analysis.</p>
-<h2 id="whats-included">What's Included<a class="headerlink" href="#whats-included" title="Permanent link">&para;</a></h2>
-<h3 id="1-knowledge-graph-graphify-out">1. <strong>Knowledge Graph</strong> (<code>graphify-out/</code>)<a class="headerlink" href="#1-knowledge-graph-graphify-out" title="Permanent link">&para;</a></h3>
+<h1 id="image-tiling">Image Tiling<a class="headerlink" href="#image-tiling" title="Permanent link">&para;</a></h1>
+<p>Crackz can slice large photogrammetry photos, aerial mosaics, or any high-resolution image into fixed-size tiles ready for model training and inference. Tiling is available via the GUI (<strong>Project → Tile Images…</strong>) and the CLI (<code>crackz tile-image</code>).</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Large images are too memory-intensive to pass directly to a segmentation model. Tiling breaks them into uniform square patches that match the model's expected input size. Key capabilities:</p>
 <ul>
-<li><code>graph.json</code> — the core graph (6,555 nodes, 10,806 edges)</li>
-<li><code>GRAPH_REPORT.md</code> — audit report with god nodes, surprises, suggested questions</li>
-<li><code>obsidian/</code> — Obsidian vault export for local PKM + visualization</li>
+<li><strong>Single image or batch</strong> — tile one file or an entire directory</li>
+<li><strong>Overlap</strong> — extend tiles by N pixels on each edge to reduce boundary artifacts</li>
+<li><strong>Co-register masks</strong> — tile binary annotation masks in sync with images (lossless PNG output)</li>
+<li><strong>Project import</strong> — send tiles straight into a project; model input size is updated automatically</li>
+<li><strong>Auto-split</strong> — randomly distribute tiles into train / val / test sets in one step</li>
 </ul>
-<h3 id="2-post-commit-hook-githookspost-commit">2. <strong>Post-Commit Hook</strong> (<code>.git/hooks/post-commit</code>)<a class="headerlink" href="#2-post-commit-hook-githookspost-commit" title="Permanent link">&para;</a></h3>
-<p>Auto-rebuilds the graph on every code commit. Detects changed code files and re-runs AST extraction (fast, free).</p>
-<h3 id="3-mkdocs-integration-docsarchitecturegraphmd">3. <strong>MkDocs Integration</strong> (<code>docs/architecture/graph.md</code>)<a class="headerlink" href="#3-mkdocs-integration-docsarchitecturegraphmd" title="Permanent link">&para;</a></h3>
-<p>Embedded in the developer documentation site. References the graph for architecture insight.</p>
-<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
-<h3 id="open-the-graph">Open the Graph<a class="headerlink" href="#open-the-graph" title="Permanent link">&para;</a></h3>
-<p><strong>Option A: Obsidian (Recommended for exploration)</strong>
-<div class="highlight"><pre><span></span><code>open<span class="w"> </span>graphify-out/obsidian
-<span class="c1"># Then: Open as Vault in Obsidian.app</span>
-<span class="c1"># Features: Graph view, canvas, full-text search, backlinks</span>
-</code></pre></div></p>
-<p><strong>Option B: GraphML (Gephi, yEd)</strong>
-<div class="highlight"><pre><span></span><code><span class="c1"># Export if needed:</span>
-graphify<span class="w"> </span>graphify-out<span class="w"> </span>--graphml
-open<span class="w"> </span>graphify-out/graph.graphml
-</code></pre></div></p>
-<h3 id="query-from-cli">Query from CLI<a class="headerlink" href="#query-from-cli" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># What does ModelRegistry do?</span>
-graphify<span class="w"> </span>explain<span class="w"> </span><span class="s2">&quot;ModelRegistry&quot;</span>
-
-<span class="c1"># Find shortest path</span>
-graphify<span class="w"> </span>path<span class="w"> </span><span class="s2">&quot;MainWindow&quot;</span><span class="w"> </span><span class="s2">&quot;AIChatService&quot;</span>
-
-<span class="c1"># Find connections to a concept</span>
-graphify<span class="w"> </span>query<span class="w"> </span><span class="s2">&quot;what imports do Project and Train share?&quot;</span>
+<blockquote>
+<p><strong>Tip:</strong> Refresh the tiling screenshots for this page with:</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>scripts/capture_qt_screenshots.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--scenes<span class="w"> </span>tile-images-dialog,tile-images-dialog-masks,tile-images-dialog-import
 </code></pre></div>
-<h3 id="view-in-docs">View in Docs<a class="headerlink" href="#view-in-docs" title="Permanent link">&para;</a></h3>
-<p>Open http://localhost:8000/architecture/graph.html (after <code>mkdocs serve</code>)</p>
-<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
-<ol>
-<li><strong>AST Extraction</strong> (runs on commit)</li>
-<li>Parses Python/TypeScript/Go/etc code</li>
-<li>Extracts: imports, calls, class hierarchies, type annotations</li>
-<li>
-<p>Results: <code>graph.json</code> (fully deterministic, no LLM needed)</p>
-</li>
-<li>
-<p><strong>Clustering</strong> (runs on commit)</p>
-</li>
-<li>Detects communities (tightly connected code regions)</li>
-<li>Scores cohesion per community</li>
-<li>
-<p>Results: community assignments in <code>graph.json</code></p>
-</li>
-<li>
-<p><strong>Analysis</strong> (runs on commit)</p>
-</li>
-<li>Finds god nodes (highest connectivity)</li>
-<li>Finds surprising connections (cross-community edges)</li>
-<li>
-<p>Suggests architectural questions</p>
-</li>
-<li>
-<p><strong>Visualization</strong></p>
-</li>
-<li>Obsidian canvas + graph view</li>
-<li>HTML (too large for browser, use Obsidian or Gephi)</li>
-<li>GraphML (for Gephi, yEd)</li>
-</ol>
-<h2 id="customization">Customization<a class="headerlink" href="#customization" title="Permanent link">&para;</a></h2>
-<h3 id="rebuild-on-demand">Rebuild on Demand<a class="headerlink" href="#rebuild-on-demand" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Full rebuild (all code files)</span>
-graphify<span class="w"> </span>.
-
-<span class="c1"># Incremental update (only changed files)</span>
-graphify<span class="w"> </span>.<span class="w"> </span>--update
-
-<span class="c1"># Re-cluster only (if you changed community labels)</span>
-graphify<span class="w"> </span>.<span class="w"> </span>--cluster-only
-</code></pre></div>
-<h3 id="post-commit-hook-control">Post-Commit Hook Control<a class="headerlink" href="#post-commit-hook-control" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Disable</span>
-rm<span class="w"> </span>.git/hooks/pre-push
-
-<span class="c1"># Re-enable</span>
-<span class="c1"># Hook will be reinstalled on next setup</span>
-
-<span class="c1"># Manual rebuild after big refactor</span>
-graphify<span class="w"> </span>.<span class="w"> </span>--update
-</code></pre></div>
-<h3 id="semantic-enrichment-requires-llm">Semantic Enrichment (requires LLM)<a class="headerlink" href="#semantic-enrichment-requires-llm" title="Permanent link">&para;</a></h3>
-<p>The current setup uses <strong>AST-only</strong> mode (free, no API calls). To add semantic analysis (cross-file patterns, design rationale):</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># With Claude API</span>
-<span class="nv">OPENAI_API_KEY</span><span class="o">=</span>sk-...<span class="w"> </span>graphify<span class="w"> </span>.<span class="w"> </span>--mode<span class="w"> </span>deep
-
-<span class="c1"># With local Ollama (experimental)</span>
-<span class="nv">OLLAMA_BASE_URL</span><span class="o">=</span>http://localhost:11434<span class="w"> </span>graphify<span class="w"> </span>.<span class="w"> </span>--mode<span class="w"> </span>deep
-</code></pre></div>
-<p>This adds confidence about inferred relationships and design insights, but costs tokens.</p>
-<h2 id="key-insights">Key Insights<a class="headerlink" href="#key-insights" title="Permanent link">&para;</a></h2>
-<p><strong>God Nodes</strong> (architectural chokepoints):
-- <code>ModelRegistry</code> (79 edges) — all models flow through here
-- <code>QtAppState</code> (63 edges) — GUI state center
-- <code>Project</code> (46 edges) — configuration hub, spans 23 communities
-- <code>MainWindow</code> (62 edges) — top-level container
-- <code>train()</code> (various edges) — training orchestration</p>
-<p><strong>Surprising Connections</strong> (refactoring opportunities):
-- CLI layer (<code>_do_edit_mask</code>) calls GUI layer (<code>MaskEditorDialog</code>)
-- Tests reach deep into core config, not just public APIs
-- Training reaches into metrics cleanup</p>
-<p><strong>Risk Areas</strong>:
-- <code>Project</code> is highly coupled (spans 23 communities)
-- Test-core coupling is tight (tests call internal functions)
-- CLI-GUI boundary is blurry (both direction calls)</p>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<p><strong>Graph is empty</strong>
-<div class="highlight"><pre><span></span><code><span class="c1"># Check if code files were detected</span>
-graphify<span class="w"> </span>.<span class="w"> </span>--no-semantic<span class="w">  </span><span class="c1"># Dry run</span>
-<span class="c1"># Check graphify-out/GRAPH_REPORT.md for errors</span>
-</code></pre></div></p>
-<p><strong>Post-commit hook not running</strong>
-<div class="highlight"><pre><span></span><code><span class="c1"># Ensure it&#39;s executable</span>
-chmod<span class="w"> </span>+x<span class="w"> </span>.git/hooks/post-commit
-
-<span class="c1"># Test manually</span>
-.git/hooks/post-commit
-
-<span class="c1"># Check git config</span>
-git<span class="w"> </span>config<span class="w"> </span>--get-all<span class="w"> </span>hooks.postcommit
-</code></pre></div></p>
-<p><strong>Obsidian vault is huge (6500 notes)</strong>
-- Don't worry, this is normal for a large codebase
-- Use search + backlinks instead of browsing
-- Enable graph clustering visualization (Obsidian.app → Graph view → settings)</p>
-<p><strong>Want to exclude certain directories</strong>
-Edit <code>.graphifyignore</code> in repo root (same format as <code>.gitignore</code>), then rebuild:
-<div class="highlight"><pre><span></span><code>graphify<span class="w"> </span>.<span class="w"> </span>--update
-</code></pre></div></p>
-<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="https://github.com/safishamsi/graphify">Graphify Documentation</a></li>
-<li><a href="../architecture/">Crackz Architecture Guide</a></li>
-<li><a href="../internal/adr/02-decisions/">Architecture Decisions</a></li>
-</ul>
+</blockquote>
 <hr />
-<p><strong>Questions?</strong> See the <a href="../architecture/graph/">Knowledge Graph docs</a> or run <code>graphify --help</code>.</p>
+<h2 id="gui-usage">GUI Usage<a class="headerlink" href="#gui-usage" title="Permanent link">&para;</a></h2>
+<p>Open <strong>Project → Tile Images…</strong> from the menu bar.</p>
+<p><img alt="Tile Images dialog" src="../assets/gui/tile_images_dialog.png" /></p>
+<h3 id="source">Source<a class="headerlink" href="#source" title="Permanent link">&para;</a></h3>
+<p>Click <strong>File…</strong> to select a single image, or <strong>Folder…</strong> to select a directory of images. After selection the dialog shows:</p>
+<ul>
+<li><strong>Single image</strong> — the pixel dimensions (<code>2048 × 2048 px</code>)</li>
+<li><strong>Directory</strong> — the number of images found</li>
+</ul>
+<h3 id="output-directory">Output Directory<a class="headerlink" href="#output-directory" title="Permanent link">&para;</a></h3>
+<p>Click <strong>Browse…</strong> to choose where tile files will be written. The GUI picker only accepts existing directories, so create the destination folder first if needed.</p>
+<h3 id="tile-settings">Tile Settings<a class="headerlink" href="#tile-settings" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Default</th>
+<th>Range</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Size</strong></td>
+<td>512 px</td>
+<td>16 – 2048 px</td>
+<td>Edge length of each square tile</td>
+</tr>
+<tr>
+<td><strong>Overlap</strong></td>
+<td>0 px</td>
+<td>0 – (size − 1) px</td>
+<td>Pixels shared between adjacent tiles</td>
+</tr>
+<tr>
+<td><strong>Quality</strong></td>
+<td>90</td>
+<td>1 – 100</td>
+<td>JPEG quality for image tiles</td>
+</tr>
+</tbody>
+</table>
+<p>Once a single image is loaded, a live estimate appears below the sliders:</p>
+<div class="highlight"><pre><span></span><code>≈ 16 tiles · 4 × 4 grid · 512 × 512 px each
+</code></pre></div>
+<blockquote>
+<p><strong>Overlap and tile count:</strong> With <code>size = 512</code> and <code>overlap = 64</code>, adjacent tiles share a 64-pixel border. This increases the tile count but ensures the model sees context at tile edges.</p>
+</blockquote>
+<h3 id="co-tile-masks">Co-tile Masks<a class="headerlink" href="#co-tile-masks" title="Permanent link">&para;</a></h3>
+<p>Check <strong>Co-tile masks</strong> to expand the mask section.</p>
+<p><img alt="Tile Images dialog with masks expanded" src="../assets/gui/tile_images_dialog_masks.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Masks source</strong></td>
+<td>PNG or JPEG mask file (or directory) matching the source images exactly</td>
+</tr>
+<tr>
+<td><strong>Masks output</strong></td>
+<td>Directory for the output mask tiles</td>
+</tr>
+</tbody>
+</table>
+<p>Mask tiles are saved as lossless PNG regardless of source format to preserve binary pixel values.</p>
+<h3 id="import-into-project">Import into Project<a class="headerlink" href="#import-into-project" title="Permanent link">&para;</a></h3>
+<p>Check <strong>Import into project</strong> to import tiles directly after tiling completes. A project must be open.</p>
+<p><img alt="Tile Images dialog with import expanded" src="../assets/gui/tile_images_dialog_import.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Default</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Image type</strong></td>
+<td>Raw</td>
+<td>Category to import tiles as: Raw, Train, Val, or Test</td>
+</tr>
+<tr>
+<td><strong>Auto-split</strong></td>
+<td>off</td>
+<td>Randomly distribute tiles across train / val / test</td>
+</tr>
+</tbody>
+</table>
+<p>When <strong>Auto-split</strong> is on, the Image type selector is disabled and three ratio fields appear:</p>
+<table>
+<thead>
+<tr>
+<th>Ratio</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Train</td>
+<td>70 %</td>
+</tr>
+<tr>
+<td>Val</td>
+<td>15 %</td>
+</tr>
+<tr>
+<td>Test</td>
+<td>15 %</td>
+</tr>
+</tbody>
+</table>
+<p>Ratios must sum to 100 %. An optional <strong>Random seed</strong> makes the split reproducible.</p>
+<p>After a successful import the model input size is automatically set to the tile dimensions in the project configuration.</p>
+<h3 id="running">Running<a class="headerlink" href="#running" title="Permanent link">&para;</a></h3>
+<p>Click <strong>Tile Images</strong> to start. A progress bar appears while tiling runs in the background. Keep the dialog open until the operation completes; closing is disabled while tiling is running.</p>
+<p>When tiling completes without import enabled, the progress bar shows the tile count summary and the <strong>Tile Images</strong> button re-enables so you can adjust settings and run again.</p>
+<hr />
+<h2 id="cli-usage">CLI Usage<a class="headerlink" href="#cli-usage" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>tile-image<span class="w"> </span>--src<span class="w"> </span>&lt;source&gt;<span class="w"> </span>--out<span class="w"> </span>&lt;output&gt;<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</code></pre></div>
+<h3 id="basic-examples">Basic examples<a class="headerlink" href="#basic-examples" title="Permanent link">&para;</a></h3>
+<p><strong>Tile a single image into 512 × 512 tiles:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>tile-image<span class="w"> </span>--src<span class="w"> </span>mosaic.jpg<span class="w"> </span>--out<span class="w"> </span>tiles/
+</code></pre></div></p>
+<p><strong>Tile a directory with 256 × 256 tiles and 32 px overlap:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>tile-image<span class="w"> </span>--src<span class="w"> </span>raw_images/<span class="w"> </span>--out<span class="w"> </span>tiles/<span class="w"> </span>--tile-size<span class="w"> </span><span class="m">256</span><span class="w"> </span>--overlap<span class="w"> </span><span class="m">32</span>
+</code></pre></div></p>
+<p><strong>Tile images and their masks together:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>tile-image<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>raw_images/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>tiles/images/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--masks-src<span class="w"> </span>annotations/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--masks-out<span class="w"> </span>tiles/masks/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--tile-size<span class="w"> </span><span class="m">512</span>
+</code></pre></div></p>
+<p><strong>Tile and import directly into a project:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>tile-image<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>mosaic.jpg<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>tiles/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>~/projects/harbor_survey<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="w"> </span>raw
+</code></pre></div></p>
+<p><strong>Tile and auto-split into train / val / test:</strong>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>tile-image<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--src<span class="w"> </span>raw_images/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--out<span class="w"> </span>tiles/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--masks-src<span class="w"> </span>annotations/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--masks-out<span class="w"> </span>tiles/masks/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--project<span class="w"> </span>~/projects/harbor_survey<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--split<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--train-ratio<span class="w"> </span><span class="m">0</span>.7<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--val-ratio<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--test-ratio<span class="w"> </span><span class="m">0</span>.15<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--random-seed<span class="w"> </span><span class="m">42</span>
+</code></pre></div></p>
+<h3 id="all-options">All options<a class="headerlink" href="#all-options" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Short</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--src</code></td>
+<td><code>-s</code></td>
+<td>required</td>
+<td>Source image file or directory</td>
+</tr>
+<tr>
+<td><code>--out</code></td>
+<td><code>-o</code></td>
+<td>required</td>
+<td>Output directory for image tiles</td>
+</tr>
+<tr>
+<td><code>--masks-src</code></td>
+<td><code>-ms</code></td>
+<td>—</td>
+<td>Mask file or directory (optional)</td>
+</tr>
+<tr>
+<td><code>--masks-out</code></td>
+<td><code>-mo</code></td>
+<td>—</td>
+<td>Output directory for mask tiles</td>
+</tr>
+<tr>
+<td><code>--tile-size</code></td>
+<td><code>-z</code></td>
+<td><code>512</code></td>
+<td>Square tile edge length in pixels</td>
+</tr>
+<tr>
+<td><code>--overlap</code></td>
+<td></td>
+<td><code>0</code></td>
+<td>Pixel overlap between adjacent tiles</td>
+</tr>
+<tr>
+<td><code>--quality</code></td>
+<td><code>-q</code></td>
+<td><code>90</code></td>
+<td>JPEG quality for image tiles (1–100)</td>
+</tr>
+<tr>
+<td><code>--project</code></td>
+<td><code>-p</code></td>
+<td>—</td>
+<td>Project directory for auto-import</td>
+</tr>
+<tr>
+<td><code>--cfg</code></td>
+<td><code>-c</code></td>
+<td>—</td>
+<td>YAML config file (alternative to <code>--project</code>)</td>
+</tr>
+<tr>
+<td><code>--type</code></td>
+<td><code>-t</code></td>
+<td><code>raw</code></td>
+<td>Image type when importing: <code>raw</code>, <code>train</code>, <code>val</code>, <code>test</code></td>
+</tr>
+<tr>
+<td><code>--split</code></td>
+<td></td>
+<td>false</td>
+<td>Auto-split tiles into train / val / test</td>
+</tr>
+<tr>
+<td><code>--train-ratio</code></td>
+<td></td>
+<td><code>0.7</code></td>
+<td>Training set fraction (requires <code>--split</code>)</td>
+</tr>
+<tr>
+<td><code>--val-ratio</code></td>
+<td></td>
+<td><code>0.15</code></td>
+<td>Validation set fraction (requires <code>--split</code>)</td>
+</tr>
+<tr>
+<td><code>--test-ratio</code></td>
+<td></td>
+<td><code>0.15</code></td>
+<td>Test set fraction (requires <code>--split</code>)</td>
+</tr>
+<tr>
+<td><code>--random-seed</code></td>
+<td></td>
+<td>—</td>
+<td>Integer seed for reproducible splits</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="tile-naming">Tile Naming<a class="headerlink" href="#tile-naming" title="Permanent link">&para;</a></h2>
+<p>Output files follow the pattern <code>{stem}_{row:04d}_{col:04d}.{ext}</code> in row-major order (top-left origin).</p>
+<p><strong>Example:</strong> A 2048 × 2048 image <code>mosaic.jpg</code> tiled at 1024 × 1024 (no overlap):</p>
+<div class="highlight"><pre><span></span><code>mosaic_0000_0000.jpg   mosaic_0000_0001.jpg
+mosaic_0001_0000.jpg   mosaic_0001_0001.jpg
+</code></pre></div>
+<p>Mask tiles follow the same naming with <code>.png</code> extension:</p>
+<div class="highlight"><pre><span></span><code>mosaic_0000_0000.png   mosaic_0000_0001.png
+mosaic_0001_0000.png   mosaic_0001_0001.png
+</code></pre></div>
+<p>Edge tiles that fall outside the image boundary are zero-padded to the full tile size.</p>
+<hr />
+<h2 id="tile-count-formula">Tile Count Formula<a class="headerlink" href="#tile-count-formula" title="Permanent link">&para;</a></h2>
+<p>The exact number of tiles for a given image and settings:</p>
+<div class="highlight"><pre><span></span><code>step = max(tile_size - overlap, 1)
+cols = max(ceil((width  - overlap) / step), 1)
+rows = max(ceil((height - overlap) / step), 1)
+n_tiles = cols × rows
+</code></pre></div>
+<p><strong>Example</strong> — 4096 × 4096 image, tile size 512, overlap 64:</p>
+<div class="highlight"><pre><span></span><code>step = 512 - 64 = 448
+cols = ceil((4096 - 64) / 448) = ceil(9.0) = 9
+rows = 9
+n_tiles = 81
+</code></pre></div>
+<hr />
+<h2 id="supported-formats">Supported Formats<a class="headerlink" href="#supported-formats" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.jpg</code>, <code>.jpeg</code>, <code>.png</code>, <code>.tif</code>, <code>.tiff</code>, <code>.bmp</code>, <code>.webp</code></td>
+<td>Image tiles: <code>.jpg</code> (JPEG, quality-controlled)</td>
+</tr>
+<tr>
+<td>Mask: <code>.png</code>, <code>.jpg</code>, <code>.jpeg</code>, <code>.tif</code>, <code>.tiff</code></td>
+<td>Mask tiles: <code>.png</code> (lossless)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="python-api">Python API<a class="headerlink" href="#python-api" title="Permanent link">&para;</a></h2>
+<p>The tiling functions are in <code>crackz.project.tiling</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.project.tiling</span><span class="w"> </span><span class="kn">import</span> <span class="n">tile_image</span><span class="p">,</span> <span class="n">tile_image_with_mask</span><span class="p">,</span> <span class="n">tile_image_dir</span>
+
+<span class="c1"># Tile a single image</span>
+<span class="n">tiles</span> <span class="o">=</span> <span class="n">tile_image</span><span class="p">(</span>
+    <span class="n">source</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;mosaic.jpg&quot;</span><span class="p">),</span>
+    <span class="n">dest_dir</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;tiles/&quot;</span><span class="p">),</span>
+    <span class="n">tile_size</span><span class="o">=</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
+    <span class="n">overlap</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">quality</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Tile image + mask together</span>
+<span class="n">img_tiles</span><span class="p">,</span> <span class="n">msk_tiles</span> <span class="o">=</span> <span class="n">tile_image_with_mask</span><span class="p">(</span>
+    <span class="n">source</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;mosaic.jpg&quot;</span><span class="p">),</span>
+    <span class="n">mask</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;mask.png&quot;</span><span class="p">),</span>
+    <span class="n">dest_dir</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;tiles/images/&quot;</span><span class="p">),</span>
+    <span class="n">mask_dest_dir</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;tiles/masks/&quot;</span><span class="p">),</span>
+    <span class="n">tile_size</span><span class="o">=</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
+    <span class="n">overlap</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">quality</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Batch-tile a directory</span>
+<span class="n">img_tiles</span><span class="p">,</span> <span class="n">msk_tiles</span> <span class="o">=</span> <span class="n">tile_image_dir</span><span class="p">(</span>
+    <span class="n">source_dir</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;raw_images/&quot;</span><span class="p">),</span>
+    <span class="n">dest_dir</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;tiles/images/&quot;</span><span class="p">),</span>
+    <span class="n">tile_size</span><span class="o">=</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
+    <span class="n">overlap</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">quality</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+    <span class="n">mask_source_dir</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;annotations/&quot;</span><span class="p">),</span>  <span class="c1"># optional</span>
+    <span class="n">mask_dest_dir</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;tiles/masks/&quot;</span><span class="p">),</span>    <span class="c1"># optional</span>
+<span class="p">)</span>
+</code></pre></div>
 
 
 

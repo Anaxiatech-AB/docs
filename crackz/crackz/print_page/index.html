@@ -576,8 +576,57 @@ crackz<span class="w"> </span>import-images<span class="w"> </span>--project<spa
 <p>The installer downloads <code>crackz-gui-&lt;platform&gt;.tar.gz</code>, verifies its <code>.sha256</code> checksum when available, and installs the <code>crackz-gui</code> executable. It does not require Python or <code>uv</code>.</p>
 <p><strong>Private GitHub Releases fallback:</strong> The script tries radiogaga Nexus first by default. If Nexus is unavailable, it can use the GitHub CLI when already authenticated with <code>gh auth login</code>, or <code>GITHUB_TOKEN</code> for API-based download.</p>
 <p><strong>Windows (PowerShell):</strong>
-<div class="highlight"><pre><span></span><code><span class="nb">irm </span><span class="n">https</span><span class="p">://</span><span class="n">crackzreleases</span><span class="p">.</span><span class="n">blob</span><span class="p">.</span><span class="n">core</span><span class="p">.</span><span class="n">windows</span><span class="p">.</span><span class="n">net</span><span class="p">/</span><span class="n">public</span><span class="p">/</span><span class="n">latest</span><span class="p">/</span><span class="n">install</span><span class="p">.</span><span class="n">ps1</span> <span class="p">|</span> <span class="nb">iex</span>
+<div class="highlight"><pre><span></span><code><span class="nb">irm </span><span class="n">https</span><span class="p">://</span><span class="n">radiogaga</span><span class="p">/</span><span class="n">repository</span><span class="p">/</span><span class="n">crackz-binaries</span><span class="p">/</span><span class="n">latest</span><span class="p">/</span><span class="n">install</span><span class="p">.</span><span class="n">ps1</span> <span class="p">|</span> <span class="nb">iex</span>
+</code></pre></div>
+Install a pinned version:
+<div class="highlight"><pre><span></span><code><span class="nv">$env:CRACKZ_VERSION</span><span class="p">=</span><span class="s2">&quot;0.82.0&quot;</span><span class="p">;</span> <span class="nb">irm </span><span class="n">https</span><span class="p">://</span><span class="n">radiogaga</span><span class="p">/</span><span class="n">repository</span><span class="p">/</span><span class="n">crackz-binaries</span><span class="p">/</span><span class="n">latest</span><span class="p">/</span><span class="n">install</span><span class="p">.</span><span class="n">ps1</span> <span class="p">|</span> <span class="nb">iex</span>
+</code></pre></div>
+Fallback to private GitHub Releases:
+<div class="highlight"><pre><span></span><code><span class="nv">$env:CRACKZ_SOURCE</span><span class="p">=</span><span class="s2">&quot;github&quot;</span><span class="p">;</span> <span class="nv">$env:GITHUB_TOKEN</span><span class="p">=</span><span class="s2">&quot;...&quot;</span><span class="p">;</span> <span class="nb">irm </span><span class="n">https</span><span class="p">://</span><span class="n">radiogaga</span><span class="p">/</span><span class="n">repository</span><span class="p">/</span><span class="n">crackz-binaries</span><span class="p">/</span><span class="n">latest</span><span class="p">/</span><span class="n">install</span><span class="p">.</span><span class="n">ps1</span> <span class="p">|</span> <span class="nb">iex</span>
 </code></pre></div></p>
+<h3 id="gpu-cuda-binary-variants-linux">GPU / CUDA Binary Variants (Linux)<a class="headerlink" href="#gpu-cuda-binary-variants-linux" title="Permanent link">&para;</a></h3>
+<p>CUDA-enabled binaries bundle PyTorch with CUDA support for GPU-accelerated inference and training. Choose the variant that matches your driver:</p>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>CUDA toolkit</th>
+<th>Typical GPU</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>(default)</em></td>
+<td>CPU only</td>
+<td>Any / macOS</td>
+</tr>
+<tr>
+<td><code>cu128</code></td>
+<td>CUDA 12.x</td>
+<td>RTX 30/40 series, A100, H100</td>
+</tr>
+<tr>
+<td><code>cu118</code></td>
+<td>CUDA 11.x</td>
+<td>RTX 20 series, older datacenter GPUs</td>
+</tr>
+</tbody>
+</table>
+<p>Check your CUDA version with <code>nvidia-smi</code> — the <code>CUDA Version</code> field in the top-right corner tells you which variant to use.</p>
+<p><strong>CUDA 12.x (RTX 30/40 series, modern GPUs):</strong>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://radiogaga/repository/crackz-binaries/latest/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">CRACKZ_VARIANT</span><span class="o">=</span>cu128<span class="w"> </span>bash
+</code></pre></div></p>
+<p><strong>CUDA 11.x (older GPUs):</strong>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://radiogaga/repository/crackz-binaries/latest/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">CRACKZ_VARIANT</span><span class="o">=</span>cu118<span class="w"> </span>bash
+</code></pre></div></p>
+<p>Combining with other overrides:
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://radiogaga/repository/crackz-binaries/latest/install.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span><span class="nv">CRACKZ_VARIANT</span><span class="o">=</span>cu128<span class="w"> </span><span class="nv">CRACKZ_VERSION</span><span class="o">=</span><span class="m">0</span>.82.0<span class="w"> </span>bash
+</code></pre></div></p>
+<blockquote>
+<p><strong>macOS:</strong> GPU acceleration uses Apple MPS automatically — no variant flag is needed.
+<strong>Windows:</strong> CUDA binaries are not currently provided for Windows. Use the <a href="#wheel-install-private-github-releases">wheel install</a> with <code>CRACKZ_VARIANT=cu118</code> instead.</p>
+</blockquote>
 <h3 id="wheel-install-private-github-releases">Wheel Install: Private GitHub Releases<a class="headerlink" href="#wheel-install-private-github-releases" title="Permanent link">&para;</a></h3>
 <p>Use this when you need the Python package install instead of the standalone GUI binary.</p>
 <p><strong>Prerequisites:</strong>

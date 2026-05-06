@@ -1833,6 +1833,8 @@ Use this file as the source of truth for project-specific agent behavior.</p>
 <h2 id="git-workflow-default">Git Workflow Default<a class="headerlink" href="#git-workflow-default" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Start code, docs, and CI changes on a branch, then push the branch and open a pull request.</li>
+<li>Before creating a new branch, run <code>git fetch origin main</code> and branch from the updated <code>origin/main</code>.</li>
+<li>Push new branches with an explicit destination such as <code>git push origin HEAD:refs/heads/&lt;branch&gt;</code> so local upstream configuration cannot redirect the push to <code>main</code>.</li>
 <li>Do not commit directly to <code>main</code> unless the user explicitly instructs you to do so.</li>
 <li>When addressing PR feedback or follow-up fixes, continue working on the same branch associated with that PR unless the user explicitly asks to use a different branch.</li>
 <li>Treat direct pushes to <code>main</code> as an exception that requires explicit user instruction.</li>

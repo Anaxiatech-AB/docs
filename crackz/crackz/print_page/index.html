@@ -2787,33 +2787,20 @@ project — this avoids having to configure categories manually.</p>
 </blockquote>
 <hr />
 <h2 id="image-import">Image Import<a class="headerlink" href="#image-import" title="Permanent link">&para;</a></h2>
-<h3 id="import-images-menu">Import Images Menu<a class="headerlink" href="#import-images-menu" title="Permanent link">&para;</a></h3>
-<p>Access image import via <strong>Data → Import Images</strong> or <strong>Data → Import Images with Split</strong>.</p>
-<p><img alt="Import Images Menu" src="../assets/gui/import_images_with_split_menu.png" /></p>
-<h3 id="basic-import">Basic Import<a class="headerlink" href="#basic-import" title="Permanent link">&para;</a></h3>
-<p>Import images into a specific split (raw/train/val/test):</p>
-<ol>
-<li>Click <strong>Data → Import Images</strong></li>
-<li>Select source directory containing images</li>
-<li>Choose destination split (raw, train, val, or test)</li>
-<li>Optionally select masks directory (for training data)</li>
-<li>Configure resize options (default: 512×512)</li>
-<li>Click <strong>Import</strong></li>
-</ol>
-<p>Progress is shown with a real-time progress bar.</p>
+<h3 id="import-images">Import Images<a class="headerlink" href="#import-images" title="Permanent link">&para;</a></h3>
+<p>Access image import via <strong>Project → Import Images…</strong>.</p>
 <h3 id="import-with-automatic-split">Import with Automatic Split<a class="headerlink" href="#import-with-automatic-split" title="Permanent link">&para;</a></h3>
 <p>Automatically distribute images across train/val/test splits:</p>
 <ol>
-<li>Click <strong>Data → Import Images with Split</strong></li>
-<li>Select source directory containing images</li>
+<li>Click <strong>Project → Import Images…</strong></li>
+<li>Select source directory containing images (with optional <code>masks/</code> subdirectory)</li>
 <li>Set split ratios (default: 70% train, 15% val, 15% test)</li>
-<li>Optionally set random seed for reproducible splits</li>
-<li>Configure resize options</li>
+<li>Optionally set a random seed for reproducible splits</li>
+<li>Configure image size and JPEG quality</li>
 <li>Click <strong>Import</strong></li>
 </ol>
+<p>Progress is shown with a real-time progress bar.</p>
 <p><img alt="Import with Split Dialog" src="../assets/gui/import_images_with_split_dialog.png" /></p>
-<p>Advanced options are available in the collapsible settings section:</p>
-<p><img alt="Import with Split Settings" src="../assets/gui/import_images_with_split_dialog_settings.png" /></p>
 <h3 id="viewing-imported-images">Viewing Imported Images<a class="headerlink" href="#viewing-imported-images" title="Permanent link">&para;</a></h3>
 <p>After import, view images in each split via the project tree:</p>
 <p><img alt="Images Raw View" src="../assets/gui/images_raw_view.png" /></p>
@@ -3316,42 +3303,33 @@ crackz<span class="w"> </span>move-images<span class="w"> </span>--project<span 
 <h3 id="exporting-models">Exporting Models<a class="headerlink" href="#exporting-models" title="Permanent link">&para;</a></h3>
 <p>Share trained models or deploy to other systems:</p>
 <ol>
-<li>Click <strong>Model → Export Model</strong></li>
-<li>Select checkpoint to export</li>
-<li>Choose destination directory</li>
-<li>Optional: Include configuration snapshot</li>
+<li>Click <strong>Project → Export Model Package…</strong></li>
+<li>Select the checkpoint to export from the dropdown</li>
+<li>Choose the output file path</li>
+<li>Click <strong>Export</strong></li>
 </ol>
-<p><img alt="Export Model Menu" src="../assets/gui/export_model_menu.png" /></p>
+<p><img alt="Export Model Dialog" src="../assets/gui/export_model_dialog.png" /></p>
 <h3 id="importing-models">Importing Models<a class="headerlink" href="#importing-models" title="Permanent link">&para;</a></h3>
 <p>Use pre-trained models from external sources:</p>
 <ol>
-<li>Click <strong>Model → Import Model</strong></li>
-<li>Select checkpoint file (<code>.ckpt</code>)</li>
-<li>Model is copied to project's models directory (or checkpoints in older projects)</li>
-<li>Available immediately for detection</li>
+<li>Click <strong>Project → Import Model Package…</strong></li>
+<li>Browse to and select a model package file (<code>.zip</code>)</li>
+<li>Review the package information</li>
+<li>Click <strong>Import</strong></li>
 </ol>
-<p><img alt="Import Model Menu" src="../assets/gui/import_model_menu.png" /></p>
+<p><img alt="Import Model Dialog" src="../assets/gui/import_model_dialog.png" /></p>
 <hr />
 <h2 id="project-maintenance">Project Maintenance<a class="headerlink" href="#project-maintenance" title="Permanent link">&para;</a></h2>
 <h3 id="clean-project">Clean Project<a class="headerlink" href="#clean-project" title="Permanent link">&para;</a></h3>
-<p>Remove temporary files and free up disk space:</p>
-<ol>
-<li>Click <strong>Project → Clean Project</strong></li>
-<li>Select what to clean:</li>
-<li>Cached data</li>
-<li>Log files</li>
-<li>Temporary artifacts</li>
-<li>Confirm deletion</li>
-</ol>
-<p><img alt="Clean Project Menu" src="../assets/gui/clean_project_menu_item.png" /></p>
-<p><img alt="Clean Project Dialog" src="../assets/gui/clean_project_dialog.png" /></p>
+<blockquote>
+<p><strong>Note:</strong> The Clean Project feature is planned for a future release. Use the CLI command to clean project artifacts in the meantime:
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>clean<span class="w"> </span>--project<span class="w"> </span>./my-project
+</code></pre></div></p>
+</blockquote>
 <h3 id="project-information">Project Information<a class="headerlink" href="#project-information" title="Permanent link">&para;</a></h3>
-<p>View comprehensive project metadata:</p>
-<ol>
-<li>Click <strong>Project → Info</strong></li>
-<li>Review project statistics, paths, and configuration</li>
-</ol>
-<p><img alt="Project Info Dialog" src="../assets/gui/project_info_dialog.png" /></p>
+<blockquote>
+<p><strong>Note:</strong> The Project Information dialog is planned for a future release. Use <strong>Project → Project Settings…</strong> to review and edit project configuration, or inspect the <code>project.yaml</code> file directly in the project folder.</p>
+</blockquote>
 <hr />
 <h2 id="viewing-logs">Viewing Logs<a class="headerlink" href="#viewing-logs" title="Permanent link">&para;</a></h2>
 <p>Access project logs via the project tree:</p>
@@ -7574,9 +7552,7 @@ n_tiles = 81
 <li>Reliable loading of all map components</li>
 <li>Handles datasets of any size</li>
 </ul>
-<p><strong>Note</strong>: Maps always open in your default web browser for optimal performance and full Leaflet.js functionality.</p>
-<p><img alt="Map Browser View" src="../assets/gui/map_browser_view.png" />
-<em>Interactive map view opened in web browser with geotagged images displayed as markers</em></p>
+<p><strong>Note</strong>: Maps always open in your default web browser for optimal performance and full Leaflet.js functionality. The browser displays an interactive Leaflet.js map with geotagged images shown as clickable markers on OpenStreetMap.</p>
 <h3 id="interactive-maps">Interactive Maps<a class="headerlink" href="#interactive-maps" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Interactive Leaflet.js maps with full functionality (zoom, pan, markers, popups)</li>

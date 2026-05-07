@@ -387,17 +387,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Project Structure
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#quick-example" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2130,17 +2119,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Project Structure
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#quick-example" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2266,6 +2244,13 @@
 </p>
 
 <p><strong>AI-powered crack detection and analysis for harbor and bridge infrastructure.</strong></p>
+<p style="text-align: center;">
+  <img src="assets/gui/project_summary_view.png"
+       alt="Crackz desktop app — project overview"
+       style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);" />
+</p>
+<p style="text-align: center;"><em>The Crackz desktop app — project dashboard with model configuration and detection metrics.</em></p>
+
 <h2 id="welcome">Welcome<a class="headerlink" href="#welcome" title="Permanent link">&para;</a></h2>
 <p>Crackz is a commercial-grade crack detection solution designed for infrastructure inspection. Reduce inspection costs by up to 70% while improving safety and consistency through automated AI-powered analysis.</p>
 <blockquote>
@@ -2285,7 +2270,7 @@
 <ul>
 <li><strong>Reproducible projects</strong> – Self-contained folder structure for complete traceability</li>
 <li><strong>Fast experimentation</strong> – Runtime overrides for rapid iteration</li>
-<li><strong>Scriptable &amp; visual</strong> – Powerful CLI plus modern GUI</li>
+<li><strong>GUI + CLI</strong> – Modern desktop app for visual workflows; powerful CLI for scripting and automation</li>
 <li><strong>Container friendly</strong> – Docker images for all deployment scenarios</li>
 <li><strong>Extensible design</strong> – Modular AI pipeline built on PyTorch Lightning</li>
 </ul>
@@ -2319,7 +2304,7 @@
 <tbody>
 <tr>
 <td><strong>Interfaces</strong></td>
-<td>CLI (<code>crackz</code>), GUI (<code>crackz-gui</code>), and Web Dashboard (Streamlit)</td>
+<td>GUI (<code>crackz-gui</code>), CLI (<code>crackz</code>), and Web Dashboard (Streamlit)</td>
 </tr>
 <tr>
 <td><strong>Data Management</strong></td>
@@ -2347,31 +2332,21 @@
 </tr>
 </tbody>
 </table>
-<h2 id="project-structure">Project Structure<a class="headerlink" href="#project-structure" title="Permanent link">&para;</a></h2>
-<p>Every Crackz project is self-contained with complete traceability:</p>
-<div class="highlight"><pre><span></span><code>my-project/
-├── images/           # Source images by split (raw/train/val/test)
-├── masks/            # Ground truth for training
-├── artifacts/        # Detection results and training metrics
-├── logs/             # Complete audit trail
-└── project.yaml      # Configuration snapshot
-</code></pre></div>
 <h2 id="quick-example">Quick Example<a class="headerlink" href="#quick-example" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="c1"># Create project</span>
-crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>demo
-
-<span class="c1"># Import images</span>
+<p><strong>Using the desktop app:</strong></p>
+<ol>
+<li>Launch: <code>crackz-gui</code></li>
+<li><strong>File → New Project</strong> — name your project and choose a folder</li>
+<li><strong>Import Images</strong> — drag in your harbor/bridge photos</li>
+<li><strong>Run Detection</strong> — click the Run button; results appear in real time</li>
+<li>Browse flagged findings in the <strong>Gallery</strong> view</li>
+</ol>
+<p><strong>Or via the CLI</strong> (for scripting and automation):</p>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>demo
 crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo<span class="w"> </span>--src<span class="w"> </span>./photos<span class="w"> </span>--type<span class="w"> </span>raw<span class="w"> </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
-
-<span class="c1"># Run detection</span>
 crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>demo
-
-<span class="c1"># View results in demo/artifacts/detections/</span>
+<span class="c1"># Results written to demo/artifacts/detections/</span>
 </code></pre></div>
-<p>Or use the GUI:
-<div class="highlight"><pre><span></span><code>crackz-gui
-<span class="c1"># File → New Project → Import Images → Run Detection</span>
-</code></pre></div></p>
 <h2 id="commercial-licensing">Commercial Licensing<a class="headerlink" href="#commercial-licensing" title="Permanent link">&para;</a></h2>
 <p>Crackz is distributed under a <strong>commercial source-available license</strong> for enterprise infrastructure management.</p>
 <h3 id="whats-included">What's Included<a class="headerlink" href="#whats-included" title="Permanent link">&para;</a></h3>

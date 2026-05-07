@@ -1677,6 +1677,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#adr-012-sqlite-fts5-for-ai-chat-doc-search-phase-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-012: SQLite FTS5 for AI Chat Doc Search (Phase 1)
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2328,6 +2339,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#adr-012-sqlite-fts5-for-ai-chat-doc-search-phase-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-012: SQLite FTS5 for AI Chat Doc Search (Phase 1)
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2773,6 +2795,24 @@
 3. Discuss with team/community
 4. Add ADR to this document via PR
 5. Update related documentation</p>
+<hr />
+<h2 id="adr-012-sqlite-fts5-for-ai-chat-doc-search-phase-1">ADR-012: SQLite FTS5 for AI Chat Doc Search (Phase 1)<a class="headerlink" href="#adr-012-sqlite-fts5-for-ai-chat-doc-search-phase-1" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: The AI chat assistant had no access to Crackz's own documentation, so it could not answer "How do I...?" questions accurately. The roadmap (item #9, issues #311–315) originally specified ChromaDB + LlamaIndex + Nomic embeddings for RAG, but this was descoped in April 2026 due to complexity. We needed a simpler Phase 1 that ships without blocking.</p>
+<p>Three alternatives were evaluated:
+- <strong>graphify graph.json</strong>: <code>graphify-out/</code> is gitignored and dev-only; the graph contains only 14 doc nodes (Python example files, not markdown prose). Not viable for end users.
+- <strong>ChromaDB + sentence-transformers</strong>: +100MB of dependencies, cold-start indexing, background thread in the Qt app, 4–6 weeks of work. True semantic search but disproportionate to current user volume.
+- <strong>SQLite FTS5</strong>: Zero new dependencies (FTS5 is built into Python's <code>sqlite3</code>), reuses the existing <code>chat_history.db</code> infrastructure, keyword search covers 90%+ of domain-specific "How do I...?" queries in a specialized inspection tool, ships offline.</p>
+<p><strong>Decision</strong>: Implement SQLite FTS5 keyword search over the 19 user-facing <code>docs/*.md</code> root files. Docs are chunked at <code>##</code> headers, indexed at startup if the docs hash has changed, and top-3 matching chunks are injected into the system prompt per query. The index lives in <code>~/.crackz/chat_history.db</code> (schema v1.1). Docs path is discovered at runtime via <code>_find_docs_path()</code> in <code>app_state.py</code>, supporting both development and PyInstaller bundles.</p>
+<p><strong>Consequences</strong>:
+- ✅ Zero new runtime dependencies
+- ✅ Works offline — no network call for retrieval
+- ✅ Transparent to users — sub-millisecond lookup
+- ✅ Schema migration handles existing v1.0 databases automatically
+- ✅ Hash-based staleness detection — re-indexes only when docs change between versions
+- ⚠️ Keyword-only: won't match "convergence" with "loss not improving" — semantic synonyms are missed
+- ⚠️ Upgrade path defined: swap for BM25 scoring (rank_bm25, ~3KB dep) for better ranking; upgrade to ChromaDB if keyword gaps are consistently reported</p>
+<p><strong>Status</strong>: Active (2026-05-07)</p>
+<p><strong>Related</strong>: <code>gui/src/crackz_gui/data/chat_history_db.py</code> (schema v1.1), <code>gui/src/crackz_gui/data/doc_chunker.py</code>, <code>gui/src/crackz_gui/services/ai_chat.py</code>, PRODUCT_ROADMAP.md item #9, issues #312–#315</p>
 
 
 

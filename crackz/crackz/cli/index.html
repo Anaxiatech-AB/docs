@@ -2540,6 +2540,10 @@
   --log-dir DIRECTORY   Central log directory (precedence: env CRACKZ_LOG_DIR
                         &gt; --log-dir &gt; system temp). Created if missing.
                         Project logs are always under &lt;project&gt;/logs.
+  --telemetry           Opt in to local telemetry: append structured events to
+                        logs/events.jsonl. No image data, no PII. Also enabled
+                        by CRACKZ_TELEMETRY_ENABLED=1. Off by default. See
+                        ADR-021.
   --install-completion  Install completion for the current shell.
   --show-completion     Show completion for the current shell, to copy it or
                         customize the installation.

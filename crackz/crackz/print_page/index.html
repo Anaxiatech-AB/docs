@@ -98,7 +98,7 @@ table th { background:#f1f5f9; color:#111827; }
   
   <h1>Crackz Documentation</h1>
   <h2>AI Image Analysis</h2>
-  <p class='version'>Version: 0.86.0</p>
+  <p class='version'>Version: 0.87.0</p>
   <p class='company'>© 2026 Anaxiatech AB</p>
 </section>
 <hr class='page-sep'/>
@@ -3753,6 +3753,10 @@ which show the original images with crack overlays. These are automatically gene
   --log-dir DIRECTORY   Central log directory (precedence: env CRACKZ_LOG_DIR
                         &gt; --log-dir &gt; system temp). Created if missing.
                         Project logs are always under &lt;project&gt;/logs.
+  --telemetry           Opt in to local telemetry: append structured events to
+                        logs/events.jsonl. No image data, no PII. Also enabled
+                        by CRACKZ_TELEMETRY_ENABLED=1. Off by default. See
+                        ADR-021.
   --install-completion  Install completion for the current shell.
   --show-completion     Show completion for the current shell, to copy it or
                         customize the installation.
@@ -29397,6 +29401,7 @@ forwards to loguru's file sink).</p>
     <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">log_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">telemetry</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
 
@@ -29407,19 +29412,7 @@ forwards to loguru's file sink).</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/cli/crackz_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">226</span>
-<span class="normal">227</span>
-<span class="normal">228</span>
-<span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span>
-<span class="normal">236</span>
-<span class="normal">237</span>
-<span class="normal">238</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">238</span>
 <span class="normal">239</span>
 <span class="normal">240</span>
 <span class="normal">241</span>
@@ -29440,7 +29433,31 @@ forwards to loguru's file sink).</p>
 <span class="normal">256</span>
 <span class="normal">257</span>
 <span class="normal">258</span>
-<span class="normal">259</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">()</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">()</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">root_callback</span><span class="p">(</span>
     <span class="n">ctx</span><span class="p">:</span> <span class="n">typer</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span>
     <span class="n">version</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>  <span class="c1"># noqa: FBT002</span>
@@ -29467,6 +29484,17 @@ forwards to loguru's file sink).</p>
             <span class="p">),</span>
         <span class="p">),</span>
     <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">telemetry</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>  <span class="c1"># noqa: FBT002</span>
+        <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span>
+            <span class="s2">&quot;--telemetry&quot;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Opt in to local telemetry: append structured events to logs/events.jsonl. &quot;</span>
+                <span class="s2">&quot;No image data, no PII. Also enabled by CRACKZ_TELEMETRY_ENABLED=1. &quot;</span>
+                <span class="s2">&quot;Off by default. See ADR-021.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Main entrypoint for Crackz CLI.&quot;&quot;&quot;</span>
     <span class="k">del</span> <span class="n">version</span>
@@ -29474,6 +29502,7 @@ forwards to loguru's file sink).</p>
     <span class="k">if</span> <span class="n">ctx</span><span class="o">.</span><span class="n">resilient_parsing</span><span class="p">:</span>
         <span class="k">return</span>
     <span class="n">_configure_root_logging</span><span class="p">(</span><span class="n">log_dir</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">)</span>
+    <span class="n">_configure_telemetry</span><span class="p">(</span><span class="n">telemetry_flag</span><span class="o">=</span><span class="n">telemetry</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -29498,16 +29527,16 @@ forwards to loguru's file sink).</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/cli/crackz_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">262</span>
-<span class="normal">263</span>
-<span class="normal">264</span>
-<span class="normal">265</span>
-<span class="normal">266</span>
-<span class="normal">267</span>
-<span class="normal">268</span>
-<span class="normal">269</span>
-<span class="normal">270</span>
-<span class="normal">271</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute the main application entry point.&quot;&quot;&quot;</span>
     <span class="c1"># Critical: Add freeze_support for Windows multiprocessing in PyInstaller builds</span>
     <span class="c1"># This prevents multiple windows from spawning when using DataLoader with num_workers &gt; 0</span>
@@ -30956,17 +30985,27 @@ leveraging the typer CLI framework for seamless command-line interaction.</p>
 <span class="normal">70</span>
 <span class="normal">71</span>
 <span class="normal">72</span>
-<span class="normal">73</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@detect_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;run&quot;</span><span class="p">)</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@detect_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;run&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">run_detection</span><span class="p">(</span>
     <span class="n">cfg</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">CFG_OPTION</span><span class="p">,</span>
     <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span>
     <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">CHECKPOINT_NAME_OPTION</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Run the detection process based on the given configuration or project path.&quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">crackz.telemetry</span><span class="w"> </span><span class="kn">import</span> <span class="n">instrument</span>
+
     <span class="k">if</span> <span class="n">project_path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">cfg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Either --project or --cfg must be specified.&quot;</span>
         <span class="k">raise</span> <span class="n">typer</span><span class="o">.</span><span class="n">BadParameter</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-    <span class="n">_do_detect</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">project_path</span><span class="p">,</span> <span class="n">checkpoint_name</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">instrument</span><span class="p">(</span><span class="s2">&quot;detect.run&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ctx</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="n">model_name</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="n">_do_detect</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">project_path</span><span class="p">,</span> <span class="n">checkpoint_name</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -31130,12 +31169,7 @@ is provided.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/cli/detection_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 76</span>
-<span class="normal"> 77</span>
-<span class="normal"> 78</span>
-<span class="normal"> 79</span>
-<span class="normal"> 80</span>
-<span class="normal"> 81</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 81</span>
 <span class="normal"> 82</span>
 <span class="normal"> 83</span>
 <span class="normal"> 84</span>
@@ -31162,7 +31196,17 @@ is provided.</p>
 <span class="normal">105</span>
 <span class="normal">106</span>
 <span class="normal">107</span>
-<span class="normal">108</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@detect_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@detect_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">detection_train</span><span class="p">(</span>
     <span class="n">cfg</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">CFG_OPTION</span><span class="p">,</span>
     <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span>
@@ -31194,7 +31238,12 @@ is provided.</p>
         <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Either --project or --cfg must be specified.&quot;</span>
         <span class="k">raise</span> <span class="n">typer</span><span class="o">.</span><span class="n">BadParameter</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-    <span class="n">_do_train</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">project_path</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">resume_from</span><span class="o">=</span><span class="n">resume</span><span class="p">)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">crackz.telemetry</span><span class="w"> </span><span class="kn">import</span> <span class="n">instrument</span>
+
+    <span class="k">with</span> <span class="n">instrument</span><span class="p">(</span><span class="s2">&quot;detect.train&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ctx</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">epochs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="n">item_count</span> <span class="o">=</span> <span class="n">epochs</span>
+        <span class="n">_do_train</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">project_path</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">resume_from</span><span class="o">=</span><span class="n">resume</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -31223,17 +31272,7 @@ is provided.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/cli/detection_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">121</span>
 <span class="normal">122</span>
 <span class="normal">123</span>
 <span class="normal">124</span>
@@ -31245,7 +31284,17 @@ is provided.</p>
 <span class="normal">130</span>
 <span class="normal">131</span>
 <span class="normal">132</span>
-<span class="normal">133</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@detect_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;prune-checkpoints&quot;</span><span class="p">)</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@detect_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;prune-checkpoints&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">prune_checkpoints_cmd</span><span class="p">(</span>
     <span class="n">keep</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">KEEP_CHECKPOINTS_OPTION</span><span class="p">,</span>
     <span class="n">cfg</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">CFG_OPTION</span><span class="p">,</span>

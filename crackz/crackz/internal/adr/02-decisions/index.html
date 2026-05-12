@@ -1688,6 +1688,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#adr-021-telemetry-backbone-internal-fleet-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-021: Telemetry Backbone &amp; Internal Fleet Admin
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2350,6 +2361,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#adr-021-telemetry-backbone-internal-fleet-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADR-021: Telemetry Backbone &amp; Internal Fleet Admin
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2380,7 +2402,7 @@
 - <strong>Context</strong>: Why we needed to make a decision
 - <strong>Decision</strong>: What we chose
 - <strong>Consequences</strong>: Trade-offs and implications
-- <strong>Status</strong>: Active | Deprecated | Superseded</p>
+- <strong>Status</strong>: Proposed | Active | Deprecated | Superseded</p>
 <hr />
 <h2 id="adr-001-use-uv-for-dependency-management-hatchling-for-builds">ADR-001: Use <code>uv</code> for Dependency Management + <code>hatchling</code> for Builds<a class="headerlink" href="#adr-001-use-uv-for-dependency-management-hatchling-for-builds" title="Permanent link">&para;</a></h2>
 <p><strong>Context</strong>: Python package management is slow with pip and complex with poetry. Additionally, setuptools as a build backend is aging and lacks modern features.</p>
@@ -2813,6 +2835,65 @@
 - ⚠️ Upgrade path defined: swap for BM25 scoring (rank_bm25, ~3KB dep) for better ranking; upgrade to ChromaDB if keyword gaps are consistently reported</p>
 <p><strong>Status</strong>: Active (2026-05-07)</p>
 <p><strong>Related</strong>: <code>gui/src/crackz_gui/data/chat_history_db.py</code> (schema v1.1), <code>gui/src/crackz_gui/data/doc_chunker.py</code>, <code>gui/src/crackz_gui/services/ai_chat.py</code>, PRODUCT_ROADMAP.md item #9, issues #312–#315</p>
+<hr />
+<h2 id="adr-021-telemetry-backbone-internal-fleet-admin">ADR-021: Telemetry Backbone &amp; Internal Fleet Admin<a class="headerlink" href="#adr-021-telemetry-backbone-internal-fleet-admin" title="Permanent link">&para;</a></h2>
+<p><strong>Context</strong>: Crackz ships as an installable on-premises product (CLI, GUI,
+Docker variants) and is moving from single-site pilots to multi-install
+deployments. Today we have no central visibility into the fleet: install
+count, version distribution, error rates, and inference performance are only
+knowable through ad-hoc log shipping or remote sessions. This caps how many
+installs we can support per FTE and blocks the customer-facing multi-site
+dashboard (PRODUCT_ROADMAP.md #6) and any future SaaS control plane (#17).</p>
+<p>We are conservatively positioned (offline-first, maritime/industrial
+customers, no PII or imagery leaving the install). Any telemetry must be
+opt-in, contain no image data, and not compromise the offline-first guarantee.</p>
+<p>Three options were considered:</p>
+<ul>
+<li><strong>Do nothing / log shipping on demand</strong>: zero infrastructure, but support
+  cost grows linearly with installs and we stay blind to regressions.</li>
+<li><strong>Build full SaaS control plane up front (#17)</strong>: solves everything but is
+  ~24 weeks of work, multi-tenant isolation, billing, and SOC 2 — wildly
+  premature for current fleet size.</li>
+<li><strong>Thin internal telemetry backbone</strong>: opt-in agent → HTTPS ingest →
+  Postgres → read-only admin. Internal-only first; same backend later
+  serves #6 and #17. ~5–6 weeks total.</li>
+</ul>
+<p><strong>Decision</strong>: Build the thin internal telemetry backbone (option 3) when the
+trigger conditions in PRODUCT_ROADMAP.md #6a are met. Architectural choices:</p>
+<ul>
+<li><strong>Agent</strong>: opt-in <code>--telemetry</code> flag (off by default), structured events
+  written to <code>logs/events.jsonl</code> with a stable schema, daily heartbeat HTTPS
+  POST with offline queue and exponential backoff. No image data, no PII —
+  install ID, version, OS, GPU, run counts, aggregate timings, error codes,
+  report summary statistics only.</li>
+<li><strong>Backend</strong>: FastAPI + Postgres. SQLite + Litestream acceptable for the
+  first months while volume is low.</li>
+<li><strong>Admin UI</strong>: read-only, internal access only. Streamlit or a small
+  Next.js page — pick whichever ships fastest, this layer is replaceable.</li>
+<li><strong>Auth</strong>: per-install API key for ingest (rotatable); GitHub org SSO for
+  admin.</li>
+<li><strong>Hosting</strong>: single small VM or Azure App Service + managed Postgres.</li>
+<li><strong>Groundwork now</strong>: add the event schema and <code>--telemetry</code> flag in <code>core/</code>
+  before the backend exists, so installs accumulate local events and the
+  schema stabilizes ahead of ingest.</li>
+</ul>
+<p>Explicitly out of scope for v1: customer-facing dashboard, multi-tenant
+isolation, RBAC beyond admin/read-only, remote config push, image upload,
+billing/metering. Those land with #6 and #17.</p>
+<p><strong>Consequences</strong>:
+- ✅ Fleet visibility unblocks scaling support beyond a handful of installs
+- ✅ Same backend and data model later powers #6 (customer dashboard) and #17 (SaaS) — no throwaway work
+- ✅ Offline-first guarantee preserved (telemetry is opt-in, queues offline, never blocks the agent)
+- ✅ No image or PII egress — preserves maritime/industrial customer trust posture
+- ✅ Local <code>logs/events.jsonl</code> is useful immediately, even before backend exists
+- ⚠️ Adds an HTTPS dependency for installs that opt in (mitigated by offline queue)
+- ⚠️ Introduces a new service to operate (FastAPI + Postgres) — small, but non-zero ops cost
+- ⚠️ Per-install API key lifecycle (issuance, rotation, revocation) is a new concern
+- ⚠️ Internal admin UI is intentionally thin and read-only; resist scope creep into customer-facing features (those belong in #6)</p>
+<p><strong>Status</strong>: Proposed (2026-05-08)</p>
+<p><strong>Related</strong>: PRODUCT_ROADMAP.md #6a (Telemetry Backbone &amp; Internal Fleet
+Admin), #6 (Multi-Site Project Dashboard), #7 (REST API), #17 (SaaS Platform);
+<code>core/</code>, <code>logs/</code></p>
 
 
 

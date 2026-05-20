@@ -102,7 +102,7 @@ table th { background:#f1f5f9; color:#111827; }
   <p class='company'>© 2026 Anaxiatech AB</p>
 </section>
 <hr class='page-sep'/>
-<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#installation'>Installation</a></li><li><a href='#getting-started'>Quick Start</a></li><li><a href='#gui'>GUI Overview</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#dashboard'>Dashboard</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#tiling'>Image Tiling</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#configuration'>Project Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-vm-cuda'>Azure VM (GPU)</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-comparison'>VM vs Batch</a></li><li><a href='#evaluation'>Model Evaluation</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#architecture-guidelines'>Architecture Guidelines</a></li><li><a href='#api'>API Reference</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#tracing'>Tracing & Observability</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#release-flow'>Release Flow</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
+<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#installation'>Installation</a></li><li><a href='#getting-started'>Quick Start</a></li><li><a href='#gui'>GUI Overview</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#dashboard'>Dashboard</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#tiling'>Image Tiling</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#configuration'>Project Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-vm-cuda'>Azure VM (GPU)</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-comparison'>VM vs Batch</a></li><li><a href='#evaluation'>Model Evaluation</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#architecture-guidelines'>Architecture Guidelines</a></li><li><a href='#api'>API Reference</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#spec-kit'>Spec Kit</a></li><li><a href='#tracing'>Tracing & Observability</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#release-flow'>Release Flow</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
 <h1>Home</h1>
 <h1 id="crackz">Crackz<a class="headerlink" href="#crackz" title="Permanent link">&para;</a></h1>
 <p>
@@ -32205,6 +32205,86 @@ from crackz.log import logger</p>
 <li><a href="../contributing/">Contributing Guide</a></li>
 <li><a href="../api/">API Reference</a></li>
 </ul>
+</section>
+<hr class='page-sep' />
+<section class='print-section' id='spec-kit' data-source='spec-kit.md'>
+<h1>Spec Kit</h1>
+<h1 id="spec-kit">Spec Kit<a class="headerlink" href="#spec-kit" title="Permanent link">&para;</a></h1>
+<p>Crackz uses GitHub Spec Kit for spec-driven feature work with Codex.</p>
+<p>Use it for planning-heavy changes: feature specifications, clarification,
+requirements checklists, implementation plans, task breakdowns, consistency
+analysis, and implementation passes. Skip it for small fixes, narrow reviews,
+or documentation edits where direct execution is clearer.</p>
+<h2 id="current-setup">Current Setup<a class="headerlink" href="#current-setup" title="Permanent link">&para;</a></h2>
+<p>Spec Kit is initialized for the Codex integration:</p>
+<ul>
+<li>Project infrastructure: <code>.specify/</code></li>
+<li>Codex skills: <code>.agents/skills/speckit-*</code></li>
+<li>Invocation style: <code>$speckit-&lt;command&gt;</code></li>
+<li>Script type: <code>sh</code></li>
+<li>Active integration state: <code>.specify/integration.json</code></li>
+</ul>
+<p>No optional Spec Kit extensions are enabled by default. Crackz keeps git and PR
+workflow rules in <code>docs/agent-playbook.md</code>.</p>
+<h2 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">&para;</a></h2>
+<p>For production features or ambiguous requirements, use the full quality-gated
+flow:</p>
+<div class="highlight"><pre><span></span><code>$speckit-constitution
+$speckit-specify
+$speckit-clarify
+$speckit-checklist
+$speckit-plan
+$speckit-tasks
+$speckit-analyze
+$speckit-implement
+</code></pre></div>
+<p>For quick experiments, use the lean flow:</p>
+<div class="highlight"><pre><span></span><code>$speckit-specify
+$speckit-plan
+$speckit-tasks
+$speckit-implement
+</code></pre></div>
+<p>Run <code>$speckit-analyze</code> before implementation when the feature has cross-module
+impact, schema or config changes, or non-trivial acceptance criteria.</p>
+<h2 id="token-usage">Token Usage<a class="headerlink" href="#token-usage" title="Permanent link">&para;</a></h2>
+<p>Spec Kit adds many generated files, but they should not all enter context for
+normal work.</p>
+<ul>
+<li>Normal Crackz tasks still start from <code>agents.md</code> and <code>docs/agent-playbook.md</code>.</li>
+<li>Spec Kit skills are loaded when a <code>$speckit-*</code> command is invoked.</li>
+<li>Active feature artifacts under <code>specs/</code> become the main durable context for
+Spec Kit work.</li>
+<li>Keep feature specs focused and split large efforts into phases to avoid
+context saturation.</li>
+</ul>
+<p>Do not paste entire generated templates or scripts into prompts. Reference the
+specific skill, feature spec, plan, or task file needed for the current phase.</p>
+<h2 id="supported-agent-integrations">Supported Agent Integrations<a class="headerlink" href="#supported-agent-integrations" title="Permanent link">&para;</a></h2>
+<p>Spec Kit supports these integration keys:</p>
+<div class="highlight"><pre><span></span><code>amp, agy, auggie, claude, codebuddy, codex, cursor-agent, devin,
+forge, gemini, copilot, goose, bob, iflow, junie, kilocode, kimi,
+kiro-cli, lingma, vibe, opencode, pi, qodercli, qwen, roo, shai,
+tabnine, trae, windsurf, generic
+</code></pre></div>
+<p>Crackz currently uses <code>codex</code>. Add another integration only when a contributor
+actually needs it:</p>
+<div class="highlight"><pre><span></span><code>uvx<span class="w"> </span>--from<span class="w"> </span>git+https://github.com/github/spec-kit.git<span class="w"> </span>specify<span class="w"> </span>integration<span class="w"> </span>install<span class="w"> </span>&lt;key&gt;
+</code></pre></div>
+<p>Use <code>generic</code> only for unsupported agents and pass an explicit commands
+directory with <code>--integration-options</code>.</p>
+<h2 id="maintenance">Maintenance<a class="headerlink" href="#maintenance" title="Permanent link">&para;</a></h2>
+<p>Check the installed CLI version:</p>
+<div class="highlight"><pre><span></span><code>uvx<span class="w"> </span>--from<span class="w"> </span>git+https://github.com/github/spec-kit.git<span class="w"> </span>specify<span class="w"> </span>version
+</code></pre></div>
+<p>List available integrations:</p>
+<div class="highlight"><pre><span></span><code>uvx<span class="w"> </span>--from<span class="w"> </span>git+https://github.com/github/spec-kit.git<span class="w"> </span>specify<span class="w"> </span>integration<span class="w"> </span>list
+</code></pre></div>
+<p>When upgrading Spec Kit-generated files, review the generated diff carefully
+before committing. Do not hand-edit generated skill templates unless the change
+is intentional and should be preserved across future upgrades.</p>
+<p>Optional extensions can be installed later if they provide enough value:</p>
+<div class="highlight"><pre><span></span><code>uvx<span class="w"> </span>--from<span class="w"> </span>git+https://github.com/github/spec-kit.git<span class="w"> </span>specify<span class="w"> </span>extension<span class="w"> </span>add<span class="w"> </span>&lt;extension&gt;
+</code></pre></div>
 </section>
 <hr class='page-sep' />
 <section class='print-section' id='tracing' data-source='tracing.md'>

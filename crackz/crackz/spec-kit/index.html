@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../cli-cookbook/">
+        <link rel="prev" href="../mcp/">
       
       
-        <link rel="next" href="../configuration/">
+        <link rel="next" href="../tracing/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Shell Completion - Crackz</title>
+        <title>Spec Kit - Crackz</title>
       
     
     
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#supported-shells" class="md-skip">
+        <a href="#current-setup" class="md-skip">
           Skip to content
         </a>
       
@@ -122,7 +122,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Shell Completion
+              Spec Kit
             
           </span>
         </div>
@@ -608,8 +608,6 @@
       
   
   
-    
-  
   
   
     
@@ -622,11 +620,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
@@ -647,7 +645,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -718,35 +716,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Shell Completion
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../completion/" class="md-nav__link">
         
   
   
@@ -762,164 +735,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#supported-shells" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Supported Shells
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-one-off-completion-any-shell" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick One-Off Completion (Any Shell)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#persistent-installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Persistent Installation
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Persistent Installation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bash" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Bash
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#zsh" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Zsh
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fish" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fish
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#powershell-windows-crossplatform" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PowerShell (Windows / Cross‑Platform)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#temporary-session-activation-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Temporary Session Activation Examples
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#uninstalling-completion" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Uninstalling Completion
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#programmatic-invocation-ci-ephemeral" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Programmatic Invocation (CI / Ephemeral)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1450,8 +1265,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -1462,11 +1279,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
         
           
           <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
@@ -1487,7 +1304,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1670,10 +1487,35 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../spec-kit/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spec Kit
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1689,6 +1531,81 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#current-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#token-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Token Usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-agent-integrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported Agent Integrations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maintenance
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2011,10 +1928,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#supported-shells" class="md-nav__link">
+  <a href="#current-setup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Supported Shells
+        Current Setup
       
     </span>
   </a>
@@ -2022,10 +1939,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quick-one-off-completion-any-shell" class="md-nav__link">
+  <a href="#workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick One-Off Completion (Any Shell)
+        Workflow
       
     </span>
   </a>
@@ -2033,71 +1950,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#persistent-installation" class="md-nav__link">
+  <a href="#token-usage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Persistent Installation
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Persistent Installation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bash" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Bash
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#zsh" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Zsh
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fish" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fish
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#powershell-windows-crossplatform" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PowerShell (Windows / Cross‑Platform)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#temporary-session-activation-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Temporary Session Activation Examples
+        Token Usage
       
     </span>
   </a>
@@ -2105,10 +1961,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
+  <a href="#supported-agent-integrations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Troubleshooting
+        Supported Agent Integrations
       
     </span>
   </a>
@@ -2116,32 +1972,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#uninstalling-completion" class="md-nav__link">
+  <a href="#maintenance" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Uninstalling Completion
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#programmatic-invocation-ci-ephemeral" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Programmatic Invocation (CI / Ephemeral)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next
+        Maintenance
       
     </span>
   </a>
@@ -2168,148 +2002,82 @@
   
 
 
-<h1 id="shell-completion">Shell Completion<a class="headerlink" href="#shell-completion" title="Permanent link">&para;</a></h1>
-<p>Crackz uses Typer, which provides built-in shell completion generation for common shells. This page shows how to enable and verify completion for the <code>crackz</code> CLI.</p>
-<h2 id="supported-shells">Supported Shells<a class="headerlink" href="#supported-shells" title="Permanent link">&para;</a></h2>
+<h1 id="spec-kit">Spec Kit<a class="headerlink" href="#spec-kit" title="Permanent link">&para;</a></h1>
+<p>Crackz uses GitHub Spec Kit for spec-driven feature work with Codex.</p>
+<p>Use it for planning-heavy changes: feature specifications, clarification,
+requirements checklists, implementation plans, task breakdowns, consistency
+analysis, and implementation passes. Skip it for small fixes, narrow reviews,
+or documentation edits where direct execution is clearer.</p>
+<h2 id="current-setup">Current Setup<a class="headerlink" href="#current-setup" title="Permanent link">&para;</a></h2>
+<p>Spec Kit is initialized for the Codex integration:</p>
 <ul>
-<li>Bash</li>
-<li>Zsh</li>
-<li>Fish</li>
-<li>PowerShell (Core / Windows)</li>
+<li>Project infrastructure: <code>.specify/</code></li>
+<li>Codex skills: <code>.agents/skills/speckit-*</code></li>
+<li>Invocation style: <code>$speckit-&lt;command&gt;</code></li>
+<li>Script type: <code>sh</code></li>
+<li>Active integration state: <code>.specify/integration.json</code></li>
 </ul>
-<h2 id="quick-one-off-completion-any-shell">Quick One-Off Completion (Any Shell)<a class="headerlink" href="#quick-one-off-completion-any-shell" title="Permanent link">&para;</a></h2>
-<p>You can preview completion script output without installing it permanently:
-<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>--show-completion<span class="w"> </span>bash
-crackz<span class="w"> </span>--show-completion<span class="w"> </span>zsh
-crackz<span class="w"> </span>--show-completion<span class="w"> </span>fish
-crackz<span class="w"> </span>--show-completion<span class="w"> </span>powershell
+<p>No optional Spec Kit extensions are enabled by default. Crackz keeps git and PR
+workflow rules in <code>docs/agent-playbook.md</code>.</p>
+<h2 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">&para;</a></h2>
+<p>For production features or ambiguous requirements, use the full quality-gated
+flow:</p>
+<div class="highlight"><pre><span></span><code>$speckit-constitution
+$speckit-specify
+$speckit-clarify
+$speckit-checklist
+$speckit-plan
+$speckit-tasks
+$speckit-analyze
+$speckit-implement
 </code></pre></div>
-Pipe it into <code>source</code> / <code>Invoke-Expression</code> for a temporary session (examples below).</p>
-<h2 id="persistent-installation">Persistent Installation<a class="headerlink" href="#persistent-installation" title="Permanent link">&para;</a></h2>
-<p>Typer exposes a helper flag:
-<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>--install-completion<span class="w"> </span>SHELL
+<p>For quick experiments, use the lean flow:</p>
+<div class="highlight"><pre><span></span><code>$speckit-specify
+$speckit-plan
+$speckit-tasks
+$speckit-implement
 </code></pre></div>
-Replace <code>SHELL</code> with one of: <code>bash</code>, <code>zsh</code>, <code>fish</code>, <code>powershell</code>.
-After installation open a new shell (or source your updated profile) and test with:
-<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>det&lt;TAB&gt;
-</code></pre></div>
-It should expand to:
-<div class="highlight"><pre><span></span><code>crackz detect
-</code></pre></div></p>
-<h3 id="bash">Bash<a class="headerlink" href="#bash" title="Permanent link">&para;</a></h3>
-<p><div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>--install-completion<span class="w"> </span>bash
-<span class="c1"># New shell OR</span>
-<span class="nb">source</span><span class="w"> </span>~/.bash_completion
-</code></pre></div>
-If using Git Bash on Windows ensure <code>bash-completion</code> is available; otherwise fall back to <code>--show-completion</code> and manual sourcing.</p>
-<h3 id="zsh">Zsh<a class="headerlink" href="#zsh" title="Permanent link">&para;</a></h3>
-<p><div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>--install-completion<span class="w"> </span>zsh
-<span class="c1"># Then restart shell or:</span>
-autoload<span class="w"> </span>-U<span class="w"> </span>compinit<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>compinit
-</code></pre></div>
-If the script is placed in a directory not in <code>$fpath</code>, move it or append that location to <code>fpath</code>.</p>
-<h3 id="fish">Fish<a class="headerlink" href="#fish" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>--install-completion<span class="w"> </span>fish
-<span class="c1"># Typically installs into ~/.config/fish/completions/</span>
-<span class="c1"># Reload:</span>
-<span class="nb">exec</span><span class="w"> </span>fish
-</code></pre></div>
-<h3 id="powershell-windows-crossplatform">PowerShell (Windows / Cross‑Platform)<a class="headerlink" href="#powershell-windows-crossplatform" title="Permanent link">&para;</a></h3>
-<p><strong>Recommended:</strong> Use the helper script we ship:
-<div class="highlight"><pre><span></span><code><span class="n">pwsh</span> <span class="o">-File</span> <span class="n">scripts</span><span class="p">/</span><span class="n">setup_completion</span><span class="p">.</span><span class="n">ps1</span>
-<span class="c"># Or force re-install:</span>
-<span class="n">pwsh</span> <span class="o">-File</span> <span class="n">scripts</span><span class="p">/</span><span class="n">setup_completion</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-Force</span>
-</code></pre></div>
-This will:
-1. Ensure <code>crackz</code> is callable.
-2. Run <code>crackz --install-completion powershell</code>.
-3. Append an evaluation line to your PowerShell profile if missing:
-   <div class="highlight"><pre><span></span><code><span class="n">crackz</span> <span class="p">-</span><span class="n">-show-completion</span> <span class="n">powershell</span> <span class="p">|</span> <span class="nb">Out-String</span> <span class="p">|</span> <span class="nb">Invoke-Expression</span>
-</code></pre></div>
-4. Instruct you to reload your session (<code>. $PROFILE</code>).</p>
-<p>Manual (without script):
-<div class="highlight"><pre><span></span><code><span class="n">crackz</span> <span class="p">-</span><span class="n">-install-completion</span> <span class="n">powershell</span>
-<span class="c"># If the profile wasn&#39;t updated, add manually:</span>
-<span class="nb">Add-Content</span> <span class="nv">$PROFILE</span> <span class="s2">&quot;crackz --show-completion powershell | Out-String | Invoke-Expression&quot;</span>
-<span class="p">.</span> <span class="nv">$PROFILE</span>
-</code></pre></div></p>
-<h2 id="temporary-session-activation-examples">Temporary Session Activation Examples<a class="headerlink" href="#temporary-session-activation-examples" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Shell</th>
-<th>Command</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Bash</td>
-<td><code>crackz --show-completion bash &gt; /tmp/crackz.sh &amp;&amp; source /tmp/crackz.sh</code></td>
-</tr>
-<tr>
-<td>Zsh</td>
-<td><code>source &lt;(crackz --show-completion zsh)</code></td>
-</tr>
-<tr>
-<td>Fish</td>
-<td><code>crackz --show-completion fish | source</code></td>
-</tr>
-<tr>
-<td>PowerShell</td>
-<td><code>crackz --show-completion powershell | Out-String | Invoke-Expression</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Symptom</th>
-<th>Possible Cause</th>
-<th>Resolution</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>No suggestions after install</td>
-<td>Profile not reloaded</td>
-<td>Open new shell or source profile (<code>. $PROFILE</code>)</td>
-</tr>
-<tr>
-<td>Command not found</td>
-<td>Virtual env not active</td>
-<td>Activate venv or use <code>uv run crackz --install-completion ...</code> then adjust profile line to call <code>uv run crackz --show-completion ...</code></td>
-</tr>
-<tr>
-<td>Duplicate entries appended</td>
-<td>Script re-run without <code>--Force</code> cleanly</td>
-<td>Use <code>-Force</code> with the PowerShell helper or manually prune profile</td>
-</tr>
-<tr>
-<td>Zsh errors about compinit</td>
-<td>compinit not initialized</td>
-<td>Run <code>autoload -U compinit &amp;&amp; compinit</code></td>
-</tr>
-<tr>
-<td>Bash no <code>_completion_loader</code> found</td>
-<td>Missing bash-completion package</td>
-<td>Install bash-completion or source manually from <code>--show-completion</code> output</td>
-</tr>
-</tbody>
-</table>
-<h2 id="uninstalling-completion">Uninstalling Completion<a class="headerlink" href="#uninstalling-completion" title="Permanent link">&para;</a></h2>
-<p>Manually remove the added line from your shell profile (e.g., <code>~/.bashrc</code>, <code>~/.zshrc</code>, PowerShell <code>$PROFILE</code>) and delete any generated completion file (Fish: remove from <code>~/.config/fish/completions/</code>).</p>
-<h2 id="programmatic-invocation-ci-ephemeral">Programmatic Invocation (CI / Ephemeral)<a class="headerlink" href="#programmatic-invocation-ci-ephemeral" title="Permanent link">&para;</a></h2>
-<p>To enable completion for an ephemeral CI step (e.g., for smoke tests that rely on completion logic executing):
-<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>--show-completion<span class="w"> </span>bash<span class="w"> </span>&gt;<span class="w"> </span>.crackz_comp.sh
-<span class="nb">source</span><span class="w"> </span>.crackz_comp.sh
-<span class="c1"># run tests that exercise completion</span>
-</code></pre></div></p>
-<h2 id="next">Next<a class="headerlink" href="#next" title="Permanent link">&para;</a></h2>
+<p>Run <code>$speckit-analyze</code> before implementation when the feature has cross-module
+impact, schema or config changes, or non-trivial acceptance criteria.</p>
+<h2 id="token-usage">Token Usage<a class="headerlink" href="#token-usage" title="Permanent link">&para;</a></h2>
+<p>Spec Kit adds many generated files, but they should not all enter context for
+normal work.</p>
 <ul>
-<li>See the <a href="../cli-cookbook/">CLI Cookbook</a> for command usage examples.</li>
-<li>Visit <a href="../configuration/">Configuration</a> and <a href="../advanced-performance/">Advanced Performance</a> for tuning.</li>
+<li>Normal Crackz tasks still start from <code>agents.md</code> and <code>docs/agent-playbook.md</code>.</li>
+<li>Spec Kit skills are loaded when a <code>$speckit-*</code> command is invoked.</li>
+<li>Active feature artifacts under <code>specs/</code> become the main durable context for
+Spec Kit work.</li>
+<li>Keep feature specs focused and split large efforts into phases to avoid
+context saturation.</li>
 </ul>
+<p>Do not paste entire generated templates or scripts into prompts. Reference the
+specific skill, feature spec, plan, or task file needed for the current phase.</p>
+<h2 id="supported-agent-integrations">Supported Agent Integrations<a class="headerlink" href="#supported-agent-integrations" title="Permanent link">&para;</a></h2>
+<p>Spec Kit supports these integration keys:</p>
+<div class="highlight"><pre><span></span><code>amp, agy, auggie, claude, codebuddy, codex, cursor-agent, devin,
+forge, gemini, copilot, goose, bob, iflow, junie, kilocode, kimi,
+kiro-cli, lingma, vibe, opencode, pi, qodercli, qwen, roo, shai,
+tabnine, trae, windsurf, generic
+</code></pre></div>
+<p>Crackz currently uses <code>codex</code>. Add another integration only when a contributor
+actually needs it:</p>
+<div class="highlight"><pre><span></span><code>uvx<span class="w"> </span>--from<span class="w"> </span>git+https://github.com/github/spec-kit.git<span class="w"> </span>specify<span class="w"> </span>integration<span class="w"> </span>install<span class="w"> </span>&lt;key&gt;
+</code></pre></div>
+<p>Use <code>generic</code> only for unsupported agents and pass an explicit commands
+directory with <code>--integration-options</code>.</p>
+<h2 id="maintenance">Maintenance<a class="headerlink" href="#maintenance" title="Permanent link">&para;</a></h2>
+<p>Check the installed CLI version:</p>
+<div class="highlight"><pre><span></span><code>uvx<span class="w"> </span>--from<span class="w"> </span>git+https://github.com/github/spec-kit.git<span class="w"> </span>specify<span class="w"> </span>version
+</code></pre></div>
+<p>List available integrations:</p>
+<div class="highlight"><pre><span></span><code>uvx<span class="w"> </span>--from<span class="w"> </span>git+https://github.com/github/spec-kit.git<span class="w"> </span>specify<span class="w"> </span>integration<span class="w"> </span>list
+</code></pre></div>
+<p>When upgrading Spec Kit-generated files, review the generated diff carefully
+before committing. Do not hand-edit generated skill templates unless the change
+is intentional and should be preserved across future upgrades.</p>
+<p>Optional extensions can be installed later if they provide enough value:</p>
+<div class="highlight"><pre><span></span><code>uvx<span class="w"> </span>--from<span class="w"> </span>git+https://github.com/github/spec-kit.git<span class="w"> </span>specify<span class="w"> </span>extension<span class="w"> </span>add<span class="w"> </span>&lt;extension&gt;
+</code></pre></div>
 
 
 

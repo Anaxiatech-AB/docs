@@ -13,24 +13,28 @@
       
       
       
+        <link rel="prev" href="../architecture-guidelines/">
+      
+      
+        <link rel="next" href="../internal/adr/02-decisions/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>RAG Issues Inventory & Solution Options - Crackz</title>
+        <title>Diagrams - Crackz</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -49,13 +53,13 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../stylesheets/extra.css">
     
-      <link rel="stylesheet" href="../../stylesheets/print.css">
+      <link rel="stylesheet" href="../stylesheets/print.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#issue-inventory" class="md-skip">
+        <a href="#database-schema" class="md-skip">
           Skip to content
         </a>
       
@@ -98,7 +102,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Crackz" class="md-header__button md-logo" aria-label="Crackz" data-md-component="logo">
+    <a href=".." title="Crackz" class="md-header__button md-logo" aria-label="Crackz" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -118,7 +122,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              RAG Issues Inventory &amp; Solution Options
+              Diagrams
             
           </span>
         </div>
@@ -208,7 +212,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Crackz" class="md-nav__button md-logo" aria-label="Crackz" data-md-component="logo">
+    <a href=".." title="Crackz" class="md-nav__button md-logo" aria-label="Crackz" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -238,7 +242,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href=".." class="md-nav__link">
         
   
   
@@ -317,7 +321,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../installation/" class="md-nav__link">
+      <a href="../installation/" class="md-nav__link">
         
   
   
@@ -345,7 +349,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/" class="md-nav__link">
+      <a href="../getting-started/" class="md-nav__link">
         
   
   
@@ -432,7 +436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../gui/" class="md-nav__link">
+      <a href="../gui/" class="md-nav__link">
         
   
   
@@ -460,7 +464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ai-chat/" class="md-nav__link">
+      <a href="../ai-chat/" class="md-nav__link">
         
   
   
@@ -488,7 +492,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dashboard/" class="md-nav__link">
+      <a href="../dashboard/" class="md-nav__link">
         
   
   
@@ -516,7 +520,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../map-viewer/" class="md-nav__link">
+      <a href="../map-viewer/" class="md-nav__link">
         
   
   
@@ -544,7 +548,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tiling/" class="md-nav__link">
+      <a href="../tiling/" class="md-nav__link">
         
   
   
@@ -572,7 +576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reporting/" class="md-nav__link">
+      <a href="../reporting/" class="md-nav__link">
         
   
   
@@ -659,7 +663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cli/" class="md-nav__link">
+      <a href="../cli/" class="md-nav__link">
         
   
   
@@ -687,7 +691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cli-cookbook/" class="md-nav__link">
+      <a href="../cli-cookbook/" class="md-nav__link">
         
   
   
@@ -715,7 +719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../completion/" class="md-nav__link">
+      <a href="../completion/" class="md-nav__link">
         
   
   
@@ -802,7 +806,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../configuration/" class="md-nav__link">
+      <a href="../configuration/" class="md-nav__link">
         
   
   
@@ -830,7 +834,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../training-config/" class="md-nav__link">
+      <a href="../training-config/" class="md-nav__link">
         
   
   
@@ -858,7 +862,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../data-splits-guide/" class="md-nav__link">
+      <a href="../data-splits-guide/" class="md-nav__link">
         
   
   
@@ -945,7 +949,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docker/" class="md-nav__link">
+      <a href="../docker/" class="md-nav__link">
         
   
   
@@ -1022,7 +1026,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../azure-vm-cuda/" class="md-nav__link">
+      <a href="../azure-vm-cuda/" class="md-nav__link">
         
   
   
@@ -1050,7 +1054,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../azure-batch/" class="md-nav__link">
+      <a href="../azure-batch/" class="md-nav__link">
         
   
   
@@ -1078,7 +1082,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../azure-comparison/" class="md-nav__link">
+      <a href="../azure-comparison/" class="md-nav__link">
         
   
   
@@ -1173,7 +1177,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../evaluation/" class="md-nav__link">
+      <a href="../evaluation/" class="md-nav__link">
         
   
   
@@ -1201,7 +1205,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../advanced-performance/" class="md-nav__link">
+      <a href="../advanced-performance/" class="md-nav__link">
         
   
   
@@ -1229,7 +1233,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../migration/" class="md-nav__link">
+      <a href="../migration/" class="md-nav__link">
         
   
   
@@ -1261,8 +1265,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -1273,11 +1279,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
         
           
           <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
@@ -1298,7 +1304,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1316,7 +1322,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/" class="md-nav__link">
+      <a href="../architecture/" class="md-nav__link">
         
   
   
@@ -1344,7 +1350,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture-guidelines/" class="md-nav__link">
+      <a href="../architecture-guidelines/" class="md-nav__link">
         
   
   
@@ -1369,10 +1375,35 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../diagrams/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagrams
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1388,6 +1419,82 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#database-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Schema
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Schema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-class-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Class Hierarchy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Class Hierarchy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-relationships" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key relationships
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1400,7 +1507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/02-decisions/" class="md-nav__link">
+      <a href="../internal/adr/02-decisions/" class="md-nav__link">
         
   
   
@@ -1428,7 +1535,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/" class="md-nav__link">
+      <a href="../api/" class="md-nav__link">
         
   
   
@@ -1456,7 +1563,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../async-callbacks/" class="md-nav__link">
+      <a href="../async-callbacks/" class="md-nav__link">
         
   
   
@@ -1484,7 +1591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../mcp/" class="md-nav__link">
+      <a href="../mcp/" class="md-nav__link">
         
   
   
@@ -1512,7 +1619,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../spec-kit/" class="md-nav__link">
+      <a href="../spec-kit/" class="md-nav__link">
         
   
   
@@ -1540,7 +1647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tracing/" class="md-nav__link">
+      <a href="../tracing/" class="md-nav__link">
         
   
   
@@ -1568,7 +1675,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../contributing/" class="md-nav__link">
+      <a href="../contributing/" class="md-nav__link">
         
   
   
@@ -1596,7 +1703,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../release-flow/" class="md-nav__link">
+      <a href="../release-flow/" class="md-nav__link">
         
   
   
@@ -1624,7 +1731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pr-review-workflow/" class="md-nav__link">
+      <a href="../pr-review-workflow/" class="md-nav__link">
         
   
   
@@ -1652,7 +1759,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../distribution/" class="md-nav__link">
+      <a href="../distribution/" class="md-nav__link">
         
   
   
@@ -1739,7 +1846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../customer-guide/" class="md-nav__link">
+      <a href="../customer-guide/" class="md-nav__link">
         
   
   
@@ -1767,7 +1874,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../customer-access/" class="md-nav__link">
+      <a href="../customer-access/" class="md-nav__link">
         
   
   
@@ -1795,7 +1902,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../license/" class="md-nav__link">
+      <a href="../license/" class="md-nav__link">
         
   
   
@@ -1850,55 +1957,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#issue-inventory" class="md-nav__link">
+  <a href="#database-schema" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Issue Inventory
+        Database Schema
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Issue Inventory">
+    <nav class="md-nav" aria-label="Database Schema">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-1-_get_context-was-returning-resolved-by-this-pr" class="md-nav__link">
+  <a href="#table-summary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Bug 1 — _get_context() was returning "" (resolved by this PR)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bug-2-registry-db-was-not-queried-from-_get_context-resolved-by-this-pr" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Bug 2 — Registry DB was not queried from _get_context() (resolved by this PR)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gap-3-no-document-search-45-markdown-docs-17k-lines" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Gap 3 — No document search (45+ markdown docs, ~17K lines)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gap-4-static-system-prompt" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Gap 4 — Static system prompt
+        Table summary
       
     </span>
   </a>
@@ -1911,66 +1985,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#immediate-fix-bug-1-bug-2" class="md-nav__link">
+  <a href="#core-class-hierarchy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Immediate Fix (Bug 1 + Bug 2)
+        Core Class Hierarchy
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#solution-options-future-phases" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Solution Options (Future Phases)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Solution Options (Future Phases)">
+    <nav class="md-nav" aria-label="Core Class Hierarchy">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#option-a-structured-injection-only-immediate-fix-above" class="md-nav__link">
+  <a href="#key-relationships" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Option A — Structured injection only (immediate fix above)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#option-b-sqlite-fts5-for-doc-search" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Option B — SQLite FTS5 for doc search
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#option-c-chromadb-local-embeddings-original-roadmap-plan-issues-311315" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Option C — ChromaDB + local embeddings (original roadmap plan, issues #311–315)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#option-d-anthropic-prompt-caching-for-docs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Option D — Anthropic prompt caching for docs
+        Key relationships
       
     </span>
   </a>
@@ -1979,28 +2009,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#critical-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Critical Files
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#verification" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Verification
-      
-    </span>
-  </a>
   
 </li>
       
@@ -2024,114 +2032,92 @@
   
 
 
-<h1 id="rag-issues-inventory-solution-options">RAG Issues Inventory &amp; Solution Options<a class="headerlink" href="#rag-issues-inventory-solution-options" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p>Created: 2026-05-07. Tracks the current state of AI chat context injection and the path toward full RAG.</p>
-</blockquote>
+<h1 id="database-class-diagrams">Database &amp; Class Diagrams<a class="headerlink" href="#database-class-diagrams" title="Permanent link">&para;</a></h1>
+<p>Visual reference for the Crackz data model and core class hierarchy.</p>
+<p>Both diagrams are stored as draw.io files with embedded XML, so they remain
+editable in <a href="https://www.drawio.com">draw.io Desktop</a> or
+<a href="https://app.diagrams.net">diagrams.net</a> — open <code>docs/assets/*.drawio.png</code>
+directly to edit.</p>
 <hr />
-<h2 id="issue-inventory">Issue Inventory<a class="headerlink" href="#issue-inventory" title="Permanent link">&para;</a></h2>
-<h3 id="bug-1-_get_context-was-returning-resolved-by-this-pr">Bug 1 — <code>_get_context()</code> was returning <code>""</code> (resolved by this PR)<a class="headerlink" href="#bug-1-_get_context-was-returning-resolved-by-this-pr" title="Permanent link">&para;</a></h3>
-<p><strong>File:</strong> <code>gui/src/crackz_gui/services/ai_chat.py:287–344</code></p>
-<p><code>project_context</code> was built correctly (project name, image counts, backbone, checkpoints) but was <strong>never appended to <code>context_parts</code></strong>. The wiring to inject context into the system prompt already existed, but the <code>if context:</code> guard was always false. This PR appends the project context before returning from <code>_get_context()</code>.</p>
-<h3 id="bug-2-registry-db-was-not-queried-from-_get_context-resolved-by-this-pr">Bug 2 — Registry DB was not queried from <code>_get_context()</code> (resolved by this PR)<a class="headerlink" href="#bug-2-registry-db-was-not-queried-from-_get_context-resolved-by-this-pr" title="Permanent link">&para;</a></h3>
-<p><strong>Files:</strong> <code>core/src/crackz/ai/model/registry.py</code>, <code>core/src/crackz/ai/model/persistence/metrics_store.py</code></p>
-<p>The per-project <code>project.db</code> (<code>project.registry_db_path</code>) already stores:
-- <code>training_epochs</code> — per-epoch train_loss, val_loss, val_iou, val_acc, run_id
-- <code>detection_runs</code> — image_count, crack_count, avg_confidence, threshold, run_at
-- <code>models</code> — model history</p>
-<p><code>ModelRegistry</code> already exposes <code>get_latest_detection_stats()</code> and <code>get_best_val_iou()</code>, both ready to call. <code>_get_context()</code> previously only globbed checkpoint files, so the SQLite data was present but not surfaced to the AI. This PR routes the GUI through the app-layer <code>get_project_registry_metrics()</code> helper so registry access and legacy DB migration stay outside the GUI service.</p>
-<h3 id="gap-3-no-document-search-45-markdown-docs-17k-lines">Gap 3 — No document search (45+ markdown docs, ~17K lines)<a class="headerlink" href="#gap-3-no-document-search-45-markdown-docs-17k-lines" title="Permanent link">&para;</a></h3>
-<p>No mechanism to retrieve relevant doc sections for a query. Full injection would exceed context window budgets.</p>
-<h3 id="gap-4-static-system-prompt">Gap 4 — Static system prompt<a class="headerlink" href="#gap-4-static-system-prompt" title="Permanent link">&para;</a></h3>
-<p><code>_build_system_prompt()</code> (line 613) is a fixed string with no dynamic project state or history.</p>
-<hr />
-<h2 id="immediate-fix-bug-1-bug-2">Immediate Fix (Bug 1 + Bug 2)<a class="headerlink" href="#immediate-fix-bug-1-bug-2" title="Permanent link">&para;</a></h2>
-<p><strong>Scope:</strong> Add context assembly in <code>_get_context()</code> and route registry metrics through the app layer. No new dependencies.</p>
-<p><strong>Change 1 — Append the project context that's already built (line 343):</strong>
-<div class="highlight"><pre><span></span><code><span class="n">context_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">project_context</span><span class="p">)</span>
-</code></pre></div></p>
-<p><strong>Change 2 — Query app-layer registry metrics for training and detection history:</strong>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.app.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_project_registry_metrics</span>
-
-<span class="n">metrics</span> <span class="o">=</span> <span class="n">get_project_registry_metrics</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
-<span class="k">if</span> <span class="n">metrics</span><span class="o">.</span><span class="n">has_metrics</span><span class="p">:</span>
-    <span class="n">metrics_context</span> <span class="o">=</span> <span class="s2">&quot;## Training &amp; Detection History</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="k">if</span> <span class="n">metrics</span><span class="o">.</span><span class="n">best_val_iou</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">metrics_context</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;- **Best Validation IoU:** </span><span class="si">{</span><span class="n">metrics</span><span class="o">.</span><span class="n">best_val_iou</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="k">if</span> <span class="n">metrics</span><span class="o">.</span><span class="n">latest_detection_image_count</span><span class="p">:</span>
-        <span class="n">metrics_context</span> <span class="o">+=</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;- **Latest Detection Run:** </span><span class="si">{</span><span class="n">metrics</span><span class="o">.</span><span class="n">latest_detection_image_count</span><span class="si">}</span><span class="s2"> images, &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">metrics</span><span class="o">.</span><span class="n">latest_detection_crack_count</span><span class="si">}</span><span class="s2"> cracks found&quot;</span>
-        <span class="p">)</span>
-        <span class="k">if</span> <span class="n">metrics</span><span class="o">.</span><span class="n">latest_detection_avg_confidence</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">metrics_context</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;, avg confidence </span><span class="si">{</span><span class="n">metrics</span><span class="o">.</span><span class="n">latest_detection_avg_confidence</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="n">metrics_context</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="n">context_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">metrics_context</span><span class="p">)</span>
-</code></pre></div></p>
-<hr />
-<h2 id="solution-options-future-phases">Solution Options (Future Phases)<a class="headerlink" href="#solution-options-future-phases" title="Permanent link">&para;</a></h2>
-<h3 id="option-a-structured-injection-only-immediate-fix-above">Option A — Structured injection only (immediate fix above)<a class="headerlink" href="#option-a-structured-injection-only-immediate-fix-above" title="Permanent link">&para;</a></h3>
-<p><strong>Pros:</strong> Zero new deps, covers "What's my project's status?" and "What was my best IoU?"<br />
-<strong>Cons:</strong> No doc search, no cross-project analytics</p>
-<h3 id="option-b-sqlite-fts5-for-doc-search">Option B — SQLite FTS5 for doc search<a class="headerlink" href="#option-b-sqlite-fts5-for-doc-search" title="Permanent link">&para;</a></h3>
-<p>Extend <code>chat_history.db</code> with an FTS5 virtual table. Chunk 45+ markdown docs at startup, keyword-search top-3 chunks per query.<br />
-<strong>Pros:</strong> Zero new deps (SQLite FTS5 stdlib), fast, deterministic, offline<br />
-<strong>Cons:</strong> Keyword-only, docs must be re-indexed after updates<br />
-<strong>Effort:</strong> ~1 week</p>
-<h3 id="option-c-chromadb-local-embeddings-original-roadmap-plan-issues-311315">Option C — ChromaDB + local embeddings (original roadmap plan, issues #311–315)<a class="headerlink" href="#option-c-chromadb-local-embeddings-original-roadmap-plan-issues-311315" title="Permanent link">&para;</a></h3>
-<p>Embed docs and training history with <code>sentence-transformers</code> + ChromaDB embedded store.<br />
-<strong>Pros:</strong> True semantic search, scales to 50+ projects, cites sources<br />
-<strong>Cons:</strong> +50–150MB deps, cold-start indexing, background thread in Qt app, 4–6 weeks<br />
-<strong>Decision point:</strong> Only if Option B keyword search misses content regularly</p>
-<h3 id="option-d-anthropic-prompt-caching-for-docs">Option D — Anthropic prompt caching for docs<a class="headerlink" href="#option-d-anthropic-prompt-caching-for-docs" title="Permanent link">&para;</a></h3>
-<p>Bundle docs as a cached <code>cache_control: ephemeral</code> system prompt prefix.<br />
-<strong>Pros:</strong> No vector DB<br />
-<strong>Cons:</strong> Anthropic-only, 5-min TTL re-caches per session, ~250K tokens</p>
-<p><strong>Recommended sequence:</strong> Immediate fix → Option B if "How do I...?" tickets remain high → Option C if semantic gaps are demonstrable.</p>
-<hr />
-<h2 id="critical-files">Critical Files<a class="headerlink" href="#critical-files" title="Permanent link">&para;</a></h2>
+<h2 id="database-schema">Database Schema<a class="headerlink" href="#database-schema" title="Permanent link">&para;</a></h2>
+<p>The project-level SQLite database (<code>artifacts/project.db</code>) stores model history,
+detection runs, and training metrics. All tables share a <code>project_id</code> foreign key
+that scopes records to the owning project.</p>
+<p><img alt="DB Schema" src="../assets/db-schema.drawio.png" /></p>
+<h3 id="table-summary">Table summary<a class="headerlink" href="#table-summary" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th>File</th>
-<th>Role</th>
+<th>Table</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>gui/src/crackz_gui/services/ai_chat.py:287–344</code></td>
-<td><code>_get_context()</code> — both bugs</td>
+<td><code>projects</code></td>
+<td>One row per project; stores path, config, and version info</td>
 </tr>
 <tr>
-<td><code>gui/src/crackz_gui/services/ai_chat.py:539–553, 571–580</code></td>
-<td>Context injection wiring</td>
+<td><code>models</code></td>
+<td>Each trained checkpoint registered via <code>ModelRegistry</code></td>
 </tr>
 <tr>
-<td><code>core/src/crackz/ai/model/registry.py</code></td>
-<td><code>ModelRegistry.get_latest_detection_stats()</code>, <code>.get_best_val_iou()</code></td>
+<td><code>detection_runs</code></td>
+<td>Aggregate stats for one batch-inference run</td>
 </tr>
 <tr>
-<td><code>core/src/crackz/ai/model/persistence/metrics_store.py</code></td>
-<td>SQL queries</td>
+<td><code>detection_results</code></td>
+<td>Per-image results with GPS, confidence, and category data</td>
 </tr>
 <tr>
-<td><code>core/src/crackz/project/project.py:215</code></td>
-<td><code>project.registry_db_path</code></td>
-</tr>
-<tr>
-<td><code>gui/src/crackz_gui/data/chat_history_db.py</code></td>
-<td>Global chat DB — extend with FTS5 for Option B</td>
+<td><code>training_epochs</code></td>
+<td>Per-epoch loss / IoU / accuracy for each training run</td>
 </tr>
 </tbody>
 </table>
+<p>See <a href="../core/src/crackz/ai/model/persistence/"><code>crackz.ai.model.persistence</code></a> for
+the full CRUD layer.</p>
 <hr />
-<h2 id="verification">Verification<a class="headerlink" href="#verification" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Load a project with at least one training run in <code>project.db</code></li>
-<li>Send any message in AI chat</li>
-<li>Confirm system prompt contains project name, image counts, best val IoU, detection stats</li>
-<li>Ask: "What was my best validation IoU?" — AI should cite the actual number from the DB</li>
-</ol>
+<h2 id="core-class-hierarchy">Core Class Hierarchy<a class="headerlink" href="#core-class-hierarchy" title="Permanent link">&para;</a></h2>
+<p>The diagram covers the AI model layer (<code>CrackzModel</code>, task strategies, loss),
+the data layer (<code>CrackzDataset</code>, <code>CrackzBatch</code>), the project/config layer, and
+key result types.</p>
+<p><img alt="Class Diagram" src="../assets/class-diagram.drawio.png" /></p>
+<h3 id="key-relationships">Key relationships<a class="headerlink" href="#key-relationships" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Relationship</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CrackzModel</code> uses <code>CrackzConfig</code></td>
+<td>Config drives backbone, loss weights, thresholds</td>
+</tr>
+<tr>
+<td><code>CrackzModel</code> has <code>TaskStrategy</code></td>
+<td>Strategy pattern isolates binary vs multiclass behaviour</td>
+</tr>
+<tr>
+<td><code>BinaryTask</code> / <code>MulticlassTask</code> → <code>TaskStrategy</code></td>
+<td>Both implement the abstract strategy</td>
+</tr>
+<tr>
+<td><code>CrackzModel</code> has <code>ComboLoss</code></td>
+<td>Dice + Focal/CE combination loss</td>
+</tr>
+<tr>
+<td><code>CrackzDataset</code> yields <code>CrackzBatch</code></td>
+<td>Torch <code>Dataset</code> → batched tensor pairs</td>
+</tr>
+<tr>
+<td><code>CrackzConfig.from_project(Project)</code></td>
+<td>Config constructed from project YAML/settings</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -2197,10 +2183,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.52.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.52.0"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

@@ -1,0 +1,2912 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI image analysis of cracks in harbors">
+      
+      
+        <meta name="author" content="Theresia Sofia Snow">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Claude Code Automation Guide - Crackz</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/print.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#table-of-contents" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Crackz" class="md-header__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Crackz
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Claude Code Automation Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Crackz" class="md-nav__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Crackz
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desktop App
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Desktop App
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GUI Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai-chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Chat Assistant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../map-viewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Map Viewer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tiling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Image Tiling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reporting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Report Generation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Line (CLI)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Command Line (CLI)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli-cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Cookbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../completion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shell Completion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration & Data
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Configuration & Data
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../training-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-splits-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Splits & Import
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deployment
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Azure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-vm-cuda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure VM (GPU)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-batch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure Batch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../azure-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VM vs Batch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagrams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagrams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UNDERSTAND_ANYTHING_SETUP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understand Anything
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/adr/02-decisions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Decisions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../async-callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Async Callbacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tracing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tracing & Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pr-review-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PR Review Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../distribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Customer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customer Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customer-access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customer Access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mcp-servers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCP Servers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MCP Servers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#context7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        context7
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#codegraph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        codegraph
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hooks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pretooluse-protected-file-guard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PreToolUse — Protected file guard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pretooluse-force-push-guard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PreToolUse — Force-push guard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#posttooluse-ruff-lint-format-async" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PostToolUse — Ruff lint + format (async)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#posttooluse-mypy-type-check-async" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PostToolUse — mypy type-check (async)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#posttooluse-related-unit-tests-async" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PostToolUse — Related unit tests (async)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#posttooluse-yaml-validation-async" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PostToolUse — YAML validation (async)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#posttooluse-architecture-boundary-lint-async" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PostToolUse — Architecture boundary lint (async)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#posttooluse-codegraph-sync-async" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PostToolUse — CodeGraph sync (async)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stop-session-diff-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stop — Session diff summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subagents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Subagents
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Subagents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ml-config-reviewer-opus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ml-config-reviewer (Opus)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-guard-sonnet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        benchmark-guard (Sonnet)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qt-thread-safety-reviewer-opus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        qt-thread-safety-reviewer (Opus)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qt-signal-auditor-sonnet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        qt-signal-auditor (Sonnet)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-reviewer-opus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        security-reviewer (Opus)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#developer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        developer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pytorch-expert" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytorch-expert
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-specialist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        docker-specialist
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docs-writer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        docs-writer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reviewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        reviewer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#skills-slash-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skills (slash commands)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Skills (slash commands)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /run-coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /check-ci
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pr-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /pr-review
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-feature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /new-feature
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-model-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /new-model-backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-qt-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /add-qt-view
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-cli-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /add-cli-command
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#train-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /train-model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /release
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#composed-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composed Workflows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Composed Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#everyday-coding-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Everyday coding loop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#before-pushing-a-pr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Before pushing a PR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starting-a-new-feature-end-to-end" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Starting a new feature end-to-end
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-new-model-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding a new model architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-new-gui-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding a new GUI view
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#releasing-a-new-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Releasing a new version
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#permissions-allowlist-claudesettingslocaljson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permissions allowlist (.claude/settings.local.json)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-new-hook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding a new hook
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-new-subagent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding a new subagent
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-a-new-skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding a new skill
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="claude-code-automation-guide">Claude Code Automation Guide<a class="headerlink" href="#claude-code-automation-guide" title="Permanent link">&para;</a></h1>
+<p>Claude Code is configured with a layered automation stack for this project: MCP servers that give Claude live access to external data, hooks that run automatically on every edit, subagents that act as specialist reviewers, and skills that package repeatable workflows into slash commands.</p>
+<p>This document describes every piece, when to use it, and how the parts compose into end-to-end workflows.</p>
+<hr />
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#mcp-servers">MCP Servers</a></li>
+<li><a href="#hooks">Hooks</a></li>
+<li><a href="#subagents">Subagents</a></li>
+<li><a href="#skills-slash-commands">Skills (slash commands)</a></li>
+<li><a href="#composed-workflows">Composed Workflows</a></li>
+<li><a href="#configuration-files">Configuration Files</a></li>
+</ol>
+<hr />
+<h2 id="mcp-servers">MCP Servers<a class="headerlink" href="#mcp-servers" title="Permanent link">&para;</a></h2>
+<p>MCP servers extend Claude with tools that reach outside the codebase. Configured in <code>.mcp.json</code>; takes effect after restarting Claude Code.</p>
+<h3 id="context7">context7<a class="headerlink" href="#context7" title="Permanent link">&para;</a></h3>
+<p>Fetches live documentation for any library — no stale training-data guesses.</p>
+<p><strong>Use it by:</strong> mentioning the library in your prompt.</p>
+<div class="highlight"><pre><span></span><code>use context7 — how does smp.Unet() handle the encoder_weights param?
+</code></pre></div>
+<p>Claude calls context7 automatically when you ask about external libraries (PyTorch, SMP, PySide6, Albumentations, etc.).</p>
+<h3 id="codegraph">codegraph<a class="headerlink" href="#codegraph" title="Permanent link">&para;</a></h3>
+<p>A tree-sitter-parsed structural index of the entire codebase. Sub-millisecond lookups for definitions, call graphs, and impact analysis.</p>
+<p><strong>When to prefer codegraph over grep:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Tool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Where is <code>BackendSpec</code> defined?</td>
+<td><code>codegraph_search</code></td>
+</tr>
+<tr>
+<td>What calls <code>training_runner</code>?</td>
+<td><code>codegraph_callers</code></td>
+</tr>
+<tr>
+<td>How does detection reach the report?</td>
+<td><code>codegraph_trace</code></td>
+</tr>
+<tr>
+<td>What breaks if I rename <code>IoUMetric</code>?</td>
+<td><code>codegraph_impact</code></td>
+</tr>
+<tr>
+<td>Give me context for a training task</td>
+<td><code>codegraph_context</code></td>
+</tr>
+</tbody>
+</table>
+<p>The index auto-syncs after every Python edit to <code>core/src</code> or <code>gui/src</code> (via the PostToolUse hook). If it ever gets stale, run <code>codegraph sync .</code> manually.</p>
+<p><strong>Crackz-specific prebuilt queries</strong> (via <code>scripts/codegraph-queries.sh</code>):</p>
+<div class="highlight"><pre><span></span><code>./scripts/codegraph-queries.sh<span class="w"> </span>architecture
+./scripts/codegraph-queries.sh<span class="w"> </span>training-pipeline
+./scripts/codegraph-queries.sh<span class="w"> </span>gui-state
+./scripts/codegraph-queries.sh<span class="w"> </span>model-lifecycle
+</code></pre></div>
+<hr />
+<h2 id="hooks">Hooks<a class="headerlink" href="#hooks" title="Permanent link">&para;</a></h2>
+<p>Hooks fire automatically — no invocation needed. All hooks are async (non-blocking) except the two PreToolUse guards.</p>
+<h3 id="pretooluse-protected-file-guard">PreToolUse — Protected file guard<a class="headerlink" href="#pretooluse-protected-file-guard" title="Permanent link">&para;</a></h3>
+<p>Fires before every <code>Edit</code> or <code>Write</code>. Blocks edits to:</p>
+<ul>
+<li><code>.env</code> — secrets</li>
+<li><code>uv.lock</code> — managed by uv, not manual edits</li>
+<li><code>.pre-commit-config</code> — commit hook config</li>
+<li><code>data/</code>, <code>outputs/</code>, <code>logs/</code> directories</li>
+<li>Model weight files: <code>.ckpt</code>, <code>.pt</code>, <code>.pth</code>, <code>.safetensors</code></li>
+</ul>
+<p>If Claude attempts to edit a protected file, the operation is rejected with an explanation.</p>
+<h3 id="pretooluse-force-push-guard">PreToolUse — Force-push guard<a class="headerlink" href="#pretooluse-force-push-guard" title="Permanent link">&para;</a></h3>
+<p>Fires before every <code>Bash</code> command. Blocks <code>git push --force</code> (or <code>-f</code>) targeting <code>main</code>. Redirects to a PR instead.</p>
+<h3 id="posttooluse-ruff-lint-format-async">PostToolUse — Ruff lint + format <em>(async)</em><a class="headerlink" href="#posttooluse-ruff-lint-format-async" title="Permanent link">&para;</a></h3>
+<p>After every Python file edit: runs <code>ruff check --fix</code> and <code>ruff format</code> on the saved file. Silently auto-fixes style issues.</p>
+<h3 id="posttooluse-mypy-type-check-async">PostToolUse — mypy type-check <em>(async)</em><a class="headerlink" href="#posttooluse-mypy-type-check-async" title="Permanent link">&para;</a></h3>
+<p>After every edit to a file under <code>core/src</code> or <code>gui/src</code>: runs <code>mypy</code> on that file. Errors surface in Claude's next response.</p>
+<h3 id="posttooluse-related-unit-tests-async">PostToolUse — Related unit tests <em>(async)</em><a class="headerlink" href="#posttooluse-related-unit-tests-async" title="Permanent link">&para;</a></h3>
+<p>After every edit to <code>core/src/crackz/**/*.py</code>: looks for a corresponding test at <code>core/tests/unit/**/*_test.py</code> (same path structure) and runs it with <code>pytest --tb=short</code>. Fast feedback on regressions without running the full suite.</p>
+<h3 id="posttooluse-yaml-validation-async">PostToolUse — YAML validation <em>(async)</em><a class="headerlink" href="#posttooluse-yaml-validation-async" title="Permanent link">&para;</a></h3>
+<p>After every <code>.yaml</code> / <code>.yml</code> edit: pipes the file through <code>yaml.safe_load</code> to catch syntax errors immediately. Training config typos are caught before they reach the GPU.</p>
+<h3 id="posttooluse-architecture-boundary-lint-async">PostToolUse — Architecture boundary lint <em>(async)</em><a class="headerlink" href="#posttooluse-architecture-boundary-lint-async" title="Permanent link">&para;</a></h3>
+<p>After every edit to <code>core/src</code> or <code>gui/src</code>: runs <code>lint-imports --quiet</code>. Catches violations of the client/backend boundary (e.g. <code>gui</code> importing directly from <code>core.db</code>).</p>
+<h3 id="posttooluse-codegraph-sync-async">PostToolUse — CodeGraph sync <em>(async)</em><a class="headerlink" href="#posttooluse-codegraph-sync-async" title="Permanent link">&para;</a></h3>
+<p>After every Python edit to <code>core/src</code> or <code>gui/src</code>: runs <code>codegraph sync .</code> in the background (suppressed console window). Keeps the structural index fresh after every change.</p>
+<h3 id="stop-session-diff-summary">Stop — Session diff summary<a class="headerlink" href="#stop-session-diff-summary" title="Permanent link">&para;</a></h3>
+<p>When Claude finishes a session: runs <code>git diff --name-only HEAD</code> and prints the list of files changed. Gives a quick summary of what the session touched.</p>
+<hr />
+<h2 id="subagents">Subagents<a class="headerlink" href="#subagents" title="Permanent link">&para;</a></h2>
+<p>Subagents are specialist Claude instances with scoped tools, a focused system prompt, and sometimes a specific model. Invoke them by name in your prompt, or they are spawned automatically by skills like <code>/pr-review</code>.</p>
+<h3 id="ml-config-reviewer-opus">ml-config-reviewer <em>(Opus)</em><a class="headerlink" href="#ml-config-reviewer-opus" title="Permanent link">&para;</a></h3>
+<p>Audits training configuration files before GPU runs. Checks:</p>
+<ul>
+<li>Learning rate ranges per backbone type (SMP vs SegFormer)</li>
+<li>Loss function suitability for class-imbalanced crack detection</li>
+<li>Augmentation safety for thin-crack morphology</li>
+<li>Batch size / VRAM fit</li>
+<li>Backbone name validity (SMP encoder registry, SegFormer HuggingFace IDs)</li>
+<li>Scheduler params consistency</li>
+<li>Early stopping patience</li>
+<li>Checkpoint path specified</li>
+</ul>
+<p><strong>When to use:</strong> Before launching any training run. Also invoked automatically by <code>/train-model</code>.</p>
+<div class="highlight"><pre><span></span><code>use ml-config-reviewer — check core/configs/train_segformer_b3.yaml
+</code></pre></div>
+<h3 id="benchmark-guard-sonnet">benchmark-guard <em>(Sonnet)</em><a class="headerlink" href="#benchmark-guard-sonnet" title="Permanent link">&para;</a></h3>
+<p>Runs <code>pytest -m benchmark --benchmark-compare</code> and explains regressions. Saves a baseline if none exists. Flags any benchmark with &gt;20% mean or &gt;30% max regression.</p>
+<p><strong>When to use:</strong> Before pushing changes that touch the training loop, inference pipeline, data loading, or IoU/Dice computation.</p>
+<div class="highlight"><pre><span></span><code>use benchmark-guard — I just refactored the IoU computation
+</code></pre></div>
+<h3 id="qt-thread-safety-reviewer-opus">qt-thread-safety-reviewer <em>(Opus)</em><a class="headerlink" href="#qt-thread-safety-reviewer-opus" title="Permanent link">&para;</a></h3>
+<p>Audits Qt/PySide6 code for thread safety violations. The hard rule: all UI mutations must happen on the main thread.</p>
+<p>Checks:
+- Direct widget access from <code>QThread.run()</code> bodies
+- <code>Qt.DirectConnection</code> across threads
+- <code>time.sleep()</code> blocking the main event loop
+- Object ownership and lifetime bugs</p>
+<p><strong>When to use:</strong> Before merging any code that touches <code>QThread</code>, workers, or async callbacks that update the UI.</p>
+<div class="highlight"><pre><span></span><code>use qt-thread-safety-reviewer — gui/src/crackz_gui/qt/views/detection_view.py
+</code></pre></div>
+<h3 id="qt-signal-auditor-sonnet">qt-signal-auditor <em>(Sonnet)</em><a class="headerlink" href="#qt-signal-auditor-sonnet" title="Permanent link">&para;</a></h3>
+<p>Audits signal/slot connections for memory leaks and double-connect bugs. Checks:</p>
+<ul>
+<li>Lambda captures that create reference cycles</li>
+<li>Signals connected in <code>__init__</code> with no corresponding <code>disconnect()</code> in cleanup</li>
+<li><code>connect()</code> inside loops or repeatedly-called methods (fires N times)</li>
+<li>Missing <code>@Slot</code> decorators on cross-thread slots</li>
+</ul>
+<p><strong>When to use:</strong> When adding new views or wiring up new signals.</p>
+<h3 id="security-reviewer-opus">security-reviewer <em>(Opus)</em><a class="headerlink" href="#security-reviewer-opus" title="Permanent link">&para;</a></h3>
+<p>Security audit focused on ML inference and config loading patterns. Checks:</p>
+<ul>
+<li><code>torch.load()</code> without <code>weights_only=True</code> (pickle RCE vector)</li>
+<li><code>yaml.load()</code> without <code>SafeLoader</code> (arbitrary object instantiation)</li>
+<li>Path traversal in user-supplied file paths</li>
+<li><code>subprocess.run(shell=True)</code> with interpolated input</li>
+<li>Hardcoded API keys or credentials</li>
+<li><code>eval()</code> / <code>exec()</code> on config-derived strings</li>
+</ul>
+<p><strong>When to use:</strong> Before merging any code that loads models, reads user-supplied paths, parses configs, or calls subprocess. Also invoked automatically by <code>/pr-review</code>.</p>
+<h3 id="developer">developer<a class="headerlink" href="#developer" title="Permanent link">&para;</a></h3>
+<p>General implementation agent. Reads project conventions from <code>docs/agent-playbook.md</code> and applies them when writing code.</p>
+<h3 id="pytorch-expert">pytorch-expert<a class="headerlink" href="#pytorch-expert" title="Permanent link">&para;</a></h3>
+<p>Deep learning specialist. Use for questions about training loop correctness, gradient flow, device placement, mixed precision, or SMP/SegFormer architecture choices.</p>
+<h3 id="docker-specialist">docker-specialist<a class="headerlink" href="#docker-specialist" title="Permanent link">&para;</a></h3>
+<p>Docker build and multi-variant image questions (cpu / cu118 / cu128 variants, the <code>scripts/build_cuda_wheels.py</code> build matrix).</p>
+<h3 id="docs-writer">docs-writer<a class="headerlink" href="#docs-writer" title="Permanent link">&para;</a></h3>
+<p>MkDocs Material documentation. Use when writing or updating <code>docs/</code>.</p>
+<h3 id="reviewer">reviewer<a class="headerlink" href="#reviewer" title="Permanent link">&para;</a></h3>
+<p>Lean code reviewer. Fast, minimal, high-signal. For quick checks on a function or class before committing.</p>
+<hr />
+<h2 id="skills-slash-commands">Skills (slash commands)<a class="headerlink" href="#skills-slash-commands" title="Permanent link">&para;</a></h2>
+<p>Skills are slash commands that package multi-step workflows. Type <code>/skill-name</code> in the Claude Code prompt to invoke.</p>
+<h3 id="run-coverage"><code>/run-coverage</code><a class="headerlink" href="#run-coverage" title="Permanent link">&para;</a></h3>
+<p>Runs <code>uv run task coverage</code>, reads <code>reports/coverage.json</code>, and lists every module below 80% statement coverage with the first 5 missing lines. Ends with an offer to generate tests for the gaps.</p>
+<div class="highlight"><pre><span></span><code>/run-coverage
+</code></pre></div>
+<h3 id="check-ci"><code>/check-ci</code><a class="headerlink" href="#check-ci" title="Permanent link">&para;</a></h3>
+<p>Gets the current branch, finds its PR, runs <code>gh pr checks</code>, fetches logs for any failing run (<code>gh run view --log-failed</code>), and outputs a pass/fail table with the single most actionable fix.</p>
+<div class="highlight"><pre><span></span><code>/check-ci
+</code></pre></div>
+<h3 id="pr-review"><code>/pr-review</code><a class="headerlink" href="#pr-review" title="Permanent link">&para;</a></h3>
+<p>Parallel review: spawns <code>ml-config-reviewer</code>, <code>qt-thread-safety-reviewer</code>, and <code>security-reviewer</code> concurrently on the current branch's diff. Merges all three verdicts into a single report.</p>
+<p>Files are automatically routed:
+- <code>core/src/crackz/ai/**</code> and <code>*.yaml</code> → ML reviewer
+- <code>gui/src/crackz_gui/**</code> → Qt reviewer
+- All <code>.py</code> + YAML → security reviewer</p>
+<div class="highlight"><pre><span></span><code>/pr-review
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code>## PR Review: feat/my-branch
+### ML Config Review     — PASS / ISSUES FOUND
+### Qt Thread Safety     — SAFE TO MERGE / NEEDS FIXES
+### Security Review      — SAFE TO MERGE / NEEDS FIXES
+### Final Verdict        — READY TO MERGE / BLOCKED
+</code></pre></div>
+<h3 id="new-feature"><code>/new-feature</code><a class="headerlink" href="#new-feature" title="Permanent link">&para;</a></h3>
+<p>The primary workflow for starting any non-trivial feature. Orchestrates the full development lifecycle from idea to merged PR:</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>What happens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Spec</strong></td>
+<td>Creates <code>docs/superpowers/specs/YYYY-MM-DD-&lt;name&gt;-design.md</code> with overview, file changes, and acceptance criteria</td>
+</tr>
+<tr>
+<td><strong>2. ADR</strong></td>
+<td>Appends an Architecture Decision Record to <code>docs/internal/adr/02-decisions.md</code> — only if architecture changes are involved</td>
+</tr>
+<tr>
+<td><strong>3. Worktree</strong></td>
+<td><code>git worktree add .worktrees/&lt;name&gt; -b feat/&lt;name&gt;</code> — isolated workspace, nothing bleeds into main</td>
+</tr>
+<tr>
+<td><strong>4. Task list</strong></td>
+<td>Creates <code>docs/superpowers/plans/YYYY-MM-DD-&lt;name&gt;.md</code> — 3–7 checkbox tasks, each ending with a passing test + commit</td>
+</tr>
+<tr>
+<td><strong>5. Implement</strong></td>
+<td>Works through each task using the <code>developer</code> agent for larger changes</td>
+</tr>
+<tr>
+<td><strong>6. Tests</strong></td>
+<td><code>uv run task tests</code> + <code>uv run task lint</code> — stops if red</td>
+</tr>
+<tr>
+<td><strong>7. Review</strong></td>
+<td>Runs <code>/pr-review</code> — parallel ML + Qt + security review</td>
+</tr>
+<tr>
+<td><strong>8. PR</strong></td>
+<td><code>gh pr create</code> with generated description + assigns Copilot reviewer</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>/new-feature
+</code></pre></div>
+<p>Prompts for: feature name, one-paragraph description, whether architecture changes are involved.</p>
+<p>Output:
+<div class="highlight"><pre><span></span><code>Spec:      docs/superpowers/specs/2026-05-27-&lt;name&gt;-design.md
+Plan:      docs/superpowers/plans/2026-05-27-&lt;name&gt;.md
+ADR:       docs/internal/adr/02-decisions.md (if applicable)
+Worktree:  .worktrees/&lt;name&gt;
+Branch:    feat/&lt;name&gt;
+PR:        https://github.com/…/pull/&lt;N&gt;
+</code></pre></div></p>
+<h3 id="new-model-backend"><code>/new-model-backend</code><a class="headerlink" href="#new-model-backend" title="Permanent link">&para;</a></h3>
+<p>Scaffolds a new SMP or HuggingFace segmentation backend. Asks for the name, type, and backbone identifiers, then:</p>
+<ol>
+<li>Reads <code>base.py</code> + <code>smp.py</code> as templates</li>
+<li>Creates <code>backends/&lt;name&gt;.py</code> with the correct <code>BackendSpec</code></li>
+<li>Registers in <code>__init__.py</code> <strong>before</strong> <code>SMP_SPEC</code> (SMP must stay last as catch-all)</li>
+<li>Adds a unit test</li>
+<li>Runs <code>pytest core/tests/unit/ai/model/</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>/new-model-backend
+</code></pre></div>
+<h3 id="add-qt-view"><code>/add-qt-view</code><a class="headerlink" href="#add-qt-view" title="Permanent link">&para;</a></h3>
+<p>Scaffolds a new PySide6 view or dialog. Asks for the name and type, picks the closest existing view as a template, creates the file, exports it, optionally wires a service, and adds a stub test.</p>
+<div class="highlight"><pre><span></span><code>/add-qt-view
+</code></pre></div>
+<h3 id="add-cli-command"><code>/add-cli-command</code><a class="headerlink" href="#add-cli-command" title="Permanent link">&para;</a></h3>
+<p>Scaffolds a new Typer subcommand. Asks for the name and purpose, reads the existing CLI structure, creates the command file with typed options and structured logging, registers it in the entry point, and adds a unit test.</p>
+<div class="highlight"><pre><span></span><code>/add-cli-command
+</code></pre></div>
+<h3 id="train-model"><code>/train-model</code><a class="headerlink" href="#train-model" title="Permanent link">&para;</a></h3>
+<p>End-to-end training pipeline:</p>
+<ol>
+<li>Locates training configs — asks if multiple</li>
+<li>Spawns <code>ml-config-reviewer</code> — <strong>stops if any ❌ critical issue</strong></li>
+<li>GPU preflight: checks CUDA availability, dataset paths, unit tests</li>
+<li>Runs <code>uv run crackz train --config &lt;path&gt;</code></li>
+<li>Evaluates IoU + Dice from the latest checkpoint</li>
+<li>If IoU ≥ 0.75 and Dice ≥ 0.80: creates <code>feat/model-&lt;backbone&gt;-iou&lt;X.XX&gt;</code> branch and commits the checkpoint</li>
+</ol>
+<div class="highlight"><pre><span></span><code>/train-model
+# or with a specific config:
+/train-model core/configs/train_segformer_b3.yaml
+</code></pre></div>
+<h3 id="release"><code>/release</code><a class="headerlink" href="#release" title="Permanent link">&para;</a></h3>
+<p>Pre-release readiness gate — checks everything before you touch <code>release.yml</code>:</p>
+<ol>
+<li>Warns if not on <code>main</code> or if working tree is dirty</li>
+<li>Runs <code>uv run task tests</code> — stops on failure</li>
+<li>Checks CI: latest unit-tests + integration-tests runs must be green</li>
+<li>Runs <code>cz bump --dry-run</code> — shows proposed version bump</li>
+<li>Shows commits since last tag + CHANGELOG unreleased section</li>
+<li>Lists artifacts the pipeline would build (cpu/cu118/cu128 wheels, GUI wheel, sdist, PDF if minor/major)</li>
+<li>Outputs <strong>GO / NO-GO</strong> verdict and the exact <code>gh workflow run</code> command if ready</li>
+</ol>
+<div class="highlight"><pre><span></span><code>/release
+</code></pre></div>
+<hr />
+<h2 id="composed-workflows">Composed Workflows<a class="headerlink" href="#composed-workflows" title="Permanent link">&para;</a></h2>
+<h3 id="everyday-coding-loop">Everyday coding loop<a class="headerlink" href="#everyday-coding-loop" title="Permanent link">&para;</a></h3>
+<p>The hooks handle everything automatically:</p>
+<div class="highlight"><pre><span></span><code>Edit a Python file
+  → ruff fixes style (async)
+  → mypy checks types (async)
+  → related unit test runs (async)
+  → codegraph syncs (async)
+</code></pre></div>
+<p>No manual steps needed. Check the next Claude response for any type errors or test failures.</p>
+<h3 id="before-pushing-a-pr">Before pushing a PR<a class="headerlink" href="#before-pushing-a-pr" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>/pr-review          # parallel ML + Qt + security review
+/run-coverage       # check for coverage gaps
+/check-ci           # verify CI is green on the branch
+</code></pre></div>
+<h3 id="starting-a-new-feature-end-to-end">Starting a new feature end-to-end<a class="headerlink" href="#starting-a-new-feature-end-to-end" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>/new-feature
+# prompts for name, description, architecture changes?
+# → creates spec + ADR (if needed) + worktree + task list
+# → implements, tests, reviews, opens PR automatically
+</code></pre></div>
+<p>This is the primary entry point for non-trivial work. For smaller scaffolding tasks, use the dedicated skills below.</p>
+<h3 id="adding-a-new-model-architecture">Adding a new model architecture<a class="headerlink" href="#adding-a-new-model-architecture" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>/new-model-backend             # scaffold the backend
+use ml-config-reviewer         # review the training config for it
+/train-model                   # validate config → train → auto-branch on success
+use benchmark-guard            # verify no perf regression vs baseline
+/pr-review                     # full parallel review before PR
+</code></pre></div>
+<h3 id="adding-a-new-gui-view">Adding a new GUI view<a class="headerlink" href="#adding-a-new-gui-view" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>/add-qt-view                          # scaffold the view
+use qt-thread-safety-reviewer         # review if it uses workers
+use qt-signal-auditor                 # check signal/slot wiring
+/pr-review                            # full review before merging
+</code></pre></div>
+<h3 id="releasing-a-new-version">Releasing a new version<a class="headerlink" href="#releasing-a-new-version" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>/release            # go/no-go + shows exact gh command
+# If GO:
+gh workflow run release.yml -f confirm=YES
+# After release completes, manually trigger if needed:
+gh workflow run pyinstaller-build.yml
+gh workflow run docker-build.yml
+</code></pre></div>
+<hr />
+<h2 id="configuration-files">Configuration Files<a class="headerlink" href="#configuration-files" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.mcp.json</code></td>
+<td>MCP server definitions (context7, codegraph)</td>
+</tr>
+<tr>
+<td><code>.claude/settings.json</code></td>
+<td>Hooks (PreToolUse guards, PostToolUse async pipeline, Stop summary)</td>
+</tr>
+<tr>
+<td><code>.claude/settings.local.json</code></td>
+<td>Permissions allowlist (uv, git, gh, codegraph, WebSearch)</td>
+</tr>
+<tr>
+<td><code>.claude/agents/*.md</code></td>
+<td>Subagent definitions — 10 specialists</td>
+</tr>
+<tr>
+<td><code>.claude/skills/*/SKILL.md</code></td>
+<td>Skill definitions — 9 slash commands</td>
+</tr>
+<tr>
+<td><code>CLAUDE.md</code></td>
+<td>Project root context — commands, agents, skills index</td>
+</tr>
+<tr>
+<td><code>.claude/CLAUDE.md</code></td>
+<td>Scoping hints — which paths to scan per task type, CodeGraph cheatsheet</td>
+</tr>
+<tr>
+<td><code>.github/CLAUDE.md</code></td>
+<td>CI context — workflow names, CI conventions</td>
+</tr>
+</tbody>
+</table>
+<h3 id="permissions-allowlist-claudesettingslocaljson">Permissions allowlist (<code>.claude/settings.local.json</code>)<a class="headerlink" href="#permissions-allowlist-claudesettingslocaljson" title="Permanent link">&para;</a></h3>
+<p>Claude can run the following without prompting:</p>
+<div class="highlight"><pre><span></span><code>Bash(uv:*)         — all uv commands
+Bash(codegraph:*)  — codegraph sync/serve
+Bash(git:*)        — all git operations
+Bash(gh:*)         — GitHub CLI
+Bash(node:*)       — Node/npx (for context7 MCP)
+Bash(QT_QPA_PLATFORM=offscreen uv run:*)  — headless Qt tests
+WebSearch          — web lookups
+</code></pre></div>
+<p>Everything else prompts for permission.</p>
+<h3 id="adding-a-new-hook">Adding a new hook<a class="headerlink" href="#adding-a-new-hook" title="Permanent link">&para;</a></h3>
+<p>Edit <code>.claude/settings.json</code>. Use <code>"async": true</code> for any hook that doesn't need to block the edit:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python -c \&quot;...\&quot;&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;statusMessage&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Running ...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;async&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Windows-specific: use <code>creationflags=0x08000000</code> in <code>subprocess.Popen</code> to suppress console windows. Use <code>shutil.which()</code> rather than hardcoded binary paths.</p>
+<h3 id="adding-a-new-subagent">Adding a new subagent<a class="headerlink" href="#adding-a-new-subagent" title="Permanent link">&para;</a></h3>
+<p>Create <code>.claude/agents/&lt;name&gt;.md</code> with YAML frontmatter:</p>
+<div class="highlight"><pre><span></span><code>---
+name: my-agent
+description: One sentence — used by Claude to decide when to invoke it.
+tools: Read, Grep, Glob     # restrict to what it actually needs
+<span class="gu">model: sonnet               # or opus for complex reasoning</span>
+<span class="gu">---</span>
+
+Agent instructions here...
+</code></pre></div>
+<p>Then add the name to <code>CLAUDE.md</code> and <code>.claude/CLAUDE.md</code>.</p>
+<h3 id="adding-a-new-skill">Adding a new skill<a class="headerlink" href="#adding-a-new-skill" title="Permanent link">&para;</a></h3>
+<p>Create <code>.claude/skills/&lt;name&gt;/SKILL.md</code>:</p>
+<div class="highlight"><pre><span></span><code>---
+name: my-skill
+<span class="gu">description: One sentence summary.</span>
+<span class="gu">---</span>
+
+<span class="gh"># Steps</span>
+
+<span class="k">1.</span> ...
+<span class="k">2.</span> ...
+</code></pre></div>
+<p>Then add <code>/name</code> to the Skills section of <code>CLAUDE.md</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Anaxiatech-AB/crackz" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.52.0"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

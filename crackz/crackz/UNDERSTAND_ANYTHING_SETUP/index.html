@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../contributing/">
+        <link rel="prev" href="../diagrams/">
       
       
-        <link rel="next" href="../pr-review-workflow/">
+        <link rel="next" href="../internal/adr/02-decisions/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Release Flow - Crackz</title>
+        <title>Understand Anything - Crackz</title>
       
     
     
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#overview" class="md-skip">
+        <a href="#prerequisites" class="md-skip">
           Skip to content
         </a>
       
@@ -122,7 +122,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Release Flow
+              Understand Anything
             
           </span>
         </div>
@@ -1403,10 +1403,35 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../UNDERSTAND_ANYTHING_SETUP/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understand Anything
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1422,6 +1447,92 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#day-to-day-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Day-to-Day Usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keeping-the-graph-fresh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keeping the Graph Fresh
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-the-graph-covers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the Graph Covers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-it-does-not-cover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What It Does Not Cover
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1599,35 +1710,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Release Flow
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../release-flow/" class="md-nav__link">
         
   
   
@@ -1643,225 +1729,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Overview
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#triggering" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Triggering
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#release-decision-rules" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Release Decision Rules
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-by-step-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step-by-Step Workflow
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Step-by-Step Workflow">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-version-bump" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Version Bump
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-lockfile-synchronization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Lockfile Synchronization
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-push-back-to-main" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Push Back to main
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-draft-release-creation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Draft Release Creation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-artifact-builds" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Artifact Builds
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-release-assembly-and-publication" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Release Assembly and Publication
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#outputs-and-artifacts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Outputs and Artifacts
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-workflows" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Related Workflows
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#operational-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Operational Notes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#no-release-was-created" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        No release was created
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#release-created-but-later-jobs-failed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Release created but later jobs failed
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#need-to-inspect-recent-runs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Need to inspect recent runs
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2100,10 +1967,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Overview
+        Prerequisites
       
     </span>
   </a>
@@ -2111,10 +1978,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#triggering" class="md-nav__link">
+  <a href="#day-to-day-usage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Triggering
+        Day-to-Day Usage
       
     </span>
   </a>
@@ -2122,10 +1989,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#release-decision-rules" class="md-nav__link">
+  <a href="#keeping-the-graph-fresh" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Release Decision Rules
+        Keeping the Graph Fresh
       
     </span>
   </a>
@@ -2133,93 +2000,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-by-step-workflow" class="md-nav__link">
+  <a href="#what-the-graph-covers" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step-by-Step Workflow
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Step-by-Step Workflow">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-version-bump" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Version Bump
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-lockfile-synchronization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Lockfile Synchronization
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-push-back-to-main" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Push Back to main
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-draft-release-creation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Draft Release Creation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-artifact-builds" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Artifact Builds
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#6-release-assembly-and-publication" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        6. Release Assembly and Publication
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#outputs-and-artifacts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Outputs and Artifacts
+        What the Graph Covers
       
     </span>
   </a>
@@ -2227,10 +2011,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#related-workflows" class="md-nav__link">
+  <a href="#what-it-does-not-cover" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Related Workflows
+        What It Does Not Cover
       
     </span>
   </a>
@@ -2238,63 +2022,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#operational-notes" class="md-nav__link">
+  <a href="#agent-usage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Operational Notes
+        Agent Usage
       
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#no-release-was-created" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        No release was created
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#release-created-but-later-jobs-failed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Release created but later jobs failed
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#need-to-inspect-recent-runs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Need to inspect recent runs
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2318,165 +2052,73 @@
   
 
 
-<h1 id="release-flow">Release Flow<a class="headerlink" href="#release-flow" title="Permanent link">&para;</a></h1>
-<p>Current-state documentation for Crackz release automation.</p>
-<p>This page describes what the repository does today via <code>.github/workflows/release.yml</code>.</p>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Crackz uses a Commitizen-based release workflow that runs after integration tests complete
-successfully on <code>main</code>.</p>
-<p>In the happy path, the workflow:</p>
-<ol>
-<li>Determines whether a release is needed from conventional commits.</li>
-<li>Bumps the version with Commitizen.</li>
-<li>Updates <code>CHANGELOG.md</code>, creates a git commit, and tags <code>vX.Y.Z</code>.</li>
-<li>Pushes the release commit and tag back to <code>main</code>.</li>
-<li>Builds wheel artifacts, source distribution, checksums, and optionally a docs PDF.</li>
-<li>Creates a draft GitHub release, uploads artifacts, then publishes it in the same workflow.</li>
-</ol>
-<h2 id="triggering">Triggering<a class="headerlink" href="#triggering" title="Permanent link">&para;</a></h2>
-<p>The workflow supports two entry paths:</p>
+<h1 id="understand-anything-setup-usage">Understand Anything — Setup &amp; Usage<a class="headerlink" href="#understand-anything-setup-usage" title="Permanent link">&para;</a></h1>
+<p>Crackz uses the <a href="https://github.com/Lum1104/Understand-Anything">Understand Anything</a>
+Claude Code plugin to provide an interactive, browsable knowledge graph of the
+codebase architecture.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Automatic: <code>workflow_run</code> after <code>Integration Tests</code> completes successfully on <code>main</code></li>
-<li>Manual: <code>workflow_dispatch</code> with <code>confirm=YES</code></li>
+<li>Claude Code (desktop or IDE extension)</li>
+<li>Plugin enabled in <code>.claude/settings.json</code>:
+  <div class="highlight"><pre><span></span><code><span class="nt">&quot;enabledPlugins&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;understand-anything@Lum1104&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div></li>
 </ul>
-<p>The automatic path is the normal release path. The manual path exists for controlled reruns
-or maintainer-triggered releases.</p>
-<h2 id="release-decision-rules">Release Decision Rules<a class="headerlink" href="#release-decision-rules" title="Permanent link">&para;</a></h2>
-<p>The workflow first runs:</p>
-<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>cz<span class="w"> </span>bump<span class="w"> </span>--dry-run
-</code></pre></div>
-<p>Outcome:</p>
+<h2 id="day-to-day-usage">Day-to-Day Usage<a class="headerlink" href="#day-to-day-usage" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/understand-dashboard</code></td>
+<td>Open interactive architecture graph</td>
+</tr>
+<tr>
+<td><code>/understand-chat</code></td>
+<td>Ask questions about the code</td>
+</tr>
+<tr>
+<td><code>/understand-diff</code></td>
+<td>See which areas a current change touches</td>
+</tr>
+<tr>
+<td><code>/understand-explain &lt;file&gt;</code></td>
+<td>Deep-dive into a specific file or class</td>
+</tr>
+</tbody>
+</table>
+<h2 id="keeping-the-graph-fresh">Keeping the Graph Fresh<a class="headerlink" href="#keeping-the-graph-fresh" title="Permanent link">&para;</a></h2>
+<p>The committed graph at <code>.understand-anything/knowledge-graph.json</code> is a snapshot.
+It's accurate at the time of last run. Update it:</p>
 <ul>
-<li>Exit code <code>0</code>: a release is needed</li>
-<li>Exit code <code>21</code>: no release is needed (<code>NoneIncrementExit</code>)</li>
-<li>Any other exit code: fail the workflow</li>
+<li><strong>After a large refactor:</strong> run <code>/understand</code> (full re-analysis, ~5 min)</li>
+<li><strong>After routine commits:</strong> run <code>/understand --update</code> (incremental, ~30 sec)</li>
 </ul>
-<p>By default, the meaningful release-triggering conventional commit types are:</p>
+<p><code>make understand-update</code> prints the right command as a reminder.</p>
+<h2 id="what-the-graph-covers">What the Graph Covers<a class="headerlink" href="#what-the-graph-covers" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>feat:</code> → MINOR bump</li>
-<li><code>fix:</code> → PATCH bump</li>
-<li><code>perf:</code> → PATCH bump</li>
+<li>Every Python class, function, and module in the codebase</li>
+<li>Import and call relationships</li>
+<li>Architectural layer assignments (API, Service, Data, UI, Utility)</li>
+<li>God nodes (highest-connectivity hubs) and surprising cross-layer connections</li>
+<li>Guided tours ordered by dependency for onboarding</li>
 </ul>
-<p>Docs-only and maintenance titles such as <code>docs:</code>, <code>chore:</code>, <code>refactor:</code>, <code>test:</code>, <code>ci:</code>,
-<code>build:</code>, and <code>style:</code> do not produce a release by themselves.</p>
-<h2 id="step-by-step-workflow">Step-by-Step Workflow<a class="headerlink" href="#step-by-step-workflow" title="Permanent link">&para;</a></h2>
-<h3 id="1-version-bump">1. Version Bump<a class="headerlink" href="#1-version-bump" title="Permanent link">&para;</a></h3>
-<p>The <code>version-bump</code> job runs on the self-hosted runner:</p>
+<h2 id="what-it-does-not-cover">What It Does Not Cover<a class="headerlink" href="#what-it-does-not-cover" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Checks out the repository with push credentials</li>
-<li>Installs <code>commitizen</code></li>
-<li>Configures Git bot identity</li>
-<li>Explicitly disables commit and tag signing for CI</li>
-<li>Runs <code>cz bump --yes --changelog</code></li>
+<li>SQL schema (see the DB schema diagram in <code>docs/diagrams.md</code>)</li>
+<li>Runtime behaviour (use tracing — see <code>docs/tracing.md</code>)</li>
+<li>Test coverage (use <code>uv run pytest --cov</code>)</li>
 </ul>
-<p>Commitizen is responsible for:</p>
-<ul>
-<li>selecting the next semantic version</li>
-<li>updating version metadata</li>
-<li>updating <code>CHANGELOG.md</code></li>
-<li>creating the release commit</li>
-<li>creating the git tag</li>
-</ul>
-<h3 id="2-lockfile-synchronization">2. Lockfile Synchronization<a class="headerlink" href="#2-lockfile-synchronization" title="Permanent link">&para;</a></h3>
-<p>After the bump, the workflow runs:</p>
-<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>lock
-</code></pre></div>
-<p>If <code>uv.lock</code> changed, the workflow amends the Commitizen-created commit and moves the tag to
-the amended commit so the release commit remains internally consistent.</p>
-<h3 id="3-push-back-to-main">3. Push Back to <code>main</code><a class="headerlink" href="#3-push-back-to-main" title="Permanent link">&para;</a></h3>
-<p>If a release was created, the workflow pushes:</p>
-<ul>
-<li><code>HEAD</code> to <code>main</code></li>
-<li>the new git tag</li>
-</ul>
-<p>This means the release commit is created by CI and written back to the main branch.</p>
-<h3 id="4-draft-release-creation">4. Draft Release Creation<a class="headerlink" href="#4-draft-release-creation" title="Permanent link">&para;</a></h3>
-<p>Still inside the <code>version-bump</code> job, the workflow:</p>
-<ul>
-<li>extracts the matching changelog section from <code>CHANGELOG.md</code></li>
-<li>creates a draft GitHub release for <code>vX.Y.Z</code></li>
-</ul>
-<p>At this point the release exists as a draft, but artifact attachment and publication still
-happen later in the workflow.</p>
-<h3 id="5-artifact-builds">5. Artifact Builds<a class="headerlink" href="#5-artifact-builds" title="Permanent link">&para;</a></h3>
-<p>Separate jobs build release artifacts:</p>
-<ul>
-<li><code>build-wheels</code></li>
-<li>CPU wheel</li>
-<li>CUDA 11.8 wheel</li>
-<li>CUDA 12.8 wheel</li>
-<li><code>build-sdist</code></li>
-<li>source distribution (<code>.tar.gz</code>)</li>
-</ul>
-<p>The wheel jobs also perform a smoke check by importing <code>crackz</code> and showing CLI help.</p>
-<h3 id="6-release-assembly-and-publication">6. Release Assembly and Publication<a class="headerlink" href="#6-release-assembly-and-publication" title="Permanent link">&para;</a></h3>
-<p>The <code>release</code> job:</p>
-<ul>
-<li>downloads all build artifacts</li>
-<li>combines them into <code>dist/</code></li>
-<li>optionally generates <code>site/crackz-docs.pdf</code> for minor/major releases ending in <code>.0</code></li>
-<li>copies <code>CHANGELOG.md</code></li>
-<li>generates <code>SHA256SUMS.txt</code></li>
-<li>verifies artifact filenames match the bumped version</li>
-<li>uploads everything to the draft GitHub release</li>
-<li>publishes the release by setting <code>--draft=false</code></li>
-</ul>
-<p>This is why the workflow is more than “create draft release”: it creates a draft first,
-then turns that draft into the public release once artifact assembly succeeds.</p>
-<h2 id="outputs-and-artifacts">Outputs and Artifacts<a class="headerlink" href="#outputs-and-artifacts" title="Permanent link">&para;</a></h2>
-<p>Published GitHub release artifacts may include:</p>
-<ul>
-<li>CPU wheel</li>
-<li>CUDA wheels (<code>cu118</code>, <code>cu128</code>)</li>
-<li>source distribution</li>
-<li><code>CHANGELOG.md</code></li>
-<li><code>SHA256SUMS.txt</code></li>
-<li>documentation PDF for <code>.0</code> releases</li>
-</ul>
-<p>The workflow also stores a short-lived combined workflow artifact (<code>dist-combined</code>) for CI
-debugging and traceability.</p>
-<h2 id="related-workflows">Related Workflows<a class="headerlink" href="#related-workflows" title="Permanent link">&para;</a></h2>
-<p>The main release workflow does not do everything:</p>
-<ul>
-<li><code>ai-release-notes.yml</code></li>
-<li>runs after a release is published</li>
-<li>adds customer-facing AI-generated release notes</li>
-<li><code>pyinstaller-build.yml</code></li>
-<li>manual</li>
-<li>builds standalone executables and can attach them to an existing release</li>
-<li><code>docker-build.yml</code></li>
-<li>manual</li>
-<li>builds container images after a release</li>
-</ul>
-<h2 id="operational-notes">Operational Notes<a class="headerlink" href="#operational-notes" title="Permanent link">&para;</a></h2>
-<ul>
-<li>The release flow depends on conventional commit semantics, which in practice means the PR
-  title matters when using squash merge.</li>
-<li>The version bump job currently uses a self-hosted runner.</li>
-<li>CI explicitly disables Git signing in the release job so missing runner GPG configuration
-  does not break automated releases.</li>
-<li>There is no human approval gate in the current workflow.</li>
-</ul>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="no-release-was-created">No release was created<a class="headerlink" href="#no-release-was-created" title="Permanent link">&para;</a></h3>
-<p>Likely causes:</p>
-<ul>
-<li>no <code>feat:</code>, <code>fix:</code>, or <code>perf:</code> change reached <code>main</code></li>
-<li>PR title / squash commit title was not in conventional commit format</li>
-</ul>
-<h3 id="release-created-but-later-jobs-failed">Release created but later jobs failed<a class="headerlink" href="#release-created-but-later-jobs-failed" title="Permanent link">&para;</a></h3>
-<p>Check:</p>
-<ul>
-<li>wheel build logs</li>
-<li>version consistency check output</li>
-<li>artifact upload step</li>
-<li>PDF generation step for <code>.0</code> releases</li>
-</ul>
-<h3 id="need-to-inspect-recent-runs">Need to inspect recent runs<a class="headerlink" href="#need-to-inspect-recent-runs" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>run<span class="w"> </span>list<span class="w"> </span>--limit<span class="w"> </span><span class="m">10</span>
-gh<span class="w"> </span>run<span class="w"> </span>view<span class="w"> </span>&lt;run-id&gt;
-gh<span class="w"> </span>run<span class="w"> </span>watch
-</code></pre></div>
+<h2 id="agent-usage">Agent Usage<a class="headerlink" href="#agent-usage" title="Permanent link">&para;</a></h2>
+<p>Agents can use the graph during coding sessions via <code>/understand-chat</code>. For
+programmatic access, use CodeGraph's MCP server (see <code>docs/CODEGRAPH_FOR_AGENTS.md</code> —
+agent-facing reference, not published to the docs site) which offers symbol lookup
+and context queries.</p>
 
 
 

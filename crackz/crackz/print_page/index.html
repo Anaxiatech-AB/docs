@@ -102,7 +102,7 @@ table th { background:#f1f5f9; color:#111827; }
   <p class='company'>© 2026 Anaxiatech AB</p>
 </section>
 <hr class='page-sep'/>
-<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#installation'>Installation</a></li><li><a href='#getting-started'>Quick Start</a></li><li><a href='#gui'>GUI Overview</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#dashboard'>Dashboard</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#tiling'>Image Tiling</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#configuration'>Project Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-vm-cuda'>Azure VM (GPU)</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-comparison'>VM vs Batch</a></li><li><a href='#evaluation'>Model Evaluation</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#architecture-guidelines'>Architecture Guidelines</a></li><li><a href='#diagrams'>Diagrams</a></li><li><a href='#api'>API Reference</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#tracing'>Tracing & Observability</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#release-flow'>Release Flow</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
+<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#installation'>Installation</a></li><li><a href='#getting-started'>Quick Start</a></li><li><a href='#gui'>GUI Overview</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#dashboard'>Dashboard</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#tiling'>Image Tiling</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#configuration'>Project Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-vm-cuda'>Azure VM (GPU)</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-comparison'>VM vs Batch</a></li><li><a href='#evaluation'>Model Evaluation</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#architecture-guidelines'>Architecture Guidelines</a></li><li><a href='#diagrams'>Diagrams</a></li><li><a href='#UNDERSTAND_ANYTHING_SETUP'>Understand Anything</a></li><li><a href='#api'>API Reference</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#tracing'>Tracing & Observability</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#release-flow'>Release Flow</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
 <h1>Home</h1>
 <h1 id="crackz">Crackz<a class="headerlink" href="#crackz" title="Permanent link">&para;</a></h1>
 <p>
@@ -11181,10 +11181,22 @@ gui/tests/
 <h1>Diagrams</h1>
 <h1 id="database-class-diagrams">Database &amp; Class Diagrams<a class="headerlink" href="#database-class-diagrams" title="Permanent link">&para;</a></h1>
 <p>Visual reference for the Crackz data model and core class hierarchy.</p>
-<p>Both diagrams are stored as draw.io files with embedded XML, so they remain
-editable in <a href="https://www.drawio.com">draw.io Desktop</a> or
-<a href="https://app.diagrams.net">diagrams.net</a> — open <code>docs/assets/*.drawio.png</code>
-directly to edit.</p>
+<hr />
+<h2 id="interactive-architecture-graph">Interactive Architecture Graph<a class="headerlink" href="#interactive-architecture-graph" title="Permanent link">&para;</a></h2>
+<p>The primary class diagram is the <strong>Understand Anything knowledge graph</strong> — an
+interactive, force-directed visualization of every class, module, and relationship
+in the codebase.</p>
+<p><strong>To open it</strong>, run the following command in a Claude Code session:</p>
+<div class="highlight"><pre><span></span><code>/understand-dashboard
+</code></pre></div>
+<p>The dashboard lets you:
+- Pan, zoom, and search across all nodes
+- Click any class or module to see its summary, connections, and source location
+- Follow "guided tours" that walk the architecture in dependency order
+- Run <code>/understand-chat</code> to ask questions about the code while browsing</p>
+<p>The committed graph snapshot is at <code>.understand-anything/knowledge-graph.json</code>.
+Refresh it after significant refactors with <code>/understand</code> in Claude Code, or
+<code>make understand-update</code> for a reminder of the exact command.</p>
 <hr />
 <h2 id="database-schema">Database Schema<a class="headerlink" href="#database-schema" title="Permanent link">&para;</a></h2>
 <p>The project-level SQLite database (<code>artifacts/project.db</code>) stores model history,
@@ -11225,10 +11237,11 @@ that scopes records to the owning project.</p>
 <p>See <a href="../core/src/crackz/ai/model/persistence/"><code>crackz.ai.model.persistence</code></a> for
 the full CRUD layer.</p>
 <hr />
-<h2 id="core-class-hierarchy">Core Class Hierarchy<a class="headerlink" href="#core-class-hierarchy" title="Permanent link">&para;</a></h2>
-<p>The diagram covers the AI model layer (<code>CrackzModel</code>, task strategies, loss),
-the data layer (<code>CrackzDataset</code>, <code>CrackzBatch</code>), the project/config layer, and
-key result types.</p>
+<h2 id="static-class-diagram-fallback">Static Class Diagram (fallback)<a class="headerlink" href="#static-class-diagram-fallback" title="Permanent link">&para;</a></h2>
+<p>A static export of the core AI model hierarchy — useful in environments where
+Claude Code is not available (e.g., plain GitHub preview, printed docs).</p>
+<p>The interactive graph above is the authoritative source; this PNG may lag behind
+recent refactors.</p>
 <p><img alt="Class Diagram" src="../assets/class-diagram.drawio.png" /></p>
 <h3 id="key-relationships">Key relationships<a class="headerlink" href="#key-relationships" title="Permanent link">&para;</a></h3>
 <table>
@@ -11265,6 +11278,77 @@ key result types.</p>
 </tr>
 </tbody>
 </table>
+</section>
+<hr class='page-sep' />
+<section class='print-section' id='UNDERSTAND_ANYTHING_SETUP' data-source='UNDERSTAND_ANYTHING_SETUP.md'>
+<h1>Understand Anything</h1>
+<h1 id="understand-anything-setup-usage">Understand Anything — Setup &amp; Usage<a class="headerlink" href="#understand-anything-setup-usage" title="Permanent link">&para;</a></h1>
+<p>Crackz uses the <a href="https://github.com/Lum1104/Understand-Anything">Understand Anything</a>
+Claude Code plugin to provide an interactive, browsable knowledge graph of the
+codebase architecture.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Claude Code (desktop or IDE extension)</li>
+<li>Plugin enabled in <code>.claude/settings.json</code>:
+  <div class="highlight"><pre><span></span><code><span class="nt">&quot;enabledPlugins&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;understand-anything@Lum1104&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h2 id="day-to-day-usage">Day-to-Day Usage<a class="headerlink" href="#day-to-day-usage" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/understand-dashboard</code></td>
+<td>Open interactive architecture graph</td>
+</tr>
+<tr>
+<td><code>/understand-chat</code></td>
+<td>Ask questions about the code</td>
+</tr>
+<tr>
+<td><code>/understand-diff</code></td>
+<td>See which areas a current change touches</td>
+</tr>
+<tr>
+<td><code>/understand-explain &lt;file&gt;</code></td>
+<td>Deep-dive into a specific file or class</td>
+</tr>
+</tbody>
+</table>
+<h2 id="keeping-the-graph-fresh">Keeping the Graph Fresh<a class="headerlink" href="#keeping-the-graph-fresh" title="Permanent link">&para;</a></h2>
+<p>The committed graph at <code>.understand-anything/knowledge-graph.json</code> is a snapshot.
+It's accurate at the time of last run. Update it:</p>
+<ul>
+<li><strong>After a large refactor:</strong> run <code>/understand</code> (full re-analysis, ~5 min)</li>
+<li><strong>After routine commits:</strong> run <code>/understand --update</code> (incremental, ~30 sec)</li>
+</ul>
+<p><code>make understand-update</code> prints the right command as a reminder.</p>
+<h2 id="what-the-graph-covers">What the Graph Covers<a class="headerlink" href="#what-the-graph-covers" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Every Python class, function, and module in the codebase</li>
+<li>Import and call relationships</li>
+<li>Architectural layer assignments (API, Service, Data, UI, Utility)</li>
+<li>God nodes (highest-connectivity hubs) and surprising cross-layer connections</li>
+<li>Guided tours ordered by dependency for onboarding</li>
+</ul>
+<h2 id="what-it-does-not-cover">What It Does Not Cover<a class="headerlink" href="#what-it-does-not-cover" title="Permanent link">&para;</a></h2>
+<ul>
+<li>SQL schema (see the DB schema diagram in <code>docs/diagrams.md</code>)</li>
+<li>Runtime behaviour (use tracing — see <code>docs/tracing.md</code>)</li>
+<li>Test coverage (use <code>uv run pytest --cov</code>)</li>
+</ul>
+<h2 id="agent-usage">Agent Usage<a class="headerlink" href="#agent-usage" title="Permanent link">&para;</a></h2>
+<p>Agents can use the graph during coding sessions via <code>/understand-chat</code>. For
+programmatic access, use CodeGraph's MCP server (see <code>docs/CODEGRAPH_FOR_AGENTS.md</code> —
+agent-facing reference, not published to the docs site) which offers symbol lookup
+and context queries.</p>
 </section>
 <hr class='page-sep' />
 <section class='print-section' id='api' data-source='api.md'>

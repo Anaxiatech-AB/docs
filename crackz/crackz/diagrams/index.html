@@ -16,7 +16,7 @@
         <link rel="prev" href="../architecture-guidelines/">
       
       
-        <link rel="next" href="../internal/adr/02-decisions/">
+        <link rel="next" href="../UNDERSTAND_ANYTHING_SETUP/">
       
       
         
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#database-schema" class="md-skip">
+        <a href="#interactive-architecture-graph" class="md-skip">
           Skip to content
         </a>
       
@@ -1436,6 +1436,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#interactive-architecture-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive Architecture Graph
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#database-schema" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1464,15 +1475,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#core-class-hierarchy" class="md-nav__link">
+  <a href="#static-class-diagram-fallback" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Core Class Hierarchy
+        Static Class Diagram (fallback)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Core Class Hierarchy">
+    <nav class="md-nav" aria-label="Static Class Diagram (fallback)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1495,6 +1506,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UNDERSTAND_ANYTHING_SETUP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understand Anything
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1929,6 +1968,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#interactive-architecture-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive Architecture Graph
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#database-schema" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1957,15 +2007,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#core-class-hierarchy" class="md-nav__link">
+  <a href="#static-class-diagram-fallback" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Core Class Hierarchy
+        Static Class Diagram (fallback)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Core Class Hierarchy">
+    <nav class="md-nav" aria-label="Static Class Diagram (fallback)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2006,10 +2056,22 @@
 
 <h1 id="database-class-diagrams">Database &amp; Class Diagrams<a class="headerlink" href="#database-class-diagrams" title="Permanent link">&para;</a></h1>
 <p>Visual reference for the Crackz data model and core class hierarchy.</p>
-<p>Both diagrams are stored as draw.io files with embedded XML, so they remain
-editable in <a href="https://www.drawio.com">draw.io Desktop</a> or
-<a href="https://app.diagrams.net">diagrams.net</a> — open <code>docs/assets/*.drawio.png</code>
-directly to edit.</p>
+<hr />
+<h2 id="interactive-architecture-graph">Interactive Architecture Graph<a class="headerlink" href="#interactive-architecture-graph" title="Permanent link">&para;</a></h2>
+<p>The primary class diagram is the <strong>Understand Anything knowledge graph</strong> — an
+interactive, force-directed visualization of every class, module, and relationship
+in the codebase.</p>
+<p><strong>To open it</strong>, run the following command in a Claude Code session:</p>
+<div class="highlight"><pre><span></span><code>/understand-dashboard
+</code></pre></div>
+<p>The dashboard lets you:
+- Pan, zoom, and search across all nodes
+- Click any class or module to see its summary, connections, and source location
+- Follow "guided tours" that walk the architecture in dependency order
+- Run <code>/understand-chat</code> to ask questions about the code while browsing</p>
+<p>The committed graph snapshot is at <code>.understand-anything/knowledge-graph.json</code>.
+Refresh it after significant refactors with <code>/understand</code> in Claude Code, or
+<code>make understand-update</code> for a reminder of the exact command.</p>
 <hr />
 <h2 id="database-schema">Database Schema<a class="headerlink" href="#database-schema" title="Permanent link">&para;</a></h2>
 <p>The project-level SQLite database (<code>artifacts/project.db</code>) stores model history,
@@ -2050,10 +2112,11 @@ that scopes records to the owning project.</p>
 <p>See <a href="../core/src/crackz/ai/model/persistence/"><code>crackz.ai.model.persistence</code></a> for
 the full CRUD layer.</p>
 <hr />
-<h2 id="core-class-hierarchy">Core Class Hierarchy<a class="headerlink" href="#core-class-hierarchy" title="Permanent link">&para;</a></h2>
-<p>The diagram covers the AI model layer (<code>CrackzModel</code>, task strategies, loss),
-the data layer (<code>CrackzDataset</code>, <code>CrackzBatch</code>), the project/config layer, and
-key result types.</p>
+<h2 id="static-class-diagram-fallback">Static Class Diagram (fallback)<a class="headerlink" href="#static-class-diagram-fallback" title="Permanent link">&para;</a></h2>
+<p>A static export of the core AI model hierarchy — useful in environments where
+Claude Code is not available (e.g., plain GitHub preview, printed docs).</p>
+<p>The interactive graph above is the authoritative source; this PNG may lag behind
+recent refactors.</p>
 <p><img alt="Class Diagram" src="../assets/class-diagram.drawio.png" /></p>
 <h3 id="key-relationships">Key relationships<a class="headerlink" href="#key-relationships" title="Permanent link">&para;</a></h3>
 <table>

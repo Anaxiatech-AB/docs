@@ -7187,8 +7187,7 @@ configuration from a YAML file.</p>
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>core/src/crackz/config/crackz_settings.py</code></summary>
-                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 21</span>
-<span class="normal"> 22</span>
+                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 22</span>
 <span class="normal"> 23</span>
 <span class="normal"> 24</span>
 <span class="normal"> 25</span>
@@ -7267,7 +7266,15 @@ configuration from a YAML file.</p>
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
 <span class="normal">100</span>
-<span class="normal">101</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CrackzSettings</span><span class="p">(</span><span class="n">BaseSettings</span><span class="p">):</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CrackzSettings</span><span class="p">(</span><span class="n">BaseSettings</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Configuration for a ai crackz project.&quot;&quot;&quot;</span>
 
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;crackz_project&quot;</span>
@@ -7295,17 +7302,24 @@ configuration from a YAML file.</p>
 
         <span class="n">env_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;env_file&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">env_file</span><span class="p">:</span>
-            <span class="n">env_path</span> <span class="o">=</span> <span class="n">env_file</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">env_file</span><span class="p">,</span> <span class="n">Path</span><span class="p">)</span> <span class="k">else</span> <span class="n">Path</span><span class="p">(</span><span class="n">env_file</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">env_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-                <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">dotenv_values</span>
+            <span class="n">env_files</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">env_file</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">env_file</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">env_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+                <span class="k">else</span> <span class="p">(</span><span class="n">env_file</span><span class="p">,)</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">env_file_entry</span> <span class="ow">in</span> <span class="n">env_files</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">env_file_entry</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
+                    <span class="n">env_path</span> <span class="o">=</span> <span class="n">env_file_entry</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">env_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">env_file_entry</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">env_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                    <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">dotenv_values</span>
 
-                <span class="n">candidates</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dotenv_values</span><span class="p">(</span><span class="n">env_path</span><span class="p">))</span>
+                    <span class="n">candidates</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dotenv_values</span><span class="p">(</span><span class="n">env_path</span><span class="p">))</span>
 
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;CRACKZ_&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">known</span><span class="p">:</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                    <span class="s2">&quot;Unexpected CRACKZ_* environment variable observed (ignored): </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">key</span>
-                <span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Unexpected CRACKZ_* environment variable observed (ignored): </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_conf</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">conf_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CrackzSettings&quot;</span><span class="p">:</span>
@@ -7385,8 +7399,7 @@ checked so typos written only to .env (not yet exported) are also caught.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/config/crackz_settings.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">35</span>
-<span class="normal">36</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">36</span>
 <span class="normal">37</span>
 <span class="normal">38</span>
 <span class="normal">39</span>
@@ -7409,7 +7422,15 @@ checked so typos written only to .env (not yet exported) are also caught.</p>
 <span class="normal">56</span>
 <span class="normal">57</span>
 <span class="normal">58</span>
-<span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">model_post_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_context</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">model_post_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_context</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Log any CRACKZ_* env vars that are not recognised fields.</span>
 
 <span class="sd">    extra=&quot;ignore&quot; silently drops them; this surfaces typos so mis-configured</span>
@@ -7423,17 +7444,24 @@ checked so typos written only to .env (not yet exported) are also caught.</p>
 
     <span class="n">env_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;env_file&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">env_file</span><span class="p">:</span>
-        <span class="n">env_path</span> <span class="o">=</span> <span class="n">env_file</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">env_file</span><span class="p">,</span> <span class="n">Path</span><span class="p">)</span> <span class="k">else</span> <span class="n">Path</span><span class="p">(</span><span class="n">env_file</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">env_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">dotenv_values</span>
+        <span class="n">env_files</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">env_file</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">env_file</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">env_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+            <span class="k">else</span> <span class="p">(</span><span class="n">env_file</span><span class="p">,)</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">env_file_entry</span> <span class="ow">in</span> <span class="n">env_files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">env_file_entry</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
+                <span class="n">env_path</span> <span class="o">=</span> <span class="n">env_file_entry</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">env_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">env_file_entry</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">env_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">dotenv_values</span>
 
-            <span class="n">candidates</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dotenv_values</span><span class="p">(</span><span class="n">env_path</span><span class="p">))</span>
+                <span class="n">candidates</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dotenv_values</span><span class="p">(</span><span class="n">env_path</span><span class="p">))</span>
 
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;CRACKZ_&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">known</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="s2">&quot;Unexpected CRACKZ_* environment variable observed (ignored): </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">key</span>
-            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Unexpected CRACKZ_* environment variable observed (ignored): </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -7471,15 +7499,7 @@ If the file does not exist, FileNotFoundError is raised.
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/config/crackz_settings.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 61</span>
-<span class="normal"> 62</span>
-<span class="normal"> 63</span>
-<span class="normal"> 64</span>
-<span class="normal"> 65</span>
-<span class="normal"> 66</span>
-<span class="normal"> 67</span>
-<span class="normal"> 68</span>
-<span class="normal"> 69</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 69</span>
 <span class="normal"> 70</span>
 <span class="normal"> 71</span>
 <span class="normal"> 72</span>
@@ -7511,7 +7531,15 @@ If the file does not exist, FileNotFoundError is raised.
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
 <span class="normal">100</span>
-<span class="normal">101</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">from_conf</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">conf_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CrackzSettings&quot;</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates and returns an instance of the class from a configuration file.</span>

@@ -1434,6 +1434,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../speckit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spec Kit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../internal/adr/02-decisions/" class="md-nav__link">
         
   
@@ -2825,9 +2853,9 @@
 <h2 id="quick-facts">Quick Facts<a class="headerlink" href="#quick-facts" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>MCP Servers Configured</strong>: 4 (filesystem, github, python, uv)</li>
-<li><strong>Who Uses MCP</strong>: Developers only (Claude Desktop, Cline, other MCP-compatible tools)</li>
-<li><strong>Who Doesn't Use MCP</strong>: End users (GUI chat), GitHub Copilot (uses IDE context instead)</li>
-<li><strong>Purpose</strong>: Enable AI development assistants to efficiently interact with files, GitHub, Python, and package management</li>
+<li><strong>Who Uses MCP</strong>: Developers using the configured Claude Code CLI setup</li>
+<li><strong>Who Doesn't Use MCP</strong>: End users (GUI chat)</li>
+<li><strong>Purpose</strong>: Enable Claude Code to efficiently interact with files, GitHub, Python, and package management</li>
 </ul>
 <blockquote>
 <p><strong>Note</strong>: This documentation is for developers setting up MCP tools. End users of the Crackz GUI do not need MCP configuration.</p>
@@ -2842,33 +2870,33 @@
 </ol>
 <p>The configuration follows Anthropic's best practices for <a href="https://www.anthropic.com/engineering/code-execution-with-mcp">code execution with MCP</a>, using code to compose MCP operations efficiently and minimize token consumption.</p>
 <h3 id="who-uses-mcp">Who Uses MCP?<a class="headerlink" href="#who-uses-mcp" title="Permanent link">&para;</a></h3>
-<p><strong>Development Agents (✅ Uses MCP):</strong>
-- Claude Desktop
-- Cline (VS Code extension)
-- Other MCP-compatible AI development tools</p>
-<p><strong>GitHub Copilot (❌ No MCP):</strong>
-- Uses IDE context and workspace files directly
-- Configured via <code>.github/copilot-instructions.md</code>
-- No MCP servers needed</p>
+<p><strong>Claude Code CLI (✅ Uses MCP):</strong>
+- Uses the repo-local MCP setup when configured
+- Typically run from terminal sessions such as tmux
+- Shares baseline instructions with Codex through <code>AGENTS.md</code></p>
+<p><strong>Codex (tool-specific access):</strong>
+- Uses <code>AGENTS.md</code> and <code>.agents/skills/</code>
+- Uses the tools exposed by the Codex runtime rather than this MCP setup</p>
 <p><strong>End-User GUI Chat (❌ No MCP):</strong>
 - Built into Crackz GUI for harbor inspectors
 - Intentionally kept simple without developer tools
 - No filesystem, GitHub, or code execution access</p>
 <h3 id="ai-assistant-comparison">AI Assistant Comparison<a class="headerlink" href="#ai-assistant-comparison" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>┌─────────────────────────────┬──────────────────────┬─────────────────────┐
-│ Development Agents          │ GitHub Copilot       │ End-User GUI        │
+│ Claude Code CLI             │ Codex                │ End-User GUI        │
 ├─────────────────────────────┼──────────────────────┼─────────────────────┤
-│ ✅ 4 MCP Servers            │ ❌ No MCP            │ ❌ No MCP           │
-│   • filesystem              │                      │                     │
-│   • github                  │ IDE context          │ Simple API          │
-│   • python                  │ Workspace files      │ Project info only   │
+│ ✅ 4 MCP Servers            │ Runtime tools        │ ❌ No MCP           │
+│   • filesystem              │ AGENTS.md            │                     │
+│   • github                  │ .agents/skills       │ Simple API          │
+│   • python                  │                      │ Project info only   │
 │   • uv                      │                      │                     │
 ├─────────────────────────────┼──────────────────────┼─────────────────────┤
-│ Tools: Claude Desktop,      │ Tools: VS Code,      │ Tools: Crackz GUI   │
-│        Cline                │        IDE           │        Chat Panel   │
+│ Tool: claude in tmux        │ Tool: codex          │ Tool: Crackz GUI    │
 └─────────────────────────────┴──────────────────────┴─────────────────────┘
 </code></pre></div>
-<p><strong>Key Takeaway</strong>: Only 1 of the 3 AI assistant contexts uses MCP servers. MCP is exclusively for developers using tools like Claude Desktop or Cline, not for GitHub Copilot or end-user chat.</p>
+<p><strong>Key Takeaway</strong>: MCP is part of the Claude Code CLI development setup. Codex
+uses the shared repo instructions and its own runtime tools. End-user chat does
+not use MCP.</p>
 <h2 id="key-concepts">Key Concepts<a class="headerlink" href="#key-concepts" title="Permanent link">&para;</a></h2>
 <h3 id="code-execution-with-mcp">Code Execution with MCP<a class="headerlink" href="#code-execution-with-mcp" title="Permanent link">&para;</a></h3>
 <p>Instead of making direct tool calls that pass all data through the model's context window, AI assistants write Python code to:</p>

@@ -102,7 +102,7 @@ table th { background:#f1f5f9; color:#111827; }
   <p class='company'>© 2026 Anaxiatech AB</p>
 </section>
 <hr class='page-sep'/>
-<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#installation'>Installation</a></li><li><a href='#getting-started'>Quick Start</a></li><li><a href='#gui'>GUI Overview</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#dashboard'>Dashboard</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#tiling'>Image Tiling</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#configuration'>Project Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-vm-cuda'>Azure VM (GPU)</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-comparison'>VM vs Batch</a></li><li><a href='#evaluation'>Model Evaluation</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#architecture-guidelines'>Architecture Guidelines</a></li><li><a href='#diagrams'>Diagrams</a></li><li><a href='#UNDERSTAND_ANYTHING_SETUP'>Understand Anything</a></li><li><a href='#api'>API Reference</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#tracing'>Tracing & Observability</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#release-flow'>Release Flow</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
+<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#installation'>Installation</a></li><li><a href='#getting-started'>Quick Start</a></li><li><a href='#gui'>GUI Overview</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#dashboard'>Dashboard</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#tiling'>Image Tiling</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#configuration'>Project Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-vm-cuda'>Azure VM (GPU)</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-comparison'>VM vs Batch</a></li><li><a href='#evaluation'>Model Evaluation</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#architecture-guidelines'>Architecture Guidelines</a></li><li><a href='#diagrams'>Diagrams</a></li><li><a href='#UNDERSTAND_ANYTHING_SETUP'>Understand Anything</a></li><li><a href='#speckit'>Spec Kit</a></li><li><a href='#api'>API Reference</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#tracing'>Tracing & Observability</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#release-flow'>Release Flow</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
 <h1>Home</h1>
 <h1 id="crackz">Crackz<a class="headerlink" href="#crackz" title="Permanent link">&para;</a></h1>
 <p>
@@ -11349,6 +11349,86 @@ It's accurate at the time of last run. Update it:</p>
 programmatic access, use CodeGraph's MCP server (see <code>docs/CODEGRAPH_FOR_AGENTS.md</code> —
 agent-facing reference, not published to the docs site) which offers symbol lookup
 and context queries.</p>
+</section>
+<hr class='page-sep' />
+<section class='print-section' id='speckit' data-source='speckit.md'>
+<h1>Spec Kit</h1>
+<h1 id="spec-kit-in-crackz">Spec Kit in Crackz<a class="headerlink" href="#spec-kit-in-crackz" title="Permanent link">&para;</a></h1>
+<p>Spec Kit is configured for planning-heavy Crackz changes. It complements the
+normal repo workflow in <code>docs/agent-playbook.md</code>; it does not replace focused
+bug-fix or review workflows.</p>
+<h2 id="when-to-use-it">When to Use It<a class="headerlink" href="#when-to-use-it" title="Permanent link">&para;</a></h2>
+<p>Use Spec Kit when a change needs a formal product spec, design plan, task
+breakdown, implementation checklist, or architecture decision.</p>
+<p>Use the normal Crackz workflow for small fixes, narrow docs edits, CI triage,
+or review-only work.</p>
+<h2 id="agent-commands">Agent Commands<a class="headerlink" href="#agent-commands" title="Permanent link">&para;</a></h2>
+<p>Claude Code uses repo-local skills from <code>.claude/skills/</code>. Codex and other
+agents that support repo-local skills use matching definitions from
+<code>.agents/skills/</code>.</p>
+<p>Recommended sequence:</p>
+<div class="highlight"><pre><span></span><code>/speckit-specify &lt;feature description&gt;
+/speckit-clarify
+/speckit-plan
+/speckit-tasks
+/speckit-analyze
+/speckit-implement
+</code></pre></div>
+<p>Useful supporting commands:</p>
+<div class="highlight"><pre><span></span><code>/speckit-checklist &lt;checklist topic&gt;
+/speckit-taskstoissues
+/speckit-constitution
+</code></pre></div>
+<p>The bundled git extension commands are available as:</p>
+<div class="highlight"><pre><span></span><code>/speckit-git-feature
+/speckit-git-validate
+/speckit-git-remote
+/speckit-git-initialize
+/speckit-git-commit
+</code></pre></div>
+<p>Skill indexes:</p>
+<ul>
+<li><code>.agents/skills/README.md</code> — portable skill map</li>
+<li><code>.claude/skills/README.md</code> — Claude skill map</li>
+</ul>
+<h2 id="output-structure">Output Structure<a class="headerlink" href="#output-structure" title="Permanent link">&para;</a></h2>
+<p>Feature artifacts live under <code>specs/[###-feature-name]/</code>:</p>
+<div class="highlight"><pre><span></span><code>spec.md
+plan.md
+research.md
+data-model.md
+quickstart.md
+contracts/
+checklists/
+tasks.md
+</code></pre></div>
+<p>Shared task plans or exported task lists may also be placed under <code>tasks/</code>
+when they need to be referenced outside a single Spec Kit feature directory.</p>
+<p>Implementation still belongs in the normal Crackz locations:</p>
+<ul>
+<li><code>core/src/crackz/</code></li>
+<li><code>gui/src/crackz_gui/</code></li>
+<li><code>tests/</code></li>
+<li><code>docs/</code></li>
+<li><code>docs/internal/adr/</code></li>
+</ul>
+<h2 id="crackz-rules">Crackz Rules<a class="headerlink" href="#crackz-rules" title="Permanent link">&para;</a></h2>
+<p>Spec Kit plans must follow <code>.specify/memory/constitution.md</code> and the shared
+rules in <code>docs/agent-playbook.md</code>:</p>
+<ul>
+<li>Use Python 3.13 conventions and <code>uv</code>.</li>
+<li>Keep CLI output on <code>typer.secho()</code> and technical output on <code>crackz.log</code>.</li>
+<li>Reuse centralized CLI options from <code>core/src/crackz/cli/options.py</code>.</li>
+<li>Lazy-import heavy GUI dependencies inside the function or method that needs
+  them.</li>
+<li>Preserve offline-first behavior and compatibility for existing projects.</li>
+<li>Run the smallest relevant validation checks before pushing.</li>
+</ul>
+<h2 id="adrs">ADRs<a class="headerlink" href="#adrs" title="Permanent link">&para;</a></h2>
+<p>Architecture decisions live in <code>docs/internal/adr/</code>. Use
+<code>docs/internal/adr/template.md</code> for new decisions. The legacy
+<code>docs/internal/adr/02-decisions.md</code> file is retained as an index for existing
+links.</p>
 </section>
 <hr class='page-sep' />
 <section class='print-section' id='api' data-source='api.md'>
@@ -32012,9 +32092,9 @@ is provided.</p>
 <h2 id="quick-facts">Quick Facts<a class="headerlink" href="#quick-facts" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>MCP Servers Configured</strong>: 4 (filesystem, github, python, uv)</li>
-<li><strong>Who Uses MCP</strong>: Developers only (Claude Desktop, Cline, other MCP-compatible tools)</li>
-<li><strong>Who Doesn't Use MCP</strong>: End users (GUI chat), GitHub Copilot (uses IDE context instead)</li>
-<li><strong>Purpose</strong>: Enable AI development assistants to efficiently interact with files, GitHub, Python, and package management</li>
+<li><strong>Who Uses MCP</strong>: Developers using the configured Claude Code CLI setup</li>
+<li><strong>Who Doesn't Use MCP</strong>: End users (GUI chat)</li>
+<li><strong>Purpose</strong>: Enable Claude Code to efficiently interact with files, GitHub, Python, and package management</li>
 </ul>
 <blockquote>
 <p><strong>Note</strong>: This documentation is for developers setting up MCP tools. End users of the Crackz GUI do not need MCP configuration.</p>
@@ -32029,33 +32109,33 @@ is provided.</p>
 </ol>
 <p>The configuration follows Anthropic's best practices for <a href="https://www.anthropic.com/engineering/code-execution-with-mcp">code execution with MCP</a>, using code to compose MCP operations efficiently and minimize token consumption.</p>
 <h3 id="who-uses-mcp">Who Uses MCP?<a class="headerlink" href="#who-uses-mcp" title="Permanent link">&para;</a></h3>
-<p><strong>Development Agents (✅ Uses MCP):</strong>
-- Claude Desktop
-- Cline (VS Code extension)
-- Other MCP-compatible AI development tools</p>
-<p><strong>GitHub Copilot (❌ No MCP):</strong>
-- Uses IDE context and workspace files directly
-- Configured via <code>.github/copilot-instructions.md</code>
-- No MCP servers needed</p>
+<p><strong>Claude Code CLI (✅ Uses MCP):</strong>
+- Uses the repo-local MCP setup when configured
+- Typically run from terminal sessions such as tmux
+- Shares baseline instructions with Codex through <code>AGENTS.md</code></p>
+<p><strong>Codex (tool-specific access):</strong>
+- Uses <code>AGENTS.md</code> and <code>.agents/skills/</code>
+- Uses the tools exposed by the Codex runtime rather than this MCP setup</p>
 <p><strong>End-User GUI Chat (❌ No MCP):</strong>
 - Built into Crackz GUI for harbor inspectors
 - Intentionally kept simple without developer tools
 - No filesystem, GitHub, or code execution access</p>
 <h3 id="ai-assistant-comparison">AI Assistant Comparison<a class="headerlink" href="#ai-assistant-comparison" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>┌─────────────────────────────┬──────────────────────┬─────────────────────┐
-│ Development Agents          │ GitHub Copilot       │ End-User GUI        │
+│ Claude Code CLI             │ Codex                │ End-User GUI        │
 ├─────────────────────────────┼──────────────────────┼─────────────────────┤
-│ ✅ 4 MCP Servers            │ ❌ No MCP            │ ❌ No MCP           │
-│   • filesystem              │                      │                     │
-│   • github                  │ IDE context          │ Simple API          │
-│   • python                  │ Workspace files      │ Project info only   │
+│ ✅ 4 MCP Servers            │ Runtime tools        │ ❌ No MCP           │
+│   • filesystem              │ AGENTS.md            │                     │
+│   • github                  │ .agents/skills       │ Simple API          │
+│   • python                  │                      │ Project info only   │
 │   • uv                      │                      │                     │
 ├─────────────────────────────┼──────────────────────┼─────────────────────┤
-│ Tools: Claude Desktop,      │ Tools: VS Code,      │ Tools: Crackz GUI   │
-│        Cline                │        IDE           │        Chat Panel   │
+│ Tool: claude in tmux        │ Tool: codex          │ Tool: Crackz GUI    │
 └─────────────────────────────┴──────────────────────┴─────────────────────┘
 </code></pre></div>
-<p><strong>Key Takeaway</strong>: Only 1 of the 3 AI assistant contexts uses MCP servers. MCP is exclusively for developers using tools like Claude Desktop or Cline, not for GitHub Copilot or end-user chat.</p>
+<p><strong>Key Takeaway</strong>: MCP is part of the Claude Code CLI development setup. Codex
+uses the shared repo instructions and its own runtime tools. End-user chat does
+not use MCP.</p>
 <h2 id="key-concepts">Key Concepts<a class="headerlink" href="#key-concepts" title="Permanent link">&para;</a></h2>
 <h3 id="code-execution-with-mcp">Code Execution with MCP<a class="headerlink" href="#code-execution-with-mcp" title="Permanent link">&para;</a></h3>
 <p>Instead of making direct tool calls that pass all data through the model's context window, AI assistants write Python code to:</p>
@@ -32627,12 +32707,14 @@ For full context you can also view the repository root files:
 - <a href="https://github.com/Anaxiatech-AB/crackz/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></p>
 <hr />
 <h2 id="ai-assistant-integration-standards">AI Assistant Integration &amp; Standards<a class="headerlink" href="#ai-assistant-integration-standards" title="Permanent link">&para;</a></h2>
-<p>Crackz supports AI-assisted development through multiple channels:</p>
+<p>Crackz supports AI-assisted development through shared repo instructions and
+tool-specific adapters:</p>
 <ul>
-<li><strong>Model Context Protocol (MCP)</strong>: See <a href="../mcp/">MCP Integration</a> for configuration with Claude Code and other AI assistants</li>
-<li><strong>GitHub Copilot</strong>: Custom instructions in <code>.github/copilot-instructions.md</code> with automated setup workflow in <code>.github/workflows/copilot-setup-steps.yml</code></li>
+<li><strong>Codex</strong>: Shared instructions start in the repository root <code>AGENTS.md</code>; portable skills live under <code>.agents/skills/</code></li>
+<li><strong>Claude Code CLI</strong>: Claude-specific agents and skills live under <code>.claude/</code>; MCP details are in <a href="../mcp/">MCP Integration</a></li>
 </ul>
-<p>AI assistants (like Claude Code, GitHub Copilot, etc.) can help with development tasks when they follow our project conventions.</p>
+<p>AI assistants can help with development tasks when they follow our project
+conventions.</p>
 <p><strong>Key Standards for AI Assistants:</strong>
 1. <strong>Branch Naming</strong>: Must follow <code>&lt;type&gt;/&lt;scope&gt;-&lt;short-slug&gt;</code> format (lowercase, hyphenated)
 2. <strong>Commit Messages</strong>: Must use conventional commit format with lowercase type prefix and colon

@@ -1434,6 +1434,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../speckit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spec Kit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../internal/adr/02-decisions/" class="md-nav__link">
         
   
@@ -3124,12 +3152,14 @@ For full context you can also view the repository root files:
 - <a href="https://github.com/Anaxiatech-AB/crackz/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></p>
 <hr />
 <h2 id="ai-assistant-integration-standards">AI Assistant Integration &amp; Standards<a class="headerlink" href="#ai-assistant-integration-standards" title="Permanent link">&para;</a></h2>
-<p>Crackz supports AI-assisted development through multiple channels:</p>
+<p>Crackz supports AI-assisted development through shared repo instructions and
+tool-specific adapters:</p>
 <ul>
-<li><strong>Model Context Protocol (MCP)</strong>: See <a href="../mcp/">MCP Integration</a> for configuration with Claude Code and other AI assistants</li>
-<li><strong>GitHub Copilot</strong>: Custom instructions in <code>.github/copilot-instructions.md</code> with automated setup workflow in <code>.github/workflows/copilot-setup-steps.yml</code></li>
+<li><strong>Codex</strong>: Shared instructions start in the repository root <code>AGENTS.md</code>; portable skills live under <code>.agents/skills/</code></li>
+<li><strong>Claude Code CLI</strong>: Claude-specific agents and skills live under <code>.claude/</code>; MCP details are in <a href="../mcp/">MCP Integration</a></li>
 </ul>
-<p>AI assistants (like Claude Code, GitHub Copilot, etc.) can help with development tasks when they follow our project conventions.</p>
+<p>AI assistants can help with development tasks when they follow our project
+conventions.</p>
 <p><strong>Key Standards for AI Assistants:</strong>
 1. <strong>Branch Naming</strong>: Must follow <code>&lt;type&gt;/&lt;scope&gt;-&lt;short-slug&gt;</code> format (lowercase, hyphenated)
 2. <strong>Commit Messages</strong>: Must use conventional commit format with lowercase type prefix and colon

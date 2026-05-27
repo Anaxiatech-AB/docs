@@ -1428,6 +1428,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../speckit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spec Kit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../internal/adr/02-decisions/" class="md-nav__link">
         
   
@@ -2618,7 +2646,7 @@
 </tr>
 <tr>
 <td><strong>2. ADR</strong></td>
-<td>Appends an Architecture Decision Record to <code>docs/internal/adr/02-decisions.md</code> — only if architecture changes are involved</td>
+<td>Creates a new ADR file from <code>docs/internal/adr/template.md</code> and links it from <code>docs/internal/adr/02-decisions.md</code> — only if architecture changes are involved</td>
 </tr>
 <tr>
 <td><strong>3. Worktree</strong></td>
@@ -2642,7 +2670,7 @@
 </tr>
 <tr>
 <td><strong>8. PR</strong></td>
-<td><code>gh pr create</code> with generated description + assigns Copilot reviewer</td>
+<td><code>gh pr create</code> with generated description</td>
 </tr>
 </tbody>
 </table>
@@ -2652,7 +2680,7 @@
 <p>Output:
 <div class="highlight"><pre><span></span><code>Spec:      docs/superpowers/specs/2026-05-27-&lt;name&gt;-design.md
 Plan:      docs/superpowers/plans/2026-05-27-&lt;name&gt;.md
-ADR:       docs/internal/adr/02-decisions.md (if applicable)
+ADR:       docs/internal/adr/&lt;NNNN-title&gt;.md (if applicable)
 Worktree:  .worktrees/&lt;name&gt;
 Branch:    feat/&lt;name&gt;
 PR:        https://github.com/…/pull/&lt;N&gt;

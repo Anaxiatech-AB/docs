@@ -102,7 +102,7 @@ table th { background:#f1f5f9; color:#111827; }
   <p class='company'>© 2026 Anaxiatech AB</p>
 </section>
 <hr class='page-sep'/>
-<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#installation'>Installation</a></li><li><a href='#getting-started'>Quick Start</a></li><li><a href='#gui'>GUI Overview</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#dashboard'>Dashboard</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#tiling'>Image Tiling</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#configuration'>Project Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-vm-cuda'>Azure VM (GPU)</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-comparison'>VM vs Batch</a></li><li><a href='#evaluation'>Model Evaluation</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#architecture-guidelines'>Architecture Guidelines</a></li><li><a href='#diagrams'>Diagrams</a></li><li><a href='#UNDERSTAND_ANYTHING_SETUP'>Understand Anything</a></li><li><a href='#speckit'>Spec Kit</a></li><li><a href='#api'>API Reference</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#tracing'>Tracing & Observability</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#release-flow'>Release Flow</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
+<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#installation'>Installation</a></li><li><a href='#getting-started'>Quick Start</a></li><li><a href='#gui'>GUI Overview</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#dashboard'>Dashboard</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#tiling'>Image Tiling</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#configuration'>Project Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-vm-cuda'>Azure VM (GPU)</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-comparison'>VM vs Batch</a></li><li><a href='#evaluation'>Model Evaluation</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#architecture-guidelines'>Architecture Guidelines</a></li><li><a href='#diagrams'>Diagrams</a></li><li><a href='#UNDERSTAND_ANYTHING_SETUP'>Understand Anything</a></li><li><a href='#speckit'>Spec Kit</a></li><li><a href='#api'>API Reference</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#python-3.15-readiness'>Python 3.15 Readiness</a></li><li><a href='#tracing'>Tracing & Observability</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#release-flow'>Release Flow</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
 <h1>Home</h1>
 <h1 id="crackz">Crackz<a class="headerlink" href="#crackz" title="Permanent link">&para;</a></h1>
 <p>
@@ -32489,6 +32489,163 @@ from crackz.log import logger</p>
 <li><a href="../cli/">CLI Reference</a></li>
 <li><a href="../contributing/">Contributing Guide</a></li>
 <li><a href="../api/">API Reference</a></li>
+</ul>
+</section>
+<hr class='page-sep' />
+<section class='print-section' id='python-3.15-readiness' data-source='python-3.15-readiness.md'>
+<h1>Python 3.15 Readiness</h1>
+<h1 id="python-315-readiness-for-crackz">Python 3.15 Readiness for Crackz<a class="headerlink" href="#python-315-readiness-for-crackz" title="Permanent link">&para;</a></h1>
+<p>Tracking notes for issue <a href="https://github.com/Anaxiatech-AB/crackz/issues/609">#609</a>.
+Python 3.15 final lands October 2026. This doc captures what we plan to adopt,
+what we explicitly will not, and the import-cost audit that motivates the
+lazy-import work.</p>
+<p>Repository floor stays at <code>requires-python = "&gt;=3.11,&lt;4"</code> until 3.15 is released
+and our supported runtimes catch up. No runtime code in this PR uses 3.15-only
+syntax.</p>
+<h2 id="pep-810-explicit-lazy-imports">PEP 810: Explicit Lazy Imports<a class="headerlink" href="#pep-810-explicit-lazy-imports" title="Permanent link">&para;</a></h2>
+<p>New <code>lazy</code> soft keyword that defers module loading until first attribute access.</p>
+<div class="highlight"><pre><span></span><code><span class="n">lazy</span> <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="n">lazy</span> <span class="kn">from</span><span class="w"> </span><span class="nn">segmentation_models_pytorch</span><span class="w"> </span><span class="kn">import</span> <span class="n">Unet</span>
+</code></pre></div>
+<h3 id="constraints-that-matter-for-crackz">Constraints that matter for crackz<a class="headerlink" href="#constraints-that-matter-for-crackz" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Module level only.</strong> Forbidden inside functions, class bodies, <code>try</code> blocks,
+  and <code>import *</code>. The current convention in <code>docs/agent-playbook.md</code> is to push
+  heavy imports into the function that needs them — PEP 810 cannot replace that
+  pattern, it complements it.</li>
+<li><strong>No <code>try:</code> guards.</strong> Optional-dependency probes that today look like
+  <code>try: import torch except ImportError: ...</code> cannot be rewritten as <code>lazy</code>.</li>
+<li><strong><code>from X import name</code> is supported</strong>, but the import still resolves the
+  module on first access — there is no per-symbol granularity beyond what
+  Python already gives.</li>
+<li><strong>Star imports stay eager.</strong> Not a problem for crackz (we do not use star
+  imports in shipped code).</li>
+</ul>
+<h3 id="where-pep-810-would-help">Where PEP 810 would help<a class="headerlink" href="#where-pep-810-would-help" title="Permanent link">&para;</a></h3>
+<p>Candidates are modules that:</p>
+<ol>
+<li>Import heavy deps at module top-level today, AND</li>
+<li>Are imported by light entry points (CLI, GUI bootstrap, dashboard) even
+   when the heavy code path is not taken.</li>
+</ol>
+<p>Audit results from current <code>main</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Heavy top-level import</th>
+<th>Used eagerly by lightweight entry?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>core/src/crackz/ai/model/segmentation/model.py</code></td>
+<td>torch, segmentation_models_pytorch</td>
+<td>Yes, via <code>crackz.ai</code> re-exports</td>
+</tr>
+<tr>
+<td><code>core/src/crackz/ai/model/segmentation/backends/smp.py</code></td>
+<td>torch, smp</td>
+<td>Indirect — only via model registry</td>
+</tr>
+<tr>
+<td><code>core/src/crackz/ai/training/callbacks.py</code></td>
+<td>torch</td>
+<td>Only during training</td>
+</tr>
+<tr>
+<td><code>core/src/crackz/ai/evaluation/metrics.py</code></td>
+<td>torch</td>
+<td>Only during evaluation</td>
+</tr>
+<tr>
+<td><code>core/src/crackz/ai/data/dataset.py</code></td>
+<td>torch</td>
+<td>Only during data loading</td>
+</tr>
+<tr>
+<td><code>core/src/crackz/dashboard/app.py</code></td>
+<td>streamlit</td>
+<td>Only when dashboard is launched</td>
+</tr>
+</tbody>
+</table>
+<p>CLI and GUI entry points already keep torch/numpy/Qt off the top level
+(see <code>agent-playbook.md</code> § Project Standards). The remaining win is at the
+<code>crackz.ai</code> package boundary — module-level <code>lazy import</code> in <code>ai/__init__.py</code>
+and the segmentation <code>model.py</code> would let <code>crackz --help</code> and the GUI splash
+skip torch initialization. Defer that change until 3.15 is the floor.</p>
+<h3 id="compatibility-plan">Compatibility plan<a class="headerlink" href="#compatibility-plan" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Phase 0 (now): document, do not change runtime code.</li>
+<li>Phase 1 (when 3.15 floor): convert audited modules to <code>lazy import</code> at
+  module level. Keep function-local imports where the import is conditional
+  (e.g., optional backends, ImportError-guarded probes).</li>
+<li>Phase 2: enable <code>-X lazy_imports</code> globally for the dashboard and GUI
+  entry points if measurement shows further wins.</li>
+</ul>
+<h3 id="what-not-to-do">What NOT to do<a class="headerlink" href="#what-not-to-do" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Do not add <code>sys.version_info</code> branches that contain <code>lazy import</code> — the
+  statement is a syntax error on &lt;3.15, so the file fails to parse before
+  any runtime check runs.</li>
+<li>Do not migrate the existing function-local lazy pattern to PEP 810 in
+  GUI entry modules. The function-local pattern is still required there
+  (PEP 810 forbids <code>lazy</code> inside functions).</li>
+</ul>
+<h2 id="other-315-features-worth-tracking">Other 3.15 Features Worth Tracking<a class="headerlink" href="#other-315-features-worth-tracking" title="Permanent link">&para;</a></h2>
+<h3 id="free-threading-pep-703-pep-779-pep-803">Free-threading (PEP 703 / PEP 779 / PEP 803)<a class="headerlink" href="#free-threading-pep-703-pep-779-pep-803" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Free-threaded builds get a stable ABI (<code>abi3t</code>). Once torch, numpy, and
+  our Qt binding ship <code>abi3t</code> wheels, training and inference on free-threaded
+  CPython become viable. Not a 3.15-release-day option for us — wait for
+  upstream wheel coverage.</li>
+<li>No code action needed in crackz yet.</li>
+</ul>
+<h3 id="jit-pep-744-ongoing">JIT (PEP 744, ongoing)<a class="headerlink" href="#jit-pep-744-ongoing" title="Permanent link">&para;</a></h3>
+<p>The copy-and-patch JIT shipped experimental in 3.13 and is still tuned, not
+re-architected, in 3.15. Crackz spends almost all its CPU time inside numpy,
+torch, and Pillow C extensions, so JIT wins on our pure-Python code are
+expected to be small. Worth a one-off benchmark after 3.15 final on the
+training-config CLI and image-tile pipeline, but no design changes required.</p>
+<h3 id="profiling-module-tachyon-pep-799"><code>profiling</code> module + Tachyon (PEP 799)<a class="headerlink" href="#profiling-module-tachyon-pep-799" title="Permanent link">&para;</a></h3>
+<p>Statistical sampling profiler in the stdlib, attachable by PID, flamegraph
+output. Replaces the ad-hoc <code>py-spy</code> recipe in <code>docs/advanced-performance.md</code>
+once we are on 3.15. Track for a follow-up doc update; do not migrate now.</p>
+<h3 id="pep-798-unpacking-in-comprehensions">PEP 798: unpacking in comprehensions<a class="headerlink" href="#pep-798-unpacking-in-comprehensions" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="o">*</span><span class="n">tile</span> <span class="k">for</span> <span class="n">tile</span> <span class="ow">in</span> <span class="n">tiles</span><span class="p">]</span>
+<span class="p">{</span><span class="o">**</span><span class="n">meta</span> <span class="k">for</span> <span class="n">meta</span> <span class="ow">in</span> <span class="n">metas</span><span class="p">}</span>
+</code></pre></div>
+<p>Removes a few <code>itertools.chain.from_iterable</code> and <code>dict(ChainMap(...))</code>
+patterns in <code>core/src/crackz/ai/data/</code> and the dashboard merge code. Cosmetic;
+defer to the cleanup pass after the floor bump.</p>
+<h3 id="pep-686-utf-8-default-io">PEP 686: UTF-8 default I/O<a class="headerlink" href="#pep-686-utf-8-default-io" title="Permanent link">&para;</a></h3>
+<p>We already pass <code>encoding="utf-8"</code> everywhere the linter catches; verify no
+regressions when the floor moves.</p>
+<h3 id="stdlib-niceties-we-can-adopt-later">Stdlib niceties we can adopt later<a class="headerlink" href="#stdlib-niceties-we-can-adopt-later" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>frozendict</code> (PEP 814): replace a handful of <code>MappingProxyType(dict(...))</code>
+  usages in config loaders.</li>
+<li><code>TaskGroup.cancel()</code> (PEP 127): cleaner cancellation in <code>gui/</code> async
+  callbacks.</li>
+<li>Tomllib 1.1: only relevant if config files start using inline-table
+  newlines.</li>
+</ul>
+<h2 id="out-of-scope-for-609">Out of Scope for #609<a class="headerlink" href="#out-of-scope-for-609" title="Permanent link">&para;</a></h2>
+<ul>
+<li>No <code>pyproject.toml</code> floor bump.</li>
+<li>No <code>uv.lock</code> changes.</li>
+<li>No conversion of existing function-local lazy imports.</li>
+<li>No JIT or free-threading benchmarks (separate issue once 3.15 is GA).</li>
+</ul>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li>PEP 810 — <a href="https://peps.python.org/pep-0810/">https://peps.python.org/pep-0810/</a></li>
+<li>Python 3.15 whatsnew — <a href="https://docs.python.org/3.15/whatsnew/3.15.html">https://docs.python.org/3.15/whatsnew/3.15.html</a></li>
+<li>PEP 703 free-threading — <a href="https://peps.python.org/pep-0703/">https://peps.python.org/pep-0703/</a></li>
+<li>PEP 744 JIT — <a href="https://peps.python.org/pep-0744/">https://peps.python.org/pep-0744/</a></li>
+<li>PEP 799 profiling module — <a href="https://peps.python.org/pep-0799/">https://peps.python.org/pep-0799/</a></li>
+<li>Issue #609 — <a href="https://github.com/Anaxiatech-AB/crackz/issues/609">https://github.com/Anaxiatech-AB/crackz/issues/609</a></li>
 </ul>
 </section>
 <hr class='page-sep' />

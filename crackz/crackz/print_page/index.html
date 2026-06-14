@@ -102,7 +102,7 @@ table th { background:#f1f5f9; color:#111827; }
   <p class='company'>© 2026 Anaxiatech AB</p>
 </section>
 <hr class='page-sep'/>
-<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#installation'>Installation</a></li><li><a href='#getting-started'>Quick Start</a></li><li><a href='#gui'>GUI Overview</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#dashboard'>Dashboard</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#tiling'>Image Tiling</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#configuration'>Project Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-vm-cuda'>Azure VM (GPU)</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-comparison'>VM vs Batch</a></li><li><a href='#evaluation'>Model Evaluation</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#architecture-guidelines'>Architecture Guidelines</a></li><li><a href='#diagrams'>Diagrams</a></li><li><a href='#UNDERSTAND_ANYTHING_SETUP'>Understand Anything</a></li><li><a href='#speckit'>Spec Kit</a></li><li><a href='#api'>API Reference</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#python-3.15-readiness'>Python 3.15 Readiness</a></li><li><a href='#tracing'>Tracing & Observability</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#release-flow'>Release Flow</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
+<nav class='print-outline'><h1>Contents</h1><ol><li><a href='#home'>Home</a></li><li><a href='#installation'>Installation</a></li><li><a href='#getting-started'>Quick Start</a></li><li><a href='#gui'>GUI Overview</a></li><li><a href='#ai-chat'>AI Chat Assistant</a></li><li><a href='#dashboard'>Dashboard</a></li><li><a href='#map-viewer'>Map Viewer</a></li><li><a href='#tiling'>Image Tiling</a></li><li><a href='#reporting'>Report Generation</a></li><li><a href='#cli'>CLI Reference</a></li><li><a href='#cli-cookbook'>CLI Cookbook</a></li><li><a href='#completion'>Shell Completion</a></li><li><a href='#configuration'>Project Configuration</a></li><li><a href='#training-config'>Training Configuration</a></li><li><a href='#data-splits-guide'>Data Splits & Import</a></li><li><a href='#docker'>Docker</a></li><li><a href='#azure-vm-cuda'>Azure VM (GPU)</a></li><li><a href='#azure-batch'>Azure Batch</a></li><li><a href='#azure-comparison'>VM vs Batch</a></li><li><a href='#evaluation'>Model Evaluation</a></li><li><a href='#advanced-performance'>Advanced Performance</a></li><li><a href='#migration'>Migration Guide</a></li><li><a href='#architecture'>Architecture</a></li><li><a href='#architecture-guidelines'>Architecture Guidelines</a></li><li><a href='#diagrams'>Diagrams</a></li><li><a href='#UNDERSTAND_ANYTHING_SETUP'>Understand Anything</a></li><li><a href='#api'>API Reference</a></li><li><a href='#async-callbacks'>Async Callbacks</a></li><li><a href='#mcp'>MCP Integration</a></li><li><a href='#python-3.15-readiness'>Python 3.15 Readiness</a></li><li><a href='#tracing'>Tracing & Observability</a></li><li><a href='#contributing'>Contributing</a></li><li><a href='#release-flow'>Release Flow</a></li><li><a href='#pr-review-workflow'>PR Review Workflow</a></li><li><a href='#distribution'>Distribution</a></li><li><a href='#customer-guide'>Customer Guide</a></li><li><a href='#customer-access'>Customer Access</a></li><li><a href='#license'>License</a></li></ol></nav><section class='print-section' id='home' data-source='index.md'>
 <h1>Home</h1>
 <h1 id="crackz">Crackz<a class="headerlink" href="#crackz" title="Permanent link">&para;</a></h1>
 <p>
@@ -11424,86 +11424,6 @@ It's accurate at the time of last run. Update it:</p>
 programmatic access, use CodeGraph's MCP server (see <code>docs/CODEGRAPH_FOR_AGENTS.md</code> —
 agent-facing reference, not published to the docs site) which offers symbol lookup
 and context queries.</p>
-</section>
-<hr class='page-sep' />
-<section class='print-section' id='speckit' data-source='speckit.md'>
-<h1>Spec Kit</h1>
-<h1 id="spec-kit-in-crackz">Spec Kit in Crackz<a class="headerlink" href="#spec-kit-in-crackz" title="Permanent link">&para;</a></h1>
-<p>Spec Kit is configured for planning-heavy Crackz changes. It complements the
-normal repo workflow in <code>docs/agent-playbook.md</code>; it does not replace focused
-bug-fix or review workflows.</p>
-<h2 id="when-to-use-it">When to Use It<a class="headerlink" href="#when-to-use-it" title="Permanent link">&para;</a></h2>
-<p>Use Spec Kit when a change needs a formal product spec, design plan, task
-breakdown, implementation checklist, or architecture decision.</p>
-<p>Use the normal Crackz workflow for small fixes, narrow docs edits, CI triage,
-or review-only work.</p>
-<h2 id="agent-commands">Agent Commands<a class="headerlink" href="#agent-commands" title="Permanent link">&para;</a></h2>
-<p>Claude Code uses repo-local skills from <code>.claude/skills/</code>. Codex and other
-agents that support repo-local skills use matching definitions from
-<code>.agents/skills/</code>.</p>
-<p>Recommended sequence:</p>
-<div class="highlight"><pre><span></span><code>/speckit-specify &lt;feature description&gt;
-/speckit-clarify
-/speckit-plan
-/speckit-tasks
-/speckit-analyze
-/speckit-implement
-</code></pre></div>
-<p>Useful supporting commands:</p>
-<div class="highlight"><pre><span></span><code>/speckit-checklist &lt;checklist topic&gt;
-/speckit-taskstoissues
-/speckit-constitution
-</code></pre></div>
-<p>The bundled git extension commands are available as:</p>
-<div class="highlight"><pre><span></span><code>/speckit-git-feature
-/speckit-git-validate
-/speckit-git-remote
-/speckit-git-initialize
-/speckit-git-commit
-</code></pre></div>
-<p>Skill indexes:</p>
-<ul>
-<li><code>.agents/skills/README.md</code> — portable skill map</li>
-<li><code>.claude/skills/README.md</code> — Claude skill map</li>
-</ul>
-<h2 id="output-structure">Output Structure<a class="headerlink" href="#output-structure" title="Permanent link">&para;</a></h2>
-<p>Feature artifacts live under <code>specs/[###-feature-name]/</code>:</p>
-<div class="highlight"><pre><span></span><code>spec.md
-plan.md
-research.md
-data-model.md
-quickstart.md
-contracts/
-checklists/
-tasks.md
-</code></pre></div>
-<p>Shared task plans or exported task lists may also be placed under <code>tasks/</code>
-when they need to be referenced outside a single Spec Kit feature directory.</p>
-<p>Implementation still belongs in the normal Crackz locations:</p>
-<ul>
-<li><code>core/src/crackz/</code></li>
-<li><code>gui/src/crackz_gui/</code></li>
-<li><code>tests/</code></li>
-<li><code>docs/</code></li>
-<li><code>docs/internal/adr/</code></li>
-</ul>
-<h2 id="crackz-rules">Crackz Rules<a class="headerlink" href="#crackz-rules" title="Permanent link">&para;</a></h2>
-<p>Spec Kit plans must follow <code>.specify/memory/constitution.md</code> and the shared
-rules in <code>docs/agent-playbook.md</code>:</p>
-<ul>
-<li>Use Python 3.13 conventions and <code>uv</code>.</li>
-<li>Keep CLI output on <code>typer.secho()</code> and technical output on <code>crackz.log</code>.</li>
-<li>Reuse centralized CLI options from <code>core/src/crackz/cli/options.py</code>.</li>
-<li>Lazy-import heavy GUI dependencies inside the function or method that needs
-  them.</li>
-<li>Preserve offline-first behavior and compatibility for existing projects.</li>
-<li>Run the smallest relevant validation checks before pushing.</li>
-</ul>
-<h2 id="adrs">ADRs<a class="headerlink" href="#adrs" title="Permanent link">&para;</a></h2>
-<p>Architecture decisions live in <code>docs/internal/adr/</code>. Use
-<code>docs/internal/adr/template.md</code> for new decisions. The legacy
-<code>docs/internal/adr/02-decisions.md</code> file is retained as an index for existing
-links.</p>
 </section>
 <hr class='page-sep' />
 <section class='print-section' id='api' data-source='api.md'>

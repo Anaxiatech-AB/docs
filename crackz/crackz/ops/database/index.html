@@ -2039,6 +2039,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#database-unreachable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database unreachable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cli-reference" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2241,6 +2252,23 @@ runs normally. The <code>geo find-near</code> command degrades gracefully to a P
 Haversine calculation — slower for large datasets but functionally equivalent.
 No configuration change is needed; crackz detects the missing extension at
 startup.</p>
+<hr />
+<h2 id="database-unreachable">Database unreachable<a class="headerlink" href="#database-unreachable" title="Permanent link">&para;</a></h2>
+<p>On startup, both the CLI and the Qt GUI probe the database connection. If the
+database cannot be reached:</p>
+<ul>
+<li><strong>CLI</strong> — logs a <code>WARNING</code> to the console.</li>
+<li><strong>GUI</strong> — logs the same warning and shows a notice in the status bar:
+  <code>⚠ No database connection — start Postgres (see docs/ops/database.md)</code>.</li>
+</ul>
+<p>The application keeps running in both cases, but features that require a live
+database (detection persistence, embeddings search, geo queries, the dashboard)
+will fail until the database is up.</p>
+<p><strong>Fix:</strong> start the database and apply migrations (see <a href="#docker-dev--quickstart">Docker quickstart</a>):</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>core/docker-compose.dev.yml<span class="w"> </span>up<span class="w"> </span>-d
+crackz<span class="w"> </span>db<span class="w"> </span>init
+</code></pre></div>
+<p>Or point <code>CRACKZ_DATABASE_URL</code> at a reachable database before launching.</p>
 <hr />
 <h2 id="cli-reference">CLI reference<a class="headerlink" href="#cli-reference" title="Permanent link">&para;</a></h2>
 <table>

@@ -13,28 +13,24 @@
       
       
       
-        <link rel="prev" href="../../../speckit/">
-      
-      
-        <link rel="next" href="../../../api/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Architecture Decisions - Crackz</title>
+        <title>Database setup (Postgres + pgvector + PostGIS) - Crackz</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,13 +49,13 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-      <link rel="stylesheet" href="../../../stylesheets/print.css">
+      <link rel="stylesheet" href="../../stylesheets/print.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -82,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#decisions" class="md-skip">
+        <a href="#minimum-requirements" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +98,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="Crackz" class="md-header__button md-logo" aria-label="Crackz" data-md-component="logo">
+    <a href="../.." title="Crackz" class="md-header__button md-logo" aria-label="Crackz" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -122,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Architecture Decisions
+              Database setup (Postgres + pgvector + PostGIS)
             
           </span>
         </div>
@@ -212,7 +208,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Crackz" class="md-nav__button md-logo" aria-label="Crackz" data-md-component="logo">
+    <a href="../.." title="Crackz" class="md-nav__button md-logo" aria-label="Crackz" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -242,7 +238,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -321,7 +317,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../installation/" class="md-nav__link">
+      <a href="../../installation/" class="md-nav__link">
         
   
   
@@ -349,7 +345,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/" class="md-nav__link">
+      <a href="../../getting-started/" class="md-nav__link">
         
   
   
@@ -436,7 +432,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../gui/" class="md-nav__link">
+      <a href="../../gui/" class="md-nav__link">
         
   
   
@@ -464,7 +460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../ai-chat/" class="md-nav__link">
+      <a href="../../ai-chat/" class="md-nav__link">
         
   
   
@@ -492,7 +488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../dashboard/" class="md-nav__link">
+      <a href="../../dashboard/" class="md-nav__link">
         
   
   
@@ -520,7 +516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../map-viewer/" class="md-nav__link">
+      <a href="../../map-viewer/" class="md-nav__link">
         
   
   
@@ -548,7 +544,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tiling/" class="md-nav__link">
+      <a href="../../tiling/" class="md-nav__link">
         
   
   
@@ -576,7 +572,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reporting/" class="md-nav__link">
+      <a href="../../reporting/" class="md-nav__link">
         
   
   
@@ -663,7 +659,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cli/" class="md-nav__link">
+      <a href="../../cli/" class="md-nav__link">
         
   
   
@@ -691,7 +687,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cli-cookbook/" class="md-nav__link">
+      <a href="../../cli-cookbook/" class="md-nav__link">
         
   
   
@@ -719,7 +715,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../completion/" class="md-nav__link">
+      <a href="../../completion/" class="md-nav__link">
         
   
   
@@ -806,7 +802,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../configuration/" class="md-nav__link">
+      <a href="../../configuration/" class="md-nav__link">
         
   
   
@@ -834,7 +830,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../training-config/" class="md-nav__link">
+      <a href="../../training-config/" class="md-nav__link">
         
   
   
@@ -862,7 +858,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../data-splits-guide/" class="md-nav__link">
+      <a href="../../data-splits-guide/" class="md-nav__link">
         
   
   
@@ -949,7 +945,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../docker/" class="md-nav__link">
+      <a href="../../docker/" class="md-nav__link">
         
   
   
@@ -1026,7 +1022,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../azure-vm-cuda/" class="md-nav__link">
+      <a href="../../azure-vm-cuda/" class="md-nav__link">
         
   
   
@@ -1054,7 +1050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../azure-batch/" class="md-nav__link">
+      <a href="../../azure-batch/" class="md-nav__link">
         
   
   
@@ -1082,7 +1078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../azure-comparison/" class="md-nav__link">
+      <a href="../../azure-comparison/" class="md-nav__link">
         
   
   
@@ -1177,7 +1173,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../evaluation/" class="md-nav__link">
+      <a href="../../evaluation/" class="md-nav__link">
         
   
   
@@ -1205,7 +1201,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../advanced-performance/" class="md-nav__link">
+      <a href="../../advanced-performance/" class="md-nav__link">
         
   
   
@@ -1233,7 +1229,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../migration/" class="md-nav__link">
+      <a href="../../migration/" class="md-nav__link">
         
   
   
@@ -1265,8 +1261,6 @@
       
   
   
-    
-  
   
   
     
@@ -1279,11 +1273,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
           <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
@@ -1304,7 +1298,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1322,7 +1316,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/" class="md-nav__link">
+      <a href="../../architecture/" class="md-nav__link">
         
   
   
@@ -1350,7 +1344,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture-guidelines/" class="md-nav__link">
+      <a href="../../architecture-guidelines/" class="md-nav__link">
         
   
   
@@ -1378,7 +1372,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../diagrams/" class="md-nav__link">
+      <a href="../../diagrams/" class="md-nav__link">
         
   
   
@@ -1406,7 +1400,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../UNDERSTAND_ANYTHING_SETUP/" class="md-nav__link">
+      <a href="../../UNDERSTAND_ANYTHING_SETUP/" class="md-nav__link">
         
   
   
@@ -1434,7 +1428,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../speckit/" class="md-nav__link">
+      <a href="../../speckit/" class="md-nav__link">
         
   
   
@@ -1459,35 +1453,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Architecture Decisions
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../internal/adr/02-decisions/" class="md-nav__link">
         
   
   
@@ -1503,59 +1472,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#decisions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Decisions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#current-technology-stack" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Current Technology Stack
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-propose-new-adrs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How to Propose New ADRs
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1568,7 +1484,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../api/" class="md-nav__link">
+      <a href="../../api/" class="md-nav__link">
         
   
   
@@ -1596,7 +1512,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../async-callbacks/" class="md-nav__link">
+      <a href="../../async-callbacks/" class="md-nav__link">
         
   
   
@@ -1624,7 +1540,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../mcp/" class="md-nav__link">
+      <a href="../../mcp/" class="md-nav__link">
         
   
   
@@ -1652,7 +1568,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../python-3.15-readiness/" class="md-nav__link">
+      <a href="../../python-3.15-readiness/" class="md-nav__link">
         
   
   
@@ -1680,7 +1596,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tracing/" class="md-nav__link">
+      <a href="../../tracing/" class="md-nav__link">
         
   
   
@@ -1708,7 +1624,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/" class="md-nav__link">
+      <a href="../../contributing/" class="md-nav__link">
         
   
   
@@ -1736,7 +1652,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../release-flow/" class="md-nav__link">
+      <a href="../../release-flow/" class="md-nav__link">
         
   
   
@@ -1764,7 +1680,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pr-review-workflow/" class="md-nav__link">
+      <a href="../../pr-review-workflow/" class="md-nav__link">
         
   
   
@@ -1792,7 +1708,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../distribution/" class="md-nav__link">
+      <a href="../../distribution/" class="md-nav__link">
         
   
   
@@ -1879,7 +1795,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../customer-guide/" class="md-nav__link">
+      <a href="../../customer-guide/" class="md-nav__link">
         
   
   
@@ -1907,7 +1823,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../customer-access/" class="md-nav__link">
+      <a href="../../customer-access/" class="md-nav__link">
         
   
   
@@ -1935,7 +1851,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../license/" class="md-nav__link">
+      <a href="../../license/" class="md-nav__link">
         
   
   
@@ -1990,10 +1906,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#decisions" class="md-nav__link">
+  <a href="#minimum-requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Decisions
+        Minimum requirements
       
     </span>
   </a>
@@ -2001,10 +1917,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#current-technology-stack" class="md-nav__link">
+  <a href="#docker-dev-quickstart" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Current Technology Stack
+        Docker (dev / quickstart)
       
     </span>
   </a>
@@ -2012,10 +1928,121 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-propose-new-adrs" class="md-nav__link">
+  <a href="#bare-metal-on-prem-eg-foto-dator" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How to Propose New ADRs
+        Bare metal (on-prem, e.g. foto-dator)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Bare metal (on-prem, e.g. foto-dator)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#debian-ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debian / Ubuntu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-database-and-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create database and role
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-and-run-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configure and run migrations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hosted-managed-rds-cloud-sql-supabase-azure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hosted / managed (RDS, Cloud SQL, Supabase, Azure)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hosted / managed (RDS, Cloud SQL, Supabase, Azure)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extension-availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extension availability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-the-connection-uri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set the connection URI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postgis-absent-fallback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PostGIS-absent fallback
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI reference
       
     </span>
   </a>
@@ -2042,234 +2069,200 @@
   
 
 
-<h1 id="architecture-decisions">Architecture Decisions<a class="headerlink" href="#architecture-decisions" title="Permanent link">&para;</a></h1>
-<p>This index preserves the legacy <code>docs/internal/adr/02-decisions.md</code> link while
-the ADR content lives in one file per decision.</p>
-<p>Use <code>template.md</code> when adding a new ADR. Keep IDs unique and append new
-decisions as <code>ADR-XXX</code> with a zero-padded filename.</p>
-<h2 id="decisions">Decisions<a class="headerlink" href="#decisions" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>ID</th>
-<th>Status</th>
-<th>Decision</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ADR-001</td>
-<td>Active (Updated 2025-11-30)</td>
-<td><a href="../0001-use-uv-and-hatchling/">Use <code>uv</code> for Dependency Management + <code>hatchling</code> for Builds</a></td>
-</tr>
-<tr>
-<td>ADR-002</td>
-<td>Active</td>
-<td><a href="../0002-pytorch-lightning-for-ml-pipeline/">PyTorch Lightning for ML Pipeline</a></td>
-</tr>
-<tr>
-<td>ADR-003</td>
-<td>Active</td>
-<td><a href="../0003-typer-for-cli-framework/">Typer for CLI Framework</a></td>
-</tr>
-<tr>
-<td>ADR-004</td>
-<td>Active (Qt migration under consideration)</td>
-<td><a href="../0004-customtkinter-for-gui/">CustomTkinter for GUI (Not Qt)</a></td>
-</tr>
-<tr>
-<td>ADR-005</td>
-<td>Active</td>
-<td><a href="../0005-pydantic-v2-for-configuration/">Pydantic v2 for Configuration</a></td>
-</tr>
-<tr>
-<td>ADR-006</td>
-<td>Active</td>
-<td><a href="../0006-hybrid-logging-architecture/">Hybrid Logging Architecture</a></td>
-</tr>
-<tr>
-<td>ADR-007</td>
-<td>Active</td>
-<td><a href="../0007-centralized-cli-options-pattern/">Centralized CLI Options Pattern</a></td>
-</tr>
-<tr>
-<td>ADR-008</td>
-<td>Active</td>
-<td><a href="../0008-conventional-commits-for-versioning/">Conventional Commits for Versioning</a></td>
-</tr>
-<tr>
-<td>ADR-009</td>
-<td>Active</td>
-<td><a href="../0009-three-docker-variants/">Three Docker Variants (Full, Slim, GPU)</a></td>
-</tr>
-<tr>
-<td>ADR-010</td>
-<td>Active</td>
-<td><a href="../0010-uv-sync-in-docker/"><code>uv sync</code> in Docker (Not Wheel Builds)</a></td>
-</tr>
-<tr>
-<td>ADR-011</td>
-<td>Active</td>
-<td><a href="../0011-ruff-for-linting-and-formatting/">Ruff for Linting and Formatting</a></td>
-</tr>
-<tr>
-<td>ADR-012</td>
-<td>Active</td>
-<td><a href="../0012-minimum-test-coverage/">75% Minimum Test Coverage</a></td>
-</tr>
-<tr>
-<td>ADR-013</td>
-<td>Active</td>
-<td><a href="../0013-performance-regression-tests-with-benchmarks/">Performance Regression Tests with Benchmarks</a></td>
-</tr>
-<tr>
-<td>ADR-014</td>
-<td>Active</td>
-<td><a href="../0014-project-schema-versioning-with-migrations/">Project Schema Versioning with Migrations</a></td>
-</tr>
-<tr>
-<td>ADR-015</td>
-<td>Active (strictly enforced)</td>
-<td><a href="../0015-typer-secho-for-user-messages-logger-for-technical-info/"><code>typer.secho()</code> for User Messages, <code>logger</code> for Technical Info</a></td>
-</tr>
-<tr>
-<td>ADR-016</td>
-<td>Active</td>
-<td><a href="../0016-github-actions-for-ci-cd/">GitHub Actions for CI/CD</a></td>
-</tr>
-<tr>
-<td>ADR-017</td>
-<td>Active</td>
-<td><a href="../0017-mcp-integration/">MCP (Model Context Protocol) Integration</a></td>
-</tr>
-<tr>
-<td>ADR-018</td>
-<td>Active</td>
-<td><a href="../0018-gps-exif-support-with-geojson-export/">GPS/EXIF Support with GeoJSON Export</a></td>
-</tr>
-<tr>
-<td>ADR-019</td>
-<td>Active</td>
-<td><a href="../0019-pyside6-migration/">PySide6 Migration (Replacing CustomTkinter)</a></td>
-</tr>
-<tr>
-<td>ADR-020</td>
-<td>Active</td>
-<td><a href="../0020-binary-vs-multiclass-task-modes/">Binary vs Multiclass as Distinct Task Modes</a></td>
-</tr>
-<tr>
-<td>ADR-021</td>
-<td>Active (2026-05-07)</td>
-<td><a href="../0021-sqlite-fts5-for-ai-chat-doc-search/">SQLite FTS5 for AI Chat Doc Search (Phase 1)</a></td>
-</tr>
-<tr>
-<td>ADR-022</td>
-<td>Proposed (2026-05-08)</td>
-<td><a href="../0022-telemetry-backbone-and-internal-fleet-admin/">Telemetry Backbone &amp; Internal Fleet Admin</a></td>
-</tr>
-<tr>
-<td>ADR-023</td>
-<td>Proposed (2026-06-12)</td>
-<td><a href="../0023-postgres-pgvector-postgis-persistence/">Postgres + pgvector + PostGIS as the Persistence Layer</a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="current-technology-stack">Current Technology Stack<a class="headerlink" href="#current-technology-stack" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Decision Area</th>
-<th>Chosen Technology</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Package Manager</td>
-<td><code>uv</code></td>
-<td>Active</td>
-</tr>
-<tr>
-<td>ML Framework</td>
-<td>PyTorch Lightning</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>CLI Framework</td>
-<td>Typer</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>GUI Framework</td>
-<td>PySide6 (Qt 6)</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Configuration</td>
-<td>Pydantic v2 + YAML</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Logging</td>
-<td>Loguru hybrid logging</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Linting/Formatting</td>
-<td>Ruff</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Type Checking</td>
-<td>mypy</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Testing</td>
-<td>pytest + pytest-cov + pytest-benchmark</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>CI/CD</td>
-<td>GitHub Actions</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Versioning</td>
-<td>semantic-release + conventional commits</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Docker Strategy</td>
-<td>Full, slim, and GPU variants</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Migration Strategy</td>
-<td>Schema versioning + <code>crackz migrate</code></td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Output Standards</td>
-<td><code>typer.secho()</code> + logger</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Segmentation Task Modes</td>
-<td>Distinct binary + multiclass via TaskStrategy</td>
-<td>Active</td>
-</tr>
-</tbody>
-</table>
-<h2 id="how-to-propose-new-adrs">How to Propose New ADRs<a class="headerlink" href="#how-to-propose-new-adrs" title="Permanent link">&para;</a></h2>
+<h1 id="database-setup-postgres-pgvector-postgis">Database setup (Postgres + pgvector + PostGIS)<a class="headerlink" href="#database-setup-postgres-pgvector-postgis" title="Permanent link">&para;</a></h1>
+<p>Crackz stores project history, detections, and vector embeddings in Postgres.
+Two extensions are required or recommended:</p>
+<ul>
+<li><strong>pgvector</strong> (required) — stores and queries DINOv2 embedding vectors.</li>
+<li><strong>PostGIS</strong> (recommended) — enables <code>geo find-near</code> spatial queries.
+  Without it crackz falls back to a Python Haversine path automatically.</li>
+</ul>
+<p>All three deployment paths below end at the same state:</p>
 <ol>
-<li>Copy <code>template.md</code> to the next numbered ADR file.</li>
-<li>Use the next unique <code>ADR-XXX</code> ID.</li>
-<li>Link related Spec Kit artifacts from <code>specs/[###-feature]/</code> when applicable.</li>
-<li>Add the new ADR to this index and update related documentation in the same PR.</li>
+<li><code>vector</code> and <code>postgis</code> extensions enabled on the <code>crackz</code> database.</li>
+<li><code>CRACKZ_DATABASE_URL</code> pointing at that database.</li>
+<li><code>crackz db init</code> run to apply Alembic migrations.</li>
 </ol>
-<p><strong>Last Updated</strong>: 2026-05-27
-<strong>Maintained By</strong>: Theresia Lundgren (theresia.lundgren@anaxiatech.se)</p>
+<hr />
+<h2 id="minimum-requirements">Minimum requirements<a class="headerlink" href="#minimum-requirements" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Minimum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Postgres</td>
+<td>16+</td>
+</tr>
+<tr>
+<td>pgvector</td>
+<td>0.8+ (required)</td>
+</tr>
+<tr>
+<td>PostGIS</td>
+<td>3.4+ (recommended)</td>
+</tr>
+</tbody>
+</table>
+<p>pgvector 0.8+ is required because similarity search enables HNSW <em>iterative scan</em>
+(<code>hnsw.iterative_scan</code>), which keeps the result set at full size when a
+project/model filter is applied; that setting does not exist on earlier pgvector.</p>
+<p><code>CRACKZ_DATABASE_URL</code> is the single configuration knob. Set it in the
+environment or in a <code>.env</code> file at the project root. The default value
+works out of the box with the Docker path below:</p>
+<div class="highlight"><pre><span></span><code>CRACKZ_DATABASE_URL=postgresql+psycopg://crackz:crackz@localhost:5432/crackz
+</code></pre></div>
+<hr />
+<h2 id="docker-dev-quickstart">Docker (dev / quickstart)<a class="headerlink" href="#docker-dev-quickstart" title="Permanent link">&para;</a></h2>
+<p>The fastest path. A compose file is provided that runs Postgres 16 with both
+extensions pre-installed.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Start the database in the background</span>
+docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>core/docker-compose.dev.yml<span class="w"> </span>up<span class="w"> </span>-d
+
+<span class="c1"># Apply migrations (no extra env needed — defaults match the compose file)</span>
+crackz<span class="w"> </span>db<span class="w"> </span>init
+</code></pre></div>
+<p>The compose file builds a small local image (<code>core/Dockerfile.postgres</code>) that
+layers PostGIS onto the official, multi-arch <code>pgvector/pgvector:pg16</code> image, so a
+single container provides both <code>vector</code> and <code>postgis</code>. <code>crackz db init</code> runs the
+migrations, which <code>CREATE EXTENSION</code> for both.</p>
+<p>To stop and remove the container (data is preserved in the named volume):</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>core/docker-compose.dev.yml<span class="w"> </span>down
+</code></pre></div>
+<p>To also drop the data volume:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>core/docker-compose.dev.yml<span class="w"> </span>down<span class="w"> </span>-v
+</code></pre></div>
+<hr />
+<h2 id="bare-metal-on-prem-eg-foto-dator">Bare metal (on-prem, e.g. foto-dator)<a class="headerlink" href="#bare-metal-on-prem-eg-foto-dator" title="Permanent link">&para;</a></h2>
+<p>Install Postgres 16, the pgvector extension package, and PostGIS for your
+distro, then create the database and role.</p>
+<h3 id="debian-ubuntu">Debian / Ubuntu<a class="headerlink" href="#debian-ubuntu" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add the PGDG repository if not already present</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>curl<span class="w"> </span>ca-certificates
+sudo<span class="w"> </span>install<span class="w"> </span>-d<span class="w"> </span>/usr/share/postgresql-common/pgdg
+curl<span class="w"> </span>-o<span class="w"> </span>/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>--fail<span class="w"> </span>https://www.postgresql.org/media/keys/ACCC4CF8.asc
+<span class="c1"># Follow https://wiki.postgresql.org/wiki/Apt for the full repo setup</span>
+
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>postgresql-16<span class="w"> </span>postgresql-16-pgvector<span class="w"> </span>postgis
+</code></pre></div>
+<h3 id="create-database-and-role">Create database and role<a class="headerlink" href="#create-database-and-role" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Run as a Postgres superuser (e.g. sudo -u postgres psql)</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">ROLE</span><span class="w"> </span><span class="n">crackz</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">LOGIN</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="s1">&#39;crackz&#39;</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">crackz</span><span class="w"> </span><span class="k">OWNER</span><span class="w"> </span><span class="n">crackz</span><span class="p">;</span>
+
+<span class="err">\</span><span class="k">c</span><span class="w"> </span><span class="n">crackz</span>
+
+<span class="c1">-- CREATE EXTENSION requires superuser unless the extension is trusted.</span>
+<span class="c1">-- Run these as superuser, not as the crackz role.</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">vector</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">postgis</span><span class="p">;</span>
+
+<span class="c1">-- Grant schema usage to the application role</span>
+<span class="k">GRANT</span><span class="w"> </span><span class="k">USAGE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">crackz</span><span class="p">;</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Privilege note:</strong> <code>CREATE EXTENSION</code> normally requires superuser. Some
+managed Postgres distributions lower this bar; on plain bare-metal installs
+run the extension commands as the <code>postgres</code> superuser, not as the <code>crackz</code>
+application role.</p>
+</blockquote>
+<h3 id="configure-and-run-migrations">Configure and run migrations<a class="headerlink" href="#configure-and-run-migrations" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CRACKZ_DATABASE_URL</span><span class="o">=</span><span class="s2">&quot;postgresql+psycopg://crackz:crackz@localhost:5432/crackz&quot;</span>
+crackz<span class="w"> </span>db<span class="w"> </span>init
+</code></pre></div>
+<p>If you are importing history from an older SQLite project database, point the
+importer at the project (it reads that project's <code>artifacts/project.db</code>):</p>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>db<span class="w"> </span>migrate-sqlite<span class="w"> </span>--project<span class="w"> </span>path/to/project<span class="w">   </span><span class="c1"># or --cfg path/to/project.yaml</span>
+</code></pre></div>
+<hr />
+<h2 id="hosted-managed-rds-cloud-sql-supabase-azure">Hosted / managed (RDS, Cloud SQL, Supabase, Azure)<a class="headerlink" href="#hosted-managed-rds-cloud-sql-supabase-azure" title="Permanent link">&para;</a></h2>
+<h3 id="extension-availability">Extension availability<a class="headerlink" href="#extension-availability" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>pgvector</th>
+<th>PostGIS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Amazon RDS for PostgreSQL</td>
+<td>Yes (&gt;=15.2)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Google Cloud SQL for PostgreSQL</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Supabase</td>
+<td>Yes (built-in)</td>
+<td>Yes (built-in)</td>
+</tr>
+<tr>
+<td>Azure Database for PostgreSQL Flexible Server</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Neon</td>
+<td>Yes</td>
+<td>Varies by plan</td>
+</tr>
+</tbody>
+</table>
+<p>Check your provider's current docs — extension availability changes with
+product tiers and versions.</p>
+<h3 id="enable-extensions">Enable extensions<a class="headerlink" href="#enable-extensions" title="Permanent link">&para;</a></h3>
+<p>Most managed providers expose a UI toggle or a single SQL command:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Run once after creating the database</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">vector</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="n">EXTENSION</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">postgis</span><span class="p">;</span>
+</code></pre></div>
+<p>Some providers (e.g. Supabase) enable pgvector automatically — skip the
+<code>CREATE EXTENSION vector</code> step if it is already present.</p>
+<h3 id="set-the-connection-uri">Set the connection URI<a class="headerlink" href="#set-the-connection-uri" title="Permanent link">&para;</a></h3>
+<p>Managed databases typically require TLS. Append <code>?sslmode=require</code> (or
+<code>sslmode=verify-full</code> if you have a CA cert):</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CRACKZ_DATABASE_URL</span><span class="o">=</span><span class="s2">&quot;postgresql+psycopg://crackz:&lt;password&gt;@&lt;host&gt;:5432/crackz?sslmode=require&quot;</span>
+</code></pre></div>
+<p>Then run migrations:</p>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>db<span class="w"> </span>init
+</code></pre></div>
+<h3 id="postgis-absent-fallback">PostGIS-absent fallback<a class="headerlink" href="#postgis-absent-fallback" title="Permanent link">&para;</a></h3>
+<p>If PostGIS is unavailable on your provider or disabled by policy, crackz still
+runs normally. The <code>geo find-near</code> command degrades gracefully to a Python
+Haversine calculation — slower for large datasets but functionally equivalent.
+No configuration change is needed; crackz detects the missing extension at
+startup.</p>
+<hr />
+<h2 id="cli-reference">CLI reference<a class="headerlink" href="#cli-reference" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>crackz db init</code></td>
+<td>Run Alembic migrations to create or update the schema. Safe to run repeatedly.</td>
+</tr>
+<tr>
+<td><code>crackz db migrate-sqlite</code></td>
+<td>Import legacy <code>project.db</code> (SQLite) history into Postgres.</td>
+</tr>
+</tbody>
+</table>
+<p>Both commands are being added as part of the Postgres migration feature
+(issue #627). Run <code>crackz db --help</code> for up-to-date options.</p>
 
 
 
@@ -2335,10 +2328,10 @@ decisions as <code>ADR-XXX</code> with a zero-padded filename.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.52.0"}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.52.0"}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

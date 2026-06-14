@@ -270,6 +270,7 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 <ul>
 <li>Python 3.11 – 3.13 (64‑bit)</li>
 <li>OS: Linux, macOS (CPU), Windows 10/11</li>
+<li><strong>Postgres 16+</strong> with the <strong>pgvector extension (≥ 0.8)</strong>; PostGIS recommended for geospatial queries — see <a href="../ops/database/">Database setup</a> for Docker, bare‑metal, and hosted options and the <code>CRACKZ_DATABASE_URL</code> setting</li>
 <li>(Optional) NVIDIA GPU + matching CUDA drivers for accelerated training/detection</li>
 <li>Disk space: ~2–3 GB (Torch + model weights + cache)</li>
 </ul>
@@ -871,6 +872,11 @@ crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"
 </thead>
 <tbody>
 <tr>
+<td>CRACKZ_DATABASE_URL</td>
+<td>Postgres connection string (required before first use)</td>
+<td><em>(none — must be set)</em></td>
+</tr>
+<tr>
 <td>CRACKZ_LOG_DIR</td>
 <td>Log directory</td>
 <td>logs</td>
@@ -882,6 +888,12 @@ crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Database required before first use</p>
+<p>Set <code>CRACKZ_DATABASE_URL</code> to a reachable Postgres instance, then run
+<code>crackz db init</code> (or <code>alembic upgrade head</code>) before issuing other <code>crackz</code>
+commands. See <a href="../ops/database/">Database setup</a> for setup options.</p>
+</div>
 <h2 id="14-security-integrity-notes">14. Security / Integrity Notes<a class="headerlink" href="#14-security-integrity-notes" title="Permanent link">&para;</a></h2>
 <p>Example override:
 <div class="highlight"><pre><span></span><code><span class="nv">CRACKZ_LOG_DIR</span><span class="o">=</span>my_logs<span class="w"> </span>crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>myproj
@@ -9443,44 +9455,108 @@ Upper layers may depend on lower layers — never the reverse.</p>
 - <strong>Training &amp; Detection Pipelines</strong>: PyTorch + PyTorch Lightning orchestration (training, validation, testing, inference)
 - <strong>Performance Utilities</strong>: Global seed, Trainer override extraction
 - <strong>Logging</strong>: Centralized through <code>loguru</code> with structured formatting
-- <strong>Artifacts &amp; Outputs</strong>: Project filesystem (<code>artifacts/models/</code>, <code>artifacts/runtime/</code>, metrics JSON, detection PNGs) plus project-local SQLite metadata</p>
+- <strong>Artifacts &amp; Outputs</strong>: Project filesystem (<code>artifacts/models/</code>, <code>artifacts/runtime/</code>, metrics JSON, detection PNGs) plus Postgres metadata (via <code>CRACKZ_DATABASE_URL</code>)</p>
 <p>No network services, model servers, remote registries, or cloud object storage are currently part of runtime behavior.</p>
 <h3 id="local-persistence">Local Persistence<a class="headerlink" href="#local-persistence" title="Permanent link">&para;</a></h3>
 <blockquote>
-<p>See the <strong><a href="../diagrams/">Diagrams</a></strong> page for draw.io ER and class diagrams.</p>
+<p>See the <strong><a href="../diagrams/">Diagrams</a></strong> page for draw.io ER and class diagrams.
+For full database setup, configuration, and operational runbooks see
+<strong><a href="../ops/database/">Database setup</a></strong>. The decision is recorded in <strong>ADR-0023</strong>.</p>
 </blockquote>
-<p>Crackz uses two SQLite scopes:</p>
-<table>
-<thead>
-<tr>
-<th>Scope</th>
-<th>Location</th>
-<th>Owner</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>User-level project index</strong></td>
-<td>Platform user config directory, <code>crackz.db</code></td>
-<td>GUI data layer (<code>crackz_gui.data.projects_db</code>)</td>
-<td>All projects known to the current OS user, project pins/notes/tags, and cached cross-project stats for the welcome screen</td>
-</tr>
-<tr>
-<td><strong>Project-level operational DB</strong></td>
-<td><code>&lt;project&gt;/artifacts/project.db</code></td>
-<td>Core model registry (<code>crackz.ai.model.registry</code>)</td>
-<td>One owning project row plus model records, detection run summaries, and training epoch metrics for that project</td>
-</tr>
-</tbody>
-</table>
-<p>The user-level DB is a convenience index and aggregate cache. It does not own training,
-detection, or model history. Project-level stats are authoritative in each project's
-<code>artifacts/project.db</code>; the welcome screen syncs those values into the user-level
-<code>crackz.db</code> so cross-project counts can be rendered quickly.</p>
-<p>Legacy project artifact databases named <code>&lt;project&gt;/artifacts/crackz.db</code> are migrated by
-moving their data to <code>&lt;project&gt;/artifacts/project.db</code>. Artifact-level <code>crackz.db</code> is not
-a supported steady-state location.</p>
+<p>Crackz uses a single <strong>Postgres</strong> database as the system of record for all projects,
+models, detection history, training metrics, and defect embeddings. The filesystem
+continues to hold model weights, detection PNGs, and metric JSON files.</p>
+<p><strong>Extension required:</strong> pgvector ≥ 0.8 (vector similarity search with iterative scan).
+<strong>Extension recommended:</strong> PostGIS (geospatial queries on GPS-tagged detections; Crackz
+falls back to Python Haversine when PostGIS is absent).</p>
+<p>Configure the database with a single environment variable, then run migrations:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CRACKZ_DATABASE_URL</span><span class="o">=</span><span class="s2">&quot;postgresql+psycopg://crackz:crackz@localhost:5432/crackz&quot;</span>
+crackz<span class="w"> </span>db<span class="w"> </span>init<span class="w">          </span><span class="c1"># or: alembic upgrade head</span>
+</code></pre></div>
+<p>To bring forward history from legacy per-project SQLite files:</p>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>db<span class="w"> </span>migrate-sqlite<span class="w">   </span><span class="c1"># id-remapped by root_path; idempotent, warn-and-skip</span>
+</code></pre></div>
+<p>Both the GUI welcome-screen aggregates and the core <code>ModelRegistry</code> now read this
+single database. <code>ModelRegistry</code>'s public surface is preserved; it is re-implemented
+on <code>crackz.db</code> repository classes internally.</p>
+<h4 id="entity-relationship">Entity relationship<a class="headerlink" href="#entity-relationship" title="Permanent link">&para;</a></h4>
+<pre class="mermaid"><code>erDiagram
+    projects {
+        int id PK
+        string name
+        string root_path
+        string task_mode
+        string category_keys
+        timestamp created_at
+    }
+    project_tags {
+        int id PK
+        int project_id FK
+        string tag
+    }
+    models {
+        int id PK
+        int project_id FK
+        string name
+        string encoder
+        string checkpoint_name
+        timestamp created_at
+    }
+    detection_runs {
+        int id PK
+        int project_id FK
+        int model_id FK
+        timestamp run_at
+        int image_count
+        int crack_count
+    }
+    detection_results {
+        int id PK
+        int project_id FK
+        int detection_run_id FK
+        string image
+        float confidence
+        smallint has_defect
+        float gps_latitude
+        float gps_longitude
+        geometry geom
+    }
+    training_epochs {
+        int id PK
+        int project_id FK
+        int model_id FK
+        string run_id
+        int epoch
+        float val_iou
+    }
+    defect_embeddings {
+        int id PK
+        int project_id FK
+        int detection_run_id FK
+        int detection_result_id FK
+        int crop_index
+        string model_name
+        string embedding_version
+        int dim
+        vector embedding
+        geometry geom
+        timestamp created_at
+    }
+
+    projects ||--o{ project_tags : "has"
+    projects ||--o{ models : "owns"
+    projects ||--o{ detection_runs : "owns"
+    projects ||--o{ detection_results : "owns"
+    projects ||--o{ training_epochs : "owns"
+    projects ||--o{ defect_embeddings : "owns"
+    detection_runs ||--o{ detection_results : "contains"
+    detection_results ||--o{ defect_embeddings : "has"</code></pre>
+<blockquote>
+<p><strong><code>embedding vector(768)</code></strong> — DINOv2 defect embedding stored with pgvector; queried via an HNSW cosine index.
+<strong><code>geom geometry(POINT, 4326)</code></strong> — PostGIS point for GPS-tagged detections and embedding crops; requires the PostGIS extension.
+All child tables cascade-delete from <code>projects</code> (<code>ON DELETE CASCADE</code>).
+Migrations are managed by Alembic: revision <code>0001</code> = the six core tables + PostGIS; revision <code>0002</code> = <code>defect_embeddings</code> + pgvector.</p>
+</blockquote>
 <h3 id="open-architecture-model-flexibility">Open Architecture &amp; Model Flexibility<a class="headerlink" href="#open-architecture-model-flexibility" title="Permanent link">&para;</a></h3>
 <p>Crackz is built with an <strong>open architecture</strong> that supports multiple model types and use cases:</p>
 <h4 id="segmentation-task-modes">Segmentation Task Modes<a class="headerlink" href="#segmentation-task-modes" title="Permanent link">&para;</a></h4>
@@ -9623,16 +9699,15 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
     Container(gui, "GUI", "PySide6 (Qt 6)", "Desktop inspection &amp; invocation")
     Container(core, "Core Library", "Python Packages", "project, ai, config, logging")
     Container(fs, "Local Filesystem", "images/ + artifacts/", "Images, masks, checkpoints, metrics")
-    ContainerDb(udb, "User DB", "SQLite", "Known projects + welcome aggregates")
-    ContainerDb(pdb, "Project DB", "SQLite", "Per-project models, detections, training runs")
+    ContainerDb(db, "Crackz DB", "Postgres + pgvector + PostGIS", "Projects, models, detections, training epochs, defect embeddings")
   }
   Rel(user, cli, "Runs commands")
   Rel(user, gui, "Interacts (point &amp; click)")
   Rel(cli, core, "Invokes APIs")
   Rel(gui, core, "Invokes APIs")
   Rel(core, fs, "read/write images, masks, checkpoints, metrics")
-  Rel(gui, udb, "read/write project index")
-  Rel(core, pdb, "read/write project metadata")</code></pre>
+  Rel(core, db, "read/write all project metadata")
+  Rel(gui, db, "read project index + welcome aggregates")</code></pre>
 <hr />
 <h2 id="c4-context-local-execution">C4 Context (Local Execution)<a class="headerlink" href="#c4-context-local-execution" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>C4Context
@@ -11639,12 +11714,32 @@ configuration from a YAML file.</p>
 <span class="normal">106</span>
 <span class="normal">107</span>
 <span class="normal">108</span>
-<span class="normal">109</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CrackzSettings</span><span class="p">(</span><span class="n">BaseSettings</span><span class="p">):</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CrackzSettings</span><span class="p">(</span><span class="n">BaseSettings</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Configuration for a ai crackz project.&quot;&quot;&quot;</span>
 
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;crackz_project&quot;</span>
     <span class="n">log_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;logs&quot;</span><span class="p">)</span>
     <span class="n">log_level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;INFO&quot;</span>
+
+    <span class="c1"># Database</span>
+    <span class="n">database_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;postgresql+psycopg://crackz:crackz@localhost:5432/crackz&quot;</span>
+
+    <span class="c1"># Embedding model</span>
+    <span class="n">embedding_model_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;facebook/dinov2-base&quot;</span>
+    <span class="n">embedding_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;v1&quot;</span>
+    <span class="n">embedding_device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cpu&quot;</span>
+    <span class="n">embedding_batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">16</span>
+    <span class="n">embedding_dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">768</span>
 
     <span class="n">model_config</span> <span class="o">=</span> <span class="n">SettingsConfigDict</span><span class="p">(</span>
         <span class="n">env_file</span><span class="o">=</span><span class="s2">&quot;.env&quot;</span><span class="p">,</span>
@@ -11764,17 +11859,7 @@ checked so typos written only to .env (not yet exported) are also caught.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/config/crackz_settings.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">46</span>
 <span class="normal">47</span>
 <span class="normal">48</span>
 <span class="normal">49</span>
@@ -11795,7 +11880,17 @@ checked so typos written only to .env (not yet exported) are also caught.</p>
 <span class="normal">64</span>
 <span class="normal">65</span>
 <span class="normal">66</span>
-<span class="normal">67</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">model_post_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_context</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">model_post_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_context</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Log any CRACKZ_* env vars that are not recognised fields.</span>
 
 <span class="sd">    extra=&quot;ignore&quot; silently drops them; this surfaces typos so mis-configured</span>
@@ -11864,17 +11959,7 @@ If the file does not exist, FileNotFoundError is raised.
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/config/crackz_settings.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 69</span>
-<span class="normal"> 70</span>
-<span class="normal"> 71</span>
-<span class="normal"> 72</span>
-<span class="normal"> 73</span>
-<span class="normal"> 74</span>
-<span class="normal"> 75</span>
-<span class="normal"> 76</span>
-<span class="normal"> 77</span>
-<span class="normal"> 78</span>
-<span class="normal"> 79</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 79</span>
 <span class="normal"> 80</span>
 <span class="normal"> 81</span>
 <span class="normal"> 82</span>
@@ -11904,7 +11989,17 @@ If the file does not exist, FileNotFoundError is raised.
 <span class="normal">106</span>
 <span class="normal">107</span>
 <span class="normal">108</span>
-<span class="normal">109</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@classmethod</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">from_conf</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">conf_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;CrackzSettings&quot;</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates and returns an instance of the class from a configuration file.</span>
@@ -29413,16 +29508,7 @@ File logging uses plain structured format for production parsing.</p>
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>core/src/crackz/cli/crackz_cli.py</code></summary>
-                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">137</span>
-<span class="normal">138</span>
-<span class="normal">139</span>
-<span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span>
-<span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
+                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">146</span>
 <span class="normal">147</span>
 <span class="normal">148</span>
 <span class="normal">149</span>
@@ -29473,7 +29559,16 @@ File logging uses plain structured format for production parsing.</p>
 <span class="normal">194</span>
 <span class="normal">195</span>
 <span class="normal">196</span>
-<span class="normal">197</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">LazyTyperGroup</span><span class="p">(</span><span class="n">TyperGroup</span><span class="p">):</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">LazyTyperGroup</span><span class="p">(</span><span class="n">TyperGroup</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Typer-compatible group that keeps subcommand imports lazy.&quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span>  <span class="c1"># type: ignore[override]</span>
@@ -29575,16 +29670,7 @@ File logging uses plain structured format for production parsing.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/cli/crackz_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span>
-<span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span>
-<span class="normal">148</span>
-<span class="normal">149</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">149</span>
 <span class="normal">150</span>
 <span class="normal">151</span>
 <span class="normal">152</span>
@@ -29593,7 +29679,16 @@ File logging uses plain structured format for production parsing.</p>
 <span class="normal">155</span>
 <span class="normal">156</span>
 <span class="normal">157</span>
-<span class="normal">158</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span>  <span class="c1"># type: ignore[override]</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span>  <span class="c1"># type: ignore[override]</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">args</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">prog_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -29636,10 +29731,10 @@ File logging uses plain structured format for production parsing.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/cli/crackz_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">160</span>
-<span class="normal">161</span>
-<span class="normal">162</span>
-<span class="normal">163</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">list_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">click</span><span class="o">.</span><span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">list_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">click</span><span class="o">.</span><span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return static command names without importing subcommand modules.&quot;&quot;&quot;</span>
     <span class="n">eager_commands</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">list_commands</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">[</span><span class="o">*</span><span class="n">eager_commands</span><span class="p">,</span> <span class="o">*</span><span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">_LAZY_COMMANDS</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">commands</span><span class="p">]]</span>
@@ -29667,19 +29762,19 @@ File logging uses plain structured format for production parsing.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/cli/crackz_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span>
-<span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
-<span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">174</span>
 <span class="normal">175</span>
 <span class="normal">176</span>
-<span class="normal">177</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">click</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span> <span class="n">cmd_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">click</span><span class="o">.</span><span class="n">Command</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">click</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span> <span class="n">cmd_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">click</span><span class="o">.</span><span class="n">Command</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return an eager command or a lightweight lazy stub.&quot;&quot;&quot;</span>
     <span class="n">command</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_command</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">cmd_name</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -29716,16 +29811,7 @@ File logging uses plain structured format for production parsing.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/cli/crackz_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">179</span>
-<span class="normal">180</span>
-<span class="normal">181</span>
-<span class="normal">182</span>
-<span class="normal">183</span>
-<span class="normal">184</span>
-<span class="normal">185</span>
-<span class="normal">186</span>
-<span class="normal">187</span>
-<span class="normal">188</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">188</span>
 <span class="normal">189</span>
 <span class="normal">190</span>
 <span class="normal">191</span>
@@ -29734,7 +29820,16 @@ File logging uses plain structured format for production parsing.</p>
 <span class="normal">194</span>
 <span class="normal">195</span>
 <span class="normal">196</span>
-<span class="normal">197</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">format_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">click</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span> <span class="n">formatter</span><span class="p">:</span> <span class="n">click</span><span class="o">.</span><span class="n">HelpFormatter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">format_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ctx</span><span class="p">:</span> <span class="n">click</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span> <span class="n">formatter</span><span class="p">:</span> <span class="n">click</span><span class="o">.</span><span class="n">HelpFormatter</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Render command help without importing lazy subcommands.&quot;&quot;&quot;</span>
     <span class="n">rows</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">command_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_commands</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
@@ -29793,16 +29888,7 @@ File logging uses plain structured format for production parsing.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/cli/crackz_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">246</span>
-<span class="normal">247</span>
-<span class="normal">248</span>
-<span class="normal">249</span>
-<span class="normal">250</span>
-<span class="normal">251</span>
-<span class="normal">252</span>
-<span class="normal">253</span>
-<span class="normal">254</span>
-<span class="normal">255</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">255</span>
 <span class="normal">256</span>
 <span class="normal">257</span>
 <span class="normal">258</span>
@@ -29838,7 +29924,16 @@ File logging uses plain structured format for production parsing.</p>
 <span class="normal">288</span>
 <span class="normal">289</span>
 <span class="normal">290</span>
-<span class="normal">291</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">()</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">()</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">root_callback</span><span class="p">(</span>
     <span class="n">ctx</span><span class="p">:</span> <span class="n">typer</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span>
     <span class="n">version</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>  <span class="c1"># noqa: FBT002</span>
@@ -29908,16 +30003,16 @@ File logging uses plain structured format for production parsing.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/cli/crackz_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">294</span>
-<span class="normal">295</span>
-<span class="normal">296</span>
-<span class="normal">297</span>
-<span class="normal">298</span>
-<span class="normal">299</span>
-<span class="normal">300</span>
-<span class="normal">301</span>
-<span class="normal">302</span>
-<span class="normal">303</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute the main application entry point.&quot;&quot;&quot;</span>
     <span class="c1"># Critical: Add freeze_support for Windows multiprocessing in PyInstaller builds</span>
     <span class="c1"># This prevents multiple windows from spawning when using DataLoader with num_workers &gt; 0</span>
@@ -31346,6 +31441,11 @@ leveraging the typer CLI framework for seamless command-line interaction.</p>
     <span class="n">cfg</span><span class="o">=</span><span class="n">CFG_OPTION</span><span class="p">,</span>
     <span class="n">project_path</span><span class="o">=</span><span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span>
     <span class="n">model</span><span class="o">=</span><span class="n">CHECKPOINT_NAME_OPTION</span><span class="p">,</span>
+    <span class="n">embed</span><span class="o">=</span><span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span>
+        <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;--embed/--no-embed&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;After detection completes, backfill defect embeddings for the new results. Requires a reachable Postgres DB (CRACKZ_DATABASE_URL). Embedding failures are warned-and-skipped and never fail the detection run.&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
 <span class="p">)</span>
 </code></pre></div>
 
@@ -31356,26 +31456,65 @@ leveraging the typer CLI framework for seamless command-line interaction.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/cli/detection_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@detect_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;run&quot;</span><span class="p">)</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@detect_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;run&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">run_detection</span><span class="p">(</span>
     <span class="n">cfg</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">CFG_OPTION</span><span class="p">,</span>
     <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span>
     <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">CHECKPOINT_NAME_OPTION</span><span class="p">,</span>
+    <span class="n">embed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span>  <span class="c1"># noqa: FBT001</span>
+        <span class="kc">False</span><span class="p">,</span>  <span class="c1"># noqa: FBT003</span>
+        <span class="s2">&quot;--embed/--no-embed&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;After detection completes, backfill defect embeddings for the new results. &quot;</span>
+            <span class="s2">&quot;Requires a reachable Postgres DB (CRACKZ_DATABASE_URL). &quot;</span>
+            <span class="s2">&quot;Embedding failures are warned-and-skipped and never fail the detection run.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">),</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Run the detection process based on the given configuration or project path.&quot;&quot;&quot;</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">crackz.telemetry</span><span class="w"> </span><span class="kn">import</span> <span class="n">instrument</span>
@@ -31387,6 +31526,27 @@ leveraging the typer CLI framework for seamless command-line interaction.</p>
         <span class="k">if</span> <span class="n">model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">ctx</span><span class="o">.</span><span class="n">model_name</span> <span class="o">=</span> <span class="n">model</span>
         <span class="n">_do_detect</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">project_path</span><span class="p">,</span> <span class="n">checkpoint_name</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+
+    <span class="c1"># --embed hook: run backfill after detection completes (CLI-only, detect() unchanged).</span>
+    <span class="c1"># SEAM: a future optimisation can embed in-process from in-memory masks to avoid</span>
+    <span class="c1"># reloading images; for now this simple backfill call is safe and low-risk.</span>
+    <span class="k">if</span> <span class="n">embed</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">crackz.ai.embedding.service</span><span class="w"> </span><span class="kn">import</span> <span class="n">embed_project</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">crackz.app.projects</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_project_with_migration</span>
+
+            <span class="n">project</span> <span class="o">=</span> <span class="n">load_project_with_migration</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">project_path</span><span class="p">)</span>
+            <span class="n">stats</span> <span class="o">=</span> <span class="n">embed_project</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
+            <span class="n">typer</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Embedding: </span><span class="si">{</span><span class="n">stats</span><span class="o">.</span><span class="n">embedded</span><span class="si">}</span><span class="s2"> embedded, </span><span class="si">{</span><span class="n">stats</span><span class="o">.</span><span class="n">skipped</span><span class="si">}</span><span class="s2"> skipped.&quot;</span><span class="p">,</span>
+                <span class="n">fg</span><span class="o">=</span><span class="n">typer</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">CYAN</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;--embed hook failed (detection was successful): </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">exc</span><span class="p">)</span>
+            <span class="n">typer</span><span class="o">.</span><span class="n">secho</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Warning: embedding backfill failed (detection was saved): </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">fg</span><span class="o">=</span><span class="n">typer</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span>
+            <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -31550,44 +31710,44 @@ is provided.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/cli/detection_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 81</span>
-<span class="normal"> 82</span>
-<span class="normal"> 83</span>
-<span class="normal"> 84</span>
-<span class="normal"> 85</span>
-<span class="normal"> 86</span>
-<span class="normal"> 87</span>
-<span class="normal"> 88</span>
-<span class="normal"> 89</span>
-<span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
-<span class="normal"> 93</span>
-<span class="normal"> 94</span>
-<span class="normal"> 95</span>
-<span class="normal"> 96</span>
-<span class="normal"> 97</span>
-<span class="normal"> 98</span>
-<span class="normal"> 99</span>
-<span class="normal">100</span>
-<span class="normal">101</span>
-<span class="normal">102</span>
-<span class="normal">103</span>
-<span class="normal">104</span>
-<span class="normal">105</span>
-<span class="normal">106</span>
-<span class="normal">107</span>
-<span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span>
-<span class="normal">111</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">111</span>
 <span class="normal">112</span>
 <span class="normal">113</span>
 <span class="normal">114</span>
 <span class="normal">115</span>
 <span class="normal">116</span>
 <span class="normal">117</span>
-<span class="normal">118</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@detect_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@detect_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">detection_train</span><span class="p">(</span>
     <span class="n">cfg</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">CFG_OPTION</span><span class="p">,</span>
     <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span>
@@ -31653,29 +31813,29 @@ is provided.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/cli/detection_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span>
-<span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
-<span class="normal">133</span>
-<span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span>
-<span class="normal">138</span>
-<span class="normal">139</span>
-<span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@detect_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;prune-checkpoints&quot;</span><span class="p">)</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@detect_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="s2">&quot;prune-checkpoints&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">prune_checkpoints_cmd</span><span class="p">(</span>
     <span class="n">keep</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">KEEP_CHECKPOINTS_OPTION</span><span class="p">,</span>
     <span class="n">cfg</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">CFG_OPTION</span><span class="p">,</span>

@@ -1439,6 +1439,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Local Persistence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entity-relationship" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity relationship
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2287,6 +2304,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Local Persistence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entity-relationship" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity relationship
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2688,44 +2722,108 @@ Upper layers may depend on lower layers — never the reverse.</p>
 - <strong>Training &amp; Detection Pipelines</strong>: PyTorch + PyTorch Lightning orchestration (training, validation, testing, inference)
 - <strong>Performance Utilities</strong>: Global seed, Trainer override extraction
 - <strong>Logging</strong>: Centralized through <code>loguru</code> with structured formatting
-- <strong>Artifacts &amp; Outputs</strong>: Project filesystem (<code>artifacts/models/</code>, <code>artifacts/runtime/</code>, metrics JSON, detection PNGs) plus project-local SQLite metadata</p>
+- <strong>Artifacts &amp; Outputs</strong>: Project filesystem (<code>artifacts/models/</code>, <code>artifacts/runtime/</code>, metrics JSON, detection PNGs) plus Postgres metadata (via <code>CRACKZ_DATABASE_URL</code>)</p>
 <p>No network services, model servers, remote registries, or cloud object storage are currently part of runtime behavior.</p>
 <h3 id="local-persistence">Local Persistence<a class="headerlink" href="#local-persistence" title="Permanent link">&para;</a></h3>
 <blockquote>
-<p>See the <strong><a href="../diagrams/">Diagrams</a></strong> page for draw.io ER and class diagrams.</p>
+<p>See the <strong><a href="../diagrams/">Diagrams</a></strong> page for draw.io ER and class diagrams.
+For full database setup, configuration, and operational runbooks see
+<strong><a href="../ops/database/">Database setup</a></strong>. The decision is recorded in <strong>ADR-0023</strong>.</p>
 </blockquote>
-<p>Crackz uses two SQLite scopes:</p>
-<table>
-<thead>
-<tr>
-<th>Scope</th>
-<th>Location</th>
-<th>Owner</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>User-level project index</strong></td>
-<td>Platform user config directory, <code>crackz.db</code></td>
-<td>GUI data layer (<code>crackz_gui.data.projects_db</code>)</td>
-<td>All projects known to the current OS user, project pins/notes/tags, and cached cross-project stats for the welcome screen</td>
-</tr>
-<tr>
-<td><strong>Project-level operational DB</strong></td>
-<td><code>&lt;project&gt;/artifacts/project.db</code></td>
-<td>Core model registry (<code>crackz.ai.model.registry</code>)</td>
-<td>One owning project row plus model records, detection run summaries, and training epoch metrics for that project</td>
-</tr>
-</tbody>
-</table>
-<p>The user-level DB is a convenience index and aggregate cache. It does not own training,
-detection, or model history. Project-level stats are authoritative in each project's
-<code>artifacts/project.db</code>; the welcome screen syncs those values into the user-level
-<code>crackz.db</code> so cross-project counts can be rendered quickly.</p>
-<p>Legacy project artifact databases named <code>&lt;project&gt;/artifacts/crackz.db</code> are migrated by
-moving their data to <code>&lt;project&gt;/artifacts/project.db</code>. Artifact-level <code>crackz.db</code> is not
-a supported steady-state location.</p>
+<p>Crackz uses a single <strong>Postgres</strong> database as the system of record for all projects,
+models, detection history, training metrics, and defect embeddings. The filesystem
+continues to hold model weights, detection PNGs, and metric JSON files.</p>
+<p><strong>Extension required:</strong> pgvector ≥ 0.8 (vector similarity search with iterative scan).
+<strong>Extension recommended:</strong> PostGIS (geospatial queries on GPS-tagged detections; Crackz
+falls back to Python Haversine when PostGIS is absent).</p>
+<p>Configure the database with a single environment variable, then run migrations:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CRACKZ_DATABASE_URL</span><span class="o">=</span><span class="s2">&quot;postgresql+psycopg://crackz:crackz@localhost:5432/crackz&quot;</span>
+crackz<span class="w"> </span>db<span class="w"> </span>init<span class="w">          </span><span class="c1"># or: alembic upgrade head</span>
+</code></pre></div>
+<p>To bring forward history from legacy per-project SQLite files:</p>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>db<span class="w"> </span>migrate-sqlite<span class="w">   </span><span class="c1"># id-remapped by root_path; idempotent, warn-and-skip</span>
+</code></pre></div>
+<p>Both the GUI welcome-screen aggregates and the core <code>ModelRegistry</code> now read this
+single database. <code>ModelRegistry</code>'s public surface is preserved; it is re-implemented
+on <code>crackz.db</code> repository classes internally.</p>
+<h4 id="entity-relationship">Entity relationship<a class="headerlink" href="#entity-relationship" title="Permanent link">&para;</a></h4>
+<pre class="mermaid"><code>erDiagram
+    projects {
+        int id PK
+        string name
+        string root_path
+        string task_mode
+        string category_keys
+        timestamp created_at
+    }
+    project_tags {
+        int id PK
+        int project_id FK
+        string tag
+    }
+    models {
+        int id PK
+        int project_id FK
+        string name
+        string encoder
+        string checkpoint_name
+        timestamp created_at
+    }
+    detection_runs {
+        int id PK
+        int project_id FK
+        int model_id FK
+        timestamp run_at
+        int image_count
+        int crack_count
+    }
+    detection_results {
+        int id PK
+        int project_id FK
+        int detection_run_id FK
+        string image
+        float confidence
+        smallint has_defect
+        float gps_latitude
+        float gps_longitude
+        geometry geom
+    }
+    training_epochs {
+        int id PK
+        int project_id FK
+        int model_id FK
+        string run_id
+        int epoch
+        float val_iou
+    }
+    defect_embeddings {
+        int id PK
+        int project_id FK
+        int detection_run_id FK
+        int detection_result_id FK
+        int crop_index
+        string model_name
+        string embedding_version
+        int dim
+        vector embedding
+        geometry geom
+        timestamp created_at
+    }
+
+    projects ||--o{ project_tags : "has"
+    projects ||--o{ models : "owns"
+    projects ||--o{ detection_runs : "owns"
+    projects ||--o{ detection_results : "owns"
+    projects ||--o{ training_epochs : "owns"
+    projects ||--o{ defect_embeddings : "owns"
+    detection_runs ||--o{ detection_results : "contains"
+    detection_results ||--o{ defect_embeddings : "has"</code></pre>
+<blockquote>
+<p><strong><code>embedding vector(768)</code></strong> — DINOv2 defect embedding stored with pgvector; queried via an HNSW cosine index.
+<strong><code>geom geometry(POINT, 4326)</code></strong> — PostGIS point for GPS-tagged detections and embedding crops; requires the PostGIS extension.
+All child tables cascade-delete from <code>projects</code> (<code>ON DELETE CASCADE</code>).
+Migrations are managed by Alembic: revision <code>0001</code> = the six core tables + PostGIS; revision <code>0002</code> = <code>defect_embeddings</code> + pgvector.</p>
+</blockquote>
 <h3 id="open-architecture-model-flexibility">Open Architecture &amp; Model Flexibility<a class="headerlink" href="#open-architecture-model-flexibility" title="Permanent link">&para;</a></h3>
 <p>Crackz is built with an <strong>open architecture</strong> that supports multiple model types and use cases:</p>
 <h4 id="segmentation-task-modes">Segmentation Task Modes<a class="headerlink" href="#segmentation-task-modes" title="Permanent link">&para;</a></h4>
@@ -2868,16 +2966,15 @@ The segmentation model supports any encoder from <code>segmentation-models-pytor
     Container(gui, "GUI", "PySide6 (Qt 6)", "Desktop inspection &amp; invocation")
     Container(core, "Core Library", "Python Packages", "project, ai, config, logging")
     Container(fs, "Local Filesystem", "images/ + artifacts/", "Images, masks, checkpoints, metrics")
-    ContainerDb(udb, "User DB", "SQLite", "Known projects + welcome aggregates")
-    ContainerDb(pdb, "Project DB", "SQLite", "Per-project models, detections, training runs")
+    ContainerDb(db, "Crackz DB", "Postgres + pgvector + PostGIS", "Projects, models, detections, training epochs, defect embeddings")
   }
   Rel(user, cli, "Runs commands")
   Rel(user, gui, "Interacts (point &amp; click)")
   Rel(cli, core, "Invokes APIs")
   Rel(gui, core, "Invokes APIs")
   Rel(core, fs, "read/write images, masks, checkpoints, metrics")
-  Rel(gui, udb, "read/write project index")
-  Rel(core, pdb, "read/write project metadata")</code></pre>
+  Rel(core, db, "read/write all project metadata")
+  Rel(gui, db, "read project index + welcome aggregates")</code></pre>
 <hr />
 <h2 id="c4-context-local-execution">C4 Context (Local Execution)<a class="headerlink" href="#c4-context-local-execution" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>C4Context

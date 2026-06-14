@@ -2891,6 +2891,7 @@
 <ul>
 <li>Python 3.11 – 3.13 (64‑bit)</li>
 <li>OS: Linux, macOS (CPU), Windows 10/11</li>
+<li><strong>Postgres 16+</strong> with the <strong>pgvector extension (≥ 0.8)</strong>; PostGIS recommended for geospatial queries — see <a href="../ops/database/">Database setup</a> for Docker, bare‑metal, and hosted options and the <code>CRACKZ_DATABASE_URL</code> setting</li>
 <li>(Optional) NVIDIA GPU + matching CUDA drivers for accelerated training/detection</li>
 <li>Disk space: ~2–3 GB (Torch + model weights + cache)</li>
 </ul>
@@ -3492,6 +3493,11 @@ crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"
 </thead>
 <tbody>
 <tr>
+<td>CRACKZ_DATABASE_URL</td>
+<td>Postgres connection string (required before first use)</td>
+<td><em>(none — must be set)</em></td>
+</tr>
+<tr>
 <td>CRACKZ_LOG_DIR</td>
 <td>Log directory</td>
 <td>logs</td>
@@ -3503,6 +3509,12 @@ crackz<span class="w"> </span>detect<span class="w"> </span>train<span class="w"
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Database required before first use</p>
+<p>Set <code>CRACKZ_DATABASE_URL</code> to a reachable Postgres instance, then run
+<code>crackz db init</code> (or <code>alembic upgrade head</code>) before issuing other <code>crackz</code>
+commands. See <a href="../ops/database/">Database setup</a> for setup options.</p>
+</div>
 <h2 id="14-security-integrity-notes">14. Security / Integrity Notes<a class="headerlink" href="#14-security-integrity-notes" title="Permanent link">&para;</a></h2>
 <p>Example override:
 <div class="highlight"><pre><span></span><code><span class="nv">CRACKZ_LOG_DIR</span><span class="o">=</span>my_logs<span class="w"> </span>crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>myproj

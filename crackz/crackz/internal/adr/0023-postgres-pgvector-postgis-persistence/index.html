@@ -13,10 +13,6 @@
       
       
       
-        <link rel="prev" href="../../../speckit/">
-      
-      
-        <link rel="next" href="../../../api/">
       
       
         
@@ -27,7 +23,7 @@
     
     
       
-        <title>Architecture Decisions - Crackz</title>
+        <title>ADR-023: Postgres + pgvector + PostGIS as the Persistence Layer - Crackz</title>
       
     
     
@@ -82,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#decisions" class="md-skip">
+        <a href="#context" class="md-skip">
           Skip to content
         </a>
       
@@ -122,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Architecture Decisions
+              ADR-023: Postgres + pgvector + PostGIS as the Persistence Layer
             
           </span>
         </div>
@@ -1265,8 +1261,6 @@
       
   
   
-    
-  
   
   
     
@@ -1279,11 +1273,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
           <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
@@ -1304,7 +1298,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1459,35 +1453,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Architecture Decisions
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../02-decisions/" class="md-nav__link">
         
   
   
@@ -1503,59 +1472,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#decisions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Decisions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#current-technology-stack" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Current Technology Stack
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-propose-new-adrs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How to Propose New ADRs
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1990,10 +1906,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#decisions" class="md-nav__link">
+  <a href="#context" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Decisions
+        Context
       
     </span>
   </a>
@@ -2001,10 +1917,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#current-technology-stack" class="md-nav__link">
+  <a href="#decision" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Current Technology Stack
+        Decision
       
     </span>
   </a>
@@ -2012,10 +1928,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-propose-new-adrs" class="md-nav__link">
+  <a href="#consequences" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How to Propose New ADRs
+        Consequences
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternatives-considered" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternatives Considered
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
       
     </span>
   </a>
@@ -2042,234 +1980,88 @@
   
 
 
-<h1 id="architecture-decisions">Architecture Decisions<a class="headerlink" href="#architecture-decisions" title="Permanent link">&para;</a></h1>
-<p>This index preserves the legacy <code>docs/internal/adr/02-decisions.md</code> link while
-the ADR content lives in one file per decision.</p>
-<p>Use <code>template.md</code> when adding a new ADR. Keep IDs unique and append new
-decisions as <code>ADR-XXX</code> with a zero-padded filename.</p>
-<h2 id="decisions">Decisions<a class="headerlink" href="#decisions" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>ID</th>
-<th>Status</th>
-<th>Decision</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ADR-001</td>
-<td>Active (Updated 2025-11-30)</td>
-<td><a href="../0001-use-uv-and-hatchling/">Use <code>uv</code> for Dependency Management + <code>hatchling</code> for Builds</a></td>
-</tr>
-<tr>
-<td>ADR-002</td>
-<td>Active</td>
-<td><a href="../0002-pytorch-lightning-for-ml-pipeline/">PyTorch Lightning for ML Pipeline</a></td>
-</tr>
-<tr>
-<td>ADR-003</td>
-<td>Active</td>
-<td><a href="../0003-typer-for-cli-framework/">Typer for CLI Framework</a></td>
-</tr>
-<tr>
-<td>ADR-004</td>
-<td>Active (Qt migration under consideration)</td>
-<td><a href="../0004-customtkinter-for-gui/">CustomTkinter for GUI (Not Qt)</a></td>
-</tr>
-<tr>
-<td>ADR-005</td>
-<td>Active</td>
-<td><a href="../0005-pydantic-v2-for-configuration/">Pydantic v2 for Configuration</a></td>
-</tr>
-<tr>
-<td>ADR-006</td>
-<td>Active</td>
-<td><a href="../0006-hybrid-logging-architecture/">Hybrid Logging Architecture</a></td>
-</tr>
-<tr>
-<td>ADR-007</td>
-<td>Active</td>
-<td><a href="../0007-centralized-cli-options-pattern/">Centralized CLI Options Pattern</a></td>
-</tr>
-<tr>
-<td>ADR-008</td>
-<td>Active</td>
-<td><a href="../0008-conventional-commits-for-versioning/">Conventional Commits for Versioning</a></td>
-</tr>
-<tr>
-<td>ADR-009</td>
-<td>Active</td>
-<td><a href="../0009-three-docker-variants/">Three Docker Variants (Full, Slim, GPU)</a></td>
-</tr>
-<tr>
-<td>ADR-010</td>
-<td>Active</td>
-<td><a href="../0010-uv-sync-in-docker/"><code>uv sync</code> in Docker (Not Wheel Builds)</a></td>
-</tr>
-<tr>
-<td>ADR-011</td>
-<td>Active</td>
-<td><a href="../0011-ruff-for-linting-and-formatting/">Ruff for Linting and Formatting</a></td>
-</tr>
-<tr>
-<td>ADR-012</td>
-<td>Active</td>
-<td><a href="../0012-minimum-test-coverage/">75% Minimum Test Coverage</a></td>
-</tr>
-<tr>
-<td>ADR-013</td>
-<td>Active</td>
-<td><a href="../0013-performance-regression-tests-with-benchmarks/">Performance Regression Tests with Benchmarks</a></td>
-</tr>
-<tr>
-<td>ADR-014</td>
-<td>Active</td>
-<td><a href="../0014-project-schema-versioning-with-migrations/">Project Schema Versioning with Migrations</a></td>
-</tr>
-<tr>
-<td>ADR-015</td>
-<td>Active (strictly enforced)</td>
-<td><a href="../0015-typer-secho-for-user-messages-logger-for-technical-info/"><code>typer.secho()</code> for User Messages, <code>logger</code> for Technical Info</a></td>
-</tr>
-<tr>
-<td>ADR-016</td>
-<td>Active</td>
-<td><a href="../0016-github-actions-for-ci-cd/">GitHub Actions for CI/CD</a></td>
-</tr>
-<tr>
-<td>ADR-017</td>
-<td>Active</td>
-<td><a href="../0017-mcp-integration/">MCP (Model Context Protocol) Integration</a></td>
-</tr>
-<tr>
-<td>ADR-018</td>
-<td>Active</td>
-<td><a href="../0018-gps-exif-support-with-geojson-export/">GPS/EXIF Support with GeoJSON Export</a></td>
-</tr>
-<tr>
-<td>ADR-019</td>
-<td>Active</td>
-<td><a href="../0019-pyside6-migration/">PySide6 Migration (Replacing CustomTkinter)</a></td>
-</tr>
-<tr>
-<td>ADR-020</td>
-<td>Active</td>
-<td><a href="../0020-binary-vs-multiclass-task-modes/">Binary vs Multiclass as Distinct Task Modes</a></td>
-</tr>
-<tr>
-<td>ADR-021</td>
-<td>Active (2026-05-07)</td>
-<td><a href="../0021-sqlite-fts5-for-ai-chat-doc-search/">SQLite FTS5 for AI Chat Doc Search (Phase 1)</a></td>
-</tr>
-<tr>
-<td>ADR-022</td>
-<td>Proposed (2026-05-08)</td>
-<td><a href="../0022-telemetry-backbone-and-internal-fleet-admin/">Telemetry Backbone &amp; Internal Fleet Admin</a></td>
-</tr>
-<tr>
-<td>ADR-023</td>
-<td>Proposed (2026-06-12)</td>
-<td><a href="../0023-postgres-pgvector-postgis-persistence/">Postgres + pgvector + PostGIS as the Persistence Layer</a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="current-technology-stack">Current Technology Stack<a class="headerlink" href="#current-technology-stack" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Decision Area</th>
-<th>Chosen Technology</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Package Manager</td>
-<td><code>uv</code></td>
-<td>Active</td>
-</tr>
-<tr>
-<td>ML Framework</td>
-<td>PyTorch Lightning</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>CLI Framework</td>
-<td>Typer</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>GUI Framework</td>
-<td>PySide6 (Qt 6)</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Configuration</td>
-<td>Pydantic v2 + YAML</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Logging</td>
-<td>Loguru hybrid logging</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Linting/Formatting</td>
-<td>Ruff</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Type Checking</td>
-<td>mypy</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Testing</td>
-<td>pytest + pytest-cov + pytest-benchmark</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>CI/CD</td>
-<td>GitHub Actions</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Versioning</td>
-<td>semantic-release + conventional commits</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Docker Strategy</td>
-<td>Full, slim, and GPU variants</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Migration Strategy</td>
-<td>Schema versioning + <code>crackz migrate</code></td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Output Standards</td>
-<td><code>typer.secho()</code> + logger</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Segmentation Task Modes</td>
-<td>Distinct binary + multiclass via TaskStrategy</td>
-<td>Active</td>
-</tr>
-</tbody>
-</table>
-<h2 id="how-to-propose-new-adrs">How to Propose New ADRs<a class="headerlink" href="#how-to-propose-new-adrs" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Copy <code>template.md</code> to the next numbered ADR file.</li>
-<li>Use the next unique <code>ADR-XXX</code> ID.</li>
-<li>Link related Spec Kit artifacts from <code>specs/[###-feature]/</code> when applicable.</li>
-<li>Add the new ADR to this index and update related documentation in the same PR.</li>
-</ol>
-<p><strong>Last Updated</strong>: 2026-05-27
-<strong>Maintained By</strong>: Theresia Lundgren (theresia.lundgren@anaxiatech.se)</p>
+<h1 id="adr-023-postgres-pgvector-postgis-as-the-persistence-layer">ADR-023: Postgres + pgvector + PostGIS as the Persistence Layer<a class="headerlink" href="#adr-023-postgres-pgvector-postgis-as-the-persistence-layer" title="Permanent link">&para;</a></h1>
+<p><strong>Status</strong>: Proposed</p>
+<p><strong>Date</strong>: 2026-06-12</p>
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<p>crackz has stored all registry data (projects, models, detection runs/results, training
+epochs) in per-project SQLite files (<code>artifacts/project.db</code>) behind the <code>ModelRegistry</code>
+facade, using raw SQL and manual <code>PRAGMA user_version</code> migrations (ADR-014). Issue #627
+asks crackz to add defect-embedding storage and vector similarity search. SQLite has no
+native vector type, and the feature also wants geospatial filtering ("similar defects near
+this bridge section"). The target deployment host (foto-dator) already runs Postgres with
+<code>pgvector</code> and <code>PostGIS</code> available, and the sibling repo <code>survey_tool</code> already proves this
+stack (its ADR 004 <code>capture_embeddings</code> on Postgres+pgvector+Alembic).</p>
+<p>A decision is needed now because the embeddings feature cannot be built on SQLite without
+a vector extension, and bolting a second database alongside the per-project SQLite would
+mean two divergent persistence paths and no foreign-key integrity between detections and
+their embeddings.</p>
+<h2 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">&para;</a></h2>
+<p>Migrate <strong>all</strong> crackz persistence to a single, <strong>user-provided, single-tenant</strong> Postgres
+instance with the <code>pgvector</code> and <code>PostGIS</code> extensions. SQLite is retired as the live
+store (kept readable only by the one-time importer).</p>
+<p>Specifics:
+- New <code>crackz.db</code> package: SQLAlchemy 2 (sync, declarative) + psycopg3 + Alembic +
+  <code>pgvector</code> + <code>geoalchemy2</code>. These become <strong>core runtime dependencies</strong>.
+- Connection is configured via <code>CRACKZ_DATABASE_URL</code> (<code>CrackzSettings</code>, env + <code>.env</code>).
+  One Postgres holds many projects, scoped by the existing <code>project_id</code> FK. No
+  multi-tenant, no <code>tenant_id</code>, no row-level security.
+- <code>ModelRegistry</code> is re-implemented on <code>crackz.db</code> while <strong>preserving its public method
+  surface byte-for-byte</strong>, insulating all ~10 call sites. A contract test pins the
+  surface before internals change.
+- Alembic replaces the manual <code>PRAGMA user_version</code> scheme. <code>0001</code> is the baseline
+  (existing tables + <code>CREATE EXTENSION postgis</code> + a <code>geometry(POINT,4326)</code> column on
+  detection_results); <code>0002</code> adds <code>defect_embeddings</code> (<code>vector(768)</code>, HNSW cosine index,
+  <code>CREATE EXTENSION vector</code>). The embedding column is fixed-width 768 (DINOv2-base); the
+  repository validates each vector against it before insert.
+- GPS queries use PostGIS <code>ST_DWithin</code> when PostGIS is present, falling back to the
+  existing Python Haversine when a hosted provider lacks PostGIS (graceful degradation).
+- A one-time <code>crackz db migrate-sqlite</code> importer brings existing <code>project.db</code> history
+  forward (id-remap by <code>root_path</code>, idempotent, warn-and-skip).
+- Operators install Postgres via documented docker / bare-metal / hosted paths
+  (<code>docs/ops/database.md</code>). Minimum: Postgres 16+ with <code>pgvector</code>; PostGIS recommended.</p>
+<h2 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Benefit: native vector similarity search + real geospatial queries; one DB with FK
+  integrity (cascade delete of detections cleans up embeddings); matches survey_tool and
+  the foto-dator deployment; Alembic gives a standard, autogenerate-capable migration path.</li>
+<li>Benefit: callers are insulated — preserving the <code>ModelRegistry</code> surface means the
+  detection/training/dashboard code is unchanged.</li>
+<li>Trade-off: Postgres becomes a <strong>hard runtime dependency</strong> for a previously server-less
+  local app. A fresh install needs a reachable <code>CRACKZ_DATABASE_URL</code> and <code>crackz db init</code>.
+  Mitigated by a docker-compose dev DB, a sensible localhost default, an actionable
+  connection error, and the install guide.</li>
+<li>Trade-off: heavier dependency footprint (sqlalchemy, psycopg, alembic, pgvector,
+  geoalchemy2) and a real Postgres needed for integration tests. CI provides a
+  <code>pgvector/pgvector:pg16</code> service container and the suite connects via
+  <code>CRACKZ_DATABASE_URL</code>, skipping cleanly when no database is reachable.</li>
+<li>Follow-up: convert TEXT timestamp columns to <code>TIMESTAMPTZ</code> in a later migration;
+  the ANN index is HNSW (with iterative scan enabled in <code>search()</code> so a project/model
+  filter cannot starve results below <code>top_k</code>); build the <code>/detect</code> REST endpoint
+  (crackz#643) on the no-Typer embedding service seam.</li>
+</ul>
+<h2 id="alternatives-considered">Alternatives Considered<a class="headerlink" href="#alternatives-considered" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>sqlite-vec / BLOB + numpy brute-force in SQLite</strong>: keeps local-first with zero server.
+  Rejected because the user chose a full Postgres migration (foto-dator already runs it,
+  PostGIS gives real geo, and it matches survey_tool), and because a second DB alongside
+  SQLite would fork the persistence layer with no cross-table integrity.</li>
+<li><strong>Postgres for embeddings only, SQLite for the rest</strong>: smallest change, but two
+  databases to operate and no FK/cascade between detections and embeddings. Rejected for
+  the same integrity reasons.</li>
+<li><strong>Central multi-tenant Postgres</strong>: enables fleet analytics but needs auth, <code>tenant_id</code>,
+  RLS, network access, and a hosting/data-residency story. Rejected — out of scope for a
+  user-provided, on-prem deployment.</li>
+</ul>
+<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Spec: <code>docs/superpowers/specs/2026-06-12-postgres-pgvector-embeddings-design.md</code></li>
+<li>Plan: <code>docs/superpowers/plans/2026-06-12-postgres-pgvector-embeddings.md</code></li>
+<li>Code: <code>core/src/crackz/db/</code>, <code>core/migrations/</code>, <code>core/src/crackz/ai/embedding/</code>,
+  <code>core/src/crackz/ai/model/registry.py</code></li>
+<li>Supersedes (for registry tables): ADR-014 (manual <code>PRAGMA user_version</code> migrations)</li>
+<li>Issues/PRs: Anaxiatech-AB/crackz#627; related crackz#643 (<code>/detect</code> REST endpoint)</li>
+</ul>
 
 
 

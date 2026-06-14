@@ -13,10 +13,6 @@
       
       
       
-        <link rel="prev" href="../../../speckit/">
-      
-      
-        <link rel="next" href="../../../api/">
       
       
         
@@ -27,7 +23,7 @@
     
     
       
-        <title>Architecture Decisions - Crackz</title>
+        <title>ADR-024: Persist Detection Masks as On-Disk Artifacts for Crop Embeddings - Crackz</title>
       
     
     
@@ -82,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#decisions" class="md-skip">
+        <a href="#context" class="md-skip">
           Skip to content
         </a>
       
@@ -122,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Architecture Decisions
+              ADR-024: Persist Detection Masks as On-Disk Artifacts for Crop Embeddings
             
           </span>
         </div>
@@ -1265,8 +1261,6 @@
       
   
   
-    
-  
   
   
     
@@ -1279,11 +1273,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
           <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
@@ -1304,7 +1298,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1459,35 +1453,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Architecture Decisions
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../02-decisions/" class="md-nav__link">
         
   
   
@@ -1503,59 +1472,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#decisions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Decisions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#current-technology-stack" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Current Technology Stack
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-propose-new-adrs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How to Propose New ADRs
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1990,10 +1906,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#decisions" class="md-nav__link">
+  <a href="#context" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Decisions
+        Context
       
     </span>
   </a>
@@ -2001,10 +1917,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#current-technology-stack" class="md-nav__link">
+  <a href="#decision" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Current Technology Stack
+        Decision
       
     </span>
   </a>
@@ -2012,10 +1928,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-propose-new-adrs" class="md-nav__link">
+  <a href="#consequences" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How to Propose New ADRs
+        Consequences
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternatives-considered" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternatives Considered
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
       
     </span>
   </a>
@@ -2042,239 +1980,83 @@
   
 
 
-<h1 id="architecture-decisions">Architecture Decisions<a class="headerlink" href="#architecture-decisions" title="Permanent link">&para;</a></h1>
-<p>This index preserves the legacy <code>docs/internal/adr/02-decisions.md</code> link while
-the ADR content lives in one file per decision.</p>
-<p>Use <code>template.md</code> when adding a new ADR. Keep IDs unique and append new
-decisions as <code>ADR-XXX</code> with a zero-padded filename.</p>
-<h2 id="decisions">Decisions<a class="headerlink" href="#decisions" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>ID</th>
-<th>Status</th>
-<th>Decision</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ADR-001</td>
-<td>Active (Updated 2025-11-30)</td>
-<td><a href="../0001-use-uv-and-hatchling/">Use <code>uv</code> for Dependency Management + <code>hatchling</code> for Builds</a></td>
-</tr>
-<tr>
-<td>ADR-002</td>
-<td>Active</td>
-<td><a href="../0002-pytorch-lightning-for-ml-pipeline/">PyTorch Lightning for ML Pipeline</a></td>
-</tr>
-<tr>
-<td>ADR-003</td>
-<td>Active</td>
-<td><a href="../0003-typer-for-cli-framework/">Typer for CLI Framework</a></td>
-</tr>
-<tr>
-<td>ADR-004</td>
-<td>Active (Qt migration under consideration)</td>
-<td><a href="../0004-customtkinter-for-gui/">CustomTkinter for GUI (Not Qt)</a></td>
-</tr>
-<tr>
-<td>ADR-005</td>
-<td>Active</td>
-<td><a href="../0005-pydantic-v2-for-configuration/">Pydantic v2 for Configuration</a></td>
-</tr>
-<tr>
-<td>ADR-006</td>
-<td>Active</td>
-<td><a href="../0006-hybrid-logging-architecture/">Hybrid Logging Architecture</a></td>
-</tr>
-<tr>
-<td>ADR-007</td>
-<td>Active</td>
-<td><a href="../0007-centralized-cli-options-pattern/">Centralized CLI Options Pattern</a></td>
-</tr>
-<tr>
-<td>ADR-008</td>
-<td>Active</td>
-<td><a href="../0008-conventional-commits-for-versioning/">Conventional Commits for Versioning</a></td>
-</tr>
-<tr>
-<td>ADR-009</td>
-<td>Active</td>
-<td><a href="../0009-three-docker-variants/">Three Docker Variants (Full, Slim, GPU)</a></td>
-</tr>
-<tr>
-<td>ADR-010</td>
-<td>Active</td>
-<td><a href="../0010-uv-sync-in-docker/"><code>uv sync</code> in Docker (Not Wheel Builds)</a></td>
-</tr>
-<tr>
-<td>ADR-011</td>
-<td>Active</td>
-<td><a href="../0011-ruff-for-linting-and-formatting/">Ruff for Linting and Formatting</a></td>
-</tr>
-<tr>
-<td>ADR-012</td>
-<td>Active</td>
-<td><a href="../0012-minimum-test-coverage/">75% Minimum Test Coverage</a></td>
-</tr>
-<tr>
-<td>ADR-013</td>
-<td>Active</td>
-<td><a href="../0013-performance-regression-tests-with-benchmarks/">Performance Regression Tests with Benchmarks</a></td>
-</tr>
-<tr>
-<td>ADR-014</td>
-<td>Active</td>
-<td><a href="../0014-project-schema-versioning-with-migrations/">Project Schema Versioning with Migrations</a></td>
-</tr>
-<tr>
-<td>ADR-015</td>
-<td>Active (strictly enforced)</td>
-<td><a href="../0015-typer-secho-for-user-messages-logger-for-technical-info/"><code>typer.secho()</code> for User Messages, <code>logger</code> for Technical Info</a></td>
-</tr>
-<tr>
-<td>ADR-016</td>
-<td>Active</td>
-<td><a href="../0016-github-actions-for-ci-cd/">GitHub Actions for CI/CD</a></td>
-</tr>
-<tr>
-<td>ADR-017</td>
-<td>Active</td>
-<td><a href="../0017-mcp-integration/">MCP (Model Context Protocol) Integration</a></td>
-</tr>
-<tr>
-<td>ADR-018</td>
-<td>Active</td>
-<td><a href="../0018-gps-exif-support-with-geojson-export/">GPS/EXIF Support with GeoJSON Export</a></td>
-</tr>
-<tr>
-<td>ADR-019</td>
-<td>Active</td>
-<td><a href="../0019-pyside6-migration/">PySide6 Migration (Replacing CustomTkinter)</a></td>
-</tr>
-<tr>
-<td>ADR-020</td>
-<td>Active</td>
-<td><a href="../0020-binary-vs-multiclass-task-modes/">Binary vs Multiclass as Distinct Task Modes</a></td>
-</tr>
-<tr>
-<td>ADR-021</td>
-<td>Active (2026-05-07)</td>
-<td><a href="../0021-sqlite-fts5-for-ai-chat-doc-search/">SQLite FTS5 for AI Chat Doc Search (Phase 1)</a></td>
-</tr>
-<tr>
-<td>ADR-022</td>
-<td>Proposed (2026-05-08)</td>
-<td><a href="../0022-telemetry-backbone-and-internal-fleet-admin/">Telemetry Backbone &amp; Internal Fleet Admin</a></td>
-</tr>
-<tr>
-<td>ADR-023</td>
-<td>Proposed (2026-06-12)</td>
-<td><a href="../0023-postgres-pgvector-postgis-persistence/">Postgres + pgvector + PostGIS as the Persistence Layer</a></td>
-</tr>
-<tr>
-<td>ADR-024</td>
-<td>Proposed (2026-06-14)</td>
-<td><a href="../0024-persist-detection-masks-as-disk-artifacts/">Persist Detection Masks as On-Disk Artifacts for Crop Embeddings</a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="current-technology-stack">Current Technology Stack<a class="headerlink" href="#current-technology-stack" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Decision Area</th>
-<th>Chosen Technology</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Package Manager</td>
-<td><code>uv</code></td>
-<td>Active</td>
-</tr>
-<tr>
-<td>ML Framework</td>
-<td>PyTorch Lightning</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>CLI Framework</td>
-<td>Typer</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>GUI Framework</td>
-<td>PySide6 (Qt 6)</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Configuration</td>
-<td>Pydantic v2 + YAML</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Logging</td>
-<td>Loguru hybrid logging</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Linting/Formatting</td>
-<td>Ruff</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Type Checking</td>
-<td>mypy</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Testing</td>
-<td>pytest + pytest-cov + pytest-benchmark</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>CI/CD</td>
-<td>GitHub Actions</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Versioning</td>
-<td>semantic-release + conventional commits</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Docker Strategy</td>
-<td>Full, slim, and GPU variants</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Migration Strategy</td>
-<td>Schema versioning + <code>crackz migrate</code></td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Output Standards</td>
-<td><code>typer.secho()</code> + logger</td>
-<td>Active</td>
-</tr>
-<tr>
-<td>Segmentation Task Modes</td>
-<td>Distinct binary + multiclass via TaskStrategy</td>
-<td>Active</td>
-</tr>
-</tbody>
-</table>
-<h2 id="how-to-propose-new-adrs">How to Propose New ADRs<a class="headerlink" href="#how-to-propose-new-adrs" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Copy <code>template.md</code> to the next numbered ADR file.</li>
-<li>Use the next unique <code>ADR-XXX</code> ID.</li>
-<li>Link related Spec Kit artifacts from <code>specs/[###-feature]/</code> when applicable.</li>
-<li>Add the new ADR to this index and update related documentation in the same PR.</li>
-</ol>
-<p><strong>Last Updated</strong>: 2026-05-27
-<strong>Maintained By</strong>: Theresia Lundgren (theresia.lundgren@anaxiatech.se)</p>
+<h1 id="adr-024-persist-detection-masks-as-on-disk-artifacts-for-crop-embeddings">ADR-024: Persist Detection Masks as On-Disk Artifacts for Crop Embeddings<a class="headerlink" href="#adr-024-persist-detection-masks-as-on-disk-artifacts-for-crop-embeddings" title="Permanent link">&para;</a></h1>
+<p><strong>Status</strong>: Proposed</p>
+<p><strong>Date</strong>: 2026-06-14</p>
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<p>The Phase 1 defect-embedding MVP (ADR-0023, PR #653) embeds the <strong>full source
+image</strong> because detection results do not persist their segmentation masks, so
+the existing <code>extract_crops()</code> seam has no mask to crop from at embedding time.
+Full-image embeddings dilute cosine similarity on multi-defect images and
+degrade every downstream consumer (Phase 2 ranking, Phase 3 clustering).</p>
+<p>The mask already exists in memory at detect time (<code>_DetectionSummary.plot_mask</code>)
+and is rendered to an overlay by <code>plot_image</code>, then discarded. To compute
+mask-based crops we must persist it. Two storage substrates are available: a
+<code>BYTEA</code> column on <code>detection_results</code>, or an on-disk artifact referenced by a
+relative path. A decision is needed because it shapes the schema migration,
+the storage/backup footprint, and the data-lifecycle model.</p>
+<h2 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">&para;</a></h2>
+<p>Persist each detection's mask as a compact <strong>on-disk artifact</strong> (single-channel
+lossless PNG) under the project's detection output tree, and store only the
+<strong>relative path</strong> in a new nullable <code>detection_results.mask_path</code> column
+(Alembic migration <code>0003</code>). The embedding service loads the mask from that path
+and crops with <code>extract_crops(..., mode="whole")</code>; rows without a <code>mask_path</code>
+(legacy detections) fall back to full-image embedding. No re-segmentation
+backfill of legacy rows — they become crop-based only when re-detected.</p>
+<h2 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Benefit: Postgres rows and backups stay lean; masks live alongside the
+  existing rendered overlays as inspectable image files; transactional metadata
+  (the path) stays in the DB while bulky pixels stay on disk.</li>
+<li>Benefit: Additive and reversible — nullable column, segmentation results
+  untouched, embedding model/version metadata preserved so legacy vs crop
+  vectors stay distinguishable and re-indexable.</li>
+<li>Trade-off: Introduces file-path drift / lifecycle concerns (missing-file
+  handling, cleanup on project deletion) that a DB blob would avoid; the mask
+  artifact and its DB row can diverge if files are moved out of band.</li>
+<li>Trade-off: Legacy detections remain full-image until re-detected, so the
+  store is mixed-fidelity for a transition period. Because full-image and
+  crop vectors are different points in backbone space, cross-fidelity
+  neighbours rank less reliably than same-fidelity ones — search quality
+  improves as more of the index is re-detected. The two populations share one
+  <code>model_name</code>/<code>embedding_version</code>; if cross-fidelity ranking proves a problem,
+  bump <code>embedding_version</code> (or add a per-row fidelity flag) when crop
+  embeddings become the default so they are distinguishable and re-indexable.</li>
+<li>Trade-off: Sub-floor crops fall back to full image. A few-pixel mask crop is
+  a near-degenerate backbone input, so crops below <code>embedding_min_crop_area_px</code>
+  (default 256) embed the full image instead. The crop pad (<code>extract_crops</code>
+  <code>pad=8</code>) is a fixed absolute margin, so its relative context varies with
+  source resolution — a documented tuning knob, not a correctness issue.</li>
+<li>Follow-up: Per-defect crops (<code>extract_crops(mode="components")</code>) and an
+  optional one-off re-segment backfill for legacy rows are separate issues.</li>
+</ul>
+<h2 id="alternatives-considered">Alternatives Considered<a class="headerlink" href="#alternatives-considered" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Alternative: Store the mask as a compressed <code>BYTEA</code> column on
+  <code>detection_results</code>.</li>
+<li>
+<p>Why rejected: Single source of truth and no path drift, but it bloats row
+  size, backups, and <code>SELECT *</code> cost for a large binary that is only needed by
+  the embedding path; on-disk artifacts match how rendered overlays are already
+  persisted.</p>
+</li>
+<li>
+<p>Alternative: Re-run segmentation at embed time to reconstruct masks.</p>
+</li>
+<li>Why rejected: Recomputes a mask that already existed in memory at detect
+  time — duplicated GPU/model compute and makes embedding as expensive as a
+  full detection run.</li>
+</ul>
+<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Spec: <code>docs/superpowers/specs/2026-06-14-mask-crop-embeddings-design.md</code></li>
+<li>Plan: <code>docs/superpowers/plans/2026-06-14-mask-crop-embeddings.md</code></li>
+<li>Code: <code>core/src/crackz/ai/detection/detection_runner.py</code>,
+  <code>core/src/crackz/ai/embedding/service.py</code>,
+  <code>core/src/crackz/ai/embedding/crop_extraction.py</code>,
+  <code>core/migrations/versions/0003_detection_mask_path.py</code></li>
+<li>Issues/PRs: #663 (this work), #653 / #627 (Phase 1 MVP), ADR-0023</li>
+</ul>
 
 
 

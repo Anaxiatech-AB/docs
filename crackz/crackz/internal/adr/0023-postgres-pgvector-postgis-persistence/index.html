@@ -1936,6 +1936,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Consequences">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#record-type-ownership-crackz657" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Record-type ownership (crackz#657)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2040,6 +2057,24 @@ store (kept readable only by the one-time importer).</p>
   filter cannot starve results below <code>top_k</code>); build the <code>/detect</code> REST endpoint
   (crackz#643) on the no-Typer embedding service seam.</li>
 </ul>
+<h3 id="record-type-ownership-crackz657">Record-type ownership (crackz#657)<a class="headerlink" href="#record-type-ownership-crackz657" title="Permanent link">&para;</a></h3>
+<p>The first cut of <code>crackz.db</code> imported its record DTOs (<code>DetectionRunRecord</code>,
+<code>TrainingEpochRecord</code>, <code>NearbyDetection</code>, <code>ModelRecord</code>) and the <code>_bool_to_db</code>
+helper <strong>up</strong> from <code>crackz.ai.model.persistence</code> — a back-reference from the
+persistence layer into the domain layer that import-linter did not catch
+(contract:10 only forbade app/presentation, not <code>crackz.ai</code>).</p>
+<p>Resolved by moving those neutral, behaviour-free record types <strong>down</strong> into a
+new <code>crackz.db.records</code> module that both layers depend on. <code>crackz.db</code> now owns
+its record types; <code>crackz.ai.model.persistence.metrics_store</code> and <code>model_history</code>
+re-export them from <code>crackz.db.records</code> for backward compatibility, so existing
+<code>from crackz.ai...import DetectionRunRecord</code> call sites are unchanged. The
+filesystem-checkpoint type <code>ModelEntry</code> stays in <code>crackz.ai</code> (it pulls in
+taxonomy/domain code); <code>register_from_entry</code> consumes it through a structural
+<code>ModelEntryLike</code> Protocol in <code>crackz.db.records</code> so the persistence layer never
+names a <code>crackz.ai</code> type. The dependency now flows one way only —
+<code>crackz.ai.model.registry → crackz.db</code> — and that boundary is enforced:
+contract:10 in <code>.importlinter</code> (and the mirror in <code>scripts/check_architecture.py</code>)
+now forbids <code>crackz.db</code> from importing <code>crackz.ai</code>.</p>
 <h2 id="alternatives-considered">Alternatives Considered<a class="headerlink" href="#alternatives-considered" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>sqlite-vec / BLOB + numpy brute-force in SQLite</strong>: keeps local-first with zero server.

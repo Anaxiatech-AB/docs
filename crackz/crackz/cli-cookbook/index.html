@@ -1095,6 +1095,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#defect-similarity-search-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defect Similarity Search (Embeddings)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Defect Similarity Search (Embeddings)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gps-filtered-ranking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPS-filtered ranking
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#logging-verbosity" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2844,6 +2872,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#defect-similarity-search-embeddings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defect Similarity Search (Embeddings)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Defect Similarity Search (Embeddings)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gps-filtered-ranking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPS-filtered ranking
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#logging-verbosity" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3667,6 +3723,43 @@ crackz<span class="w"> </span>geo<span class="w"> </span>export-geojson<span cla
 <span class="c1"># 5. Open map in browser to review</span>
 <span class="c1"># (or import GeoJSON into QGIS/ArcGIS)</span>
 </code></pre></div></p>
+<h2 id="defect-similarity-search-embeddings">Defect Similarity Search (Embeddings)<a class="headerlink" href="#defect-similarity-search-embeddings" title="Permanent link">&para;</a></h2>
+<p>Find visually similar defects across a project using DINOv2 embeddings stored in
+pgvector. Requires a reachable Postgres (see ADR-023); GPS filtering additionally
+requires PostGIS.</p>
+<p>Backfill embeddings for every detection result, then query:
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Embed all un-embedded detection results (idempotent; re-run safely)</span>
+crackz<span class="w"> </span>embed<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>harbor
+
+<span class="c1"># 2. Find defects similar to a stored detection result</span>
+crackz<span class="w"> </span>embed<span class="w"> </span>similar<span class="w"> </span>--project<span class="w"> </span>harbor<span class="w"> </span>--detection-id<span class="w"> </span><span class="m">42</span><span class="w"> </span>-k<span class="w"> </span><span class="m">10</span>
+
+<span class="c1"># 3. Find defects similar to an arbitrary query image</span>
+crackz<span class="w"> </span>embed<span class="w"> </span>search<span class="w"> </span>--project<span class="w"> </span>harbor<span class="w"> </span>--image<span class="w"> </span>query.jpg<span class="w"> </span>-k<span class="w"> </span><span class="m">5</span>
+</code></pre></div></p>
+<h3 id="gps-filtered-ranking">GPS-filtered ranking<a class="headerlink" href="#gps-filtered-ranking" title="Permanent link">&para;</a></h3>
+<p>Pass <code>--radius-m</code> to restrict results to a geographic radius and rank them by a
+blended visual + proximity score (<code>final_score</code>). For <code>embed similar</code>, the
+queried detection's own GPS anchors the search; for <code>embed search</code>, supply the
+query location with <code>--lat</code> / <code>--lon</code>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Visually similar cracks within 50 m of detection 42</span>
+crackz<span class="w"> </span>embed<span class="w"> </span>similar<span class="w"> </span>--project<span class="w"> </span>harbor<span class="w"> </span>--detection-id<span class="w"> </span><span class="m">42</span><span class="w"> </span>--radius-m<span class="w"> </span><span class="m">50</span>
+
+<span class="c1"># Tune how much GPS proximity weighs against visual similarity (default 0.15)</span>
+crackz<span class="w"> </span>embed<span class="w"> </span>similar<span class="w"> </span>--project<span class="w"> </span>harbor<span class="w"> </span>--detection-id<span class="w"> </span><span class="m">42</span><span class="w"> </span>--radius-m<span class="w"> </span><span class="m">50</span><span class="w"> </span>--gps-weight<span class="w"> </span><span class="m">0</span>.3
+
+<span class="c1"># Image search needs an explicit query location for a radius</span>
+crackz<span class="w"> </span>embed<span class="w"> </span>search<span class="w"> </span>--project<span class="w"> </span>harbor<span class="w"> </span>--image<span class="w"> </span>query.jpg<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--radius-m<span class="w"> </span><span class="m">50</span><span class="w"> </span>--lat<span class="w"> </span><span class="m">59</span>.334<span class="w"> </span>--lon<span class="w"> </span><span class="m">18</span>.063
+</code></pre></div></p>
+<p>When <code>--radius-m</code> is set, the results table gains <strong>Distance (m)</strong> and <strong>Score</strong>
+columns. If GPS filtering can't run — PostGIS unavailable, or the query has no
+GPS coordinates — the command prints a note and falls back to pure-visual
+results (defects with no stored GPS are excluded only when a radius is applied).</p>
+<blockquote>
+<p>The same search is available in the GUI: right-click a detection and choose
+<strong>🔍 Find similar defects</strong> to open the side-by-side comparison view.</p>
+</blockquote>
 <h2 id="logging-verbosity">Logging &amp; Verbosity<a class="headerlink" href="#logging-verbosity" title="Permanent link">&para;</a></h2>
 <p><div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>--debug<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>demo-project
 crackz<span class="w"> </span>--quiet<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>demo-project

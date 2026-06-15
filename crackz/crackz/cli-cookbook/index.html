@@ -1123,6 +1123,67 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#defect-progression-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defect Progression (Tracks)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Defect Progression (Tracks)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#propose-track-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Propose track links
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-a-defects-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        View a defect's history
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confirm-or-reject-proposed-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confirm or reject proposed links
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typical-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typical workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#logging-verbosity" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2900,6 +2961,67 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#defect-progression-tracks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defect Progression (Tracks)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Defect Progression (Tracks)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#propose-track-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Propose track links
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-a-defects-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        View a defect's history
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confirm-or-reject-proposed-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confirm or reject proposed links
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typical-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typical workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#logging-verbosity" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3759,6 +3881,63 @@ results (defects with no stored GPS are excluded only when a radius is applied).
 <blockquote>
 <p>The same search is available in the GUI: right-click a detection and choose
 <strong>🔍 Find similar defects</strong> to open the side-by-side comparison view.</p>
+</blockquote>
+<h2 id="defect-progression-tracks">Defect Progression (Tracks)<a class="headerlink" href="#defect-progression-tracks" title="Permanent link">&para;</a></h2>
+<p>Track how one physical defect evolves across separate inspection runs using
+stored defect tracks. Requires a reachable Postgres (see ADR-023); GPS tiebreak
+is Haversine in Python and does <strong>not</strong> require PostGIS.</p>
+<h3 id="propose-track-links">Propose track links<a class="headerlink" href="#propose-track-links" title="Permanent link">&para;</a></h3>
+<p>Auto-link detections across runs by visual similarity (and GPS proximity when
+available). The command is idempotent — confirmed links are never overwritten,
+and re-runs only reprocess <code>proposed</code>/unlinked rows:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Auto-propose links for all detections in the project (uses config defaults)</span>
+crackz<span class="w"> </span>track<span class="w"> </span>link<span class="w"> </span>--project<span class="w"> </span>harbor
+
+<span class="c1"># Override the similarity threshold and GPS radius</span>
+crackz<span class="w"> </span>track<span class="w"> </span>link<span class="w"> </span>--project<span class="w"> </span>harbor<span class="w"> </span>--sim-threshold<span class="w"> </span><span class="m">0</span>.90<span class="w"> </span>--radius-m<span class="w"> </span><span class="m">30</span>
+</code></pre></div>
+<p>Output: <code>Proposed N link(s) across M track(s).</code></p>
+<p><strong>Matching rule:</strong> a pair of detections from different runs is linked when their
+DINOv2 cosine similarity is at or above <code>embedding_track_sim_threshold</code>
+(default 0.85). When both detections have GPS, the distance must also fall
+within <code>embedding_track_radius_m</code> (default 50 m) and proximity is used as a
+tiebreak. When either side has no GPS (e.g. underwater), matching falls back to
+visual-only — the GPS clause is skipped, not failed. Transitive groups (A↔B
+and B↔C) collapse into a single track.</p>
+<h3 id="view-a-defects-history">View a defect's history<a class="headerlink" href="#view-a-defects-history" title="Permanent link">&para;</a></h3>
+<p>Show one detection's full inspection timeline — ordered chronologically by run
+date, with visual drift relative to the earliest member:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Print the progression table for detection 42</span>
+crackz<span class="w"> </span>track<span class="w"> </span><span class="nb">history</span><span class="w"> </span><span class="m">42</span><span class="w"> </span>--project<span class="w"> </span>harbor
+</code></pre></div>
+<p>The table columns are: <code>run_at</code>, <code>category</code>, <code>confidence</code>, <code>defect_sev</code>,
+<code>status</code> (<code>proposed</code> / <code>confirmed</code> / <code>rejected</code>), and <code>drift</code> (cosine similarity
+vs the earliest member in the track). When the detection has no track yet, the
+command prints <code>not linked</code> and exits cleanly.</p>
+<h3 id="confirm-or-reject-proposed-links">Confirm or reject proposed links<a class="headerlink" href="#confirm-or-reject-proposed-links" title="Permanent link">&para;</a></h3>
+<p>Auto-proposed links are reviewed in the <strong>GUI</strong> — right-click a defect in the
+gallery and choose <strong>📈 Show progression</strong>, then use the inline <strong>Confirm</strong> /
+<strong>Reject</strong> buttons on each timeline card. (There is no <code>crackz track confirm</code> /
+<code>reject</code> CLI command in this slice; confirmation is an interactive, per-member
+decision.) Confirmed links survive subsequent <code>track link</code> re-runs; rejected
+links stay rejected and are not re-proposed.</p>
+<h3 id="typical-workflow">Typical workflow<a class="headerlink" href="#typical-workflow" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Embed all detection results (idempotent)</span>
+crackz<span class="w"> </span>embed<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>harbor
+
+<span class="c1"># 2. Auto-propose track links</span>
+crackz<span class="w"> </span>track<span class="w"> </span>link<span class="w"> </span>--project<span class="w"> </span>harbor
+
+<span class="c1"># 3. Inspect a defect&#39;s history (CLI), or open the GUI to confirm/reject</span>
+crackz<span class="w"> </span>track<span class="w"> </span><span class="nb">history</span><span class="w"> </span><span class="m">42</span><span class="w"> </span>--project<span class="w"> </span>harbor
+</code></pre></div>
+<blockquote>
+<p>The same progression is available in the GUI: right-click a defect in the
+gallery and choose <strong>📈 Show progression</strong> to open the ProgressionView with a
+timeline scrubber and inline confirm/reject controls.</p>
+<p><strong>Known limitation:</strong> a worsening defect that drifts visually below the
+similarity threshold will not be auto-linked. Manual addition (split/merge)
+is deferred to a future anomaly-evolution slice.</p>
 </blockquote>
 <h2 id="logging-verbosity">Logging &amp; Verbosity<a class="headerlink" href="#logging-verbosity" title="Permanent link">&para;</a></h2>
 <p><div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>--debug<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>demo-project

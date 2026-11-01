@@ -2093,11 +2093,15 @@ Two extensions are required or recommended:</p>
 <p>pgvector 0.8+ is required because similarity search enables HNSW <em>iterative scan</em>
 (<code>hnsw.iterative_scan</code>), which keeps the result set at full size when a
 project/model filter is applied; that setting does not exist on earlier pgvector.</p>
-<p><code>CRACKZ_DATABASE_URL</code> is the single configuration knob. Set it in the
+<p><code>CRACKZ_DATABASE_URL</code> configures the database connection. Set it in the
 environment or in a <code>.env</code> file at the project root. The default value
 works out of the box with the Docker path below:</p>
 <div class="highlight"><pre><span></span><code>CRACKZ_DATABASE_URL=postgresql+psycopg://crackz:crackz@localhost:5432/crackz
 </code></pre></div>
+<p><code>crackz db init</code> and <code>crackz db upgrade</code> also accept <code>--db-url</code>, which takes precedence
+over <code>CRACKZ_DATABASE_URL</code>/<code>.env</code> for that run. The raw <code>alembic</code> CLI only sees the
+environment value. Prefer the environment variable or <code>.env</code> for real credentials:
+a <code>--db-url</code> password is visible in the process list and shell history.</p>
 <hr />
 <h2 id="docker-dev-quickstart">Docker (dev / quickstart)<a class="headerlink" href="#docker-dev-quickstart" title="Permanent link">&para;</a></h2>
 <p>The fastest path. A compose file is provided that runs Postgres 16 with both

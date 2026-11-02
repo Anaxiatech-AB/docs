@@ -10534,6 +10534,11 @@ Examples:
 - Treat the user-level <code>crackz.db</code> as an index and cache: paths, pins, notes, tags, and welcome-screen aggregate values.
 - Do not write model, detection, or training history into the user-level DB.
 - Do not read artifact-level <code>crackz.db</code> in steady state; migrate it into <code>artifacts/project.db</code>.</p>
+<p><strong>Postgres is owned by the <code>crackz.db</code> package.</strong> Only <code>crackz.db</code> imports <code>sqlalchemy</code>, <code>psycopg</code>,
+<code>psycopg2</code>, <code>asyncpg</code> or <code>alembic</code> (import-linter contract 13, mirrored by <code>DB_OWNER</code> in
+<code>scripts/check_architecture.py</code>). Other layers call a repository, catch
+<code>crackz.db.errors.DatabaseError</code>, and apply migrations with <code>crackz.db.migrate.upgrade_to_head</code>.
+There are no exempted files; a new leak fails CI.</p>
 <p><strong>Implementation sketch</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># User-level DB: known projects + cached aggregate stats.</span>
 <span class="n">projects_db</span> <span class="o">=</span> <span class="n">ProjectsDB</span><span class="p">()</span>

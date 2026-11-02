@@ -14311,7 +14311,9 @@ and the checkpoint backbone differs from the project backbone.</p>
 <span class="normal">290</span>
 <span class="normal">291</span>
 <span class="normal">292</span>
-<span class="normal">293</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CrackzDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">[</span><span class="n">Sample</span><span class="p">]):</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CrackzDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">[</span><span class="n">Sample</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Dataset for crack images with optional masks.&quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
@@ -14377,8 +14379,10 @@ and the checkpoint backbone differs from the project backbone.</p>
                     <span class="sa">f</span><span class="s2">&quot;No images found in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_dir</span><span class="si">}</span><span class="s2">. Supported extensions: &quot;</span>
                     <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">SUPPORTED_IMAGE_EXTS</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
                 <span class="p">),</span>
-                <span class="s2">&quot;If your files use another extension or live under &#39;raw&#39;, &quot;</span>
-                <span class="s2">&quot;import them with --type train&quot;</span><span class="p">,</span>
+                <span class="p">(</span>
+                    <span class="s2">&quot;If your files use another extension or live under &#39;raw&#39;, &quot;</span>
+                    <span class="s2">&quot;import them with --type train&quot;</span>
+                <span class="p">),</span>
                 <span class="s2">&quot;or move/symlink them into the expected split directory.&quot;</span><span class="p">,</span>
             <span class="p">]</span>
             <span class="n">hint</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">hint_parts</span><span class="p">)</span>
@@ -15018,9 +15022,7 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/data/dataset.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">296</span>
-<span class="normal">297</span>
-<span class="normal">298</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">298</span>
 <span class="normal">299</span>
 <span class="normal">300</span>
 <span class="normal">301</span>
@@ -15057,7 +15059,9 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
 <span class="normal">332</span>
 <span class="normal">333</span>
 <span class="normal">334</span>
-<span class="normal">335</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_training_datasets</span><span class="p">(</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_training_datasets</span><span class="p">(</span>
     <span class="n">train_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
     <span class="n">train_mask_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
     <span class="n">val_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
@@ -15245,9 +15249,7 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/data/dataset.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">338</span>
-<span class="normal">339</span>
-<span class="normal">340</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">340</span>
 <span class="normal">341</span>
 <span class="normal">342</span>
 <span class="normal">343</span>
@@ -15268,7 +15270,9 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
 <span class="normal">358</span>
 <span class="normal">359</span>
 <span class="normal">360</span>
-<span class="normal">361</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_dataset</span><span class="p">(</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_dataset</span><span class="p">(</span>
     <span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span>
     <span class="n">transforms</span><span class="p">:</span> <span class="n">ImageTransform</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">mask_transforms</span><span class="p">:</span> <span class="n">MaskTransform</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># noqa: ARG001</span>

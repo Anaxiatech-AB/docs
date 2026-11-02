@@ -277,45 +277,57 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 <h2 id="2-standard-gui-install-recommended-default">2. Standard GUI Install (recommended default)<a class="headerlink" href="#2-standard-gui-install-recommended-default" title="Permanent link">&para;</a></h2>
 <h3 id="standalone-executable-no-python-required">Standalone Executable (No Python Required)<a class="headerlink" href="#standalone-executable-no-python-required" title="Permanent link">&para;</a></h3>
 <p>Download the pre-built <code>crackz-gui</code> executable for your platform from <a href="https://github.com/Anaxiatech-AB/crackz/releases">GitHub Releases</a>:</p>
+<blockquote>
+<p><strong>Availability:</strong> the executables are built by the separate <code>pyinstaller-build.yml</code> workflow, which is run by hand, and it attaches them only to <strong>draft or prerelease</strong> releases. For a published release it skips the upload ("Skipping upload for immutable release"), so published releases, including v0.102.0, do not have them. If the asset list for your release has no <code>crackz-gui-*</code> archive, use the wheel install below.</p>
+</blockquote>
+<p>Each build is an archive named <code>crackz-gui-&lt;version&gt;-&lt;suffix&gt;</code>; the executable (<code>crackz-gui</code> or <code>crackz-gui.exe</code>) is inside it.</p>
 <table>
 <thead>
 <tr>
 <th>Platform</th>
-<th>File to download</th>
+<th>Archive to download</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Windows</td>
-<td><code>crackz-gui.exe</code></td>
+<td>Windows (CPU)</td>
+<td><code>crackz-gui-&lt;version&gt;-windows.zip</code></td>
+</tr>
+<tr>
+<td>Windows (CUDA 12.x — RTX 30/40, A100)</td>
+<td><code>crackz-gui-&lt;version&gt;-windows-cu128.zip</code></td>
+</tr>
+<tr>
+<td>Windows (CUDA 11.x — RTX 20, older)</td>
+<td><code>crackz-gui-&lt;version&gt;-windows-cu118.zip</code></td>
 </tr>
 <tr>
 <td>macOS</td>
-<td><code>crackz-gui</code></td>
+<td><code>crackz-gui-&lt;version&gt;-macos.tar.gz</code></td>
 </tr>
 <tr>
 <td>Linux (CPU)</td>
-<td><code>crackz-gui</code></td>
+<td><code>crackz-gui-&lt;version&gt;-linux.tar.gz</code></td>
 </tr>
 <tr>
 <td>Linux (CUDA 12.x — RTX 30/40, A100)</td>
-<td><code>crackz-gui-cu128</code></td>
+<td><code>crackz-gui-&lt;version&gt;-linux-cu128.tar.gz</code></td>
 </tr>
 <tr>
 <td>Linux (CUDA 11.x — RTX 20, older)</td>
-<td><code>crackz-gui-cu118</code></td>
+<td><code>crackz-gui-&lt;version&gt;-linux-cu118.tar.gz</code></td>
 </tr>
 </tbody>
 </table>
-<p>Check your CUDA version with <code>nvidia-smi</code> (look for the <code>CUDA Version</code> field) to pick the right Linux variant. macOS uses Apple MPS automatically — no variant flag needed.</p>
+<p>Check your CUDA version with <code>nvidia-smi</code> (look for the <code>CUDA Version</code> field) to pick the right CUDA variant. macOS uses Apple MPS automatically — no variant flag needed.</p>
 <p><strong>Linux / macOS:</strong>
-<div class="highlight"><pre><span></span><code><span class="nv">asset</span><span class="o">=</span>crackz-gui<span class="w">             </span><span class="c1"># or crackz-gui-cu128 / crackz-gui-cu118</span>
-chmod<span class="w"> </span>+x<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$asset</span><span class="s2">&quot;</span>
-sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">755</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$asset</span><span class="s2">&quot;</span><span class="w"> </span>/usr/local/bin/crackz-gui
+<div class="highlight"><pre><span></span><code>tar<span class="w"> </span>-xzf<span class="w"> </span>crackz-gui-&lt;version&gt;-linux.tar.gz<span class="w">   </span><span class="c1"># or the -macos / -linux-cu128 / -linux-cu118 archive</span>
+chmod<span class="w"> </span>+x<span class="w"> </span>crackz-gui
+sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">755</span><span class="w"> </span>crackz-gui<span class="w"> </span>/usr/local/bin/crackz-gui
 crackz-gui
 </code></pre></div></p>
 <p><strong>Windows:</strong>
-Double-click <code>crackz-gui.exe</code> to launch. Move it to a permanent folder and add that folder to <code>PATH</code> for command-line access.</p>
+Extract the <code>.zip</code>, then double-click <code>crackz-gui.exe</code> to launch. Move it to a permanent folder and add that folder to <code>PATH</code> for command-line access.</p>
 <blockquote>
 <p><strong>Windows Defender / antivirus:</strong> Unsigned executables may trigger SmartScreen. Click <strong>More info → Run anyway</strong> or add an exclusion.
 <strong>Slow first start:</strong> PyInstaller bundles are extracted to a temp directory on first launch (~30 s). Subsequent starts are fast.</p>
@@ -338,6 +350,10 @@ gh<span class="w"> </span>release<span class="w"> </span>download<span class="w"
 uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>crackz-*.whl<span class="w"> </span>crackz_gui-*.whl
 crackz-gui
 </code></pre></div>
+<p>The GUI wheel declares no dependency on the core package, because the core is published under three names (<code>crackz</code>, <code>crackz_cu118</code>, <code>crackz_cu128</code>) and one GUI wheel has to work with any of them. Install <strong>one</strong> core wheel next to it. For a CUDA build, install PyTorch for your CUDA version first (see <a href="#3-gpu-cuda-install">GPU / CUDA Install</a>; the CUDA wheels do not install PyTorch), download with <code>--pattern 'crackz_cu128-*.whl'</code> (or <code>crackz_cu118-*</code>, since the <code>crackz-*</code> pattern above does not match it), and install that wheel instead of <code>crackz-*.whl</code>.</p>
+<blockquote>
+<p><strong>Releases up to v0.102.0</strong> still declare <code>crackz-core</code> in the GUI wheel and fail to resolve. Install the core wheel and <code>pyside6&gt;=6.7,&lt;=6.9.3</code>, then <code>uv pip install --no-deps crackz_gui-*.whl</code>.</p>
+</blockquote>
 <hr />
 <h3 id="advanced-installation-methods">Advanced Installation Methods<a class="headerlink" href="#advanced-installation-methods" title="Permanent link">&para;</a></h3>
 <p>For developers or users who need more control over the installation:</p>
@@ -1191,8 +1207,9 @@ crackz<span class="w"> </span>import-images<span class="w"> </span>--project<spa
 crackz-gui
 </code></pre></div>
 <p>Or use the standalone executable from PyInstaller builds:
-- <strong>Windows</strong>: Double-click <code>crackz-gui.exe</code>
-- <strong>macOS/Linux</strong>: Run <code>./crackz-gui</code></p>
+- <strong>Windows</strong>: Extract <code>crackz-gui-&lt;version&gt;-windows.zip</code>, then double-click <code>crackz-gui.exe</code>
+- <strong>macOS/Linux</strong>: Extract the <code>.tar.gz</code>, then run <code>./crackz-gui</code></p>
+<p>These archives are only attached to draft and prerelease releases; see the availability note in <a href="../installation/">Installation</a>.</p>
 <blockquote>
 <p><strong>Note:</strong> Standalone executables are provided via <a href="https://github.com/theresia-snow/crackz/releases">GitHub Releases</a> for major versions. If you do not see the executable for your platform, you may need to build it yourself or use the standard Python installation.</p>
 </blockquote>

@@ -3348,6 +3348,13 @@ The <code>--split</code> option automatically shuffles and distributes images ac
 <p>For reproducible splits (useful for experiments), add <code>--random-seed</code>:
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--src<span class="w"> </span>./samples<span class="w"> </span>--split<span class="w"> </span>--random-seed<span class="w"> </span><span class="m">42</span>
 </code></pre></div></p>
+<p>For photogrammetry or video frames, consecutive images overlap heavily, so a per-file random split puts near-copies in both train and validation and inflates the scores. Use <code>--group-by</code> so every image of a group lands in the same split:
+<div class="highlight"><pre><span></span><code><span class="c1"># one group per source folder</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--src<span class="w"> </span>./samples<span class="w"> </span>--split<span class="w"> </span>--group-by<span class="w"> </span>folder
+<span class="c1"># consecutive files in blocks of 10 (natural filename order)</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--src<span class="w"> </span>./samples<span class="w"> </span>--split<span class="w"> </span>--group-by<span class="w"> </span>sequence-block<span class="w"> </span>--group-size<span class="w"> </span><span class="m">10</span>
+</code></pre></div>
+Other modes: <code>filename-prefix</code> (names equal after dropping trailing numbers) and <code>tile-source</code> (tiles written by <code>crackz tile</code>, <code>{stem}_{row}_{col}</code>, stay with their source photo). Groups are assigned whole, so the split ratios are approximate when groups are large. <code>--group-by</code> requires <code>--split</code>; <code>--group-size</code> applies only to <code>sequence-block</code>.</p>
 <p>Include masks (auto-detected from <code>--src/masks</code>), or specify:
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--src<span class="w"> </span>./samples<span class="w"> </span>--masks_src<span class="w"> </span>./samples/masks<span class="w"> </span>--type<span class="w"> </span>train
 </code></pre></div>

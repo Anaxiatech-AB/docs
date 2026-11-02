@@ -4210,6 +4210,13 @@ The <code>--split</code> option automatically shuffles and distributes images ac
 <p>For reproducible splits (useful for experiments), add <code>--random-seed</code>:
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--src<span class="w"> </span>./samples<span class="w"> </span>--split<span class="w"> </span>--random-seed<span class="w"> </span><span class="m">42</span>
 </code></pre></div></p>
+<p>For photogrammetry or video frames, consecutive images overlap heavily, so a per-file random split puts near-copies in both train and validation and inflates the scores. Use <code>--group-by</code> so every image of a group lands in the same split:
+<div class="highlight"><pre><span></span><code><span class="c1"># one group per source folder</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--src<span class="w"> </span>./samples<span class="w"> </span>--split<span class="w"> </span>--group-by<span class="w"> </span>folder
+<span class="c1"># consecutive files in blocks of 10 (natural filename order)</span>
+crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--src<span class="w"> </span>./samples<span class="w"> </span>--split<span class="w"> </span>--group-by<span class="w"> </span>sequence-block<span class="w"> </span>--group-size<span class="w"> </span><span class="m">10</span>
+</code></pre></div>
+Other modes: <code>filename-prefix</code> (names equal after dropping trailing numbers) and <code>tile-source</code> (tiles written by <code>crackz tile</code>, <code>{stem}_{row}_{col}</code>, stay with their source photo). Groups are assigned whole, so the split ratios are approximate when groups are large. <code>--group-by</code> requires <code>--split</code>; <code>--group-size</code> applies only to <code>sequence-block</code>.</p>
 <p>Include masks (auto-detected from <code>--src/masks</code>), or specify:
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--src<span class="w"> </span>./samples<span class="w"> </span>--masks_src<span class="w"> </span>./samples/masks<span class="w"> </span>--type<span class="w"> </span>train
 </code></pre></div>
@@ -6636,6 +6643,8 @@ crackz<span class="w"> </span>import-images<span class="w"> </span><span class="
 <span class="w">  </span>--split-ratios<span class="w"> </span><span class="m">0</span>.8<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
 </code></pre></div>
+<h4 id="overlapping-frames-photogrammetry-video-tiles">Overlapping frames (photogrammetry, video, tiles)<a class="headerlink" href="#overlapping-frames-photogrammetry-video-tiles" title="Permanent link">&para;</a></h4>
+<p>A per-file random split puts near-duplicate neighbouring frames on both sides of the split, which inflates validation and test scores. Add <code>--group-by</code> (<code>folder</code>, <code>sequence-block</code> with <code>--group-size N</code>, <code>filename-prefix</code>, or <code>tile-source</code>) so every image of a group stays in one split. Beware that a flat folder, or camera counters like <code>DJI_0001</code>, collapse into a single group: Crackz warns when a split ends up empty. See the <a href="../cli-cookbook/#import-images">CLI cookbook</a> for examples.</p>
 <h3 id="gui-usage">GUI Usage<a class="headerlink" href="#gui-usage" title="Permanent link">&para;</a></h3>
 <p>The GUI provides a visual, user-friendly interface for importing with split.</p>
 <h4 id="step-by-step-guide">Step-by-Step Guide<a class="headerlink" href="#step-by-step-guide" title="Permanent link">&para;</a></h4>
@@ -12758,8 +12767,7 @@ BaseModel-compatible configuration that ensures model extensibility.
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>core/src/crackz/project/project.py</code></summary>
-                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 66</span>
-<span class="normal"> 67</span>
+                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 67</span>
 <span class="normal"> 68</span>
 <span class="normal"> 69</span>
 <span class="normal"> 70</span>
@@ -13304,7 +13312,12 @@ BaseModel-compatible configuration that ensures model extensibility.
 <span class="normal">609</span>
 <span class="normal">610</span>
 <span class="normal">611</span>
-<span class="normal">612</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Project</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="normal">612</span>
+<span class="normal">613</span>
+<span class="normal">614</span>
+<span class="normal">615</span>
+<span class="normal">616</span>
+<span class="normal">617</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Project</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a project model with configuration for storing project details.</span>
 
@@ -13716,6 +13729,8 @@ BaseModel-compatible configuration that ensures model extensibility.
         <span class="n">val_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.15</span><span class="p">,</span>
         <span class="n">test_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.15</span><span class="p">,</span>
         <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">group_by</span><span class="p">:</span> <span class="n">GroupBy</span> <span class="o">=</span> <span class="n">GroupBy</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+        <span class="n">group_block_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">mask_label_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -13742,6 +13757,8 @@ BaseModel-compatible configuration that ensures model extensibility.
             <span class="n">val_ratio</span><span class="o">=</span><span class="n">val_ratio</span><span class="p">,</span>
             <span class="n">test_ratio</span><span class="o">=</span><span class="n">test_ratio</span><span class="p">,</span>
             <span class="n">random_seed</span><span class="o">=</span><span class="n">random_seed</span><span class="p">,</span>
+            <span class="n">group_by</span><span class="o">=</span><span class="n">group_by</span><span class="p">,</span>
+            <span class="n">group_block_size</span><span class="o">=</span><span class="n">group_block_size</span><span class="p">,</span>
             <span class="n">mask_label_map</span><span class="o">=</span><span class="n">mask_label_map</span><span class="p">,</span>
         <span class="p">)</span>
 
@@ -14754,8 +14771,7 @@ are moved into this path by the registry layer.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">106</span>
-<span class="normal">107</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">107</span>
 <span class="normal">108</span>
 <span class="normal">109</span>
 <span class="normal">110</span>
@@ -14763,7 +14779,8 @@ are moved into this path by the registry layer.</p>
 <span class="normal">112</span>
 <span class="normal">113</span>
 <span class="normal">114</span>
-<span class="normal">115</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">report_logo_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default_logo_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="normal">115</span>
+<span class="normal">116</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">report_logo_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default_logo_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the custom report logo path when configured and present.&quot;&quot;&quot;</span>
     <span class="n">custom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">logo_path</span>
     <span class="k">if</span> <span class="n">custom</span><span class="p">:</span>
@@ -14800,8 +14817,7 @@ into a single defect-vs-none class.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">335</span>
-<span class="normal">336</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">336</span>
 <span class="normal">337</span>
 <span class="normal">338</span>
 <span class="normal">339</span>
@@ -14810,7 +14826,8 @@ into a single defect-vs-none class.</p>
 <span class="normal">342</span>
 <span class="normal">343</span>
 <span class="normal">344</span>
-<span class="normal">345</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">resolve_task_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span> <span class="s2">&quot;multiclass&quot;</span><span class="p">]:</span>
+<span class="normal">345</span>
+<span class="normal">346</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">resolve_task_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span> <span class="s2">&quot;multiclass&quot;</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the active segmentation task mode.</span>
 
 <span class="sd">    Honors ``ai.model.task_mode`` when set; otherwise auto-derives from the</span>
@@ -14845,12 +14862,12 @@ into a single defect-vs-none class.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">347</span>
-<span class="normal">348</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">348</span>
 <span class="normal">349</span>
 <span class="normal">350</span>
 <span class="normal">351</span>
-<span class="normal">352</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">sync_derived_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">352</span>
+<span class="normal">353</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">sync_derived_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Update compatibility fields that are derived from project-owned schema state.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolve_task_mode</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;binary&quot;</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ai</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">num_classes</span> <span class="o">=</span> <span class="mi">1</span>
@@ -14887,8 +14904,7 @@ If the given value does not map to a valid type, the function defaults to the
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">373</span>
-<span class="normal">374</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">374</span>
 <span class="normal">375</span>
 <span class="normal">376</span>
 <span class="normal">377</span>
@@ -14900,7 +14916,8 @@ If the given value does not map to a valid type, the function defaults to the
 <span class="normal">383</span>
 <span class="normal">384</span>
 <span class="normal">385</span>
-<span class="normal">386</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">map_type_to_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_type</span><span class="p">:</span> <span class="n">ImagesType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="normal">386</span>
+<span class="normal">387</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">map_type_to_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_type</span><span class="p">:</span> <span class="n">ImagesType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Maps a given image type to its corresponding directory path.</span>
 
@@ -14945,8 +14962,7 @@ If the given value does not map to a valid type, the function defaults to the
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">388</span>
-<span class="normal">389</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">389</span>
 <span class="normal">390</span>
 <span class="normal">391</span>
 <span class="normal">392</span>
@@ -14958,7 +14974,8 @@ If the given value does not map to a valid type, the function defaults to the
 <span class="normal">398</span>
 <span class="normal">399</span>
 <span class="normal">400</span>
-<span class="normal">401</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">map_type_to_masks_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_type</span><span class="p">:</span> <span class="n">ImagesType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="normal">401</span>
+<span class="normal">402</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">map_type_to_masks_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_type</span><span class="p">:</span> <span class="n">ImagesType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Maps a given image type to its corresponding directory path.</span>
 
@@ -15003,8 +15020,7 @@ encountered during the saving process.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">403</span>
-<span class="normal">404</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">404</span>
 <span class="normal">405</span>
 <span class="normal">406</span>
 <span class="normal">407</span>
@@ -15033,7 +15049,8 @@ encountered during the saving process.</p>
 <span class="normal">430</span>
 <span class="normal">431</span>
 <span class="normal">432</span>
-<span class="normal">433</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save_project</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">433</span>
+<span class="normal">434</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save_project</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Saves the given project to a file in YAML format. The function serializes</span>
 <span class="sd">    the project data using the model&#39;s `model_dump` method, and writes it to</span>
@@ -15101,8 +15118,7 @@ encountered during the saving process.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">435</span>
-<span class="normal">436</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">436</span>
 <span class="normal">437</span>
 <span class="normal">438</span>
 <span class="normal">439</span>
@@ -15127,7 +15143,8 @@ encountered during the saving process.</p>
 <span class="normal">458</span>
 <span class="normal">459</span>
 <span class="normal">460</span>
-<span class="normal">461</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">import_image_files</span><span class="p">(</span>
+<span class="normal">461</span>
+<span class="normal">462</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">import_image_files</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">files</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span>
     <span class="n">dest_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
@@ -15182,6 +15199,8 @@ encountered during the saving process.</p>
     <span class="n">val_ratio</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span>
     <span class="n">test_ratio</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span>
     <span class="n">random_seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">group_by</span><span class="o">=</span><span class="n">GroupBy</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+    <span class="n">group_block_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">mask_label_map</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
@@ -15200,8 +15219,7 @@ encountered during the saving process.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">463</span>
-<span class="normal">464</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">464</span>
 <span class="normal">465</span>
 <span class="normal">466</span>
 <span class="normal">467</span>
@@ -15242,7 +15260,12 @@ encountered during the saving process.</p>
 <span class="normal">502</span>
 <span class="normal">503</span>
 <span class="normal">504</span>
-<span class="normal">505</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">import_images</span><span class="p">(</span>
+<span class="normal">505</span>
+<span class="normal">506</span>
+<span class="normal">507</span>
+<span class="normal">508</span>
+<span class="normal">509</span>
+<span class="normal">510</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">import_images</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">source_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
     <span class="n">masks_source_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -15257,6 +15280,8 @@ encountered during the saving process.</p>
     <span class="n">val_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.15</span><span class="p">,</span>
     <span class="n">test_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.15</span><span class="p">,</span>
     <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">group_by</span><span class="p">:</span> <span class="n">GroupBy</span> <span class="o">=</span> <span class="n">GroupBy</span><span class="o">.</span><span class="n">NONE</span><span class="p">,</span>
+    <span class="n">group_block_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">mask_label_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -15283,6 +15308,8 @@ encountered during the saving process.</p>
         <span class="n">val_ratio</span><span class="o">=</span><span class="n">val_ratio</span><span class="p">,</span>
         <span class="n">test_ratio</span><span class="o">=</span><span class="n">test_ratio</span><span class="p">,</span>
         <span class="n">random_seed</span><span class="o">=</span><span class="n">random_seed</span><span class="p">,</span>
+        <span class="n">group_by</span><span class="o">=</span><span class="n">group_by</span><span class="p">,</span>
+        <span class="n">group_block_size</span><span class="o">=</span><span class="n">group_block_size</span><span class="p">,</span>
         <span class="n">mask_label_map</span><span class="o">=</span><span class="n">mask_label_map</span><span class="p">,</span>
     <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -15313,12 +15340,7 @@ exist, it optionally allows overwriting them based on the <code>force</code> par
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">507</span>
-<span class="normal">508</span>
-<span class="normal">509</span>
-<span class="normal">510</span>
-<span class="normal">511</span>
-<span class="normal">512</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">512</span>
 <span class="normal">513</span>
 <span class="normal">514</span>
 <span class="normal">515</span>
@@ -15334,7 +15356,12 @@ exist, it optionally allows overwriting them based on the <code>force</code> par
 <span class="normal">525</span>
 <span class="normal">526</span>
 <span class="normal">527</span>
-<span class="normal">528</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_project_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">528</span>
+<span class="normal">529</span>
+<span class="normal">530</span>
+<span class="normal">531</span>
+<span class="normal">532</span>
+<span class="normal">533</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_project_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the necessary directories for a given project. If the directories already</span>
 <span class="sd">    exist, it optionally allows overwriting them based on the `force` parameter.</span>
@@ -15386,12 +15413,7 @@ Images and masks are always preserved. The best model checkpoint is preserved by
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">579</span>
-<span class="normal">580</span>
-<span class="normal">581</span>
-<span class="normal">582</span>
-<span class="normal">583</span>
-<span class="normal">584</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">584</span>
 <span class="normal">585</span>
 <span class="normal">586</span>
 <span class="normal">587</span>
@@ -15419,7 +15441,12 @@ Images and masks are always preserved. The best model checkpoint is preserved by
 <span class="normal">609</span>
 <span class="normal">610</span>
 <span class="normal">611</span>
-<span class="normal">612</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">logs_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">keep_best_model</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="normal">612</span>
+<span class="normal">613</span>
+<span class="normal">614</span>
+<span class="normal">615</span>
+<span class="normal">616</span>
+<span class="normal">617</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">logs_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">keep_best_model</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Clean temporary files and logs from the project.</span>
 
 <span class="sd">    By default, cleans logs, training artifacts, models, and detections.</span>
@@ -15494,12 +15521,7 @@ directory structure, and saving the corresponding Project object. It ensures.</p
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">615</span>
-<span class="normal">616</span>
-<span class="normal">617</span>
-<span class="normal">618</span>
-<span class="normal">619</span>
-<span class="normal">620</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">620</span>
 <span class="normal">621</span>
 <span class="normal">622</span>
 <span class="normal">623</span>
@@ -15508,7 +15530,12 @@ directory structure, and saving the corresponding Project object. It ensures.</p
 <span class="normal">626</span>
 <span class="normal">627</span>
 <span class="normal">628</span>
-<span class="normal">629</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_project_and_save</span><span class="p">(</span>
+<span class="normal">629</span>
+<span class="normal">630</span>
+<span class="normal">631</span>
+<span class="normal">632</span>
+<span class="normal">633</span>
+<span class="normal">634</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_project_and_save</span><span class="p">(</span>
     <span class="n">metadata</span><span class="p">:</span> <span class="n">ProjectMetadata</span><span class="p">,</span>
     <span class="n">paths</span><span class="p">:</span> <span class="n">ProjectPaths</span><span class="p">,</span>
     <span class="n">ai</span><span class="p">:</span> <span class="n">AIConfig</span> <span class="o">=</span> <span class="n">default_ai_config</span><span class="p">,</span>
@@ -15559,12 +15586,7 @@ proper storage of project-related information including paths and metadata.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">633</span>
-<span class="normal">634</span>
-<span class="normal">635</span>
-<span class="normal">636</span>
-<span class="normal">637</span>
-<span class="normal">638</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">638</span>
 <span class="normal">639</span>
 <span class="normal">640</span>
 <span class="normal">641</span>
@@ -15608,7 +15630,12 @@ proper storage of project-related information including paths and metadata.</p>
 <span class="normal">679</span>
 <span class="normal">680</span>
 <span class="normal">681</span>
-<span class="normal">682</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_project</span><span class="p">(</span>
+<span class="normal">682</span>
+<span class="normal">683</span>
+<span class="normal">684</span>
+<span class="normal">685</span>
+<span class="normal">686</span>
+<span class="normal">687</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_project</span><span class="p">(</span>
     <span class="n">metadata</span><span class="p">:</span> <span class="n">ProjectMetadata</span><span class="p">,</span>
     <span class="n">paths</span><span class="p">:</span> <span class="n">ProjectPaths</span><span class="p">,</span>
     <span class="n">ai</span><span class="p">:</span> <span class="n">AIConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -15682,9 +15709,9 @@ proper storage of project-related information including paths and metadata.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">685</span>
-<span class="normal">686</span>
-<span class="normal">687</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save_project</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">690</span>
+<span class="normal">691</span>
+<span class="normal">692</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save_project</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;See `Project.save_project`.&quot;&quot;&quot;</span>
     <span class="n">project</span><span class="o">.</span><span class="n">save_project</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
@@ -15778,12 +15805,7 @@ read, or parsed, the function logs an error.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">690</span>
-<span class="normal">691</span>
-<span class="normal">692</span>
-<span class="normal">693</span>
-<span class="normal">694</span>
-<span class="normal">695</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">695</span>
 <span class="normal">696</span>
 <span class="normal">697</span>
 <span class="normal">698</span>
@@ -15814,7 +15836,12 @@ read, or parsed, the function logs an error.</p>
 <span class="normal">723</span>
 <span class="normal">724</span>
 <span class="normal">725</span>
-<span class="normal">726</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_project</span><span class="p">(</span><span class="n">project_file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Project</span><span class="p">:</span>
+<span class="normal">726</span>
+<span class="normal">727</span>
+<span class="normal">728</span>
+<span class="normal">729</span>
+<span class="normal">730</span>
+<span class="normal">731</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_project</span><span class="p">(</span><span class="n">project_file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Project</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads a project configuration from the specified file path. The</span>
 <span class="sd">    configuration file is expected to be in YAML format, and its content</span>
@@ -15884,12 +15911,7 @@ or parsed, an appropriate exception is raised.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">729</span>
-<span class="normal">730</span>
-<span class="normal">731</span>
-<span class="normal">732</span>
-<span class="normal">733</span>
-<span class="normal">734</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">734</span>
 <span class="normal">735</span>
 <span class="normal">736</span>
 <span class="normal">737</span>
@@ -15917,7 +15939,12 @@ or parsed, an appropriate exception is raised.</p>
 <span class="normal">759</span>
 <span class="normal">760</span>
 <span class="normal">761</span>
-<span class="normal">762</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_project_from_path</span><span class="p">(</span><span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Project</span><span class="p">:</span>
+<span class="normal">762</span>
+<span class="normal">763</span>
+<span class="normal">764</span>
+<span class="normal">765</span>
+<span class="normal">766</span>
+<span class="normal">767</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_project_from_path</span><span class="p">(</span><span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Project</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads a project configuration from a specified path and returns a Project instance.</span>
 
@@ -15989,12 +16016,7 @@ provided.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/project/project.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">765</span>
-<span class="normal">766</span>
-<span class="normal">767</span>
-<span class="normal">768</span>
-<span class="normal">769</span>
-<span class="normal">770</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">770</span>
 <span class="normal">771</span>
 <span class="normal">772</span>
 <span class="normal">773</span>
@@ -16015,7 +16037,12 @@ provided.</p>
 <span class="normal">788</span>
 <span class="normal">789</span>
 <span class="normal">790</span>
-<span class="normal">791</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_from_project_path_or_cfg</span><span class="p">(</span><span class="n">cfg</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Project</span><span class="p">:</span>
+<span class="normal">791</span>
+<span class="normal">792</span>
+<span class="normal">793</span>
+<span class="normal">794</span>
+<span class="normal">795</span>
+<span class="normal">796</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_from_project_path_or_cfg</span><span class="p">(</span><span class="n">cfg</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Project</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads a project either from the provided project path or configuration file.</span>
 
@@ -30680,6 +30707,61 @@ process. Errors during the process are logged and handled properly.</p>
 <div class="doc doc-object doc-function">
 
 
+<h2 id="crackz.cli.image_import_cli.validate_group_options" class="doc doc-heading">
+            <span class="doc doc-object-name doc-function-name">validate_group_options</span>
+
+
+<a href="#crackz.cli.image_import_cli.validate_group_options" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature codehilite"><pre><span></span><code><span class="nf">validate_group_options</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">split</span><span class="p">,</span> <span class="n">group_by</span><span class="p">,</span> <span class="n">group_size</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Reject inconsistent --group-by / --group-size / --split combinations.</p>
+<p>Raises <code>typer.BadParameter</code> (usage error, exit code 2) so a bad combination is
+distinguishable from an import failure (exit code 1) without parsing any output.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>core/src/crackz/cli/image_import_cli.py</code></summary>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">validate_group_options</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">split</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">group_by</span><span class="p">:</span> <span class="n">GroupBy</span><span class="p">,</span> <span class="n">group_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reject inconsistent --group-by / --group-size / --split combinations.</span>
+
+<span class="sd">    Raises ``typer.BadParameter`` (usage error, exit code 2) so a bad combination is</span>
+<span class="sd">    distinguishable from an import failure (exit code 1) without parsing any output.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">group_by</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">GroupBy</span><span class="o">.</span><span class="n">NONE</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">split</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;--group-by requires --split&quot;</span>
+        <span class="k">raise</span> <span class="n">typer</span><span class="o">.</span><span class="n">BadParameter</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">group_by</span> <span class="ow">is</span> <span class="n">GroupBy</span><span class="o">.</span><span class="n">SEQUENCE_BLOCK</span> <span class="ow">and</span> <span class="n">group_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;--group-by sequence-block requires --group-size N&quot;</span>
+        <span class="k">raise</span> <span class="n">typer</span><span class="o">.</span><span class="n">BadParameter</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">group_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">group_by</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">GroupBy</span><span class="o">.</span><span class="n">SEQUENCE_BLOCK</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;--group-size only applies to --group-by sequence-block&quot;</span>
+        <span class="k">raise</span> <span class="n">typer</span><span class="o">.</span><span class="n">BadParameter</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
 <h2 id="crackz.cli.image_import_cli.import_images" class="doc doc-heading">
             <span class="doc doc-object-name doc-function-name">import_images</span>
 
@@ -30701,6 +30783,8 @@ process. Errors during the process are logged and handled properly.</p>
     <span class="n">val_ratio</span><span class="o">=</span><span class="n">VAL_RATIO_OPTION</span><span class="p">,</span>
     <span class="n">test_ratio</span><span class="o">=</span><span class="n">TEST_RATIO_OPTION</span><span class="p">,</span>
     <span class="n">random_seed</span><span class="o">=</span><span class="n">RANDOM_SEED_OPTION</span><span class="p">,</span>
+    <span class="n">group_by</span><span class="o">=</span><span class="n">GROUP_BY_OPTION</span><span class="p">,</span>
+    <span class="n">group_size</span><span class="o">=</span><span class="n">GROUP_SIZE_OPTION</span><span class="p">,</span>
     <span class="n">mask_label_map</span><span class="o">=</span><span class="n">MASK_LABEL_MAP_OPTION</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
@@ -30968,6 +31052,40 @@ Random seed for reproducible splits (default: None for random).</p>
           </tr>
           <tr class="doc-section-item">
             <td>
+                <code>group_by</code>
+            </td>
+            <td>
+                  <code><span title="crackz.project.split_groups.GroupBy">GroupBy</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>GroupBy
+Keep images of one group in the same split (requires split).</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="crackz.cli.image_import_cli.GROUP_BY_OPTION">GROUP_BY_OPTION</span></code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>group_size</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>int | None
+Files per block for group_by=sequence-block.</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="crackz.cli.image_import_cli.GROUP_SIZE_OPTION">GROUP_SIZE_OPTION</span></code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
                 <code>mask_label_map</code>
             </td>
             <td>
@@ -31045,44 +31163,7 @@ Optional source-id to project-id remap for imported mask labels.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/cli/image_import_cli.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">127</span>
-<span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
-<span class="normal">133</span>
-<span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span>
-<span class="normal">138</span>
-<span class="normal">139</span>
-<span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span>
-<span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span>
-<span class="normal">148</span>
-<span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span>
-<span class="normal">152</span>
-<span class="normal">153</span>
-<span class="normal">154</span>
-<span class="normal">155</span>
-<span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
-<span class="normal">159</span>
-<span class="normal">160</span>
-<span class="normal">161</span>
-<span class="normal">162</span>
-<span class="normal">163</span>
-<span class="normal">164</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">164</span>
 <span class="normal">165</span>
 <span class="normal">166</span>
 <span class="normal">167</span>
@@ -31252,7 +31333,54 @@ Optional source-id to project-id remap for imported mask labels.</p>
 <span class="normal">331</span>
 <span class="normal">332</span>
 <span class="normal">333</span>
-<span class="normal">334</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">import_images</span><span class="p">(</span>  <span class="c1"># noqa: C901, PLR0912, PLR0915</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span>
+<span class="normal">349</span>
+<span class="normal">350</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span>
+<span class="normal">373</span>
+<span class="normal">374</span>
+<span class="normal">375</span>
+<span class="normal">376</span>
+<span class="normal">377</span>
+<span class="normal">378</span>
+<span class="normal">379</span>
+<span class="normal">380</span>
+<span class="normal">381</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">import_images</span><span class="p">(</span>  <span class="c1"># noqa: C901, PLR0912, PLR0915</span>
     <span class="n">cfg</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">CFG_OPTION</span><span class="p">,</span>
     <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">PROJECT_PATH_OPTION</span><span class="p">,</span>
     <span class="n">source_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">SOURCE_PATH_OPTION</span><span class="p">,</span>
@@ -31268,6 +31396,8 @@ Optional source-id to project-id remap for imported mask labels.</p>
     <span class="n">val_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">VAL_RATIO_OPTION</span><span class="p">,</span>
     <span class="n">test_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">TEST_RATIO_OPTION</span><span class="p">,</span>
     <span class="n">random_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">RANDOM_SEED_OPTION</span><span class="p">,</span>
+    <span class="n">group_by</span><span class="p">:</span> <span class="n">GroupBy</span> <span class="o">=</span> <span class="n">GROUP_BY_OPTION</span><span class="p">,</span>
+    <span class="n">group_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">GROUP_SIZE_OPTION</span><span class="p">,</span>
     <span class="n">mask_label_map</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">MASK_LABEL_MAP_OPTION</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -31310,6 +31440,10 @@ Optional source-id to project-id remap for imported mask labels.</p>
 <span class="sd">            Ratio of images for test set when using split (default: 0.15).</span>
 <span class="sd">        random_seed: int | None</span>
 <span class="sd">            Random seed for reproducible splits (default: None for random).</span>
+<span class="sd">        group_by: GroupBy</span>
+<span class="sd">            Keep images of one group in the same split (requires split).</span>
+<span class="sd">        group_size: int | None</span>
+<span class="sd">            Files per block for group_by=sequence-block.</span>
 <span class="sd">        mask_label_map: str | None</span>
 <span class="sd">            Optional source-id to project-id remap for imported mask labels.</span>
 
@@ -31327,6 +31461,8 @@ Optional source-id to project-id remap for imported mask labels.</p>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Importing images from </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">source_path</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Importing masks from </span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">masks_source_path</span><span class="p">)</span>
+
+    <span class="n">validate_group_options</span><span class="p">(</span><span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">group_by</span><span class="o">=</span><span class="n">group_by</span><span class="p">,</span> <span class="n">group_size</span><span class="o">=</span><span class="n">group_size</span><span class="p">)</span>
 
     <span class="c1"># Validate split ratios if split is enabled</span>
     <span class="k">if</span> <span class="n">split</span><span class="p">:</span>
@@ -31456,6 +31592,8 @@ Optional source-id to project-id remap for imported mask labels.</p>
                 <span class="n">val_ratio</span><span class="o">=</span><span class="n">val_ratio</span><span class="p">,</span>
                 <span class="n">test_ratio</span><span class="o">=</span><span class="n">test_ratio</span><span class="p">,</span>
                 <span class="n">random_seed</span><span class="o">=</span><span class="n">random_seed</span><span class="p">,</span>
+                <span class="n">group_by</span><span class="o">=</span><span class="n">group_by</span><span class="p">,</span>
+                <span class="n">group_block_size</span><span class="o">=</span><span class="n">group_size</span><span class="p">,</span>
                 <span class="n">mask_label_map</span><span class="o">=</span><span class="n">parsed_mask_label_map</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
             <span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -34905,6 +35043,7 @@ crackz<span class="w"> </span>import-images<span class="w"> </span><span class="
 <span class="w">  </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--random-seed<span class="w"> </span><span class="m">42</span>
 </code></pre></div></p>
+<p>For overlapping photogrammetry or video frames, add <code>--group-by folder</code> (or <code>sequence-block --group-size N</code>) so near-duplicate frames stay in the same split; see the <a href="../cli-cookbook/">CLI cookbook</a>.</p>
 <h5 id="troubleshooting-mask-issues">Troubleshooting Mask Issues<a class="headerlink" href="#troubleshooting-mask-issues" title="Permanent link">&para;</a></h5>
 <table>
 <thead>

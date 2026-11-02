@@ -1100,6 +1100,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#overlapping-frames-photogrammetry-video-tiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overlapping frames (photogrammetry, video, tiles)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2690,6 +2701,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#overlapping-frames-photogrammetry-video-tiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overlapping frames (photogrammetry, video, tiles)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3361,6 +3383,8 @@ crackz<span class="w"> </span>import-images<span class="w"> </span><span class="
 <span class="w">  </span>--split-ratios<span class="w"> </span><span class="m">0</span>.8<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--size<span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="m">512</span>
 </code></pre></div>
+<h4 id="overlapping-frames-photogrammetry-video-tiles">Overlapping frames (photogrammetry, video, tiles)<a class="headerlink" href="#overlapping-frames-photogrammetry-video-tiles" title="Permanent link">&para;</a></h4>
+<p>A per-file random split puts near-duplicate neighbouring frames on both sides of the split, which inflates validation and test scores. Add <code>--group-by</code> (<code>folder</code>, <code>sequence-block</code> with <code>--group-size N</code>, <code>filename-prefix</code>, or <code>tile-source</code>) so every image of a group stays in one split. Beware that a flat folder, or camera counters like <code>DJI_0001</code>, collapse into a single group: Crackz warns when a split ends up empty. See the <a href="../cli-cookbook/#import-images">CLI cookbook</a> for examples.</p>
 <h3 id="gui-usage">GUI Usage<a class="headerlink" href="#gui-usage" title="Permanent link">&para;</a></h3>
 <p>The GUI provides a visual, user-friendly interface for importing with split.</p>
 <h4 id="step-by-step-guide">Step-by-Step Guide<a class="headerlink" href="#step-by-step-guide" title="Permanent link">&para;</a></h4>

@@ -784,6 +784,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#annotation-categories-and-task-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Annotation Categories and Task Mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#clean-project" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2622,6 +2633,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#annotation-categories-and-task-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Annotation Categories and Task Mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#clean-project" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3295,6 +3317,24 @@
 Overwrite existing (dangerous):
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>demo-project<span class="w"> </span>--force
 </code></pre></div></p>
+<h2 id="annotation-categories-and-task-mode">Annotation Categories and Task Mode<a class="headerlink" href="#annotation-categories-and-task-mode" title="Permanent link">&para;</a></h2>
+<p>Manage the project's annotation categories without editing the project YAML (works headless, e.g. over SSH). All commands take <code>--project</code>.</p>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>config<span class="w"> </span>categories<span class="w"> </span>list<span class="w"> </span>--project<span class="w"> </span>demo-project
+crackz<span class="w"> </span>config<span class="w"> </span>categories<span class="w"> </span>add<span class="w"> </span>rust<span class="w"> </span>--color<span class="w"> </span><span class="s2">&quot;#aa5500&quot;</span><span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;Rust&quot;</span><span class="w"> </span>--project<span class="w"> </span>demo-project
+crackz<span class="w"> </span>config<span class="w"> </span>categories<span class="w"> </span>rename<span class="w"> </span>rust<span class="w"> </span>--key<span class="w"> </span>corrosion<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;Corrosion&quot;</span><span class="w"> </span>--project<span class="w"> </span>demo-project
+crackz<span class="w"> </span>config<span class="w"> </span>categories<span class="w"> </span>recolor<span class="w"> </span>corrosion<span class="w"> </span><span class="s2">&quot;#112233&quot;</span><span class="w"> </span>--project<span class="w"> </span>demo-project
+crackz<span class="w"> </span>config<span class="w"> </span>categories<span class="w"> </span>remove<span class="w"> </span>corrosion<span class="w"> </span>--project<span class="w"> </span>demo-project
+crackz<span class="w"> </span>config<span class="w"> </span>task-mode<span class="w"> </span>show<span class="w"> </span>--project<span class="w"> </span>demo-project
+</code></pre></div>
+<ul>
+<li><code>add</code> appends the category with the next free id. Keys are lowercase slugs (<code>a-z</code>, <code>0-9</code>, <code>_</code>, <code>-</code>, starting with a letter); colors are <code>#RRGGBB</code>.</li>
+<li>Ids are contiguous <code>1..N</code> and never renumbered, because masks refer to them. So <code>remove</code> only accepts the highest id, and it refuses while any mask in <code>train</code>, <code>val</code>, <code>test</code> or <code>raw</code> still contains that id. Remap those masks with <code>crackz masks remap</code>, or pass <code>--force</code>.</li>
+<li>Adding a second category to a single-category (binary) project switches it to multiclass. Binary masks store the defect as <code>255</code>, which is not a valid category id, so <code>add</code> warns when existing masks contain such values. Remap them before training, for example <code>crackz masks remap --label-map 255=1 --project demo-project</code>.</li>
+<li>Renaming a key (<code>rename --key</code>) does not rewrite trained models or stored detections, which keep the old key; <code>rename</code> prints a warning. A name-only rename is unaffected.</li>
+<li><code>remove</code> skips unreadable files (for example <code>.DS_Store</code>) with a warning, and does not scan masks at all with <code>--force</code> or when the project is in binary mode, where masks carry no category ids.</li>
+<li>Each change recomputes <code>num_classes</code> and the resolved task mode (one category is binary, several is multiclass unless <code>task-mode set</code> overrides it).</li>
+<li><code>--project</code> is required; <code>config</code> commands do not infer the project from the current folder.</li>
+</ul>
 <h2 id="clean-project">Clean Project<a class="headerlink" href="#clean-project" title="Permanent link">&para;</a></h2>
 <p>Remove temporary files, logs, and training artifacts to save disk space:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Preview what will be cleaned (safe)</span>

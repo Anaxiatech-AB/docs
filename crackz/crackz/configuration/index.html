@@ -1101,6 +1101,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#editing-categories-from-the-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editing Categories from the CLI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#annotation-templates" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2614,6 +2625,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#editing-categories-from-the-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editing Categories from the CLI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#annotation-templates" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3679,6 +3701,11 @@ and model registry.</p>
 <li><strong><code>task_mode: binary</code> override</strong>: set this in <code>ai.model</code> to collapse all foreground
   categories into a single defect-vs-background class even when multiple categories exist.</li>
 </ul>
+<h3 id="editing-categories-from-the-cli">Editing Categories from the CLI<a class="headerlink" href="#editing-categories-from-the-cli" title="Permanent link">&para;</a></h3>
+<p><code>crackz config categories list | add | rename | recolor | remove</code> edits this schema without
+hand-editing the YAML; see the <a href="../cli-cookbook/#annotation-categories-and-task-mode">CLI cookbook</a>.
+The rules above are enforced: ids stay contiguous and are never renumbered, so <code>remove</code> only
+accepts the highest id.</p>
 <h3 id="annotation-templates">Annotation Templates<a class="headerlink" href="#annotation-templates" title="Permanent link">&para;</a></h3>
 <p>New projects can start from a built-in template via the GUI New Project dialog or the CLI:</p>
 <table>

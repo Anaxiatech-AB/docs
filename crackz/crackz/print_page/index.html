@@ -33392,13 +33392,57 @@ from crackz.log import logger</p>
 <section class='print-section' id='python-3.15-readiness' data-source='python-3.15-readiness.md'>
 <h1>Python 3.15 Readiness</h1>
 <h1 id="python-315-readiness-for-crackz">Python 3.15 Readiness for Crackz<a class="headerlink" href="#python-315-readiness-for-crackz" title="Permanent link">&para;</a></h1>
-<p>Tracking notes for issue <a href="https://github.com/Anaxiatech-AB/crackz/issues/609">#609</a>.
-Python 3.15 final lands October 2026. This doc captures what we plan to adopt,
-what we explicitly will not, and the import-cost audit that motivates the
-lazy-import work.</p>
-<p>Repository floor stays at <code>requires-python = "&gt;=3.11,&lt;4"</code> until 3.15 is released
-and our supported runtimes catch up. No runtime code in this PR uses 3.15-only
-syntax.</p>
+<p>Tracking notes for issues <a href="https://github.com/Anaxiatech-AB/crackz/issues/609">#609</a>
+and <a href="https://github.com/Anaxiatech-AB/crackz/issues/769">#769</a>.
+Python 3.15.0 is released (uv &gt;= 0.13.1 installs it). This doc captures what we
+plan to adopt, what we explicitly will not, and the import-cost audit that
+motivates the lazy-import work.</p>
+<h2 id="status-2026-10-15-on-hold-until-every-environment-installs">Status (2026-10-15): on hold until every environment installs<a class="headerlink" href="#status-2026-10-15-on-hold-until-every-environment-installs" title="Permanent link">&para;</a></h2>
+<p><code>uv sync --python 3.15 --locked</code> was observed to fail on 2026-10-15. What the
+lock shows (<code>uv.lock</code>, checked 2026-11-03): CPU torch 2.14.0 and torchvision 0.29.0
+from the <code>pytorch-cpu</code> index already list cp315 wheels; <code>psycopg-binary</code> 3.3.4 (DB
+extra) and <code>pywin32</code> 311 (Windows only) stop at cp314. The lock holds no CUDA torch
+pins, so the CUDA rows below come from the indexes, not from the repo.</p>
+<p>Coverage per environment. The CUDA rows were <strong>observed on 2026-10-15 from the
+PyTorch indexes and not re-checked since</strong>; re-check before relying on them:</p>
+<table>
+<thead>
+<tr>
+<th>Environment</th>
+<th>torch / torchvision on 3.15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU: macOS arm64, Linux x86_64/aarch64, Windows</td>
+<td>Yes (<code>pytorch-cpu</code>: torch 2.14.x, torchvision 0.29.x; in the lock)</td>
+</tr>
+<tr>
+<td>CUDA <code>cu128</code> extra</td>
+<td>No (index stopped at torch 2.11, cp314)</td>
+</tr>
+<tr>
+<td>CUDA <code>cu118</code> extra</td>
+<td>No (no recent wheels)</td>
+</tr>
+</tbody>
+</table>
+<p>Blockers in the lock itself: <code>psycopg-binary</code> and <code>pywin32</code> have no cp315 wheel.</p>
+<p>Decision: hold the bump until all supported environments install. Repository
+floor stays at <code>requires-python = "&gt;=3.11,&lt;4"</code> and the default interpreter stays
+at 3.13. No runtime code uses 3.15-only syntax.</p>
+<h2 id="lazy-imports-without-a-floor-bump">Lazy imports without a floor bump<a class="headerlink" href="#lazy-imports-without-a-floor-bump" title="Permanent link">&para;</a></h2>
+<p><code>lazy import</code> is a <code>SyntaxError</code> before 3.15, so it needs the floor. Two
+controls need no new syntax and are ignored by older interpreters:</p>
+<ul>
+<li><code>__lazy_modules__ = ["torch", ...]</code> at module level makes plain <code>import torch</code>
+  lazy on 3.15 and leaves it eager on 3.11-3.14.</li>
+<li><code>-X lazy_imports=all|none|normal</code> or <code>PYTHON_LAZY_IMPORTS</code>, plus
+  <code>sys.set_lazy_imports_filter()</code>, set the mode per process (names as in PEP 810;
+  confirm against the PEP text before relying on them).</li>
+</ul>
+<p>Measure startup and check torch import side effects before adopting either. The
+<code>lazy import</code> statement itself waits for the floor; <code>__lazy_modules__</code> can land earlier.</p>
 <h2 id="pep-810-explicit-lazy-imports">PEP 810: Explicit Lazy Imports<a class="headerlink" href="#pep-810-explicit-lazy-imports" title="Permanent link">&para;</a></h2>
 <p>New <code>lazy</code> soft keyword that defers module loading until first attribute access.</p>
 <div class="highlight"><pre><span></span><code><span class="n">lazy</span> <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
@@ -33471,11 +33515,14 @@ syntax.</p>
 (see <code>agent-playbook.md</code> § Project Standards). The remaining win is at the
 <code>crackz.ai</code> package boundary — module-level <code>lazy import</code> in <code>ai/__init__.py</code>
 and the segmentation <code>model.py</code> would let <code>crackz --help</code> and the GUI splash
-skip torch initialization. Defer that change until 3.15 is the floor.</p>
+skip torch initialization. The <code>lazy import</code> statement waits until 3.15 is the floor; the
+<code>__lazy_modules__</code> route above can land earlier, after measurement.</p>
 <h3 id="compatibility-plan">Compatibility plan<a class="headerlink" href="#compatibility-plan" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Phase 0 (now): document, do not change runtime code.</li>
-<li>Phase 1 (when 3.15 floor): convert audited modules to <code>lazy import</code> at
+<li>Phase 1 (optional, before the floor): after measuring, set <code>__lazy_modules__</code> in the
+  audited modules; it is ignored on 3.11-3.14.</li>
+<li>Phase 1b (when 3.15 is the floor): convert audited modules to <code>lazy import</code> at
   module level. Keep function-local imports where the import is conditional
   (e.g., optional backends, ImportError-guarded probes).</li>
 <li>Phase 2: enable <code>-X lazy_imports</code> globally for the dashboard and GUI
@@ -33503,7 +33550,7 @@ skip torch initialization. Defer that change until 3.15 is the floor.</p>
 <p>The copy-and-patch JIT shipped experimental in 3.13 and is still tuned, not
 re-architected, in 3.15. Crackz spends almost all its CPU time inside numpy,
 torch, and Pillow C extensions, so JIT wins on our pure-Python code are
-expected to be small. Worth a one-off benchmark after 3.15 final on the
+expected to be small. Worth a one-off benchmark now that 3.15 is released on the
 training-config CLI and image-tile pipeline, but no design changes required.</p>
 <h3 id="profiling-module-tachyon-pep-799"><code>profiling</code> module + Tachyon (PEP 799)<a class="headerlink" href="#profiling-module-tachyon-pep-799" title="Permanent link">&para;</a></h3>
 <p>Statistical sampling profiler in the stdlib, attachable by PID, flamegraph
@@ -33528,12 +33575,12 @@ regressions when the floor moves.</p>
 <li>Tomllib 1.1: only relevant if config files start using inline-table
   newlines.</li>
 </ul>
-<h2 id="out-of-scope-for-609">Out of Scope for #609<a class="headerlink" href="#out-of-scope-for-609" title="Permanent link">&para;</a></h2>
+<h2 id="out-of-scope-of-the-original-readiness-work-609">Out of scope of the original readiness work (#609)<a class="headerlink" href="#out-of-scope-of-the-original-readiness-work-609" title="Permanent link">&para;</a></h2>
 <ul>
 <li>No <code>pyproject.toml</code> floor bump.</li>
 <li>No <code>uv.lock</code> changes.</li>
 <li>No conversion of existing function-local lazy imports.</li>
-<li>No JIT or free-threading benchmarks (separate issue once 3.15 is GA).</li>
+<li>No JIT or free-threading benchmarks (separate issue now that 3.15 is released).</li>
 </ul>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>
@@ -33543,6 +33590,7 @@ regressions when the floor moves.</p>
 <li>PEP 744 JIT — <a href="https://peps.python.org/pep-0744/">https://peps.python.org/pep-0744/</a></li>
 <li>PEP 799 profiling module — <a href="https://peps.python.org/pep-0799/">https://peps.python.org/pep-0799/</a></li>
 <li>Issue #609 — <a href="https://github.com/Anaxiatech-AB/crackz/issues/609">https://github.com/Anaxiatech-AB/crackz/issues/609</a></li>
+<li>Issue #769 — <a href="https://github.com/Anaxiatech-AB/crackz/issues/769">https://github.com/Anaxiatech-AB/crackz/issues/769</a> (the upgrade, on hold)</li>
 </ul>
 </section>
 <hr class='page-sep' />

@@ -784,6 +784,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#inference-service-preview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inference Service (Preview)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#annotation-categories-and-task-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2633,6 +2644,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#inference-service-preview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inference Service (Preview)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#annotation-categories-and-task-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3317,6 +3339,15 @@
 Overwrite existing (dangerous):
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>init<span class="w"> </span>--name<span class="w"> </span>demo-project<span class="w"> </span>--force
 </code></pre></div></p>
+<h2 id="inference-service-preview">Inference Service (Preview)<a class="headerlink" href="#inference-service-preview" title="Permanent link">&para;</a></h2>
+<p><code>crackz serve</code> runs the inference REST service that survey_tool and surface-ops will call (issue #643). It needs the <code>serve</code> extra: <code>pip install "crackz[serve]"</code> for release wheels, <code>pip install "crackz-core[serve]"</code> from source.</p>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>serve<span class="w"> </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>--port<span class="w"> </span><span class="m">8000</span>
+curl<span class="w"> </span>-s<span class="w"> </span>localhost:8000/health
+</code></pre></div>
+<p>The service has <strong>no authentication yet</strong> (an optional bearer key is planned), so it binds loopback by default and warns on stderr when you bind anything else; widen it only on a trusted LAN. <code>/docs</code>, <code>/redoc</code> and <code>/openapi.json</code> are on: the contract is not secret.</p>
+<p>This first slice serves only <code>GET /health</code> (and <code>HEAD</code>): <strong>503</strong> with <code>"status": "unavailable"</code> until a model is loaded (loading and <code>POST /detect</code> come in later slices), then <strong>200</strong>. The body carries <code>schema_version</code>, <code>model_loaded</code>, <code>model_version</code> and <code>device</code>.</p>
+<p>The wire contract is versioned (<code>schema_version: "1"</code>) and pinned by a summary snapshot in the tests. Clients must ignore unknown fields and treat an unknown error <code>code</code> as a generic failure, so adding a field or an error code is not a breaking change. Every non-2xx response has the same body: <code>{"schema_version": "1", "error": {"code": ..., "message": ...}}</code>.</p>
+<p>The GPU hosts of a deployment are a setting, <code>CRACKZ_SERVE_GPU_HOSTS</code> (default <code>miner,foto-dator</code>); see the configuration page.</p>
 <h2 id="annotation-categories-and-task-mode">Annotation Categories and Task Mode<a class="headerlink" href="#annotation-categories-and-task-mode" title="Permanent link">&para;</a></h2>
 <p>Manage the project's annotation categories without editing the project YAML (works headless, e.g. over SSH). All commands take <code>--project</code>.</p>
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>config<span class="w"> </span>categories<span class="w"> </span>list<span class="w"> </span>--project<span class="w"> </span>demo-project

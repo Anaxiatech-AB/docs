@@ -3769,7 +3769,8 @@ See <a href="../advanced-performance/">Advanced Performance</a> for deep guidanc
 |----------|--------|---------|
 | CRACKZ_LOG_DIR | Logging output directory | logs |
 | CRACKZ_LOG_LEVEL (indirect via CrackzSettings) | Logging level override | INFO |
-| PYTHONUNBUFFERED | Immediate stdout/stderr flush | 1 |</p>
+| PYTHONUNBUFFERED | Immediate stdout/stderr flush | 1 |
+| CRACKZ_SERVE_GPU_HOSTS | GPU hosts of this deployment, in preference order: comma-separated or a JSON array (<code>serve_gpu_hosts</code> in the settings YAML takes a list). Hostnames, IPv4 or IPv6; empty means the default. Nothing reads it yet beyond validation; clients will use it to pick a host | miner,foto-dator |</p>
 <p>Example (Linux/macOS):
 <div class="highlight"><pre><span></span><code><span class="nv">CRACKZ_LOG_DIR</span><span class="o">=</span>run_logs<span class="w"> </span>crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>demo-project
 </code></pre></div>

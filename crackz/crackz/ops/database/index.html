@@ -2113,7 +2113,7 @@ docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> 
 crackz<span class="w"> </span>db<span class="w"> </span>init
 </code></pre></div>
 <p>The compose file builds a small local image (<code>core/Dockerfile.postgres</code>) that
-layers PostGIS onto the official, multi-arch <code>pgvector/pgvector:pg16</code> image, so a
+layers PostGIS onto the official, multi-arch <code>pgvector/pgvector</code> image (pinned to <code>0.8.1-pg16</code>), so a
 single container provides both <code>vector</code> and <code>postgis</code>. <code>crackz db init</code> runs the
 migrations, which <code>CREATE EXTENSION</code> for both.</p>
 <p>To stop and remove the container (data is preserved in the named volume):</p>

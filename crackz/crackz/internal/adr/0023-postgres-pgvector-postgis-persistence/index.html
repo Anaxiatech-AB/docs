@@ -2021,8 +2021,8 @@ store (kept readable only by the one-time importer).</p>
   Mitigated by a docker-compose dev DB, a sensible localhost default, an actionable
   connection error, and the install guide.</li>
 <li>Trade-off: heavier dependency footprint (sqlalchemy, psycopg, alembic, pgvector,
-  geoalchemy2) and a real Postgres needed for integration tests. CI provides a
-  <code>pgvector/pgvector:pg16</code> service container and the suite connects via
+  geoalchemy2) and a real Postgres needed for integration tests. CI builds
+  <code>core/Dockerfile.postgres</code> (pgvector + PostGIS on Postgres 16) and runs it, and the suite connects via
   <code>CRACKZ_DATABASE_URL</code>, skipping cleanly when no database is reachable.</li>
 <li>Follow-up: convert TEXT timestamp columns to <code>TIMESTAMPTZ</code> in a later migration;
   the ANN index is HNSW (with iterative scan enabled in <code>search()</code> so a project/model

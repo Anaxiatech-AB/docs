@@ -3859,20 +3859,39 @@ cat<span class="w"> </span>temp<span class="se">\m</span>etadata.json
 </code></pre></div></p>
 <p>Example <code>metadata.json</code>:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;manifest_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;project_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;harbor_detection&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;checkpoint_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;best.ckpt&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;model_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;model_sha256&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;sha256 of best.ckpt&gt;&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;model_config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;encoder&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;resnet34&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;backbone&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;resnet34&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;encoder_weights&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;imagenet&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;in_channels&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;num_classes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;threshold&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;loss_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;combo&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;dice_weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;focal_weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span>
+<span class="w">    </span><span class="nt">&quot;focal_weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;input_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1024</span><span class="p">,</span><span class="w"> </span><span class="mi">1024</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;normalization&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;mean&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.485</span><span class="p">,</span><span class="w"> </span><span class="mf">0.456</span><span class="p">,</span><span class="w"> </span><span class="mf">0.406</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;std&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.229</span><span class="p">,</span><span class="w"> </span><span class="mf">0.224</span><span class="p">,</span><span class="w"> </span><span class="mf">0.225</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>
+<p>Manifest fields added in <code>manifest_version</code> 2:</p>
+<ul>
+<li><code>manifest_version</code> — a missing key means 1; a version newer than your crackz is rejected
+  ("upgrade crackz"). Version 2 requires <code>model_config.input_size</code>.</li>
+<li><code>model_config.input_size</code> / <code>normalization</code> — the preprocessing training applied.
+  Packages exported before version 2 do not record <code>input_size</code>.</li>
+<li><code>model_sha256</code> — SHA-256 of the <code>.ckpt</code> bytes. It detects corruption; it does not
+  authenticate who published the package.</li>
+<li><code>model_version</code> — optional label you pass at export; consumers fall back to the checkpoint
+  SHA-256 when it is absent.</li>
+</ul>
 <h2 id="geographic-data-gpsexif">Geographic Data (GPS/EXIF)<a class="headerlink" href="#geographic-data-gpsexif" title="Permanent link">&para;</a></h2>
 <p>Crackz can extract GPS coordinates from image EXIF data and visualize detection results on interactive maps or export to GeoJSON for GIS analysis.</p>
 <h3 id="create-interactive-map">Create Interactive Map<a class="headerlink" href="#create-interactive-map" title="Permanent link">&para;</a></h3>

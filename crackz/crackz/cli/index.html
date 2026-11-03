@@ -2971,17 +2971,25 @@ crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">expo
 - <code>metadata.json</code> - Model configuration and metadata</p>
 <p>Example metadata:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;manifest_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;project_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;harbor_detection&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;checkpoint_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;best.ckpt&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;model_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;model_sha256&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;sha256 of best.ckpt&gt;&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;model_config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;encoder&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;resnet34&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;backbone&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;resnet34&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;encoder_weights&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;imagenet&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;in_channels&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;num_classes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;threshold&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;loss_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;combo&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;dice_weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;focal_weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span>
+<span class="w">    </span><span class="nt">&quot;focal_weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;input_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1024</span><span class="p">,</span><span class="w"> </span><span class="mi">1024</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;normalization&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;mean&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.485</span><span class="p">,</span><span class="w"> </span><span class="mf">0.456</span><span class="p">,</span><span class="w"> </span><span class="mf">0.406</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;std&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.229</span><span class="p">,</span><span class="w"> </span><span class="mf">0.224</span><span class="p">,</span><span class="w"> </span><span class="mf">0.225</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>

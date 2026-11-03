@@ -2410,7 +2410,7 @@
 <tr>
 <td><strong>Auto-split</strong></td>
 <td>off</td>
-<td>Randomly distribute tiles across train / val / test</td>
+<td>Randomly distribute tiles across train / val / test. Tiles cut from the same photo always stay in the same set, because neighbouring tiles overlap and would otherwise leak between train and validation</td>
 </tr>
 </tbody>
 </table>
@@ -2556,7 +2556,7 @@
 <td><code>--split</code></td>
 <td></td>
 <td>false</td>
-<td>Auto-split tiles into train / val / test</td>
+<td>Auto-split tiles into train / val / test; the tiles of one source photo stay together</td>
 </tr>
 <tr>
 <td><code>--train-ratio</code></td>

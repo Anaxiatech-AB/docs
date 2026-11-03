@@ -825,6 +825,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Import Images">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finding-the-groups-from-the-images-group-by-near-duplicate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding the groups from the images: --group-by near-duplicate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2685,6 +2702,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Import Images">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finding-the-groups-from-the-images-group-by-near-duplicate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding the groups from the images: --group-by near-duplicate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3425,11 +3459,24 @@ crackz<span class="w"> </span>import-images<span class="w"> </span>--project<spa
 <span class="c1"># consecutive files in blocks of 10 (natural filename order)</span>
 crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--src<span class="w"> </span>./samples<span class="w"> </span>--split<span class="w"> </span>--group-by<span class="w"> </span>sequence-block<span class="w"> </span>--group-size<span class="w"> </span><span class="m">10</span>
 </code></pre></div>
-Other modes: <code>filename-prefix</code> (names equal after dropping trailing numbers) and <code>tile-source</code> (tiles written by <code>crackz tile</code>, <code>{stem}_{row}_{col}</code>, stay with their source photo). Groups are assigned whole, so the split ratios are approximate when groups are large. <code>--group-by</code> requires <code>--split</code>; <code>--group-size</code> applies only to <code>sequence-block</code>.</p>
+Other modes: <code>near-duplicate</code> (found from the images, see below), <code>filename-prefix</code> (names equal after dropping trailing numbers) and <code>tile-source</code> (tiles written by <code>crackz tile</code>, <code>{stem}_{row}_{col}</code>, stay with their source photo). Groups are assigned whole, so the split ratios are approximate when groups are large. <code>--group-by</code> requires <code>--split</code>; <code>--group-size</code> applies only to <code>sequence-block</code>.</p>
 <p>To thin the frames themselves, add <code>--stride N</code>: only every Nth image (natural filename order) is imported, before any split. Typical photogrammetry captures overlap by 70-90%, and about every 3rd to 5th frame gets below 50% overlap; video frames overlap far more and need a much larger stride. The stride is counted over the whole source tree in natural filename order, so it does not restart in each subfolder (run one survey per command if that matters):
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--src<span class="w"> </span>./samples<span class="w"> </span>--stride<span class="w"> </span><span class="m">4</span><span class="w"> </span>--split<span class="w"> </span>--group-by<span class="w"> </span>sequence-block<span class="w"> </span>--group-size<span class="w"> </span><span class="m">5</span>
 </code></pre></div>
 Blocks of <code>--group-size</code> then count the kept frames. <code>--stride</code> works with or without <code>--split</code>; the default <code>1</code> keeps every image.</p>
+<h4 id="finding-the-groups-from-the-images-group-by-near-duplicate">Finding the groups from the images: <code>--group-by near-duplicate</code><a class="headerlink" href="#finding-the-groups-from-the-images-group-by-near-duplicate" title="Permanent link">&para;</a></h4>
+<p>When there is no folder structure or filename pattern to group by, <code>--group-by near-duplicate</code> finds the groups from the images themselves, using SIFT feature matching. It builds on the same ingredients as <code>propagate-masks find-similar</code> (SIFT features, Lowe's ratio test, a minimum match count) but is deterministic and scores differently (matches over the <em>smaller</em> image's keypoints), so thresholds do not carry over between the two commands. Images are taken in natural filename order. The first image starts a group, each following image joins it while enough of its keypoints still match that first image (the <em>anchor</em>), and the first one that does not starts the next group. Comparing with the anchor, not the previous image, keeps groups bounded: a continuous survey strip would otherwise chain into one group that lands in a single split.</p>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--src<span class="w"> </span>./samples<span class="w"> </span>--split<span class="w"> </span>--group-by<span class="w"> </span>near-duplicate<span class="w"> </span>--groups-report<span class="w"> </span>groups.json
+</code></pre></div>
+<ul>
+<li><code>--dup-threshold</code> (default <code>0.15</code>): the share of the smaller image's keypoints that must match. Higher makes smaller groups, lower makes bigger ones. The default is a heuristic, not calibrated on data: look at <code>groups.json</code> before trusting a split.</li>
+<li><code>--dup-max-side</code> (default <code>1024</code>): images are downscaled to this long side before matching; it is the main lever on run time.</li>
+<li><code>--groups-report PATH</code> works with any <code>--group-by</code> mode and writes the groups as JSON (file paths relative to <code>--src</code>), so you can inspect them first.</li>
+<li>It needs <code>--split</code>, combines with <code>--stride</code> (thinning runs first, so dropped frames are never read), and cannot be combined with another <code>--group-by</code> mode.</li>
+<li><strong>Boundary leaks.</strong> Grouping reduces leakage between splits, it does not remove it: the image that starts the next group can still overlap the previous group's last image. After the split Crackz compares those boundary pairs and, when one still matches but the two sit in different splits, warns and lists it in the report (<code>n_leaking_boundaries</code>, <code>leaking_boundaries</code>). Treat a high count as a sign to raise <code>--dup-threshold</code>, or to thin more with <code>--stride</code>.</li>
+<li><strong>Multi-strip surveys are not covered.</strong> Images are compared in filename order, so sidelap between parallel flight strips (frames far apart in the order) is never seen. Put one strip per folder and use <code>--group-by folder</code> instead, or combine strips only after splitting.</li>
+<li>Cost: every image is decoded once, so large sets of 24 MP frames are slow (sequential, no multiprocessing yet). If one group holds more than half of the images (a static camera, or too low a threshold) Crackz warns, because that group lands in a single split. Unreadable or oversized (over 250 megapixels) images stay in groups of their own.</li>
+</ul>
 <p>Include masks (auto-detected from <code>--src/masks</code>), or specify:
 <div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>import-images<span class="w"> </span>--project<span class="w"> </span>demo-project<span class="w"> </span>--src<span class="w"> </span>./samples<span class="w"> </span>--masks_src<span class="w"> </span>./samples/masks<span class="w"> </span>--type<span class="w"> </span>train
 </code></pre></div>

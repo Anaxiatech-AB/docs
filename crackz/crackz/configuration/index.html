@@ -3066,6 +3066,16 @@ You can also serialize a live <code>Project</code> back to a config:
 <td>0.3</td>
 <td>Weighted contribution in combo loss</td>
 </tr>
+<tr>
+<td>cldice_weight</td>
+<td>0.0</td>
+<td>Optional clDice (centerline Dice) term that rewards connected thin structures such as cracks; <code>0.0</code> disables it. Binary task mode only: training a multiclass project that sets it fails with an error naming <code>ai.model.cldice_weight</code>; elsewhere (loading a model, inference) it is ignored with a warning. Must be finite and <code>&gt;= 0</code></td>
+</tr>
+<tr>
+<td>cldice_iterations</td>
+<td>10</td>
+<td>Soft-skeleton depth for clDice. Structures wider than about <code>2 * cldice_iterations + 1</code> px have no skeleton and score as perfect, so set it to at least half the widest expected mask width</td>
+</tr>
 </tbody>
 </table>
 <blockquote>

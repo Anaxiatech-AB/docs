@@ -2011,6 +2011,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#schema-revision-guard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schema revision guard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#database-unreachable" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2229,6 +2240,40 @@ Haversine calculation — slower for large datasets but functionally equivalent.
 No configuration change is needed; crackz detects the missing extension at
 startup.</p>
 <hr />
+<h2 id="schema-revision-guard">Schema revision guard<a class="headerlink" href="#schema-revision-guard" title="Permanent link">&para;</a></h2>
+<p>Clients never migrate the database. On startup the CLI and the GUI compare the
+database's <code>alembic_version</code> with the head revision they ship and <strong>refuse to run</strong> on a
+mismatch (the CLI exits 1; the GUI shows an error and quits):</p>
+<table>
+<thead>
+<tr>
+<th>Database is…</th>
+<th>Who acts</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>behind the client</td>
+<td>the operator</td>
+<td>run <code>crackz db upgrade</code></td>
+</tr>
+<tr>
+<td>newer than the client (or an unknown revision)</td>
+<td>the user</td>
+<td>upgrade the crackz client</td>
+</tr>
+<tr>
+<td>empty (no <code>alembic_version</code>)</td>
+<td>the operator</td>
+<td>run <code>crackz db init</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>crackz db …</code> and <code>--help</code> are exempt so the operator can always fix a stale database.
+An unreachable database is not a mismatch; it keeps the warning below. Every other CLI
+command, <code>crackz serve</code> included, is guarded (the guard runs in the CLI's root callback).
+The GUI waits for the check before auto-opening the last project.</p>
 <h2 id="database-unreachable">Database unreachable<a class="headerlink" href="#database-unreachable" title="Permanent link">&para;</a></h2>
 <p>On startup, both the CLI and the Qt GUI probe the database connection. If the
 database cannot be reached:</p>

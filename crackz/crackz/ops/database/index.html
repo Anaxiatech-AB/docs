@@ -1889,13 +1889,41 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#docker-dev-quickstart" class="md-nav__link">
+  <a href="#docker-workstation-and-on-prem-server" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Docker (dev / quickstart)
+        Docker (workstation and on-prem server)
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Docker (workstation and on-prem server)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backup-and-restore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backup and restore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compose-file-development-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compose file (development only)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2114,25 +2142,52 @@ over <code>CRACKZ_DATABASE_URL</code>/<code>.env</code> for that run. The raw <c
 environment value. Prefer the environment variable or <code>.env</code> for real credentials:
 a <code>--db-url</code> password is visible in the process list and shell history.</p>
 <hr />
-<h2 id="docker-dev-quickstart">Docker (dev / quickstart)<a class="headerlink" href="#docker-dev-quickstart" title="Permanent link">&para;</a></h2>
-<p>The fastest path. A compose file is provided that runs Postgres 16 with both
-extensions pre-installed.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Start the database in the background</span>
-docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>core/docker-compose.dev.yml<span class="w"> </span>up<span class="w"> </span>-d
-
-<span class="c1"># Apply migrations (no extra env needed — defaults match the compose file)</span>
-crackz<span class="w"> </span>db<span class="w"> </span>init
+<h2 id="docker-workstation-and-on-prem-server">Docker (workstation and on-prem server)<a class="headerlink" href="#docker-workstation-and-on-prem-server" title="Permanent link">&para;</a></h2>
+<p><code>crackz db up</code> is the supported way to run the database in Docker. It needs Docker
+(Docker Desktop with the WSL2 backend on Windows; Docker Engine on Linux) and does
+everything the old <code>docker compose up</code> + <code>crackz db init</code> + hand-set password did:</p>
+<div class="highlight"><pre><span></span><code>crackz<span class="w"> </span>db<span class="w"> </span>up<span class="w">        </span><span class="c1"># build/start Postgres + PostGIS + pgvector, wait, migrate, print the URL</span>
+crackz<span class="w"> </span>db<span class="w"> </span>status<span class="w">    </span><span class="c1"># container state</span>
+crackz<span class="w"> </span>db<span class="w"> </span>down<span class="w">      </span><span class="c1"># stop and remove the container; the data is KEPT</span>
 </code></pre></div>
-<p>The compose file builds a small local image (<code>core/Dockerfile.postgres</code>) that
-layers PostGIS onto the official, multi-arch <code>pgvector/pgvector</code> image (pinned to <code>0.8.1-pg16</code>), so a
-single container provides both <code>vector</code> and <code>postgis</code>. <code>crackz db init</code> runs the
-migrations, which <code>CREATE EXTENSION</code> for both.</p>
-<p>To stop and remove the container (data is preserved in the named volume):</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>core/docker-compose.dev.yml<span class="w"> </span>down
+<ul>
+<li><strong>Image.</strong> Built once from the bundled <code>Dockerfile.postgres</code> (pgvector <code>0.8.1-pg16</code>
+  plus PostGIS), tagged by the file's hash, and never rebuilt automatically, so it does not
+  pick up OS security patches by itself. To refresh it: <code>crackz db down</code>,
+  <code>docker image rm crackz-postgres:&lt;tag&gt;</code>, then <code>crackz db up</code>. <code>--image &lt;ref&gt;</code> pulls and
+  runs another image instead; it must provide both extensions, and it receives the database
+  password and your data, so pin it by digest (<code>repo@sha256:...</code>).</li>
+<li><strong>Data.</strong> Lives in the named volume <code>crackz-postgres-data</code>. <code>down</code> never deletes it.
+  A reset is deliberately manual: <code>docker volume rm crackz-postgres-data</code>.</li>
+<li><strong>Password.</strong> Generated on the first <code>up</code> and written to <code>db.env</code> in your user config
+  directory (owner-only on Linux/macOS; Windows relies on your profile's permissions), as
+  <code>CRACKZ_DATABASE_URL</code>. crackz reads that file automatically; <code>./.env</code> and real environment
+  variables override it. Set <code>CRACKZ_USER_ENV_FILE</code> to use another location. The password is
+  also visible to anyone who can run <code>docker inspect crackz-postgres</code>. If the volume exists
+  but <code>db.env</code> is gone, <code>up</code> refuses rather than guess; restore the file.</li>
+<li><strong>Port / exposure.</strong> <code>--port</code> (default 5432); published on <code>127.0.0.1</code> only. A shared
+  on-prem server passes <code>--bind 0.0.0.0</code> (a plain IP address is required). That exposes a
+  superuser login without TLS, and on Linux Docker's published ports bypass <code>ufw</code>/<code>firewalld</code>
+  rules, so restrict access at the network level. <code>up</code> warns, and refuses to reuse a
+  running container whose port, bind address or image differs from the request: run
+  <code>crackz db down</code> first.</li>
+<li><strong>Migrations.</strong> <code>up</code> migrates; clients never do (see the schema revision guard below).
+  After upgrading crackz, run <code>crackz db upgrade</code>.</li>
+<li><strong>Status.</strong> <code>crackz db status</code> shows the container state, where it is published and
+  whether Postgres accepts connections. It exits 0 only when all of that is healthy.</li>
+<li><strong>No GUI for a dedicated server.</strong> Server setup is this CLI plus this page. Only a
+  co-hosted workstation gets a GUI wizard, and it calls <code>crackz db up</code>.</li>
+</ul>
+<h3 id="backup-and-restore">Backup and restore<a class="headerlink" href="#backup-and-restore" title="Permanent link">&para;</a></h3>
+<p>There is no crackz wrapper; use Postgres tooling inside the container:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>crackz-postgres<span class="w"> </span>pg_dump<span class="w"> </span>-U<span class="w"> </span>crackz<span class="w"> </span>-Fc<span class="w"> </span>crackz<span class="w"> </span>&gt;<span class="w"> </span>crackz.dump
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span>crackz-postgres<span class="w"> </span>pg_restore<span class="w"> </span>-U<span class="w"> </span>crackz<span class="w"> </span>-d<span class="w"> </span>crackz<span class="w"> </span>--clean<span class="w"> </span>--if-exists<span class="w"> </span>&lt;<span class="w"> </span>crackz.dump
 </code></pre></div>
-<p>To also drop the data volume:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>core/docker-compose.dev.yml<span class="w"> </span>down<span class="w"> </span>-v
-</code></pre></div>
+<h3 id="compose-file-development-only">Compose file (development only)<a class="headerlink" href="#compose-file-development-only" title="Permanent link">&para;</a></h3>
+<p><code>core/docker-compose.dev.yml</code> remains for developers who want the fixed
+<code>crackz:crackz</code> credentials. It uses a different container, volume and password than
+<code>crackz db up</code>, so the two are separate databases, but both default to port 5432: run only
+one at a time, or give <code>db up</code> another <code>--port</code>.</p>
 <hr />
 <h2 id="bare-metal-on-prem-eg-foto-dator">Bare metal (on-prem, e.g. foto-dator)<a class="headerlink" href="#bare-metal-on-prem-eg-foto-dator" title="Permanent link">&para;</a></h2>
 <p>Install Postgres 16, the pgvector extension package, and PostGIS for your
@@ -2301,7 +2356,19 @@ crackz<span class="w"> </span>db<span class="w"> </span>init
 </thead>
 <tbody>
 <tr>
-<td><code>crackz db init</code></td>
+<td><code>crackz db up</code></td>
+<td>Start Docker-managed Postgres, migrate, print <code>CRACKZ_DATABASE_URL</code>. Idempotent.</td>
+</tr>
+<tr>
+<td><code>crackz db down</code></td>
+<td>Stop and remove the container. Data volume kept.</td>
+</tr>
+<tr>
+<td><code>crackz db status</code></td>
+<td>Container state, publish address and readiness. Exit 1 unless running and ready.</td>
+</tr>
+<tr>
+<td><code>crackz db init</code> / <code>upgrade</code></td>
 <td>Run Alembic migrations to create or update the schema. Safe to run repeatedly.</td>
 </tr>
 <tr>

@@ -1,0 +1,2479 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI image analysis of cracks in harbors">
+      
+      
+        <meta name="author" content="Theresia Sofia Snow">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>CI queue baseline and merge-queue assessment (#788, #789) - Crackz</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/print.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#baseline-788-item-1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Crackz" class="md-header__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Crackz
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CI queue baseline and merge-queue assessment (#788, #789)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Crackz" class="md-nav__button md-logo" aria-label="Crackz" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Crackz
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Anaxiatech-AB/crackz" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crackz
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desktop App
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Desktop App
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GUI Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ai-chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Chat Assistant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../map-viewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Map Viewer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tiling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Image Tiling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reporting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Report Generation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Line (CLI)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Command Line (CLI)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli-cookbook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Cookbook
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../completion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shell Completion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration & Data
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Configuration & Data
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../training-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-splits-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Splits & Import
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deployment
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Azure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure-vm-cuda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure VM (GPU)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure-batch/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azure Batch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure-comparison/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VM vs Batch
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../evaluation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../diagrams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagrams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UNDERSTAND_ANYTHING_SETUP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understand Anything
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/02-decisions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture Decisions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../async-callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Async Callbacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python-3.15-readiness/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python 3.15 Readiness
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tracing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tracing & Observability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pr-review-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PR Review Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../distribution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distribution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Customer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../customer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customer Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../customer-access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customer Access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#baseline-788-item-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Baseline (#788 item 1)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Baseline (#788 item 1)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#per-job-before-vs-after-the-switch-snapshot-2026-11-03" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per-job, before vs after the switch (snapshot 2026-11-03)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#findings-against-the-proposed-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Findings against the proposed work
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rollback-re-queue-trigger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rollback / re-queue trigger
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#merge-queue-assessment-789" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Merge-queue assessment (#789)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reproduce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproduce
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="ci-queue-baseline-and-merge-queue-assessment-788-789">CI queue baseline and merge-queue assessment (#788, #789)<a class="headerlink" href="#ci-queue-baseline-and-merge-queue-assessment-788-789" title="Permanent link">&para;</a></h1>
+<p>Queue = job <code>started_at</code> - <code>created_at</code>; run = <code>completed_at</code> - <code>started_at</code>. Jobs that
+were skipped or cancelled are left out of every figure (a skipped job reports a
+near-zero run and queue). <code>scripts/ci_queue_stats.py</code> computes the tables below from
+<code>gh api .../actions/runs/&lt;id&gt;/jobs</code>.</p>
+<p><strong>Two measurements, and only one can be reproduced.</strong></p>
+<ul>
+<li><strong>Snapshot, 2026-11-03</strong> (the tables labelled "Snapshot"): 406 jobs of <code>pull_request</code> runs created after 2026-10-25 (the run count was not
+  recorded). Quoted as recorded. The
+  run records behind it no longer exist: the API lists no <code>pull_request</code> run created
+  between 2026-10-26 and 2026-11-11 (16 runs of other events, while 39 PRs merged in that
+  window: <code>gh pr list --state merged --search 'merged:2026-10-26..2026-11-11' --limit 200</code>), so these figures cannot be re-derived and the script cannot reproduce the
+  "Before" window. The script that produced them also counted skipped jobs, so the
+  recorded queue and run p50s are probably too low.</li>
+<li><strong>Re-measurement, 2026-11-13</strong> (the tables labelled "Re-measured"): the hosted-runner
+  window the API still holds (runs created 2026-11-12 and 2026-11-13), produced by the
+  script as committed, which leaves skipped and cancelled jobs out. A
+  measurement taken right after a config change is a timestamp, not a steady state:
+  re-run it before relying on it.</li>
+</ul>
+<h2 id="baseline-788-item-1">Baseline (#788 item 1)<a class="headerlink" href="#baseline-788-item-1" title="Permanent link">&para;</a></h2>
+<p>The cause of the multi-hour queue was runner capacity, not the workflows:
+<code>CRACKZ_SELF_HOSTED_RUNNER_LABELS</code> pointed at a single self-hosted runner shared
+with other repos. On 2026-11-02 20:40Z the variable was set to <code>"ubuntu-latest"</code>.</p>
+<p>Snapshot 2026-11-03 (not reproducible, see above):</p>
+<table>
+<thead>
+<tr>
+<th>Window</th>
+<th>Jobs</th>
+<th>Queue p50</th>
+<th>Queue p95</th>
+<th>Queue max</th>
+<th>Job run p50</th>
+<th>Job run p95</th>
+<th>Runner-min</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Before (self-hosted)</td>
+<td>149</td>
+<td>47.6 min</td>
+<td>4.3 h</td>
+<td>4.8 h</td>
+<td>9.4 min</td>
+<td>48 min</td>
+<td>1444</td>
+</tr>
+<tr>
+<td>After (hosted)</td>
+<td>257</td>
+<td>2 s</td>
+<td>12 s</td>
+<td>37 s</td>
+<td>67 s</td>
+<td>216 s</td>
+<td>344</td>
+</tr>
+</tbody>
+</table>
+<p>Re-measured 2026-11-13 at about 11:00Z (251 jobs on hosted runners; 22 skipped, cancelled or unfinished jobs
+left out across all windows; runs created 2026-11-12 and 2026-11-13):</p>
+<table>
+<thead>
+<tr>
+<th>Window</th>
+<th>Jobs</th>
+<th>Queue p50</th>
+<th>Queue p95</th>
+<th>Queue max</th>
+<th>Job run p50</th>
+<th>Job run p95</th>
+<th>Runner-min</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>After (hosted)</td>
+<td>251</td>
+<td>2 s</td>
+<td>3 s</td>
+<td>7 s</td>
+<td>50 s</td>
+<td>246 s</td>
+<td>370</td>
+</tr>
+</tbody>
+</table>
+<p>Queueing is still effectively zero, so the finding holds. Per required/merge-relevant job
+in the same window (the 2026-11-03 snapshot is in the next table):</p>
+<table>
+<thead>
+<tr>
+<th>Job</th>
+<th>n</th>
+<th>Run p50</th>
+<th>Run max</th>
+<th>Total min</th>
+<th>Failures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unit Tests (3.13)</td>
+<td>38</td>
+<td>228 s</td>
+<td>259 s</td>
+<td>128</td>
+<td>1/38</td>
+</tr>
+<tr>
+<td>Integration Tests</td>
+<td>38</td>
+<td>181 s</td>
+<td>268 s</td>
+<td>104</td>
+<td>0/38</td>
+</tr>
+<tr>
+<td>Lint and Type Check</td>
+<td>38</td>
+<td>100 s</td>
+<td>129 s</td>
+<td>64</td>
+<td>0/38</td>
+</tr>
+<tr>
+<td>Lockfile Check</td>
+<td>38</td>
+<td>40 s</td>
+<td>95 s</td>
+<td>28</td>
+<td>0/38</td>
+</tr>
+<tr>
+<td>Documentation Build</td>
+<td>38</td>
+<td>13 s</td>
+<td>114 s</td>
+<td>27</td>
+<td>0/38</td>
+</tr>
+<tr>
+<td>architecture-review</td>
+<td>29</td>
+<td>42 s</td>
+<td>67 s</td>
+<td>20</td>
+<td>0/29</td>
+</tr>
+<tr>
+<td>Unit Test Results</td>
+<td>32</td>
+<td>0 s</td>
+<td>0 s</td>
+<td>0</td>
+<td>1/32</td>
+</tr>
+</tbody>
+</table>
+<p>Integration Tests rose about 2.4x against the snapshot (77 s to 181 s p50), likely
+because the suite now starts a Postgres test image (#822) and uses an explicit test
+database (#858); that was not isolated. Unit Tests also rose (180 s to 228 s p50), and
+the snapshot's skipped-job dilution may account for part of any difference.
+Documentation Build's 13 s p50 is consistent with most PRs skipping the build inside
+the job (20 of 41 finished under 30 s in the snapshot). The longest required job is now about 4.5 min.</p>
+<p>Snapshot 2026-11-03, after the switch (runs on PRs since then):</p>
+<table>
+<thead>
+<tr>
+<th>Job</th>
+<th>n</th>
+<th>Run p50</th>
+<th>Run max</th>
+<th>Total min</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unit Tests (3.13)</td>
+<td>40</td>
+<td>180 s</td>
+<td>295 s</td>
+<td>94</td>
+</tr>
+<tr>
+<td>Integration Tests</td>
+<td>41</td>
+<td>77 s</td>
+<td>332 s</td>
+<td>88</td>
+</tr>
+<tr>
+<td>Lint and Type Check</td>
+<td>40</td>
+<td>103 s</td>
+<td>186 s</td>
+<td>73</td>
+</tr>
+<tr>
+<td>Lockfile Check</td>
+<td>40</td>
+<td>45 s</td>
+<td>181 s</td>
+<td>40</td>
+</tr>
+<tr>
+<td>Documentation Build</td>
+<td>41</td>
+<td>67 s</td>
+<td>153 s</td>
+<td>37</td>
+</tr>
+<tr>
+<td>architecture-review</td>
+<td>15</td>
+<td>44 s</td>
+<td>83 s</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<p>PR open-to-merge wall-clock (the 100 most recently created merged PRs, <code>gh pr list --state merged</code>).
+Snapshot 2026-11-03:</p>
+<table>
+<thead>
+<tr>
+<th>Window</th>
+<th>PRs</th>
+<th>p50</th>
+<th>p95</th>
+<th>Max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Created before the switch</td>
+<td>81</td>
+<td>74 min</td>
+<td>~13 days</td>
+<td>46 days</td>
+</tr>
+<tr>
+<td>Created after the switch</td>
+<td>19</td>
+<td>12 min</td>
+<td>37 min</td>
+<td>113 min</td>
+</tr>
+</tbody>
+</table>
+<p>Re-measured 2026-11-13 (the same query, by the script):</p>
+<table>
+<thead>
+<tr>
+<th>Window</th>
+<th>PRs</th>
+<th>p50</th>
+<th>p95</th>
+<th>Max</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Created before the switch</td>
+<td>58</td>
+<td>241 min</td>
+<td>~44 days</td>
+<td>~46 days</td>
+</tr>
+<tr>
+<td>Created after the switch</td>
+<td>42</td>
+<td>22 min</td>
+<td>712 min</td>
+<td>806 min</td>
+</tr>
+</tbody>
+</table>
+<p>The before-window tail includes parked PRs (for example #630, held on purpose), so
+read its p50 and the after-window numbers, not its p95. The after-window p95 now
+includes PRs that waited for a review or a decision, not CI. Contention with other
+repos on the self-hosted host was not measured: it no longer affects this repo.</p>
+<h3 id="per-job-before-vs-after-the-switch-snapshot-2026-11-03">Per-job, before vs after the switch (snapshot 2026-11-03)<a class="headerlink" href="#per-job-before-vs-after-the-switch-snapshot-2026-11-03" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Job</th>
+<th>Run p50 before</th>
+<th>Run p50 after</th>
+<th>Failures before</th>
+<th>Failures after</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Documentation Build</td>
+<td>598 s</td>
+<td>67 s</td>
+<td>0/23</td>
+<td>0/41</td>
+</tr>
+<tr>
+<td>Integration Tests</td>
+<td>619 s</td>
+<td>77 s</td>
+<td>5/23</td>
+<td>0/41</td>
+</tr>
+<tr>
+<td>Unit Tests (3.13)</td>
+<td>651 s</td>
+<td>180 s</td>
+<td>0/24</td>
+<td>2/40</td>
+</tr>
+<tr>
+<td>Lint and Type Check</td>
+<td>637 s</td>
+<td>103 s</td>
+<td>0/24</td>
+<td>0/40</td>
+</tr>
+<tr>
+<td>Lockfile Check</td>
+<td>573 s</td>
+<td>45 s</td>
+<td>0/24</td>
+<td>0/40</td>
+</tr>
+<tr>
+<td>architecture-review</td>
+<td>11 s</td>
+<td>44 s</td>
+<td>0/19</td>
+<td>0/15</td>
+</tr>
+</tbody>
+</table>
+<p>Two things did not improve:</p>
+<ul>
+<li><strong><code>architecture-review</code></strong> went from 11 s to 44 s p50, probably a cold start on a
+  hosted runner (no warm cache). Not investigated; the job is small.</li>
+<li><strong>Unit Tests failures</strong> (2/40 after, 0/24 before). One traced: run 41530241768, a
+  failure in <code>test_config_categories_cli.py</code>, a test file new in that PR, so a PR
+  bug and not the runner. The other ran on a different runner and its log could not be
+  recovered (the run no longer shows as failed, likely re-run or superseded), so its
+  cause is unknown. Neither is a confirmed hosted-runner failure.</li>
+</ul>
+<p>Not measured: hosted-minute cost (the self-hosted runner was not billed; about 350
+runner-minutes were used in the first day after the switch), and any window longer
+than about one day.</p>
+<h2 id="findings-against-the-proposed-work">Findings against the proposed work<a class="headerlink" href="#findings-against-the-proposed-work" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Item 2/3, classification before allocation.</strong> Every workflow filters inside
+  the job (<code>dorny/paths-filter</code>, then <code>if: ... unit == 'true'</code> on later steps), so a
+  skipped suite still allocates a runner. On hosted runners that cost ~10 s of
+  queue plus the checkout in the snapshot (queue p95 is 3 s in the re-measurement). 20 of 41 Documentation Build jobs finished in under
+  30 s. Moving the filter to a separate <code>changes</code> job would add a job and a
+  checkout per workflow and would not remove the required status, so the saving
+  is seconds. <strong>No workflow change is proposed</strong>: the failure mode (a skipped
+  required check never reporting) is worse than the cost, and the in-job filter
+  already reports a stable status and runs everything on any non-<code>pull_request</code>
+  event.</li>
+<li><strong>Item 4, cache comparison.</strong> Not run, deliberately: it needs a persistent
+  runner (the cited ~177 s venv restore was on one), and hosted runners start cold.
+  With total CI at about 5 min there is nothing to buy. Re-run it if the
+  self-hosted pool returns, keeping the rollback below.</li>
+<li><strong>Item 5, AI review contention.</strong> <code>architecture-review</code> ran 15 times, 12
+  runner-minutes total in the snapshot (29 runs, 20 min in the re-measurement), and no longer contends because nothing queues.</li>
+<li><strong>Item 6.</strong> No <code>continue-on-error</code> added; #762 untouched.</li>
+</ul>
+<h2 id="rollback-re-queue-trigger">Rollback / re-queue trigger<a class="headerlink" href="#rollback-re-queue-trigger" title="Permanent link">&para;</a></h2>
+<p>Set the variable back to the self-hosted pool recorded in the earlier version of this
+note (the variable's previous value was not kept, so confirm it before relying on it):</p>
+<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>variable<span class="w"> </span><span class="nb">set</span><span class="w"> </span>CRACKZ_SELF_HOSTED_RUNNER_LABELS<span class="w"> </span>--body<span class="w"> </span><span class="s1">&#39;[&quot;self-hosted&quot;,&quot;foto-dator&quot;]&#39;</span>
+</code></pre></div>
+<p>(<code>docs/ci-runners.md</code> describes the mechanism but still uses <code>radiogaga</code> as its example
+host, so the two documents disagree; tracked in #873.) Re-open the optimisation if hosted-minute cost
+becomes the constraint or the self-hosted pool is restored: then item 2 (a
+<code>changes</code> job) and item 4 (cache A/B) are worth re-measuring.</p>
+<h2 id="merge-queue-assessment-789">Merge-queue assessment (#789)<a class="headerlink" href="#merge-queue-assessment-789" title="Permanent link">&para;</a></h2>
+<p><strong>Decision: no-go for now.</strong> The #788 baseline exists and the starvation that
+motivated the question is resolved; a merge queue would not add value at today's
+throughput and would break required checks as configured.</p>
+<p>Compatibility audit (required contexts on <code>main</code>: <code>Lint and Type Check</code>,
+<code>Integration Tests</code>, <code>Documentation Build</code>, <code>Unit Tests (3.13)</code>):</p>
+<ul>
+<li><code>unit-tests.yml</code> and <code>integration-tests.yml</code> trigger on <code>pull_request</code> and
+  <code>workflow_dispatch</code>, <code>build.yml</code> on <code>pull_request</code>; <code>docs.yml</code> on <code>push</code> to main (docs
+  paths only), <code>pull_request</code>, <code>workflow_run</code> (after Release), a weekly <code>schedule</code> and
+  <code>workflow_dispatch</code>. <strong>None has a <code>merge_group</code>
+  trigger</strong>, so in a queue the required contexts would never be reported and every
+  merge group would wait for a status that cannot arrive.</li>
+<li>The step-level filters gate on <code>github.event_name == 'pull_request'</code>, so under
+  <code>merge_group</code> they would take the <code>!=</code> branch and run the full suite. That is
+  fail-closed for test selection, which is the desired direction.</li>
+<li><strong><code>docs.yml</code> also has a job-level <code>if:</code></strong> that admits only <code>push</code>, <code>pull_request</code>,
+  <code>workflow_dispatch</code> and a successful <code>workflow_run</code>. Under <code>merge_group</code> the whole
+  <code>Documentation Build</code> job would be skipped, and a skipped job does not report the
+  required context. Adding the trigger is not enough: the <code>if:</code> must accept
+  <code>merge_group</code> too. The other three workflows have no job-level event gate (checked).</li>
+<li><code>ai-architecture-review.yml</code> is <code>pull_request</code> with <code>paths:</code>; it is not a
+  required context and need not run on <code>merge_group</code>.</li>
+<li><code>concurrency</code> groups use <code>github.ref</code>; whether merge-group refs collide with
+  <code>cancel-in-progress</code> has not been tested and belongs in the pilot.</li>
+</ul>
+<p>Minimal plan if this is later approved (not activated here): add <code>merge_group:</code>
+(types <code>[checks_requested]</code>) to the four required workflows, keep the
+<code>!= 'pull_request'</code> full-run branches, set queue build concurrency 1 and group
+size 1 for the pilot, and keep the four contexts unchanged. Rollback: disable the
+rule on <code>main</code>; the extra <code>merge_group:</code> triggers are inert without it.</p>
+<p>Post-merge signal: 20 failed <code>push</code> runs on <code>main</code> between 2026-04-24 and
+2026-06-15 (Unit, Integration, Build, Docs). Those workflows no longer run on <code>push</code>:
+on current <code>main</code> only <code>docs.yml</code> does (and only for docs paths), so a break that lands
+on <code>main</code> in the other three is not visible post-merge. One consequence reaches past CI
+signal: <code>release.yml</code> starts from <code>workflow_run</code> of <code>Integration Tests</code> on branch <code>main</code>,
+and that workflow now runs only on pull requests, so the automatic release path has not
+fired since 2026-06-16 (#872). Titles of those runs show release bumps, dependabot
+batches and known flakes; none was attributed to a semantic conflict between two green
+PRs, but that attribution was not done run by run. Treat the rate as an upper bound on
+merge-caused breakage and re-assess if it recurs.</p>
+<h2 id="reproduce">Reproduce<a class="headerlink" href="#reproduce" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>scripts/ci_queue_stats.py
+</code></pre></div>
+<p>Needs an authenticated <code>gh</code>, run inside the repository. It reads up to 400
+<code>pull_request</code> runs created on or after 2026-10-25, the jobs of each (latest attempt,
+all pages), and the last 100 merged PRs, then prints the aggregate, per-job and PR
+tables above, plus the run range it read and how many jobs it left out. The tables here
+are its "after" columns, reformatted with units (and days for the long PR tails); the
+script prints seconds and minutes. It warns when
+the 400-run limit ends before the window start. It takes about three minutes. Because
+the API no longer holds the runs from 2026-10-26 to 2026-11-11, the "Before" window
+comes out nearly empty: only the 2026-11-12 onward figures can be regenerated.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Anaxiatech-AB/crackz" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.sections", "content.code.annotate", "content.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": "0.52.0"}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -3987,11 +3987,11 @@ uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </
 - Testable (mock torch.cuda.is_available())
 - Extensible (add new accelerators via enum)</p>
 <h3 id="10-severity-classification-pattern">10. Severity Classification Pattern<a class="headerlink" href="#10-severity-classification-pattern" title="Permanent link">&para;</a></h3>
-<p><strong>Where</strong>: <code>core/src/crackz/ai/detection/severity.py</code></p>
+<p><strong>Where</strong>: <code>core/src/crackz/ai/prediction.py</code></p>
 <p><strong>Problem</strong>: Detection confidence alone doesn't convey risk to users. A 3% crack area might be critical for harbor walls but negligible for a test image.</p>
 <p><strong>Solution</strong>: Threshold-based categorization with configurable thresholds. Single source of truth function prevents inconsistent categorization.</p>
 <p><strong>Implementation</strong>:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.ai.detection.severity</span><span class="w"> </span><span class="kn">import</span> <span class="n">categorize_crack_severity</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">crackz.ai.prediction</span><span class="w"> </span><span class="kn">import</span> <span class="n">categorize_crack_severity</span>
 
 <span class="c1"># Default thresholds: 5% (high), 2% (medium)</span>
 <span class="n">severity</span> <span class="o">=</span> <span class="n">categorize_crack_severity</span><span class="p">(</span><span class="n">confidence</span><span class="o">=</span><span class="mf">0.08</span><span class="p">)</span>  <span class="c1"># &quot;Crack Detected&quot;</span>

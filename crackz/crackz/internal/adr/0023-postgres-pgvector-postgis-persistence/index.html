@@ -2025,7 +2025,8 @@ store (kept readable only by the one-time importer).</p>
   the Postgres test image that <code>postgres-test-image.yml</code> publishes to GHCR from
   <code>core/Dockerfile.postgres</code> (pgvector + PostGIS on Postgres 16), building it locally only
   as a fallback, and the suite connects via
-  <code>CRACKZ_DATABASE_URL</code>, skipping cleanly when no database is reachable.</li>
+  <code>CRACKZ_TEST_DATABASE_URL</code> (not <code>CRACKZ_DATABASE_URL</code>, which may be a real database; #857),
+  skipping cleanly when none is named or reachable, and failing where <code>CRACKZ_REQUIRE_TEST_DB=1</code>.</li>
 <li>Follow-up: convert TEXT timestamp columns to <code>TIMESTAMPTZ</code> in a later migration;
   the ANN index is HNSW (with iterative scan enabled in <code>search()</code> so a project/model
   filter cannot starve results below <code>top_k</code>); build the <code>/detect</code> REST endpoint

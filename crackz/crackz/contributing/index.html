@@ -3214,6 +3214,14 @@ uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span
 uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>docs<span class="w">        </span><span class="c1"># live docs (mkdocs serve)</span>
 uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>build_docs<span class="w">  </span><span class="c1"># strict build</span>
 </code></pre></div></p>
+<p><strong>Database integration tests</strong> migrate and write to their database, so they use their own
+variable and never <code>CRACKZ_DATABASE_URL</code> (which the app and CLI use and may point at a real
+database). Name a throwaway Postgres (pgvector + PostGIS) explicitly, for example a separate
+<code>crackz_test</code> database you create on the dev compose server; without the variable those tests
+skip (CI sets <code>CRACKZ_REQUIRE_TEST_DB=1</code> so they fail there instead):</p>
+<div class="highlight"><pre><span></span><code><span class="nv">CRACKZ_TEST_DATABASE_URL</span><span class="o">=</span><span class="s2">&quot;postgresql+psycopg://crackz:crackz@localhost:5432/crackz_test&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>uv<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>integration
+</code></pre></div>
 <p><strong>Note</strong>: Static analysis is handled by the existing ruff/mypy tooling. Previous Qodana integration was removed to optimize CI performance and reduce workflow complexity.</p>
 <hr />
 <h2 id="tests">Tests<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h2>

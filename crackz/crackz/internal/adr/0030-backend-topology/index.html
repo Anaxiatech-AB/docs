@@ -2018,9 +2018,7 @@ separate issue.</p>
 <p>The inference API stays stateless and unchanged: the project API is additive and lives under
    its own prefix (<code>/api/v1</code>, proposed) so the machine contract's paths never move. Both are
    versioned; there are no ad-hoc endpoints. The presentation layer (<code>crackz.serve</code>) calls
-   <code>crackz.app</code>; it should not reach into <code>crackz.db</code> directly. Today that is a convention, not a rule the
-   linter enforces: the contracts forbid <code>serve</code> from importing <code>crackz.cli</code>/<code>crackz_gui</code> and
-   forbid <code>crackz.app</code> from importing <code>serve</code>, nothing more. A contract for it is a follow-up.</p>
+   <code>crackz.app</code> and never touches the database itself (decision 6).</p>
 <ol>
 <li><strong>Two authentication paths that never mix.</strong></li>
 <li><em>Machines</em>: bearer keys as shipped (#841). Hash-only storage, constant-time compare, fail
@@ -2056,6 +2054,66 @@ separate issue.</p>
    and keys come from a mounted callers file; Postgres is the install's own. Non-loopback
    binding without a callers file is refused by the <code>crackz serve</code> command (shipped; <code>create_app</code>
    itself does not enforce it).</p>
+</li>
+<li>
+<p><strong>Database access follows survey-tool's layering rules</strong> (its <code>.importlinter</code> contract 11,
+   invariants and ruff <code>TID251</code>), adapted to Crackz's packages:</p>
+</li>
+<li>Layers: routes (<code>crackz.serve</code>) -&gt; services (<code>crackz.app</code>) -&gt; repositories (<code>crackz.db</code>) -&gt;
+     driver and ORM. A route never imports <code>sqlalchemy</code>, a driver, <code>crackz.db</code>, or a first-party
+     re-export of them, and <strong>never holds a session</strong>: it receives values or a service object,
+     and the session is opened inside <code>crackz.app</code> / <code>crackz.db</code>. survey-tool learned this the
+     hard way: a re-export module let routers hold a live <code>AsyncSession</code> (its #1896), because
+     its contract is keyed on names and sees only direct imports. Any module that re-exports
+     persistence is added to the list.</li>
+<li>survey-tool enforces it three ways: an import-linter <code>forbidden</code> contract
+     (<code>allow_indirect_imports = true</code>, since the legitimate chain is indirect), a ruff <code>TID251</code>
+     banned-api, and an AST guard for imports inside function bodies. Its <code>TID251</code> is repo-wide
+     and works through a long per-file allowlist; Crackz has no tidy-imports configuration, so
+     it would need path scoping to <code>serve</code> or is dropped in favour of the other two.</li>
+<li>Crackz today: contract 13 / <code>DB_OWNER</code> already forbids <code>sqlalchemy</code>, <code>psycopg</code>, <code>psycopg2</code>,
+     <code>asyncpg</code> and <code>alembic</code> everywhere except <code>crackz.db</code>, <code>crackz.serve</code> included. Missing is
+     only <code>crackz.serve</code> -&gt; <code>crackz.db</code> itself (an import-linter contract) and the function-body
+     AST guard. Both are follow-ups before the project API gets its first route.</li>
+<li>The inference API holds no connection (it is stateless). The project API reaches the
+     database only through <code>crackz.app</code>, one engine per process from <code>CRACKZ_DATABASE_URL</code>
+     (ADR-023).</li>
+<li>
+<p>Never run a DB-backed command or migration against a default environment that may point at
+     a live database (survey-tool <code>AGENTS.md</code>); Crackz makes migration operator-only (#844). The
+     gap on the test side is noted in decision 7.</p>
+</li>
+<li>
+<p><strong>Test setup follows survey-tool's tiers</strong> (its <code>docs/testing.md</code>). Crackz already has the
+   core of it: the DB fixtures <code>pg_engine</code> and <code>pg</code> (and an autouse migrated-schema fixture)
+   live only in <code>core/tests/integration/crackz/conftest.py</code>, so a unit test cannot see them, and
+   the root <code>conftest.py</code> marks everything under <code>integration/</code> as <code>integration</code>. (<code>tmp_project</code>
+   exists in both tiers with different meanings; unit tests define their own without a
+   database.) For the backend that means:</p>
+</li>
+<li><em>Unit tier</em> (<code>core/tests/unit/crackz/serve/</code>): no database, no network, no Docker. Routes
+     are tested with FastAPI's <code>TestClient</code> against a fake <code>Detector</code> and, for the project API,
+     a stubbed <code>crackz.app</code> service layer (survey-tool: "mock the queries layer"). This is how
+     the inference API is tested today.</li>
+<li><em>Integration tier</em> (<code>core/tests/integration/</code>): real Postgres through <code>pg_engine</code>, the app
+     built over a real session. Marked <code>integration</code>, skipped when no database is reachable.</li>
+<li>To add: an AST guard that no unit-tier test or conftest requests a DB fixture (survey-tool's
+     <code>test_unit_tier_has_no_db_fixtures.py</code>: drift left tests running in neither tier). Derive the
+     fixture names from the integration conftest, but key on the DB ones (<code>pg_engine</code>, <code>pg</code>), not
+     on every name, because <code>tmp_project</code> is legitimately shared; and note that CLI integration
+     tests reach the database through the autouse fixture without naming one, which a name-based
+     guard cannot see. Also an architecture-contract test for the layering in decision 6,
+     including imports inside function bodies, and a check that every test root is in
+     <code>testpaths</code> (a Crackz addition; survey-tool's testing guide does not describe one).</li>
+<li>Gap to close: <code>pg_engine</code> defaults <code>CRACKZ_DATABASE_URL</code> to the local dev database with
+     <code>os.environ.setdefault</code> and runs <code>alembic upgrade head</code> against whatever URL is set. That is
+     the live-database risk survey-tool's rule exists for, and the <code>setdefault</code> also leaks into
+     later tests. Integration tests should require an explicit test URL.</li>
+<li>
+<p>Conventions to copy: patch with <code>monkeypatch.setattr</code>, never swap <code>sys.modules</code>; a test
+     that changes settings environment variables clears the settings cache before and after.
+     Similarity tests already set <code>hnsw.ef_search</code> explicitly (<code>test_embeddings_postgres.py</code>),
+     the HNSW counterpart of survey-tool's <code>ivfflat.probes</code> advice.</p>
 </li>
 <li>
 <p><strong>Out of scope here:</strong> multi-tenancy, served-model management (#833), image and artifact

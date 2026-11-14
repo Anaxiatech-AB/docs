@@ -9235,6 +9235,14 @@ Effect:
 Share <code>tuned_config.yaml</code> for reproducible runs.</p>
 <h2 id="detection-phase-seeds">Detection Phase Seeds<a class="headerlink" href="#detection-phase-seeds" title="Permanent link">&para;</a></h2>
 <p>Providing <code>ai.detection.seed</code> ensures preprocessing ordering / transforms (if later added) are deterministic between runs.</p>
+<h2 id="measuring-precision-on-your-own-data">Measuring precision on your own data<a class="headerlink" href="#measuring-precision-on-your-own-data" title="Permanent link">&para;</a></h2>
+<p>The speed and memory gains above depend on the GPU and model. To measure them on a real
+project, run <code>uv run python scripts/benchmark_precision.py path/to/project.yaml</code>. It trains once
+each at FP32, <code>bf16-mixed</code> and <code>16-mixed</code> with the same seed and prints epoch time, peak VRAM
+and validation metrics. Checkpoints, metrics and registry rows are written under <code>--workdir</code>
+(default <code>outputs/precision-benchmark/run-&lt;precision&gt;</code>), not into the project. <code>project.yaml</code> is
+never saved, and the dataset is read in place. Use at least 2 epochs: the first is warmup and is
+excluded from the mean.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <table>
 <thead>

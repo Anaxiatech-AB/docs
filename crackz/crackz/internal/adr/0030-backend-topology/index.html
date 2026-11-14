@@ -2000,7 +2000,7 @@ separate issue.</p>
 <tbody>
 <tr>
 <td>survey-tool, surface-ops (machines)</td>
-<td><strong>Inference API</strong>: <code>/detect</code>, <code>/detect/upload</code>, <code>/health</code>. Stateless, contract v1. Shipped.</td>
+<td><strong>Inference API</strong>: <code>/detect</code>, <code>/detect/upload</code>, <code>/health</code>, <code>/artifacts/{id}</code>. Stateless apart from the optional TTL mask store (below), contract v1. Shipped.</td>
 <td>Scoped bearer key (per caller)</td>
 </tr>
 <tr>
@@ -2015,7 +2015,12 @@ separate issue.</p>
 </tr>
 </tbody>
 </table>
-<p>The inference API stays stateless and unchanged: the project API is additive and lives under
+<p>The inference API stays unchanged and holds no database: its only state is the optional
+   mask store behind <code>mask: "ref"</code> (#643 slice 4), a local directory of 24-hour PNGs owned by
+   the caller that asked for them. One service process must own that directory, so the
+   inference API is single-replica (or sticky per directory) while <code>ref</code> is used; <code>inline</code>
+   masks have no such constraint.</p>
+<p>The inference API stays unchanged: the project API is additive and lives under
    its own prefix (<code>/api/v1</code>, proposed) so the machine contract's paths never move. Both are
    versioned; there are no ad-hoc endpoints. The presentation layer (<code>crackz.serve</code>) calls
    <code>crackz.app</code> and never touches the database itself (decision 6).</p>

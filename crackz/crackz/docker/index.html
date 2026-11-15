@@ -1081,6 +1081,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#serving-the-inference-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serving the inference API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#basic-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2167,6 +2178,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#serving-the-inference-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serving the inference API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#basic-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2384,6 +2406,26 @@ docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </
 </code></pre></div>
 <p><strong>Note</strong>: <code>CUDA available: False</code> during build is expected when building on macOS or systems without NVIDIA GPUs. CUDA will be available when the container runs on a Linux system with NVIDIA drivers and the NVIDIA Container Toolkit.</p>
 <p><strong>Platform Note</strong>: The GPU image targets <code>linux/amd64</code>. When building on Apple Silicon (ARM64), you may see platform warnings—this is expected and correct.</p>
+<h2 id="serving-the-inference-api">Serving the inference API<a class="headerlink" href="#serving-the-inference-api" title="Permanent link">&para;</a></h2>
+<p>Only the <strong>GPU image</strong> includes the <code>serve</code> extra, so it is the one that runs <code>crackz serve</code> (see the <a href="../cli-cookbook/">CLI cookbook</a> for the API itself). The service listens on port 8000. A container has to bind <code>0.0.0.0</code> (<code>--host 0.0.0.0</code>), which requires a callers file, so there is no default <code>serve</code> command: you pass it.</p>
+<p>The service speaks <strong>plain HTTP</strong>, so bearer keys travel in clear. Publish the port on loopback or an internal interface (below) and put a TLS reverse proxy in front for anything else; Docker's published ports bypass host firewalls such as <code>ufw</code>.</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>-p<span class="w"> </span><span class="m">127</span>.0.0.1:8000:8000<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/model.zip&quot;</span>:/models/model.zip:ro<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">/callers.json&quot;</span>:/run/secrets/callers.json:ro<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>crackz-masks:/var/lib/crackz/artifacts<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--health-cmd<span class="w"> </span><span class="s1">&#39;python -c &quot;import urllib.request; urllib.request.urlopen(\&quot;http://127.0.0.1:8000/health\&quot;, timeout=3)&quot;&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--health-interval<span class="w"> </span>30s<span class="w"> </span>--health-start-period<span class="w"> </span>120s<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>crackz-cli:gpu<span class="w"> </span>serve<span class="w"> </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--model<span class="w"> </span>/models/model.zip<span class="w"> </span>--device<span class="w"> </span>cuda:0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--callers-file<span class="w"> </span>/run/secrets/callers.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--artifact-dir<span class="w"> </span>/var/lib/crackz/artifacts
+</code></pre></div>
+<ul>
+<li><strong>Callers file</strong>: JSON with SHA-256 key hashes (see the cookbook). Mount it read-only and keep it out of the image. It must be readable by the container user (mode <code>0644</code>, or owned by that user's uid).</li>
+<li><strong>Model</strong>: the package from <code>crackz model export</code>. It is loaded before the port is bound, so a bad package stops the container instead of serving 503.</li>
+<li><strong>Masks</strong> (<code>mask: "ref"</code>): kept for 24 hours in <code>--artifact-dir</code>. The image provides <code>/var/lib/crackz/artifacts</code>, owned by the service user (<code>app</code>, a system uid). A <strong>new, empty Docker named volume</strong> mounted there inherits that ownership. An existing volume, a bind mount, or another runtime (Podman, Kubernetes) does not: the store refuses a directory the service user does not own, that others can write to, or that holds other files and is not already a store. Find the uid with <code>docker run --rm --entrypoint id crackz-cli:gpu app</code>, then <code>chown</code> the directory to it and <code>chmod 0700</code>. Do not run the container as root to get around this. Without <code>--artifact-dir</code> masks live in a temporary directory and vanish when the container stops. Run <strong>one</strong> container per mask directory.</li>
+<li><strong>Health</strong>: the <code>--health-cmd</code> above reports healthy once <code>GET /health</code> answers 200, i.e. a model is loaded. The image has no built-in <code>HEALTHCHECK</code>, so non-serve containers are not marked unhealthy. Change the port in the command if you change <code>--port</code>.</li>
+</ul>
 <h2 id="basic-commands">Basic Commands<a class="headerlink" href="#basic-commands" title="Permanent link">&para;</a></h2>
 <p>Container now starts in the non‑root user home (<code>/home/app</code>). Mount your host project directory there to persist projects.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Help</span>

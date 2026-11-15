@@ -17124,7 +17124,7 @@ per-class training metrics.</p>
 
     <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-3</span>
     <span class="n">backbone</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;segformer-b2&quot;</span>
-    <span class="n">encoder_weights</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s2">&quot;imagenet&quot;</span>  <span class="c1"># SMP only; None disables pretrained weights</span>
+    <span class="n">encoder_weights</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s2">&quot;imagenet&quot;</span>  <span class="c1"># None: random init, nothing downloaded</span>
     <span class="n">in_channels</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span>
     <span class="n">num_classes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span>
@@ -20968,7 +20968,7 @@ another can lose its entries when the other context exits and then be refused.</
 pick an SMP encoder name that fetches from a hub (<code>tu-&lt;timm&gt;</code>) or a class count that
 exhausts memory. Refuses before anything is built, naming only the field (the value is the
 package's text). Returns a copy with <code>encoder_weights</code> cleared: the weights come from the
-checkpoint, so SMP downloads nothing (SegFormer still fetches its fixed <code>nvidia/mit-bN</code>).</p>
+checkpoint, so nothing is downloaded (SMP and SegFormer both build offline).</p>
 <p><code>expected_*</code> pin a field to what the caller knows (a served package: the manifest's
 taxonomy and the 3 channels the service preprocesses to). Without one, only the sanity
 bounds apply.</p>
@@ -21054,7 +21054,7 @@ differs from what the caller expects.</p>
 <span class="sd">    pick an SMP encoder name that fetches from a hub (``tu-&lt;timm&gt;``) or a class count that</span>
 <span class="sd">    exhausts memory. Refuses before anything is built, naming only the field (the value is the</span>
 <span class="sd">    package&#39;s text). Returns a copy with ``encoder_weights`` cleared: the weights come from the</span>
-<span class="sd">    checkpoint, so SMP downloads nothing (SegFormer still fetches its fixed ``nvidia/mit-bN``).</span>
+<span class="sd">    checkpoint, so nothing is downloaded (SMP and SegFormer both build offline).</span>
 
 <span class="sd">    ``expected_*`` pin a field to what the caller knows (a served package: the manifest&#39;s</span>
 <span class="sd">    taxonomy and the 3 channels the service preprocesses to). Without one, only the sanity</span>
@@ -21265,7 +21265,9 @@ checkpoint may (an unknown backbone, out-of-range channel or class counts).</p>
     <div class="doc doc-contents ">
 
         <p>Read the backbone name stored in a checkpoint without loading the full model.</p>
-<p>Returns None if the backbone cannot be determined (legacy/corrupt checkpoint).</p>
+<p>Returns None if the backbone cannot be determined (legacy/corrupt checkpoint) or is not one
+a model may be built with (<code>is_known_backbone</code>): the name is the checkpoint's own text, and
+callers build a model from it, so an unknown one (<code>tu-hf-hub:...</code>) must not get through.</p>
 
 
             <details class="mkdocstrings-source">
@@ -21295,12 +21297,22 @@ checkpoint may (an unknown backbone, out-of-range channel or class counts).</p>
 <span class="normal">339</span>
 <span class="normal">340</span>
 <span class="normal">341</span>
-<span class="normal">342</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">peek_checkpoint_backbone</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">peek_checkpoint_backbone</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Read the backbone name stored in a checkpoint without loading the full model.</span>
 
-<span class="sd">    Returns None if the backbone cannot be determined (legacy/corrupt checkpoint).</span>
+<span class="sd">    Returns None if the backbone cannot be determined (legacy/corrupt checkpoint) or is not one</span>
+<span class="sd">    a model may be built with (``is_known_backbone``): the name is the checkpoint&#39;s own text, and</span>
+<span class="sd">    callers build a model from it, so an unknown one (``tu-hf-hub:...``) must not get through.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">crackz.ai.model.factory</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_known_backbone</span>
 
     <span class="n">ckpt</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">try</span><span class="p">:</span>
@@ -21315,8 +21327,10 @@ checkpoint may (an unknown backbone, out-of-range channel or class counts).</p>
         <span class="c1"># Fall back to legacy &quot;encoder&quot; field for checkpoints saved before the</span>
         <span class="c1"># encoder-&gt;backbone rename (v4-&gt;v5 project migration).</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;backbone&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoder&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;backbone&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;encoder&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">backbone</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;backbone&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoder&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">backbone</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;backbone&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;encoder&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">backbone</span> <span class="k">if</span> <span class="n">is_known_backbone</span><span class="p">(</span><span class="n">backbone</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">finally</span><span class="p">:</span>
@@ -21346,21 +21360,21 @@ checkpoint may (an unknown backbone, out-of-range channel or class counts).</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">406</span>
-<span class="normal">407</span>
-<span class="normal">408</span>
-<span class="normal">409</span>
-<span class="normal">410</span>
-<span class="normal">411</span>
-<span class="normal">412</span>
-<span class="normal">413</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">413</span>
 <span class="normal">414</span>
 <span class="normal">415</span>
 <span class="normal">416</span>
 <span class="normal">417</span>
 <span class="normal">418</span>
 <span class="normal">419</span>
-<span class="normal">420</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_checkpoint_compatibility</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">420</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span>
+<span class="normal">427</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_checkpoint_compatibility</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return (checkpoint_backbone, project_backbone) if they mismatch, else None.</span>
 
 <span class="sd">    Returns None when there is no trained model or when backbones match.</span>
@@ -21536,14 +21550,7 @@ backbone and <em>on_incompatible</em> is <code>"raise"</code>.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">423</span>
-<span class="normal">424</span>
-<span class="normal">425</span>
-<span class="normal">426</span>
-<span class="normal">427</span>
-<span class="normal">428</span>
-<span class="normal">429</span>
-<span class="normal">430</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">430</span>
 <span class="normal">431</span>
 <span class="normal">432</span>
 <span class="normal">433</span>
@@ -21606,7 +21613,14 @@ backbone and <em>on_incompatible</em> is <code>"raise"</code>.</p>
 <span class="normal">490</span>
 <span class="normal">491</span>
 <span class="normal">492</span>
-<span class="normal">493</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_model_from_checkpoint</span><span class="p">(</span>
+<span class="normal">493</span>
+<span class="normal">494</span>
+<span class="normal">495</span>
+<span class="normal">496</span>
+<span class="normal">497</span>
+<span class="normal">498</span>
+<span class="normal">499</span>
+<span class="normal">500</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_model_from_checkpoint</span><span class="p">(</span>
     <span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span>
     <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">checkpoint_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -21757,14 +21771,7 @@ and the last checkpoint into the project's checkpoints directory.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">496</span>
-<span class="normal">497</span>
-<span class="normal">498</span>
-<span class="normal">499</span>
-<span class="normal">500</span>
-<span class="normal">501</span>
-<span class="normal">502</span>
-<span class="normal">503</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">503</span>
 <span class="normal">504</span>
 <span class="normal">505</span>
 <span class="normal">506</span>
@@ -21793,7 +21800,14 @@ and the last checkpoint into the project's checkpoints directory.</p>
 <span class="normal">529</span>
 <span class="normal">530</span>
 <span class="normal">531</span>
-<span class="normal">532</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_checkpoint_callback</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelCheckpoint</span><span class="p">:</span>
+<span class="normal">532</span>
+<span class="normal">533</span>
+<span class="normal">534</span>
+<span class="normal">535</span>
+<span class="normal">536</span>
+<span class="normal">537</span>
+<span class="normal">538</span>
+<span class="normal">539</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_checkpoint_callback</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelCheckpoint</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a ModelCheckpoint callback configured to save the best model (by val_iou)</span>
 <span class="sd">    and the last checkpoint into the project&#39;s checkpoints directory.</span>
@@ -21929,14 +21943,7 @@ and the last checkpoint into the project's checkpoints directory.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">535</span>
-<span class="normal">536</span>
-<span class="normal">537</span>
-<span class="normal">538</span>
-<span class="normal">539</span>
-<span class="normal">540</span>
-<span class="normal">541</span>
-<span class="normal">542</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">542</span>
 <span class="normal">543</span>
 <span class="normal">544</span>
 <span class="normal">545</span>
@@ -21984,7 +21991,14 @@ and the last checkpoint into the project's checkpoints directory.</p>
 <span class="normal">587</span>
 <span class="normal">588</span>
 <span class="normal">589</span>
-<span class="normal">590</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">prune_checkpoints</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span> <span class="n">keep</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
+<span class="normal">590</span>
+<span class="normal">591</span>
+<span class="normal">592</span>
+<span class="normal">593</span>
+<span class="normal">594</span>
+<span class="normal">595</span>
+<span class="normal">596</span>
+<span class="normal">597</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">prune_checkpoints</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span> <span class="n">keep</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prune older checkpoints, keeping only the top N based on a scoring heuristic.</span>
 
 <span class="sd">    Scoring heuristic:</span>
@@ -25275,7 +25289,7 @@ another can lose its entries when the other context exits and then be refused.</
 pick an SMP encoder name that fetches from a hub (<code>tu-&lt;timm&gt;</code>) or a class count that
 exhausts memory. Refuses before anything is built, naming only the field (the value is the
 package's text). Returns a copy with <code>encoder_weights</code> cleared: the weights come from the
-checkpoint, so SMP downloads nothing (SegFormer still fetches its fixed <code>nvidia/mit-bN</code>).</p>
+checkpoint, so nothing is downloaded (SMP and SegFormer both build offline).</p>
 <p><code>expected_*</code> pin a field to what the caller knows (a served package: the manifest's
 taxonomy and the 3 channels the service preprocesses to). Without one, only the sanity
 bounds apply.</p>
@@ -25361,7 +25375,7 @@ differs from what the caller expects.</p>
 <span class="sd">    pick an SMP encoder name that fetches from a hub (``tu-&lt;timm&gt;``) or a class count that</span>
 <span class="sd">    exhausts memory. Refuses before anything is built, naming only the field (the value is the</span>
 <span class="sd">    package&#39;s text). Returns a copy with ``encoder_weights`` cleared: the weights come from the</span>
-<span class="sd">    checkpoint, so SMP downloads nothing (SegFormer still fetches its fixed ``nvidia/mit-bN``).</span>
+<span class="sd">    checkpoint, so nothing is downloaded (SMP and SegFormer both build offline).</span>
 
 <span class="sd">    ``expected_*`` pin a field to what the caller knows (a served package: the manifest&#39;s</span>
 <span class="sd">    taxonomy and the 3 channels the service preprocesses to). Without one, only the sanity</span>
@@ -25572,7 +25586,9 @@ checkpoint may (an unknown backbone, out-of-range channel or class counts).</p>
     <div class="doc doc-contents ">
 
         <p>Read the backbone name stored in a checkpoint without loading the full model.</p>
-<p>Returns None if the backbone cannot be determined (legacy/corrupt checkpoint).</p>
+<p>Returns None if the backbone cannot be determined (legacy/corrupt checkpoint) or is not one
+a model may be built with (<code>is_known_backbone</code>): the name is the checkpoint's own text, and
+callers build a model from it, so an unknown one (<code>tu-hf-hub:...</code>) must not get through.</p>
 
 
             <details class="mkdocstrings-source">
@@ -25602,12 +25618,22 @@ checkpoint may (an unknown backbone, out-of-range channel or class counts).</p>
 <span class="normal">339</span>
 <span class="normal">340</span>
 <span class="normal">341</span>
-<span class="normal">342</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">peek_checkpoint_backbone</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">peek_checkpoint_backbone</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Read the backbone name stored in a checkpoint without loading the full model.</span>
 
-<span class="sd">    Returns None if the backbone cannot be determined (legacy/corrupt checkpoint).</span>
+<span class="sd">    Returns None if the backbone cannot be determined (legacy/corrupt checkpoint) or is not one</span>
+<span class="sd">    a model may be built with (``is_known_backbone``): the name is the checkpoint&#39;s own text, and</span>
+<span class="sd">    callers build a model from it, so an unknown one (``tu-hf-hub:...``) must not get through.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">crackz.ai.model.factory</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_known_backbone</span>
 
     <span class="n">ckpt</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">try</span><span class="p">:</span>
@@ -25622,8 +25648,10 @@ checkpoint may (an unknown backbone, out-of-range channel or class counts).</p>
         <span class="c1"># Fall back to legacy &quot;encoder&quot; field for checkpoints saved before the</span>
         <span class="c1"># encoder-&gt;backbone rename (v4-&gt;v5 project migration).</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;backbone&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoder&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;backbone&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;encoder&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">backbone</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;backbone&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoder&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">backbone</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;backbone&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s2">&quot;encoder&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">backbone</span> <span class="k">if</span> <span class="n">is_known_backbone</span><span class="p">(</span><span class="n">backbone</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">finally</span><span class="p">:</span>
@@ -25653,21 +25681,21 @@ checkpoint may (an unknown backbone, out-of-range channel or class counts).</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">406</span>
-<span class="normal">407</span>
-<span class="normal">408</span>
-<span class="normal">409</span>
-<span class="normal">410</span>
-<span class="normal">411</span>
-<span class="normal">412</span>
-<span class="normal">413</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">413</span>
 <span class="normal">414</span>
 <span class="normal">415</span>
 <span class="normal">416</span>
 <span class="normal">417</span>
 <span class="normal">418</span>
 <span class="normal">419</span>
-<span class="normal">420</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_checkpoint_compatibility</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">420</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span>
+<span class="normal">427</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_checkpoint_compatibility</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return (checkpoint_backbone, project_backbone) if they mismatch, else None.</span>
 
 <span class="sd">    Returns None when there is no trained model or when backbones match.</span>
@@ -25843,14 +25871,7 @@ backbone and <em>on_incompatible</em> is <code>"raise"</code>.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">423</span>
-<span class="normal">424</span>
-<span class="normal">425</span>
-<span class="normal">426</span>
-<span class="normal">427</span>
-<span class="normal">428</span>
-<span class="normal">429</span>
-<span class="normal">430</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">430</span>
 <span class="normal">431</span>
 <span class="normal">432</span>
 <span class="normal">433</span>
@@ -25913,7 +25934,14 @@ backbone and <em>on_incompatible</em> is <code>"raise"</code>.</p>
 <span class="normal">490</span>
 <span class="normal">491</span>
 <span class="normal">492</span>
-<span class="normal">493</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_model_from_checkpoint</span><span class="p">(</span>
+<span class="normal">493</span>
+<span class="normal">494</span>
+<span class="normal">495</span>
+<span class="normal">496</span>
+<span class="normal">497</span>
+<span class="normal">498</span>
+<span class="normal">499</span>
+<span class="normal">500</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_model_from_checkpoint</span><span class="p">(</span>
     <span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span>
     <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">checkpoint_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -26064,14 +26092,7 @@ and the last checkpoint into the project's checkpoints directory.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">496</span>
-<span class="normal">497</span>
-<span class="normal">498</span>
-<span class="normal">499</span>
-<span class="normal">500</span>
-<span class="normal">501</span>
-<span class="normal">502</span>
-<span class="normal">503</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">503</span>
 <span class="normal">504</span>
 <span class="normal">505</span>
 <span class="normal">506</span>
@@ -26100,7 +26121,14 @@ and the last checkpoint into the project's checkpoints directory.</p>
 <span class="normal">529</span>
 <span class="normal">530</span>
 <span class="normal">531</span>
-<span class="normal">532</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_checkpoint_callback</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelCheckpoint</span><span class="p">:</span>
+<span class="normal">532</span>
+<span class="normal">533</span>
+<span class="normal">534</span>
+<span class="normal">535</span>
+<span class="normal">536</span>
+<span class="normal">537</span>
+<span class="normal">538</span>
+<span class="normal">539</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_checkpoint_callback</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelCheckpoint</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a ModelCheckpoint callback configured to save the best model (by val_iou)</span>
 <span class="sd">    and the last checkpoint into the project&#39;s checkpoints directory.</span>
@@ -26236,14 +26264,7 @@ and the last checkpoint into the project's checkpoints directory.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/model/checkpoints.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">535</span>
-<span class="normal">536</span>
-<span class="normal">537</span>
-<span class="normal">538</span>
-<span class="normal">539</span>
-<span class="normal">540</span>
-<span class="normal">541</span>
-<span class="normal">542</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">542</span>
 <span class="normal">543</span>
 <span class="normal">544</span>
 <span class="normal">545</span>
@@ -26291,7 +26312,14 @@ and the last checkpoint into the project's checkpoints directory.</p>
 <span class="normal">587</span>
 <span class="normal">588</span>
 <span class="normal">589</span>
-<span class="normal">590</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">prune_checkpoints</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span> <span class="n">keep</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
+<span class="normal">590</span>
+<span class="normal">591</span>
+<span class="normal">592</span>
+<span class="normal">593</span>
+<span class="normal">594</span>
+<span class="normal">595</span>
+<span class="normal">596</span>
+<span class="normal">597</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">prune_checkpoints</span><span class="p">(</span><span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span> <span class="n">keep</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prune older checkpoints, keeping only the top N based on a scoring heuristic.</span>
 
 <span class="sd">    Scoring heuristic:</span>

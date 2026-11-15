@@ -35655,7 +35655,7 @@ PDF export (uses <code>scripts/export_pdf.py</code>):
 <hr />
 <h2 id="release-process-overview">Release Process (Overview)<a class="headerlink" href="#release-process-overview" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Commits merged to <code>main</code> trigger <a href="https://commitizen-tools.github.io/commitizen/">commitizen</a> (<code>cz bump</code>), which determines the next version from conventional commits, updates <code>pyproject.toml</code>, generates/updates <code>CHANGELOG.md</code>, creates a git tag, and pushes everything back to <code>main</code>.</li>
+<li>A maintainer starts a release by hand (<code>gh workflow run release.yml -f confirm=YES</code>, from <code>main</code>). It runs <a href="https://commitizen-tools.github.io/commitizen/">commitizen</a> (<code>cz bump</code>), which determines the next version from conventional commits, updates <code>pyproject.toml</code>, generates/updates <code>CHANGELOG.md</code>, creates a git tag, and pushes everything back to <code>main</code>.</li>
 <li>The release workflow then creates a draft GitHub release, uploads built artifacts, and publishes that draft in the same pipeline.</li>
 <li>Docker images are built for full / slim / gpu variants in a separate workflow after a successful release.</li>
 <li>PyPI upload is currently disabled.</li>
@@ -35773,8 +35773,8 @@ Semantic release interpretation (default):
 Use for early validation without bumping stable semantic version.</p>
 <h3 id="release-flow">Release Flow<a class="headerlink" href="#release-flow" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Merge feature/fix branches into <code>main</code> (squash).</li>
-<li>CI runs tests + commitizen (<code>cz bump</code>):</li>
+<li>Merge feature/fix branches into <code>main</code> (squash). Merging does not start a release.</li>
+<li>A maintainer dispatches <code>release.yml</code> (<code>gh workflow run release.yml -f confirm=YES</code>), which runs commitizen (<code>cz bump</code>):</li>
 <li>Determines next version from conventional commit history.</li>
 <li>Updates <code>CHANGELOG.md</code>, commits, tags <code>vX.Y.Z</code>, and pushes the release commit back to <code>main</code>.</li>
 <li>Artifact jobs build wheels, sdist, checksums, and optionally the documentation PDF.</li>
@@ -36080,8 +36080,8 @@ On commit, hooks will:
 <p>Current-state documentation for Crackz release automation.</p>
 <p>This page describes what the repository does today via <code>.github/workflows/release.yml</code>.</p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Crackz uses a Commitizen-based release workflow that runs after integration tests complete
-successfully on <code>main</code>.</p>
+<p>Crackz uses a Commitizen-based release workflow that a maintainer starts by hand
+(<code>workflow_dispatch</code>). It does not start on its own after a merge.</p>
 <p>In the happy path, the workflow:</p>
 <ol>
 <li>Determines whether a release is needed from conventional commits.</li>
@@ -36092,13 +36092,14 @@ successfully on <code>main</code>.</p>
 <li>Creates a draft GitHub release, uploads artifacts, then publishes it in the same workflow.</li>
 </ol>
 <h2 id="triggering">Triggering<a class="headerlink" href="#triggering" title="Permanent link">&para;</a></h2>
-<p>The workflow supports two entry paths:</p>
-<ul>
-<li>Automatic: <code>workflow_run</code> after <code>Integration Tests</code> completes successfully on <code>main</code></li>
-<li>Manual: <code>workflow_dispatch</code> with <code>confirm=YES</code></li>
-</ul>
-<p>The automatic path is the normal release path. The manual path exists for controlled reruns
-or maintainer-triggered releases.</p>
+<p>The workflow has one entry path: <code>workflow_dispatch</code> with <code>confirm=YES</code>.</p>
+<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>workflow<span class="w"> </span>run<span class="w"> </span>release.yml<span class="w"> </span>-f<span class="w"> </span><span class="nv">confirm</span><span class="o">=</span>YES
+</code></pre></div>
+<p>Dispatch it from <code>main</code>. The version bump is committed and pushed to <code>main</code> from whichever ref
+the run was dispatched on. The optional <code>tag</code> and <code>commit</code> inputs override the version
+source (see the workflow file).</p>
+<p>It used to also start from a <code>workflow_run</code> of <code>Integration Tests</code> on <code>main</code>. Integration
+Tests now runs only on pull requests, so that trigger could never fire and was removed (#872).</p>
 <h2 id="release-decision-rules">Release Decision Rules<a class="headerlink" href="#release-decision-rules" title="Permanent link">&para;</a></h2>
 <p>The workflow first runs:</p>
 <div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>cz<span class="w"> </span>bump<span class="w"> </span>--dry-run

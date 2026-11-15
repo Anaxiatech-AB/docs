@@ -3412,7 +3412,7 @@ PDF export (uses <code>scripts/export_pdf.py</code>):
 <hr />
 <h2 id="release-process-overview">Release Process (Overview)<a class="headerlink" href="#release-process-overview" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Commits merged to <code>main</code> trigger <a href="https://commitizen-tools.github.io/commitizen/">commitizen</a> (<code>cz bump</code>), which determines the next version from conventional commits, updates <code>pyproject.toml</code>, generates/updates <code>CHANGELOG.md</code>, creates a git tag, and pushes everything back to <code>main</code>.</li>
+<li>A maintainer starts a release by hand (<code>gh workflow run release.yml -f confirm=YES</code>, from <code>main</code>). It runs <a href="https://commitizen-tools.github.io/commitizen/">commitizen</a> (<code>cz bump</code>), which determines the next version from conventional commits, updates <code>pyproject.toml</code>, generates/updates <code>CHANGELOG.md</code>, creates a git tag, and pushes everything back to <code>main</code>.</li>
 <li>The release workflow then creates a draft GitHub release, uploads built artifacts, and publishes that draft in the same pipeline.</li>
 <li>Docker images are built for full / slim / gpu variants in a separate workflow after a successful release.</li>
 <li>PyPI upload is currently disabled.</li>
@@ -3530,8 +3530,8 @@ Semantic release interpretation (default):
 Use for early validation without bumping stable semantic version.</p>
 <h3 id="release-flow">Release Flow<a class="headerlink" href="#release-flow" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Merge feature/fix branches into <code>main</code> (squash).</li>
-<li>CI runs tests + commitizen (<code>cz bump</code>):</li>
+<li>Merge feature/fix branches into <code>main</code> (squash). Merging does not start a release.</li>
+<li>A maintainer dispatches <code>release.yml</code> (<code>gh workflow run release.yml -f confirm=YES</code>), which runs commitizen (<code>cz bump</code>):</li>
 <li>Determines next version from conventional commit history.</li>
 <li>Updates <code>CHANGELOG.md</code>, commits, tags <code>vX.Y.Z</code>, and pushes the release commit back to <code>main</code>.</li>
 <li>Artifact jobs build wheels, sdist, checksums, and optionally the documentation PDF.</li>

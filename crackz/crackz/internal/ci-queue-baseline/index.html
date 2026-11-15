@@ -2386,9 +2386,9 @@ rule on <code>main</code>; the extra <code>merge_group:</code> triggers are iner
 2026-06-15 (Unit, Integration, Build, Docs). Those workflows no longer run on <code>push</code>:
 on current <code>main</code> only <code>docs.yml</code> does (and only for docs paths), so a break that lands
 on <code>main</code> in the other three is not visible post-merge. One consequence reaches past CI
-signal: <code>release.yml</code> starts from <code>workflow_run</code> of <code>Integration Tests</code> on branch <code>main</code>,
-and that workflow now runs only on pull requests, so the automatic release path has not
-fired since 2026-06-16 (#872). Titles of those runs show release bumps, dependabot
+signal: <code>release.yml</code> used to start from <code>workflow_run</code> of <code>Integration Tests</code> on branch
+<code>main</code>, and that workflow now runs only on pull requests, so the automatic release path did
+not fire after 2026-06-16. #872 made <code>release.yml</code> manual-only (<code>workflow_dispatch</code>). Titles of those runs show release bumps, dependabot
 batches and known flakes; none was attributed to a semantic conflict between two green
 PRs, but that attribution was not done run by run. Treat the rate as an upper bound on
 merge-caused breakage and re-assess if it recurs.</p>

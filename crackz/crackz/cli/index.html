@@ -2969,6 +2969,8 @@ crackz<span class="w"> </span>model<span class="w"> </span><span class="nb">expo
 <p>Model packages are standard zip files containing:
 - <code>&lt;checkpoint_name&gt;.ckpt</code> - PyTorch Lightning checkpoint
 - <code>metadata.json</code> - Model configuration and metadata</p>
+<p><code>project_name</code>, <code>checkpoint_name</code> and <code>model_config.backbone</code> must be 1-128 characters of text
+without control characters; import refuses a package that breaks this rule.</p>
 <p>Example metadata:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;manifest_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>

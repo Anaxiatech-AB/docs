@@ -3131,9 +3131,8 @@ crackz<span class="w"> </span>detect<span class="w"> </span>run<span class="w"> 
 code and the error, not the values of the variables on the failing line, because those can hold
 secrets or text from a file that failed to load. To see them on the terminal while debugging, set
 <code>CRACKZ_DEBUG_TRACEBACKS=1</code>. Neither the central log file nor the project's <code>logs/crackz.log</code>
-ever records them, whatever the setting, since both are kept for 10 days. The desktop app writes
-its console output with the logging library's defaults, which still include variable values; its
-log files do not.</p>
+ever records them, whatever the setting, since both are kept for 10 days. The desktop app's
+console follows the same <code>CRACKZ_DEBUG_TRACEBACKS</code> setting.</p>
 <h3 id="55-schema-versioning">5.5 Schema Versioning<a class="headerlink" href="#55-schema-versioning" title="Permanent link">&para;</a></h3>
 <p>Projects include a schema version for forward compatibility:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">schema_version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0&quot;</span>

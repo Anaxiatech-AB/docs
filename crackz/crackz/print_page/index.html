@@ -4703,7 +4703,12 @@ cat<span class="w"> </span>temp<span class="se">\m</span>etadata.json
 <li><code>manifest_version</code> — a missing key means 1; a version newer than your crackz is rejected
   ("upgrade crackz"). Version 2 requires <code>model_config.input_size</code>.</li>
 <li><code>model_config.input_size</code> / <code>normalization</code> — the preprocessing training applied.
-  Packages exported before version 2 do not record <code>input_size</code>.</li>
+  <code>input_size</code> is <code>[width, height]</code>. Packages exported before version 2 do not record it.
+  Before #865 a non-square size was handed to the resize as <code>[height, width]</code>. Data imported
+  by crackz is written as <code>[width, height]</code>, so a non-square run on it hit a shape mismatch
+  between image and mask. A model trained on non-square data sized outside crackz was trained
+  with the axes swapped and sees its inputs resized differently now: retrain it, or swap the
+  two numbers in the project config. Square sizes are unaffected.</li>
 <li><code>model_sha256</code> — SHA-256 of the <code>.ckpt</code> bytes. It detects corruption; it does not
   authenticate who published the package.</li>
 <li><code>model_version</code> — optional label you pass at export; consumers fall back to the checkpoint
@@ -19067,14 +19072,7 @@ and the checkpoint backbone differs from the project backbone.</p>
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>core/src/crackz/ai/data/dataset.py</code></summary>
-                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span>
-<span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
+                <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">132</span>
 <span class="normal">133</span>
 <span class="normal">134</span>
 <span class="normal">135</span>
@@ -19257,7 +19255,16 @@ and the checkpoint backbone differs from the project backbone.</p>
 <span class="normal">312</span>
 <span class="normal">313</span>
 <span class="normal">314</span>
-<span class="normal">315</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CrackzDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">[</span><span class="n">Sample</span><span class="p">]):</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CrackzDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">[</span><span class="n">Sample</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Dataset for crack images with optional masks.&quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
@@ -19340,7 +19347,9 @@ and the checkpoint backbone differs from the project backbone.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">transform</span> <span class="ow">or</span> <span class="n">build_image_transform</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mask_transform</span> <span class="o">=</span> <span class="n">mask_transform</span> <span class="ow">or</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">(</span>
             <span class="p">[</span>
-                <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">transforms</span><span class="o">.</span><span class="n">InterpolationMode</span><span class="o">.</span><span class="n">NEAREST</span><span class="p">),</span>
+                <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span>
+                    <span class="n">_resize_hw</span><span class="p">(</span><span class="n">input_size</span><span class="p">),</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">transforms</span><span class="o">.</span><span class="n">InterpolationMode</span><span class="o">.</span><span class="n">NEAREST</span>
+                <span class="p">),</span>
                 <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
             <span class="p">]</span>
         <span class="p">)</span>
@@ -19491,18 +19500,13 @@ and the checkpoint backbone differs from the project backbone.</p>
         <p>The one image preprocessing recipe: RGB, resize, tensor, normalize.</p>
 <p>Training, detection and the inference service all call this, so what the model sees at
 serving time cannot drift from what it saw in training (#819, #643). <code>input_size</code> is
-handed to <code>transforms.Resize</code> unchanged; the width/height convention is #865.</p>
+<code>(width, height)</code> as documented on <code>ModelConfig.input_size</code>; it is swapped for
+<code>transforms.Resize</code>, which takes <code>(height, width)</code> (#865).</p>
 
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/data/dataset.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">50</span>
 <span class="normal">51</span>
 <span class="normal">52</span>
 <span class="normal">53</span>
@@ -19514,7 +19518,14 @@ handed to <code>transforms.Resize</code> unchanged; the width/height convention 
 <span class="normal">59</span>
 <span class="normal">60</span>
 <span class="normal">61</span>
-<span class="normal">62</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">build_image_transform</span><span class="p">(</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">build_image_transform</span><span class="p">(</span>
     <span class="n">input_size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
     <span class="n">mean</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">IMAGENET_MEAN</span><span class="p">,</span>
     <span class="n">std</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">IMAGENET_STD</span><span class="p">,</span>
@@ -19523,12 +19534,13 @@ handed to <code>transforms.Resize</code> unchanged; the width/height convention 
 
 <span class="sd">    Training, detection and the inference service all call this, so what the model sees at</span>
 <span class="sd">    serving time cannot drift from what it saw in training (#819, #643). ``input_size`` is</span>
-<span class="sd">    handed to ``transforms.Resize`` unchanged; the width/height convention is #865.</span>
+<span class="sd">    ``(width, height)`` as documented on ``ModelConfig.input_size``; it is swapped for</span>
+<span class="sd">    ``transforms.Resize``, which takes ``(height, width)`` (#865).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">(</span>
         <span class="p">[</span>
             <span class="n">ToRGB</span><span class="p">(),</span>
-            <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="n">input_size</span><span class="p">),</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="n">_resize_hw</span><span class="p">(</span><span class="n">input_size</span><span class="p">)),</span>
             <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
             <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">mean</span><span class="p">),</span> <span class="n">std</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">std</span><span class="p">)),</span>
         <span class="p">]</span>
@@ -19636,14 +19648,7 @@ ensuring consistent error handling and proper file handle management.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/data/dataset.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">72</span>
 <span class="normal">73</span>
 <span class="normal">74</span>
 <span class="normal">75</span>
@@ -19658,7 +19663,14 @@ ensuring consistent error handling and proper file handle management.</p>
 <span class="normal">84</span>
 <span class="normal">85</span>
 <span class="normal">86</span>
-<span class="normal">87</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_image_with_crackz_image</span><span class="p">(</span><span class="n">image_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">Image</span><span class="p">:</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_image_with_crackz_image</span><span class="p">(</span><span class="n">image_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">Image</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load an image using CrackzImage for consistent error handling and file management.</span>
 
 <span class="sd">    This function provides a standardized way to load images across the AI pipeline,</span>
@@ -19814,14 +19826,7 @@ ensuring consistent error handling and proper file handle management.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/data/dataset.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
-<span class="normal"> 93</span>
-<span class="normal"> 94</span>
-<span class="normal"> 95</span>
-<span class="normal"> 96</span>
-<span class="normal"> 97</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 97</span>
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
 <span class="normal">100</span>
@@ -19846,7 +19851,14 @@ ensuring consistent error handling and proper file handle management.</p>
 <span class="normal">119</span>
 <span class="normal">120</span>
 <span class="normal">121</span>
-<span class="normal">122</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">CrackzDetectionDataset</span><span class="p">(</span>  <span class="c1"># noqa: N802</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">CrackzDetectionDataset</span><span class="p">(</span>  <span class="c1"># noqa: N802</span>
     <span class="n">image_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">transform</span><span class="p">:</span> <span class="n">ImageTransform</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">normalization_config</span><span class="p">:</span> <span class="n">NormalizationConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -20050,16 +20062,7 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/data/dataset.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">318</span>
-<span class="normal">319</span>
-<span class="normal">320</span>
-<span class="normal">321</span>
-<span class="normal">322</span>
-<span class="normal">323</span>
-<span class="normal">324</span>
-<span class="normal">325</span>
-<span class="normal">326</span>
-<span class="normal">327</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">327</span>
 <span class="normal">328</span>
 <span class="normal">329</span>
 <span class="normal">330</span>
@@ -20089,7 +20092,16 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
 <span class="normal">354</span>
 <span class="normal">355</span>
 <span class="normal">356</span>
-<span class="normal">357</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_training_datasets</span><span class="p">(</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_training_datasets</span><span class="p">(</span>
     <span class="n">train_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
     <span class="n">train_mask_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
     <span class="n">val_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
@@ -20277,16 +20289,7 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>core/src/crackz/ai/data/dataset.py</code></summary>
-              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">360</span>
-<span class="normal">361</span>
-<span class="normal">362</span>
-<span class="normal">363</span>
-<span class="normal">364</span>
-<span class="normal">365</span>
-<span class="normal">366</span>
-<span class="normal">367</span>
-<span class="normal">368</span>
-<span class="normal">369</span>
+              <div class="codehilite"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">369</span>
 <span class="normal">370</span>
 <span class="normal">371</span>
 <span class="normal">372</span>
@@ -20302,7 +20305,16 @@ Empty datasets are allowed - PyTorch will raise an error later if needed.</p>
 <span class="normal">382</span>
 <span class="normal">383</span>
 <span class="normal">384</span>
-<span class="normal">385</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_dataset</span><span class="p">(</span>
+<span class="normal">385</span>
+<span class="normal">386</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span>
+<span class="normal">393</span>
+<span class="normal">394</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_dataset</span><span class="p">(</span>
     <span class="n">project</span><span class="p">:</span> <span class="n">Project</span><span class="p">,</span>
     <span class="n">transforms</span><span class="p">:</span> <span class="n">ImageTransform</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">mask_transforms</span><span class="p">:</span> <span class="n">MaskTransform</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># noqa: ARG001</span>

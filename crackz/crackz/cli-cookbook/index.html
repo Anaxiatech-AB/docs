@@ -3894,7 +3894,12 @@ cat<span class="w"> </span>temp<span class="se">\m</span>etadata.json
 <li><code>manifest_version</code> — a missing key means 1; a version newer than your crackz is rejected
   ("upgrade crackz"). Version 2 requires <code>model_config.input_size</code>.</li>
 <li><code>model_config.input_size</code> / <code>normalization</code> — the preprocessing training applied.
-  Packages exported before version 2 do not record <code>input_size</code>.</li>
+  <code>input_size</code> is <code>[width, height]</code>. Packages exported before version 2 do not record it.
+  Before #865 a non-square size was handed to the resize as <code>[height, width]</code>. Data imported
+  by crackz is written as <code>[width, height]</code>, so a non-square run on it hit a shape mismatch
+  between image and mask. A model trained on non-square data sized outside crackz was trained
+  with the axes swapped and sees its inputs resized differently now: retrain it, or swap the
+  two numbers in the project config. Square sizes are unaffected.</li>
 <li><code>model_sha256</code> — SHA-256 of the <code>.ckpt</code> bytes. It detects corruption; it does not
   authenticate who published the package.</li>
 <li><code>model_version</code> — optional label you pass at export; consumers fall back to the checkpoint

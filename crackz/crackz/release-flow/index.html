@@ -2374,7 +2374,11 @@ to <code>main</code>, so two steps protect <code>main</code> (#911):</p>
 </ul>
 <p>Both stop mistakes. They live in the workflow file, so they are not access control: a branch
 that edits them out would skip them (tracked as a follow-up). The optional <code>tag</code> and <code>commit</code>
-inputs override the version source (see the workflow file).</p>
+inputs override the version source (see the workflow file). They are checked before use: <code>tag</code>
+must be an existing tag that looks like a version (<code>v0.69.0</code>, <code>0.69.0</code>), and <code>commit</code> must be a
+hex SHA of 7 to 40 characters that resolves to a commit. Whatever produced the version (the tag
+input, the tag on a commit, the latest tag, or the bump), the "Set release outputs" step checks
+it once more before any later step or job reads it. Anything else fails the run (#910).</p>
 <p>It used to also start from a <code>workflow_run</code> of <code>Integration Tests</code> on <code>main</code>. Integration
 Tests now runs only on pull requests, so that trigger could never fire and was removed (#872).</p>
 <h2 id="release-decision-rules">Release Decision Rules<a class="headerlink" href="#release-decision-rules" title="Permanent link">&para;</a></h2>

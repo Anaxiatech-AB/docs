@@ -2329,7 +2329,7 @@
 and <a href="https://github.com/Anaxiatech-AB/crackz/issues/769">#769</a>.
 Python 3.15.0 is released (uv &gt;= 0.13.1 installs it). This doc captures what we
 plan to adopt, what we explicitly will not, and the import-cost audit that
-motivates the lazy-import work.</p>
+decides whether lazy imports are worth adopting (as of 2026-11-16 they are not).</p>
 <h2 id="status-2026-10-15-on-hold-until-every-environment-installs">Status (2026-10-15): on hold until every environment installs<a class="headerlink" href="#status-2026-10-15-on-hold-until-every-environment-installs" title="Permanent link">&para;</a></h2>
 <p><code>uv sync --python 3.15 --locked</code> was observed to fail on 2026-10-15. What the
 lock shows (<code>uv.lock</code>, checked 2026-11-03): CPU torch 2.14.0 and torchvision 0.29.0
@@ -2415,11 +2415,11 @@ controls need no new syntax and are ignored by older interpreters:</p>
 <tr>
 <td><code>core/src/crackz/ai/model/segmentation/model.py</code></td>
 <td>torch, segmentation_models_pytorch</td>
-<td>Yes, via <code>crackz.ai</code> re-exports</td>
+<td>No. <code>crackz/ai/__init__.py</code> does not import its submodules; measured 2026-11-16</td>
 </tr>
 <tr>
 <td><code>core/src/crackz/ai/model/segmentation/backends/smp.py</code></td>
-<td>torch, smp</td>
+<td>torch (smp is imported inside a function)</td>
 <td>Indirect — only via model registry</td>
 </tr>
 <tr>
@@ -2444,22 +2444,31 @@ controls need no new syntax and are ignored by older interpreters:</p>
 </tr>
 </tbody>
 </table>
-<p>CLI and GUI entry points already keep torch/numpy/Qt off the top level
-(see <code>agent-playbook.md</code> § Project Standards). The remaining win is at the
-<code>crackz.ai</code> package boundary — module-level <code>lazy import</code> in <code>ai/__init__.py</code>
-and the segmentation <code>model.py</code> would let <code>crackz --help</code> and the GUI splash
-skip torch initialization. The <code>lazy import</code> statement waits until 3.15 is the floor; the
-<code>__lazy_modules__</code> route above can land earlier, after measurement.</p>
+<p>Measured 2026-11-16 on Python 3.13 (fresh interpreter per entry point, <code>sys.modules</code>
+after import). <code>crackz.cli.crackz_cli</code> (<code>crackz --help</code>) and <code>crackz.ai</code> load none of
+torch, numpy, pytorch_lightning, segmentation_models_pytorch, pandas, SQLAlchemy, PIL,
+cv2, scipy or matplotlib. The GUI does load numpy and PIL: <code>crackz_gui.launcher</code> imports
+the app only inside <code>main()</code>, so measure <code>crackz_gui.qt.app</code>, which loads PySide6 and
+then, after <code>window.show()</code>, <code>_prewarm_imports()</code> (<code>gui/src/crackz_gui/qt/app.py</code>) loads
+<code>crackz.project.project</code>, <code>crackz.project.project_manager</code> and
+<code>crackz.ai.pipeline.cancellation</code> on a background thread; each of those pulls in numpy
+and PIL. Torch, Lightning and SMP are not loaded on any startup path measured. The heavy
+modules in the table are reached only when training, evaluation, detection or data
+loading runs, where torch is needed anyway. So <code>__lazy_modules__</code> or <code>lazy import</code> would
+not shorten the startup paths measured here; it would only matter if one of them starts
+importing torch or another heavy module at the top level. Re-measure before adopting
+either. The dashboard row was not measured.</p>
 <h3 id="compatibility-plan">Compatibility plan<a class="headerlink" href="#compatibility-plan" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Phase 0 (now): document, do not change runtime code.</li>
-<li>Phase 1 (optional, before the floor): after measuring, set <code>__lazy_modules__</code> in the
-  audited modules; it is ignored on 3.11-3.14.</li>
-<li>Phase 1b (when 3.15 is the floor): convert audited modules to <code>lazy import</code> at
-  module level. Keep function-local imports where the import is conditional
-  (e.g., optional backends, ImportError-guarded probes).</li>
+<li>Phase 1 (optional, before the floor): set <code>__lazy_modules__</code> only where a re-measurement
+  shows a startup path loading a heavy module (none as of 2026-11-16); it is ignored on
+  3.11-3.14.</li>
+<li>Phase 1b (when 3.15 is the floor): convert to <code>lazy import</code> at module level only the
+  modules a re-measurement shows on a startup path (none as of 2026-11-16). Keep function-local imports where the import is
+  conditional (e.g., optional backends, ImportError-guarded probes).</li>
 <li>Phase 2: enable <code>-X lazy_imports</code> globally for the dashboard and GUI
-  entry points if measurement shows further wins.</li>
+  entry points if measurement shows a win.</li>
 </ul>
 <h3 id="what-not-to-do">What NOT to do<a class="headerlink" href="#what-not-to-do" title="Permanent link">&para;</a></h3>
 <ul>

@@ -3894,7 +3894,13 @@ cat<span class="w"> </span>temp<span class="se">\m</span>etadata.json
 <li><code>manifest_version</code> — a missing key means 1; a version newer than your crackz is rejected
   ("upgrade crackz"). Version 2 requires <code>model_config.input_size</code>.</li>
 <li><code>model_config.input_size</code> / <code>normalization</code> — the preprocessing training applied.
-  <code>input_size</code> is <code>[width, height]</code>. Packages exported before version 2 do not record it.
+  <code>input_size</code> is <code>[width, height]</code>, each side 16–4096 and at most 2048 × 2048 pixels in
+  total (one preprocessed image is height × width × 3 float32 values). <code>mean</code> must stay within
+  ±255 and <code>std</code> at or above 0.001, because a tiny <code>std</code> overflows float32 and serves NaN
+  inputs. A package outside these limits is refused on load, and export refuses an
+  <code>input_size</code> over them before writing anything, so a model trained above 2048 × 2048 trains fine
+  but cannot be exported. Packages exported before version 2 do not
+  record it.
   Before #865 a non-square size was handed to the resize as <code>[height, width]</code>. Data imported
   by crackz is written as <code>[width, height]</code>, so a non-square run on it hit a shape mismatch
   between image and mask. A model trained on non-square data sized outside crackz was trained
